@@ -1,9 +1,10 @@
 <template>
         <div class="layout">
-            <div class="aslide">
-                <layout-sidebar />
+            <div class="aside">
+                <layout-aside />
             </div>
             <div class="main">
+                <layout-header />
                 <layout-main />
             </div>
         </div>
@@ -11,12 +12,14 @@
 
 
 <script>
-import LayoutSidebar from './components/layout-sidebar'
+import LayoutAside from './components/layout-aside'
 import LayoutMain from './components/layout-main'
+import LayoutHeader from './components/layout-header'
 export default {
     components: {
-        LayoutSidebar,
-        LayoutMain
+        LayoutAside,
+        LayoutMain,
+        LayoutHeader
     },
 }
 </script>
@@ -27,12 +30,14 @@ export default {
 .layout {
     display: flex;
     height: 100vh;
-    min-width: 1200px;
-    .aslide {
+    min-width: $layout-min-width;
+    .aside {
         flex: none;
-        width: 200px;
+        width: $layout-aside-width;
     }
     .main {
+        display: flex;
+        flex-direction: column;
         flex: 1;
     }
 }

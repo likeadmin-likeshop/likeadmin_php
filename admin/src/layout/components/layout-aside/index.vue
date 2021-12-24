@@ -1,14 +1,15 @@
 <template>
-    <div class="sidebar">
-        <!-- <div class="logo">
+    <div class="layout-aside">
+        <router-link to="/workbench" class="logo flex flex-center">
+            <img src="" alt="" />
             Admin管理平台
-        </div> -->
+        </router-link>
         <el-scrollbar style="height: 100%" class="ls-scrollbar">
             <el-menu
-                active-text-color="#E5E5E5"
-                background-color="#2A2C41"
+                active-text-color="#fff"
+                background-color="#2a2c41"
                 :default-active="currentPath"
-                text-color="#fff"
+                text-color="#E5E5E5"
                 router
             >
                 <template v-for="(item, index) in sidebar" :key="index">
@@ -86,15 +87,26 @@ export default {
 
 
 <style lang="scss" scoped>
-.sidebar {
+.layout-aside {
     height: 100%;
     width: 100%;
     overflow: hidden;
     background-color: #2a2c41;
+    .logo {
+        height: $layout-header-height;
+        font-weight: 500;
+        font-size: 18px;
+        color: #fff;
+    }
     .el-menu {
         box-sizing: border-box;
         min-height: 100vh;
         padding: 10px 0 20px;
+        .el-menu-item {
+            &.is-active {
+                background-color: $color-primary;
+            }
+        }
     }
 }
 </style>

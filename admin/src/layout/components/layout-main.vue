@@ -1,14 +1,16 @@
 <template>
     <div class="layout-main">
-        <router-view />
+        <el-scrollbar>
+            <div class="p-15">
+                <router-view />
+            </div>
+        </el-scrollbar>
     </div>
 </template>
 
 
 <script>
-export default {
-    
-}
+export default {}
 </script>
 
 

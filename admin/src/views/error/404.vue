@@ -13,22 +13,28 @@
 </template>
 
 <script>
+import { onUnmounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
-    data() {
-        return {
-            timer: 0,
-            second: 5,
-        }
-    },
-
-    mounted() {
-        this.timer = setInterval(() => {
-            if (this.second === 0) this.$router.go(-1)
-            else this.second--
+    setup() {
+        let timer = null
+        const second = ref(5)
+        const router = useRouter()
+        timer = setInterval(() => {
+            if (second.value === 0) {
+                clearInterval(timer)
+                router.go(-1)
+            } else {
+                second.value--
+            }
         }, 1000)
-    },
-    beforeUnmount() {
-        clearInterval(this.timer)
+        onUnmounted(() => {
+            clearInterval(timer)
+        })
+
+        return {
+            second,
+        }
     },
 }
 </script>
