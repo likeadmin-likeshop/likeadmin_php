@@ -1,0 +1,78 @@
+@import "element-plus/theme-chalk/index";
+
+// 替换elementui的变量
+:root {
+  --el-color-primary: #{$--color-primary};
+  --el-font-size-extra-large: #{$--font-size-lg};
+  --el-font-size-large: #{$--font-size-nr};
+  --el-font-size-medium: #{$--font-size-sm};
+  --el-font-size-base: #{$--font-size-base};
+  --el-font-size-small: #{$--font-size-base};
+  --el-font-size-extra-small:#{$--font-size-base};
+}
+
+
+
+.el-menu.el-menu--horizontal {
+    border-bottom: none;
+}
+
+.el-menu {
+    border-right: none !important;
+}
+
+.ls-scrollbar.el-scrollbar .el-scrollbar__wrap {
+    overflow-x: hidden;
+}
+
+.ls-view .el-tabs .el-tabs__item {
+    height: 60px;
+    line-height: 60px;
+}
+
+.el-tabs .el-tabs__nav-wrap::after {
+    height: 1px;
+    background-color: $--border-color-base;
+}
+
+.el-input-group__prepend {
+    background-color: $--color-white;
+}
+
+
+.el-loading-spinner {
+    font-size: 26px;
+}
+
+
+.el-textarea .el-textarea__inner {
+    resize: none;
+}
+
+
+
+
+.el-image .el-image__error {
+    font-size: 12px;
+}
+
+// 弹窗居中
+.el-dialog {
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important;
+    position: absolute;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: calc(100% - 30px);
+    max-width: calc(100% - 30px);
+}
+
+.el-dialog .el-dialog__body {
+    flex: 1;
+    overflow: auto;
+    padding: 10px 20px;
+}
+

@@ -1,0 +1,76 @@
+/**
+变量
+ */
+
+/* Color
+-------------------------- */
+
+$--color-primary: #4A5DFF !default;
+$--color-success: #67c23a !default;
+$--color-warning: #fb9400 !default;
+$--color-danger: #f56c6c !default;
+$--color-info: #909399 !default;
+$--color-white: #ffffff !default;
+$--color-black: #333333 !default;
+
+$--color-primary-light-1: mix($--color-white, $--color-primary, 10%) !default;
+$--color-primary-light-2: mix($--color-white, $--color-primary, 20%) !default;
+$--color-primary-light-3: mix($--color-white, $--color-primary, 30%) !default;
+$--color-primary-light-4: mix($--color-white, $--color-primary, 40%) !default;
+$--color-primary-light-5: mix($--color-white, $--color-primary, 50%) !default;
+$--color-primary-light-6: mix($--color-white, $--color-primary, 60%) !default;
+$--color-primary-light-7: mix($--color-white, $--color-primary, 70%) !default;
+$--color-primary-light-8: mix($--color-white, $--color-primary, 80%) !default;
+$--color-primary-light-9: mix($--color-white, $--color-primary, 90%) !default;
+
+
+/* Font
+-------------------------- */
+
+$--color-text-primary: #333333 !default;
+$--color-text-regular: #666666 !default;
+$--color-text-secondary: #999999 !default;
+$--color-text-placeholder: #999999 !default;
+$--font-size-xxl: 18px !default;
+$--font-size-xl: 17px !default;
+$--font-size-lg: 16px !default;
+$--font-size-md: 15px !default;
+$--font-size-nr: 14px !default;
+$--font-size-sm: 13px !default;
+$--font-size-base: 12px !default;
+
+/* Background
+-------------------------- */
+
+$--background-color-base: #eff3f5 !default;
+
+/* Border
+-------------------------- */
+
+$--border-color-base: #e5e5e5e5 !default;
+$--border-color-light: #f2f2f2f2 !default;
+$--border-width-base: 1px !default;
+$--border-style-base: solid !default;
+$--border-color-hover: $--color-primary !default;
+$--border-base: $--border-width-base $--border-style-base $--border-color-base !default;
+
+/* Layout
+-------------------------- */
+
+$--layout-sidebar-width: 120px !default;
+$--layout-navbar-height: 60px !default;
+
+
+:export {
+  /* 主题颜色 */
+  color_primary: $--color-primary;
+  color_success: $--color-success;
+  color_warning: $--color-warning;
+  color_danger: $--color-danger;
+  color_ingo: $--color-info;
+
+  /* 字体颜色 */
+  font_color_primary: $--color-text-primary;
+  font_color_regular: $--color-text-regular;
+  font_color_secondary: $--color-text-secondary;
+}
