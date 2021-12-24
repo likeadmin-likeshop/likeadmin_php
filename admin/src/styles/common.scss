@@ -6,27 +6,27 @@
 /** S 背景颜色 **/
 
 .bg-primary {
-    background-color: $--color-primary;
+    background-color: $color-primary;
 }
 
 .bg-success {
-    background-color: $--color-success;
+    background-color: $color-success;
 }
 
 .bg-warning {
-    background-color: $--color-warning;
+    background-color: $color-warning;
 }
 
 .bg-danger {
-    background-color: $--color-danger;
+    background-color: $color-danger;
 }
 
 .bg-white {
-    background-color: $--color-white;
+    background-color: $color-white;
 }
 
 .bg-info {
-    background-color: $--color-info;
+    background-color: $color-info;
 }
 
 
@@ -36,35 +36,35 @@
 /** E 字体颜色 **/
 
 .primary {
-    color: $--color-text-primary;
+    color: $color-text-primary;
 }
 
 .white {
-    color: $--color-white;
+    color: $color-white;
 }
 
 .black {
-    color: $--color-black;
+    color: $color-black;
 }
 
 .normal {
-    color: $--color-text-primary;
+    color: $color-text-primary;
 }
 
 .lighter {
-    color: $--color-text-regular;
+    color: $color-text-regular;
 }
 
 .muted {
-    color: $--color-text-secondary;
+    color: $color-text-secondary;
 }
 
 .blue {
-    color: $--color-primary;
+    color: $color-primary;
 }
 
 .green {
-    color: $--color-success;
+    color: $color-success;
 }
 
 
@@ -73,40 +73,38 @@
 
 /** S Font **/
 
-// XXL
-.xxl {
-    font-size: $--font-size-xxl;
-}
+
 
 // XL
 .xl {
-    font-size: $--font-size-xl;
+    font-size: $font-size-xl;
 }
 
 // LG
 .lg {
-    font-size: $--font-size-lg;
+    font-size: $font-size-lg;
 }
 
 // MD
 .md {
-    font-size: $--font-size-md;
+    font-size: $font-size-md;
 }
 
 // NR
 .nr {
-    font-size: $--font-size-nr;
+    font-size: $font-size-nr;
 }
 
 // SM
 .sm {
-    font-size: $--font-size-sm;
+    font-size: $font-size-sm;
 }
 
-// XS
-.base {
-    font-size: $--font-size-base;
+// SM
+.xs {
+    font-size: $font-size-xs;
 }
+
 
 
 
@@ -195,6 +193,15 @@
 /** E 文本行数限制 **/
 
 
+/** S 内容排序方式 **/
+.text-left { text-align: left; }
+
+.text-center { text-align: center; }
+
+.text-right { text-align: right; }
+/** E 内容排序方式 **/
+
+
 /** S Flex-弹性布局 **/
 
 .flex {
@@ -270,6 +277,6 @@ stretch stretch {
 // 块卡片
 .ls-card {
     border-radius: 8px;
-    background-color: $--color-white;
+    background-color: $color-white;
     padding: 24px;
 }
