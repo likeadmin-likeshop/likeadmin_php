@@ -1,8 +1,9 @@
 const cache = {
 
-    keyPrev: 'admin_',
+    key: 'cache_',
 	//设置缓存(expire为缓存时效)
 	set(key, value, expire) {
+		key = this.getKey(key)
 		let data = {
 			expire: expire ? (this.time() + expire) : "",
 			value
@@ -17,6 +18,7 @@ const cache = {
 		}
 	},
 	get(key) {
+		key = this.getKey(key)
 		try {
 			let data =  window.localStorage.getItem(key)
             if(!data) return false
@@ -36,10 +38,14 @@ const cache = {
 		return Math.round(new Date().getTime() / 1000);
 	},
 	remove(key) {
-		if(key) window.localStorage.removeItem(key)
+		key = this.getKey(key)
+		window.localStorage.removeItem(key)
 	},
     getKey(key) {
-		return this.keyPrev + key
+		return this.key + key
+	},
+	setKey(key) {
+		this.key = key + '_'
 	}
 }
 
