@@ -16,6 +16,9 @@
                             placeholder="请输入账号"
                             @keyup.enter="handleEnter"
                         >
+                            <template #prepend>
+                                <el-icon><avatar /></el-icon>
+                            </template>
                         </el-input>
                     </el-form-item>
                     <el-form-item prop="password">
@@ -26,6 +29,9 @@
                             placeholder="请输入密码"
                             @keyup.enter="handleLogin"
                         >
+                            <template #prepend>
+                                <el-icon><lock /></el-icon>
+                            </template>
                         </el-input>
                     </el-form-item>
                 </el-form>
