@@ -19,17 +19,27 @@
 
 declare (strict_types=1);
 
-namespace app\common\http\middleware;
+namespace app\common\exception;
+
+use think\Exception;
 
 /**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
+ * 控制器继承异常
+ * Class ControllerExtendException
+ * @package app\common\exception
  */
-class BaseMiddleware
+class ControllerExtendException extends Exception
 {
-    public function handle($request, \Closure $next)
+    /**
+     * 构造方法
+     * @access public
+     * @param string $message
+     * @param string $model
+     * @param array $config
+     */
+    public function __construct(string $message, string $model = '', array $config = [])
     {
-        return $next($request);
+        $this->message = '控制器需要继承模块的基础控制器：' . $message;
+        $this->model = $model;
     }
 }

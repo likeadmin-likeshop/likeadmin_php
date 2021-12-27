@@ -17,19 +17,16 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
+namespace app\common\model\auth;
 
-namespace app\common\http\middleware;
+use app\common\model\BaseModel;
 
 /**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
+ * 角色与权限关系模型
+ * Class DevAuthRoleIndex
+ * @package app\common\model
  */
-class BaseMiddleware
+class RoleAuthIndex extends BaseModel
 {
-    public function handle($request, \Closure $next)
-    {
-        return $next($request);
-    }
+
 }

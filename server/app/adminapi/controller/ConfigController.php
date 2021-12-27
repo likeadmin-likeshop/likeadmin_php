@@ -17,19 +17,29 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
+namespace app\adminapi\controller;
 
-namespace app\common\http\middleware;
+use app\adminapi\logic\ConfigLogic;
 
 /**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
+ * 配置控制器
+ * Class ConfigController
+ * @package app\adminapi\controller
  */
-class BaseMiddleware
+class ConfigController extends BaseAdminController
 {
-    public function handle($request, \Closure $next)
+    public array $notNeedLogin = ['getConfig'];
+
+    /**
+     * @notes 获取权限
+     * @return \think\response\Json
+     * @author cjhao
+     * @date 2021/12/27 16:00
+     */
+    public function getAuth()
     {
-        return $next($request);
+        $data = ConfigLogic::getAuth($this->adminInfo);
+        return $this->data($data);
     }
+
 }

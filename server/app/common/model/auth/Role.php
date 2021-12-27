@@ -17,19 +17,25 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
+namespace app\common\model\auth;
 
-namespace app\common\http\middleware;
+use app\common\model\BaseModel;
+use think\model\concern\SoftDelete;
 
 /**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
+ * 角色模型
+ * Class Role
+ * @package app\common\model
  */
-class BaseMiddleware
+class Role extends BaseModel
 {
-    public function handle($request, \Closure $next)
+    use SoftDelete;
+
+    protected $deleteTime = 'delete_time';
+
+    public function roleAuthIndex()
     {
-        return $next($request);
+        return $this->hasMany(RoleAuthIndex::class,'role_id');
+
     }
 }

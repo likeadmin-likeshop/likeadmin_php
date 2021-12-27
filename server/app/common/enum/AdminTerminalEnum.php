@@ -17,19 +17,17 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
 
-namespace app\common\http\middleware;
+namespace app\common\enum;
+
 
 /**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
+ * 管理后台登录终端
+ * Class terminalEnum
+ * @package app\common\enum
  */
-class BaseMiddleware
+class AdminTerminalEnum
 {
-    public function handle($request, \Closure $next)
-    {
-        return $next($request);
-    }
+    const PC = 1;
+    const MOBILE = 2;
 }

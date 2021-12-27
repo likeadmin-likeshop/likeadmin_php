@@ -21,6 +21,9 @@ declare(strict_types=1);
 
 namespace app\common\service;
 
+
+use app\common\lists\BaseDataLists;
+use app\common\lists\ListsExtendInterface;
 use think\Response;
 use think\response\Json;
 use think\exception\HttpResponseException;
@@ -110,5 +113,28 @@ class JsonService
         $data = compact('code', 'show', 'msg', 'data');
         $response = Response::create($data, 'json', 200);
         throw new HttpResponseException($response);
+    }
+
+
+    /**
+     * @notes 数据列表
+     * @param \app\common\lists\BaseDataLists $lists
+     * @return \think\response\Json
+     * @author 令狐冲
+     * @date 2021/7/28 11:15
+     */
+    public static function dataLists(BaseDataLists $lists): Json
+    {
+        $data = [
+            'lists' => $lists->lists(),
+            'count' => $lists->count(),
+            'page_no' => $lists->pageNo,
+            'page_size' => $lists->pageSize,
+        ];
+        $data['extend'] = [];
+        if ($lists instanceof ListsExtendInterface) {
+            $data['extend'] = $lists->extend();
+        }
+        return self::success('', $data, 1, 0);
     }
 }

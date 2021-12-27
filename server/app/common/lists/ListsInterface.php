@@ -17,19 +17,26 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
 
-namespace app\common\http\middleware;
+namespace app\common\lists;
 
-/**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
- */
-class BaseMiddleware
+
+interface ListsInterface
 {
-    public function handle($request, \Closure $next)
-    {
-        return $next($request);
-    }
+    /**
+     * @notes 实现数据列表
+     * @return array
+     * @author 令狐冲
+     * @date 2021/7/6 00:33
+     */
+    public function lists(): array;
+
+    /**
+     * @notes 实现数据列表记录数
+     * @return int
+     * @author 令狐冲
+     * @date 2021/7/6 00:34
+     */
+    public function count(): int;
+
 }

@@ -17,19 +17,28 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
 
-namespace app\common\http\middleware;
+namespace app\adminapi\lists;
+
+
+use app\common\lists\BaseDataLists;
 
 /**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
+ * 管理员模块数据列表基类
+ * Class BaseAdminDataLists
+ * @package app\adminapi\lists
  */
-class BaseMiddleware
+abstract class BaseAdminDataLists extends BaseDataLists
 {
-    public function handle($request, \Closure $next)
+    protected array $adminInfo;
+    protected int $adminId;
+
+    public function __construct()
     {
-        return $next($request);
+        parent::__construct();
+        $this->adminInfo = $this->request->adminInfo;
+        $this->adminId = $this->request->adminId;
     }
+
+
 }

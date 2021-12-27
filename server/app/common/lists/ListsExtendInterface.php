@@ -17,19 +17,19 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
 
-namespace app\common\http\middleware;
+namespace app\common\lists;
 
-/**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
- */
-class BaseMiddleware
+
+interface ListsExtendInterface
 {
-    public function handle($request, \Closure $next)
-    {
-        return $next($request);
-    }
+
+    /**
+     * @notes 扩展字段
+     * @return mixed
+     * @author 令狐冲
+     * @date 2021/7/21 17:45
+     */
+    public function extend();
+
 }

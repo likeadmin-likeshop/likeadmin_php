@@ -17,19 +17,21 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
+namespace app\common\model\auth;
 
-namespace app\common\http\middleware;
+use app\common\model\BaseModel;
 
-/**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
- */
-class BaseMiddleware
+class AdminSession extends BaseModel
 {
-    public function handle($request, \Closure $next)
+    /**
+     * @notes 关联管理员表
+     * @return \think\model\relation\HasOne
+     * @author 令狐冲
+     * @date 2021/7/5 14:39
+     */
+    public function admin()
     {
-        return $next($request);
+        return $this->hasOne('admin', 'id', 'admin_id')
+            ->field('id,multipoint_login');
     }
 }

@@ -17,19 +17,9 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
+namespace app\common\model;
 
-namespace app\common\http\middleware;
-
-/**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
- */
-class BaseMiddleware
+class Config extends BaseModel
 {
-    public function handle($request, \Closure $next)
-    {
-        return $next($request);
-    }
+
 }

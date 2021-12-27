@@ -17,19 +17,10 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
-
-namespace app\common\http\middleware;
-
-/**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
- */
-class BaseMiddleware
-{
-    public function handle($request, \Closure $next)
-    {
-        return $next($request);
-    }
-}
+return [
+    'middleware' => [
+        app\adminapi\http\middleware\InitMiddleware::class,  //初始化
+        app\adminapi\http\middleware\LoginMiddleware::class, //登录验证
+        app\adminapi\http\middleware\AuthMiddleware::class, //权限认证
+    ],
+];

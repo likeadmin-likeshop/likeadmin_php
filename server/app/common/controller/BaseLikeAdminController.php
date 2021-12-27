@@ -22,8 +22,15 @@ declare(strict_types=1);
 namespace app\common\controller;
 
 use app\BaseController;
+use app\common\lists\BaseDataLists;
 use app\common\service\JsonService;
+use think\facade\App;
 
+/**
+ * 控制器基类
+ * Class BaseLikeAdminController
+ * @package app\common\controller
+ */
 class BaseLikeAdminController extends BaseController
 {
 
@@ -57,6 +64,25 @@ class BaseLikeAdminController extends BaseController
         return JsonService::data($data);
     }
 
+
+    /**
+     * @notes 列表数据返回
+     * @param \app\common\lists\BaseDataLists|null $lists
+     * @return \think\response\Json
+     * @author 令狐冲
+     * @date 2021/7/8 00:40
+     */
+    protected function dataLists(BaseDataLists $lists = null)
+    {
+        //列表类和控制器一一对应，"app/应用/controller/控制器的方法" =》"app\应用\lists\"目录下
+        //（例如："app/adminapi/controller/auth/AdminController.php的lists()方法" =》 "app/adminapi/lists/auth/AminLists.php")
+        //当对象为空时，自动创建列表对象
+        if (is_null($lists)) {
+            $listName = str_replace('.', '\\', App::getNamespace() . '\\lists\\' . $this->request->controller() . ucwords($this->request->action()));
+            $lists = invoke($listName);
+        }
+        return JsonService::dataLists($lists);
+    }
 
 
     /**

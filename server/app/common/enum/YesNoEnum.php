@@ -17,19 +17,35 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
 
-namespace app\common\http\middleware;
+namespace app\common\enum;
 
 /**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
+ * 通过枚举类，枚举只有两个值的时候使用
+ * Class YesNoEnum
+ * @package app\common\enum
  */
-class BaseMiddleware
+class YesNoEnum
 {
-    public function handle($request, \Closure $next)
+    const YES = 1;
+    const NO = 0;
+
+    /**
+     * @notes 获取禁用状态
+     * @param bool $value
+     * @return string|string[]
+     * @author 令狐冲
+     * @date 2021/7/8 19:02
+     */
+    public static function getDisableDesc($value = true)
     {
-        return $next($request);
+        $data = [
+            self::YES => '禁用',
+            self::NO => '正常'
+        ];
+        if ($value === true) {
+            return $data;
+        }
+        return $data[$value];
     }
 }

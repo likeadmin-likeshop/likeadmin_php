@@ -17,19 +17,18 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-declare (strict_types=1);
 
-namespace app\common\http\middleware;
+namespace app\common\lists;
 
-/**
- * 基础中间件
- * Class LikeShopMiddleware
- * @package app\common\http\middleware
- */
-class BaseMiddleware
+
+interface ListsSearchInterface
 {
-    public function handle($request, \Closure $next)
-    {
-        return $next($request);
-    }
+
+    /**
+     * @notes 设置搜索条件
+     * @return array
+     * @author 令狐冲
+     * @date 2021/7/7 19:44
+     */
+    public function setSearch(): array;
 }
