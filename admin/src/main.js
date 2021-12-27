@@ -6,8 +6,9 @@ import './permission'
 import useElement from './plugins/element'
 import useVueEcharts from './plugins/vue-echarts'
 import cache from './utils/cache'
+import { storeKey } from './config/app'
 // 缓存配置
-cache.setKey('admin')
+cache.setKey(storeKey)
 const app = createApp(App)
 
 // element

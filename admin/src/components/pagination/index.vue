@@ -25,22 +25,27 @@ import { onMounted, reactive, toRefs } from 'vue'
 export default {
     components: {},
     props: {
+        // 每一页条数
         pageSize: {
             type: Number,
             default: 15,
         },
+        // 允许选择的每一页条数
         pageSizes: {
             type: Array,
             default: () => [10, 20, 30, 40],
         },
+        // 分页的布局（参考element的分页组件）
         layout: {
             type: String,
             default: 'sizes, prev, pager, next',
         },
+        // 额外参数
         params: {
             type: Object,
             default: () => ({}),
         },
+        // 请求函数
         fun: {
             type: Function,
             default: () => {},
@@ -75,7 +80,7 @@ export default {
         }
 
         const getPages = () => pages
-        
+
         onMounted(() => {
             getLists()
         })
