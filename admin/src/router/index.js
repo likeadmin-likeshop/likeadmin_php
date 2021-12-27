@@ -26,6 +26,12 @@ export const asyncRoutes = [
                         meta: { title: '管理员' },
                     },
                     {
+                        path: '/permission/admin/edit',
+                        hidden: true,
+                        component: () => import('@/views/permission/admin/edit'),
+                        meta: { title: '管理员', parent: '/permission/admin' },
+                    },
+                    {
                         path: '/permission/role',
                         component: () => import('@/views/permission/role'),
                         meta: { title: '角色' },

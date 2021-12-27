@@ -1,20 +1,37 @@
 <template>
-    <el-sub-menu :index="path">
-        <template #title>
-            <span>{{title}}</span>
-        </template>
-        <slot></slot>
-    </el-sub-menu>
+    <template v-if="!route.hidden">
+        <el-sub-menu v-if="hasChildren" :index="route.path">
+            <template #title>
+                <span>{{ route.meta.title }}</span>
+            </template>
+            <slot></slot>
+        </el-sub-menu>
+        <el-menu-item v-else :index="route.path">
+            <!-- <el-icon><setting /></el-icon> -->
+            <span>{{ route.meta.title }}</span>
+        </el-menu-item>
+    </template>
 </template>
 
 
 <script>
+import { computed } from 'vue'
 export default {
     components: {},
     props: {
-        title: String,
-        path: String,
-        icon: String,
+        route: {
+            type: Object,
+            default: () => ({}),
+        },
+    },
+    setup(props) {
+        const hasChildren = computed(() => {
+            const children = props.route.children ?? []
+            return !!children.filter((item) => !item.hidden).length
+        })
+        return {
+            hasChildren,
+        }
     },
 }
 </script>

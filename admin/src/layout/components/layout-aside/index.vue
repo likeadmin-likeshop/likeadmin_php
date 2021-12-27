@@ -5,6 +5,7 @@
             Admin管理平台
         </router-link>
         <el-scrollbar style="height: 100%" class="ls-scrollbar">
+            
             <el-menu
                 active-text-color="#fff"
                 background-color="#2a2c41"
@@ -13,42 +14,21 @@
                 router
             >
                 <template v-for="(item, index) in sidebar" :key="index">
-                    <sub-menu
-                        v-if="hasChildren(item)"
-                        :path="item.path"
-                        :title="item.meta.title"
-                    >
+                    <sub-menu :route="item">
                         <template
                             v-for="(item, index) in item.children"
                             :key="index"
                         >
-                            <sub-menu
-                                v-if="hasChildren(item)"
-                                :path="item.path"
-                                :title="item.meta.title"
-                            >
+                            <sub-menu :route="item">
                                 <template
                                     v-for="(item, index) in item.children"
                                     :key="index"
                                 >
-                                    <menu-item
-                                        :path="item.path"
-                                        :title="item.meta.title"
-                                    ></menu-item>
+                                    <sub-menu :route="item"></sub-menu>
                                 </template>
                             </sub-menu>
-                            <menu-item
-                                v-else
-                                :path="item.path"
-                                :title="item.meta.title"
-                            ></menu-item>
                         </template>
                     </sub-menu>
-                    <menu-item
-                        v-else
-                        :path="item.path"
-                        :title="item.meta.title"
-                    ></menu-item>
                 </template>
             </el-menu>
         </el-scrollbar>
@@ -60,25 +40,18 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import MenuItem from './menu-item'
 import SubMenu from './sub-menu'
 export default {
     components: {
-        MenuItem,
-        SubMenu,
+        SubMenu
     },
     setup() {
         const store = useStore()
         const route = useRoute()
         const sidebar = computed(() => store.getters.sidebar)
-        const hasChildren = computed(() => (route) => {
-            const children = route.children ?? []
-            return !!children.filter((item) => !item.hidden).length
-        })
         const currentPath = computed(() => route.meta?.parent ?? route.path)
         return {
             sidebar,
-            hasChildren,
             currentPath,
         }
     },
