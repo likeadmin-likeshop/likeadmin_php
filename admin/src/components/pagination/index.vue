@@ -73,6 +73,9 @@ export default {
             pages.lists = []
             getLists()
         }
+
+        const getPages = () => pages
+        
         onMounted(() => {
             getLists()
         })
@@ -81,7 +84,8 @@ export default {
             pageSizes,
             layout,
             getLists,
-            refresh
+            refresh,
+            getPages
         }
     },
 }

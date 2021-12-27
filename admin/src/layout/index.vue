@@ -1,13 +1,13 @@
 <template>
-        <div class="layout">
-            <div class="aside">
-                <layout-aside />
-            </div>
-            <div class="main">
-                <layout-header />
-                <layout-main />
-            </div>
+    <div class="layout">
+        <div class="aside">
+            <layout-aside />
         </div>
+        <div class="main">
+            <layout-header />
+            <layout-main />
+        </div>
+    </div>
 </template>
 
 
@@ -19,17 +19,17 @@ export default {
     components: {
         LayoutAside,
         LayoutMain,
-        LayoutHeader
+        LayoutHeader,
     },
 }
 </script>
 
 
 <style lang="scss">
-
 .layout {
     display: flex;
     height: 100vh;
+    width: 100vw;
     min-width: $layout-min-width;
     .aside {
         flex: none;
@@ -39,6 +39,7 @@ export default {
         display: flex;
         flex-direction: column;
         flex: 1;
+        min-width: 0;
     }
 }
 </style>

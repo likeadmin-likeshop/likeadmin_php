@@ -1,10 +1,8 @@
 <template>
-    <div id="app">
-        <keep-alive>
-            <router-view v-if="keepAlive && routerAlive" />
-        </keep-alive>
-		<router-view v-if="!keepAlive && routerAlive" />
-    </div>
+    <keep-alive>
+        <router-view v-if="keepAlive && routerAlive" />
+    </keep-alive>
+    <router-view v-if="!keepAlive && routerAlive" />
 </template>
 
 <script>
@@ -35,7 +33,7 @@ export default {
     },
     errorCaptured(err, instance, info) {
         console.log(err, instance, info)
-    }
+    },
 }
 </script>
 

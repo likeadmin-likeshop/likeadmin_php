@@ -1,4 +1,4 @@
-import vars from '@/styles/index.scss'
+import vars from '@/styles/export.scss'
 const state = {
     variables: vars
 }

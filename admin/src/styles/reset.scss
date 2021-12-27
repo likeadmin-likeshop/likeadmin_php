@@ -1,10 +1,36 @@
 /* http://meyerweb.com/eric/tools/css/reset/ */
 /* v1.0 | 20080212 */
 
-html, body, div, span,
-h1, h2, h3, h4, h5, h6, p,a,b, u, i,
-dl, dt, dd, ol, ul, li, form, label, 
-table,  tbody, tfoot, thead, tr, th, td {
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+form,
+label,
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
     margin: 0;
     padding: 0;
     border: 0;
@@ -17,7 +43,8 @@ table,  tbody, tfoot, thead, tr, th, td {
 
 
 
-ol, ul {
+ol,
+ul {
     list-style: none;
 }
 
@@ -40,18 +67,19 @@ table {
 
 /* 初始化页面 */
 body {
-  font-size: $font-size-nr;
-  background-color: $background-color-base;
-  color: $color-text-primary;
-  overflow-y: hidden;
-  overflow-x: auto;
-  line-height: 1.3;
+    font-size: $font-size-nr;
+    background-color: $background-color-base;
+    color: $color-text-primary;
+    overflow-y: hidden;
+    overflow-x: auto;
+    line-height: 1.3;
 }
 
 input {
     padding: 0;
     border: none;
     outline: none;
+
     &::placeholder {
         color: $color-text-placeholder;
     }
@@ -59,5 +87,5 @@ input {
 
 /* NProgress */
 #nprogress .bar {
-  background: $color-primary !important; //自定义颜色
+    background: $color-primary !important; //自定义颜色
 }
