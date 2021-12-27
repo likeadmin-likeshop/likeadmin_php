@@ -61,7 +61,6 @@ $layout-header-height: 70px !default;
 
 
 
-
 $colors: (
 	"primary": (
 		"base": $color-primary,
@@ -92,9 +91,9 @@ $text-color: (
 
 $border-color: (
     'base': $border-color-base,
-    'light': $border-color-base,
-    'lighter': $border-color-base,
-    'extra-light': $border-color-base,
+    'light': $border-color-light,
+    'lighter': $border-color-light,
+    'extra-light': $border-color-light,
 );
 
 
@@ -107,10 +106,44 @@ $font-size:(
     'extra-small': $font-size-xs,
 );
 
+$button-font-size:(
+    'default': $font-size-nr,
+    'medium': $font-size-nr,
+    'small': $font-size-nr,
+    'mini': $font-size-sm,
+);
+
+
+$button-padding-vertical:(
+    'default': 12px,
+    'medium': 10px,
+    'small': 8px,
+    'mini': 6px,
+);
+
+$button-padding-horizontal:(
+    'default': 25px,
+    'medium': 25px,
+    'small': 20px,
+    'mini': 15px,
+);
+
+$table:(
+    'text-color': $color-text-primary,
+    'header-text-color': $color-text-primary,
+    'header-bg-color': rgba($color-primary, 0.05),
+);
+
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
 	$colors: $colors,
 	$text-color: $text-color,
 	$border-color: $border-color,
-	$font-size: $font-size
+	$font-size: $font-size,
+	$button-font-size: $button-font-size,
+	$button-padding-vertical: $button-padding-vertical,
+	$table: $table
 );
 
+:root {
+	--el-font-weight-primary: 400
+}

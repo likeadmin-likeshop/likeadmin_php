@@ -63,3 +63,22 @@
     overflow: auto;
     padding: 10px 20px;
 }
+
+.el-card {
+    border: none;
+}
+
+.el-form.ls-form {
+    .el-form-item__content {
+        &>.el-cascader,
+        &>.el-select,
+        &>.el-input {
+            width: 280px;
+        }
+
+    }
+}
+
+.el-table thead th{
+    font-weight: 400;
+}

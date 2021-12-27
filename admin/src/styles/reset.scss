@@ -22,6 +22,7 @@ dd,
 ol,
 ul,
 li,
+input,
 form,
 label,
 table,
@@ -31,6 +32,7 @@ thead,
 tr,
 th,
 td {
+    font-family: PingFang SC, Arial, Hiragino Sans GB, Microsoft YaHei, sans-serif;
     margin: 0;
     padding: 0;
     border: 0;
@@ -75,14 +77,8 @@ body {
     line-height: 1.3;
 }
 
-input {
-    padding: 0;
-    border: none;
-    outline: none;
-
-    &::placeholder {
-        color: $color-text-placeholder;
-    }
+input::placeholder {
+    color: $color-text-placeholder;
 }
 
 /* NProgress */
