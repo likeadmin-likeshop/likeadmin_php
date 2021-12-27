@@ -31,13 +31,12 @@ class AuthLogic
     /**
      * @notes 获取菜单
      * @return array
-     * @author cjhao
-     * @date 2021/8/25 17:37
+     * @author 段誉
+     * @date 2021/12/27 17:22
      */
-    public static function getMenu():array
+    public static function getMenu() : array
     {
-        $menu = Config::get('menu');
-        return $menu;
+        return Config::get('menu');
     }
 
     /**

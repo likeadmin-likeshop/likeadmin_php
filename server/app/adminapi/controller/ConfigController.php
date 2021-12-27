@@ -19,6 +19,7 @@
 
 namespace app\adminapi\controller;
 
+use app\adminapi\logic\auth\AuthLogic;
 use app\adminapi\logic\ConfigLogic;
 
 /**
@@ -38,8 +39,21 @@ class ConfigController extends BaseAdminController
      */
     public function getAuth()
     {
-        $data = ConfigLogic::getAuth($this->adminInfo);
-        return $this->data($data);
+        $result = ConfigLogic::getAuth($this->adminInfo);
+        return $this->data($result);
+    }
+
+
+    /**
+     * @notes 获取菜单
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2021/12/27 17:23
+     */
+    public function getMenu()
+    {
+        $result = AuthLogic::getMenu();
+        return $this->data($result);
     }
 
 }
