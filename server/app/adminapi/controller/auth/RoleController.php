@@ -55,8 +55,8 @@ class RoleController extends BaseAdminController
     {
         $params = (new RoleValidate())->post()->goCheck('add');
         $res = (new RoleLogic)->add($params);
-        if(true === $res){
-            return $this->success('添加成功',[],1,1);
+        if (true === $res) {
+            return $this->success('添加成功', [], 1, 1);
         }
         return $this->fail($res);
     }
@@ -71,8 +71,8 @@ class RoleController extends BaseAdminController
     {
         $params = (new RoleValidate())->post()->goCheck('edit');
         $res = (new RoleLogic)->edit($params);
-        if(true === $res){
-            return $this->success('编辑成功',[],1,1);
+        if (true === $res) {
+            return $this->success('编辑成功', [], 1, 1);
         }
         return $this->fail($res);
     }

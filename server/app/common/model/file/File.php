@@ -17,13 +17,13 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-return [
-    'middleware' => [
-        //初始化
-        app\adminapi\http\middleware\InitMiddleware::class,
-        //登录验证
-        app\adminapi\http\middleware\LoginMiddleware::class,
-        //权限认证
-        app\adminapi\http\middleware\AuthMiddleware::class,
-    ],
-];
+namespace app\common\model\file;
+
+use app\common\model\BaseModel;
+use think\model\concern\SoftDelete;
+
+class File extends BaseModel
+{
+    use SoftDelete;
+    protected $deleteTime = 'delete_time';
+}
