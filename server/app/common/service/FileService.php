@@ -23,16 +23,30 @@ use think\facade\Cache;
 
 class FileService
 {
+
     /**
      * @notes 补全路径
      * @param $uri
-     * @param bool $type
+     * @param string $type
      * @return string
-     * @author 张无忌
-     * @date 2021/7/28 15:08
+     * @author 段誉
+     * @date 2021/12/28 15:19
+     * @remark
+     * 场景一:补全域名路径,仅传参$uri;
+     *      例: FileService::getFileUrl('uploads/img.png');
+     *      返回 http://www.likeadmin.localhost/uploads/img.png
+     *
+     * 场景二:补全获取web根目录路径, 传参$uri 和 $type = public_path;
+     *      例: FileService::getFileUrl('uploads/img.png', 'public_path');
+     *      返回 /project-services/likeadmin/server/public/uploads/img.png
+     *
+     * 场景三:获取当前储存方式的域名, 仅传参$type = domain;
+     *      例: FileService::getFileUrl('', 'domain');
+     *      返回 http://www.likeadmin.localhost/
      */
-    public static function getFileUrl($uri = '', $type = false)
+    public static function getFileUrl($uri = '', string $type = '') : string
     {
+        if (empty($uri) && empty($type)) return '';
         if (strstr($uri, 'http://'))  return $uri;
         if (strstr($uri, 'https://')) return $uri;
 
@@ -43,7 +57,7 @@ class FileService
         }
 
         if ($default === 'local') {
-            if($type == 'share') {
+            if($type == 'public_path') {
                 return public_path(). $uri;
             }
             return request()->domain() . '/' . $uri;
@@ -75,4 +89,7 @@ class FileService
             return str_replace($storage['domain'].'/', '', $uri);
         }
     }
+
+
+
 }
