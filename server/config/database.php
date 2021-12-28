@@ -26,7 +26,7 @@ return [
             // 服务器地址
             'hostname'        => env('database.hostname', 'likeshop-mysql'),
             // 数据库名
-            'database'        => env('database.database', 'localhost_likeshopadmin'),
+            'database'        => env('database.database', 'localhost_likeadmin'),
             // 用户名
             'username'        => env('database.username', 'root'),
             // 密码

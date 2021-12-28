@@ -4,7 +4,7 @@ namespace app\index\controller;
 use app\BaseController;
 use app\common\service\JsonService;
 
-class Index extends BaseController
+class IndexController extends BaseController
 {
     public function index($name = '你好,likeshop')
     {
