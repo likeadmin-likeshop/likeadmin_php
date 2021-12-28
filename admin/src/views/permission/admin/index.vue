@@ -69,9 +69,9 @@
     </div>
 </template>
 
-<script>
-import { reactive } from 'vue'
-export default {
+<script lang="ts">
+import { defineComponent,reactive } from 'vue'
+export default defineComponent({
     setup() {
         // 表单数据
         const formData = reactive({
@@ -84,7 +84,7 @@ export default {
             formData,
         }
     },
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -55,9 +55,9 @@
 </template>
 
 
-<script>
-import { provide, ref } from 'vue'
-export default {
+<script lang="ts">
+import { defineComponent, provide, ref } from 'vue'
+export default defineComponent({
     components: {},
     emits: ['confirm', 'cancel'],
     props: {
@@ -105,7 +105,7 @@ export default {
     setup(props, { emit }) {
         const visible = ref(false)
 
-        const handleEvent = (type) => {
+        const handleEvent = (type: 'confirm' | 'cancel') => {
             emit(type)
             if (!props.async || type === 'cancel') close()
         }
@@ -124,7 +124,7 @@ export default {
             open,
         }
     },
-}
+})
 </script>
 
 <style scoped lang="scss">
@@ -132,10 +132,5 @@ export default {
     white-space: pre-line;
 }
 
-.title-icon {
-    font-size: 24px;
-    color: $color-warning;
-    margin-right: 5px;
-}
 </style>
 

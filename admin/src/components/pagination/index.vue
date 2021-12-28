@@ -20,9 +20,9 @@
 </template>
 
 
-<script>
-import { onMounted, reactive, toRefs } from 'vue'
-export default {
+<script lang="ts">
+import { defineComponent, onMounted, reactive, toRefs } from 'vue'
+export default defineComponent({
     components: {},
     props: {
         // 每一页条数
@@ -93,7 +93,7 @@ export default {
             getPages
         }
     },
-}
+})
 </script>
 
 

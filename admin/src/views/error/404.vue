@@ -12,12 +12,12 @@
     </div>
 </template>
 
-<script>
-import { onUnmounted, ref } from 'vue'
+<script lang="ts">
+import { defineComponent, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-export default {
+export default defineComponent({
     setup() {
-        let timer = null
+        let timer: any = null
         const second = ref(5)
         const router = useRouter()
         timer = setInterval(() => {
@@ -36,7 +36,7 @@ export default {
             second,
         }
     },
-}
+})
 </script>
 <style lang="scss" scoped>
 .error404 {

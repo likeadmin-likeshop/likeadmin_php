@@ -47,18 +47,19 @@
     </div>
 </template>
 
-<script>
-import { onMounted, reactive, ref } from 'vue'
+<script lang="ts">
+import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
 import { useStore } from 'vuex'
 import { ACCOUNT } from '@/config/cachekey'
 import cache from '@/utils/cache'
 import { useRouter } from 'vue-router'
-export default {
+import { ElInput, ElForm } from 'element-plus'
+export default defineComponent({
     setup() {
         const store = useStore()
         const router = useRouter()
-        const passwordRefs = ref(null)
-        const loginFormRefs = ref(null)
+        const passwordRefs: Ref<typeof ElInput | null> = ref(null)
+        const loginFormRefs: Ref<typeof ElForm | null> = ref(null)
         const remAccount = ref(false)
         const loginForm = reactive({
             account: '',
@@ -83,12 +84,12 @@ export default {
         }
         const handleEnter = () => {
             if (!loginForm.password) {
-                return passwordRefs.value.focus()
+                return passwordRefs.value?.focus()
             }
             handleLogin()
         }
         const handleLogin = () => {
-            loginFormRefs.value.validate((valid) => {
+            loginFormRefs.value?.validate((valid: boolean) => {
                 if (!valid) return
                 // 记住账号，缓存
                 cache.set(ACCOUNT, {
@@ -125,7 +126,7 @@ export default {
             remAccount,
         }
     },
-}
+})
 </script>
 
 <style lang="scss" scoped>

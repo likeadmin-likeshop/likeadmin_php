@@ -11,17 +11,18 @@
 </template>
 
 
-<script>
-import LayoutAside from './components/layout-aside'
-import LayoutMain from './components/layout-main'
-import LayoutHeader from './components/layout-header'
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+import LayoutAside from './components/layout-aside/index.vue'
+import LayoutMain from './components/layout-main.vue'
+import LayoutHeader from './components/layout-header.vue'
+export default defineComponent({
     components: {
         LayoutAside,
         LayoutMain,
         LayoutHeader,
     },
-}
+})
 </script>
 
 

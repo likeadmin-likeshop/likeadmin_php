@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 
-let config = {
+const config = {
     baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 60 * 1000, // Timeout
     withCredentials: true, // Check cross-site Access-Control

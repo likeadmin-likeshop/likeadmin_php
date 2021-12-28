@@ -5,36 +5,27 @@
     <router-view v-if="!keepAlive && routerAlive" />
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            routerAlive: true,
-        }
-    },
-    provide() {
-        return {
-            reload: this.reload,
-        }
-    },
-    methods: {
-        reload() {
-            this.routerAlive = false
-            this.$nextTick(() => {
-                this.routerAlive = true
+<script lang="ts">
+import { computed, defineComponent, ref, nextTick, provide } from 'vue'
+import { useRoute } from 'vue-router'
+export default defineComponent({
+    setup() {
+        const route = useRoute()
+        const routerAlive = ref(true)
+        const keepAlive = computed(() => route.meta.keepAlive)
+        const reload = () => {
+            routerAlive.value = false
+            nextTick(() => {
+                routerAlive.value = true
             })
-        },
-    },
-
-    computed: {
-        keepAlive() {
-            return this.$route.meta.keepAlive
-        },
-    },
-    errorCaptured(err, instance, info) {
-        console.log(err, instance, info)
-    },
-}
+        }
+		provide('reload', reload)
+		return {
+			routerAlive,
+			keepAlive
+		}
+    }
+});
 </script>
 
 <style lang="scss">

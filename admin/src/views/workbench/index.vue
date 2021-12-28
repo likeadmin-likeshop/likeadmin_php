@@ -45,24 +45,25 @@
                     <span class="card-title">常用功能</span>
                 </template>
                 <div class="nav-lists">
-                    <div class="nav-item flex flex-col flex-center m-t-10" v-for="item in 15" :key="item">
-                        <el-image
-                            style="width: 48px; height: 48px"
-                            :src="url"
-                        >
+                    <div
+                        class="nav-item flex flex-col flex-center m-t-10"
+                        v-for="item in 15"
+                        :key="item"
+                    >
+                        <el-image style="width: 48px; height: 48px" src="">
                         </el-image>
                         <div class="m-t-8">工作台</div>
                     </div>
                 </div>
             </el-card>
         </div>
-          <div class="flex m-t-15 ranking">
+        <div class="flex m-t-15 ranking">
             <el-card class="flex-1" shadow="never">
                 <template #header>
                     <span class="card-title">访问量趋势图</span>
                 </template>
                 <div class="ranking-centent">
-                 <e-chart class="chart" :option="business" />
+                    <!-- <e-chart class="chart" :option="business" /> -->
                 </div>
             </el-card>
             <el-card class="flex-1 m-l-15" shadow="never">
@@ -75,46 +76,52 @@
                 <div class="ranking-centent">
                     <el-table :data="[]" size="medium">
                         <el-table-column label="排名" min-width="70">
-                            <template v-slot="scope">
-                                <div class="icon" style="background:#F86056;color:#fff" v-if="scope.$index + (pagerTopUser._page -1 ) * (pagerTopUser._size) == 0">
-                                    {{scope.$index + 1 + (pagerTopUser._page -1 ) * (pagerTopUser._size)}}</div>
-                                <div class="icon" style="background:#FC8D2E;color:#fff" v-if="scope.$index + (pagerTopUser._page -1 ) * (pagerTopUser._size) == 1">
-                                    {{scope.$index + 1 + (pagerTopUser._page -1 ) * (pagerTopUser._size)}}</div>
-                                <div class="icon" style="background:#FCBC2E;color:#fff" v-if="scope.$index + (pagerTopUser._page -1 ) * (pagerTopUser._size) == 2">
-                                    {{scope.$index + 1 + (pagerTopUser._page -1 ) * (pagerTopUser._size) }}</div>
-                                <div class="icon" v-if="scope.$index + (pagerTopUser._page -1 ) * (pagerTopUser._size) >= 3">{{ scope.$index + 1 + (pagerTopUser._page -1 ) * (pagerTopUser._size) }}</div>
-                            </template>
                         </el-table-column>
-                        <el-table-column label="用户信息" min-width="300" show-overflow-tooltip>
+                        <el-table-column
+                            label="用户信息"
+                            min-width="300"
+                            show-overflow-tooltip
+                        >
                             <template v-slot="scope">
                                 <div class="flex">
-                                    <el-image :src="scope.row.avatar" style="width: 34px; height: 34px"
-                                        class="flex-none">
+                                    <el-image
+                                        :src="scope.row.avatar"
+                                        style="width: 34px; height: 34px"
+                                        class="flex-none"
+                                    >
                                     </el-image>
                                     <div class="m-l-10 line-1">
-                                        {{scope.row.nickname}}
+                                        {{ scope.row.nickname }}
                                     </div>
                                 </div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="total_num" label="成交单数">
                         </el-table-column>
-                        <el-table-column prop="total_order_amount" label="消费金额">
+                        <el-table-column
+                            prop="total_order_amount"
+                            label="消费金额"
+                        >
                             <template v-slot="scope">
-                                ¥{{scope.row.total_order_amount}}
+                                ¥{{ scope.row.total_order_amount }}
                             </template>
                         </el-table-column>
                     </el-table>
                 </div>
             </el-card>
         </div>
+
+            <!-- <material-select /> -->
     </div>
 </template>
 
-<script>
-export default {
-    setup() {},
-}
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
+    setup() {
+       
+    },
+})
 </script>
 
 <style lang="scss" scoped>

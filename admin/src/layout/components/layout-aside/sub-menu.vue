@@ -1,5 +1,5 @@
 <template>
-    <template v-if="!route.hidden">
+    <template v-if="!route.meta.hidden">
         <el-sub-menu v-if="hasChildren" :index="route.path">
             <template #title>
                 <span>{{ route.meta.title }}</span>
@@ -14,9 +14,10 @@
 </template>
 
 
-<script>
-import { computed } from 'vue'
-export default {
+<script lang="ts">
+import { computed, defineComponent } from 'vue'
+import { RouteRecordRaw } from 'vue-router'
+export default defineComponent({
     components: {},
     props: {
         route: {
@@ -26,12 +27,12 @@ export default {
     },
     setup(props) {
         const hasChildren = computed(() => {
-            const children = props.route.children ?? []
-            return !!children.filter((item) => !item.hidden).length
+            const children:  RouteRecordRaw[] = props.route.children ?? []
+            return !!children.filter((item) => !item.meta?.hidden).length
         })
         return {
             hasChildren,
         }
     },
-}
+})
 </script>

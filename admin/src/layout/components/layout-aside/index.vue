@@ -16,12 +16,12 @@
                 <template v-for="(item, index) in sidebar" :key="index">
                     <sub-menu :route="item">
                         <template
-                            v-for="(item, index) in item.children"
+                            v-for="(item, index) in item?.children"
                             :key="index"
                         >
                             <sub-menu :route="item">
                                 <template
-                                    v-for="(item, index) in item.children"
+                                    v-for="(item, index) in item?.children"
                                     :key="index"
                                 >
                                     <sub-menu :route="item"></sub-menu>
@@ -36,26 +36,26 @@
 </template>
 
 
-<script>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
+<script lang="ts">
+import { computed, defineComponent } from 'vue'
+import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
-import SubMenu from './sub-menu'
-export default {
+import SubMenu from './sub-menu.vue'
+export default defineComponent({
     components: {
         SubMenu
     },
     setup() {
         const store = useStore()
         const route = useRoute()
-        const sidebar = computed(() => store.getters.sidebar)
+        const sidebar = computed(() => store.state.permission.sidebar)
         const currentPath = computed(() => route.meta?.parent ?? route.path)
         return {
             sidebar,
             currentPath,
         }
     },
-}
+})
 </script>
 
 

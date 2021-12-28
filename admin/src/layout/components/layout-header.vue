@@ -1,3 +1,4 @@
+
 <template>
     <div class="layout-header">
         <input class="search-input" placeholder="请输入搜索内容…" type="text" />
@@ -21,8 +22,9 @@
 </template>
 
 
-<script>
-export default {}
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({})
 </script>
 
 

@@ -279,3 +279,11 @@ stretch stretch {
     border-radius: 8px;
     background-color: $color-white;
 }
+
+
+.clearfix:after{
+	content: ""; 
+	display: block; 
+	clear: both; 
+	visibility: hidden;  
+}  
