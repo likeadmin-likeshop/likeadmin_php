@@ -4,7 +4,7 @@ const API = {
     // 登录
     login: "/login/account",
     // 退出登录
-    logout: "/logout",
+    logout: "/login/logout",
 };
 
 interface login {

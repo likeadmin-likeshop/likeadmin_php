@@ -5,14 +5,16 @@
         <div class="admin-info flex flex-center m-l-40">
             <el-avatar :size="40" src=""></el-avatar>
             <div class="m-l-10">
-                <el-dropdown trigger="hover">
+                <el-dropdown trigger="hover" @command="handleCommand">
                     <div class="flex flex-center">
                         管理员
                         <el-icon class="el-icon--right"><arrow-down /></el-icon>
                     </div>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item>退出登录</el-dropdown-item>
+                            <el-dropdown-item command="logout"
+                                >退出登录</el-dropdown-item
+                            >
                         </el-dropdown-menu>
                     </template>
                 </el-dropdown>
@@ -23,8 +25,26 @@
 
 
 <script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({})
+import { defineComponent } from 'vue'
+import { useStore } from '@/store'
+import { useRouter } from 'vue-router'
+export default defineComponent({
+    setup() {
+        const store = useStore()
+        const router = useRouter()
+        const handleCommand = (command: string) => {
+            switch (command) {
+                case 'logout':
+                    store.dispatch('user/logout').then(() => {
+                        router.push('/login')
+                    })
+            }
+        }
+        return {
+            handleCommand,
+        }
+    },
+})
 </script>
 
 
