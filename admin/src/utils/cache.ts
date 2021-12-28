@@ -1,5 +1,7 @@
+
+
 const cache = {
-    key: "cache_",
+    key: "like_admin_",
     //设置缓存(expire为缓存时效)
     set(key: string, value: any, expire?: string) {
         key = this.getKey(key);
@@ -22,6 +24,7 @@ const cache = {
             if (!data) return false;
             const { value, expire } = JSON.parse(data);
             if (expire && expire < this.time()) {
+
                 window.localStorage.removeItem(key);
                 return false;
             } else {
@@ -41,9 +44,6 @@ const cache = {
     },
     getKey(key: string) {
         return this.key + key;
-    },
-    setKey(key: string) {
-        this.key = key + "_";
     },
 };
 

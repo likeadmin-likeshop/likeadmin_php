@@ -49,7 +49,7 @@ export function filterObject(target: any, filters: any []) {
  * @param context
  * @return { Function }
  */
-export function throttle(func: () => void, time = 1000, context: any) {
+export function throttle(func: () => any, time = 1000, context?: any): any {
     let previous = new Date(0).getTime()
     return function (...args: []) {
         let now = new Date().getTime()

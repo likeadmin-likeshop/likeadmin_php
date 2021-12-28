@@ -6,11 +6,10 @@ export interface UserModule {
     token: string;
     user: object;
 }
-
 const user: Module<UserModule, any> = {
     namespaced: true,
     state: {
-        token: "",
+        token: cache.get(TOKEN) || "",
         user: {},
     },
     mutations: {
