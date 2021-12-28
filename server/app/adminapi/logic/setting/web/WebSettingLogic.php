@@ -17,7 +17,7 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-namespace app\adminapi\logic\setting;
+namespace app\adminapi\logic\setting\web;
 
 
 use app\common\logic\BaseLogic;

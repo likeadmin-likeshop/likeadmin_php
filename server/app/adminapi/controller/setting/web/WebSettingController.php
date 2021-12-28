@@ -17,10 +17,10 @@
 // | author: likeshopTeam
 // +----------------------------------------------------------------------
 
-namespace app\adminapi\controller\setting;
+namespace app\adminapi\controller\setting\web;
 
 use app\adminapi\controller\BaseAdminController;
-use app\adminapi\logic\setting\WebSettingLogic;
+use app\adminapi\logic\setting\web\WebSettingLogic;
 use app\adminapi\validate\setting\WebSettingValidate;
 
 /**
