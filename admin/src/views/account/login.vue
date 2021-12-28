@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import { ACCOUNT } from '@/config/cachekey'
 import cache from '@/utils/cache'
 import { useRouter } from 'vue-router'
@@ -97,7 +97,7 @@ export default defineComponent({
                     account: loginForm.account,
                 })
                 store
-                    .dispatch('login', loginForm)
+                    .dispatch('user/login', loginForm)
                     .then(() => {
                         router.push({
                             path: '/',

@@ -1,23 +1,18 @@
 import request from "@/utils/request";
-
+import { terminal } from '@/config/app'
 const API = {
     // 登录
-    login: "/login",
+    login: "/login/account",
     // 退出登录
     logout: "/logout",
 };
 
-/**
- * login func
- * params: {
- *     account: '',
- *     password: '',
- * }
- * @param params
- * @returns {*}
- */
-export function login(params: any) {
-    return request.post(API.login, params);
+interface login {
+    account: string;
+    password: string;
+}
+export function login(params: login):Promise<any> {
+    return request.post(API.login, {...params, terminal});
 }
 
 export function logout() {

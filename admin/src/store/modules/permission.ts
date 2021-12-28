@@ -6,6 +6,7 @@ export interface PermissionModule {
 }
 
 const permission: Module<PermissionModule, any> = {
+    namespaced: true,
     state: {
         sidebar: []
     },

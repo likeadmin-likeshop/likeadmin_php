@@ -4,6 +4,7 @@ export interface AppModule {
 }
 
 const app: Module<AppModule, any> = {
+    namespaced: true,
     state: {
         
     },

@@ -14,7 +14,7 @@ NProgress.configure({ showSpinner: false });
 const allowList = ["/login"];
 
 router.beforeEach(async (to, from, next) => {
-    store.commit("setSidebar", asyncRoutes[0].children);
+    store.commit("permission/setSidebar", asyncRoutes[0].children);
     // 开始 Progress Bar
     NProgress.start();
     next();
