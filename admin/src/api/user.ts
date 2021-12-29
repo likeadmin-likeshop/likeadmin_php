@@ -11,7 +11,7 @@ interface login {
     account: string;
     password: string;
 }
-export function login(params: login):Promise<any> {
+export function login(params: login){
     return request.post(API.login, {...params, terminal});
 }
 

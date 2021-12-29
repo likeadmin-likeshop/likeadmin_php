@@ -47,8 +47,7 @@ export default defineComponent({
         },
         // 请求函数
         fun: {
-            type: Function,
-            default: () => {},
+            type: Function
         },
     },
     setup(props) {
@@ -58,17 +57,22 @@ export default defineComponent({
             page_size: pageSize.value,
             lists: [],
             total: 0,
-            loading: true
+            loading: false,
         })
 
         const getLists = () => {
+            if (!props.fun) return
+            pages.loading = true
             props
                 .fun({
                     page_no: pages.page_no,
                     page_size: pages.page_size,
                     ...params.value,
                 })
-                .then(() => {})
+                .then((data: any) => {
+                    pages.lists = data.lists
+                    pages.total = data.total
+                })
                 .finally(() => {
                     pages.loading = false
                 })
@@ -90,7 +94,7 @@ export default defineComponent({
             layout,
             getLists,
             refresh,
-            getPages
+            getPages,
         }
     },
 })

@@ -22,8 +22,8 @@ const eventResponse = {
 	},
 	// 重定向
 	redirect: throttle(()=> {
-		store.commit("setToken", "");
-        store.commit("setUser", {});
+		store.commit("user/setToken", "");
+        store.commit("user/setUser", {});
         cache.remove(TOKEN);
 		router.push('/login')
 		return Promise.reject();

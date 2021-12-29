@@ -36,42 +36,79 @@
                 <el-button type="primary" size="small">新增管理员</el-button>
             </router-link>
             <div class="m-t-15">
-                <el-table :data="[]" size="medium">
-                    <el-table-column
-                        label="用户信息"
-                        min-width="300"
-                        show-overflow-tooltip
-                    >
-                        <template v-slot="scope">
-                            <div class="flex">
-                                <el-image
-                                    :src="scope.row.avatar"
-                                    style="width: 34px; height: 34px"
-                                    class="flex-none"
-                                >
-                                </el-image>
-                                <div class="m-l-10 line-1">
-                                    {{ scope.row.nickname }}
-                                </div>
-                            </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="total_num" label="成交单数">
-                    </el-table-column>
-                    <el-table-column prop="total_order_amount" label="消费金额">
-                        <template v-slot="scope">
-                            ¥{{ scope.row.total_order_amount }}
-                        </template>
-                    </el-table-column>
-                </el-table>
+                <pagination :fun="adminLists" :params="formData">
+                    <template v-slot="{ lists }">
+                        <el-table :data="lists" size="medium">
+                            <el-table-column label="ID" prop="id">
+                            </el-table-column>
+                            <el-table-column label="头像">
+                                <template v-slot="{ row }">
+                                    <el-avatar
+                                        :size="50"
+                                        :src="row.avatar"
+                                    ></el-avatar>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="账号" prop="account">
+                            </el-table-column>
+                            <el-table-column label="名称" prop="name">
+                            </el-table-column>
+                            <el-table-column label="角色" prop="role_name">
+                            </el-table-column>
+                            <el-table-column
+                                label="创建时间"
+                                prop="create_time"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                                label="最近登录时间"
+                                prop="login_time"
+                            >
+                            </el-table-column>
+                            <el-table-column label="最近登录IP" prop="login_ip">
+                            </el-table-column>
+                            <el-table-column label="状态">
+                                <template v-slot="{ row }">
+                                    <el-switch
+                                        v-model="row.disable"
+                                        :active-value="0"
+                                        :inactive-value="1"
+                                        @change="changeStatus(row)"
+                                    />
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="操作">
+                                <span class="m-r-10">
+                                    <el-button type="text" size="mini" @click=""
+                                        >编辑
+                                    </el-button>
+                                </span>
+                                <popup class="m-r-10 inline" @confirm="">
+                                    <template #trigger>
+                                        <el-button type="text" size="mini"
+                                            >删除
+                                        </el-button>
+                                    </template>
+                                </popup>
+                            </el-table-column>
+                        </el-table>
+                    </template>
+                </pagination>
             </div>
         </el-card>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent,reactive } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import Pagination from '@/components/pagination/index.vue'
+import Popup from '@/components/popup/index.vue'
+import { adminEdit, adminLists } from '@/api/auth'
 export default defineComponent({
+    components: {
+        Pagination,
+        Popup,
+    },
     setup() {
         // 表单数据
         const formData = reactive({
@@ -79,9 +116,20 @@ export default defineComponent({
             name: '',
             role: '',
         })
-
+        const changeStatus = (data: any) => {
+            adminEdit({
+                id: data.id,
+                account: data.account,
+                name: data.name,
+                role_id: data.role_id,
+                disable: data.disable,
+                multipoint_login: data.multipoint_login,
+            })
+        }
         return {
             formData,
+            adminLists,
+            changeStatus,
         }
     },
 })

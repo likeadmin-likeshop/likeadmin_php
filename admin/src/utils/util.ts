@@ -54,8 +54,8 @@ export function throttle(func: () => any, time = 1000, context?: any): any {
     return function (...args: []) {
         let now = new Date().getTime()
         if (now - previous > time) {
-            func.apply(context, args)
             previous = now
+            return func.apply(context, args)
         }
     }
 }
