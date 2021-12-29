@@ -37,51 +37,54 @@ class RoleController extends BaseAdminController
     /**
      * @notes 查看角色列表
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 10:40
+     * @author 段誉
+     * @date 2021/12/29 11:49
      */
     public function lists()
     {
         return $this->dataLists(new RoleLists());
     }
 
+
     /**
      * @notes 添加权限
      * @return \think\response\Json
-     * @author cjhao
-     * @date 2021/8/25 16:08
+     * @author 段誉
+     * @date 2021/12/29 11:49
      */
     public function add()
     {
         $params = (new RoleValidate())->post()->goCheck('add');
-        $res = (new RoleLogic)->add($params);
+        $res = RoleLogic::add($params);
         if (true === $res) {
             return $this->success('添加成功', [], 1, 1);
         }
-        return $this->fail($res);
+        return $this->fail(RoleLogic::getError());
     }
+
 
     /**
      * @notes 编辑角色
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 10:52
+     * @author 段誉
+     * @date 2021/12/29 14:18
      */
     public function edit()
     {
         $params = (new RoleValidate())->post()->goCheck('edit');
-        $res = (new RoleLogic)->edit($params);
+        $res = RoleLogic::edit($params);
         if (true === $res) {
             return $this->success('编辑成功', [], 1, 1);
         }
-        return $this->fail($res);
+        return $this->fail(RoleLogic::getError());
     }
+
 
     /**
      * @notes 删除角色
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 10:53
+     * @author 段誉
+     * @date 2021/12/29 14:18
      */
     public function delete()
     {
@@ -90,11 +93,15 @@ class RoleController extends BaseAdminController
         return $this->success('删除成功');
     }
 
+
     /**
      * @notes 查看角色详情
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 11:10
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2021/12/29 14:18
      */
     public function detail()
     {

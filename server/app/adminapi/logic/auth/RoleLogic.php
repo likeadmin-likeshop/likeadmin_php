@@ -37,15 +37,15 @@ class RoleLogic extends BaseLogic
 
     /**
      * @notes 添加角色
-     * @param $params
-     * @author cjhao
-     * @date 2021/8/25 16:08
+     * @param array $params
+     * @return bool
+     * @author 段誉
+     * @date 2021/12/29 11:50
      */
-    public function add(array $params)
+    public static function add(array $params) : bool
     {
         Db::startTrans();
         try{
-
             $authKeys = $params['auth_keys'];
             //处理规格值
             array_walk($authKeys, function (&$auth){
@@ -63,23 +63,23 @@ class RoleLogic extends BaseLogic
 
         } catch (\Exception $e) {
             Db::rollback();
-            return $e->getMessage();
+            self::$error =$e->getMessage();
+            return false;
         }
-
     }
+
 
     /**
      * @notes 编辑角色
      * @param array $params
-     * @return bool|string
-     * @author cjhao
-     * @date 2021/8/25 20:47
+     * @return bool
+     * @author 段誉
+     * @date 2021/12/29 14:16
      */
-    public function edit(array $params)
+    public static function edit(array $params) : bool
     {
         Db::startTrans();
         try{
-
             $authKeys = $params['auth_keys'];
             //处理规格值
             array_walk($authKeys, function (&$auth){
@@ -94,22 +94,23 @@ class RoleLogic extends BaseLogic
             $role->save();
             $role->roleAuthIndex()->saveAll($authKeys);
             (new AdminAuthCache())->deleteTag();
+
             Db::commit();
             return true;
 
         } catch (\Exception $e) {
             Db::rollback();
-            return $e->getMessage();
+            self::$error = $e->getMessage();
+            return false;
         }
-
     }
 
     /**
      * @notes 删除角色
      * @param int $id
      * @return bool
-     * @author cjhao
-     * @date 2021/8/25 20:47
+     * @author 段誉
+     * @date 2021/12/29 14:16
      */
     public static function delete(int $id)
     {
@@ -126,13 +127,12 @@ class RoleLogic extends BaseLogic
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author cjhao
-     * @date 2021/8/25 17:58
+     * @author 段誉
+     * @date 2021/12/29 14:17
      */
-    public function detail(int $id):array
+    public static function detail(int $id) : array
     {
-        $detail = Role::field('id,name,desc')
-            ->find($id);
+        $detail = Role::field('id,name,desc')->find($id);
         $authList = $detail->roleAuthIndex()->select()->toArray();
         $authKeys = array_column($authList,'auth_key');
         $detail->auth_keys = $authKeys;
