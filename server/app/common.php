@@ -72,3 +72,39 @@ function checkDirWrite(string $dir = '') : bool
     return is_writable($route);
 }
 
+
+/**
+ * 多级线性结构排序
+ * 转换前：
+ * [{"id":1,"pid":0,"name":"a"},{"id":2,"pid":0,"name":"b"},{"id":3,"pid":1,"name":"c"},
+ * {"id":4,"pid":2,"name":"d"},{"id":5,"pid":4,"name":"e"},{"id":6,"pid":5,"name":"f"},
+ * {"id":7,"pid":3,"name":"g"}]
+ * 转换后：
+ * [{"id":1,"pid":0,"name":"a","level":1},{"id":3,"pid":1,"name":"c","level":2},{"id":7,"pid":3,"name":"g","level":3},
+ * {"id":2,"pid":0,"name":"b","level":1},{"id":4,"pid":2,"name":"d","level":2},{"id":5,"pid":4,"name":"e","level":3},
+ * {"id":6,"pid":5,"name":"f","level":4}]
+ * @param array $data 线性结构数组
+ * @param string $symbol 名称前面加符号
+ * @param string $name 名称
+ * @param string $id_name 数组id名
+ * @param string $parent_id_name 数组祖先id名
+ * @param int $level 此值请勿给参数
+ * @param int $parent_id 此值请勿给参数
+ * @return array
+ */
+function linear_to_tree($data, $sub_key_name = 'sub', $id_name = 'id', $parent_id_name = 'pid', $parent_id = 0)
+{
+    $tree = [];
+    foreach ($data as $row) {
+        if ($row[$parent_id_name] == $parent_id) {
+            $temp = $row;
+            $child = linear_to_tree($data, $sub_key_name, $id_name, $parent_id_name, $row[$id_name]);
+            if($child){
+                $temp[$sub_key_name] = $child;
+            }
+            $tree[] = $temp;
+        }
+    }
+    return $tree;
+}
+

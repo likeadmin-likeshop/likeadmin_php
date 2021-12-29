@@ -32,21 +32,24 @@ use think\response\Json;
  */
 class FileController extends BaseAdminController
 {
+
     /**
      * @notes 文件列表
-     * @author 张无忌
-     * @date 2021/7/28 14:52
+     * @return Json
+     * @author 段誉
+     * @date 2021/12/29 14:30
      */
     public function lists()
     {
         return $this->dataLists(new FileLists());
     }
 
+
     /**
-     * @notes 移动成功
+     * @notes 文件移动成功
      * @return Json
-     * @author 张无忌
-     * @date 2021/7/28 15:33
+     * @author 段誉
+     * @date 2021/12/29 14:30
      */
     public function move()
     {
@@ -55,11 +58,12 @@ class FileController extends BaseAdminController
         return $this->success('移动成功', [], 1, 1);
     }
 
+
     /**
      * @notes 重命名文件
      * @return Json
-     * @author 张无忌
-     * @date 2021/7/29 17:17
+     * @author 段誉
+     * @date 2021/12/29 14:31
      */
     public function rename()
     {
@@ -68,10 +72,12 @@ class FileController extends BaseAdminController
         return $this->success('重命名成功', [], 1, 1);
     }
 
+
     /**
      * @notes 删除文件
-     * @author 张无忌
-     * @date 2021/7/28 15:40
+     * @return Json
+     * @author 段誉
+     * @date 2021/12/29 14:31
      */
     public function delete()
     {
@@ -80,21 +86,24 @@ class FileController extends BaseAdminController
         return $this->success('删除成功', [], 1, 1);
     }
 
+
     /**
      * @notes 分类列表
-     * @author 张无忌
-     * @date 2021/7/28 18:34
+     * @return Json
+     * @author 段誉
+     * @date 2021/12/29 14:31
      */
     public function listCate()
     {
         return $this->dataLists(new FileCateLists());
     }
 
+
     /**
      * @notes 添加文件分类
      * @return Json
-     * @author 张无忌
-     * @date 2021/7/28 14:02
+     * @author 段誉
+     * @date 2021/12/29 14:31
      */
     public function addCate()
     {
@@ -103,11 +112,12 @@ class FileController extends BaseAdminController
         return $this->success('添加成功', [], 1, 1);
     }
 
+
     /**
      * @notes 编辑文件分类
      * @return Json
-     * @author 张无忌
-     * @date 2021/7/28 14:16
+     * @author 段誉
+     * @date 2021/12/29 14:31
      */
     public function editCate()
     {
@@ -116,11 +126,12 @@ class FileController extends BaseAdminController
         return $this->success('编辑成功', [], 1, 1);
     }
 
+
     /**
      * @notes 删除文件分类
      * @return Json
-     * @author 张无忌
-     * @date 2021/7/28 14:50
+     * @author 段誉
+     * @date 2021/12/29 14:32
      */
     public function delCate()
     {

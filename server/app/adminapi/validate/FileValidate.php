@@ -22,6 +22,11 @@ namespace app\adminapi\validate;
 
 use app\common\validate\BaseValidate;
 
+/**
+ * 文件验证
+ * Class FileValidate
+ * @package app\adminapi\validate
+ */
 class FileValidate extends BaseValidate
 {
     protected $rule = [
@@ -42,65 +47,72 @@ class FileValidate extends BaseValidate
         'name.require' => '缺少name参数',
     ];
 
+
     /**
      * @notes id验证场景
      * @return FileValidate
-     * @author 张无忌
-     * @date 2021/7/28 15:40
+     * @author 段誉
+     * @date 2021/12/29 14:32
      */
     public function sceneId()
     {
         return $this->only(['id']);
     }
 
+
     /**
      * @notes 重命名文件场景
-     * @author 张无忌
-     * @date 2021/7/29 17:14
+     * @return FileValidate
+     * @author 段誉
+     * @date 2021/12/29 14:32
      */
     public function sceneRename()
     {
         return $this->only(['id', 'name']);
     }
 
+
     /**
      * @notes 新增分类场景
      * @return FileValidate
-     * @author 张无忌
-     * @date 2021/7/28 15:39
+     * @author 段誉
+     * @date 2021/12/29 14:33
      */
     public function sceneAddCate()
     {
         return $this->only(['type', 'pid', 'name']);
     }
 
+
     /**
      * @notes 编辑分类场景
      * @return FileValidate
-     * @author 张无忌
-     * @date 2021/7/28 15:39
+     * @author 段誉
+     * @date 2021/12/29 14:33
      */
     public function sceneEditCate()
     {
         return $this->only(['id', 'name']);
     }
 
+
     /**
      * @notes 移动场景
      * @return FileValidate
-     * @author 张无忌
-     * @date 2021/7/28 15:39
+     * @author 段誉
+     * @date 2021/12/29 14:33
      */
     public function sceneMove()
     {
         return $this->only(['ids', 'cid']);
     }
 
+
     /**
      * @notes 删除场景
      * @return FileValidate
-     * @author 张无忌
-     * @date 2021/7/28 15:39
+     * @author 段誉
+     * @date 2021/12/29 14:35
      */
     public function sceneDelete()
     {
