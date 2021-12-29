@@ -78,18 +78,28 @@
                                 </template>
                             </el-table-column>
                             <el-table-column label="操作">
-                                <span class="m-r-10">
-                                    <el-button type="text" size="mini" @click=""
-                                        >编辑
-                                    </el-button>
-                                </span>
-                                <popup class="m-r-10 inline" @confirm="">
-                                    <template #trigger>
+                                <template v-slot="{ row }">
+                                    <router-link
+                                        class="m-r-10"
+                                        :to="{
+                                            path: '/permission/admin/edit',
+                                            query: {
+                                                id: row.id,
+                                            },
+                                        }"
+                                    >
                                         <el-button type="text" size="mini"
-                                            >删除
+                                            >编辑
                                         </el-button>
-                                    </template>
-                                </popup>
+                                    </router-link>
+                                    <popup class="m-r-10 inline" @confirm="handleDelete">
+                                        <template #trigger>
+                                            <el-button type="text" size="mini"
+                                                >删除
+                                            </el-button>
+                                        </template>
+                                    </popup>
+                                </template>
                             </el-table-column>
                         </el-table>
                     </template>
@@ -126,10 +136,16 @@ export default defineComponent({
                 multipoint_login: data.multipoint_login,
             })
         }
+
+        const handleDelete = (id: number) => {
+
+        }
+
         return {
             formData,
             adminLists,
             changeStatus,
+            handleDelete
         }
     },
 })
