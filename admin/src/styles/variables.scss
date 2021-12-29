@@ -37,6 +37,7 @@ $font-size-md: 15px !default;
 $font-size-nr: 14px !default;
 $font-size-sm: 13px !default;
 $font-size-xs: 12px !default;
+$font-size-base: $font-size-sm;
 
 /* Background
 -------------------------- */
@@ -101,15 +102,15 @@ $font-size:(
     'extra-large': $font-size-xl,
     'large': $font-size-lg,
     'medium': $font-size-md,
-    'base': $font-size-nr,
+    'base': $font-size-base,
     'small': $font-size-sm,
     'extra-small': $font-size-xs,
 );
 
 $button-font-size:(
-    'default': $font-size-nr,
-    'medium': $font-size-nr,
-    'small': $font-size-nr,
+    'default': $font-size-base,
+    'medium': $font-size-base,
+    'small': $font-size-base,
     'mini': $font-size-sm,
 );
 

@@ -1,14 +1,14 @@
-
 // 引入所有样式
 @use "element-plus/theme-chalk/src/index.scss";
 
 
 .el-menu {
     border-right: none !important;
+
     .el-menu--horizontal {
         border-bottom: none;
     }
-    
+
 }
 
 .ls-scrollbar.el-scrollbar .el-scrollbar__wrap {
@@ -26,7 +26,7 @@
 }
 
 .el-input-group__prepend {
-    background-color:#FFF;
+    background-color: #FFF;
 }
 
 
@@ -45,24 +45,26 @@
 }
 
 // 弹窗居中
-.el-dialog {
-    display: flex;
-    flex-direction: column;
-    margin: 0 !important;
-    position: absolute;
-    border-radius: 5px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-height: calc(100% - 30px);
-    max-width: calc(100% - 30px);
+.el-overlay-dialog {
+    .el-dialog {
+        --el-dialog-content-font-size: var(--el-font-size-base);
+        display: flex;
+        flex-direction: column;
+        margin: 0 !important;
+        position: absolute;
+        border-radius: 5px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+    }
+
+    &.el-dialog__body {
+        flex: 1;
+        padding: 10px 20px;
+    }
 }
 
-.el-dialog .el-dialog__body {
-    flex: 1;
-    overflow: auto;
-    padding: 10px 20px;
-}
 
 .el-card {
     border: none;
@@ -70,6 +72,7 @@
 
 .el-form.ls-form {
     .el-form-item__content {
+        font-size: var(--el-font-size-base);
         &>.el-cascader,
         &>.el-select,
         &>.el-input {
@@ -79,7 +82,7 @@
     }
 }
 
-.el-table thead th{
+.el-table thead th {
     font-weight: 400;
 }
 

@@ -4,7 +4,7 @@
     <div class="del-wrap">
         <slot></slot>
         <div v-if="showClose" class="icon-close" @click="handleClose">
-            <el-icon><close-bold /></el-icon>
+            <el-icon :size="12"><close-bold /></el-icon>
         </div>
     </div>
 </template>

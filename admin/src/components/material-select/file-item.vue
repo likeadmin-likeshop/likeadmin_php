@@ -1,17 +1,15 @@
 
 <template>
     <del-wrap>
-        <div class="file-item">
+        <div class="file-item" :style="{ height: fileSize, width: fileSize }">
             <el-image
                 class="image"
-                :style="{ height: fileSize, width: fileSize }"
                 v-if="type == 'image'"
                 fit="contain"
                 :src="item.uri"
             ></el-image>
             <video
                 class="video"
-                :style="{ height: fileSize, width: fileSize }"
                 v-else-if="type == 'video'"
                 :src="item.uri"
             ></video>
@@ -26,19 +24,21 @@ import DelWrap from '@/components/del-wrap/index.vue'
 import { defineComponent, inject } from 'vue'
 export default defineComponent({
     components: {
-        DelWrap
+        DelWrap,
     },
     props: {
         item: {
             type: Object,
             default: () => ({}),
         },
+        fileSize: {
+            type: String,
+            default: '100px',
+        },
     },
     setup() {
-        const fileSize = inject('fileSize')
         const type = inject('type')
         return {
-            fileSize,
             type,
         }
     },
@@ -51,6 +51,8 @@ export default defineComponent({
     border: 1px solid $border-color-light;
     box-sizing: border-box;
     position: relative;
+    border-radius: 4px;
+    overflow: hidden;
     .image,
     .video {
         display: block;

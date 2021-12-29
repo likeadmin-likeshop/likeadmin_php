@@ -206,15 +206,13 @@
 
 .flex {
     display: flex;
+    flex-direction: row;
 }
 
 .flex-inline {
     display: inline-flex;
 }
 
-.flex-row {
-    flex-direction: row;
-}
 
 .flex-col {
     flex-direction: column;
@@ -224,30 +222,32 @@
     align-items: center;
     justify-content: center;
 }
+.flex-none { flex: none; }
 
-// Example: flex-main-[start|end|center|between|around]
-@each $short,
-$long in start flex-start,
-end flex-end,
-center center,
-between space-between,
-around space-around {
-    .flex-main-#{$short} {
-        justify-content: #{$long};
-    }
-}
+.flex-wrap { flex-wrap: wrap; }
 
-// Example: flex-cross-[start|end|center|baseline|stretch]
-@each $short,
-$long in start flex-start,
-end flex-end,
-center center,
-baseline baseline,
-stretch stretch {
-    .flex-cross-#{$short} {
-        align-items: #{$long};
-    }
-}
+.flex-nowrap { flex-wrap: nowrap; }
+
+.col-baseline {	align-items: baseline; }
+
+.col-center { align-items: center; }
+
+.col-top { align-items: flex-start; }
+
+.col-bottom { align-items: flex-end; }
+
+.col-stretch { align-items:stretch; }
+
+.row-center { justify-content: center; }
+
+.row-left { justify-content: flex-start; }
+
+.row-right { justify-content: flex-end; }
+
+.row-between { justify-content: space-between; }
+
+.row-around { justify-content: space-around; }
+
 
 // Example: flex-[0-24]
 @for $i from 0 through 24 {

@@ -80,7 +80,7 @@
                 </el-form-item>
 
                 <el-form-item label="管理员头像">
-                    <!-- <AvatarUploader v-model="formData.avatar" :data="{ dir: 'avatar' }" /> -->
+                    <material-select v-model="formData.avatar"></material-select>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -89,13 +89,18 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
+import MaterialSelect from '@/components/material-select/index.vue'
 export default defineComponent({
+    components: {
+        MaterialSelect
+    },
     setup() {
         // 表单数据
         const formData = reactive({
             account: '',
             name: '',
             role: '',
+            avatar: ''
         })
 
         return {

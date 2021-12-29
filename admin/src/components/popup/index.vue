@@ -9,8 +9,6 @@
             coustom-class="dialog__content"
             v-model="visible"
             :width="width"
-            :modal-append-to-body="true"
-            :append-to-body="true"
             :close-on-click-modal="clickModalClose"
         >
             <!-- 弹窗内容 -->
@@ -117,6 +115,7 @@ export default defineComponent({
             if (props.disabled) return
             visible.value = true
         }
+        provide('visible', visible)
         return {
             visible,
             handleEvent,

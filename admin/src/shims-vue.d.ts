@@ -14,10 +14,11 @@ declare module "@vue/runtime-core" {
   }
 }
 
-declare module "vue3-draggable" {
-  const d: any;
-  export default d;
+declare module "vuedraggable/src/vuedraggable" {
+	const d: any;
+	export default d;
 }
+
 
 declare module "nprogress" {
   export function configure(options: any): void;
