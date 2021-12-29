@@ -3,7 +3,7 @@
     <div class="website-information">
         <el-card shadow="never" class="m-t-15">
             <el-form :rules="rules" ref="form" class="ls-form" :model="form" label-width="150px" size="small">
-                <el-form-item label="网站名称" prop="name" >
+                <el-form-item label="网站名称" prop="name" required>
                     <el-input v-model="formData.name" placeholder="请输入网站名称"></el-input>
                 </el-form-item>
                 <el-form-item label="网站图标" prop="image" >
