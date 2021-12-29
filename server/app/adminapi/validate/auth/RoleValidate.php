@@ -47,23 +47,53 @@ class RoleValidate extends BaseValidate
         'auth_keys.array' => '权限格式错误'
     ];
 
+    /**
+     * @notes 添加场景
+     * @return RoleValidate
+     * @author 段誉
+     * @date 2021/12/29 15:47
+     */
     public function sceneAdd()
     {
         return $this->only(['name', 'auth_keys']);
     }
 
+    /**
+     * @notes 详情场景
+     * @return RoleValidate
+     * @author 段誉
+     * @date 2021/12/29 15:47
+     */
     public function sceneDetail()
     {
         return $this->only(['id']);
     }
 
+    /**
+     * @notes 删除场景
+     * @return RoleValidate
+     * @author 段誉
+     * @date 2021/12/29 15:48
+     */
     public function sceneDel()
     {
         return $this->only(['id'])
             ->append('id', 'checkAdmin');
     }
 
-    //验证角色是否存在
+
+    /**
+     * @notes 验证角色是否存在
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2021/12/29 15:48
+     */
     public function checkRole($value, $rule, $data)
     {
         if (!Role::find($value)) {
@@ -72,17 +102,39 @@ class RoleValidate extends BaseValidate
         return true;
     }
 
-    //验证角色是否被使用
+
+
+    /**
+     * @notes 验证角色是否被使用
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2021/12/29 15:49
+     */
     public function checkAdmin($value, $rule, $data)
     {
         if (Admin::where(['role_id' => $value])->find()) {
             return '有管理员在使用该角色，不允许删除';
         }
-
         return true;
     }
 
-    //验证权限数据是否完整
+
+
+    /**
+     * @notes 验证权限数据是否完整
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2021/12/29 15:50
+     */
     public function checkAuth($value, $rule, $data)
     {
         $configAuth = AuthLogic::getAuth();
@@ -90,7 +142,6 @@ class RoleValidate extends BaseValidate
         foreach ($value as $postAuth) {
             $keyList = explode('/', $postAuth);
             if (empty($keyList)) {
-
                 return '权限数据错误';
             }
             $keys = explode('.', $keyList[1] ?? '');

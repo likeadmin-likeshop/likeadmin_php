@@ -57,17 +57,35 @@ class AdminValidate extends BaseValidate
         'multipoint_login.in' => '多处登录状态值为误',
     ];
 
+    /**
+     * @notes 添加场景
+     * @return AdminValidate
+     * @author 段誉
+     * @date 2021/12/29 15:46
+     */
     public function sceneAdd()
     {
         return $this->remove(['password', 'edit'])
             ->remove('id', 'require|checkAdmin');
     }
 
+    /**
+     * @notes 详情场景
+     * @return AdminValidate
+     * @author 段誉
+     * @date 2021/12/29 15:46
+     */
     public function sceneDetail()
     {
         return $this->only(['id']);
     }
 
+    /**
+     * @notes 编辑场景
+     * @return AdminValidate
+     * @author 段誉
+     * @date 2021/12/29 15:47
+     */
     public function sceneEdit()
     {
         return $this->remove('password', 'require|length')
@@ -75,6 +93,12 @@ class AdminValidate extends BaseValidate
     }
 
 
+    /**
+     * @notes 删除场景
+     * @return AdminValidate
+     * @author 段誉
+     * @date 2021/12/29 15:47
+     */
     public function sceneDelete()
     {
         return $this->only(['id']);

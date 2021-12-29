@@ -34,8 +34,8 @@ class ConfigController extends BaseAdminController
     /**
      * @notes 获取权限
      * @return \think\response\Json
-     * @author cjhao
-     * @date 2021/12/27 16:00
+     * @author 段誉
+     * @date 2021/12/29 15:45
      */
     public function getAuth()
     {
