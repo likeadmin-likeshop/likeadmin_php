@@ -36,40 +36,40 @@ use think\facade\Db;
  */
 class AdminLogic extends BaseLogic
 {
+
     /**
      * @notes 添加管理员
-     * @param $params
-     * @author Tab
-     * @date 2021/7/13 11:44
+     * @param array $params
+     * @author 段誉
+     * @date 2021/12/29 10:23
      */
-    public static function add($params)
+    public static function add(array $params)
     {
-        $time = time();
         $passwordSalt = Config::get('project.unique_identification');
         $password = create_password($params['password'], $passwordSalt);
-        $avatar = isset($params['avatar']) && !empty($params['avatar']) ? FileService::setFileUrl($params['avatar']) : config('project.default_image.admin_avatar');
-        $data = [
+        $avatar = !empty($params['avatar']) ? FileService::setFileUrl($params['avatar']) : config('project.default_image.admin_avatar');
+
+        Admin::create([
             'name' => $params['name'],
             'account' => $params['account'],
             'avatar' => $avatar,
             'password' => $password,
             'role_id' => $params['role_id'],
-            'create_time' => $time,
+            'create_time' => time(),
             'disable' => $params['disable'],
             'multipoint_login' => $params['multipoint_login'],
-        ];
-
-        Admin::create($data);
+        ]);
     }
+
 
     /**
      * @notes 编辑管理员
-     * @param $params
+     * @param array $params
      * @return bool
-     * @author Tab
-     * @date 2021/7/13 11:47
+     * @author 段誉
+     * @date 2021/12/29 10:43
      */
-    public static function edit($params)
+    public static function edit(array $params) : bool
     {
         Db::startTrans();
         try {
@@ -77,25 +77,29 @@ class AdminLogic extends BaseLogic
             if ($params['account'] == 'admin' && $params['disable'] == YesNoEnum::YES) {
                 throw new \Exception("超级管理员不允许被禁用");
             }
-            $avatar = isset($params['avatar']) && !empty($params['avatar']) ? FileService::setFileUrl($params['avatar']) : '';
+
+            // 基础信息
             $data = [
                 'id' => $params['id'],
                 'name' => $params['name'],
                 'account' => $params['account'],
                 'role_id' => $params['role_id'],
                 'disable' => $params['disable'],
-                'avatar' => $avatar,
                 'multipoint_login' => $params['multipoint_login']
             ];
 
+            // 头像
+            $data['avatar'] = !empty($params['avatar']) ? FileService::setFileUrl($params['avatar']) : '';
+
+            // 密码
             if (!empty($params['password'])) {
                 $passwordSalt = Config::get('project.unique_identification');
                 $data['password'] = create_password($params['password'], $passwordSalt);
             }
 
+            // 禁用或更换角色后.设置token过期
             $role_id = Admin::where('id', $params['id'])->value('role_id');
             if ($params['disable'] == 1 || $role_id != $params['role_id']) {
-                // 禁用或更换角色后，让之前登录的token都过期(无论是否支持多处登录)
                 $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
                 foreach ($tokenArr as $token) {
                     self::expireToken($token['token']);
@@ -105,7 +109,6 @@ class AdminLogic extends BaseLogic
             Admin::update($data);
             (new AdminAuthCache($params['id']))->clearAuthCache();
 
-
             Db::commit();
             return true;
         } catch (\Exception $e) {
@@ -115,14 +118,15 @@ class AdminLogic extends BaseLogic
         }
     }
 
+
     /**
      * @notes 删除管理员
-     * @param $params
+     * @param array $params
      * @return bool
-     * @author Tab
-     * @date 2021/7/13 11:50
+     * @author 段誉
+     * @date 2021/12/29 10:45
      */
-    public static function delete($params)
+    public static function delete(array $params) : bool
     {
         Db::startTrans();
         try {
@@ -132,12 +136,13 @@ class AdminLogic extends BaseLogic
             }
             Admin::destroy($params['id']);
 
-            // 删除后，让之前登录的token都过期(无论是否支持多处登录)
+            //设置token过期
             $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
             foreach ($tokenArr as $token) {
                 self::expireToken($token['token']);
             }
             (new AdminAuthCache($params['id']))->clearAuthCache();
+
             Db::commit();
             return true;
         } catch (\Exception $e) {
@@ -147,17 +152,18 @@ class AdminLogic extends BaseLogic
         }
     }
 
+
     /**
-     * @notes 将token变为无效
+     * @notes
      * @param $token
-     * @return false
+     * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author Tab
-     * @date 2021/7/13 11:50
+     * @author 段誉
+     * @date 2021/12/29 10:46
      */
-    public static function expireToken($token)
+    public static function expireToken($token) : bool
     {
         $adminSession = AdminSession::where('token', '=', $token)
             ->with('admin')
@@ -172,8 +178,9 @@ class AdminLogic extends BaseLogic
         $adminSession->update_time = $time;
         $adminSession->save();
 
-        (new  AdminTokenCache())->deleteAdminInfo($token);
+        return (new AdminTokenCache())->deleteAdminInfo($token);
     }
+
 
     /**
      * @notes 查看管理员详情
@@ -182,10 +189,10 @@ class AdminLogic extends BaseLogic
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author Tab
-     * @date 2021/7/13 11:52
+     * @author 段誉
+     * @date 2021/12/29 10:50
      */
-    public static function detail($params)
+    public static function detail($params) : array
     {
         return Admin::field('account,name,role_id,disable,multipoint_login,avatar')->find($params['id'])->toArray();
     }
