@@ -181,8 +181,8 @@ class AdminAuthCache extends BaseCache
      * @notes 获取管理员权限
      * @param int $adminId
      * @return array
-     * @author cjhao
-     * @date 2021/10/13 17:42
+     * @author 段誉
+     * @date 2021/12/29 9:18
      */
     public function getKeyAuth(int $adminId) : array
     {
@@ -192,8 +192,7 @@ class AdminAuthCache extends BaseCache
         if (empty($role)) {
             return [];
         }
-        $roleAuthKeys = array_column($role['role_auth_index'], 'auth_key');
-        return $roleAuthKeys;
+        return array_column($role['role_auth_index'], 'auth_key');
     }
 
     /**

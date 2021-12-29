@@ -36,8 +36,8 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
     /**
      * @notes 设置导出字段
      * @return string[]
-     * @author 令狐冲
-     * @date 2021/7/21 16:04
+     * @author 段誉
+     * @date 2021/12/29 10:08
      */
     public function setExcelFields(): array
     {
@@ -52,22 +52,24 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
         ];
     }
 
+
     /**
      * @notes 设置导出文件名
      * @return string
-     * @author 令狐冲
-     * @date 2021/7/26 17:49
+     * @author 段誉
+     * @date 2021/12/29 10:08
      */
     public function setFileName(): string
     {
         return '管理员列表';
     }
 
+
     /**
      * @notes 设置搜索条件
      * @return \string[][]
-     * @author 令狐冲
-     * @date 2021/7/13 00:52
+     * @author 段誉
+     * @date 2021/12/29 10:07
      */
     public function setSearch(): array
     {
@@ -77,23 +79,25 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
         ];
     }
 
+
     /**
      * @notes 设置支持排序字段
      * @return string[]
-     * @author 令狐冲
-     * @date 2021/7/15 23:40
+     * @author 段誉
+     * @date 2021/12/29 10:07
+     * @remark 格式: ['前端传过来的字段名' => '数据库中的字段名'];
      */
     public function setSortFields(): array
     {
-        // 格式: ['前端传过来的字段名' => '数据库中的字段名'];
         return ['create_time' => 'create_time', 'id' => 'id'];
     }
+
 
     /**
      * @notes 设置默认排序
      * @return string[]
-     * @author 令狐冲
-     * @date 2021/7/16 00:04
+     * @author 段誉
+     * @date 2021/12/29 10:06
      */
     public function setDefaultOrder(): array
     {
@@ -107,12 +111,17 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 令狐冲
-     * @date 2021/7/13 00:52
+     * @author 段誉
+     * @date 2021/12/29 10:05
      */
     public function lists(): array
     {
-        $adminLists = Admin::field(['id', 'name', 'account', 'role_id', 'create_time', 'disable', 'login_time', 'login_ip', 'multipoint_login', 'avatar'])
+        $field = [
+            'id', 'name', 'account', 'role_id', 'create_time', 'disable',
+            'login_time', 'login_ip', 'multipoint_login', 'avatar'
+        ];
+
+        $adminLists = Admin::field($field)
             ->where($this->searchWhere)
             ->append(['disable_desc'])
             ->limit($this->limitOffset, $this->limitLength)

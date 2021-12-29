@@ -20,6 +20,7 @@
 namespace app\adminapi\controller\auth;
 
 use app\adminapi\controller\BaseAdminController;
+use app\adminapi\lists\auth\AdminLists;
 use app\adminapi\validate\auth\AdminValidate;
 use app\adminapi\logic\auth\AdminLogic;
 
@@ -30,28 +31,30 @@ use app\adminapi\logic\auth\AdminLogic;
  */
 class AdminController extends BaseAdminController
 {
+
     /**
      * @notes 查看管理员列表
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 11:32
+     * @author 段誉
+     * @date 2021/12/29 9:55
      */
     public function lists()
     {
-        return $this->dataLists();
+        return $this->dataLists(new AdminLists());
     }
+
 
     /**
      * @notes 添加管理员
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 11:33
+     * @author 段誉
+     * @date 2021/12/29 10:21
      */
     public function add()
     {
         $params = (new AdminValidate())->post()->goCheck('add');
         AdminLogic::add($params);
-        return $this->success('添加管理员成功');
+        return $this->success('添加成功');
     }
 
     /**

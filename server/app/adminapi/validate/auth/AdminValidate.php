@@ -74,36 +74,35 @@ class AdminValidate extends BaseValidate
             ->append('id', 'require|checkAdmin');
     }
 
+
     public function sceneDelete()
     {
         return $this->only(['id']);
     }
 
+
     /**
      * @notes 检查账号是否已被使用
      * @param $value
+     * @param $rule
+     * @param $data
      * @return bool|string
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author Tab
-     * @date 2021/7/13 11:38
+     * @author 段誉
+     * @date 2021/12/29 10:17
      */
     public function checkUsed($value, $rule, $data)
     {
-        $where = [
-            ['account', '=', $value]
-        ];
-        // 编辑的情况，要排除自身ID
+        $where[] = ['account', '=', $value];
         if (isset($data['id'])) {
             $where[] = ['id', '<>', $data['id']];
         }
-        $admins = Admin::where($where)->select()->toArray();
-        if ($admins) {
+        $admin = Admin::where($where)->findOrEmpty();
+        if (!$admin->isEmpty()) {
             return '账号已被占用';
         }
         return true;
     }
+
 
     /**
      * @notes 编辑情况下，检查是否填密码
@@ -111,8 +110,8 @@ class AdminValidate extends BaseValidate
      * @param $rule
      * @param $data
      * @return bool|string
-     * @author Tab
-     * @date 2021/7/13 11:38
+     * @author 段誉
+     * @date 2021/12/29 10:19
      */
     public function edit($value, $rule, $data)
     {
@@ -126,12 +125,13 @@ class AdminValidate extends BaseValidate
         return true;
     }
 
+
     /**
      * @notes 检查指定管理员是否存在
      * @param $value
      * @return bool|string
-     * @author Tab
-     * @date 2021/7/13 11:39
+     * @author 段誉
+     * @date 2021/12/29 10:19
      */
     public function checkAdmin($value)
     {
