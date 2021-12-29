@@ -31,7 +31,7 @@ class UploadService
 
     /**
      * @notes 上传图片
-     * @param int $cid
+     * @param $cid
      * @param int $user_id
      * @param string $save_dir
      * @return array
@@ -39,7 +39,7 @@ class UploadService
      * @author 段誉
      * @date 2021/12/29 16:30
      */
-    public static function image(int $cid, int $user_id = 0, string $save_dir = 'uploads/images')
+    public static function image($cid, int $user_id = 0, string $save_dir = 'uploads/images')
     {
         try {
             $config = [
@@ -92,7 +92,7 @@ class UploadService
 
     /**
      * @notes 视频上传
-     * @param int $cid
+     * @param $cid
      * @param int $user_id
      * @param string $save_dir
      * @return array
@@ -100,7 +100,7 @@ class UploadService
      * @author 段誉
      * @date 2021/12/29 16:32
      */
-    public static function video(int $cid, int $user_id = 0, string $save_dir = 'uploads/video')
+    public static function video($cid, int $user_id = 0, string $save_dir = 'uploads/video')
     {
         try {
             $config = [
