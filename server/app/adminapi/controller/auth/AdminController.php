@@ -57,43 +57,46 @@ class AdminController extends BaseAdminController
         return $this->success('添加成功');
     }
 
+
     /**
      * @notes 编辑管理员
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 11:41
+     * @author 段誉
+     * @date 2021/12/29 11:03
      */
     public function edit()
     {
         $params = (new AdminValidate())->post()->goCheck('edit');
         $result = AdminLogic::edit($params);
-        if ($result) {
+        if (true === $result) {
             return $this->success('编辑成功');
         }
         return $this->fail(AdminLogic::getError());
     }
 
+
     /**
      * @notes 删除管理员
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 11:42
+     * @author 段誉
+     * @date 2021/12/29 11:03
      */
     public function delete()
     {
         $params = (new AdminValidate())->post()->goCheck('delete');
         $result = AdminLogic::delete($params);
-        if ($result) {
+        if (true === $result) {
             return $this->success('删除成功');
         }
         return $this->fail(AdminLogic::getError());
     }
 
+
     /**
      * @notes 查看管理员详情
      * @return \think\response\Json
-     * @author Tab
-     * @date 2021/7/13 11:43
+     * @author 段誉
+     * @date 2021/12/29 11:07
      */
     public function detail()
     {

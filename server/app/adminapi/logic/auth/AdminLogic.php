@@ -186,14 +186,14 @@ class AdminLogic extends BaseLogic
      * @notes 查看管理员详情
      * @param $params
      * @return array
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
      * @author 段誉
-     * @date 2021/12/29 10:50
+     * @date 2021/12/29 11:07
      */
     public static function detail($params) : array
     {
-        return Admin::field('account,name,role_id,disable,multipoint_login,avatar')->find($params['id'])->toArray();
+        return Admin::field([
+            'account', 'name', 'role_id', 'disable',
+            'multipoint_login', 'avatar'
+        ])->findOrEmpty($params['id'])->toArray();
     }
 }
