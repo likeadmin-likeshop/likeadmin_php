@@ -7,7 +7,7 @@ import {
     fileList,
     fileMove,
 } from "@/api/app";
-import { usePages } from "@/hooks/pages";
+import { usePages } from "@/core/hooks/pages";
 import { ElMessage } from "element-plus";
 import { computed, inject, reactive, ref, Ref } from "vue";
 
