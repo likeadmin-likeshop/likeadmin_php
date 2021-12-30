@@ -1,35 +1,36 @@
 <template>
-    <el-popover
-        placement="top"
-        v-model:visible="visible"
-        :width="width"
-        trigger="manual"
-        class="popover-input"
-    >
-        <div class="flex">
-            <div class="popover-input__input m-r-10 flex-1">
-                <el-input
-                    v-model="value"
-                    :type="type"
-                    size="mini"
-                    :placeholder="placeholder"
-                ></el-input>
+    <div class="popover-input">
+        <el-popover
+            placement="top"
+            v-model:visible="visible"
+            :width="width"
+            trigger="manual"
+        >
+            <div class="flex">
+                <div class="popover-input__input m-r-10 flex-1">
+                    <el-input
+                        v-model="value"
+                        :type="type"
+                        size="mini"
+                        :placeholder="placeholder"
+                    ></el-input>
+                </div>
+                <div class="popover-input__btns flex-none">
+                    <el-button type="text" size="mini" @click="close"
+                        >取消</el-button
+                    >
+                    <el-button type="primary" size="mini" @click="handleConfirm"
+                        >确定</el-button
+                    >
+                </div>
             </div>
-            <div class="popover-input__btns flex-none">
-                <el-button type="text" size="mini" @click="close"
-                    >取消</el-button
-                >
-                <el-button type="primary" size="mini" @click="handleConfirm"
-                    >确定</el-button
-                >
-            </div>
-        </div>
-        <template #reference>
-            <div class="inline" type="text" @click="open">
-                <slot></slot>
-            </div>
-        </template>
-    </el-popover>
+            <template #reference>
+                <div class="inline" type="text" @click="open">
+                    <slot></slot>
+                </div>
+            </template>
+        </el-popover>
+    </div>
 </template>
 
 <script lang="ts">

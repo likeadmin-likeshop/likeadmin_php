@@ -31,7 +31,6 @@ export function usePages(page = 1, size = 15) {
                 pager.loading = false;
             });
     };
-
     return {
         pager,
         requestApi,

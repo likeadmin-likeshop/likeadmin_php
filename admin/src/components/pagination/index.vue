@@ -1,11 +1,11 @@
 <template>
     <div class="pagination">
         <el-pagination
-            v-model:currentPage="value.size"
-            v-model:pageSize="value.page"
+            v-model:currentPage="modelValue.page"
+            v-model:pageSize="modelValue.size"
             :page-sizes="pageSizes"
             :layout="layout"
-            :total="value.count"
+            :total="modelValue.count"
             @size-change="handleChange"
             @current-change="handleChange"
             hide-on-single-page
@@ -21,7 +21,7 @@ export default defineComponent({
     components: {},
     props: {
         // 每一页条数
-        value: {
+        modelValue: {
             type: Object,
             default: () => ({}),
         },

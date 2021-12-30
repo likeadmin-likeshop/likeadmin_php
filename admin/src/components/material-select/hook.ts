@@ -39,22 +39,25 @@ export function useCate(typeValue: Ref<any>) {
         });
     };
     const getCateLists = () => {
-        fileCateLists({
-            type: typeValue.value,
-            page_type: 1,
-        }).then((res: any) => {
-            const item: any[] = [
-                {
-                    name: "全部",
-                    id: "",
-                },
-                {
-                    name: "未分组",
-                    id: 0,
-                },
-            ];
-            cateLists.value = res?.lists;
-            cateLists.value.unshift(...item);
+        return new Promise((resolve, reject) => {
+            fileCateLists({
+                type: typeValue.value,
+                page_type: 1,
+            }).then((res: any) => {
+                const item: any[] = [
+                    {
+                        name: "全部",
+                        id: "",
+                    },
+                    {
+                        name: "未分组",
+                        id: 0,
+                    },
+                ];
+                cateLists.value = res?.lists;
+                cateLists.value.unshift(...item);
+                resolve(cateLists);
+            });
         });
     };
     return {
@@ -67,11 +70,10 @@ export function useCate(typeValue: Ref<any>) {
     };
 }
 
-export function useFile(cateId: Ref<string>, type: Ref<any>) {
+export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>) {
     const { pager, requestApi } = usePages();
     const moveId = ref(0);
-    const limit = inject("limit")
-    const select: Ref<any> = ref([]);
+    const select: Ref<any[]> = ref([]);
     const fileParams = reactive({
         name: "",
         type,
@@ -85,12 +87,17 @@ export function useFile(cateId: Ref<string>, type: Ref<any>) {
     const getFileList = () => {
         requestApi(fileList, fileParams);
     };
-    const batchFileDelete = (id: number[]) => {
+    const refresh = () => {
+        pager.page = 1
+        getFileList()
+    }
+    const batchFileDelete = (id?: number[]) => {
         let ids = id ? id : select.value.map((item: any) => item.id);
         fileDelete({
             ids,
         }).then((res) => {
             getFileList();
+            clearSelect()
         });
     };
     const batchFileMove = () => {
@@ -101,18 +108,18 @@ export function useFile(cateId: Ref<string>, type: Ref<any>) {
         }).then((res) => {
             moveId.value = 0;
             getFileList();
+            clearSelect()
         });
     };
 
     const selectFile = (item: any) => {
-        console.log(limit)
         let index = select.value.findIndex((items: any) => items.id == item.id);
         if (index != -1) {
             select.value.splice(index, 1);
             return;
         }
-        if (select.value.length == limit) {
-            if (limit == 1) {
+        if (select.value.length == limit.value) {
+            if (limit.value == 1) {
                 select.value = [];
                 select.value.push(item);
                 return;
@@ -122,15 +129,24 @@ export function useFile(cateId: Ref<string>, type: Ref<any>) {
         }
         select.value.push(item);
     };
+    const clearSelect = () => {
+        select.value = [];
+    };
+    const cancelSelete = (id: number) => {
+        select.value = select.value.filter((item) => item.id != id)
+    }
     return {
         moveId,
         pager,
         fileParams,
         select,
         getFileList,
+        refresh,
         batchFileDelete,
         batchFileMove,
         selectFile,
-        selectStatus
+        selectStatus,
+        clearSelect,
+        cancelSelete
     };
 }

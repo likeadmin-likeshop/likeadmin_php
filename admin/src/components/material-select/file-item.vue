@@ -1,21 +1,26 @@
 
 <template>
-    <del-wrap>
-        <div class="file-item" :style="{ height: fileSize, width: fileSize }">
-            <el-image
-                class="image"
-                v-if="type == 'image'"
-                fit="contain"
-                :src="item.uri"
-            ></el-image>
-            <video
-                class="video"
-                v-else-if="type == 'video'"
-                :src="item.uri"
-            ></video>
-            <slot></slot>
-        </div>
-    </del-wrap>
+    <div>
+        <del-wrap @close="$emit('close')">
+            <div
+                class="file-item"
+                :style="{ height: fileSize, width: fileSize }"
+            >
+                <el-image
+                    class="image"
+                    v-if="type == 'image'"
+                    fit="contain"
+                    :src="uri"
+                ></el-image>
+                <video
+                    class="video"
+                    v-else-if="type == 'video'"
+                    :src="uri"
+                ></video>
+                <slot></slot>
+            </div>
+        </del-wrap>
+    </div>
 </template>
 
 
@@ -27,15 +32,15 @@ export default defineComponent({
         DelWrap,
     },
     props: {
-        item: {
-            type: Object,
-            default: () => ({}),
+        uri: {
+            type: String,
         },
         fileSize: {
             type: String,
             default: '100px',
         },
     },
+    emits: ['close'],
     setup() {
         const type = inject('type')
         return {

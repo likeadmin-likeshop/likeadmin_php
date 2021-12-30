@@ -1,6 +1,6 @@
 
 <template>
-    <div class="material flex col-stretch">
+    <div class="material flex col-stretch" v-loading="pager.loading">
         <div class="material__left">
             <el-scrollbar
                 class="ls-scrollbar"
@@ -8,6 +8,7 @@
             >
                 <div class="material-left__content p-t-16 p-b-16">
                     <el-tree
+                        ref="treeRefs"
                         node-key="id"
                         :data="cateLists"
                         empty-text=""
@@ -81,7 +82,7 @@
                 </popover-input>
             </div>
         </div>
-        <div class="material__center">
+        <div class="material__center flex flex-col">
             <div class="operate-btn flex">
                 <div class="flex-1 flex">
                     <upload
@@ -89,7 +90,7 @@
                         :data="{ cid: cateId }"
                         :type="type"
                         :show-progress="true"
-                        @change="getFileList"
+                        @change="refresh"
                     >
                         <el-button size="small" type="primary"
                             >本地上传</el-button
@@ -99,7 +100,7 @@
                         class="m-r-10 inline"
                         content="确定删除选中的文件？"
                         :disabled="!select.length"
-                        @confirm="batchFileDelete"
+                        @confirm="batchFileDelete()"
                     >
                         <template #trigger>
                             <el-button size="small" :disabled="!select.length"
@@ -122,13 +123,17 @@
                         <div>
                             <span class="m-r-20">移动文件至</span>
                             <el-select v-model="moveId" placeholder="请选择">
-                                <el-option
+                                <template
                                     v-for="item in cateLists"
                                     :key="item.id"
-                                    :label="item.name"
-                                    :value="item.id"
                                 >
-                                </el-option>
+                                    <el-option
+                                        v-if="item.id !== ''"
+                                        :label="item.name"
+                                        :value="item.id"
+                                    >
+                                    </el-option>
+                                </template>
                             </el-select>
                         </div>
                     </popup>
@@ -138,16 +143,15 @@
                     placeholder="请输入名字"
                     style="width: 280px"
                     v-model="fileParams.name"
-                    @keyup.enter="getFileList"
+                    @keyup.enter="refresh"
                 >
                     <template #append>
-                        <el-button :icon="Search" @click="getFileList">
-                        </el-button>
+                        <el-button :icon="Search" @click="refresh"> </el-button>
                     </template>
                 </el-input>
             </div>
-            <div class="material-center__content flex-col flex-1">
-                <ul class="file-list flex flex-wrap m-t-16">
+            <div class="material-center__content flex flex-col flex-1">
+                <ul class="file-list flex flex-wrap m-t-14">
                     <li
                         class="file-item-wrap"
                         v-for="item in pager.lists"
@@ -155,7 +159,11 @@
                         :style="{ width: fileSize }"
                         @click="selectFile(item)"
                     >
-                        <file-item :item="item" :size="fileSize">
+                        <file-item
+                            :uri="item.uri"
+                            :size="fileSize"
+                            @close="batchFileDelete([item.id])"
+                        >
                             <div
                                 class="item-selected"
                                 v-if="selectStatus(item.id)"
@@ -169,48 +177,6 @@
                         <div class="item-name line-1 xs p-t-10">
                             {{ item.name }}
                         </div>
-                        <!-- <div
-                            v-if="mode == 'pages'"
-                            class="operation-btns"
-                            @click.stop=""
-                        >
-                            <ls-dialog
-                                class="m-r-10 inline"
-                                content="确定删除该文件？"
-                                @confirm="batchFileDel([item.id])"
-                            >
-                                <el-button
-                                    slot="trigger"
-                                    size="small"
-                                    type="text"
-                                >删除</el-button>
-                            </ls-dialog>
-                            <popover-input
-                                :value="item.name"
-                                type="text"
-                                @confirm="fileRename($event, item.id)"
-                            >
-                                <el-button
-                                    size="small"
-                                    type="text"
-                                >重命名</el-button>
-                            </popover-input>
-                            <a
-                                class="m-l-10"
-                                :href="item.uri"
-                                target="_blank"
-                            >
-                                <el-button
-                                    size="small"
-                                    type="text"
-                                >查看</el-button>
-                            </a>
-                        </div> -->
-                        <!-- <i
-                            v-if="!selectStatus(item.id) && mode == 'popup'"
-                            class="el-icon-close ls-icon-del"
-                            @click.stop="batchFileDel([item.id])"
-                        ></i> -->
                     </li>
                 </ul>
                 <div
@@ -220,14 +186,48 @@
                     暂无数据~
                 </div>
             </div>
+            <div class="material-center__footer flex row-right">
+                <pagination
+                    v-model="pager"
+                    @change="getFileList"
+                    layout="total, prev, pager, next, jumper"
+                />
+            </div>
         </div>
-        <div class="material__right"></div>
+        <div class="material__right">
+            <div class="flex row-between p-l-10 p-r-10">
+                <div class="sm flex flex-center">
+                    已选择 {{ select.length }}
+                    <span v-if="limit">/{{ limit }}</span>
+                </div>
+                <el-button type="text" size="small" @click="clearSelect"
+                    >清空</el-button
+                >
+            </div>
+
+            <el-scrollbar
+                class="ls-scrollbar"
+                style="height: calc(100% - 32px)"
+            >
+                <ul class="select-lists flex-col p-t-10">
+                    <li class="m-b-16" v-for="item in select" :key="item.id">
+                        <div class="select-item">
+                            <file-item
+                                :uri="item.uri"
+                                size="100px"
+                                @close="cancelSelete(item.id)"
+                            ></file-item>
+                        </div>
+                    </li>
+                </ul>
+            </el-scrollbar>
+        </div>
     </div>
 </template>
 
 
 <script lang="ts">
-import { defineComponent, inject, Ref, ref, watch } from 'vue'
+import { defineComponent, inject, Ref, ref, toRefs, watch } from 'vue'
 import { useCate, useFile } from './hook'
 import PopoverInput from '@/components/popover-input/index.vue'
 import Pagination from '@/components/pagination/index.vue'
@@ -235,6 +235,7 @@ import Popup from '@/components/popup/index.vue'
 import Upload from '@/components/upload/index.vue'
 import FileItem from './file-item.vue'
 import { Search } from '@element-plus/icons-vue'
+import { ElTree } from 'element-plus'
 export default defineComponent({
     components: {
         PopoverInput,
@@ -248,9 +249,16 @@ export default defineComponent({
             type: String,
             default: '100px',
         },
+        limit: {
+            type: Number,
+            default: 1,
+        },
     },
-    setup() {
+    emits: ['change'],
+    setup(props, { emit }) {
+        const treeRefs: Ref<typeof ElTree | null> = ref(null)
         const type = inject('type') as Ref<string>
+        const { limit } = toRefs(props)
         const typeValue = inject('typeValue') as Ref<10 | 20 | 30>
         const visible = inject('visible') as Ref<boolean>
         const {
@@ -267,40 +275,50 @@ export default defineComponent({
             fileParams,
             select,
             getFileList,
+            refresh,
             batchFileDelete,
             batchFileMove,
             selectFile,
             selectStatus,
-        } = useFile(cateId, typeValue)
+            clearSelect,
+            cancelSelete,
+        } = useFile(cateId, typeValue, limit)
 
         const currentChange = (item: any) => {
             cateId.value = item.id
-            getFileList()
         }
 
         watch(
             visible,
-            (val: boolean) => {
+            async (val: boolean) => {
                 if (val) {
-                    getCateLists()
+                    await getCateLists()
+                    treeRefs.value?.setCurrentKey(cateId.value)
+                    getFileList()
                 }
             },
             {
                 immediate: true,
             }
         )
+        watch(cateId, (val: string) => {
+            fileParams.name = ''
+            refresh()
+        })
         watch(
-            cateId,
-            (val: string) => {
-                getFileList()
+            select,
+            (val: any[]) => {
+                emit('change', val)
             },
             {
-                immediate: true,
+                deep: true
             }
         )
         return {
+            treeRefs,
             Search,
             type,
+            limit,
             cateId,
             cateLists,
             handleAddCate,
@@ -312,10 +330,13 @@ export default defineComponent({
             fileParams,
             select,
             getFileList,
+            refresh,
             batchFileDelete,
             batchFileMove,
             selectFile,
             selectStatus,
+            clearSelect,
+            cancelSelete,
         }
     },
 })
@@ -367,6 +388,14 @@ export default defineComponent({
     &__right {
         border-left: 1px solid $border-color-base;
         width: 150px;
+        .select-lists {
+            padding: 10px;
+
+            .select-item {
+                width: 100px;
+                height: 100px;
+            }
+        }
     }
 }
 </style>

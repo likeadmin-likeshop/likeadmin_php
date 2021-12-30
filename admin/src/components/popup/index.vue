@@ -6,8 +6,9 @@
             <slot name="trigger"></slot>
         </div>
         <el-dialog
-            coustom-class="dialog__content"
             v-model="visible"
+            :custom-class="customClass"
+            :append-to-body="true"
             :width="width"
             :close-on-click-modal="clickModalClose"
         >
@@ -16,7 +17,7 @@
                 {{ title }}
             </template>
             <template v-else #title>
-                <div class="flex flex-cross-center">
+                <div class="flex col-center">
                     <el-icon :size="25" :color="$variables.color_warning"
                         ><warning-filled
                     /></el-icon>
@@ -99,6 +100,10 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        customClass: {
+            type: String,
+            default: '',
+        },
     },
     setup(props, { emit }) {
         const visible = ref(false)
@@ -130,6 +135,5 @@ export default defineComponent({
 .dialog-body {
     white-space: pre-line;
 }
-
 </style>
 

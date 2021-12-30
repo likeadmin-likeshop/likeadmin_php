@@ -1,60 +1,84 @@
 
 <template>
-    <popup
-        class="material-select"
-        ref="popupRef"
-        width="900px"
-        :title="`选择${tipsText}`"
-        @confirm="handleConfirm"
-    >
-        <template #trigger>
-            <div class="material-select__trigger clearfix" @click.stop>
-                <draggable class="draggable" v-model="fileList" animation="300">
-                    <template v-slot:item="{ item, index }">
-                        <div
-                            class="material-preview"
-                            :class="{
-                                'is-disabled': disabled,
-                                'is-one': limit == 1,
-                            }"
-                            @click="showPopup(index)"
-                        >
-                            <file-item :item="item" :size="size" />
-                        </div>
-                    </template>
-                </draggable>
-                <div
-                    class="material-upload"
-                    @click="showPopup(-1)"
-                    :class="{
-                        'is-disabled': disabled,
-                        'is-one': limit == 1,
-                    }"
-                >
-                    <slot name="upload">
-                        <div
-                            class="upload-btn flex flex-col flex-center"
-                            :style="{
-                                width: size,
-                                height: size,
-                            }"
-                        >
-                            <el-icon :size="25"><plus /></el-icon>
-                            <span>添加</span>
-                        </div>
-                    </slot>
+    <div class="material-select">
+        <popup
+            ref="popupRef"
+            width="950px"
+            custom-class="body-padding"
+            :title="`选择${tipsText}`"
+            @confirm="handleConfirm"
+        >
+            <template #trigger>
+                <div class="material-select__trigger clearfix" @click.stop>
+                    <draggable
+                        class="draggable"
+                        v-model="fileList"
+                        animation="300"
+                        item-key="id"
+                    >
+                        <template v-slot:item="{ element, index }">
+                            <div
+                                class="material-preview"
+                                :class="{
+                                    'is-disabled': disabled,
+                                    'is-one': limit == 1,
+                                }"
+                                @click="showPopup(index)"
+                            >
+                                <file-item :uri="element" :size="size" @close="deleteImg(index)" />
+                            </div>
+                        </template>
+                    </draggable>
+                    <div
+                        class="material-upload"
+                        @click="showPopup(-1)"
+                        v-show="showUpload"
+                        :class="{
+                            'is-disabled': disabled,
+                            'is-one': limit == 1,
+                        }"
+                    >
+                        <slot name="upload">
+                            <div
+                                class="upload-btn flex flex-col flex-center"
+                                :style="{
+                                    width: size,
+                                    height: size,
+                                }"
+                            >
+                                <el-icon :size="25"><plus /></el-icon>
+                                <span>添加</span>
+                            </div>
+                        </slot>
+                    </div>
                 </div>
+            </template>
+            <div class="material-wrap">
+                <material
+                    ref="materialRefs"
+                    :file-size="fileSize"
+                    :limit="meterialLimit"
+                    @change="selectChange"
+                />
             </div>
-        </template>
-        <div class="material-wrap">
-            <material :file-size="fileSize" />
-        </div>
-    </popup>
+        </popup>
+    </div>
 </template>
 
 
 <script lang="ts">
-import { provide, reactive, defineComponent, computed, ref, Ref } from 'vue'
+import {
+    provide,
+    reactive,
+    defineComponent,
+    computed,
+    ref,
+    Ref,
+    toRef,
+    toRefs,
+    watch,
+    nextTick,
+} from 'vue'
 import Draggable from 'vuedraggable'
 import Popup from '@/components/popup/index.vue'
 import FileItem from './file-item.vue'
@@ -66,8 +90,11 @@ export default defineComponent({
         FileItem,
         Material,
     },
-    emits: [],
     props: {
+        modelVale: {
+            type: [String, Array],
+            default: () => [],
+        },
         // 文件类型
         type: {
             type: String,
@@ -94,9 +121,16 @@ export default defineComponent({
             default: false,
         },
     },
-    setup(props) {
+
+    emits: ['change', 'update:modelValue'],
+    setup(props, { emit }) {
         const popupRef: Ref<typeof Popup | null> = ref(null)
-        const fileList = reactive([])
+        const materialRefs: Ref<typeof Material | null> = ref(null)
+        const fileList: Ref<any[]> = ref([])
+        const select: Ref<any[]> = ref([])
+        const isAdd = ref(true)
+        const currentIndex = ref(-1)
+        const { disabled, limit, modelVale } = toRefs(props)
         const tipsText = computed(() => {
             switch (props.type) {
                 case 'image':
@@ -115,20 +149,72 @@ export default defineComponent({
                     return 30
             }
         })
-        const handleConfirm = () => {}
+        const showUpload = computed(() => {
+            return props.limit - fileList.value.length > 0
+        })
+        const meterialLimit = computed(() => {
+            if (!isAdd.value) {
+                return 1
+            }
+            if (!limit.value) return null
+            return limit.value - fileList.value.length
+        })
+        const handleConfirm = () => {
+            const selectUri = select.value.map((item) => item.uri)
+            if (!isAdd.value) {
+                fileList.value.splice(currentIndex.value, 1, selectUri.shift())
+            } else {
+                fileList.value = [...fileList.value,...selectUri]
+            }
+            handleChange()
+        }
         const showPopup = (index: number) => {
+            if (disabled.value) return
+            if (index >= 0) {
+                isAdd.value = false
+                currentIndex.value = index
+            } else {
+                isAdd.value = true
+            }
             popupRef.value?.open()
         }
+
+        const selectChange = (val: any[]) => {
+            select.value = val
+        }
+        const handleChange = () => {
+            const valueImg =
+                limit.value != 1 ? fileList.value : fileList.value[0] || ''
+            emit('update:modelValue', valueImg)
+            emit('change', valueImg)
+            nextTick(() => {
+                materialRefs.value?.clearSelect()
+            })
+        }
+
+        const deleteImg = (index: number) => {
+            fileList.value.splice(index, 1)
+            handleChange()
+        }
+
+        watch(modelVale, (val: any[] | string) => {
+            fileList.value = Array.isArray(val) ? val : val == '' ? [] : [val]
+        })
         provide('type', props.type)
         provide('fileSize', props.fileSize)
         provide('limit', props.limit)
         provide('typeValue', typeValue)
         return {
             popupRef,
+            materialRefs,
             fileList,
             tipsText,
             handleConfirm,
+            meterialLimit,
+            showUpload,
             showPopup,
+            selectChange,
+            deleteImg
         }
     },
 })
@@ -136,9 +222,6 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .material-select {
-    :deep(.el-dialog__body) {
-        padding: 0;
-    }
     .material-upload,
     .material-preview {
         border-radius: 4px;
@@ -162,10 +245,10 @@ export default defineComponent({
             border: 1px dashed #d7d7d7;
         }
     }
-    .material-wrap {
-        height: 500px;
-        border-top: 1px solid $border-color-base;
-        border-bottom: 1px solid $border-color-base;
-    }
+}
+.material-wrap {
+    height: 540px;
+    border-top: 1px solid $border-color-base;
+    border-bottom: 1px solid $border-color-base;
 }
 </style>

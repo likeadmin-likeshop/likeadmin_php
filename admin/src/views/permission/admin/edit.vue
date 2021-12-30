@@ -80,7 +80,7 @@
                 </el-form-item>
 
                 <el-form-item label="管理员头像">
-                    <material-select v-model="formData.avatar"></material-select>
+                    <material-select :limit="1" v-model="formData.avatar"></material-select>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -102,9 +102,8 @@ export default defineComponent({
             role: '',
             avatar: ''
         })
-
         return {
-            formData,
+            formData
         }
     },
 })

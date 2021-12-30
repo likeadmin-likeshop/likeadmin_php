@@ -56,13 +56,16 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-
+        &.body-padding .el-dialog__body {
+            padding: 0;
+        }
+        .el-dialog__body {
+            flex: 1;
+            padding: 20px;
+        }
     }
-
-    &.el-dialog__body {
-        flex: 1;
-        padding: 10px 20px;
-    }
+    
+    
 }
 
 
