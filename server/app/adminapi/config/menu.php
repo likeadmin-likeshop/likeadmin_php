@@ -6,49 +6,81 @@
  * ----auth_key：权限key(必须唯一)
  */
 return [
-    //首页
+    // 首页-工作台
     [
-        'name'  => '首页',
-        'type'  => 1,
-        'sons'  => [
+        'name' => '工作台',
+        'type' => 1,
+        'sons'    => [
             [
-                'name'    => '首页',
-                'type'    => 1,
-                'sons'    => [
-                    [
-                        'name'      => '查看',
-                        'type'      => 2,
-                        'auth_key'  => 'index/index.view'
-                    ]
-                ],
+                'name'      => '查看',
+                'type'      => 2,
+                'auth_key'  => 'index/index.view'
             ]
-        ]
-
+        ],
     ],
-    //设置
+    // 权限管理
     [
-        'name'  => '设置',
-        'type'  => 1,
-        'sons'=>[
+        'name' => '权限管理',
+        'type' => 1,
+        'sons' => [
             [
-                'name'  => '店铺信息',
-                'type'  => 1,
+                'name' => '管理员',
+                'type' => 1,
                 'sons'  => [
                     [
                         'name'      => '查看',
                         'type'      => 2,
-                        'auth_key'  => 'setting/shop.view'
+                        'auth_key'  => 'auth/permissions.view'
                     ],
                     [
-                        'name'      => '保存',
+                        'name'      => '管理',
                         'type'      => 2,
-                        'auth_key'  => 'setting/shop.save'
+                        'auth_key'  => 'auth/permissions.manage'
                     ],
                 ],
             ],
             [
-                'name'  => '备案信息',
-                'type'  => 1,
+                'name' => '角色',
+                'type' => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'auth/role.view'
+                    ],
+                    [
+                        'name'      => '管理',
+                        'type'      => 2,
+                        'auth_key'  => 'auth/role.manage'
+                    ],
+                ]
+            ],
+        ],
+    ],
+    // 系统设置
+    [
+        'name' => '系统设置',
+        'type' => 1,
+        'sons' => [
+            [
+                'name' => '网站信息',
+                'type' => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/website.view'
+                    ],
+                    [
+                        'name'      => '保存',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/website.save'
+                    ],
+                ],
+            ],
+            [
+                'name' => '备案信息',
+                'type' => 1,
                 'sons'  => [
                     [
                         'name'      => '查看',
@@ -63,65 +95,22 @@ return [
                 ],
             ],
             [
-                'name'  => '管理员',
-                'type'  => 1,
+                'name' => '系统环境',
+                'type' => 2,
                 'sons'  => [
                     [
                         'name'      => '查看',
                         'type'      => 2,
-                        'auth_key'  => 'setting/permissions.view'
+                        'auth_key'  => 'setting/environment.view'
                     ],
                     [
-                        'name'      => '管理',
+                        'name'      => '保存',
                         'type'      => 2,
-                        'auth_key'  => 'setting/permissions.manage'
+                        'auth_key'  => 'setting/environment.save'
                     ],
                 ],
             ],
-            [
-                'name'  => '角色',
-                'type'  => 1,
-                'sons'  => [
-                    [
-                        'name'      => '查看',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/role.view'
-                    ],
-                    [
-                        'name'      => '管理',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/role.manage'
-                    ],
-                ]
-            ],
-            [
-                'name'  => '系统日志',
-                'type'  => 1,
-                'sons'  => [
-                    [
-                        'name'      => '查看',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/systemlog.view'
-                    ],
-                ],
-            ],
-            [
-                'name'  => '系统缓存',
-                'type'  => 1,
-                'sons'  => [
-                    [
-                        'name'      => '查看',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/systemcache.view'
-                    ],
-                    [
-                        'name'      => '清除系统缓存',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/systemcache.clear'
-                    ],
-                ],
-            ],
-        ]
+        ],
     ]
 ];
 

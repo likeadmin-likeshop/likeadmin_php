@@ -23,28 +23,28 @@
  */
 return [
     // 首页
-    'index'     => [
+    'index' => [
         //控制台
         'index' => [
-            'page_path'     => '/workbench/index',
-            'view'      => [
-                'button_auth'   => ['view'],
-                'action_auth'   => ['workbench/index'],
+            'page_path' => '/workbench/index',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['workbench/index'],
             ],
         ]
     ],
     // 权限管理
-    'auth'      => [
+    'auth' => [
         //管理员
-        'permissions'   => [
-            'page_path'     => '/permissions/admin/index',
-            'view'      => [
-                'button_auth'   => ['view'],
-                'action_auth'   => ['auth.admin/lists','auth.role/lists'],
+        'permissions' => [
+            'page_path' => '/permissions/admin/index',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['auth.admin/lists', 'auth.role/lists'],
             ],
-            'manage'      => [
-                'button_auth'   => ['auth_all'],
-                'action_auth'   => [
+            'manage' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => [
                     'auth.admin/add',
                     'auth.admin/edit',
                     'auth.admin/detail',
@@ -53,15 +53,15 @@ return [
             ],
         ],
         //角色
-        'role'          => [
-            'page_path'     => '/permissions/role/index',
-            'view'      => [
-                'button_auth'   => ['view'],
-                'action_auth'   => ['auth.role/lists'],
+        'role' => [
+            'page_path' => '/permissions/role/index',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['auth.role/lists'],
             ],
-            'manage'      => [
-                'button_auth'   => ['auth_all'],
-                'action_auth'   => [
+            'manage' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => [
                     'auth.role/add',
                     'auth.role/edit',
                     'auth.role/detail',
@@ -72,37 +72,37 @@ return [
         ],
     ],
     // 系统设置
-    'setting'   => [
+    'setting' => [
         // 网站信息
-        'website'      => [
-            'page_path'     => '/setting/website/information',
-            'view'      => [
-                'button_auth'   => ['view'],
-                'action_auth'   => ['setting.web.websetting/getwebsite'],
+        'website' => [
+            'page_path' => '/setting/website/information',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['setting.web.websetting/getwebsite'],
             ],
-            'save'      => [
-                'button_auth'   => ['auth_all'],
-                'action_auth'   => ['setting.web.websetting/setwebsite'],
+            'save' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => ['setting.web.websetting/setwebsite'],
             ],
         ],
         //备案信息
-        'record'      => [
-            'page_path'     => '/setting/website/filing',
-            'view'      => [
-                'button_auth'   => ['view'],
-                'action_auth'   => ['setting.web.websetting/getcopyright'],
+        'record' => [
+            'page_path' => '/setting/website/filing',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['setting.web.websetting/getcopyright'],
             ],
-            'save'      => [
-                'button_auth'   => ['auth_all'],
-                'action_auth'   => ['setting.web.websetting/setcopyright'],
+            'save' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => ['setting.web.websetting/setcopyright'],
             ],
         ],
         //系统环境
-        'environment'      => [
-            'page_path'     => '/setting/system/environment',
-            'view'      => [
-                'button_auth'   => ['view'],
-                'action_auth'   => ['setting.system.system/info'],
+        'environment' => [
+            'page_path' => '/setting/system/environment',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['setting.system.system/info'],
             ],
         ],
     ],
