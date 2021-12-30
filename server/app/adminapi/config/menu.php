@@ -96,17 +96,12 @@ return [
             ],
             [
                 'name' => '系统环境',
-                'type' => 2,
+                'type' => 1,
                 'sons'  => [
                     [
                         'name'      => '查看',
                         'type'      => 2,
                         'auth_key'  => 'setting/environment.view'
-                    ],
-                    [
-                        'name'      => '保存',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/environment.save'
                     ],
                 ],
             ],
