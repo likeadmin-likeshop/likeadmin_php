@@ -1,11 +1,11 @@
 <template>
     <div class="role">
         <el-card shadow="never">
-            <router-link to="/permission/role/edit">
+            <router-link to='/permission/role/edit'>
                 <el-button type="primary" size="small">新增角色</el-button>
             </router-link>
             <div class="m-t-15">
-                <pagination :fun="apiRoleLists" :params="formData">
+                <pagination @change="getRoleLists">
                     <template v-slot="{ lists }">
                         <el-table :data="lists" size="medium">
                             <el-table-column prop="id" label="ID">
@@ -25,6 +25,7 @@
                                         path: '/permission/role/edit',
                                         query: {
                                             id: row.id,
+                                            mode: PageMode['EDIT']
                                         },
                                     }">
                                         <el-button type="text" size="mini">
@@ -60,6 +61,10 @@
     } from '@/api/auth'
     import Pagination from '@/components/pagination/index.vue'
     import Popup from '@/components/popup/index.vue'
+    import {
+        PageMode
+    } from '@/utils/type.ts'
+    import { usePages }  from '@/core/hooks/pages'
     export default defineComponent({
         components: {
             Pagination,
@@ -75,6 +80,8 @@
                 num: 0, // 使用该角色的人数
             })
 
+            const { pager, requestApi } = usePages();
+
             // 删除角色
             const handleDelete = (id: number) => {
                 apiRoleDel({
@@ -88,10 +95,16 @@
                     })
             }
 
+            // 获取角色列表
+            const getRoleLists = () => {
+                requestApi(apiRoleLists, )
+            }
+
             return {
                 formData,
                 apiRoleLists,
-                handleDelete
+                handleDelete,
+                pager
             }
         },
     })
