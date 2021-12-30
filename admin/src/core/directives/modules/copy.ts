@@ -7,7 +7,6 @@
 
 import { ElMessage } from "element-plus";
 import Clipboard from "clipboard";
-import { App } from "vue";
 
 (function copyboard() {
     const clipboard = new Clipboard(".copy-btn");
@@ -23,14 +22,12 @@ import { App } from "vue";
     });
 })();
 
-export default (app: App<Element>) => {
-    app.directive("copy", {
-        mounted: (el: HTMLElement, binding: any) => {
-            el.className = el.className + " copy-btn";
-            el.setAttribute("data-clipboard-text", binding.value);
-        },
-        updated: (el: HTMLElement, binding: any) => {
-            el.setAttribute("data-clipboard-text", binding.value);
-        },
-    });
+export default {
+    mounted: (el: HTMLElement, binding: any) => {
+        el.className = el.className + " copy-btn";
+        el.setAttribute("data-clipboard-text", binding.value);
+    },
+    updated: (el: HTMLElement, binding: any) => {
+        el.setAttribute("data-clipboard-text", binding.value);
+    },
 };
