@@ -46,6 +46,16 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                             import("@/views/permission/role/index.vue"),
                         meta: { title: "角色" },
                     },
+                    {
+                        path: "/permission/role/edit",
+                        component: () =>
+                            import("@/views/permission/role/edit.vue"),
+                        meta: {
+                            title: "角色",
+                            parent: "/permission/role",
+                            hidden: true,
+                        },
+                    },
                 ],
             },
             {

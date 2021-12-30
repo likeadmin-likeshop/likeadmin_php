@@ -2,12 +2,12 @@
 <template>
     <div class="website-information">
         <el-card shadow="never" class="m-t-15">
-            <el-form :rules="rules" ref="form" class="ls-form" :model="form" label-width="150px" size="small">
+            <el-form :rules="rules" ref="form" class="ls-form" :model="formData" label-width="150px" size="small">
                 <el-form-item label="网站名称" prop="name" required>
-                    <el-input v-model="formData.name" placeholder="请输入网站名称"></el-input>
+                    <el-input v-model="formData.name" placeholder="请输入网站名称" maxlength="12" show-word-limit></el-input>
                 </el-form-item>
-                <el-form-item label="网站图标" prop="image" >
-                    <!-- <material-select :limit="1" v-model="formData.image" /> -->
+                <el-form-item label="网站图标" prop="web_favicon">
+                    <material-select :limit="1" v-model="formData.web_favicon" />
                     <div class="flex">
                         <div class="muted xs m-r-16">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
                         <el-popover placement="right" width="200" trigger="hover">
@@ -17,7 +17,8 @@
                         </el-popover>
                     </div>
                 </el-form-item>
-                <el-form-item label="网站LOGO" prop="name" requir>
+                <el-form-item label="网站LOGO" prop="web_logo">
+                    <material-select :limit="1" v-model="formData.web_logo" />
                     <div class="flex">
                         <div class="muted xs m-r-16">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
                         <el-popover placement="right" width="200" trigger="hover">
@@ -27,7 +28,8 @@
                         </el-popover>
                     </div>
                 </el-form-item>
-                <el-form-item label="登录页广告图" prop="name" requir>
+                <el-form-item label="登录页广告图" prop="login_image">
+                    <material-select :limit="1" v-model="formData.login_image" />
                     <div class="flex">
                         <div class="muted xs m-r-16">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
                         <el-popover placement="right" width="200" trigger="hover">
@@ -38,6 +40,8 @@
                     </div>
                 </el-form-item>
             </el-form>
+
+            <el-button type="primary" size="small" @click="setWebsite">确定</el-button>
         </el-card>
     </div>
 </template>
@@ -46,23 +50,75 @@
     import {
         defineComponent,
         reactive,
+        onMounted,
     } from "vue";
-    // import MaterialSelect from '@/components/material-select/index.vue'
+    import MaterialSelect from '@/components/material-select/index.vue'
+    import {
+        apiGetWebsite,
+        apiSetWebsite
+    } from "@/api/setting"
     export default defineComponent({
-        // components: {
-        //     MaterialSelect,
-        // },
+        components: {
+            MaterialSelect,
+        },
         setup() {
             // 表单数据
-            const formData = reactive({
-                account: '',
-                name: '',
-                role: '',
-                image: '',
+            let formData = reactive({
+                name: '', // 网站名称
+                web_favicon	: '', // 网站图标
+                web_logo: '', // 网站logo
+                login_image: '', // 登录页广告图
+            })
+
+            // 表单验证
+            const rules = {
+                name: [
+                    {
+                        required: true,
+                        message: '请输入网站名称',
+                        trigger: ['blur'],
+                    },
+                ],
+            }
+
+            // 获取备案信息
+            const getWebsite = () => {
+                apiGetWebsite()
+                    .then((res: any) => {
+                        console.log('res', res)
+                        formData.name = res.name
+                        formData.web_favicon = res.web_favicon
+                        formData.web_logo = res.web_logo
+                        formData.login_image = res.login_image
+                    })
+            }
+
+            // 设置备案信息
+            const setWebsite = () => {
+                apiSetWebsite({
+                        name: formData.name,
+                        web_favicon: formData.web_favicon,
+                        web_logo: formData.web_logo,
+                        login_image: formData.login_image,
+                    })
+                    .then((res: any) => {
+                        console.log('res', res)
+                        getWebsite()
+                    })
+                    .catch((err: any) => {
+                        console.log('err', err)
+                    })
+            }
+
+            onMounted(() => {
+                getWebsite()
             })
 
             return {
                 formData,
+                rules,
+                getWebsite,
+                setWebsite,
             }
         },
     })

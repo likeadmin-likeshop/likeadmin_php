@@ -23,10 +23,12 @@
                     </el-table-column>
                     <el-table-column prop="status" label="状态">
                         <template v-slot="scope">
-                            <div class="">
-                                <i class="el-icon-edit" style="color: #67C23A;" v-show="scope.row.status == 1"></i>
-                                <i class="el-icon-edit" style="color: #DB2828;" v-show="scope.row.status == 0"></i>
-                            </div>
+                            <el-icon color="#67C23A" v-show="scope.row.status">
+                                <Select />
+                            </el-icon>
+                            <el-icon color="#DB2828" v-show="!scope.row.status">
+                                <close-bold />
+                            </el-icon>
                         </template>
                     </el-table-column>
                     <el-table-column prop="remark" label="说明及帮助">
@@ -45,10 +47,12 @@
                     </el-table-column>
                     <el-table-column prop="status" label="状态">
                         <template v-slot="scope">
-                            <div class="">
-                                <i class="el-icon-edit" style="color: #67C23A;" v-show="scope.row.status == 1"></i>
-                                <i class="el-icon-edit" style="color: #DB2828;" v-show="scope.row.status == 0"></i>
-                            </div>
+                            <el-icon color="#67C23A" v-show="scope.row.status">
+                                <Select />
+                            </el-icon>
+                            <el-icon color="#DB2828" v-show="!scope.row.status">
+                                <close-bold />
+                            </el-icon>
                         </template>
                     </el-table-column>
                     <el-table-column prop="remark" label="说明及帮助">

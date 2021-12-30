@@ -12,7 +12,7 @@ export function apiSetCopyright(params: any) {
 
 // 获取网站信息
 export function apiGetWebsite(){
-    return request.get("/settings.web.web_setting/getWebsite");
+    return request.get("/setting.web.web_setting/getWebsite");
 }
 // 设置网站信息
 export function apiSetWebsite(params: any) {

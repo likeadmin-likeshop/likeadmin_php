@@ -1,50 +1,100 @@
 <template>
     <div class="role">
         <el-card shadow="never">
-            <router-link to="/permission/admin/edit">
-                <el-button type="primary" size="small">新增管理员</el-button>
+            <router-link to="/permission/role/edit">
+                <el-button type="primary" size="small">新增角色</el-button>
             </router-link>
             <div class="m-t-15">
-                <el-table :data="[]" size="medium">
-                    <el-table-column
-                        label="用户信息"
-                        min-width="300"
-                        show-overflow-tooltip
-                    >
-                        <template v-slot="scope">
-                            <div class="flex">
-                                <el-image
-                                    :src="scope.row.avatar"
-                                    style="width: 34px; height: 34px"
-                                    class="flex-none"
-                                >
-                                </el-image>
-                                <div class="m-l-10 line-1">
-                                    {{ scope.row.nickname }}
-                                </div>
-                            </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="total_num" label="成交单数">
-                    </el-table-column>
-                    <el-table-column prop="total_order_amount" label="消费金额">
-                        <template v-slot="scope">
-                            ¥{{ scope.row.total_order_amount }}
-                        </template>
-                    </el-table-column>
-                </el-table>
+                <pagination :fun="apiRoleLists" :params="formData">
+                    <template v-slot="{ lists }">
+                        <el-table :data="lists" size="medium">
+                            <el-table-column prop="id" label="ID">
+                            </el-table-column>
+                            <el-table-column prop="name" label="名称">
+                            </el-table-column>
+                            <el-table-column prop="desc" label="备注">
+                            </el-table-column>
+                            <el-table-column prop="" label="权限">
+                            </el-table-column>
+                            <el-table-column prop="create_time" label="创建时间">
+                            </el-table-column>
+                            <el-table-column prop="" label="操作">
+                                <template v-slot="{ row }">
+                                    <!-- 编辑 -->
+                                    <router-link class="m-r-10" :to="{
+                                        path: '/permission/role/edit',
+                                        query: {
+                                            id: row.id,
+                                        },
+                                    }">
+                                        <el-button type="text" size="mini">
+                                            编辑
+                                        </el-button>
+                                    </router-link>
+                                    <!-- 删除 -->
+                                    <popup class="m-r-10 inline" @confirm="handleDelete">
+                                        <template #trigger>
+                                            <el-button type="text" size="mini">
+                                                删除
+                                            </el-button>
+                                        </template>
+                                    </popup>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </template>
+                </pagination>
             </div>
         </el-card>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-    setup() {
-       
-    },
-})
+    import {
+        defineComponent,
+        reactive
+    } from "vue";
+    import {
+        apiRoleLists,
+        apiRoleDel
+    } from '@/api/auth'
+    import Pagination from '@/components/pagination/index.vue'
+    import Popup from '@/components/popup/index.vue'
+    export default defineComponent({
+        components: {
+            Pagination,
+            Popup,
+        },
+        setup() {
+            // 表单数据
+            const formData = reactive({
+                id: 0, // 角色id
+                name: '', // 角色名称
+                desc: '', // 备注
+                create_time: '', // 创建时间
+                num: 0, // 使用该角色的人数
+            })
+
+            // 删除角色
+            const handleDelete = (id: number) => {
+                apiRoleDel({
+                        id
+                    })
+                    .then((res: any) => {
+                        console.log('res', res)
+                    })
+                    .catch((err: any) => {
+                        console.log('err', err)
+                    })
+            }
+
+            return {
+                formData,
+                apiRoleLists,
+                handleDelete
+            }
+        },
+    })
 </script>
 
 <style lang="scss" scoped>
