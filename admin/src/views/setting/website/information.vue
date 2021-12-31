@@ -2,8 +2,8 @@
 <template>
     <div class="website-information">
         <el-card shadow="never" class="m-t-15">
-            <el-form :rules="rules" ref="form" class="ls-form" :model="formData" label-width="150px" size="small">
-                <el-form-item label="网站名称" prop="name" required>
+            <el-form :rules="rules" ref="formRef" class="ls-form" :model="formData" label-width="150px" size="small">
+                <el-form-item label="网站名称" prop="name">
                     <el-input v-model="formData.name" placeholder="请输入网站名称" maxlength="12" show-word-limit></el-input>
                 </el-form-item>
                 <el-form-item label="网站图标" prop="web_favicon">
@@ -53,7 +53,13 @@
         defineComponent,
         reactive,
         onMounted,
+        Ref,
+        ref
     } from "vue";
+    import {
+        ElInput,
+        ElForm
+    } from 'element-plus'
     import MaterialSelect from '@/components/material-select/index.vue'
     import FooterBtns from '@/components/footer-btns/index.vue'
     import {
@@ -66,8 +72,10 @@
             FooterBtns
         },
         setup() {
+            const formRef: Ref < typeof ElForm | null > = ref(null)
+
             // 表单数据
-            let formData = reactive({
+            const formData = reactive({
                 name: '', // 网站名称
                 web_favicon	: '', // 网站图标
                 web_logo: '', // 网站logo
@@ -99,19 +107,24 @@
 
             // 设置备案信息
             const setWebsite = () => {
-                apiSetWebsite({
-                        name: formData.name,
-                        web_favicon: formData.web_favicon,
-                        web_logo: formData.web_logo,
-                        login_image: formData.login_image,
-                    })
-                    .then((res: any) => {
-                        console.log('res', res)
-                        getWebsite()
-                    })
-                    .catch((err: any) => {
-                        console.log('err', err)
-                    })
+                formRef.value?.validate((valid: boolean) => {
+                    if (!valid) return
+
+                    console.log('fasdfasd')
+                    apiSetWebsite({
+                            name: formData.name,
+                            web_favicon: formData.web_favicon,
+                            web_logo: formData.web_logo,
+                            login_image: formData.login_image,
+                        })
+                        .then((res: any) => {
+                            console.log('res', res)
+                            getWebsite()
+                        })
+                        .catch((err: any) => {
+                            console.log('err', err)
+                        })
+                })
             }
 
             onMounted(() => {
@@ -123,6 +136,7 @@
                 rules,
                 getWebsite,
                 setWebsite,
+                formRef,
             }
         },
     })
