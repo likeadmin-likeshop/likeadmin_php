@@ -40,7 +40,7 @@ export function apiRoleEdit(params: any){
 }
 // 删除角色
 export function apiRoleDel(params: any) {
-    return request.post("/auth.role/del", { ...params });
+    return request.post("/auth.role/delete", { ...params });
 }
 // 角色详情
 export function apiRoleDetail(params: any){
