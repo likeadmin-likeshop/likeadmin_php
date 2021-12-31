@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = {
+    publicPath: '/admin/',
     configureWebpack: {
         resolve: {
             alias: {},
