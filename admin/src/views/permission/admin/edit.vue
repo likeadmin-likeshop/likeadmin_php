@@ -1,14 +1,17 @@
 <template>
     <div class="admin">
         <el-card shadow="never">
-            <el-page-header content="编辑管理员" @back="$router.back()" />
+            <el-page-header
+                :content="id ? '编辑管理员' : '新增管理员'"
+                @back="$router.back()"
+            />
         </el-card>
-        <el-card shadow="never" class="m-t-15">
+        <el-card shadow="never" class="m-t-15" v-loading="loading">
             <el-form
                 :rules="rules"
-                ref="form"
+                ref="formRefs"
                 class="ls-form"
-                :model="form"
+                :model="formData"
                 label-width="150px"
                 size="small"
             >
@@ -19,32 +22,42 @@
                         placeholder="请输入账号"
                     ></el-input>
                 </el-form-item>
+                <!-- 管理员头像 -->
+                <el-form-item label="头像：">
+                    <material-select
+                        v-model="formData.avatar"
+                        :limit="1"
+                    ></material-select>
+                    <div class="muted">
+                        建议尺寸：100*100px，支持jpg，jpeg，png格式
+                    </div>
+                </el-form-item>
 
                 <!-- 名称输入框 -->
-                <el-form-item label="名称" prop="nickname">
+                <el-form-item label="名称：" prop="name">
                     <el-input
-                        v-model="formData.nickname"
+                        v-model="formData.name"
                         placeholder="请输入名称"
                     ></el-input>
                 </el-form-item>
 
                 <!-- 角色选择框 -->
-                <el-form-item label="角色" prop="roleId">
+                <el-form-item label="角色：" prop="role_id">
                     <el-select
-                        v-model="formData.roleId"
+                        v-model="formData.role_id"
                         placeholder="请选择角色"
                     >
-                        <!-- <el-option
+                        <el-option
                             v-for="(item, index) in roleList"
                             :key="index"
                             :label="item.name"
                             :value="item.id"
-                        ></el-option> -->
+                        ></el-option>
                     </el-select>
                 </el-form-item>
 
                 <!-- 密码输入框 -->
-                <el-form-item label="密码" prop="password">
+                <el-form-item label="密码：" prop="password">
                     <el-input
                         v-model="formData.password"
                         show-password
@@ -53,9 +66,9 @@
                 </el-form-item>
 
                 <!-- 确认密码输入框 -->
-                <el-form-item label="确认密码" prop="passwordConfirm">
+                <el-form-item label="确认密码：" prop="password_confirm">
                     <el-input
-                        v-model="formData.passwordConfirm"
+                        v-model="formData.password_confirm"
                         show-password
                         placeholder="请输入确认密码"
                     ></el-input>
@@ -64,7 +77,7 @@
                 <!-- 管理员状态 -->
                 <el-form-item label="管理员状态">
                     <el-switch
-                        v-model="formData.isDisable"
+                        v-model="formData.disable"
                         :active-value="0"
                         :inactive-value="1"
                     />
@@ -78,39 +91,154 @@
                         :inactive-value="0"
                     />
                 </el-form-item>
-
-                <el-form-item label="管理员头像">
-                    <material-select :limit="1" v-model="formData.avatar"></material-select>
-                </el-form-item>
             </el-form>
         </el-card>
+        <footer-btns>
+            <el-button type="primary" size="small" @click="onSubmit">保存</el-button>
+        </footer-btns>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import {
+    computed,
+    ComputedRef,
+    defineComponent,
+    onMounted,
+    reactive,
+    Ref,
+    ref,
+    toRefs,
+} from 'vue'
 import MaterialSelect from '@/components/material-select/index.vue'
+import FooterBtns from '@/components/footer-btns/index.vue'
+import {
+    apiRoleLists,
+    apiAdminDetail,
+    apiAdminAdd,
+    apiAdminEdit,
+} from '@/api/auth'
+import { useRoute, useRouter } from 'vue-router'
+import { ElForm } from 'element-plus'
 export default defineComponent({
     components: {
-        MaterialSelect
+        MaterialSelect,
+        FooterBtns,
     },
     setup() {
+        const formRefs: Ref<typeof ElForm | null> = ref(null)
+        const route = useRoute()
+        const router = useRouter()
+        const id = computed(() => route.query?.id)
+        const loading = ref(false)
         // 表单数据
-        const formData = reactive({
-            account: '',
-            name: '',
-            role: '',
-            avatar: ''
+        const roleList: Ref<any[]> = ref([])
+        const { formData, rules } = toRefs(
+            reactive({
+                formData: {
+                    account: '',
+                    name: '',
+                    role_id: '',
+                    avatar: '',
+                    password: '',
+                    password_confirm: '',
+                    disable: 0,
+                    multipoint_login: 0,
+                },
+                rules: {
+                    account: [
+                        {
+                            required: true,
+                            message: '请输入账号',
+                            trigger: ['blur'],
+                        },
+                    ],
+                    name: [
+                        {
+                            required: true,
+                            message: '请输入名称',
+                            trigger: ['blur'],
+                        },
+                    ],
+                    role_id: [
+                        {
+                            required: true,
+                            message: '请选择角色',
+                            trigger: ['blur'],
+                        },
+                    ],
+                    password: [] as any[],
+                    password_confirm: [] as any[],
+                },
+            })
+        )
+
+        const getRoleList = () => {
+            apiRoleLists({
+                page_type: 1,
+            }).then((res: any) => {
+                roleList.value = res.lists
+            })
+        }
+        const getAdminDetail = () => {
+            if (!id.value) {
+                rules.value.password = [
+                    {
+                        required: true,
+                        message: '请输入密码',
+                        trigger: ['blur'],
+                    },
+                ]
+                rules.value.password_confirm = [
+                    {
+                        required: true,
+                        message: '请输入确认密码',
+                        trigger: ['blur'],
+                    },
+                ]
+                return
+            }
+            loading.value = true
+            apiAdminDetail({
+                id: id.value,
+            })
+                .then((res: any) => {
+                    formData.value = res
+                })
+                .finally(() => {
+                    loading.value = false
+                })
+        }
+
+        const onSubmit = () => {
+            formRefs.value?.validate((valid: boolean) => {
+                if (!valid) return
+                const promise = id.value
+                    ? apiAdminEdit({...formData.value, id: id.value})
+                    : apiAdminAdd(formData.value)
+                promise.then(() => {
+                    setTimeout(() => router.go(-1), 500)
+                })
+            })
+        }
+
+        onMounted(() => {
+            getAdminDetail()
+            getRoleList()
         })
+
         return {
-            formData
+            id,
+            formRefs,
+            loading,
+            formData,
+            rules,
+            roleList,
+            onSubmit
         }
     },
 })
 </script>
 
 <style lang="scss" scoped>
-.ls-form {
-    margin-bottom: -16px;
-}
 </style>

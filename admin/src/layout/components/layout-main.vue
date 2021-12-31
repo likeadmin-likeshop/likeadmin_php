@@ -17,6 +17,7 @@ export default defineComponent({})
 
 <style lang="scss" scoped>
 .layout-main {
-    height: 100%;
+    flex: 1;
+    min-height: 0;
 }
 </style>

@@ -1,40 +1,34 @@
 import request from "@/utils/request";
 import { terminal } from "@/config/app";
 
-// 管理员列表
-interface AdminLists {
-    name: string;
-    account: string;
-    role_id: string;
-}
-export function adminLists(params: AdminLists) {
+
+export function adminLists(params: any) {
     return request.get("/auth.admin/lists", { params });
 }
 
-// 管理员编辑
-interface AdminEdit {
-    id: number;
-    account: string;
-    name: string;
-    role_id: number;
-    disable: number;
-    multipoint_login: number;
+
+// 管理员添加
+export function apiAdminAdd(params: any) {
+    return request.post("/auth.admin/add", params);
 }
 
-export function adminEdit(params: AdminEdit) {
+export function apiAdminEdit(params: any) {
     return request.post("/auth.admin/edit", params);
 }
 
 // 管理员删除
-export function adminDelete(params: { id: number }) {
+export function apiAdminDelete(params: { id: number }) {
     return request.post("/auth.admin/delete", params);
 }
 
 
-
+// 管理员详情
+export function apiAdminDetail (params: any){
+    return request.get("/auth.admin/detail", {params})
+}
 // 角色列表
-export function apiRoleLists(){
-    return request.get("/auth.role/lists");
+export function apiRoleLists(params: any){
+    return request.get("/auth.role/lists", {params});
 }
 // 添加角色
 export function apiRoleAdd(params: any) {

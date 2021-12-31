@@ -2,6 +2,10 @@
 @use "element-plus/theme-chalk/src/index.scss";
 
 
+:root {
+	--el-font-weight-primary: 400
+}
+
 .el-menu {
     border-right: none !important;
 
@@ -46,26 +50,31 @@
 
 // 弹窗居中
 .el-overlay-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    min-height: 100%;
+    position: static;
     .el-dialog {
         --el-dialog-content-font-size: var(--el-font-size-base);
+        flex: none;
         display: flex;
         flex-direction: column;
-        margin: 0 !important;
-        position: absolute;
+        margin: 30px !important;
         border-radius: 5px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+
         &.body-padding .el-dialog__body {
             padding: 0;
         }
+
         .el-dialog__body {
             flex: 1;
-            padding: 20px;
+            padding: 15px 20px;
         }
     }
-    
-    
+
+
 }
 
 
@@ -76,6 +85,7 @@
 .el-form.ls-form {
     .el-form-item__content {
         font-size: var(--el-font-size-base);
+
         &>.el-cascader,
         &>.el-select,
         &>.el-input {
@@ -85,8 +95,11 @@
     }
 }
 
-.el-table thead th {
-    font-weight: 400;
+.el-table {
+    font-size: var(--el-font-size-base);
+    thead th {
+        font-weight: 400;
+    }
 }
 
 .el-icon {

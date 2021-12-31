@@ -1,7 +1,7 @@
 import { Module } from "vuex";
 import cache from "@/utils/cache";
 import { TOKEN } from "@/config/cachekey";
-import { login, logout } from "@/api/user";
+import { apiLogin, apiLogout } from "@/api/user";
 export interface UserModule {
     token: string;
     user: object;
@@ -25,7 +25,7 @@ const user: Module<UserModule, any> = {
         login({ commit }, data) {
             const { account, password } = data;
             return new Promise((resolve, reject) => {
-                login({
+                apiLogin({
                     account: account.trim(),
                     password: password,
                 })
@@ -40,7 +40,7 @@ const user: Module<UserModule, any> = {
         },
         logout({ commit }) {
             return new Promise((resolve, reject) => {
-                logout()
+                apiLogout()
                     .then(() => {
                         commit("setToken", "");
                         commit("setUser", {});

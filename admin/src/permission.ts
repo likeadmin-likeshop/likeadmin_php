@@ -21,7 +21,6 @@ router.beforeEach(async (to, from, next) => {
     // 开始 Progress Bar
 	to.meta?.title && (document.title = to.meta.title as string)
 	const token = store.state.user.token;
-    console.log(token)
 	if (token) {
         if (to.path === loginPath) {
             next({ path: defaultPath })

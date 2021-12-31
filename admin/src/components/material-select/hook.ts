@@ -1,11 +1,11 @@
 import {
-    fileCateAdd,
-    fileCateDelete,
-    fileCateEdit,
-    fileCateLists,
-    fileDelete,
-    fileList,
-    fileMove,
+    apiFileCateAdd,
+    apiFileCateDelete,
+    apiFileCateEdit,
+    apiFileCateLists,
+    apiFileDelete,
+    apiFileList,
+    apiFileMove,
 } from "@/api/app";
 import { usePages } from "@/core/hooks/pages";
 import { ElMessage } from "element-plus";
@@ -15,7 +15,7 @@ export function useCate(typeValue: Ref<any>) {
     const cateLists: Ref<any[]> = ref([]);
     const cateId = ref("");
     const handleAddCate = (val: string) => {
-        fileCateAdd({
+        apiFileCateAdd({
             type: typeValue.value,
             pid: 0,
             name: val,
@@ -24,7 +24,7 @@ export function useCate(typeValue: Ref<any>) {
         });
     };
     const handleEditCate = (val: string, id: number) => {
-        fileCateEdit({
+        apiFileCateEdit({
             id,
             name: val,
         }).then(() => {
@@ -32,7 +32,7 @@ export function useCate(typeValue: Ref<any>) {
         });
     };
     const handleDeleteCate = (id: number) => {
-        fileCateDelete({
+        apiFileCateDelete({
             id,
         }).then(() => {
             getCateLists();
@@ -40,7 +40,7 @@ export function useCate(typeValue: Ref<any>) {
     };
     const getCateLists = () => {
         return new Promise((resolve, reject) => {
-            fileCateLists({
+            apiFileCateLists({
                 type: typeValue.value,
                 page_type: 1,
             }).then((res: any) => {
@@ -85,7 +85,7 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
     );
 
     const getFileList = () => {
-        requestApi(fileList, fileParams);
+        requestApi(apiFileList, fileParams);
     };
     const refresh = () => {
         pager.page = 1
@@ -93,7 +93,7 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
     }
     const batchFileDelete = (id?: number[]) => {
         let ids = id ? id : select.value.map((item: any) => item.id);
-        fileDelete({
+        apiFileDelete({
             ids,
         }).then((res) => {
             getFileList();
@@ -102,7 +102,7 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
     };
     const batchFileMove = () => {
         let ids = select.value.map((item: any) => item.id);
-        fileMove({
+        apiFileMove({
             ids,
             cid: moveId.value,
         }).then((res) => {

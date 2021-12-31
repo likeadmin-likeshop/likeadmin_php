@@ -28,7 +28,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                         path: "/permission/admin",
                         component: () =>
                             import("@/views/permission/admin/index.vue"),
-                        meta: { title: "管理员" },
+                        meta: { title: "管理员", },
                     },
                     {
                         path: "/permission/admin/edit",

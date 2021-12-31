@@ -91,7 +91,7 @@ export default defineComponent({
         Material,
     },
     props: {
-        modelVale: {
+        modelValue: {
             type: [String, Array],
             default: () => [],
         },
@@ -130,7 +130,7 @@ export default defineComponent({
         const select: Ref<any[]> = ref([])
         const isAdd = ref(true)
         const currentIndex = ref(-1)
-        const { disabled, limit, modelVale } = toRefs(props)
+        const { disabled, limit, modelValue } = toRefs(props)
         const tipsText = computed(() => {
             switch (props.type) {
                 case 'image':
@@ -197,7 +197,8 @@ export default defineComponent({
             handleChange()
         }
 
-        watch(modelVale, (val: any[] | string) => {
+        watch(modelValue, (val: any[] | string) => {
+            console.log(val)
             fileList.value = Array.isArray(val) ? val : val == '' ? [] : [val]
         })
         provide('type', props.type)

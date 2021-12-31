@@ -8,6 +8,7 @@ export interface rootState {
 }
 
 
+
 export default {
     app,
     permission,
