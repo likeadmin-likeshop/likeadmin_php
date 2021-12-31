@@ -16,7 +16,7 @@
                         :autosize="{ minRows: 4, maxRows: 6 }"></el-input>
                 </el-form-item>
                 <!-- 权限 -->
-                <el-form-item label="备注" prop="desc">
+                <el-form-item label="权限" prop="auth_keys">
                     <div class="flex" style="margin-top: 3px;">
                         <el-button type="text" size="mini" @click="allSelect()">
                             全选
@@ -72,7 +72,7 @@
             const { route, router } = useAdmin()
             const formRef: Ref < typeof ElForm | null > = ref(null)
             const treeRef: Ref<typeof ElForm | null> = ref(null)
-            const id: Ref < Number | null > = ref(null) // 当前编辑角色ID  '
+            const id: Ref < Number | null > = ref(null) // 当前编辑角色ID  
 
             // 表单数据
             const {
