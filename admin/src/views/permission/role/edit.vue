@@ -18,10 +18,10 @@
                 <!-- 权限 -->
                 <el-form-item label="备注" prop="desc">
                     <div class="flex" style="margin-top: 3px;">
-                        <el-button type="text" size="mini">
+                        <el-button type="text" size="mini" @click="allSelect()">
                             全选
                         </el-button>
-                        <el-button type="text" size="mini">
+                        <el-button type="text" size="mini" @click="close()">
                             全不选
                         </el-button>
                     </div>
@@ -63,7 +63,11 @@
     } from 'element-plus'
     import FooterBtns from '@/components/footer-btns/index.vue'
     import { useAdmin } from '@/core/hooks/app'
+    import { flatten } from '@/utils/util'
     export default defineComponent({
+        components: {
+            FooterBtns
+        },
         setup() {
             const { route, router } = useAdmin()
             const formRef: Ref < typeof ElForm | null > = ref(null)
@@ -84,7 +88,8 @@
 
                     menu: {
                         permissionsTree: [], // 菜单
-                    }
+                        allAuthKeys: [], // 菜单全部的auth_keys
+                    },
                 })
             )
 
@@ -110,8 +115,15 @@
             const getMenu = () => {
                 apiConfigGetMenu()
                     .then((res: any) => {
+                        // 获取菜单
                         menu.value.permissionsTree = res
-                        console.log('res', res)
+                        // console.log('res', res)
+
+                        // 数组扁平化
+                        let menuFlatten = flatten(res, [], 'sons')
+                        // console.log(menuFlatten)
+                        // 获取菜单全部 auth_key
+                        menu.value.allAuthKeys = menuFlatten.map((item: any) => item.auth_key) as never
                     })
                     .catch((err: any) => {
                         console.log('err', err)
@@ -185,6 +197,16 @@
                 }
             }
 
+            // 全选
+            const allSelect = () => {
+                treeRef.value?.setCheckedKeys(menu.value.allAuthKeys);
+            }
+
+            // 全不选
+            const close = () => {
+                treeRef.value?.setCheckedKeys([]);
+            }
+
             onMounted(() => {
                 const query: any = route.query
                 if (query.id) {
@@ -208,6 +230,8 @@
                 roleDetail,
                 onSubmit,
                 handlePermissionsCheckChange,
+                close,
+                allSelect,
             }
         },
     })

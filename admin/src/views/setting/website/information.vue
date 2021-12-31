@@ -40,9 +40,11 @@
                     </div>
                 </el-form-item>
             </el-form>
-
-            <el-button type="primary" size="small" @click="setWebsite">确定</el-button>
         </el-card>
+
+        <footer-btns>
+            <el-button type="primary" size="small" @click="setWebsite">保存</el-button>
+        </footer-btns>
     </div>
 </template>
 
@@ -53,6 +55,7 @@
         onMounted,
     } from "vue";
     import MaterialSelect from '@/components/material-select/index.vue'
+    import FooterBtns from '@/components/footer-btns/index.vue'
     import {
         apiGetWebsite,
         apiSetWebsite
@@ -60,6 +63,7 @@
     export default defineComponent({
         components: {
             MaterialSelect,
+            FooterBtns
         },
         setup() {
             // 表单数据

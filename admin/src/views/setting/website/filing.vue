@@ -32,6 +32,10 @@
                 </el-form-item>
             </el-form>
         </el-card>
+
+        <footer-btns>
+            <el-button type="primary" size="small" @click="setCopyright">保存</el-button>
+        </footer-btns>
     </div>
 </template>
 
@@ -45,7 +49,11 @@
         apiGetCopyright,
         apiSetCopyright
     } from "@/api/setting"
+    import FooterBtns from '@/components/footer-btns/index.vue'
     export default defineComponent({
+        components: {
+            FooterBtns
+        },
         setup() {
             // 表单数据
             const formData = reactive({
@@ -83,14 +91,15 @@
             // 设置备案信息
             const setCopyright = () => {
                 apiSetCopyright({
-                        info: '版权信息',
-                        icp_number: 'icp备案号',
-                        icp_link: 'icp备案链接',
-                        public_number: '公安备案号',
-                        public_link: '公安备案链接',
+                        info: formData.info,
+                        icp_number: formData.icp_number,
+                        icp_link: formData.icp_link,
+                        public_number: formData.public_number,
+                        public_link: formData.public_link,
                     })
                     .then((res: any) => {
                         console.log('res', res)
+                        getCopyright()
                     })
                     .catch((err: any) => {
                         console.log('err', err)
@@ -98,7 +107,6 @@
             }
 
             onMounted(() => {
-                setCopyright()
                 getCopyright()
             })
 

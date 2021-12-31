@@ -137,17 +137,32 @@ export const timeFormat = (dateTime: number, fmt = 'yyyy-mm-dd') => {
     return fmt
 }
 
+// /**
+//  *
+//  * @param {*} tree
+//  * @param {*} arr
+//  * @returns
+//  */
+// export function flatten(tree = [], arr = []) {
+//     tree.forEach((item) => {
+//         const { children } = item
+//         arr.push(item)
+//         if (children) flatten(children, arr)
+//     })
+//     return arr
+// }
+
 /**
- *
- * @param {*} tree
- * @param {*} arr
- * @returns
+ * @description 树状数组扁平化
+ * @param { Array } tree        树状结构数组
+ * @param { Array } arr         扁平化后的数组
+ * @param { String } childrenKey 子节点键名
+ * @return { Array }            扁平化后的数组
  */
-export function flatten(tree = [], arr = []) {
+export function flatten(tree = [], arr = [], childrenKey = 'children') {
     tree.forEach((item) => {
-        const { children } = item
-        arr.push(item)
-        if (children) flatten(children, arr)
+        const children = item[childrenKey]
+        children ? flatten(children, arr, childrenKey) : arr.push(item)
     })
     return arr
 }
