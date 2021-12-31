@@ -54,7 +54,7 @@ class AdminController extends BaseAdminController
     {
         $params = (new AdminValidate())->post()->goCheck('add');
         AdminLogic::add($params);
-        return $this->success('添加成功');
+        return $this->success('添加成功', [], 1, 1);
     }
 
 
@@ -69,7 +69,7 @@ class AdminController extends BaseAdminController
         $params = (new AdminValidate())->post()->goCheck('edit');
         $result = AdminLogic::edit($params);
         if (true === $result) {
-            return $this->success('编辑成功');
+            return $this->success('编辑成功', [], 1, 1);
         }
         return $this->fail(AdminLogic::getError());
     }
@@ -86,7 +86,7 @@ class AdminController extends BaseAdminController
         $params = (new AdminValidate())->post()->goCheck('delete');
         $result = AdminLogic::delete($params);
         if (true === $result) {
-            return $this->success('删除成功');
+            return $this->success('删除成功', [], 1, 1);
         }
         return $this->fail(AdminLogic::getError());
     }
