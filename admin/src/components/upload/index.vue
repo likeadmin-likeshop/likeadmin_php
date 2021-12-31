@@ -83,7 +83,7 @@ export default defineComponent({
             `${process.env.VUE_APP_BASE_URL}/adminapi/upload/${props.type}`
         )
         const headers = computed(() => ({
-            token: store.state.user.token,
+            token: store.getters.token,
             version: version,
         }))
         const visible = ref(false)

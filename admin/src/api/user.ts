@@ -10,3 +10,9 @@ export function apiLogin(params: { account: string; password: string }) {
 export function apiLogout() {
     return request.post("/login/logout");
 }
+
+
+// 用户信息
+export function apiUserInfo() {
+    return request.get("/auth.admin/mySelf");
+}

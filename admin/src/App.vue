@@ -6,11 +6,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, nextTick, provide } from 'vue'
+import { computed, defineComponent, ref, nextTick, provide, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from './store';
 export default defineComponent({
     setup() {
         const route = useRoute()
+        const store = useStore()
         const routerAlive = ref(true)
         const keepAlive = computed(() => route.meta.keepAlive)
         const reload = () => {
@@ -20,6 +22,10 @@ export default defineComponent({
             })
         }
 		provide('reload', reload)
+        onMounted(() => {
+            store.dispatch('user/getUser')
+            store.dispatch('app/getConfig')
+        })
 		return {
 			routerAlive,
 			keepAlive

@@ -1,12 +1,6 @@
 import request from "@/utils/request";
 
-// 文件分类添加
-interface FileCateAdd {
-    type: 10 | 20 | 30;
-    pid: number;
-    name: string;
-}
-export function apiFileCateAdd(params: FileCateAdd) {
+export function apiFileCateAdd(params: any) {
     return request.post("/file/addCate", params);
 }
 
@@ -42,4 +36,10 @@ export function apiFileMove(params: { ids: any[]; cid: number }) {
 // 文件重命名
 export function apiFileRename(params: { id: number; name: string }) {
     return request.post("/file/rename", params);
+}
+
+
+// 配置
+export function apiconfig (){
+    return request.get('/config/getConfig')
 }

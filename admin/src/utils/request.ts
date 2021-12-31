@@ -49,7 +49,7 @@ const request = axios.create({
 
 request.interceptors.request.use(
     (config) => {
-        const token = store.state.user.token;
+        const token = store.getters.token;
 		// header参入Token
         if(config.headers) {
             config.headers.token = token;

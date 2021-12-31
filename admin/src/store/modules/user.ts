@@ -1,7 +1,7 @@
 import { Module } from "vuex";
 import cache from "@/utils/cache";
 import { TOKEN } from "@/config/cachekey";
-import { apiLogin, apiLogout } from "@/api/user";
+import { apiLogin, apiLogout, apiUserInfo } from "@/api/user";
 export interface UserModule {
     token: string;
     user: object;
@@ -41,15 +41,26 @@ const user: Module<UserModule, any> = {
         logout({ commit }) {
             return new Promise((resolve, reject) => {
                 apiLogout()
-                    .then(() => {
+                    .then((data) => {
                         commit("setToken", "");
                         commit("setUser", {});
                         cache.remove(TOKEN);
-                        resolve("");
+                        resolve(data);
                     })
                     .catch((error) => {
                         reject(error);
                     });
+            });
+        },
+        getUser({ commit }) {
+            return new Promise((resolve, reject) => {
+                apiUserInfo().then((data) => {
+                    commit("setUser", data);
+                    resolve(data);
+                })
+                .catch((error) => {
+                    reject(error);
+                });
             });
         },
     },

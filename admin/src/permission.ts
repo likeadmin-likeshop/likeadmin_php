@@ -20,7 +20,7 @@ router.beforeEach(async (to, from, next) => {
     store.commit("permission/setSidebar", asyncRoutes[0].children);
     // 开始 Progress Bar
 	to.meta?.title && (document.title = to.meta.title as string)
-	const token = store.state.user.token;
+	const token = store.getters.token;
 	if (token) {
         if (to.path === loginPath) {
             next({ path: defaultPath })
