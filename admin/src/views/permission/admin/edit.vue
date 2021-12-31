@@ -94,7 +94,9 @@
             </el-form>
         </el-card>
         <footer-btns>
-            <el-button type="primary" size="small" @click="onSubmit">保存</el-button>
+            <el-button type="primary" size="small" @click="onSubmit"
+                >保存</el-button
+            >
         </footer-btns>
     </div>
 </template>
@@ -102,7 +104,6 @@
 <script lang="ts">
 import {
     computed,
-    ComputedRef,
     defineComponent,
     onMounted,
     reactive,
@@ -118,8 +119,8 @@ import {
     apiAdminAdd,
     apiAdminEdit,
 } from '@/api/auth'
-import { useRoute, useRouter } from 'vue-router'
 import { ElForm } from 'element-plus'
+import { useAdmin } from '@/core/hooks/app'
 export default defineComponent({
     components: {
         MaterialSelect,
@@ -127,8 +128,7 @@ export default defineComponent({
     },
     setup() {
         const formRefs: Ref<typeof ElForm | null> = ref(null)
-        const route = useRoute()
-        const router = useRouter()
+        const { router, route } = useAdmin()
         const id = computed(() => route.query?.id)
         const loading = ref(false)
         // 表单数据
@@ -214,7 +214,7 @@ export default defineComponent({
             formRefs.value?.validate((valid: boolean) => {
                 if (!valid) return
                 const promise = id.value
-                    ? apiAdminEdit({...formData.value, id: id.value})
+                    ? apiAdminEdit({ ...formData.value, id: id.value })
                     : apiAdminAdd(formData.value)
                 promise.then(() => {
                     setTimeout(() => router.go(-1), 500)
@@ -234,7 +234,7 @@ export default defineComponent({
             formData,
             rules,
             roleList,
-            onSubmit
+            onSubmit,
         }
     },
 })

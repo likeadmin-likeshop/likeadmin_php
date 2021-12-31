@@ -26,12 +26,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from '@/store'
-import { useRouter } from 'vue-router'
+import { useAdmin } from '@/core/hooks/app'
 export default defineComponent({
     setup() {
-        const store = useStore()
-        const router = useRouter()
+        const { store, router } = useAdmin()
         const handleCommand = (command: string) => {
             switch (command) {
                 case 'logout':

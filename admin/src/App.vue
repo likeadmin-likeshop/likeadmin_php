@@ -7,12 +7,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, nextTick, provide, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { useStore } from './store';
+import { useAdmin } from './core/hooks/app';
 export default defineComponent({
     setup() {
-        const route = useRoute()
-        const store = useStore()
+        const { store, route } = useAdmin()
         const routerAlive = ref(true)
         const keepAlive = computed(() => route.meta.keepAlive)
         const reload = () => {

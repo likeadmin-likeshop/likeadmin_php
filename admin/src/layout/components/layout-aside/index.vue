@@ -38,16 +38,14 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { useStore } from '@/store'
-import { useRoute } from 'vue-router'
+import { useAdmin } from '@/core/hooks/app'
 import SubMenu from './sub-menu.vue'
 export default defineComponent({
     components: {
         SubMenu
     },
     setup() {
-        const store = useStore()
-        const route = useRoute()
+        const { store, route } = useAdmin()
         const sidebar = computed(() => store.state.permission.sidebar)
         const currentPath = computed(() => route.meta?.parent ?? route.path)
         return {

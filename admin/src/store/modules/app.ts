@@ -1,4 +1,4 @@
-import { apiconfig } from "@/api/app";
+import { apiConfig } from "@/api/app";
 import { Module } from "vuex";
 export interface AppModule {
     config: any;
@@ -17,7 +17,7 @@ const app: Module<AppModule, any> = {
     actions: {
         getConfig({ commit }) {
             return new Promise((resolve, reject) => {
-                apiconfig().then((data) => {
+                apiConfig().then((data) => {
                     commit("setConfig", data);
                     resolve(data);
                 });

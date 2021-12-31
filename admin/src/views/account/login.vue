@@ -49,16 +49,13 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
-import { useStore } from '@/store'
+import { useAdmin } from '@/core/hooks/app'
 import { ACCOUNT } from '@/config/cachekey'
 import cache from '@/utils/cache'
-import { useRoute, useRouter } from 'vue-router'
 import { ElInput, ElForm } from 'element-plus'
 export default defineComponent({
     setup() {
-        const store = useStore()
-        const router = useRouter()
-        const route = useRoute()
+        const {store, router, route } = useAdmin()
         const passwordRefs: Ref<typeof ElInput | null> = ref(null)
         const loginFormRefs: Ref<typeof ElForm | null> = ref(null)
         const remAccount = ref(false)

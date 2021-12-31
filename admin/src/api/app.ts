@@ -40,6 +40,6 @@ export function apiFileRename(params: { id: number; name: string }) {
 
 
 // 配置
-export function apiconfig (){
+export function apiConfig (){
     return request.get('/config/getConfig')
 }

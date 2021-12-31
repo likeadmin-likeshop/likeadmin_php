@@ -13,13 +13,13 @@
 </template>
 
 <script lang="ts">
+import { useAdmin } from '@/core/hooks/app'
 import { defineComponent, onUnmounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
 export default defineComponent({
     setup() {
         let timer: any = null
         const second = ref(5)
-        const router = useRouter()
+        const { router } = useAdmin()
         timer = setInterval(() => {
             if (second.value === 0) {
                 clearInterval(timer)
