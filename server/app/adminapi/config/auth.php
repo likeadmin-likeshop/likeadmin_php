@@ -26,7 +26,7 @@ return [
     'index' => [
         //控制台
         'index' => [
-            'page_path' => '/workbench/index',
+            'page_path' => '/workbench',
             'view' => [
                 'button_auth' => ['view'],
                 'action_auth' => ['workbench/index'],
@@ -37,7 +37,7 @@ return [
     'auth' => [
         //管理员
         'permissions' => [
-            'page_path' => '/permissions/admin/index',
+            'page_path' => '/permissions/admin',
             'view' => [
                 'button_auth' => ['view'],
                 'action_auth' => ['auth.admin/lists', 'auth.role/lists'],
@@ -54,7 +54,7 @@ return [
         ],
         //角色
         'role' => [
-            'page_path' => '/permissions/role/index',
+            'page_path' => '/permissions/role',
             'view' => [
                 'button_auth' => ['view'],
                 'action_auth' => ['auth.role/lists'],
