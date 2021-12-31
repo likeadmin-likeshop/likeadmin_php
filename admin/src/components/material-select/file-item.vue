@@ -32,9 +32,11 @@ export default defineComponent({
         DelWrap,
     },
     props: {
+        // 图片地址
         uri: {
             type: String,
         },
+        // 图片尺寸
         fileSize: {
             type: String,
             default: '100px',

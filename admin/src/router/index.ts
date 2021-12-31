@@ -16,19 +16,19 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
             {
                 path: "/workbench",
                 component: workbench,
-                meta: { title: "工作台" },
+                meta: { title: "工作台", icon: 'icon-home', permission: ["view"] },
             },
             {
                 path: "/permission",
                 redirect: "/permission/admin",
                 component: RouterView,
-                meta: { title: "权限管理" },
+                meta: { title: "权限管理", icon: 'icon-quanxian' },
                 children: [
                     {
                         path: "/permission/admin",
                         component: () =>
                             import("@/views/permission/admin/index.vue"),
-                        meta: { title: "管理员", },
+                        meta: { title: "管理员", permission: ["view"] },
                     },
                     {
                         path: "/permission/admin/edit",
@@ -44,7 +44,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                         path: "/permission/role",
                         component: () =>
                             import("@/views/permission/role/index.vue"),
-                        meta: { title: "角色" },
+                        meta: { title: "角色", permission: ["view"] },
                     },
                     {
                         path: "/permission/role/edit",
@@ -62,7 +62,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                 path: "/setting",
                 redirect: "/setting",
                 component: RouterView,
-                meta: { title: "系统设置" },
+                meta: { title: "系统设置", icon: 'icon-setting' },
                 children: [
                     {
                         path: "/setting/website",
@@ -76,7 +76,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                                     import(
                                         "@/views/setting/website/information.vue"
                                     ),
-                                meta: { title: "网站信息" },
+                                meta: {
+                                    title: "网站信息",
+                                    permission: ["view"],
+                                },
                             },
                             {
                                 path: "/setting/website/filing",
@@ -84,7 +87,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                                     import(
                                         "@/views/setting/website/filing.vue"
                                     ),
-                                meta: { title: "备案信息" },
+                                meta: {
+                                    title: "备案信息",
+                                    permission: ["view"],
+                                },
                             },
                         ],
                     },
@@ -100,7 +106,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                                     import(
                                         "@/views/setting/system/environment.vue"
                                     ),
-                                meta: { title: "系统环境" },
+                                meta: {
+                                    title: "系统环境",
+                                    permission: ["view"],
+                                },
                             },
                         ],
                     },

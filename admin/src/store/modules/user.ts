@@ -22,6 +22,7 @@ const user: Module<UserModule, any> = {
         },
     },
     actions: {
+        // 登录
         login({ commit }, data) {
             const { account, password } = data;
             return new Promise((resolve, reject) => {
@@ -38,6 +39,7 @@ const user: Module<UserModule, any> = {
                     });
             });
         },
+        // 退出登录
         logout({ commit }) {
             return new Promise((resolve, reject) => {
                 apiLogout()
@@ -52,6 +54,7 @@ const user: Module<UserModule, any> = {
                     });
             });
         },
+        // 获取管理员信息
         getUser({ commit }) {
             return new Promise((resolve, reject) => {
                 apiUserInfo().then((data) => {

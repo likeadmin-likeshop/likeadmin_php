@@ -15,5 +15,5 @@ useElement(app)
 useVueEcharts(app)
 // 添加自定义指令
 useDirectives(app)
-// copyDirectives(app)
+
 app.use(router).use(store, injectionKey).mount('#app')

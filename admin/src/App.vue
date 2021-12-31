@@ -20,9 +20,10 @@ export default defineComponent({
             })
         }
 		provide('reload', reload)
-        onMounted(() => {
-            store.dispatch('user/getUser')
+        onMounted(async () => {
+            // 获取配置
             store.dispatch('app/getConfig')
+           
         })
 		return {
 			routerAlive,
@@ -33,5 +34,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import './assets/font/iconfont.css';
 @import './styles/index.scss';
 </style>

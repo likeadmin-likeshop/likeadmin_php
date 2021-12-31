@@ -36,6 +36,10 @@ export default defineComponent({
                 case 'logout':
                     store.dispatch('user/logout').then(() => {
                         router.push('/login')
+                        store.commit('permission/setPermission', {
+                            auth: null,
+                            root: 0
+                        })
                     })
             }
         }

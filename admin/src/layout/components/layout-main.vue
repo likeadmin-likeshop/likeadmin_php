@@ -2,7 +2,7 @@
     <div class="layout-main">
         <el-scrollbar>
             <div class="p-15">
-                <router-view />
+                <perm />
             </div>
         </el-scrollbar>
     </div>
@@ -11,7 +11,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-export default defineComponent({})
+import Perm from './perm.vue'
+export default defineComponent({
+    components: {
+        Perm
+    }
+})
 </script>
 
 

@@ -11,9 +11,15 @@ import { usePages } from "@/core/hooks/pages";
 import { ElMessage } from "element-plus";
 import { computed, inject, reactive, ref, Ref } from "vue";
 
+
+
+// 左侧分组的钩子函数
 export function useCate(typeValue: Ref<any>) {
+    // 分组列表
     const cateLists: Ref<any[]> = ref([]);
+    // 选中的分组id
     const cateId = ref("");
+    // 添加分组
     const handleAddCate = (val: string) => {
         apiFileCateAdd({
             type: typeValue.value,
@@ -23,6 +29,7 @@ export function useCate(typeValue: Ref<any>) {
             getCateLists();
         });
     };
+    // 编辑分组
     const handleEditCate = (val: string, id: number) => {
         apiFileCateEdit({
             id,
@@ -31,6 +38,7 @@ export function useCate(typeValue: Ref<any>) {
             getCateLists();
         });
     };
+    // 删除分组
     const handleDeleteCate = (id: number) => {
         apiFileCateDelete({
             id,
@@ -38,6 +46,7 @@ export function useCate(typeValue: Ref<any>) {
             getCateLists();
         });
     };
+    // 获取分组列表
     const getCateLists = () => {
         return new Promise((resolve, reject) => {
             apiFileCateLists({
@@ -70,6 +79,8 @@ export function useCate(typeValue: Ref<any>) {
     };
 }
 
+
+// 处理文件的钩子函数
 export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>) {
     const { pager, requestApi } = usePages();
     const moveId = ref(0);

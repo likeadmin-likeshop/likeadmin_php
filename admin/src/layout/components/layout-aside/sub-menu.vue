@@ -2,12 +2,13 @@
     <template v-if="!route.meta.hidden">
         <el-sub-menu v-if="hasChildren" :index="route.path">
             <template #title>
+                <i class="iconfont m-r-10" :class="route.meta.icon"></i>
                 <span>{{ route.meta.title }}</span>
             </template>
             <slot></slot>
         </el-sub-menu>
         <el-menu-item v-else :index="route.path">
-            <!-- <el-icon><setting /></el-icon> -->
+            <i class="iconfont m-r-10" :class="route.meta.icon"></i>
             <span>{{ route.meta.title }}</span>
         </el-menu-item>
     </template>

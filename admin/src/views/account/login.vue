@@ -125,7 +125,6 @@ export default defineComponent({
                 store
                     .dispatch('user/login', loginForm)
                     .then(() => {
-                        store.dispatch('user/getUser')
                         const {
                             query: { redirect },
                         } = route

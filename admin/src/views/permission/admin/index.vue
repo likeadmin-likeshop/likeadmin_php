@@ -15,12 +15,13 @@
                     <el-input class="ls-input" v-model="formData.name" />
                 </el-form-item>
                 <el-form-item label="角色：">
-                    <el-select v-model="formData.role" placeholder="全部">
+                    <el-select v-model="formData.role_id" placeholder="全部">
                         <el-option
-                            label="Zone one"
-                            value="shanghai"
+                            v-for="(item, index) in roleList"
+                            :key="index"
+                            :label="item.name"
+                            :value="item.id"
                         ></el-option>
-                        <el-option label="Zone two" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -28,7 +29,7 @@
                         <el-button type="primary" @click="getLists"
                             >查询</el-button
                         >
-                        <el-button>重置</el-button>
+                        <el-button @click="resetForm">重置</el-button>
                     </div>
                 </el-form-item>
             </el-form>
@@ -125,10 +126,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive } from 'vue'
+import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
 import Pagination from '@/components/pagination/index.vue'
 import Popup from '@/components/popup/index.vue'
-import { apiAdminEdit, adminLists, apiAdminDelete } from '@/api/auth'
+import {
+    apiAdminEdit,
+    adminLists,
+    apiAdminDelete,
+    apiRoleLists,
+} from '@/api/auth'
 import { usePages } from '@/core/hooks/pages'
 export default defineComponent({
     components: {
@@ -140,9 +146,9 @@ export default defineComponent({
         const formData = reactive({
             account: '',
             name: '',
-            role: '',
+            role_id: '',
         })
-
+        const roleList: Ref<any[]> = ref([])
         const { pager, requestApi } = usePages()
         const getLists = () => {
             requestApi(adminLists, formData)
@@ -165,16 +171,33 @@ export default defineComponent({
                 getLists()
             })
         }
+
+        const getRoleList = () => {
+            apiRoleLists({
+                page_type: 1,
+            }).then((res: any) => {
+                roleList.value = res.lists
+            })
+        }
+        const resetForm = () => {
+            formData.account = ''
+            formData.name = ''
+            formData.role_id = ''
+            getLists()
+        }
         onMounted(() => {
             getLists()
+            getRoleList()
         })
         return {
             formData,
+            roleList,
             pager,
             adminLists,
             changeStatus,
             handleDelete,
             getLists,
+            resetForm
         }
     },
 })

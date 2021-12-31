@@ -1,8 +1,8 @@
 <template>
     <div class="layout-aside">
-        <router-link to="/workbench" class="logo flex flex-center">
-            <img src="" alt="" />
-            Admin管理平台
+        <router-link to="/workbench" class="logo flex col-center">
+            <img class="logo-img" :src="config.web_logo" alt="" />
+            <div class="line-1">{{config.web_name}}</div>
         </router-link>
         <el-scrollbar style="height: 100%" class="ls-scrollbar">
             
@@ -48,7 +48,9 @@ export default defineComponent({
         const { store, route } = useAdmin()
         const sidebar = computed(() => store.state.permission.sidebar)
         const currentPath = computed(() => route.meta?.parent ?? route.path)
+        const config = computed(() => store.getters.config)
         return {
+            config,
             sidebar,
             currentPath,
         }
@@ -68,12 +70,19 @@ export default defineComponent({
         font-weight: 500;
         font-size: 18px;
         color: #fff;
+        padding: 0 10px;
+        .logo-img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
     }
     .el-menu {
         box-sizing: border-box;
         min-height: 100vh;
         padding: 10px 0 20px;
         .el-menu-item {
+            font-size: 14px;
             &.is-active {
                 background-color: $color-primary;
             }
