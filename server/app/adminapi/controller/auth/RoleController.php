@@ -90,7 +90,7 @@ class RoleController extends BaseAdminController
     {
         $params = (new RoleValidate())->post()->goCheck('del');
         (new RoleLogic)->delete($params['id']);
-        return $this->success('删除成功');
+        return $this->success('删除成功', [], 1, 1);
     }
 
 

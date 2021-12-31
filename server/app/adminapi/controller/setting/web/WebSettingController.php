@@ -54,7 +54,7 @@ class WebSettingController extends BaseAdminController
     {
         $params = (new WebSettingValidate())->post()->goCheck('website');
         WebSettingLogic::setWebsiteInfo($params);
-        return $this->success('设置成功');
+        return $this->success('设置成功', [], 1, 1);
     }
 
 
@@ -82,7 +82,7 @@ class WebSettingController extends BaseAdminController
     {
         $params = $this->request->post();
         WebSettingLogic::setCopyright($params);
-        return $this->success('设置成功');
+        return $this->success('设置成功', [], 1, 1);
     }
 
 }
