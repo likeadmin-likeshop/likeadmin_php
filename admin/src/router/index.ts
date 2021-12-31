@@ -22,7 +22,6 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
             },
             permission,
             setting,
-
           
         ],
     },

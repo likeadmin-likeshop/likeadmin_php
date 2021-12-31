@@ -1,7 +1,7 @@
 
 <template>
     <div class="layout-header">
-        <input class="search-input" placeholder="请输入搜索内容…" type="text" />
+        <!-- <input class="search-input" placeholder="请输入搜索内容…" type="text" /> -->
         <div class="admin-info flex flex-center m-l-40">
             <el-avatar :size="40" :src="userInfo.avatar"></el-avatar>
             <div class="m-l-10">
