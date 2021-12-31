@@ -104,4 +104,18 @@ class AdminController extends BaseAdminController
         $result = AdminLogic::detail($params);
         return $this->data($result);
     }
+
+
+    /**
+     * @notes 获取当前管理员信息
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2021/12/31 10:53
+     */
+    public function mySelf()
+    {
+        $result = AdminLogic::detail(['id' => $this->adminId]);
+        return $this->data($result);
+    }
+
 }
