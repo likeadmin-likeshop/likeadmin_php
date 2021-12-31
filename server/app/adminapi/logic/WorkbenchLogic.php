@@ -21,6 +21,7 @@ namespace app\adminapi\logic;
 
 
 use app\common\logic\BaseLogic;
+use app\common\service\FileService;
 
 
 /**
@@ -63,8 +64,16 @@ class WorkbenchLogic extends BaseLogic
     public static function menu() : array
     {
         return [
-            ['name' => '工作套', 'image' => config('project.default_image.admin_avatar'), 'url' => 'baidu.com'],
-            ['name' => '工作套', 'image' => config('project.default_image.admin_avatar'), 'url' => 'baidu.com'],
+            [
+                'name' => '工作套',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => 'baidu.com'
+            ],
+            [
+                'name' => '工作套',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => 'baidu.com'
+            ],
         ];
     }
 
