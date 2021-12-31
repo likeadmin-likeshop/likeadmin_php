@@ -70,7 +70,7 @@ export default defineComponent({
         font-weight: 500;
         font-size: 18px;
         color: #fff;
-        padding: 0 10px;
+        padding: 0 20px;
         .logo-img {
             width: 30px;
             height: 30px;
