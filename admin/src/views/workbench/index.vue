@@ -152,7 +152,7 @@
             position: relative;
             font-weight: 500;
             padding-left: 10px;
-
+            font-size: 14px;
             &::before {
                 position: absolute;
                 content: '';
