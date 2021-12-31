@@ -10,8 +10,7 @@
 // +----------------------------------------------------------------------
 use think\facade\Route;
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP6!';
-});
-
-Route::get('hello/:name', 'index/hello');
+//管理后台
+Route::rule('admin/:any', function () {
+    return view(app()->getRootPath() . 'public/admin/index.html');
+})->pattern(['any' => '\w+']);
