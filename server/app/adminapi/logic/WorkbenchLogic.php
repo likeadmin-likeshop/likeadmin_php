@@ -65,14 +65,19 @@ class WorkbenchLogic extends BaseLogic
     {
         return [
             [
-                'name' => '工作套',
+                'name' => '工作台',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => 'baidu.com'
+                'url' => '/workbench'
             ],
             [
-                'name' => '工作套',
+                'name' => '网站信息',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => 'baidu.com'
+                'url' => '/setting/website/information'
+            ],
+            [
+                'name' => '系统环境',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => '/setting/website/environment'
             ],
         ];
     }
