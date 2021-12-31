@@ -61,7 +61,7 @@
                     <span class="card-title">访问量趋势图</span>
                 </template>
                 <div class="ranking-centent">
-                    <!-- <e-chart class="chart" :option="business" /> -->
+                    <v-chart class="chart" :option="workbenchData.visitorOption" />
                 </div>
             </el-card>
             <el-card class="flex-1 m-l-15" shadow="never">
@@ -116,6 +116,34 @@
                 menu: [], // 常用功能
                 visitor: [], // 访问量
                 article: [], // 文章阅读量
+
+                visitorOption: {
+                    xAxis: {
+                        type: "category",
+                        data: [0],
+                    },
+                    yAxis: {
+                        type: "value",
+                    },
+                    legend: {
+                        data: ["访问量"],
+                    },
+                    itemStyle: {
+                        // 点的颜色。
+                        color: "red",
+                    },
+                    tooltip: {
+                        trigger: "axis",
+                    },
+                    series: [
+                        {
+                            name: "访问量",
+                            data: [0],
+                            type: "line",
+                            //smooth: true,
+                        }
+                    ],
+                },
             })
 
             // 获取工作台主页数据
@@ -128,6 +156,18 @@
                         workbenchData.menu = res.menu
                         workbenchData.visitor = res.visitor
                         workbenchData.article = res.article
+
+                        // 清空echarts 数据
+                        workbenchData.visitorOption.xAxis.data = [];
+                        workbenchData.visitorOption.series[0].data = [];
+
+                        // 写入从后台拿来的数据
+                        res.visitor.date.reverse().forEach((item: any) => {
+                            workbenchData.visitorOption.xAxis.data.push(item);
+                        });
+                        res.visitor.list[0].data.forEach((item: any) => {
+                            workbenchData.visitorOption.series[0].data.push(item);
+                        });
                     })
                     .catch((err: any) => {
                         console.log('err', err)
