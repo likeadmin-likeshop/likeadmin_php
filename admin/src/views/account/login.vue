@@ -1,65 +1,91 @@
 <template>
-    <div class="login flex flex-center">
-        <div class="login-card bg-white flex">
-            <div class="login-img"></div>
-            <div class="login-form flex flex-col">
-                <div class="f-s-24 f-w-500 text-center m-b-40">管理后台</div>
-                <el-form
-                    :model="loginForm"
-                    status-icon
-                    :rules="rules"
-                    ref="loginFormRefs"
-                >
-                    <el-form-item prop="account">
-                        <el-input
-                            v-model="loginForm.account"
-                            placeholder="请输入账号"
-                            @keyup.enter="handleEnter"
-                        >
-                            <template #prepend>
-                                <el-icon><avatar /></el-icon>
-                            </template>
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item prop="password">
-                        <el-input
-                            v-model="loginForm.password"
-                            show-password
-                            ref="passwordRefs"
-                            placeholder="请输入密码"
-                            @keyup.enter="handleLogin"
-                        >
-                            <template #prepend>
-                                <el-icon><lock /></el-icon>
-                            </template>
-                        </el-input>
-                    </el-form-item>
-                </el-form>
-                <div class="m-b-20">
-                    <el-checkbox
-                        v-model="remAccount"
-                        label="记住账号"
-                    ></el-checkbox>
+    <div class="login flex flex-col">
+        <div class="flex-1 flex flex-center">
+            <div class="login-card bg-white flex">
+                <div
+                    class="login-img"
+                    :style="{
+                        'background-image': `url(${config.login_image})`,
+                    }"
+                ></div>
+                <div class="login-form flex flex-col">
+                    <div class="f-s-24 f-w-500 text-center m-b-40">
+                        {{ config.web_name }}
+                    </div>
+                    <el-form
+                        :model="loginForm"
+                        status-icon
+                        :rules="rules"
+                        ref="loginFormRefs"
+                    >
+                        <el-form-item prop="account">
+                            <el-input
+                                v-model="loginForm.account"
+                                placeholder="请输入账号"
+                                @keyup.enter="handleEnter"
+                            >
+                                <template #prepend>
+                                    <el-icon><avatar /></el-icon>
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item prop="password">
+                            <el-input
+                                v-model="loginForm.password"
+                                show-password
+                                ref="passwordRefs"
+                                placeholder="请输入密码"
+                                @keyup.enter="handleLogin"
+                            >
+                                <template #prepend>
+                                    <el-icon><lock /></el-icon>
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div class="m-b-20">
+                        <el-checkbox
+                            v-model="remAccount"
+                            label="记住账号"
+                        ></el-checkbox>
+                    </div>
+                    <el-button
+                        type="primary"
+                        @click="handleLogin"
+                        :loading="loginLoading"
+                        >登录</el-button
+                    >
                 </div>
-                <el-button type="primary" @click="handleLogin" :loading="loginLoading">登录</el-button>
+            </div>
+        </div>
+        <div class="login-footer">
+            <div class="flex flex-center muted xs m-t-20">
+                <span class="m-r-10">{{ config.copyright_info }}</span>
+                <a
+                    class="link muted"
+                    :href="config.icp_link"
+                    target="_blank"
+                    >{{ config.icp_number }}</a
+                >
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
+import { computed, defineComponent, onMounted, reactive, Ref, ref } from 'vue'
 import { useAdmin } from '@/core/hooks/app'
 import { ACCOUNT } from '@/config/cachekey'
 import cache from '@/utils/cache'
 import { ElInput, ElForm } from 'element-plus'
 export default defineComponent({
     setup() {
-        const {store, router, route } = useAdmin()
+        const { store, router, route } = useAdmin()
         const passwordRefs: Ref<typeof ElInput | null> = ref(null)
         const loginFormRefs: Ref<typeof ElForm | null> = ref(null)
         const remAccount = ref(false)
         const loginLoading = ref(false)
+        const config = computed(() => store.getters.config)
         const loginForm = reactive({
             account: '',
             password: '',
@@ -99,10 +125,12 @@ export default defineComponent({
                 store
                     .dispatch('user/login', loginForm)
                     .then(() => {
+                        store.dispatch('user/getUser')
                         const {
                             query: { redirect },
                         } = route
-                        const path = typeof redirect === 'string' ? redirect : '/'
+                        const path =
+                            typeof redirect === 'string' ? redirect : '/'
                         router.replace(path)
                     })
                     .catch((err) => {
@@ -122,6 +150,7 @@ export default defineComponent({
             }
         })
         return {
+            config,
             passwordRefs,
             loginFormRefs,
             loginForm,
@@ -154,7 +183,6 @@ export default defineComponent({
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            background-image: url('./images/login_banner.png');
             background-color: $color-primary;
         }
         .login-form {
@@ -162,6 +190,9 @@ export default defineComponent({
             box-sizing: border-box;
             padding: 30px 40px 0;
         }
+    }
+    .login-footer {
+        padding: 20px 0;
     }
 }
 </style>

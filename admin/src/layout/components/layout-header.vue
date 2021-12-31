@@ -3,11 +3,11 @@
     <div class="layout-header">
         <input class="search-input" placeholder="请输入搜索内容…" type="text" />
         <div class="admin-info flex flex-center m-l-40">
-            <el-avatar :size="40" src=""></el-avatar>
+            <el-avatar :size="40" :src="userInfo.avatar"></el-avatar>
             <div class="m-l-10">
                 <el-dropdown trigger="hover" @command="handleCommand">
                     <div class="flex flex-center">
-                        管理员
+                        {{ userInfo.name }}
                         <el-icon class="el-icon--right"><arrow-down /></el-icon>
                     </div>
                     <template #dropdown>
@@ -25,11 +25,12 @@
 
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useAdmin } from '@/core/hooks/app'
 export default defineComponent({
     setup() {
         const { store, router } = useAdmin()
+        const userInfo = computed(() => store.getters.userInfo)
         const handleCommand = (command: string) => {
             switch (command) {
                 case 'logout':
@@ -39,6 +40,7 @@ export default defineComponent({
             }
         }
         return {
+            userInfo,
             handleCommand,
         }
     },
