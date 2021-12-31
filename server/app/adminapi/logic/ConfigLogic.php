@@ -35,21 +35,36 @@ class ConfigLogic
     /**
      * @notes 获取配置
      * @return array
-     * @author cjhao
-     * @date 2021/8/19 16:28
+     * @author 段誉
+     * @date 2021/12/31 11:03
      */
     public static function getConfig(): array
     {
-        $data = [
-            'oss_domain' => FileService::getFileUrl(),
-            'copyright' => ConfigService::get('shop', 'copyright', ''),
-            'record_number' => ConfigService::get('shop', 'record_number', ''),
-            'record_system_link' => ConfigService::get('shop', 'record_system_link', ''),
-            'name' => ConfigService::get('shop', 'name'),
-            'logo' => FileService::getFileUrl(ConfigService::get('shop', 'logo')),
-            'admin_login_image' => FileService::getFileUrl(ConfigService::get('shop', 'admin_login_image'))
+        $config = [
+            // 文件域名
+            'oss_domain' => FileService::getFileUrl('', 'domain'),
+
+            // 网站名称
+            'web_name' => ConfigService::get('website', 'name'),
+            // 网站图标
+            'web_favicon' => FileService::getFileUrl(ConfigService::get('website', 'web_favicon')),
+            // 网站logo
+            'web_logo' => FileService::getFileUrl(ConfigService::get('website', 'web_logo')),
+            // 登录页
+            'login_image' => FileService::getFileUrl(ConfigService::get('website', 'login_image')),
+
+            // 版权信息
+            'copyright_info' => ConfigService::get('copyright', 'info'),
+            // icp备案号
+            'icp_number' => ConfigService::get('copyright', 'icp_number'),
+            // icp备案号链接
+            'icp_link' => ConfigService::get('copyright', 'icp_link'),
+            // 公安备案号
+            'public_number' => ConfigService::get('copyright', 'public_number'),
+            // 公安备案号链接
+            'public_link' => ConfigService::get('copyright', 'public_link'),
         ];
-        return $data;
+        return $config;
     }
 
 
