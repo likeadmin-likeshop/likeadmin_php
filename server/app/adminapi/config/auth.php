@@ -37,7 +37,7 @@ return [
     'auth' => [
         //管理员
         'permissions' => [
-            'page_path' => '/permissions/admin',
+            'page_path' => '/permission/admin',
             'view' => [
                 'button_auth' => ['view'],
                 'action_auth' => ['auth.admin/lists', 'auth.role/lists'],
@@ -54,7 +54,7 @@ return [
         ],
         //角色
         'role' => [
-            'page_path' => '/permissions/role',
+            'page_path' => '/permission/role',
             'view' => [
                 'button_auth' => ['view'],
                 'action_auth' => ['auth.role/lists'],
