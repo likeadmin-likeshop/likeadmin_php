@@ -72,7 +72,7 @@
             const { route, router } = useAdmin()
             const formRef: Ref < typeof ElForm | null > = ref(null)
             const treeRef: Ref<typeof ElForm | null> = ref(null)
-            const id: Ref < Number | null > = ref(null) // 当前编辑角色ID  
+            const id: Ref < Number | null > = ref(null) // 当前编辑角色ID
 
             // 表单数据
             const {
@@ -239,7 +239,7 @@
 
 <style lang="scss" scoped>
     .role-edit {
-        ::v-deep .el-textarea {
+        :deep .el-textarea {
             width: 340px;
         }
     }
