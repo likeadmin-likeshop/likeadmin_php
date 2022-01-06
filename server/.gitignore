@@ -1,9 +1,9 @@
 /.idea
 /.vscode
-/vendor
 *.log
-.env
+/.env
 /public/uploads/*
 !/public/uploads/index.html
 /runtime/*
 !/runtime/index.html
+/config/install.lock
