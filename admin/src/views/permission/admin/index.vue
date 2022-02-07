@@ -1,13 +1,7 @@
 <template>
     <div class="admin">
         <el-card shadow="never">
-            <el-form
-                class="ls-form"
-                :model="formData"
-                label-width="80px"
-                size="small"
-                inline
-            >
+            <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
                 <el-form-item label="账号：">
                     <el-input class="ls-input" v-model="formData.account" />
                 </el-form-item>
@@ -26,10 +20,8 @@
                 </el-form-item>
                 <el-form-item>
                     <div class="m-l-20">
-                        <el-button type="primary" @click="getLists"
-                            >查询</el-button
-                        >
-                        <el-button @click="resetForm">重置</el-button>
+                        <el-button type="primary" @click="resetPage">查询</el-button>
+                        <el-button @click="resetParams">重置</el-button>
                     </div>
                 </el-form-item>
             </el-form>
@@ -40,45 +32,18 @@
             </router-link>
             <div class="m-t-15">
                 <el-table :data="pager.lists">
-                    <el-table-column label="ID" prop="id" min-width="60">
-                    </el-table-column>
+                    <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
                     <el-table-column label="头像" min-width="100">
                         <template v-slot="{ row }">
                             <el-avatar :size="50" :src="row.avatar"></el-avatar>
                         </template>
                     </el-table-column>
-                    <el-table-column
-                        label="账号"
-                        prop="account"
-                        min-width="100"
-                    >
-                    </el-table-column>
-                    <el-table-column label="名称" prop="name" min-width="100">
-                    </el-table-column>
-                    <el-table-column
-                        label="角色"
-                        prop="role_name"
-                        min-width="100"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                        label="创建时间"
-                        prop="create_time"
-                        min-width="150"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                        label="最近登录时间"
-                        prop="login_time"
-                        min-width="150"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                        label="最近登录IP"
-                        prop="login_ip"
-                        min-width="100"
-                    >
-                    </el-table-column>
+                    <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
+                    <el-table-column label="名称" prop="name" min-width="100"></el-table-column>
+                    <el-table-column label="角色" prop="role_name" min-width="100"></el-table-column>
+                    <el-table-column label="创建时间" prop="create_time" min-width="150"></el-table-column>
+                    <el-table-column label="最近登录时间" prop="login_time" min-width="150"></el-table-column>
+                    <el-table-column label="最近登录IP" prop="login_ip" min-width="100"></el-table-column>
                     <el-table-column label="状态" min-width="100">
                         <template v-slot="{ row }">
                             <el-switch
@@ -100,14 +65,11 @@
                                     },
                                 }"
                             >
-                                <el-button type="text">编辑 </el-button>
+                                <el-button type="text">编辑</el-button>
                             </router-link>
-                            <popup
-                                class="m-r-10 inline"
-                                @confirm="handleDelete(row.id)"
-                            >
+                            <popup class="m-r-10 inline" @confirm="handleDelete(row.id)">
                                 <template #trigger>
-                                    <el-button type="text">删除 </el-button>
+                                    <el-button type="text">删除</el-button>
                                 </template>
                             </popup>
                         </template>
@@ -117,7 +79,7 @@
             <div class="flex row-right">
                 <pagination
                     v-model="pager"
-                    @change="getLists"
+                    @change="requestApi"
                     layout="total, prev, pager, next, jumper"
                 />
             </div>
@@ -149,10 +111,15 @@ export default defineComponent({
             role_id: '',
         })
         const roleList: Ref<any[]> = ref([])
-        const { pager, requestApi } = usePages()
-        const getLists = () => {
-            requestApi(adminLists, formData)
-        }
+        const {
+            pager,
+            requestApi,
+            resetParams,
+            resetPage
+        } = usePages({
+            callback: adminLists,
+            params: formData
+        })
         const changeStatus = (data: any) => {
             apiAdminEdit({
                 id: data.id,
@@ -162,13 +129,13 @@ export default defineComponent({
                 disable: data.disable,
                 multipoint_login: data.multipoint_login,
             }).finally(() => {
-                getLists()
+                requestApi()
             })
         }
 
         const handleDelete = (id: number) => {
             apiAdminDelete({ id }).then(() => {
-                getLists()
+                requestApi()
             })
         }
 
@@ -179,25 +146,20 @@ export default defineComponent({
                 roleList.value = res.lists
             })
         }
-        const resetForm = () => {
-            formData.account = ''
-            formData.name = ''
-            formData.role_id = ''
-            getLists()
-        }
         onMounted(() => {
-            getLists()
+            requestApi()
             getRoleList()
         })
         return {
             formData,
             roleList,
             pager,
+            requestApi,
+            resetParams,
+            resetPage,
             adminLists,
             changeStatus,
             handleDelete,
-            getLists,
-            resetForm
         }
     },
 })

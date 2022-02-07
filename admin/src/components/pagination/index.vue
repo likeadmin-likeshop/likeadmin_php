@@ -6,8 +6,8 @@
             :page-sizes="pageSizes"
             :layout="layout"
             :total="modelValue.count"
-            @size-change="handleChange"
-            @current-change="handleChange"
+            @size-change="sizeChange"
+            @current-change="pageChange"
             hide-on-single-page
         >
         </el-pagination>
@@ -38,12 +38,16 @@ export default defineComponent({
     },
     emits: ['change'],
     setup(props, { emit }) {
-        const handleChange = () => {
+        const sizeChange = () => {
+            props.modelValue.page = 1
             emit('change')
         }
-
+        const pageChange = () => {
+            emit('change')
+        }
         return {
-            handleChange,
+            sizeChange,
+            pageChange
         }
     },
 })

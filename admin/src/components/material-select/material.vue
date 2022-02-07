@@ -2,16 +2,13 @@
 <template>
     <div class="material flex col-stretch" v-loading="pager.loading">
         <div class="material__left">
-            <el-scrollbar
-                class="ls-scrollbar"
-                style="height: calc(100% - 40px)"
-            >
+            <el-scrollbar class="ls-scrollbar" style="height: calc(100% - 40px)">
                 <div class="material-left__content p-t-16 p-b-16">
                     <el-tree
                         ref="treeRefs"
                         node-key="id"
                         :data="cateLists"
-                        empty-text=""
+                        empty-text
                         :highlight-current="true"
                         :expand-on-click-node="false"
                         icon-class="el-icon-arrow-right"
@@ -19,23 +16,19 @@
                         @node-click="currentChange"
                     >
                         <template v-slot="{ data }">
-                            <div
-                                class="flex flex-1 flex-center"
-                                style="min-width: 0"
-                            >
+                            <div class="flex flex-1 flex-center" style="min-width: 0">
                                 <img
                                     style="width: 20px; height: 16px"
                                     src="@/assets/images/icon_folder.png"
-                                    alt=""
+                                    alt
                                     class="m-r-10"
                                 />
-                                <span class="flex-1 line-1 m-r-10">{{
-                                    data.name
-                                }}</span>
-                                <el-dropdown
-                                    v-if="data.id > 0"
-                                    :hide-on-click="false"
-                                >
+                                <span class="flex-1 line-1 m-r-10">
+                                    {{
+                                        data.name
+                                    }}
+                                </span>
+                                <el-dropdown v-if="data.id > 0" :hide-on-click="false">
                                     <span class="muted m-r-10">···</span>
                                     <template #dropdown>
                                         <el-dropdown-menu>
@@ -44,25 +37,21 @@
                                                     type="text"
                                                     tips="分类名称"
                                                     @confirm="
-                                                        handleEditCate(
-                                                            $event,
-                                                            data.id
-                                                        )
+                                                    handleEditCate(
+                                                        $event,
+                                                        data.id
+                                                    )
                                                     "
                                                 >
-                                                    <el-dropdown-item
-                                                        >命名分组</el-dropdown-item
-                                                    >
+                                                    <el-dropdown-item>命名分组</el-dropdown-item>
                                                 </popover-input>
                                             </div>
                                             <div
                                                 @click="
-                                                    handleDeleteCate(data.id)
+                                                handleDeleteCate(data.id)
                                                 "
                                             >
-                                                <el-dropdown-item
-                                                    >删除分组</el-dropdown-item
-                                                >
+                                                <el-dropdown-item>删除分组</el-dropdown-item>
                                             </div>
                                         </el-dropdown-menu>
                                     </template>
@@ -73,11 +62,7 @@
                 </div>
             </el-scrollbar>
             <div class="flex flex-center">
-                <popover-input
-                    tips="分类名称"
-                    type="text"
-                    @confirm="handleAddCate"
-                >
+                <popover-input tips="分类名称" type="text" @confirm="handleAddCate">
                     <el-button size="small">添加分组</el-button>
                 </popover-input>
             </div>
@@ -92,9 +77,7 @@
                         :show-progress="true"
                         @change="refresh"
                     >
-                        <el-button size="small" type="primary"
-                            >本地上传</el-button
-                        >
+                        <el-button size="small" type="primary">本地上传</el-button>
                     </upload>
                     <popup
                         class="m-r-10 inline"
@@ -103,9 +86,7 @@
                         @confirm="batchFileDelete()"
                     >
                         <template #trigger>
-                            <el-button size="small" :disabled="!select.length"
-                                >删除</el-button
-                            >
+                            <el-button size="small" :disabled="!select.length">删除</el-button>
                         </template>
                     </popup>
                     <popup
@@ -115,24 +96,18 @@
                         title="移动文件"
                     >
                         <template #trigger>
-                            <el-button size="small" :disabled="!select.length"
-                                >移动</el-button
-                            >
+                            <el-button size="small" :disabled="!select.length">移动</el-button>
                         </template>
 
                         <div>
                             <span class="m-r-20">移动文件至</span>
                             <el-select v-model="moveId" placeholder="请选择">
-                                <template
-                                    v-for="item in cateLists"
-                                    :key="item.id"
-                                >
+                                <template v-for="item in cateLists" :key="item.id">
                                     <el-option
                                         v-if="item.id !== ''"
                                         :label="item.name"
                                         :value="item.id"
-                                    >
-                                    </el-option>
+                                    ></el-option>
                                 </template>
                             </el-select>
                         </div>
@@ -146,7 +121,7 @@
                     @keyup.enter="refresh"
                 >
                     <template #append>
-                        <el-button :icon="Search" @click="refresh"> </el-button>
+                        <el-button :icon="Search" @click="refresh"></el-button>
                     </template>
                 </el-input>
             </div>
@@ -164,27 +139,20 @@
                             :size="fileSize"
                             @close="batchFileDelete([item.id])"
                         >
-                            <div
-                                class="item-selected"
-                                v-if="selectStatus(item.id)"
-                            >
-                                <el-icon color="#fff" size="24"
-                                    ><check
-                                /></el-icon>
+                            <div class="item-selected" v-if="selectStatus(item.id)">
+                                <el-icon color="#fff" size="24">
+                                    <check />
+                                </el-icon>
                             </div>
                         </file-item>
 
-                        <div class="item-name line-1 xs p-t-10">
-                            {{ item.name }}
-                        </div>
+                        <div class="item-name line-1 xs p-t-10">{{ item.name }}</div>
                     </li>
                 </ul>
                 <div
                     class="flex flex-1 row-center col-center"
                     v-if="!pager.loading && !pager.lists.length"
-                >
-                    暂无数据~
-                </div>
+                >暂无数据~</div>
             </div>
             <div class="material-center__footer flex row-right">
                 <pagination
@@ -200,23 +168,14 @@
                     已选择 {{ select.length }}
                     <span v-if="limit">/{{ limit }}</span>
                 </div>
-                <el-button type="text" size="small" @click="clearSelect"
-                    >清空</el-button
-                >
+                <el-button type="text" size="small" @click="clearSelect">清空</el-button>
             </div>
 
-            <el-scrollbar
-                class="ls-scrollbar"
-                style="height: calc(100% - 32px)"
-            >
+            <el-scrollbar class="ls-scrollbar" style="height: calc(100% - 32px)">
                 <ul class="select-lists flex-col p-t-10">
                     <li class="m-b-16" v-for="item in select" :key="item.id">
                         <div class="select-item">
-                            <file-item
-                                :uri="item.uri"
-                                size="100px"
-                                @close="cancelSelete(item.id)"
-                            ></file-item>
+                            <file-item :uri="item.uri" size="100px" @close="cancelSelete(item.id)"></file-item>
                         </div>
                     </li>
                 </ul>
