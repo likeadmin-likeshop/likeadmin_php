@@ -71,6 +71,8 @@ request.interceptors.response.use(
         }
     },
     (error) => {
+        console.log(error)
+        router.push('/500')
         return Promise.reject(error)
     }
 )

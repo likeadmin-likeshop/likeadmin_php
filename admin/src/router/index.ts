@@ -6,6 +6,7 @@ import {
 import workbench from "@/views/workbench/index.vue";
 import Layout from "@/layout/index.vue";
 import Error404 from "@/views/error/404.vue";
+import Error500 from "@/views/error/500.vue";
 // Router modules
 import setting from './modules/setting'
 import permission from './modules/permission'
@@ -31,6 +32,10 @@ export const constRoutes: Array<RouteRecordRaw> = [
     {
         path: "/login",
         component: () => import("@/views/account/login.vue"),
+    },
+    {
+        path: "/error/500",
+        component: Error500,
     },
     { path: "/:pathMatch(.*)*", name: "404", component: Error404 },
 ];

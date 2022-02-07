@@ -1,6 +1,6 @@
 <template>
-    <div class="error404">
-        <error :code="404" title="哎呀，出错了！您访问的页面不存在…"></error>
+    <div class="error500">
+        <error :code="500" title="哎呀，出错了！系统错误，请稍后再试…"></error>
     </div>
 </template>
 
@@ -18,4 +18,3 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 </style>
-

@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ]
     },
     "lib": ["esnext", "dom"]
