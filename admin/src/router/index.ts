@@ -40,7 +40,7 @@ export const getAsyncRoutes = () => {
 };
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes: [...asyncRoutes, ...constRoutes],
 });
 

@@ -135,6 +135,7 @@ $table:(
     'header-bg-color': rgba($color-primary, 0.05),
 );
 
+// 替换elementui的变量
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
 	$colors: $colors,
 	$text-color: $text-color,

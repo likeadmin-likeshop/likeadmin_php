@@ -5,8 +5,9 @@ import store, { injectionKey } from './store'
 import './permission'
 import useElement from './plugins/element'
 import useVueEcharts from './plugins/vue-echarts'
-import vars from '@/styles/export.scss'
+import vars from './styles/export.scss'
 import useDirectives from './core/directives'
+import { Variables } from './styles/export.scss'
 const app = createApp(App)
 app.config.globalProperties.$variables = vars
 // element
@@ -17,3 +18,11 @@ useVueEcharts(app)
 useDirectives(app)
 
 app.use(router).use(store, injectionKey).mount('#app')
+
+
+// 声明vue上的属性
+declare module "@vue/runtime-core" {
+    interface ComponentCustomProperties {
+      $variables: Variables;
+    }
+  }

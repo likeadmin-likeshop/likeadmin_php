@@ -80,7 +80,7 @@ export default defineComponent({
         const store = useStore()
         const uploadRefs: Ref<typeof ElUpload | null> = ref(null)
         const action = ref(
-            `${process.env.VUE_APP_BASE_URL}/adminapi/upload/${props.type}`
+            `${import.meta.env.VITE_APP_BASE_URL}/adminapi/upload/${props.type}`
         )
         const headers = computed(() => ({
             token: store.getters.token,
