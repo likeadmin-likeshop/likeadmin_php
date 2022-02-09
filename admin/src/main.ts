@@ -5,9 +5,9 @@ import store, { injectionKey } from './store'
 import './permission'
 import useElement from './plugins/element'
 import useVueEcharts from './plugins/vue-echarts'
-import vars from './styles/export.scss'
+import vars from './styles/export.module.scss'
 import useDirectives from './core/directives'
-import { Variables } from './styles/export.scss'
+import { Variables } from './styles/export.module.scss'
 const app = createApp(App)
 app.config.globalProperties.$variables = vars
 // element
