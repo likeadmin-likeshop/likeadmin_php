@@ -1,37 +1,32 @@
 <template>
     <div class="layout-aside">
         <router-link to="/workbench" class="logo flex col-center">
-            <img class="logo-img" :src="config.web_logo" alt="" />
-            <div class="line-1">{{config.web_name}}</div>
+            <img class="logo-img" :src="config.web_logo" alt />
+            <div class="line-1">{{ config.web_name }}</div>
         </router-link>
-        <el-scrollbar style="height: 100%" class="ls-scrollbar">
-            
-            <el-menu
-                active-text-color="#fff"
-                background-color="#2a2c41"
-                :default-active="currentPath"
-                text-color="#E5E5E5"
-                router
-            >
-                <template v-for="(item, index) in sidebar" :key="index">
-                    <sub-menu :route="item">
-                        <template
-                            v-for="(item, index) in item?.children"
-                            :key="index"
-                        >
-                            <sub-menu :route="item">
-                                <template
-                                    v-for="(item, index) in item?.children"
-                                    :key="index"
-                                >
-                                    <sub-menu :route="item"></sub-menu>
-                                </template>
-                            </sub-menu>
-                        </template>
-                    </sub-menu>
-                </template>
-            </el-menu>
-        </el-scrollbar>
+        <div class="scrollbar-wrap">
+            <el-scrollbar style="height: 100%" class="ls-scrollbar">
+                <el-menu
+                    active-text-color="#fff"
+                    background-color="#2a2c41"
+                    :default-active="currentPath"
+                    text-color="#E5E5E5"
+                    router
+                >
+                    <template v-for="(item, index) in sidebar" :key="index">
+                        <sub-menu :route="item">
+                            <template v-for="(item, index) in item?.children" :key="index">
+                                <sub-menu :route="item">
+                                    <template v-for="(item, index) in item?.children" :key="index">
+                                        <sub-menu :route="item"></sub-menu>
+                                    </template>
+                                </sub-menu>
+                            </template>
+                        </sub-menu>
+                    </template>
+                </el-menu>
+            </el-scrollbar>
+        </div>
     </div>
 </template>
 
@@ -64,6 +59,8 @@ export default defineComponent({
     height: 100%;
     width: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
     background-color: #2a2c41;
     .logo {
         height: $layout-header-height;
@@ -77,14 +74,16 @@ export default defineComponent({
             margin-right: 10px;
         }
     }
-    .el-menu {
-        box-sizing: border-box;
-        min-height: 100vh;
-        padding: 10px 0 20px;
-        .el-menu-item {
-            font-size: 14px;
-            &.is-active {
-                background-color: $color-primary;
+    .scrollbar-wrap {
+        flex: 1;
+        min-height: 0;
+        .el-menu {
+            box-sizing: border-box;
+            padding: 10px 0 20px;
+            .el-menu-item {
+                &.is-active {
+                    background-color: $color-primary;
+                }
             }
         }
     }
