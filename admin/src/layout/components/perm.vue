@@ -5,7 +5,7 @@
         </template>
         <template v-else>
             <div class="no-perm flex flex-col flex-center">
-                <img src="@/assets/images/no_perm.png" alt="" />
+                <img src="@/assets/images/no_perm.png" />
                 <div class="muted">暂无查看权限</div>
             </div>
         </template>
