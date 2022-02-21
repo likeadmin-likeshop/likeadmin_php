@@ -23,6 +23,15 @@
 1.使用最流性的前后端分离方案typescript、vue3、vite开发，保持了代码的简洁、一致和规范。<br>
 2.后台界面使用element-plus UI框架，简单精美的后台界面，丰富的组件库，方便快速开发，满足各种后台交互。
 ### 🖥️界面预览
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=4f96e011b36b8d17fbbffb9b9f1df086)
+<br>
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=cea8c82a354e1f6a3e7ce31a4c0a3416)
+<br>
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=f4c6d8e840cbb232343f045966768709)
+<br>
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=5d8b0d28156afd871e40fa365dba3efd)
+<br>
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=9c638f518302b90813746b50e429052d)
 ### 👀体验后台
 **地址：https://demo.likeadmin.cn/admin
 账号：admin 密码：123456**
