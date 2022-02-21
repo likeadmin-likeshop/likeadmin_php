@@ -93,7 +93,7 @@ class WorkbenchLogic extends BaseLogic
     {
         return [
             'version' => config('project.version'),
-            'website' => config('project.website'),
+            'website' => config('project.website.url'),
         ];
     }
 

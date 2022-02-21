@@ -4,7 +4,11 @@ return [
     'version' => '1.0.0',
 
     // 官网
-    'website' => env('project.website', 'likeshop.cn'),
+    'website' => [
+        'name' => env('project.web_name', 'likeshop'), // 网站名称
+        'url' => env('project.web_url', 'www.likeshop.cn'), // 网站地址
+        'login_image' => 'resource/image/adminapi/default/login_image.png',
+    ],
 
     // 唯一标识，密码盐、路径加密等
     'unique_identification' => env('project.unique_identification', 'likeadmin'),
