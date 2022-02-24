@@ -23,16 +23,16 @@ export default defineComponent({
         onMounted(async () => {
             // 获取配置
             const data = await store.dispatch('app/getConfig')
-            
+
             // 设置网站logo
             let favicon: HTMLLinkElement = document.querySelector('link[rel="icon"]')!
             if(favicon) {
-                favicon.href = data.web_logo
+                favicon.href = data.web_favicon
                 return
             }
             favicon = document.createElement('link')
             favicon.rel = 'icon'
-            favicon.href = data.web_logo
+            favicon.href = data.web_favicon
             document.head.appendChild(favicon)
         })
 		return {
