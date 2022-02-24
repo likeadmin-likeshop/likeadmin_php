@@ -182,7 +182,6 @@ export default defineComponent({
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            background-color: $color-primary;
         }
         .login-form {
             width: 50%;

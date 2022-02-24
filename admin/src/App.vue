@@ -22,8 +22,18 @@ export default defineComponent({
 		provide('reload', reload)
         onMounted(async () => {
             // 获取配置
-            store.dispatch('app/getConfig')
-           
+            const data = await store.dispatch('app/getConfig')
+            
+            // 设置网站logo
+            let favicon: HTMLLinkElement = document.querySelector('link[rel="icon"]')!
+            if(favicon) {
+                favicon.href = data.web_logo
+                return
+            }
+            favicon = document.createElement('link')
+            favicon.rel = 'icon'
+            favicon.href = data.web_logo
+            document.head.appendChild(favicon)
         })
 		return {
 			routerAlive,

@@ -72,7 +72,7 @@ request.interceptors.response.use(
     },
     (error) => {
         console.log(error)
-        router.push('/500')
+        ElMessage({ type: 'error', message: error });
         return Promise.reject(error)
     }
 )
