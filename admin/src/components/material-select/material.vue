@@ -136,7 +136,7 @@
                     >
                         <file-item
                             :uri="item.uri"
-                            :size="fileSize"
+                            :file-size="fileSize"
                             @close="batchFileDelete([item.id])"
                         >
                             <div class="item-selected" v-if="selectStatus(item.id)">
@@ -175,7 +175,7 @@
                 <ul class="select-lists flex-col p-t-10">
                     <li class="m-b-16" v-for="item in select" :key="item.id">
                         <div class="select-item">
-                            <file-item :uri="item.uri" size="100px" @close="cancelSelete(item.id)"></file-item>
+                            <file-item :uri="item.uri" file-size="100px" @close="cancelSelete(item.id)"></file-item>
                         </div>
                     </li>
                 </ul>

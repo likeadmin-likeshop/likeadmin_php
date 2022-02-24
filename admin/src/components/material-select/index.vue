@@ -25,7 +25,7 @@
                                 }"
                                 @click="showPopup(index)"
                             >
-                                <file-item :uri="element" :size="size" @close="deleteImg(index)" />
+                                <file-item :uri="element" :file-size="size" @close="deleteImg(index)" />
                             </div>
                         </template>
                     </draggable>
