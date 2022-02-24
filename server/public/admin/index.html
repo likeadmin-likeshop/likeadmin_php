@@ -1,45 +1,69 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/admin/favicon.ico"><title>admin</title><style>* {
-      margin: 0;
-      padding: 0;
-    }
-    .preload {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      width: 100vw;
-    }
-
-    .circular {
-      height: 42px;
-      width: 42px;
-      animation: loading-rotate 2s linear infinite;
-    }
-
-    .circular .path {
-      animation: loading-dash 1.5s ease-in-out infinite;
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: 0;
-      stroke-width: 2;
-      stroke: #4073fa;
-      stroke-linecap: round;
-    }
-
-    @keyframes loading-rotate {
-      100% {
-        transform: rotate(1turn);
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/admin/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>admin</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
       }
-    }
-
-    @keyframes loading-dash {
-
-      0% {
+      .preload {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+      }
+  
+      .circular {
+        height: 42px;
+        width: 42px;
+        animation: loading-rotate 2s linear infinite;
+      }
+  
+      .circular .path {
+        animation: loading-dash 1.5s ease-in-out infinite;
         stroke-dasharray: 90, 150;
-        stroke-dashoffset: -40px;
+        stroke-dashoffset: 0;
+        stroke-width: 2;
+        stroke: #4073fa;
+        stroke-linecap: round;
       }
-
-      100% {
-        stroke-dasharray: 90, 150;
-        stroke-dashoffset: -120px;
+  
+      @keyframes loading-rotate {
+        100% {
+          transform: rotate(1turn);
+        }
       }
-    }</style><link href="/admin/css/chunk-062b9a32.0be19fe2.css" rel="prefetch"><link href="/admin/css/chunk-09430dcb.cc226ca5.css" rel="prefetch"><link href="/admin/css/chunk-0efa8cb2.0e0053d7.css" rel="prefetch"><link href="/admin/css/chunk-2a2574ec.2d3dea06.css" rel="prefetch"><link href="/admin/css/chunk-4f4dc761.2cb4c0e1.css" rel="prefetch"><link href="/admin/css/chunk-54985ebd.a6ce5f09.css" rel="prefetch"><link href="/admin/js/chunk-062b9a32.f2544fd3.js" rel="prefetch"><link href="/admin/js/chunk-09430dcb.d6e38430.js" rel="prefetch"><link href="/admin/js/chunk-0efa8cb2.13414182.js" rel="prefetch"><link href="/admin/js/chunk-2a2574ec.bed65f21.js" rel="prefetch"><link href="/admin/js/chunk-2d0b9ba8.9fc4f057.js" rel="prefetch"><link href="/admin/js/chunk-4f4dc761.03b6f089.js" rel="prefetch"><link href="/admin/js/chunk-54985ebd.06413544.js" rel="prefetch"><link href="/admin/js/chunk-9d78c066.b1819ade.js" rel="prefetch"><link href="/admin/js/chunk-d39bebba.1ce565ab.js" rel="prefetch"><link href="/admin/css/app.57914308.css" rel="preload" as="style"><link href="/admin/css/chunk-vendors.902ebb66.css" rel="preload" as="style"><link href="/admin/js/app.520a1426.js" rel="preload" as="script"><link href="/admin/js/chunk-vendors.bacac3c8.js" rel="preload" as="script"><link href="/admin/css/chunk-vendors.902ebb66.css" rel="stylesheet"><link href="/admin/css/app.57914308.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but admin doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div class="preload"><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg></div></div><script src="/admin/js/chunk-vendors.bacac3c8.js"></script><script src="/admin/js/app.520a1426.js"></script></body></html>
+  
+      @keyframes loading-dash {
+  
+        0% {
+          stroke-dasharray: 90, 150;
+          stroke-dashoffset: -40px;
+        }
+  
+        100% {
+          stroke-dasharray: 90, 150;
+          stroke-dashoffset: -120px;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/admin/assets/index.f87774a5.js"></script>
+    <link rel="modulepreload" href="/admin/assets/vendor.af1b6401.js">
+    <link rel="stylesheet" href="/admin/assets/index.b01892b1.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="preload">
+        <svg viewBox="25 25 50 50" class="circular">
+          <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+        </svg>
+      </div>
+    </div>
+    
+  </body>
+</html>

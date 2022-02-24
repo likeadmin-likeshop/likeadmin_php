@@ -1,0 +1,1 @@
+import{_ as s}from"./index.f87774a5.js";import{d as t,b as r,c as a,e,l as n}from"./vendor.af1b6401.js";const _=t({}),c={class:"footer-wrap"},d={class:"footer-content"},f={class:"flex flex-center"};function i(o,l,p,v,u,m){return r(),a("div",c,[e("div",d,[e("div",f,[n(o.$slots,"default",{},void 0,!0)])])])}var h=s(_,[["render",i],["__scopeId","data-v-5e3ffc6d"]]);export{h as F};
