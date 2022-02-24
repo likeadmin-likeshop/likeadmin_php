@@ -80,7 +80,7 @@ export default defineComponent({
         .el-menu {
             box-sizing: border-box;
             padding: 10px 0 20px;
-            .el-menu-item {
+            :deep(.el-menu-item) {
                 &.is-active {
                     background-color: $color-primary;
                 }
