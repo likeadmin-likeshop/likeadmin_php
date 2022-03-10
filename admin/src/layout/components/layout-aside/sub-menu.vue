@@ -14,7 +14,6 @@
     </template>
 </template>
 
-
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
@@ -23,17 +22,17 @@ export default defineComponent({
     props: {
         route: {
             type: Object,
-            default: () => ({}),
-        },
+            default: () => ({})
+        }
     },
     setup(props) {
         const hasChildren = computed(() => {
-            const children:  RouteRecordRaw[] = props.route.children ?? []
-            return !!children.filter((item) => !item.meta?.hidden).length
+            const children: RouteRecordRaw[] = props.route.children ?? []
+            return !!children.filter(item => !item.meta?.hidden).length
         })
         return {
-            hasChildren,
+            hasChildren
         }
-    },
+    }
 })
 </script>

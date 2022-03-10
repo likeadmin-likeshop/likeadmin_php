@@ -37,9 +37,9 @@ export default defineComponent({
         })
 
         return {
-            second,
+            second
         }
-    },
+    }
 })
 </script>
 <style lang="scss" scoped>
@@ -58,4 +58,3 @@ export default defineComponent({
     }
 }
 </style>
-

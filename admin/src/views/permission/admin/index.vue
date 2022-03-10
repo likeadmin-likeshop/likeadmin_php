@@ -3,10 +3,10 @@
         <el-card shadow="never">
             <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
                 <el-form-item label="账号：">
-                    <el-input class="ls-input" v-model="formData.account" />
+                    <el-input v-model="formData.account" class="ls-input" />
                 </el-form-item>
                 <el-form-item label="名称：">
-                    <el-input class="ls-input" v-model="formData.name" />
+                    <el-input v-model="formData.name" class="ls-input" />
                 </el-form-item>
                 <el-form-item label="角色：">
                     <el-select v-model="formData.role_id" placeholder="全部">
@@ -26,7 +26,7 @@
                 </el-form-item>
             </el-form>
         </el-card>
-        <el-card class="m-t-15" shadow="never" v-loading="pager.loading">
+        <el-card v-loading="pager.loading" class="m-t-15" shadow="never">
             <router-link to="/permission/admin/edit">
                 <el-button type="primary" size="small">新增管理员</el-button>
             </router-link>
@@ -34,18 +34,34 @@
                 <el-table :data="pager.lists">
                     <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
                     <el-table-column label="头像" min-width="100">
-                        <template v-slot="{ row }">
+                        <template #default="{ row }">
                             <el-avatar :size="50" :src="row.avatar"></el-avatar>
                         </template>
                     </el-table-column>
                     <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
                     <el-table-column label="名称" prop="name" min-width="100"></el-table-column>
-                    <el-table-column label="角色" prop="role_name" min-width="100"></el-table-column>
-                    <el-table-column label="创建时间" prop="create_time" min-width="150"></el-table-column>
-                    <el-table-column label="最近登录时间" prop="login_time" min-width="150"></el-table-column>
-                    <el-table-column label="最近登录IP" prop="login_ip" min-width="100"></el-table-column>
+                    <el-table-column
+                        label="角色"
+                        prop="role_name"
+                        min-width="100"
+                    ></el-table-column>
+                    <el-table-column
+                        label="创建时间"
+                        prop="create_time"
+                        min-width="150"
+                    ></el-table-column>
+                    <el-table-column
+                        label="最近登录时间"
+                        prop="login_time"
+                        min-width="150"
+                    ></el-table-column>
+                    <el-table-column
+                        label="最近登录IP"
+                        prop="login_ip"
+                        min-width="100"
+                    ></el-table-column>
                     <el-table-column label="状态" min-width="100">
-                        <template v-slot="{ row }">
+                        <template #default="{ row }">
                             <el-switch
                                 v-model="row.disable"
                                 :active-value="0"
@@ -55,14 +71,14 @@
                         </template>
                     </el-table-column>
                     <el-table-column label="操作" width="150" fixed="right">
-                        <template v-slot="{ row }">
+                        <template #default="{ row }">
                             <router-link
                                 class="m-r-10"
                                 :to="{
                                     path: '/permission/admin/edit',
                                     query: {
-                                        id: row.id,
-                                    },
+                                        id: row.id
+                                    }
                                 }"
                             >
                                 <el-button type="text">编辑</el-button>
@@ -79,8 +95,8 @@
             <div class="flex row-right">
                 <pagination
                     v-model="pager"
-                    @change="requestApi"
                     layout="total, prev, pager, next, jumper"
+                    @change="requestApi"
                 />
             </div>
         </el-card>
@@ -91,32 +107,22 @@
 import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
 import Pagination from '@/components/pagination/index.vue'
 import Popup from '@/components/popup/index.vue'
-import {
-    apiAdminEdit,
-    adminLists,
-    apiAdminDelete,
-    apiRoleLists,
-} from '@/api/auth'
+import { apiAdminEdit, adminLists, apiAdminDelete, apiRoleLists } from '@/api/auth'
 import { usePages } from '@/core/hooks/pages'
 export default defineComponent({
     components: {
         Pagination,
-        Popup,
+        Popup
     },
     setup() {
         // 表单数据
         const formData = reactive({
             account: '',
             name: '',
-            role_id: '',
+            role_id: ''
         })
         const roleList: Ref<any[]> = ref([])
-        const {
-            pager,
-            requestApi,
-            resetParams,
-            resetPage
-        } = usePages({
+        const { pager, requestApi, resetParams, resetPage } = usePages({
             callback: adminLists,
             params: formData
         })
@@ -127,7 +133,7 @@ export default defineComponent({
                 name: data.name,
                 role_id: data.role_id,
                 disable: data.disable,
-                multipoint_login: data.multipoint_login,
+                multipoint_login: data.multipoint_login
             }).finally(() => {
                 requestApi()
             })
@@ -141,7 +147,7 @@ export default defineComponent({
 
         const getRoleList = () => {
             apiRoleLists({
-                page_type: 1,
+                page_type: 1
             }).then((res: any) => {
                 roleList.value = res.lists
             })
@@ -159,9 +165,9 @@ export default defineComponent({
             resetPage,
             adminLists,
             changeStatus,
-            handleDelete,
+            handleDelete
         }
-    },
+    }
 })
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="perm" v-if="permission">
+    <div v-if="permission" class="perm">
         <template v-if="hasPermission">
             <router-view></router-view>
         </template>
@@ -11,7 +11,6 @@
         </template>
     </div>
 </template>
-
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
@@ -39,12 +38,11 @@ export default defineComponent({
         })
         return {
             permission,
-            hasPermission,
+            hasPermission
         }
-    },
+    }
 })
 </script>
-
 
 <style scoped lang="scss">
 .perm {

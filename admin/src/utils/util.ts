@@ -8,7 +8,7 @@
  * @param {any} target 需要深拷贝的对象
  * @returns {Object}
  */
- export function deepClone(target: any) {
+export function deepClone(target: any) {
     if (typeof target !== 'object' || target === null) {
         return target
     }
@@ -36,9 +36,9 @@
  * @param { Array } filters
  * @return { Object } 过滤后的对象
  */
-export function filterObject(target: any, filters: any []) {
+export function filterObject(target: any, filters: any[]) {
     const _target = deepClone(target)
-    filters.map((key) => delete _target[key])
+    filters.map(key => delete _target[key])
     return _target
 }
 
@@ -52,14 +52,13 @@ export function filterObject(target: any, filters: any []) {
 export function throttle(func: () => any, time = 1000, context?: any): any {
     let previous = new Date(0).getTime()
     return function (...args: []) {
-        let now = new Date().getTime()
+        const now = new Date().getTime()
         if (now - previous > time) {
             previous = now
             return func.apply(context, args)
         }
     }
 }
-
 
 /**
  * Query语法格式化为对象
@@ -68,7 +67,7 @@ export function throttle(func: () => any, time = 1000, context?: any): any {
  */
 export function queryToObject(str: string) {
     const params: any = {}
-    for (let item of str.split('&')) {
+    for (const item of str.split('&')) {
         params[item.split('=')[0]] = item.split('=')[1]
     }
     return params
@@ -81,16 +80,15 @@ export function queryToObject(str: string) {
  */
 export function objectToQuery(params: any) {
     let p = ''
-    if (typeof params == 'object') {
+    if (typeof params === 'object') {
         p = '?'
-        for (let props in params) {
+        for (const props in params) {
             p += `${props}=${params[props]}&`
         }
         p = p.slice(0, -1)
     }
     return p
 }
-
 
 /**
  * @description 获取不重复的id
@@ -112,20 +110,24 @@ export const getNonDuplicateID = (length = 8) => {
 // yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合
 export const timeFormat = (dateTime: number, fmt = 'yyyy-mm-dd') => {
     // 如果为null,则格式化当前时间
-    if (!dateTime) dateTime = Number(new Date())
+    if (!dateTime) {
+        dateTime = Number(new Date())
+    }
     // 如果dateTime长度为10或者13，则为秒和毫秒的时间戳，如果超过13位，则为其他的时间格式
-    if (dateTime.toString().length == 10) dateTime *= 1000
-    let date = new Date(dateTime)
+    if (dateTime.toString().length == 10) {
+        dateTime *= 1000
+    }
+    const date = new Date(dateTime)
     let ret
-    let opt: any = {
+    const opt: any = {
         'y+': date.getFullYear().toString(), // 年
         'm+': (date.getMonth() + 1).toString(), // 月
         'd+': date.getDate().toString(), // 日
         'h+': date.getHours().toString(), // 时
         'M+': date.getMinutes().toString(), // 分
-        's+': date.getSeconds().toString(), // 秒
+        's+': date.getSeconds().toString() // 秒
     }
-    for (let k in opt) {
+    for (const k in opt) {
         ret = new RegExp('(' + k + ')').exec(fmt)
         if (ret) {
             fmt = fmt.replace(
@@ -160,7 +162,7 @@ export const timeFormat = (dateTime: number, fmt = 'yyyy-mm-dd') => {
  * @return { Array }            扁平化后的数组
  */
 export function flatten(tree = [], arr = [], childrenKey = 'children') {
-    tree.forEach((item) => {
+    tree.forEach(item => {
         const children = item[childrenKey]
         children ? flatten(children, arr, childrenKey) : arr.push(item)
     })

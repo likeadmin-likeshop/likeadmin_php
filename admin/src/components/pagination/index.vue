@@ -6,14 +6,13 @@
             :page-sizes="pageSizes"
             :layout="layout"
             :total="modelValue.count"
+            hide-on-single-page
             @size-change="sizeChange"
             @current-change="pageChange"
-            hide-on-single-page
         >
         </el-pagination>
     </div>
 </template>
-
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs } from 'vue'
@@ -23,18 +22,18 @@ export default defineComponent({
         // 每一页条数
         modelValue: {
             type: Object,
-            default: () => ({}),
+            default: () => ({})
         },
         // 允许选择的每一页条数
         pageSizes: {
             type: Array,
-            default: () => [10, 20, 30, 40],
+            default: () => [10, 20, 30, 40]
         },
         // 分页的布局（参考element的分页组件）
         layout: {
             type: String,
-            default: 'total, sizes, prev, pager, next, jumper',
-        },
+            default: 'total, sizes, prev, pager, next, jumper'
+        }
     },
     emits: ['change'],
     setup(props, { emit }) {
@@ -49,10 +48,9 @@ export default defineComponent({
             sizeChange,
             pageChange
         }
-    },
+    }
 })
 </script>
-
 
 <style lang="scss">
 .pagination {

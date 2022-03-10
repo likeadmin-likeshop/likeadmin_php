@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, nextTick, provide, onMounted } from 'vue'
-import { useAdmin } from './core/hooks/app';
+import { useAdmin } from './core/hooks/app'
 export default defineComponent({
     setup() {
         const { store, route } = useAdmin()
@@ -19,14 +19,14 @@ export default defineComponent({
                 routerAlive.value = true
             })
         }
-		provide('reload', reload)
+        provide('reload', reload)
         onMounted(async () => {
             // 获取配置
             const data = await store.dispatch('app/getConfig')
 
             // 设置网站logo
             let favicon: HTMLLinkElement = document.querySelector('link[rel="icon"]')!
-            if(favicon) {
+            if (favicon) {
                 favicon.href = data.web_favicon
                 return
             }
@@ -35,12 +35,12 @@ export default defineComponent({
             favicon.href = data.web_favicon
             document.head.appendChild(favicon)
         })
-		return {
-			routerAlive,
-			keepAlive
-		}
+        return {
+            routerAlive,
+            keepAlive
+        }
     }
-});
+})
 </script>
 
 <style lang="scss">

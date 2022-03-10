@@ -1,4 +1,3 @@
-
 <template>
     <div class="material-select">
         <popup
@@ -10,40 +9,39 @@
         >
             <template #trigger>
                 <div class="material-select__trigger clearfix" @click.stop>
-                    <draggable
-                        class="draggable"
-                        v-model="fileList"
-                        animation="300"
-                        item-key="id"
-                    >
-                        <template v-slot:item="{ element, index }">
+                    <draggable v-model="fileList" class="draggable" animation="300" item-key="id">
+                        <template #item="{ element, index }">
                             <div
                                 class="material-preview"
                                 :class="{
                                     'is-disabled': disabled,
-                                    'is-one': limit == 1,
+                                    'is-one': limit == 1
                                 }"
                                 @click="showPopup(index)"
                             >
-                                <file-item :uri="element" :file-size="size" @close="deleteImg(index)" />
+                                <file-item
+                                    :uri="element"
+                                    :file-size="size"
+                                    @close="deleteImg(index)"
+                                />
                             </div>
                         </template>
                     </draggable>
                     <div
-                        class="material-upload"
-                        @click="showPopup(-1)"
                         v-show="showUpload"
+                        class="material-upload"
                         :class="{
                             'is-disabled': disabled,
-                            'is-one': limit == 1,
+                            'is-one': limit == 1
                         }"
+                        @click="showPopup(-1)"
                     >
                         <slot name="upload">
                             <div
                                 class="upload-btn flex flex-col flex-center"
                                 :style="{
                                     width: size,
-                                    height: size,
+                                    height: size
                                 }"
                             >
                                 <el-icon :size="25"><plus /></el-icon>
@@ -65,7 +63,6 @@
     </div>
 </template>
 
-
 <script lang="ts">
 import {
     provide,
@@ -77,7 +74,7 @@ import {
     toRef,
     toRefs,
     watch,
-    nextTick,
+    nextTick
 } from 'vue'
 import Draggable from 'vuedraggable'
 import Popup from '@/components/popup/index.vue'
@@ -88,38 +85,38 @@ export default defineComponent({
         Popup,
         Draggable,
         FileItem,
-        Material,
+        Material
     },
     props: {
         modelValue: {
             type: [String, Array],
-            default: () => [],
+            default: () => []
         },
         // 文件类型
         type: {
             type: String,
-            default: 'image',
+            default: 'image'
         },
         // 选择器尺寸
         size: {
             type: String,
-            default: '100px',
+            default: '100px'
         },
         // 文件尺寸
         fileSize: {
             type: String,
-            default: '100px',
+            default: '100px'
         },
         // 选择数量限制
         limit: {
             type: Number,
-            default: 1,
+            default: 1
         },
         // 禁用选择
         disabled: {
             type: Boolean,
-            default: false,
-        },
+            default: false
+        }
     },
 
     emits: ['change', 'update:modelValue'],
@@ -156,20 +153,24 @@ export default defineComponent({
             if (!isAdd.value) {
                 return 1
             }
-            if (!limit.value) return null
+            if (!limit.value) {
+                return null
+            }
             return limit.value - fileList.value.length
         })
         const handleConfirm = () => {
-            const selectUri = select.value.map((item) => item.uri)
+            const selectUri = select.value.map(item => item.uri)
             if (!isAdd.value) {
                 fileList.value.splice(currentIndex.value, 1, selectUri.shift())
             } else {
-                fileList.value = [...fileList.value,...selectUri]
+                fileList.value = [...fileList.value, ...selectUri]
             }
             handleChange()
         }
         const showPopup = (index: number) => {
-            if (disabled.value) return
+            if (disabled.value) {
+                return
+            }
             if (index >= 0) {
                 isAdd.value = false
                 currentIndex.value = index
@@ -183,8 +184,7 @@ export default defineComponent({
             select.value = val
         }
         const handleChange = () => {
-            const valueImg =
-                limit.value != 1 ? fileList.value : fileList.value[0] || ''
+            const valueImg = limit.value != 1 ? fileList.value : fileList.value[0] || ''
             emit('update:modelValue', valueImg)
             emit('change', valueImg)
             nextTick(() => {
@@ -217,7 +217,7 @@ export default defineComponent({
             selectChange,
             deleteImg
         }
-    },
+    }
 })
 </script>
 

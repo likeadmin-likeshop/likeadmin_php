@@ -1,4 +1,3 @@
-
 <template>
     <div class="layout-header">
         <!-- <input class="search-input" placeholder="请输入搜索内容…" type="text" /> -->
@@ -12,9 +11,7 @@
                     </div>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="logout"
-                                >退出登录</el-dropdown-item
-                            >
+                            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
                 </el-dropdown>
@@ -22,7 +19,6 @@
         </div>
     </div>
 </template>
-
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
@@ -45,12 +41,11 @@ export default defineComponent({
         }
         return {
             userInfo,
-            handleCommand,
+            handleCommand
         }
-    },
+    }
 })
 </script>
-
 
 <style lang="scss" scoped>
 .layout-header {

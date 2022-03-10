@@ -1,5 +1,4 @@
-
-import { App } from '@vue/runtime-core';
+import { App } from '@vue/runtime-core'
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElIcons from '@element-plus/icons-vue'

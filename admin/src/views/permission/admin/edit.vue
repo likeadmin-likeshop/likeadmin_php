@@ -1,15 +1,12 @@
 <template>
     <div class="admin">
         <el-card shadow="never">
-            <el-page-header
-                :content="id ? '编辑管理员' : '新增管理员'"
-                @back="$router.back()"
-            />
+            <el-page-header :content="id ? '编辑管理员' : '新增管理员'" @back="$router.back()" />
         </el-card>
-        <el-card shadow="never" class="m-t-15" v-loading="loading">
+        <el-card v-loading="loading" shadow="never" class="m-t-15">
             <el-form
-                :rules="rules"
                 ref="formRefs"
+                :rules="rules"
                 class="ls-form"
                 :model="formData"
                 label-width="150px"
@@ -17,36 +14,22 @@
             >
                 <!-- 账号输入框 -->
                 <el-form-item label="账号：" prop="account">
-                    <el-input
-                        v-model="formData.account"
-                        placeholder="请输入账号"
-                    ></el-input>
+                    <el-input v-model="formData.account" placeholder="请输入账号"></el-input>
                 </el-form-item>
                 <!-- 管理员头像 -->
                 <el-form-item label="头像：">
-                    <material-select
-                        v-model="formData.avatar"
-                        :limit="1"
-                    ></material-select>
-                    <div class="muted">
-                        建议尺寸：100*100px，支持jpg，jpeg，png格式
-                    </div>
+                    <material-select v-model="formData.avatar" :limit="1"></material-select>
+                    <div class="muted">建议尺寸：100*100px，支持jpg，jpeg，png格式</div>
                 </el-form-item>
 
                 <!-- 名称输入框 -->
                 <el-form-item label="名称：" prop="name">
-                    <el-input
-                        v-model="formData.name"
-                        placeholder="请输入名称"
-                    ></el-input>
+                    <el-input v-model="formData.name" placeholder="请输入名称"></el-input>
                 </el-form-item>
 
                 <!-- 角色选择框 -->
                 <el-form-item label="角色：" prop="role_id">
-                    <el-select
-                        v-model="formData.role_id"
-                        placeholder="请选择角色"
-                    >
+                    <el-select v-model="formData.role_id" placeholder="请选择角色">
                         <el-option
                             v-for="(item, index) in roleList"
                             :key="index"
@@ -76,11 +59,7 @@
 
                 <!-- 管理员状态 -->
                 <el-form-item label="管理员状态">
-                    <el-switch
-                        v-model="formData.disable"
-                        :active-value="0"
-                        :inactive-value="1"
-                    />
+                    <el-switch v-model="formData.disable" :active-value="0" :inactive-value="1" />
                 </el-form-item>
 
                 <!-- 多处登录 -->
@@ -94,37 +73,22 @@
             </el-form>
         </el-card>
         <footer-btns>
-            <el-button type="primary" size="small" @click="onSubmit"
-                >保存</el-button
-            >
+            <el-button type="primary" size="small" @click="onSubmit">保存</el-button>
         </footer-btns>
     </div>
 </template>
 
 <script lang="ts">
-import {
-    computed,
-    defineComponent,
-    onMounted,
-    reactive,
-    Ref,
-    ref,
-    toRefs,
-} from 'vue'
+import { computed, defineComponent, onMounted, reactive, Ref, ref, toRefs } from 'vue'
 import MaterialSelect from '@/components/material-select/index.vue'
 import FooterBtns from '@/components/footer-btns/index.vue'
-import {
-    apiRoleLists,
-    apiAdminDetail,
-    apiAdminAdd,
-    apiAdminEdit,
-} from '@/api/auth'
+import { apiRoleLists, apiAdminDetail, apiAdminAdd, apiAdminEdit } from '@/api/auth'
 import { ElForm } from 'element-plus'
 import { useAdmin } from '@/core/hooks/app'
 export default defineComponent({
     components: {
         MaterialSelect,
-        FooterBtns,
+        FooterBtns
     },
     setup() {
         const formRefs: Ref<typeof ElForm | null> = ref(null)
@@ -143,39 +107,39 @@ export default defineComponent({
                     password: '',
                     password_confirm: '',
                     disable: 0,
-                    multipoint_login: 0,
+                    multipoint_login: 0
                 },
                 rules: {
                     account: [
                         {
                             required: true,
                             message: '请输入账号',
-                            trigger: ['blur'],
-                        },
+                            trigger: ['blur']
+                        }
                     ],
                     name: [
                         {
                             required: true,
                             message: '请输入名称',
-                            trigger: ['blur'],
-                        },
+                            trigger: ['blur']
+                        }
                     ],
                     role_id: [
                         {
                             required: true,
                             message: '请选择角色',
-                            trigger: ['blur'],
-                        },
+                            trigger: ['blur']
+                        }
                     ],
                     password: [] as any[],
-                    password_confirm: [] as any[],
-                },
+                    password_confirm: [] as any[]
+                }
             })
         )
 
         const getRoleList = () => {
             apiRoleLists({
-                page_type: 1,
+                page_type: 1
             }).then((res: any) => {
                 roleList.value = res.lists
             })
@@ -186,21 +150,21 @@ export default defineComponent({
                     {
                         required: true,
                         message: '请输入密码',
-                        trigger: ['blur'],
-                    },
+                        trigger: ['blur']
+                    }
                 ]
                 rules.value.password_confirm = [
                     {
                         required: true,
                         message: '请输入确认密码',
-                        trigger: ['blur'],
-                    },
+                        trigger: ['blur']
+                    }
                 ]
                 return
             }
             loading.value = true
             apiAdminDetail({
-                id: id.value,
+                id: id.value
             })
                 .then((res: any) => {
                     formData.value = res
@@ -212,7 +176,9 @@ export default defineComponent({
 
         const onSubmit = () => {
             formRefs.value?.validate((valid: boolean) => {
-                if (!valid) return
+                if (!valid) {
+                    return
+                }
                 const promise = id.value
                     ? apiAdminEdit({ ...formData.value, id: id.value })
                     : apiAdminAdd(formData.value)
@@ -234,11 +200,10 @@ export default defineComponent({
             formData,
             rules,
             roleList,
-            onSubmit,
+            onSubmit
         }
-    },
+    }
 })
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

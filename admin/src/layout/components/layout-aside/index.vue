@@ -30,7 +30,6 @@
     </div>
 </template>
 
-
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useAdmin } from '@/core/hooks/app'
@@ -47,12 +46,11 @@ export default defineComponent({
         return {
             config,
             sidebar,
-            currentPath,
+            currentPath
         }
-    },
+    }
 })
 </script>
-
 
 <style lang="scss" scoped>
 .layout-aside {

@@ -1,3 +1,3 @@
-export const TOKEN = "token";
+export const TOKEN = 'token'
 // 缓存key前缀
-export const ACCOUNT = "account";
+export const ACCOUNT = 'account'

@@ -1,29 +1,29 @@
-import { apiConfig } from "@/api/app";
-import { Module } from "vuex";
+import { apiConfig } from '@/api/app'
+import { Module } from 'vuex'
 export interface AppModule {
-    config: any;
+    config: any
 }
 
 const app: Module<AppModule, any> = {
     namespaced: true,
     state: {
-        config: {},
+        config: {}
     },
     mutations: {
         setConfig(state, data) {
-            state.config = data;
-        },
+            state.config = data
+        }
     },
     actions: {
         getConfig({ commit }) {
             return new Promise((resolve, reject) => {
-                apiConfig().then((data) => {
-                    commit("setConfig", data);
-                    resolve(data);
-                });
-            });
-        },
-    },
-};
+                apiConfig().then(data => {
+                    commit('setConfig', data)
+                    resolve(data)
+                })
+            })
+        }
+    }
+}
 
-export default app;
+export default app

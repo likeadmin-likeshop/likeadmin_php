@@ -5,19 +5,14 @@
                 <div
                     class="login-img"
                     :style="{
-                        'background-image': `url(${config.login_image})`,
+                        'background-image': `url(${config.login_image})`
                     }"
                 ></div>
                 <div class="login-form flex flex-col">
                     <div class="f-s-24 f-w-500 text-center m-b-40">
                         {{ config.web_name }}
                     </div>
-                    <el-form
-                        :model="loginForm"
-                        status-icon
-                        :rules="rules"
-                        ref="loginFormRefs"
-                    >
+                    <el-form ref="loginFormRefs" :model="loginForm" status-icon :rules="rules">
                         <el-form-item prop="account">
                             <el-input
                                 v-model="loginForm.account"
@@ -31,9 +26,9 @@
                         </el-form-item>
                         <el-form-item prop="password">
                             <el-input
+                                ref="passwordRefs"
                                 v-model="loginForm.password"
                                 show-password
-                                ref="passwordRefs"
                                 placeholder="请输入密码"
                                 @keyup.enter="handleLogin"
                             >
@@ -44,15 +39,9 @@
                         </el-form-item>
                     </el-form>
                     <div class="m-b-20">
-                        <el-checkbox
-                            v-model="remAccount"
-                            label="记住账号"
-                        ></el-checkbox>
+                        <el-checkbox v-model="remAccount" label="记住账号"></el-checkbox>
                     </div>
-                    <el-button
-                        type="primary"
-                        @click="handleLogin"
-                        :loading="loginLoading"
+                    <el-button type="primary" :loading="loginLoading" @click="handleLogin"
                         >登录</el-button
                     >
                 </div>
@@ -61,12 +50,9 @@
         <div class="login-footer">
             <div class="flex flex-center muted xs m-t-20">
                 <span class="m-r-10">{{ config.copyright_info }}</span>
-                <a
-                    class="link muted"
-                    :href="config.icp_link"
-                    target="_blank"
-                    >{{ config.icp_number }}</a
-                >
+                <a class="link muted" :href="config.icp_link" target="_blank">{{
+                    config.icp_number
+                }}</a>
             </div>
         </div>
     </div>
@@ -88,7 +74,7 @@ export default defineComponent({
         const config = computed(() => store.getters.config)
         const loginForm = reactive({
             account: '',
-            password: '',
+            password: ''
         })
 
         const rules = {
@@ -96,16 +82,16 @@ export default defineComponent({
                 {
                     required: true,
                     message: '请输入账号',
-                    trigger: ['blur'],
-                },
+                    trigger: ['blur']
+                }
             ],
             password: [
                 {
                     required: true,
                     message: '请输入密码',
-                    trigger: ['blur'],
-                },
-            ],
+                    trigger: ['blur']
+                }
+            ]
         }
         const handleEnter = () => {
             if (!loginForm.password) {
@@ -115,24 +101,25 @@ export default defineComponent({
         }
         const handleLogin = () => {
             loginFormRefs.value?.validate((valid: boolean) => {
-                if (!valid) return
+                if (!valid) {
+                    return
+                }
                 loginLoading.value = true
                 // 记住账号，缓存
                 cache.set(ACCOUNT, {
                     remember: remAccount.value,
-                    account: loginForm.account,
+                    account: loginForm.account
                 })
                 store
                     .dispatch('user/login', loginForm)
                     .then(() => {
                         const {
-                            query: { redirect },
+                            query: { redirect }
                         } = route
-                        const path =
-                            typeof redirect === 'string' ? redirect : '/'
+                        const path = typeof redirect === 'string' ? redirect : '/'
                         router.replace(path)
                     })
-                    .catch((err) => {
+                    .catch(err => {
                         console.log(err)
                     })
                     .finally(() => {
@@ -157,9 +144,9 @@ export default defineComponent({
             rules,
             handleEnter,
             handleLogin,
-            remAccount,
+            remAccount
         }
-    },
+    }
 })
 </script>
 

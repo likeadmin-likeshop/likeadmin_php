@@ -1,9 +1,8 @@
 // 引入所有样式
-@use "element-plus/theme-chalk/src/index.scss";
-
+@use 'element-plus/theme-chalk/src/index.scss';
 
 :root {
-	--el-font-weight-primary: 400
+    --el-font-weight-primary: 400;
 }
 
 .el-menu {
@@ -12,7 +11,6 @@
     .el-menu--horizontal {
         border-bottom: none;
     }
-
 }
 
 .ls-scrollbar.el-scrollbar .el-scrollbar__wrap {
@@ -26,23 +24,20 @@
 
 .el-tabs .el-tabs__nav-wrap::after {
     height: 1px;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
 }
 
 .el-input-group__prepend {
-    background-color: #FFF;
+    background-color: #fff;
 }
-
 
 .el-loading-spinner {
     font-size: 26px;
 }
 
-
 .el-textarea .el-textarea__inner {
     resize: none;
 }
-
 
 .el-image .el-image__error {
     font-size: 12px;
@@ -74,10 +69,7 @@
             padding: 15px 20px;
         }
     }
-
-
 }
-
 
 .el-card {
     border: none;
@@ -87,12 +79,11 @@
     .el-form-item__content {
         font-size: var(--el-font-size-base);
 
-        &>.el-cascader,
-        &>.el-select,
-        &>.el-input {
+        & > .el-cascader,
+        & > .el-select,
+        & > .el-input {
             width: 280px;
         }
-
     }
 }
 

@@ -18,10 +18,9 @@ useDirectives(app)
 
 app.use(router).use(store, injectionKey).mount('#app')
 
-
 // 声明vue上的属性
-declare module "@vue/runtime-core" {
+declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
-      $variables: Variables;
+        $variables: Variables
     }
-  }
+}

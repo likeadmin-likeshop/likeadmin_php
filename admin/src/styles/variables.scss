@@ -4,7 +4,7 @@
 
 /* Color
 -------------------------- */
-$color-primary: #2E54EB !default;
+$color-primary: #4a5dff !default;
 $color-success: #67c23a !default;
 $color-warning: #fb9400 !default;
 $color-danger: #f56c6c !default;
@@ -22,7 +22,6 @@ $color-primary-light-6: mix($color-white, $color-primary, 60%) !default;
 $color-primary-light-7: mix($color-white, $color-primary, 70%) !default;
 $color-primary-light-8: mix($color-white, $color-primary, 80%) !default;
 $color-primary-light-9: mix($color-white, $color-primary, 90%) !default;
-
 
 /* Font
 -------------------------- */
@@ -56,94 +55,88 @@ $border-base: $border-width-base $border-style-base $border-color-base !default;
 
 /* Layout
 -------------------------- */
-$layout-min-width: 1200px!default;;
+$layout-min-width: 1200px !default;
 $layout-aside-width: 200px !default;
 $layout-header-height: 70px !default;
 
-
-
 $colors: (
-	"primary": (
-		"base": $color-primary,
-	),
-	"success": (
-		"base": $color-success,
-	),
-	"warning": (
-		"base": $color-warning,
-	),
-	"danger": (
-		"base": $color-danger,
-	),
-	"error": (
-		"base": $color-error,
-	),
-	"info": (
-		"base": $color-info,
-	),
+    'primary': (
+        'base': $color-primary
+    ),
+    'success': (
+        'base': $color-success
+    ),
+    'warning': (
+        'base': $color-warning
+    ),
+    'danger': (
+        'base': $color-danger
+    ),
+    'error': (
+        'base': $color-error
+    ),
+    'info': (
+        'base': $color-info
+    )
 );
 
 $text-color: (
     'primary': $color-text-primary,
     'regular': $color-text-regular,
     'secondary': $color-text-secondary,
-    'placeholder': $color-text-placeholder,
+    'placeholder': $color-text-placeholder
 );
 
 $border-color: (
     'base': $border-color-base,
     'light': $border-color-light,
     'lighter': $border-color-light,
-    'extra-light': $border-color-light,
+    'extra-light': $border-color-light
 );
 
-
-$font-size:(
+$font-size: (
     'extra-large': $font-size-xl,
     'large': $font-size-lg,
     'medium': $font-size-md,
     'base': $font-size-base,
     'small': $font-size-sm,
-    'extra-small': $font-size-xs,
+    'extra-small': $font-size-xs
 );
 
-$button-font-size:(
+$button-font-size: (
     'default': $font-size-base,
     'medium': $font-size-base,
     'small': $font-size-base,
-    'mini': $font-size-sm,
+    'mini': $font-size-sm
 );
 
-
-$button-padding-vertical:(
+$button-padding-vertical: (
     'default': 12px,
     'medium': 10px,
     'small': 8px,
-    'mini': 6px,
+    'mini': 6px
 );
 
-$button-padding-horizontal:(
+$button-padding-horizontal: (
     'default': 25px,
     'medium': 25px,
     'small': 20px,
-    'mini': 15px,
+    'mini': 15px
 );
 
-$table:(
+$table: (
     'text-color': $color-text-primary,
     'header-text-color': $color-text-primary,
-    'header-bg-color': rgba($color-primary, 0.05),
+    'header-bg-color': rgba($color-primary, 0.05)
 );
 
 // 替换elementui的变量
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
-	$colors: $colors,
-	$text-color: $text-color,
-	$border-color: $border-color,
-	$font-size: $font-size,
-	$button-font-size: $button-font-size,
-	$button-padding-vertical: $button-padding-vertical,
-	$table: $table
+    $colors: $colors,
+    $text-color: $text-color,
+    $border-color: $border-color,
+    $font-size: $font-size,
+    $button-font-size: $button-font-size,
+    $button-padding-vertical: $button-padding-vertical,
+    $table: $table
 );
-
-

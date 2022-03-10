@@ -17,8 +17,8 @@
         </el-upload>
         <el-dialog
             v-if="showProgress && fileList.length"
-            title="上传进度"
             v-model="visible"
+            title="上传进度"
             :close-on-click-modal="false"
             width="500px"
             :modal="false"
@@ -29,9 +29,7 @@
                     <div class="m-b-20">
                         <div>{{ item.name }}</div>
                         <div class="flex-1">
-                            <el-progress
-                                :percentage="parseInt(item.percentage)"
-                            ></el-progress>
+                            <el-progress :percentage="parseInt(item.percentage)"></el-progress>
                         </div>
                     </div>
                 </template>
@@ -39,7 +37,6 @@
         </el-dialog>
     </div>
 </template>
-
 
 <script lang="ts">
 import { computed, defineComponent, Ref, ref } from 'vue'
@@ -52,39 +49,37 @@ export default defineComponent({
         // 上传文件类型
         type: {
             type: String,
-            default: 'image',
+            default: 'image'
         },
         // 是否支持多选
         multiple: {
             type: Boolean,
-            default: true,
+            default: true
         },
         // 多选时最多选择几条
         limit: {
             type: Number,
-            default: 10,
+            default: 10
         },
         // 上传时的额外参数
         data: {
             type: Object,
-            default: () => ({}),
+            default: () => ({})
         },
         // 是否显示上传进度
         showProgress: {
             type: Boolean,
-            default: false,
-        },
+            default: false
+        }
     },
     emits: ['change', 'error'],
     setup(props, { emit }) {
         const store = useStore()
         const uploadRefs: Ref<typeof ElUpload | null> = ref(null)
-        const action = ref(
-            `${import.meta.env.VITE_APP_BASE_URL}/adminapi/upload/${props.type}`
-        )
+        const action = ref(`${import.meta.env.VITE_APP_BASE_URL}/adminapi/upload/${props.type}`)
         const headers = computed(() => ({
             token: store.getters.token,
-            version: version,
+            version: version
         }))
         const visible = ref(false)
         const fileList: Ref<any[]> = ref([])
@@ -95,7 +90,7 @@ export default defineComponent({
         }
 
         const handleSuccess = (event: any, file: any, fileLists: any[]) => {
-            let allSuccess = fileLists.every((item) => item.status == 'success')
+            const allSuccess = fileLists.every(item => item.status == 'success')
             if (allSuccess) {
                 uploadRefs.value?.clearFiles()
                 visible.value = false
@@ -127,12 +122,10 @@ export default defineComponent({
             handleSuccess,
             handleError,
             handleExceed,
-            handleClose,
+            handleClose
         }
-    },
+    }
 })
 </script>
 
-
-<style lang="scss">
-</style>
+<style lang="scss"></style>

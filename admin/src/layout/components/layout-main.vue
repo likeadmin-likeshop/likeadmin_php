@@ -8,9 +8,8 @@
     </div>
 </template>
 
-
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 import Perm from './perm.vue'
 export default defineComponent({
     components: {
@@ -18,7 +17,6 @@ export default defineComponent({
     }
 })
 </script>
-
 
 <style lang="scss" scoped>
 .layout-main {

@@ -1,10 +1,9 @@
-
 import { Module } from 'vuex'
 import { RouteRecordRaw } from 'vue-router'
 import { apiConfigGetAuth } from '@/api/auth'
 export interface PermissionModule {
-    sidebar: Array<RouteRecordRaw>;
-    permission: any [] | null;
+    sidebar: Array<RouteRecordRaw>
+    permission: any[] | null
     isAdmin: number
 }
 
@@ -17,11 +16,8 @@ const permission: Module<PermissionModule, any> = {
         permission: null,
         // 是否是管理员
         isAdmin: 0
-        
     },
-    getters: {
-       
-    },
+    getters: {},
     mutations: {
         setSidebar(state, data) {
             state.sidebar = data
@@ -29,17 +25,19 @@ const permission: Module<PermissionModule, any> = {
         setPermission(state, data) {
             state.permission = data.auth
             state.isAdmin = data.root
-        },
+        }
     },
     actions: {
-        getPermission({ commit } ) {
+        getPermission({ commit }) {
             return new Promise((resolve, reject) => {
-                apiConfigGetAuth().then(data => {
-                    commit('setPermission', data)
-                    resolve(data)
-                }).catch(err => {
-                    reject(err)
-                })
+                apiConfigGetAuth()
+                    .then(data => {
+                        commit('setPermission', data)
+                        resolve(data)
+                    })
+                    .catch(err => {
+                        reject(err)
+                    })
             })
         }
     }
