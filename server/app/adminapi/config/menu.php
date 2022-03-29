@@ -95,6 +95,22 @@ return [
                 ],
             ],
             [
+                'name'  => '政策协议',
+                'type'  => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/protocol.view'
+                    ],
+                    [
+                        'name'      => '保存',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/share.save'
+                    ],
+                ],
+            ],
+            [
                 'name' => '系统环境',
                 'type' => 1,
                 'sons'  => [
@@ -102,6 +118,54 @@ return [
                         'name'      => '查看',
                         'type'      => 2,
                         'auth_key'  => 'setting/environment.view'
+                    ],
+                ],
+            ],
+            [
+                'name'  => '用户设置',
+                'type'  => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/user.view'
+                    ],
+                    [
+                        'name'      => '保存',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/user.save'
+                    ],
+                ],
+            ],
+            [
+                'name'  => '登录注册',
+                'type'  => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/loginregister.view'
+                    ],
+                    [
+                        'name'      => '保存',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/loginregister.save'
+                    ],
+                ],
+            ],
+            [
+                'name'  => '定时任务',
+                'type'  => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/task.view'
+                    ],
+                    [
+                        'name'      => '管理',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/task.manage'
                     ],
                 ],
             ],

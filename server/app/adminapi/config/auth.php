@@ -97,12 +97,53 @@ return [
                 'action_auth' => ['setting.web.websetting/setcopyright'],
             ],
         ],
+        //用户设置
+        'user' => [
+            'page_path' => '/setting/user/user_setting',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['settings.user.user/getconfig'],
+            ],
+            'save' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => ['settings.user.user/setconfig'],
+            ],
+        ],
+        //登录注册
+        'loginregister' => [
+            'page_path' => '/setting/user/login_register',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['settings.user.user/getregisterconfig'],
+            ],
+            'save' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => ['settings.user.user/setregisterconfig'],
+            ],
+        ],
         //系统环境
         'environment' => [
             'page_path' => '/setting/system/environment',
             'view' => [
                 'button_auth' => ['view'],
                 'action_auth' => ['setting.system.system/info'],
+            ],
+        ],
+        //计划任务
+        'task' => [
+            'page_path' => '/setting/task',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['crontab.crontab/lists'],
+            ],
+            'manage' => [
+                'button_auth' => ['view'],
+                'action_auth' => [
+                    'crontab.crontab/add',
+                    'crontab.crontab/edit',
+                    'crontab.crontab/operate',
+                    'crontab.crontab/del',
+                ],
             ],
         ],
     ],
