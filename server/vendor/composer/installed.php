@@ -5,11 +5,20 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '38f720afa912f76965b5ff984e5f6b72f9cc57aa',
+        'reference' => 'ec9f3b015125402137f5ae98b5433555ea901e3d',
         'name' => 'topthink/think',
         'dev' => true,
     ),
     'versions' => array(
+        'dragonmantank/cron-expression' => array(
+            'pretty_version' => 'v3.3.1',
+            'version' => '3.3.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../dragonmantank/cron-expression',
+            'aliases' => array(),
+            'reference' => 'be85b3f05b46c39bbc0d95f6c071ddff669510fa',
+            'dev_requirement' => false,
+        ),
         'easywechat-composer/easywechat-composer' => array(
             'pretty_version' => '1.4.1',
             'version' => '1.4.1.0',
@@ -72,6 +81,12 @@
             'aliases' => array(),
             'reference' => 'fd4380d6fc37626e2f799f29d91195040137eba9',
             'dev_requirement' => false,
+        ),
+        'mtdowling/cron-expression' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '^1.0',
+            ),
         ),
         'overtrue/socialite' => array(
             'pretty_version' => '4.1.0',
@@ -289,6 +304,15 @@
             'reference' => 'a000fcf2298a1bc79a1dcff22608792506534719',
             'dev_requirement' => false,
         ),
+        'symfony/polyfill-ctype' => array(
+            'pretty_version' => 'v1.25.0',
+            'version' => '1.25.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
+            'aliases' => array(),
+            'reference' => '30885182c981ab175d4d034db0f6f469898070ab',
+            'dev_requirement' => false,
+        ),
         'symfony/polyfill-mbstring' => array(
             'pretty_version' => 'v1.23.1',
             'version' => '1.23.1.0',
@@ -376,7 +400,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '38f720afa912f76965b5ff984e5f6b72f9cc57aa',
+            'reference' => 'ec9f3b015125402137f5ae98b5433555ea901e3d',
             'dev_requirement' => false,
         ),
         'topthink/think-helper' => array(
@@ -431,6 +455,15 @@
             'install_path' => __DIR__ . '/../topthink/think-view',
             'aliases' => array(),
             'reference' => 'edce0ae2c9551ab65f9e94a222604b0dead3576d',
+            'dev_requirement' => false,
+        ),
+        'webmozart/assert' => array(
+            'pretty_version' => '1.10.0',
+            'version' => '1.10.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../webmozart/assert',
+            'aliases' => array(),
+            'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
             'dev_requirement' => false,
         ),
     ),
