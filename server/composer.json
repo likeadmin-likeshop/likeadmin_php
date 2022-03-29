@@ -24,7 +24,8 @@
         "topthink/framework": "^6.0.0",
         "topthink/think-orm": "^2.0",
         "topthink/think-multi-app": "^1.0",
-        "topthink/think-view": "^1.0"
+        "topthink/think-view": "^1.0",
+        "overtrue/wechat": "~5.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
@@ -39,7 +40,10 @@
         }
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "easywechat-composer/easywechat-composer": false
+        }
     },
     "scripts": {
         "post-autoload-dump": [
