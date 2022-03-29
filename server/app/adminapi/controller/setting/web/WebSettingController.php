@@ -85,4 +85,30 @@ class WebSettingController extends BaseAdminController
         return $this->success('设置成功', [], 1, 1);
     }
 
+
+    /**
+     * @notes 设置政策协议
+     * @return \think\response\Json
+     * @author ljj
+     * @date 2022/2/15 11:00 上午
+     */
+    public function setAgreement()
+    {
+        $params = $this->request->post();
+        WebSettingLogic::setAgreement($params);
+        return $this->success('设置成功', [], 1, 1);
+    }
+
+
+    /**
+     * @notes 获取政策协议
+     * @return \think\response\Json
+     * @author ljj
+     * @date 2022/2/15 11:16 上午
+     */
+    public function getAgreement()
+    {
+        $result = WebSettingLogic::getAgreement();
+        return $this->data($result);
+    }
 }

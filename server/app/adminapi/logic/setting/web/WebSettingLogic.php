@@ -103,4 +103,34 @@ class WebSettingLogic extends BaseLogic
     }
 
 
+    /**
+     * @notes 设置政策协议
+     * @param array $params
+     * @author ljj
+     * @date 2022/2/15 10:59 上午
+     */
+    public static function setAgreement(array $params)
+    {
+        ConfigService::set('agreement', 'service_title', $params['service_title'] ?? '');
+        ConfigService::set('agreement', 'service_content', $params['service_content'] ?? '');
+        ConfigService::set('agreement', 'privacy_title', $params['privacy_title'] ?? '');
+        ConfigService::set('agreement', 'privacy_content', $params['privacy_content'] ?? '');
+    }
+
+    /**
+     * @notes 获取政策协议
+     * @return array
+     * @author ljj
+     * @date 2022/2/15 11:15 上午
+     */
+    public static function getAgreement() : array
+    {
+        $config = [
+            'service_title' => ConfigService::get('agreement', 'service_title'),
+            'service_content' => ConfigService::get('agreement', 'service_content'),
+            'privacy_title' => ConfigService::get('agreement', 'privacy_title'),
+            'privacy_content' => ConfigService::get('agreement', 'privacy_content'),
+        ];
+        return $config;
+    }
 }
