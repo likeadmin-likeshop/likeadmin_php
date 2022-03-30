@@ -46,7 +46,7 @@ class UserConfigValidate extends BaseValidate
         'register_way.array'                => '注册方式值错误',
         'login_way.requireIf'               => '请选择登录方式',
         'login_way.array'                   => '登录方式值错误',
-        'is_mobile_register_code.requireIf' => '请选择手机号码注册需验证码',
+        'is_mobile_register_code.require'   => '请选择手机号码注册需验证码',
         'is_mobile_register_code.in'        => '手机号码注册需验证码错误',
         'coerce_mobile.requireIf'           => '请选择注册强制绑定手机',
         'coerce_mobile.in'                  => '注册强制绑定手机值错误',
@@ -65,6 +65,6 @@ class UserConfigValidate extends BaseValidate
     //注册验证
     public function sceneRegister()
     {
-        return $this->remove(['default_avatar'], true);
+        return $this->only(['register_way','is_mobile_register_code']);
     }
 }
