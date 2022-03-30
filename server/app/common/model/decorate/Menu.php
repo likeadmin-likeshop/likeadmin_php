@@ -29,6 +29,7 @@ use think\model\concern\SoftDelete;
 class Menu extends BaseModel
 {
     use SoftDelete;
+
     protected $deleteTime = 'delete_time';
 
 
@@ -40,17 +41,17 @@ class Menu extends BaseModel
      * @author ljj
      * @date 2022/2/14 2:18 下午
      */
-    public function getLinkAddressDescAttr($value,$data)
+    public function getLinkAddressDescAttr($value, $data)
     {
         $address = '';
         if ($data['link_type'] == MenuEnum::LINK_CUSTOM) {
             $address = $data['link_address'];
-        }elseif ($data['link_type'] == MenuEnum::LINK_SHOP) {
-            $shop_page = array_column(MenuEnum::SHOP_PAGE,NULL,'index');
+        } elseif ($data['link_type'] == MenuEnum::LINK_SHOP) {
+            $shop_page = array_column(MenuEnum::SHOP_PAGE, NULL, 'index');
             $address = $shop_page[$data['link_address']]['name'];
-        }elseif ($data['link_type'] == MenuEnum::LINK_CATEGORY) {
-            $name = GoodsCategory::where('id',$data['link_address'])->value('name');
-            $address = $name;
+        } elseif ($data['link_type'] == MenuEnum::LINK_CATEGORY) {
+//            $name = GoodsCategory::where('id', $data['link_address'])->value('name');
+//            $address = $name;
         }
         return $address;
     }
@@ -63,7 +64,7 @@ class Menu extends BaseModel
      * @author ljj
      * @date 2022/2/14 4:03 下午
      */
-    public function getStatusDescAttr($value,$data)
+    public function getStatusDescAttr($value, $data)
     {
         return DefaultEnum::getEnableDesc($data['status']);
     }
@@ -77,13 +78,13 @@ class Menu extends BaseModel
      * @author ljj
      * @date 2022/2/23 2:50 下午
      */
-    public function getLinkAttr($value,$data)
+    public function getLinkAttr($value, $data)
     {
         $link = '';
         if ($data['link_type'] == MenuEnum::LINK_CUSTOM || $data['link_type'] == MenuEnum::LINK_CATEGORY) {
             $link = $data['link_address'];
-        }elseif ($data['link_type'] == MenuEnum::LINK_SHOP) {
-            $shop_page = array_column(MenuEnum::SHOP_PAGE,NULL,'index');
+        } elseif ($data['link_type'] == MenuEnum::LINK_SHOP) {
+            $shop_page = array_column(MenuEnum::SHOP_PAGE, NULL, 'index');
             $link = $shop_page[$data['link_address']]['path'];
         }
         return $link;
