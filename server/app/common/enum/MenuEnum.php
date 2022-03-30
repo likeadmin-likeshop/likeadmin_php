@@ -27,7 +27,7 @@ class MenuEnum
         [
             'index'     => 1,
             'name'      => '首页',
-            'path'      => '',
+            'path'      => '/pages/index/index',
             'params'    => [],
             'type'      => 'shop',
         ],
