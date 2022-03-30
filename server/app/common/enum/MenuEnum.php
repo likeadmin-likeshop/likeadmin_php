@@ -23,7 +23,15 @@ namespace app\common\enum;
 class MenuEnum
 {
     //商城页面
-    const SHOP_PAGE = [];
+    const SHOP_PAGE = [
+        [
+            'index'     => 1,
+            'name'      => '首页',
+            'path'      => '',
+            'params'    => [],
+            'type'      => 'shop',
+        ],
+    ];
 
 
     //菜单类型
