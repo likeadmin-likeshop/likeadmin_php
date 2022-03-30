@@ -18,7 +18,48 @@ export function apiSetWebsite(params: any) {
     return request.post('/setting.web.web_setting/setWebsite', { ...params })
 }
 
+// 获取政策协议
+export function apiGetProtocol() {
+    return request.get('/setting.web.web_setting/getAgreement')
+}
+// 设置政策协议
+export function apiSetProtocol(params: any) {
+    return request.post('/setting.web.web_setting/setAgreement', params)
+}
+
 // 获取系统环境
 export function apiSystemInfo() {
     return request.get('/setting.system.system/info')
 }
+
+/** S 在线客服 **/
+// 获取客服设置
+export const apiCustomerServiceGetConfig = (): Promise<any> =>
+    request.get('/setting.customer_service/getConfig')
+
+// 设置客服设置
+export const apiCustomerServiceSetConfig = (params: any): Promise<any> =>
+    request.post('/setting.customer_service/setConfig', params)
+/** E 在线客服 **/
+
+/** S 用户设置 **/
+// 获取用户设置
+export function apiUserConfigGet() {
+    return request.get('/setting.user.user/getConfig')
+}
+
+// 用户设置
+export function apiUserConfigSet(params: any) {
+    return request.post('/setting.user.user/setConfig', params)
+}
+
+// 获取登录注册设置
+export function apiLoginConfigGet() {
+    return request.get('/setting.user.user/getRegisterConfig')
+}
+
+// 登录注册设置
+export function apiLoginConfigSet(params: any) {
+    return request.post('/setting.user.user/setRegisterConfig', params)
+}
+/** E 用户设置 **/

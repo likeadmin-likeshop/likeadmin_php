@@ -6,6 +6,10 @@ import Error500 from '@/views/error/500.vue'
 // Router modules
 import setting from './modules/setting'
 import permission from './modules/permission'
+import decoration from './modules/decoration'
+import content from './modules/content'
+import channel from './modules/channel'
+import application from './modules/application'
 export const asyncRoutes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -17,6 +21,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                 component: workbench,
                 meta: { title: '工作台', icon: 'icon-home', permission: ['view'] }
             },
+			decoration, // 装修管理
+            application,// 应用管理
+            content, 	// 内容管理
+			channel, 	// 渠道管理
             permission,
             setting
         ]
