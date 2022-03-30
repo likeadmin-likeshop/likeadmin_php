@@ -65,6 +65,6 @@ class UserConfigValidate extends BaseValidate
     //注册验证
     public function sceneRegister()
     {
-        return $this->remove(['default_avatar']);
+        return $this->remove(['default_avatar'], true);
     }
 }
