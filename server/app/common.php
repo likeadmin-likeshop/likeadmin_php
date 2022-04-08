@@ -108,3 +108,42 @@ function linear_to_tree($data, $sub_key_name = 'sub', $id_name = 'id', $parent_i
     return $tree;
 }
 
+
+/**
+ * @notes 删除目标目录
+ * @param $path
+ * @param $delDir
+ * @return bool|void
+ * @author 段誉
+ * @date 2022/4/8 16:30
+ */
+function del_target_dir($path, $delDir)
+{
+    //没找到，不处理
+    if (!file_exists($path)) {
+        return false;
+    }
+
+    //打开目录句柄
+    $handle = opendir($path);
+    if ($handle) {
+        while (false !== ($item = readdir($handle))) {
+            if ($item != "." && $item != "..") {
+                if (is_dir("$path/$item")) {
+                    del_target_dir("$path/$item", $delDir);
+                } else {
+                    unlink("$path/$item");
+                }
+            }
+        }
+        closedir($handle);
+        if ($delDir) {
+            return rmdir($path);
+        }
+    } else {
+        if (file_exists($path)) {
+            return unlink($path);
+        }
+        return false;
+    }
+}
