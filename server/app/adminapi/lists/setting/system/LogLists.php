@@ -29,9 +29,8 @@ use app\common\model\OperationLog;
  * 日志列表
  * Class LogLists
  * @package app\adminapi\lists\setting\system
- *, ListsExcelInterface
  */
-class LogLists extends BaseAdminDataLists implements ListsSearchInterface
+class LogLists extends BaseAdminDataLists implements ListsSearchInterface, ListsExcelInterface
 {
     /**
      * @notes 设置搜索条件

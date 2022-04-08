@@ -21,6 +21,8 @@
 namespace app\common\lists;
 
 
+use app\common\enum\ExportEnum;
+use app\common\service\JsonService;
 use app\common\validate\ListsValidate;
 use app\Request;
 use think\facade\Config;
@@ -35,6 +37,7 @@ abstract class BaseDataLists implements ListsInterface
 
     use ListsSearchTrait;
     use ListsSortTrait;
+    use ListsExcelTrait;
 
     public Request $request; //请求对象
 
@@ -79,8 +82,8 @@ abstract class BaseDataLists implements ListsInterface
         //排序初始化
         $this->initSort();
 
-//        //导出初始化
-//        $this->initExport();
+        //导出初始化
+        $this->initExport();
     }
 
 
@@ -151,6 +154,61 @@ abstract class BaseDataLists implements ListsInterface
         return $this->sortOrder = $this->createOrder($this->setSortFields(), $this->setDefaultOrder());
     }
 
+    /**
+     * @notes 导出初始化
+     * @return false|\think\response\Json
+     * @author 令狐冲
+     * @date 2021/7/31 01:15
+     */
+    private function initExport()
+    {
+
+        $this->export = $this->request->get('export', '');
+
+        //不做导出操作
+        if ($this->export != ExportEnum::INFO && $this->export != ExportEnum::EXPORT) {
+            return false;
+        }
+
+
+        //导出操作，但是没有实现导出接口
+        if (!($this instanceof ListsExcelInterface)) {
+            return JsonService::throw('该列表不支持导出');
+        }
+
+        $this->fileName = $this->request->get('file_name', '') ?: $this->setFileName();
+
+
+        //不导出文件，不初始化一下参数
+        if ($this->export != ExportEnum::EXPORT) {
+            return false;
+        }
+
+        //导出文件名设置
+        $this->fileName .= '-' . date('Y-m-d-His') . '.xlsx';
+
+        //导出文件准备
+        if ($this->export == ExportEnum::EXPORT) {
+
+            //指定导出范围（例：第2页到，第5页的数据）
+            if ($this->pageType == 1) {
+                $this->pageStart = $this->request->get('page_start', $this->pageStart);
+                $this->pageEnd = $this->request->get('page_end', $this->pageEnd);
+                //改变查询数量参数（例：第2页到，第5页的数据，查询->page(2,(5-2+1)*25)
+                $this->limitOffset = ($this->pageStart - 1) * $this->pageSize;
+                $this->limitLength = ($this->pageEnd - $this->pageStart + 1) * $this->pageSize;
+            }
+
+            $count = $this->count();
+
+            //判断导出范围是否有数据
+            if ($count == 0 || ceil($count / $this->pageSize) < $this->pageStart) {
+                $msg = $this->pageType ? '第' . $this->pageStart . '页到第' . $this->pageEnd . '页没有数据，无法导出' : '没有数据,无法导出';
+                return JsonService::throw($msg);
+            }
+
+        }
+    }
 
     /**
      * @notes 不需要分页，可以调用此方法，无需查询第二次

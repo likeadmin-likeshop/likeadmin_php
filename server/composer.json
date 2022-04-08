@@ -26,7 +26,8 @@
         "topthink/think-multi-app": "^1.0",
         "topthink/think-view": "^1.0",
         "overtrue/wechat": "~5.0",
-        "dragonmantank/cron-expression": "^3.3"
+        "dragonmantank/cron-expression": "^3.3",
+        "phpoffice/phpspreadsheet": "^1.22"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
