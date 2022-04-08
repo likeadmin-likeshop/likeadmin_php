@@ -56,12 +56,13 @@
                     <div
                         v-for="item in workbenchData.menu"
                         :key="item"
-                        class="nav-item flex flex-col flex-center m-t-10"
+                        class="nav-item flex-col m-t-10"
                     >
                         <router-link :to="item.url">
-                            <el-image style="width: 48px; height: 48px" :src="item.image">
-                            </el-image>
-                            <div class="m-t-8 normal">{{ item.name }}</div>
+                            <view class="flex flex-center">
+                            	<el-image style="width: 48px; height: 48px" :src="item?.image"></el-image>
+                            </view>
+                            <div class="m-t-8 normal text-center">{{ item.name }}</div>
                         </router-link>
                     </div>
                 </div>
@@ -233,10 +234,10 @@ export default defineComponent({
     .function {
         .nav-lists {
             display: flex;
-            flex-wrap: wrap;
+            // flex-wrap: wrap;
 
             .nav-item {
-                min-width: 120px;
+                min-width: 210px;
             }
         }
     }
