@@ -196,4 +196,30 @@ class AdminLogic extends BaseLogic
             'multipoint_login', 'avatar'
         ])->findOrEmpty($params['id'])->toArray();
     }
+
+
+
+    /**
+     * @notes 编辑超级管理员
+     * @param $params
+     * @return Admin
+     * @author 段誉
+     * @date 2022/4/8 17:54
+     */
+    public static function editSelf($params)
+    {
+        $data = [
+            'id' => $params['admin_id'],
+            'name' => $params['name'],
+            'avatar' => FileService::setFileUrl($params['avatar']),
+        ];
+
+        if (!empty($params['password'])) {
+            $passwordSalt = Config::get('project.unique_identification');
+            $data['password'] = create_password($params['password'], $passwordSalt);
+        }
+
+        return Admin::update($data);
+    }
+
 }

@@ -23,6 +23,7 @@ use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\auth\AdminLists;
 use app\adminapi\validate\auth\AdminValidate;
 use app\adminapi\logic\auth\AdminLogic;
+use app\adminapi\validate\auth\editSelfValidate;
 
 /**
  * 管理员控制器
@@ -116,6 +117,20 @@ class AdminController extends BaseAdminController
     {
         $result = AdminLogic::detail(['id' => $this->adminId]);
         return $this->data($result);
+    }
+
+
+    /**
+     * @notes 编辑超级管理员信息
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/4/8 17:54
+     */
+    public function editSelf()
+    {
+        $params = (new editSelfValidate())->post()->goCheck('', ['admin_id' => $this->adminId]);
+        $result = AdminLogic::editSelf($params);
+        return $this->success('操作成功');
     }
 
 }
