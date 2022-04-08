@@ -1,40 +1,54 @@
+
 <template>
     <div>
         <del-wrap @close="$emit('close')">
-            <div class="file-item" :style="{ height: fileSize, width: fileSize }">
-                <el-image v-if="type == 'image'" class="image" fit="contain" :src="uri"></el-image>
-                <video v-else-if="type == 'video'" class="video" :src="uri"></video>
+            <div
+                class="file-item"
+                :style="{ height: fileSize, width: fileSize }"
+            >
+                <el-image
+                    class="image"
+                    v-if="type.type == 'image'"
+                    fit="contain"
+                    :src="uri"
+                ></el-image>
+                <video
+                    class="video"
+                    v-else-if="type.type == 'video'"
+                    :src="uri"
+                ></video>
                 <slot></slot>
             </div>
         </del-wrap>
     </div>
 </template>
 
+
 <script lang="ts">
 import DelWrap from '@/components/del-wrap/index.vue'
 import { defineComponent, inject } from 'vue'
 export default defineComponent({
     components: {
-        DelWrap
+        DelWrap,
     },
     props: {
         // 图片地址
         uri: {
-            type: String
+            type: String,
         },
         // 图片尺寸
         fileSize: {
             type: String,
-            default: '100px'
-        }
+            default: '100px',
+        },
     },
     emits: ['close'],
     setup() {
-        const type = inject('type')
+        const type = inject<any>('type')
         return {
             type
         }
-    }
+    },
 })
 </script>
 

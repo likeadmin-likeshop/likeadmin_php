@@ -1,5 +1,6 @@
+
 <template>
-    <div v-loading="pager.loading" class="material flex col-stretch">
+    <div class="material flex col-stretch" v-loading="pager.loading">
         <div class="material__left">
             <el-scrollbar class="ls-scrollbar" style="height: calc(100% - 40px)">
                 <div class="material-left__content p-t-16 p-b-16">
@@ -14,16 +15,17 @@
                         :current-node-key="cateId"
                         @node-click="currentChange"
                     >
-                        <template #default="{ data }">
+                        <template v-slot="{ data }">
                             <div class="flex flex-1 flex-center" style="min-width: 0">
                                 <img
                                     style="width: 20px; height: 16px"
                                     src="@/assets/images/icon_folder.png"
-                                    alt
                                     class="m-r-10"
                                 />
                                 <span class="flex-1 line-1 m-r-10">
-                                    {{ data.name }}
+                                    {{
+                                        data.name
+                                    }}
                                 </span>
                                 <el-dropdown v-if="data.id > 0" :hide-on-click="false">
                                     <span class="muted m-r-10">···</span>
@@ -33,12 +35,21 @@
                                                 <popover-input
                                                     type="text"
                                                     tips="分类名称"
-                                                    @confirm="handleEditCate($event, data.id)"
+                                                    @confirm="
+                                                    handleEditCate(
+                                                        $event,
+                                                        data.id
+                                                    )
+                                                    "
                                                 >
                                                     <el-dropdown-item>命名分组</el-dropdown-item>
                                                 </popover-input>
                                             </div>
-                                            <div @click="handleDeleteCate(data.id)">
+                                            <div
+                                                @click="
+                                                handleDeleteCate(data.id)
+                                                "
+                                            >
                                                 <el-dropdown-item>删除分组</el-dropdown-item>
                                             </div>
                                         </el-dropdown-menu>
@@ -61,7 +72,7 @@
                     <upload
                         class="m-r-10"
                         :data="{ cid: cateId }"
-                        :type="type"
+                        :type="type.type"
                         :show-progress="true"
                         @change="refresh"
                     >
@@ -79,9 +90,9 @@
                     </popup>
                     <popup
                         class="m-r-10 inline"
+                        @confirm="batchFileMove"
                         :disabled="!select.length"
                         title="移动文件"
-                        @confirm="batchFileMove"
                     >
                         <template #trigger>
                             <el-button size="small" :disabled="!select.length">移动</el-button>
@@ -102,10 +113,10 @@
                     </popup>
                 </div>
                 <el-input
-                    v-model="fileParams.name"
                     size="small"
                     placeholder="请输入名字"
                     style="width: 280px"
+                    v-model="fileParams.name"
                     @keyup.enter="refresh"
                 >
                     <template #append>
@@ -116,9 +127,9 @@
             <div class="material-center__content flex flex-col flex-1">
                 <ul class="file-list flex flex-wrap m-t-14">
                     <li
+                        class="file-item-wrap"
                         v-for="item in pager.lists"
                         :key="item.id"
-                        class="file-item-wrap"
                         :style="{ width: fileSize }"
                         @click="selectFile(item)"
                     >
@@ -127,7 +138,7 @@
                             :file-size="fileSize"
                             @close="batchFileDelete([item.id])"
                         >
-                            <div v-if="selectStatus(item.id)" class="item-selected">
+                            <div class="item-selected" v-if="selectStatus(item.id)">
                                 <el-icon color="#fff" size="24">
                                     <check />
                                 </el-icon>
@@ -138,17 +149,15 @@
                     </li>
                 </ul>
                 <div
-                    v-if="!pager.loading && !pager.lists.length"
                     class="flex flex-1 row-center col-center"
-                >
-                    暂无数据~
-                </div>
+                    v-if="!pager.loading && !pager.lists.length"
+                >暂无数据~</div>
             </div>
             <div class="material-center__footer flex row-right">
                 <pagination
                     v-model="pager"
-                    layout="total, prev, pager, next, jumper"
                     @change="getFileList"
+                    layout="total, prev, pager, next, jumper"
                 />
             </div>
         </div>
@@ -163,13 +172,9 @@
 
             <el-scrollbar class="ls-scrollbar" style="height: calc(100% - 32px)">
                 <ul class="select-lists flex-col p-t-10">
-                    <li v-for="item in select" :key="item.id" class="m-b-16">
+                    <li class="m-b-16" v-for="item in select" :key="item.id">
                         <div class="select-item">
-                            <file-item
-                                :uri="item.uri"
-                                file-size="100px"
-                                @close="cancelSelete(item.id)"
-                            ></file-item>
+                            <file-item :uri="item.uri" file-size="100px" @close="cancelSelete(item.id)"></file-item>
                         </div>
                     </li>
                 </ul>
@@ -177,6 +182,7 @@
         </div>
     </div>
 </template>
+
 
 <script lang="ts">
 import { defineComponent, inject, Ref, ref, toRefs, watch } from 'vue'
@@ -194,27 +200,33 @@ export default defineComponent({
         Pagination,
         Popup,
         Upload,
-        FileItem
+        FileItem,
     },
     props: {
         fileSize: {
             type: String,
-            default: '100px'
+            default: '100px',
         },
         limit: {
             type: Number,
-            default: 1
-        }
+            default: 1,
+        },
     },
     emits: ['change'],
     setup(props, { emit }) {
         const treeRefs: Ref<typeof ElTree | null> = ref(null)
-        const type = inject('type') as Ref<string>
+        const type = inject('type') as Ref<any>
         const { limit } = toRefs(props)
         const typeValue = inject('typeValue') as Ref<10 | 20 | 30>
         const visible = inject('visible') as Ref<boolean>
-        const { cateId, cateLists, handleAddCate, handleEditCate, handleDeleteCate, getCateLists } =
-            useCate(typeValue)
+        const {
+            cateId,
+            cateLists,
+            handleAddCate,
+            handleEditCate,
+            handleDeleteCate,
+            getCateLists,
+        } = useCate(typeValue)
         const {
             moveId,
             pager,
@@ -227,7 +239,7 @@ export default defineComponent({
             selectFile,
             selectStatus,
             clearSelect,
-            cancelSelete
+            cancelSelete,
         } = useFile(cateId, typeValue, limit)
 
         const currentChange = (item: any) => {
@@ -244,7 +256,7 @@ export default defineComponent({
                 }
             },
             {
-                immediate: true
+                immediate: true,
             }
         )
         watch(cateId, (val: string) => {
@@ -282,9 +294,9 @@ export default defineComponent({
             selectFile,
             selectStatus,
             clearSelect,
-            cancelSelete
+            cancelSelete,
         }
-    }
+    },
 })
 </script>
 

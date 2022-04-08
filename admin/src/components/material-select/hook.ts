@@ -5,24 +5,26 @@ import {
     apiFileCateLists,
     apiFileDelete,
     apiFileList,
-    apiFileMove
-} from '@/api/app'
-import { usePages } from '@/core/hooks/pages'
-import { ElMessage } from 'element-plus'
-import { computed, inject, reactive, ref, Ref } from 'vue'
+    apiFileMove,
+} from "@/api/app"
+import { usePages } from "@/core/hooks/pages"
+import { ElMessage } from "element-plus"
+import { computed, inject, reactive, ref, Ref } from "vue"
+
+
 
 // 左侧分组的钩子函数
 export function useCate(typeValue: Ref<any>) {
     // 分组列表
     const cateLists: Ref<any[]> = ref([])
     // 选中的分组id
-    const cateId = ref('')
+    const cateId = ref("")
     // 添加分组
     const handleAddCate = (val: string) => {
         apiFileCateAdd({
             type: typeValue.value,
             pid: 0,
-            name: val
+            name: val,
         }).then(() => {
             getCateLists()
         })
@@ -31,7 +33,7 @@ export function useCate(typeValue: Ref<any>) {
     const handleEditCate = (val: string, id: number) => {
         apiFileCateEdit({
             id,
-            name: val
+            name: val,
         }).then(() => {
             getCateLists()
         })
@@ -39,7 +41,7 @@ export function useCate(typeValue: Ref<any>) {
     // 删除分组
     const handleDeleteCate = (id: number) => {
         apiFileCateDelete({
-            id
+            id,
         }).then(() => {
             getCateLists()
         })
@@ -49,17 +51,17 @@ export function useCate(typeValue: Ref<any>) {
         return new Promise((resolve, reject) => {
             apiFileCateLists({
                 type: typeValue.value,
-                page_type: 1
+                page_type: 1,
             }).then((res: any) => {
                 const item: any[] = [
                     {
-                        name: '全部',
-                        id: ''
+                        name: "全部",
+                        id: "",
                     },
                     {
-                        name: '未分组',
-                        id: 0
-                    }
+                        name: "未分组",
+                        id: 0,
+                    },
                 ]
                 cateLists.value = res?.lists
                 cateLists.value.unshift(...item)
@@ -73,23 +75,25 @@ export function useCate(typeValue: Ref<any>) {
         handleAddCate,
         handleEditCate,
         handleDeleteCate,
-        getCateLists
+        getCateLists,
     }
 }
+
 
 // 处理文件的钩子函数
 export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>) {
     const moveId = ref(0)
     const select: Ref<any[]> = ref([])
     const fileParams = reactive({
-        name: '',
+        name: "",
         type: type,
-        cid: cateId
+        cid: cateId,
     })
     const { pager, requestApi, resetPage } = usePages({
         callback: apiFileList,
         params: fileParams
     })
+  
 
     const selectStatus = computed(
         () => (id: number) => select.value.find((item: any) => item.id == id)
@@ -102,20 +106,20 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
         resetPage()
     }
     const batchFileDelete = (id?: number[]) => {
-        const ids = id ? id : select.value.map((item: any) => item.id)
+        let ids = id ? id : select.value.map((item: any) => item.id)
         apiFileDelete({
-            ids
-        }).then(res => {
+            ids,
+        }).then((res) => {
             getFileList()
             clearSelect()
         })
     }
     const batchFileMove = () => {
-        const ids = select.value.map((item: any) => item.id)
+        let ids = select.value.map((item: any) => item.id)
         apiFileMove({
             ids,
-            cid: moveId.value
-        }).then(res => {
+            cid: moveId.value,
+        }).then((res) => {
             moveId.value = 0
             getFileList()
             clearSelect()
@@ -123,7 +127,7 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
     }
 
     const selectFile = (item: any) => {
-        const index = select.value.findIndex((items: any) => items.id == item.id)
+        let index = select.value.findIndex((items: any) => items.id == item.id)
         if (index != -1) {
             select.value.splice(index, 1)
             return
@@ -134,7 +138,7 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
                 select.value.push(item)
                 return
             }
-            ElMessage.warning('已达到选择上限')
+            ElMessage.warning("已达到选择上限")
             return
         }
         select.value.push(item)
@@ -143,7 +147,7 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
         select.value = []
     }
     const cancelSelete = (id: number) => {
-        select.value = select.value.filter(item => item.id != id)
+        select.value = select.value.filter((item) => item.id != id)
     }
     return {
         moveId,

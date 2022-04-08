@@ -81,6 +81,7 @@ const tiny = reactive({
     ], //工具栏配置，设为false则隐藏
     paste_data_images: true, //图片是否可粘贴
     file_picker_types: "file image media",
+	convert_urls : false, // false-保持图片域名完整性
     // 文件上传处理函数
     file_picker_callback: (callback: any, value: any, meta: any) => {
       if (meta.filetype == "image") {
