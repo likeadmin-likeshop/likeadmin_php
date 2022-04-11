@@ -39,6 +39,6 @@ class CacheController extends BaseAdminController
     public function clear()
     {
          CacheLogic::clear();
-         return $this->success('清除成功');
+         return $this->success('清除成功', [], 1, 1);
     }
 }
