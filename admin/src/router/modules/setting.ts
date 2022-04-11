@@ -10,7 +10,10 @@ const routes: RouteRecordRaw = {
             path: '/setting/service',
             redirect: '/setting/service/online_service',
             component: RouterView,
-            meta: { title: '客服设置' },
+            meta: { 
+				title: '客服设置',
+				hidden: true,
+			},
             children: [
                 {
                     path: '/setting/service/online_service',
@@ -49,6 +52,7 @@ const routes: RouteRecordRaw = {
                     meta: {
                         title: '政策/协议',
                         permission: ['view'],
+						hidden: true,
                     },
                 },
             ],
@@ -57,7 +61,10 @@ const routes: RouteRecordRaw = {
             path: '/setting/user',
             redirect: '/setting/user',
             component: RouterView,
-            meta: { title: '用户设置' },
+            meta: { 
+				title: '用户设置',
+				hidden: true,
+			},
             children: [
                 {
                     path: '/setting/user',
@@ -91,8 +98,33 @@ const routes: RouteRecordRaw = {
                         permission: ['view'],
                     },
                 },
+				{
+				    path: '/setting/website/journal',
+				    component: () => import('@/views/setting/system/journal.vue'),
+				    meta: {
+				        title: '系统日志',
+				        permission: ['view'],
+				    },
+				},
+				{
+				    path: '/setting/website/cache',
+				    component: () => import('@/views/setting/system/cache.vue'),
+				    meta: {
+				        title: '系统缓存',
+				        permission: ['view'],
+				    },
+				},
             ],
         },
+		{
+		    // component: RouterView,
+			path: '/setting/personal/personal_data',
+			component: () => import('@/views/setting/personal/personal_data.vue'),
+			meta: {
+			    title: '个人设置',
+			    permission: ['view'],
+			},
+		},
     ],
 }
 

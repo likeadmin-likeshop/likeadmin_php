@@ -21,10 +21,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
                 component: workbench,
                 meta: { title: '工作台', icon: 'icon-home', permission: ['view'] }
             },
-			decoration, // 装修管理
-            application,// 应用管理
-            content, 	// 内容管理
-			channel, 	// 渠道管理
+			// decoration, // 装修管理
+            // application,// 应用管理
+            // content, 	// 内容管理
+			// channel, 	// 渠道管理
             permission,
             setting
         ]

@@ -1,6 +1,6 @@
 // 引入所有样式
-@use 'element-plus/theme-chalk/src/index.scss';
-
+// @use 'element-plus/theme-chalk/src/index.scss';
+@import "element-plus/theme-chalk/src/index.scss";
 :root {
     --el-font-weight-primary: 400;
 }
@@ -96,4 +96,9 @@
 
 .el-icon {
     font-size: var(--font-size);
+}
+
+.el-alert--primary {
+	color: $color-primary;
+	background-color: $color-primary-light-9;
 }
