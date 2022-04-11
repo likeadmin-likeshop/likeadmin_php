@@ -50,8 +50,9 @@
     import FooterBtns from '@/components/footer-btns/index.vue'
 	import { apiAuthAdminEditSelf, apiAuthAdminMySelf } from '@/api/setting'
 	import { ElMessage } from 'element-plus'
+	import { useAdmin } from '@/core/hooks/app'
 	
-	
+	const { store } = useAdmin()
 	type FormInstance = InstanceType<typeof ElForm>
     const formRefs = ref<FormInstance>()
 
@@ -122,6 +123,7 @@
 		
 		await apiAuthAdminEditSelf({...formData.value})
 		getAuthAdminMySelf()
+		store.dispatch('user/getUser')
 	}
 	
 	// 提交数据
