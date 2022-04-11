@@ -46,7 +46,7 @@ class AuthMiddleware
         //不登录访问，无需权限验证
         if ($request->controllerObject->isNotNeedLogin()) {
             return $next($request);
-        };
+        }
 
         //系统默认超级管理员，无需权限验证
         if (1 === $request->adminInfo['root'] ) {

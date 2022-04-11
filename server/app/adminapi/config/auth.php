@@ -130,11 +130,11 @@ return [
             'page_path'     => '/setting/personal/personal_data',
             'view'      => [
                 'button_auth'   => ['view'],
-                'action_auth'   => ['auth.admin/mySelf'],
+                'action_auth'   => ['auth.admin/myself'],
             ],
             'save'     => [
                 'button_auth'   => ['auth_all'],
-                'action_auth'   => ['auth.admin/editSelf'],
+                'action_auth'   => ['auth.admin/editself'],
             ],
         ],
 
