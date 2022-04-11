@@ -95,22 +95,6 @@ return [
                 ],
             ],
             [
-                'name'  => '政策协议',
-                'type'  => 1,
-                'sons'  => [
-                    [
-                        'name'      => '查看',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/protocol.view'
-                    ],
-                    [
-                        'name'      => '保存',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/share.save'
-                    ],
-                ],
-            ],
-            [
                 'name' => '系统环境',
                 'type' => 1,
                 'sons'  => [
@@ -122,50 +106,45 @@ return [
                 ],
             ],
             [
-                'name'  => '用户设置',
+                'name'  => '系统日志',
                 'type'  => 1,
                 'sons'  => [
                     [
                         'name'      => '查看',
                         'type'      => 2,
-                        'auth_key'  => 'setting/user.view'
-                    ],
-                    [
-                        'name'      => '保存',
-                        'type'      => 2,
-                        'auth_key'  => 'setting/user.save'
+                        'auth_key'  => 'setting/systemlog.view'
                     ],
                 ],
             ],
             [
-                'name'  => '登录注册',
+                'name'  => '系统缓存',
                 'type'  => 1,
                 'sons'  => [
                     [
                         'name'      => '查看',
                         'type'      => 2,
-                        'auth_key'  => 'setting/loginregister.view'
+                        'auth_key'  => 'setting/systemcache.view'
                     ],
                     [
-                        'name'      => '保存',
+                        'name'      => '清除系统缓存',
                         'type'      => 2,
-                        'auth_key'  => 'setting/loginregister.save'
+                        'auth_key'  => 'setting/systemcache.clear'
                     ],
                 ],
             ],
             [
-                'name'  => '定时任务',
+                'name'  => '个人设置',
                 'type'  => 1,
                 'sons'  => [
                     [
                         'name'      => '查看',
                         'type'      => 2,
-                        'auth_key'  => 'setting/task.view'
+                        'auth_key'  => 'setting/selfSetting.view'
                     ],
                     [
-                        'name'      => '管理',
+                        'name'      => '保存',
                         'type'      => 2,
-                        'auth_key'  => 'setting/task.manage'
+                        'auth_key'  => 'setting/selfSetting.save'
                     ],
                 ],
             ],
