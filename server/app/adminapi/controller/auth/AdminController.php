@@ -130,7 +130,7 @@ class AdminController extends BaseAdminController
     {
         $params = (new editSelfValidate())->post()->goCheck('', ['admin_id' => $this->adminId]);
         $result = AdminLogic::editSelf($params);
-        return $this->success('操作成功');
+        return $this->success('操作成功', [], 1, 1);
     }
 
 }
