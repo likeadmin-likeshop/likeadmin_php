@@ -34,23 +34,23 @@
                                 阅读许可协议
                             </div>
                             <div class="content">
-                                <h2>版权所有(c)2019-<?=date('Y')?>，LikeShop团队保留所有权利。</h2>
+                                <h2>版权所有(c)2019-<?=date('Y')?>，likeadmin团队保留所有权利。</h2>
                                 <p class="mt16">
-                                    感谢你信任并选择LikeShop100%开源免费商用电商系统，LikeShop100%开源免费商用电商系统由广州好象科技有限公司（www.likeshop.cn）原创研发并取得软件著作权，100%开放源码，无加密，自主可控，方便二次开发。</p>
+                                    感谢你信任并选择likeadmin100%开源免费商用电商系统，likeadmin100%开源免费商用电商系统由广州好象科技有限公司（www.likeadmin.cn）原创研发并取得软件著作权，100%开放源码，无加密，自主可控，方便二次开发。</p>
                                 <p class="mt6">为了正确并合法的使用本软件，请你在使用前务必阅读清楚下面的协议条款：</p>
-                                <h3 class="mt16">一、本授权协议适用且仅适用于LikeShop系列开源软件产品(以下简称LikeShop)任何版本，广州好象科技有限公司拥有本授权协议的最终解释权。</h3>
+                                <h3 class="mt16">一、本授权协议适用且仅适用于likeadmin系列开源软件产品(以下简称likeadmin)任何版本，广州好象科技有限公司拥有本授权协议的最终解释权。</h3>
                                 <h3 class="mt16">二、协议许可的权利</h3>
                                 <p class="mt6">
                                     1．开源版本可以任意免费商用，可去除界面版权logo，不能去除代码版权。付费版本需要取得商业授权方可使用，否则会被视为盗版行为并承担相应法律责任。
                                 </p>
                                 <p class="mt6">
-                                    2．请尊重LikeShop开源团队劳动成果，严禁使用本系统转手、转卖、倒卖或二次开发后转手、转卖、倒卖等商业行为。
+                                    2．请尊重likeadmin开源团队劳动成果，严禁使用本系统转手、转卖、倒卖或二次开发后转手、转卖、倒卖等商业行为。
                                 </p>
                                 <p class="mt6">
-                                    3．任何企业和个人不允许对LikeShop程序代码以任何形式任何目的再发布。
+                                    3．任何企业和个人不允许对likeadmin程序代码以任何形式任何目的再发布。
                                 </p>
                                 <p class="mt6">
-                                    4．你可以在协议规定的约束和限制范围内修改LikeShop系列开源软件产品或界面风格以适应你的网站要求。
+                                    4．你可以在协议规定的约束和限制范围内修改likeadmin系列开源软件产品或界面风格以适应你的网站要求。
                                 </p>
                                 <p class="mt6">
                                     5．你拥有使用本软件构建的系统全部内容所有权，并独立承担与这些内容的相关法律义务。
@@ -66,7 +66,7 @@
                                     2．未经官方许可，不得对本软件或与之关联的商业授权进行出租、出售、抵押或发放子许可证。
                                 </p>
                                 <p class="mt6">
-                                    3．未经官方许可，禁止在LikeShop开源商城的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。
+                                    3．未经官方许可，禁止在likeadmin开源商城的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。
                                 </p>
                                 <p class="mt6">
                                     4．如果你未能遵守本协议的条款，你的授权将被终止，所被许可的权利将被收回，并承担相应法律责任。
@@ -86,13 +86,10 @@
                                 </p>
                                 <br><br>
                                 <p class="mt6">
-                                    LikeShop开源地址：https://gitee.com/likeshop_gitee/likeshop
+                                    likeadmin开源地址：https://gitee.com/likeshop_gitee/likeadmin
                                 </p>
                                 <p class="mt6">
-                                    LikeShop官方网站：https://www.likeshop.cn
-                                </p>
-                                <p class="mt6">
-                                    LikeShop知识社区：https://home.likeshop.cn
+                                    likeadmin官方网站：https://www.likeadmin.cn
                                 </p>
                                 <p class="mt6">
                                     -----------------------------------------------------
@@ -229,7 +226,7 @@
                                     </div>
                                 </div>
                                 <div class="mounted-tips mt16">
-                                    系统要求LikeShop开源商城安装目录下的runtime和upload必须可写，才能使用LikeShop开源商城的所有功能。
+                                    系统要求likeadmin开源商城安装目录下的runtime和upload必须可写，才能使用likeadmin开源商城的所有功能。
                                 </div>
                                 <div class="mounted-item mt16">
                                     <div class="content-header">
