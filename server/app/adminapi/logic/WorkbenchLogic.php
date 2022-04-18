@@ -21,6 +21,7 @@ namespace app\adminapi\logic;
 
 
 use app\common\logic\BaseLogic;
+use app\common\service\ConfigService;
 use app\common\service\FileService;
 
 
@@ -94,6 +95,7 @@ class WorkbenchLogic extends BaseLogic
         return [
             'version' => config('project.version'),
             'website' => config('project.website.url'),
+            'name' => ConfigService::get('website', 'name'),
         ];
     }
 

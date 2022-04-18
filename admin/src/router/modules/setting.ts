@@ -123,6 +123,7 @@ const routes: RouteRecordRaw = {
 			meta: {
 			    title: '个人设置',
 			    permission: ['view'],
+				hidden: true,
 			},
 		},
     ],
