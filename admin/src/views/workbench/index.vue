@@ -7,7 +7,8 @@
                 </template>
                 <div>
                     <div class="m-b-20">版本号：{{ workbenchData.version.version }}</div>
-                    <div>官网地址：{{ workbenchData.version.website }}</div>
+                    <!-- <div>官网地址：{{ workbenchData.version.website }}</div> -->
+					<div>官网名称：{{ workbenchData.version.name }}</div>
                 </div>
             </el-card>
             <el-card class="flex-3 m-l-15" shadow="never">
