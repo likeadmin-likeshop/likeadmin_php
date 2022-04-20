@@ -22,6 +22,7 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'f0e7e63bbb278a92db02393536748c5f' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Support/Helpers.php',
         '6747f579ad6817f318cc3a7e7a0abb93' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Helpers.php',
+        '841780ea2e1d6545ea3a253239d59c05' => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -60,6 +61,10 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Cache\\' => 24,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+        ),
+        'Q' => 
+        array (
+            'Qiniu\\' => 6,
         ),
         'P' => 
         array (
@@ -192,6 +197,10 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         'Symfony\\Bridge\\PsrHttpMessage\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
+        ),
+        'Qiniu\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu',
         ),
         'Psr\\SimpleCache\\' => 
         array (

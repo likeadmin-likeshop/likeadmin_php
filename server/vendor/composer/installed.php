@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c744c90cc359afd0fc7b46f3c6a241d5ebe12704',
+        'reference' => '23b36cdbca35aa811300c3a5da8f8b72f23bf7fe',
         'name' => 'topthink/think',
         'dev' => true,
     ),
@@ -283,6 +283,15 @@
                 0 => '1.0|2.0',
             ),
         ),
+        'qiniu/php-sdk' => array(
+            'pretty_version' => 'v7.4.0',
+            'version' => '7.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../qiniu/php-sdk',
+            'aliases' => array(),
+            'reference' => '1c6bc89166e524a40ee42bf516fb99ffc6401c82',
+            'dev_requirement' => false,
+        ),
         'ralouphie/getallheaders' => array(
             'pretty_version' => '3.0.3',
             'version' => '3.0.3.0',
@@ -449,12 +458,12 @@
             'dev_requirement' => false,
         ),
         'topthink/think' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c744c90cc359afd0fc7b46f3c6a241d5ebe12704',
+            'reference' => '23b36cdbca35aa811300c3a5da8f8b72f23bf7fe',
             'dev_requirement' => false,
         ),
         'topthink/think-helper' => array(
