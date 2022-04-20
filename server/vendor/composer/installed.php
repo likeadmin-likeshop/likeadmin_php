@@ -5,11 +5,20 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f35a52deadb071be60e8469bc73600f61afab67e',
+        'reference' => 'ea6a4865efdb6109f82b9d7542e91615f5f4db80',
         'name' => 'topthink/think',
         'dev' => true,
     ),
     'versions' => array(
+        'aliyuncs/oss-sdk-php' => array(
+            'pretty_version' => 'v2.4.3',
+            'version' => '2.4.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../aliyuncs/oss-sdk-php',
+            'aliases' => array(),
+            'reference' => '4ccead614915ee6685bf30016afb01aabd347e46',
+            'dev_requirement' => false,
+        ),
         'dragonmantank/cron-expression' => array(
             'pretty_version' => 'v3.3.1',
             'version' => '3.3.1.0',
@@ -499,7 +508,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f35a52deadb071be60e8469bc73600f61afab67e',
+            'reference' => 'ea6a4865efdb6109f82b9d7542e91615f5f4db80',
             'dev_requirement' => false,
         ),
         'topthink/think-helper' => array(

@@ -29,7 +29,8 @@
         "dragonmantank/cron-expression": "^3.3",
         "phpoffice/phpspreadsheet": "^1.22",
         "qiniu/php-sdk": "7.4",
-        "qcloud/cos-sdk-v5": "^2.5"
+        "qcloud/cos-sdk-v5": "^2.5",
+        "aliyuncs/oss-sdk-php": "^2.4"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
