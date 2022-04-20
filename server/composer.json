@@ -28,7 +28,8 @@
         "overtrue/wechat": "~5.0",
         "dragonmantank/cron-expression": "^3.3",
         "phpoffice/phpspreadsheet": "^1.22",
-        "qiniu/php-sdk": "7.4"
+        "qiniu/php-sdk": "7.4",
+        "qcloud/cos-sdk-v5": "^2.5"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
