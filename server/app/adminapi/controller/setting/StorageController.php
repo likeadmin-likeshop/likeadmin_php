@@ -86,6 +86,6 @@ class StorageController extends BaseAdminController
     {
         $params = (new StorageValidate())->post()->goCheck('change');
         StorageLogic::change($params);
-        return $this->success('切换成功');
+        return $this->success('切换成功', [], 1, 1);
     }
 }
