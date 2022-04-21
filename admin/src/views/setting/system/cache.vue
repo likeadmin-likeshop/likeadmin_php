@@ -14,7 +14,7 @@
 
         <el-card class="m-t-15" shadow="never">
             <div>
-                <el-table class="m-t-20" :data="cacheDate">
+                <el-table class="m-t-20" :data="cacheDate" size="small">
                     <el-table-column label="管理内容" prop="content"></el-table-column>
                     <el-table-column label="内容说明" prop="desc"> </el-table-column>
                     <el-table-column label="操作" width="150" fixed="right">

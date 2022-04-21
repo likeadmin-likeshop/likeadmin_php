@@ -56,7 +56,7 @@
 
         <el-card class="m-t-15" shadow="never" v-loading="pager.loading">
             <div>
-                <el-table class="m-t-20" :data="pager.lists">
+                <el-table class="m-t-20" :data="pager.lists" size="small">
                     <el-table-column label="记录ID" prop="id"></el-table-column>
                     <el-table-column label="操作" prop="action"></el-table-column>
                     <el-table-column label="管理员" prop="admin_name"></el-table-column>

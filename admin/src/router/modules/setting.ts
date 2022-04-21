@@ -126,6 +126,31 @@ const routes: RouteRecordRaw = {
 				hidden: true,
 			},
 		},
+		{
+			path: '/setting/storage',
+			redirect: '/setting/storage/index',
+			component: RouterView,
+			meta: { title: '存储设置' },
+			children: [
+				{
+					path: '/setting/storage/index',
+					component: () => import('@/views/setting/storage/index.vue'),
+					meta: {
+						title: '存储设置',
+						permission: ['view'],
+					},
+				},
+				{
+					path: '/setting/storage/edit',
+					component: () => import('@/views/setting/storage/edit.vue'),
+					meta: {
+						title: '存储设置',
+						permission: ['view'],
+						hidden: true,
+					},
+				},
+			],
+		}
     ],
 }
 
