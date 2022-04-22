@@ -133,6 +133,22 @@ return [
                 ],
             ],
             [
+                'name'  => '储存设置',
+                'type'  => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/storage.view'
+                    ],
+                    [
+                        'name'      => '管理',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/storage.manage'
+                    ],
+                ],
+            ],
+            [
                 'name'  => '个人设置',
                 'type'  => 1,
                 'sons'  => [
