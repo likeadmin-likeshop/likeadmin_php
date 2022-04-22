@@ -19,8 +19,7 @@ export default defineComponent({})
     .footer-content {
         position: fixed;
         bottom: 0;
-        left: 0;
-        padding-left: $layout-aside-width;
+        left: $layout-aside-width;
         height: 60px;
         right: 0;
         z-index: 99;
