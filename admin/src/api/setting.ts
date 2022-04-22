@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+/** S 备案信息 **/
 // 获取备案信息
 export function apiGetCopyright() {
     return request.get('/setting.web.web_setting/getCopyright')
@@ -8,7 +9,9 @@ export function apiGetCopyright() {
 export function apiSetCopyright(params: any) {
     return request.post('/setting.web.web_setting/setCopyright', { ...params })
 }
+/** E 备案信息 **/
 
+/** S 网站信息 **/
 // 获取网站信息
 export function apiGetWebsite() {
     return request.get('/setting.web.web_setting/getWebsite')
@@ -17,7 +20,9 @@ export function apiGetWebsite() {
 export function apiSetWebsite(params: any) {
     return request.post('/setting.web.web_setting/setWebsite', { ...params })
 }
+/** E 网站信息 **/
 
+/** S 政策协议 **/
 // 获取政策协议
 export function apiGetProtocol() {
     return request.get('/setting.web.web_setting/getAgreement')
@@ -26,11 +31,7 @@ export function apiGetProtocol() {
 export function apiSetProtocol(params: any) {
     return request.post('/setting.web.web_setting/setAgreement', params)
 }
-
-// 获取系统环境
-export function apiSystemInfo() {
-    return request.get('/setting.system.system/info')
-}
+/** E 政策协议 **/
 
 /** S 在线客服 **/
 // 获取客服设置
@@ -64,7 +65,11 @@ export function apiLoginConfigSet(params: any) {
 }
 /** E 用户设置 **/
 
-
+/** S 系统维护 **/
+// 获取系统环境
+export function apiSystemInfo() {
+    return request.get('/setting.system.system/info')
+}
 
 // 获取系统日志列表
 export function apiSystemLogLists(params: any) {
@@ -75,7 +80,9 @@ export function apiSystemLogLists(params: any) {
 export function apiSystemCacheClear() {
     return request.post('/setting.system.cache/clear')
 }
+/** E 系统维护 **/
 
+/** S 管理员信息 **/
 // 编辑管理员信息
 export function apiAuthAdminEditSelf(params: any) {
     return request.post('/auth.admin/editSelf', params)
@@ -85,3 +92,28 @@ export function apiAuthAdminEditSelf(params: any) {
 export function apiAuthAdminMySelf() {
     return request.post('/auth.admin/mySelf')
 }
+/** E 管理员信息 **/
+
+
+/** S 存储设置 **/
+
+// 获取存储引擎列表
+export function apiStorageLists() {
+    return request.get('/setting.storage/lists')
+}
+
+// 设置存储引擎信息
+export function apiStorageChange(params: any) {
+    return request.post('/setting.storage/change', params)
+}
+
+// 获取存储配置信息
+export function apiStorageDetail(params: any) {
+    return request.get('/setting.storage/detail', { params })
+}
+
+// 设置存储引擎信息
+export function apiStorageSetup(params: any) {
+    return request.post('/setting.storage/setup', params)
+}
+/** E 存储设置 **/

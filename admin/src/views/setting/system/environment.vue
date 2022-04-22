@@ -4,7 +4,7 @@
         <el-card shadow="never">
             <div>服务器信息</div>
             <div class="m-t-15">
-                <el-table :data="info.server" size="medium">
+                <el-table :data="info.server">
                     <el-table-column prop="param" label="参数"> </el-table-column>
                     <el-table-column prop="value" label="值"> </el-table-column>
                 </el-table>
@@ -14,7 +14,7 @@
         <el-card shadow="never" class="m-t-15">
             <div>PHP环境要求</div>
             <div class="m-t-15">
-                <el-table :data="info.env" size="medium">
+                <el-table :data="info.env">
                     <el-table-column prop="option" label="选项"> </el-table-column>
                     <el-table-column prop="require" label="要求"> </el-table-column>
                     <el-table-column prop="status" label="状态">
@@ -35,7 +35,7 @@
         <el-card shadow="never" class="m-t-15">
             <div>目录权限</div>
             <div class="m-t-15">
-                <el-table :data="info.auth" size="medium">
+                <el-table :data="info.auth">
                     <el-table-column prop="dir" label="选项"> </el-table-column>
                     <el-table-column prop="require" label="要求"> </el-table-column>
                     <el-table-column prop="status" label="状态">

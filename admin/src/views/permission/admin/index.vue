@@ -31,7 +31,7 @@
                 <el-button type="primary" size="small">新增管理员</el-button>
             </router-link>
             <div class="m-t-15">
-                <el-table :data="pager.lists">
+                <el-table :data="pager.lists" size="small">
                     <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
                     <el-table-column label="头像" min-width="100">
                         <template #default="{ row }">

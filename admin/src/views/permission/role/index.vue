@@ -6,7 +6,7 @@
             </router-link>
             <div v-loading="pager.loading" class="m-t-15">
                 <div class="m-t-15">
-                    <el-table :data="pager.lists" size="medium">
+                    <el-table :data="pager.lists" size="small">
                         <el-table-column prop="id" label="ID"></el-table-column>
                         <el-table-column prop="name" label="名称"></el-table-column>
                         <el-table-column prop="desc" label="备注"></el-table-column>

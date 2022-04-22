@@ -125,6 +125,22 @@ return [
                 'action_auth'   => ['setting.system.cache/clear'],
             ],
         ],
+        //储存设置
+        'storage'           => [
+            'page_path'     => '/setting/storage/index',
+            'view'      => [
+                'button_auth'   => ['view'],
+                'action_auth'   => ['setting.storage/lists'],
+            ],
+            'manage'      => [
+                'button_auth'   => ['auth_all'],
+                'action_auth'   => [
+                    'setting.storage/change',
+                    'setting.storage/detail',
+                    'setting.storage/setup'
+                ],
+            ],
+        ],
         // 个人设置
         'selfSetting'     => [
             'page_path'     => '/setting/personal/personal_data',
