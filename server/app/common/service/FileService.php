@@ -62,7 +62,7 @@ class FileService
                 $storage = ConfigService::get('storage', $default);
                 Cache::set('STORAGE_ENGINE', $storage);
             }
-            return $storage['domain'] . '/' . $uri;
+            return $storage ?  $storage['domain'] . '/' . $uri : $uri;
         }
     }
 
