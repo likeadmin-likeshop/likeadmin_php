@@ -15,6 +15,7 @@
 namespace app\adminapi\validate\dept;
 
 
+use app\common\model\auth\Admin;
 use app\common\model\dept\Jobs;
 use app\common\validate\BaseValidate;
 
@@ -83,7 +84,7 @@ class JobsValidate extends BaseValidate
      */
     public function sceneDelete()
     {
-        return $this->only(['id']);
+        return $this->only(['id'])->append('id', 'checkAbleDetele');
     }
 
 
@@ -99,6 +100,23 @@ class JobsValidate extends BaseValidate
         $jobs = Jobs::findOrEmpty($value);
         if ($jobs->isEmpty()) {
             return '岗位不存在';
+        }
+        return true;
+    }
+
+
+    /**
+     * @notes 校验能否删除
+     * @param $value
+     * @return bool|string
+     * @author 段誉
+     * @date 2022/5/26 14:22
+     */
+    public function checkAbleDetele($value)
+    {
+        $check = Admin::where(['jobs_id' => $value])->findOrEmpty();
+        if (!$check->isEmpty()) {
+            return '已关联管理员，暂不可删除';
         }
         return true;
     }

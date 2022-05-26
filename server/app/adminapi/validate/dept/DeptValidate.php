@@ -14,6 +14,7 @@
 
 namespace app\adminapi\validate\dept;
 
+use app\common\model\auth\Admin;
 use app\common\model\dept\Dept;
 use app\common\validate\BaseValidate;
 
@@ -82,7 +83,7 @@ class DeptValidate extends BaseValidate
      */
     public function sceneDelete()
     {
-        return $this->only(['id']);
+        return $this->only(['id'])->append('id', 'checkAbleDetele');
     }
 
 
@@ -102,6 +103,22 @@ class DeptValidate extends BaseValidate
         return true;
     }
 
+
+    /**
+     * @notes 校验能否删除
+     * @param $value
+     * @return bool|string
+     * @author 段誉
+     * @date 2022/5/26 14:22
+     */
+    public function checkAbleDetele($value)
+    {
+        $check = Admin::where(['dept_id' => $value])->findOrEmpty();
+        if (!$check->isEmpty()) {
+            return '已关联管理员，暂不可删除';
+        }
+        return true;
+    }
 
 
 }
