@@ -70,8 +70,15 @@ class DeptValidate extends BaseValidate
     }
 
 
+    /**
+     * @notes 编辑场景
+     * @return DeptValidate
+     * @author 段誉
+     * @date 2022/5/26 18:42
+     */
     public function sceneEdit()
     {
+        return $this->append('pid', 'checkPid');
     }
 
 
@@ -123,6 +130,23 @@ class DeptValidate extends BaseValidate
             return '顶级部门不可删除';
         }
 
+        return true;
+    }
+
+    /**
+     * @notes 校验部门
+     * @param $value
+     * @param $rule
+     * @param array $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2022/5/26 18:41
+     */
+    public function checkPid($value, $rule, $data =[])
+    {
+        if ($data['id'] == $value) {
+            return '上级部门不可是当前部门';
+        }
         return true;
     }
 
