@@ -79,7 +79,7 @@ class DeptLists extends BaseAdminDataLists implements ListsSearchInterface
         foreach ($array as $key => $item) {
             if ($item['pid'] == $pid) {
                 $item['level'] = $level;
-                $item['child'] = $this->getTree($array, $item['id'], $level + 1);
+                $item['children'] = $this->getTree($array, $item['id'], $level + 1);
                 $list[] = $item;
             }
         }
