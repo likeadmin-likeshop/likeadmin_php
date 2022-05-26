@@ -40,6 +40,22 @@ class DeptController extends BaseAdminController
 
 
     /**
+     * @notes 上级部门
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/5/26 18:36
+     */
+    public function leaderDept()
+    {
+        $result = DeptLogic::leaderDept();
+        return $this->success('',$result);
+    }
+
+
+    /**
      * @notes 添加部门
      * @return \think\response\Json
      * @author 段誉

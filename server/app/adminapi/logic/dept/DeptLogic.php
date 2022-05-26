@@ -26,6 +26,26 @@ use app\common\model\dept\Dept;
 class DeptLogic extends BaseLogic
 {
 
+
+    /**
+     * @notes 上级部门
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/5/26 18:36
+     */
+    public static function leaderDept()
+    {
+        $lists = Dept::field(['id','name'])->where(['status' => 1])
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+        return $lists;
+    }
+
+
     /**
      * @notes 添加部门
      * @param array $params
