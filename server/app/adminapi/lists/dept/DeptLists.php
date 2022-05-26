@@ -36,8 +36,8 @@ class DeptLists extends BaseAdminDataLists implements ListsSearchInterface
     public function setSearch(): array
     {
         return [
-            '%name%' => ['name'],
-            'status' => ['status']
+            '%like%' => ['name'],
+            '=' => ['status']
         ];
     }
 
@@ -54,7 +54,6 @@ class DeptLists extends BaseAdminDataLists implements ListsSearchInterface
     public function lists(): array
     {
         $lists = Dept::where($this->searchWhere)
-            ->where(['status' => 1])
             ->append(['status_desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->order(['id' => 'desc'])
