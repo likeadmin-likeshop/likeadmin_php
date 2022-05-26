@@ -56,11 +56,34 @@ class DeptLists extends BaseAdminDataLists implements ListsSearchInterface
         $lists = Dept::where($this->searchWhere)
             ->append(['status_desc'])
             ->limit($this->limitOffset, $this->limitLength)
-            ->order(['id' => 'desc'])
+            ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();
 
-        return $lists;
+        return $this->getTree($lists);
+    }
+
+
+    /**
+     * @notes 树状结构
+     * @param $array
+     * @param int $pid
+     * @param int $level
+     * @return array
+     * @author 段誉
+     * @date 2022/5/26 15:17
+     */
+    public function getTree($array, $pid = 0, $level = 0)
+    {
+        $list = [];
+        foreach ($array as $key => $item) {
+            if ($item['pid'] == $pid) {
+                $item['level'] = $level;
+                $item['child'] = $this->getTree($array, $item['id'], $level + 1);
+                $list[] = $item;
+            }
+        }
+        return $list;
     }
 
 

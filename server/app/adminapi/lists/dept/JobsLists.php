@@ -41,7 +41,6 @@ class JobsLists extends BaseAdminDataLists implements ListsSearchInterface
     }
 
 
-
     /**
      * @notes  获取管理列表
      * @return array
@@ -53,7 +52,7 @@ class JobsLists extends BaseAdminDataLists implements ListsSearchInterface
         $lists = Jobs::where($this->searchWhere)
             ->append(['status_desc'])
             ->limit($this->limitOffset, $this->limitLength)
-            ->order(['id' => 'desc'])
+            ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();
 
