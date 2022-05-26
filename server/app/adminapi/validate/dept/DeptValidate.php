@@ -117,6 +117,12 @@ class DeptValidate extends BaseValidate
         if (!$check->isEmpty()) {
             return '已关联管理员，暂不可删除';
         }
+
+        $dept = Dept::findOrEmpty($value);
+        if ($dept['pid'] == 0) {
+            return '顶级部门不可删除';
+        }
+
         return true;
     }
 
