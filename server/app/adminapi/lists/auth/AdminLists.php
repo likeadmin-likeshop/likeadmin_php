@@ -113,10 +113,10 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
     {
         $field = [
             'id', 'name', 'account', 'role_id', 'create_time', 'disable',
-            'login_time', 'login_ip', 'multipoint_login', 'avatar'
+            'login_time', 'login_ip', 'multipoint_login', 'avatar', 'dept_id'
         ];
 
-        $adminLists = Admin::field($field)
+        $adminLists = Admin::with(['dept'])->field($field)
             ->where($this->searchWhere)
             ->append(['disable_desc'])
             ->limit($this->limitOffset, $this->limitLength)

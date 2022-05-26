@@ -16,6 +16,7 @@ namespace app\common\model\auth;
 
 use app\common\enum\YesNoEnum;
 use app\common\model\BaseModel;
+use app\common\model\dept\Dept;
 use think\model\concern\SoftDelete;
 use app\common\service\FileService;
 
@@ -36,6 +37,19 @@ class Admin extends BaseModel
         return $this->hasOne('role', 'id', 'role_id')
             ->field('id,name');
     }
+
+
+    /**
+     * @notes 关联部门
+     * @return \think\model\relation\HasOne
+     * @author 段誉
+     * @date 2022/5/26 11:11
+     */
+    public function dept()
+    {
+        return $this->hasOne(Dept::class, 'id', 'dept_id')->bind(['dept_name' => 'name']);
+    }
+
 
     public function roleAuthIndex()
     {
