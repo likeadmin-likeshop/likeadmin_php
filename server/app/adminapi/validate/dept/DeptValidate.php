@@ -120,6 +120,11 @@ class DeptValidate extends BaseValidate
      */
     public function checkAbleDetele($value)
     {
+        $hasLower = Dept::where(['pid' => $value])->findOrEmpty();
+        if (!$hasLower->isEmpty()) {
+            return '已关联下级部门,暂不可删除';
+        }
+
         $check = Admin::where(['dept_id' => $value])->findOrEmpty();
         if (!$check->isEmpty()) {
             return '已关联管理员，暂不可删除';
