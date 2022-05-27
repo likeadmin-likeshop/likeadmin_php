@@ -9,7 +9,7 @@
         </el-card>
 
         <el-card class="m-t-15" shadow="never" v-loading="pager.loading">
-            <router-link to="/decoration/home_edit">
+            <router-link to="/organization/department/edit">
                 <el-button type="primary" size="small"> 新增菜单 </el-button>
             </router-link>
 

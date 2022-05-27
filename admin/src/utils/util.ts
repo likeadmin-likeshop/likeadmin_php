@@ -139,21 +139,6 @@ export const timeFormat = (dateTime: number, fmt = 'yyyy-mm-dd') => {
     return fmt
 }
 
-// /**
-//  *
-//  * @param {*} tree
-//  * @param {*} arr
-//  * @returns
-//  */
-// export function flatten(tree = [], arr = []) {
-//     tree.forEach((item) => {
-//         const { children } = item
-//         arr.push(item)
-//         if (children) flatten(children, arr)
-//     })
-//     return arr
-// }
-
 /**
  * @description 树状数组扁平化
  * @param { Array } tree        树状结构数组
@@ -162,9 +147,10 @@ export const timeFormat = (dateTime: number, fmt = 'yyyy-mm-dd') => {
  * @return { Array }            扁平化后的数组
  */
 export function flatten(tree = [], arr = [], childrenKey = 'children') {
-    tree.forEach(item => {
+    tree.forEach((item) => {
         const children = item[childrenKey]
-        children ? flatten(children, arr, childrenKey) : arr.push(item)
+        arr.push(item)
+        if (children) flatten(children, arr, childrenKey)
     })
     return arr
 }

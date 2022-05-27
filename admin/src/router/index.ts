@@ -10,6 +10,7 @@ import decoration from './modules/decoration'
 import content from './modules/content'
 import channel from './modules/channel'
 import application from './modules/application'
+import organization from './modules/organization'
 export const asyncRoutes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -25,8 +26,9 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
             // application,// 应用管理
             // content, 	// 内容管理
 			// channel, 	// 渠道管理
-            permission,
-            setting
+			organization,	// 组织管理
+            permission,		// 权限管理
+            setting,		// 系统设置
         ]
     }
 ]
