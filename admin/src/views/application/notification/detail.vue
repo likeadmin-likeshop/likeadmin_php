@@ -359,7 +359,7 @@
 </script>
 
 <style lang="scss" scoped>
-    ::v-deep .text .el-textarea__inner {
+    :deep(.text .el-textarea__inner) {
         height: 100px !important;
     }
 </style>
