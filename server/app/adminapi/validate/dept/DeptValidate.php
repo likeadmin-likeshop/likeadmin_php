@@ -29,7 +29,7 @@ class DeptValidate extends BaseValidate
 
     protected $rule = [
         'id' => 'require|checkDept',
-        'pid' => 'require|checkDept',
+        'pid' => 'require',
         'name' => 'require|length:1,30',
         'status' => 'require|in:0,1',
         'sort' => 'egt:0',
@@ -54,7 +54,7 @@ class DeptValidate extends BaseValidate
      */
     public function sceneAdd()
     {
-        return $this->remove('id', true);
+        return $this->remove('id', true)->append('pid', 'checkDept');
     }
 
 
@@ -142,11 +142,28 @@ class DeptValidate extends BaseValidate
      * @author 段誉
      * @date 2022/5/26 18:41
      */
-    public function checkPid($value, $rule, $data =[])
+    public function checkPid($value, $rule, $data = [])
     {
+        // 当前编辑的部门id信息是否存在
+        $dept = Dept::findOrEmpty($data['id']);
+        if ($dept->isEmpty()) {
+            return '当前部门信息缺失';
+        }
+
+        // 顶级部门不校验上级部门id
+        if ($dept['pid'] == 0) {
+            return true;
+        }
+
         if ($data['id'] == $value) {
             return '上级部门不可是当前部门';
         }
+
+        $leaderDept = Dept::findOrEmpty($value);
+        if ($leaderDept->isEmpty()) {
+            return '部门不存在';
+        }
+
         return true;
     }
 
