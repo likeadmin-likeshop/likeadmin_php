@@ -192,7 +192,7 @@ class AdminLogic extends BaseLogic
     {
         return Admin::field([
             'account', 'name', 'role_id', 'disable',
-            'multipoint_login', 'avatar'
+            'multipoint_login', 'avatar', 'dept_id', 'jobs_id'
         ])->findOrEmpty($params['id'])->toArray();
     }
 
