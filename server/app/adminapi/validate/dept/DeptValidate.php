@@ -30,7 +30,7 @@ class DeptValidate extends BaseValidate
     protected $rule = [
         'id' => 'require|checkDept',
         'pid' => 'require',
-        'name' => 'require|length:1,30',
+        'name' => 'require|unique:'.Dept::class.'|length:1,30',
         'status' => 'require|in:0,1',
         'sort' => 'egt:0',
     ];
@@ -40,6 +40,7 @@ class DeptValidate extends BaseValidate
         'id.require' => '参数缺失',
         'name.require' => '请填写部门名称',
         'name.length' => '部门名称长度须在1-30位字符',
+        'name.unique' => '部门名称已存在',
         'sort.egt' => '排序值不正确',
         'pid.require' => '请选择上级部门',
         'status.require' => '请选择部门状态',

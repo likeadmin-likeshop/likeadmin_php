@@ -30,8 +30,8 @@ class JobsValidate extends BaseValidate
 {
     protected $rule = [
         'id' => 'require|checkJobs',
-        'name' => 'require|length:1,50',
-        'code' => 'require',
+        'name' => 'require|unique:'.Jobs::class.'|length:1,50',
+        'code' => 'require|unique:'.Jobs::class,
         'status' => 'require|in:0,1',
         'sort' => 'egt:0',
     ];
@@ -40,7 +40,9 @@ class JobsValidate extends BaseValidate
         'id.require' => '参数缺失',
         'name.require' => '请填写岗位名称',
         'name.length' => '岗位名称长度须在1-50位字符',
+        'name.unique' => '岗位名称已存在',
         'code.require' => '请填写岗位编码',
+        'code.unique' => '岗位编码已存在',
         'sort.egt' => '排序值不正确',
         'status.require' => '请选择岗位状态',
         'status.in' => '岗位状态值错误',
