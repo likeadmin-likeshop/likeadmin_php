@@ -60,7 +60,10 @@ class DeptLists extends BaseAdminDataLists implements ListsSearchInterface
             ->select()
             ->toArray();
 
-        return $this->getTree($lists);
+        $pid = array_column($lists, 'pid');
+        $pid = min($pid);
+
+        return $this->getTree($lists, $pid);
     }
 
 
