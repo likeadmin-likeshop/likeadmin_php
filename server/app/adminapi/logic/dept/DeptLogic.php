@@ -75,14 +75,15 @@ class DeptLogic extends BaseLogic
     public static function edit(array $params) : bool
     {
         try {
-            $pid = $params['id'];
+            $pid = $params['pid'];
             $oldDeptData = Dept::findOrEmpty($params['id']);
             if ($oldDeptData['pid'] == 0) {
                 $pid = 0;
             }
+
             Dept::update([
-                'id' => $pid,
-                'pid' => $params['pid'],
+                'id' => $params['id'],
+                'pid' => $pid,
                 'name' => $params['name'],
                 'leader' => $params['leader'] ?? '',
                 'mobile' => $params['mobile'] ?? '',
