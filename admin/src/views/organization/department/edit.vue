@@ -119,13 +119,11 @@
 
 	// 获取部门联级列表
 	const getList = () => {
-		apiDeptLists({
-				page_type: 0,
-			})
+		apiDeptLists()
 			.then((res: any) => {
-				console.log(res.lists, 'res.lists')
-				
-				leaderList.value = isDisabled(res.lists)
+				// console.log(res.lists, 'res.lists')
+
+				leaderList.value = isDisabled(res)
 			})
 	}
 
@@ -140,7 +138,7 @@
 
 			if (item.id == id.value || item.status == 0) {
 				item.disabled = true
-			}else {
+			} else {
 				item.disabled = false
 			}
 			return item
@@ -174,9 +172,9 @@
 			if (!valid) {
 				return
 			}
-			
-			formData.value.pid = formData.value.pid[formData.value.pid.length-1]
-			
+
+			formData.value.pid = formData.value.pid[formData.value.pid.length - 1]
+
 			const promise = id.value ?
 				apiDeptEdit({
 					...formData.value,

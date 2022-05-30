@@ -13,19 +13,19 @@
 			</el-form-item>
 			<el-form-item>
 				<div class="m-l-20">
-					<el-button type="primary" @click="resetPage">查询</el-button>
-					<el-button @click="resetParams">重置</el-button>
+					<el-button type="primary" @click="getLists">查询</el-button>
+					<el-button @click="reGetLists">重置</el-button>
 				</div>
 			</el-form-item>
 		</el-form>
 	</el-card>
-	<el-card v-loading="pager.loading" class="m-t-15" shadow="never">
+	<el-card v-loading="loading" class="m-t-15" shadow="never">
 		<router-link to="/organization/department/edit">
 			<el-button type="primary" size="small">新增部门</el-button>
 		</router-link>
 		<el-button type="" size="small" style="margin-left: 16px;" @click="openOrFold()">全部展开/折叠</el-button>
 		<div class="m-t-15">
-			<el-table :data="pager.lists" size="small" row-key="id" :expand-row-keys="openIdArr">
+			<el-table :data="lists" size="small" row-key="id" :expand-row-keys="openIdArr">
 				<el-table-column label="部门名称" prop="name" min-width="100"></el-table-column>
 				<el-table-column label="部门状态" prop="status_desc" min-width="100">
 					<template #default="{ row }">
@@ -54,9 +54,6 @@
 				</el-table-column>
 			</el-table>
 		</div>
-		<div class="flex row-right">
-			<pagination v-model="pager" layout="total, prev, pager, next, jumper" @change="requestApi" />
-		</div>
 	</el-card>
 
 </template>
@@ -69,15 +66,11 @@
 		Ref,
 		ref
 	} from 'vue'
-	import Pagination from '@/components/pagination/index.vue'
 	import Popup from '@/components/popup/index.vue'
 	import {
 		apiDeptLists,
 		apiDeptDelete
 	} from '@/api/organization'
-	import {
-		usePages
-	} from '@/core/hooks/pages'
 	import {
 		flatten
 	} from '@/utils/util'
@@ -91,6 +84,12 @@
 	// 展开列表数组
 	let openIdArr = ref < Array < Number >> ([])
 
+	// 列表数据
+	let lists = ref < Array < any >> ([])
+
+	// 加载动画
+	let loading = ref < Boolean > (false)
+
 	// 状态列表
 	const statusList = [{
 			name: '正常',
@@ -102,23 +101,31 @@
 		},
 	]
 
-	// 分页请求
-	const {
-		pager,
-		requestApi,
-		resetParams,
-		resetPage
-	} = usePages({
-		callback: apiDeptLists,
-		params: formData
-	})
+	// 重置列表
+	const reGetLists = () => {
+		formData.value.name = ''
+		formData.value.status = ''
+		getLists()
+	}
+
+	// 获取列表数据
+	const getLists = (id: number) => {
+		loading.value = true
+		apiDeptLists({
+			...formData,
+		}).then((res) => {
+			lists.value = res
+		}).finally(() => {
+			loading.value = false
+		})
+	}
 
 	// 删除 
 	const handleDelete = (id: number) => {
 		apiDeptDelete({
 			id
 		}).then(() => {
-			requestApi()
+			getLists()
 		})
 	}
 
@@ -128,13 +135,13 @@
 		if (openIdArr.value.length) {
 			openIdArr.value = []
 		} else {
-			let allArr = flatten(pager.lists, [], 'children')
+			let allArr = flatten(lists.value, [], 'children')
 			openIdArr.value = allArr.map(item => item.id + '')
 		}
 	}
 
 	onMounted(() => {
-		requestApi()
+		getLists()
 	})
 </script>
 

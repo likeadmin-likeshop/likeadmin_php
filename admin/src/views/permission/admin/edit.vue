@@ -190,13 +190,11 @@
 
 	// 获取部门联级列表
 	const getDeptList = () => {
-		apiDeptLists({
-				page_type: 0,
-			})
+		apiDeptLists()
 			.then((res: any) => {
 				// console.log(res.lists, 'res.lists')
 
-				deptList.value = isDisabled(res.lists)
+				deptList.value = isDisabled(res)
 			})
 	}
 
