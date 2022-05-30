@@ -22,10 +22,15 @@
 
 				<!-- 归属部门选择框 -->
 				<el-form-item label="归属部门" prop="dept_id">
-					<el-select v-model="formData.dept_id" placeholder="请选择归属部门">
+					<!-- <el-select v-model="formData.dept_id" placeholder="请选择归属部门">
 						<el-option v-for="(item, index) in deptList" :key="index" :label="item.name" :value="item.id">
 						</el-option>
-					</el-select>
+					</el-select> -->
+					<el-cascader v-model="formData.dept_id" :options="deptList" :props="{
+						value: 'id',
+						label: 'name',
+						checkStrictly: true,
+					}" clearable />
 
 					<!-- 新增 -->
 					<router-link to="/organization/department" target="_blank">
@@ -41,7 +46,7 @@
 						<el-option v-for="(item, index) in jobsList" :key="index" :label="item.name" :value="item.id">
 						</el-option>
 					</el-select>
-					
+
 					<!-- 新增 -->
 					<router-link to="/organization/post" target="_blank">
 						<el-button type="text" style="margin: 0 10px;">新增岗位</el-button>
@@ -57,7 +62,7 @@
 						<el-option v-for="(item, index) in roleList" :key="index" :label="item.name" :value="item.id">
 						</el-option>
 					</el-select>
-					
+
 					<!-- 新增 -->
 					<router-link to="/permission/role" target="_blank">
 						<el-button type="text" style="margin: 0 10px;">新增角色</el-button>
@@ -114,6 +119,7 @@
 	import {
 		apiLeaderDept,
 		apiJobsLists,
+		apiDeptLists
 	} from '@/api/organization'
 	import {
 		ElForm
@@ -182,12 +188,33 @@
 		})
 	}
 
-	// 获取部门列表
+	// 获取部门联级列表
 	const getDeptList = () => {
-		apiLeaderDept()
-			.then((res: any) => {
-				deptList.value = res
+		apiDeptLists({
+				page_type: 0,
 			})
+			.then((res: any) => {
+				// console.log(res.lists, 'res.lists')
+
+				deptList.value = isDisabled(res.lists)
+			})
+	}
+
+	// 判断是否禁用， 添加禁用字段disabled
+	const isDisabled = (treeArr: Array) => {
+		let newTree = treeArr.map((item) => {
+
+			const children = item.children
+			if (children.length) isDisabled(children)
+
+			if (item.id == id.value || item.status == 0) {
+				item.disabled = true
+			} else {
+				item.disabled = false
+			}
+			return item
+		})
+		return newTree
 	}
 
 	// 获取岗位列表
@@ -230,6 +257,9 @@
 			if (!valid) {
 				return
 			}
+
+			formData.value.dept_id = formData.value.dept_id[formData.value.dept_id.length - 1]
+
 			const promise = id.value ?
 				apiAdminEdit({
 					...formData.value,

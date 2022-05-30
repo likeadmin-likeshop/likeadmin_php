@@ -8,10 +8,15 @@
 
 			<!-- 上级部门 -->
 			<el-form-item label="上级部门" prop="pid">
-				<el-select v-model="formData.pid" placeholder="请选择上级部门" :disabled="formData.pid === 0 && id">
+				<!-- <el-select v-model="formData.pid" placeholder="请选择上级部门" :disabled="formData.pid === 0 && id">
 					<el-option v-for="(item, index) in leaderList" :key="index" :label="item.name" :value="item.id">
 					</el-option>
-				</el-select>
+				</el-select> -->
+				<el-cascader v-model="formData.pid" :options="leaderList" :props="{
+					value: 'id',
+					label: 'name',
+					checkStrictly: true,
+				}" clearable :disabled="formData.pid === 0 && id" />
 			</el-form-item>
 			<!-- 部门名称 -->
 			<el-form-item label="部门名称" prop="name">
@@ -65,6 +70,7 @@
 		apiDeptEdit,
 		apiDeptDetail,
 		apiLeaderDept,
+		apiDeptLists,
 	} from '@/api/organization'
 	import {
 		ElForm
@@ -111,18 +117,35 @@
 		})
 	)
 
-	// 获取上级列表
-	const getLeaderList = () => {
-		apiLeaderDept()
-			.then((res: any) => {
-				
-				// 编辑时，过滤掉当前部门
-				if (id.value) {
-					leaderList.value = res.filter(item => item.id != id.value)
-				}else {
-					leaderList.value = res
-				}
+	// 获取部门联级列表
+	const getList = () => {
+		apiDeptLists({
+				page_type: 0,
 			})
+			.then((res: any) => {
+				console.log(res.lists, 'res.lists')
+				
+				leaderList.value = isDisabled(res.lists)
+			})
+	}
+
+	// 判断是否禁用
+	// 编辑时，过滤掉当前部门, 过滤禁用
+	// 添加时，过滤禁用
+	const isDisabled = (treeArr: Array) => {
+		let newTree = treeArr.map((item) => {
+
+			const children = item.children
+			if (children.length) isDisabled(children)
+
+			if (item.id == id.value || item.status == 0) {
+				item.disabled = true
+			}else {
+				item.disabled = false
+			}
+			return item
+		})
+		return newTree
 	}
 
 	// 获取详情
@@ -151,6 +174,9 @@
 			if (!valid) {
 				return
 			}
+			
+			formData.value.pid = formData.value.pid[formData.value.pid.length-1]
+			
 			const promise = id.value ?
 				apiDeptEdit({
 					...formData.value,
@@ -165,7 +191,7 @@
 
 	onMounted(() => {
 		getDetail()
-		getLeaderList()
+		getList()
 	})
 </script>
 
