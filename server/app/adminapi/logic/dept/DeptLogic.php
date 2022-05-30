@@ -26,6 +26,61 @@ use app\common\model\dept\Dept;
 class DeptLogic extends BaseLogic
 {
 
+    /**
+     * @notes 部门列表
+     * @param $params
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/5/30 15:44
+     */
+    public static function lists($params)
+    {
+        $where = [];
+        if (!empty($params['name'])) {
+            $where[] = ['name', 'like', '%' . $params['name'] . '%'];
+        }
+        if (isset($params['status']) && $params['status'] != '') {
+            $where[] = ['status', '=', $params['status']];
+        }
+        $lists = Dept::where($where)
+            ->append(['status_desc'])
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+
+        $pid = 0;
+        if (!empty($lists)) {
+            $pid = min(array_column($lists, 'pid'));
+        }
+        return self::getTree($lists, $pid);
+    }
+
+
+    /**
+     * @notes 列表树状结构
+     * @param $array
+     * @param int $pid
+     * @param int $level
+     * @return array
+     * @author 段誉
+     * @date 2022/5/30 15:44
+     */
+    public static function getTree($array, $pid = 0, $level = 0)
+    {
+        $list = [];
+        foreach ($array as $key => $item) {
+            if ($item['pid'] == $pid) {
+                $item['level'] = $level;
+                $item['children'] = self::getTree($array, $item['id'], $level + 1);
+                $list[] = $item;
+            }
+        }
+        return $list;
+    }
+
 
     /**
      * @notes 上级部门
@@ -38,7 +93,7 @@ class DeptLogic extends BaseLogic
      */
     public static function leaderDept()
     {
-        $lists = Dept::field(['id','name'])->where(['status' => 1])
+        $lists = Dept::field(['id', 'name'])->where(['status' => 1])
             ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();
@@ -72,7 +127,7 @@ class DeptLogic extends BaseLogic
      * @author 段誉
      * @date 2022/5/25 18:39
      */
-    public static function edit(array $params) : bool
+    public static function edit(array $params): bool
     {
         try {
             $pid = $params['pid'];
@@ -117,7 +172,7 @@ class DeptLogic extends BaseLogic
      * @author 段誉
      * @date 2022/5/25 18:40
      */
-    public static function detail($params) : array
+    public static function detail($params): array
     {
         return Dept::findOrEmpty($params['id'])->toArray();
     }

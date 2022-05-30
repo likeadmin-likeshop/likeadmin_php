@@ -15,7 +15,6 @@
 namespace app\adminapi\controller\dept;
 
 use app\adminapi\controller\BaseAdminController;
-use app\adminapi\lists\dept\DeptLists;
 use app\adminapi\logic\dept\DeptLogic;
 use app\adminapi\validate\dept\DeptValidate;
 
@@ -35,7 +34,9 @@ class DeptController extends BaseAdminController
      */
     public function lists()
     {
-        return $this->dataLists(new DeptLists());
+        $params = $this->request->get();
+        $result = DeptLogic::lists($params);
+        return $this->success('',$result);
     }
 
 
