@@ -172,8 +172,11 @@
 			if (!valid) {
 				return
 			}
-
-			formData.value.pid = formData.value.pid[formData.value.pid.length - 1]
+			// 因为组件绑定的pid是数组，而接口的pid是数字
+			// 所以pid是数组（即新建部门或者编辑部门为改变上级部门）
+			if(Array.isArray(formData.value.pid)) {
+				formData.value.pid = formData.value.pid[formData.value.pid.length - 1]
+			}
 
 			const promise = id.value ?
 				apiDeptEdit({
