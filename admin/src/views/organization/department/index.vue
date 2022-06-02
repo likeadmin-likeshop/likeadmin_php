@@ -103,8 +103,8 @@
 
 	// 重置列表
 	const reGetLists = () => {
-		formData.value.name = ''
-		formData.value.status = ''
+		formData.name = ''
+		formData.status = ''
 		getLists()
 	}
 
