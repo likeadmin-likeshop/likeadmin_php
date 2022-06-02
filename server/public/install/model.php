@@ -741,7 +741,7 @@ class installModel
 
         $password = $this->createPassword($post['admin_password'], $salt);
 
-        $sql = "INSERT INTO `ls_admin` VALUES (1, 1, '{$post['admin_user']}', '', '{$post['admin_user']}', '{$password}', 0, '{$time}', '', 1, 0, '{$time}', '{$time}', NULL);";
+        $sql = "INSERT INTO `ls_admin`(`id`, `root`, `name`, `avatar`, `account`, `password`, `role_id`, `dept_id`, `jobs_id`, `login_time`, `login_ip`, `multipoint_login`, `disable`, `create_time`, `update_time`, `delete_time`) VALUES (1, 1, '{$post['admin_user']}', '', '{$post['admin_user']}', '{$password}', 0, 0, 0, '{$time}', '', 1, 0, '{$time}', '{$time}', NULL);";
 
         return $sql;
     }
