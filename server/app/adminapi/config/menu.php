@@ -18,6 +18,45 @@ return [
             ]
         ],
     ],
+    // 组织管理
+    [
+        'name' => '组织管理',
+        'type' => 1,
+        'sons' => [
+            [
+                'name' => '部门管理',
+                'type' => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'dept/dept.view'
+                    ],
+                    [
+                        'name'      => '管理',
+                        'type'      => 2,
+                        'auth_key'  => 'dept/dept.manage'
+                    ],
+                ],
+            ],
+            [
+                'name' => '岗位管理',
+                'type' => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'dept/jobs.view'
+                    ],
+                    [
+                        'name'      => '管理',
+                        'type'      => 2,
+                        'auth_key'  => 'dept/jobs.manage'
+                    ],
+                ]
+            ],
+        ],
+    ],
     // 权限管理
     [
         'name' => '权限管理',

@@ -50,6 +50,8 @@ class AdminLogic extends BaseLogic
             'avatar' => $avatar,
             'password' => $password,
             'role_id' => $params['role_id'],
+            'dept_id' => $params['dept_id'] ?? 0,
+            'jobs_id' => $params['jobs_id'] ?? 0,
             'create_time' => time(),
             'disable' => $params['disable'],
             'multipoint_login' => $params['multipoint_login'],
@@ -79,6 +81,8 @@ class AdminLogic extends BaseLogic
                 'name' => $params['name'],
                 'account' => $params['account'],
                 'role_id' => $params['role_id'],
+                'dept_id' => $params['dept_id'] ?? 0,
+                'jobs_id' => $params['jobs_id'] ?? 0,
                 'disable' => $params['disable'],
                 'multipoint_login' => $params['multipoint_login']
             ];
@@ -188,7 +192,7 @@ class AdminLogic extends BaseLogic
     {
         return Admin::field([
             'account', 'name', 'role_id', 'disable',
-            'multipoint_login', 'avatar'
+            'multipoint_login', 'avatar', 'dept_id', 'jobs_id'
         ])->findOrEmpty($params['id'])->toArray();
     }
 

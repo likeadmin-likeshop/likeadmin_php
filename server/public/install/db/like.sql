@@ -13,6 +13,8 @@ CREATE TABLE `ls_admin`  (
   `account` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '账号',
   `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
   `role_id` int(11) NOT NULL DEFAULT 0 COMMENT '角色id',
+  `dept_id` int(11) NOT NULL DEFAULT 0 COMMENT '部门id',
+  `jobs_id` int(11) NOT NULL DEFAULT 0 COMMENT '岗位id',
   `login_time` int(10) NULL DEFAULT NULL COMMENT '最后登录时间',
   `login_ip` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '最后登录ip',
   `multipoint_login` tinyint(1) UNSIGNED NULL DEFAULT 1 COMMENT '是否支持多处登录：1-是；0-否；',
@@ -54,6 +56,31 @@ CREATE TABLE `ls_config`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '配置表';
 
 -- ----------------------------
+-- Table structure for ls_dept
+-- ----------------------------
+DROP TABLE IF EXISTS `ls_dept`;
+CREATE TABLE `ls_dept`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '部门名称',
+  `pid` bigint(20) NOT NULL DEFAULT 0 COMMENT '上级部门id',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  `leader` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '负责人',
+  `mobile` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '联系电话',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '部门状态（0停用 1正常）',
+  `create_time` int(10) NOT NULL COMMENT '创建时间',
+  `update_time` int(10) NULL DEFAULT NULL COMMENT '修改时间',
+  `delete_time` int(10) NULL DEFAULT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表';
+
+-- ----------------------------
+-- Records of ls_dept
+-- ----------------------------
+BEGIN;
+INSERT INTO `ls_dept` VALUES (1, '公司', 0, 0, 'boss', '12345698745', 1, 1650592684, 1653640368, NULL);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for ls_file
 -- ----------------------------
 DROP TABLE IF EXISTS `ls_file`;
@@ -84,6 +111,23 @@ CREATE TABLE `ls_file_cate`  (
   `delete_time` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件分类表';
+
+-- ----------------------------
+-- Table structure for ls_jobs
+-- ----------------------------
+DROP TABLE IF EXISTS `ls_jobs`;
+CREATE TABLE `ls_jobs`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位名称',
+  `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位编码',
+  `sort` int(11) NULL DEFAULT 0 COMMENT '显示顺序',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态（0停用 1正常）',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_time` int(10) NOT NULL COMMENT '创建时间',
+  `update_time` int(10) NULL DEFAULT NULL COMMENT '修改时间',
+  `delete_time` int(10) NULL DEFAULT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位表';
 
 -- ----------------------------
 -- Table structure for ls_operation_log

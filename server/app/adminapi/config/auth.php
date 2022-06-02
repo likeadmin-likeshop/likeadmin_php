@@ -28,6 +28,43 @@ return [
             ],
         ]
     ],
+    // 组织管理
+    'dept' => [
+        // 部门管理
+        'dept' => [
+            'page_path' => '/organization/department',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['dept.dept/lists', 'dept.dept/leaderDept'],
+            ],
+            'manage' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => [
+                    'dept.dept/add',
+                    'dept.dept/edit',
+                    'dept.dept/delete',
+                    'dept.dept/detail',
+                ],
+            ],
+        ],
+        // 岗位管理
+        'jobs' => [
+            'page_path' => '/organization/post',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => ['dept.jobs/lists'],
+            ],
+            'manage' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => [
+                    'dept.jobs/add',
+                    'dept.jobs/edit',
+                    'dept.jobs/detail',
+                    'dept.jobs/delete',
+                ],
+            ],
+        ],
+    ],
     // 权限管理
     'auth' => [
         //管理员

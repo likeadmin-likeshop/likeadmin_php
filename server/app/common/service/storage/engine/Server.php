@@ -40,6 +40,12 @@ abstract class Server
         if (empty($this->file)) {
             throw new Exception('未找到上传文件的信息');
         }
+
+        // 校验上传文件后缀
+        if (!in_array($this->file->extension(), config('project.allow_upload'))) {
+            throw new Exception('不允许上传' . $this->file->extension() . '后缀文件');
+        }
+
         // 文件信息
         $this->fileInfo = [
             'ext'      => $this->file->extension(),

@@ -38,6 +38,12 @@ return [
         'admin_avatar' => 'resource/image/adminapi/default/avatar.png',
     ],
 
+    // 上唇文件限制
+    'allow_upload' => [
+        'jpg', 'png', 'gif', 'jpeg', 'ico', 'bmp',
+        'wmv','avi','mpg','mpeg','3gp','mov','mp4',
+        'flv','f4v','rmvb','mkv'
+    ]
 
 
 
