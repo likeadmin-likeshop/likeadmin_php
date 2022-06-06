@@ -26,10 +26,10 @@ class AdminValidate extends BaseValidate
 {
     protected $rule = [
         'id' => 'require|checkAdmin',
-        'account' => 'require|length:1,32|checkUsed',
+        'account' => 'require|length:1,32|unique:'.Admin::class,
+        'name' => 'require|length:1,16|unique:'.Admin::class,
         'password' => 'require|length:6,32|edit',
         'password_confirm' => 'requireWith:password|confirm',
-        'name' => 'require|length:1,16',
         'role_id' => 'require',
         'disable' => 'require|in:0,1',
         'multipoint_login' => 'require|in:0,1',
@@ -39,12 +39,14 @@ class AdminValidate extends BaseValidate
         'id.require' => '管理员id不能为空',
         'account.require' => '账号不能为空',
         'account.length' => '账号长度须在1-32位字符',
+        'account.unique' => '账号已存在',
         'password.require' => '密码不能为空',
         'password.length' => '密码长度须在6-32位字符',
         'password_confirm.requireWith' => '确认密码不能为空',
         'password_confirm.confirm' => '两次输入的密码不一致',
         'name.require' => '名称不能为空',
         'name.length' => '名称须在1-16位字符',
+        'name.unique' => '名称已存在',
         'role_id.require' => '请选择角色',
         'disable.require' => '请选择状态',
         'disable.in' => '状态值错误',
@@ -100,28 +102,6 @@ class AdminValidate extends BaseValidate
     }
 
 
-    /**
-     * @notes 检查账号是否已被使用
-     * @param $value
-     * @param $rule
-     * @param $data
-     * @return bool|string
-     * @author 段誉
-     * @date 2021/12/29 10:17
-     */
-    public function checkUsed($value, $rule, $data)
-    {
-        $where[] = ['account', '=', $value];
-        if (isset($data['id'])) {
-            $where[] = ['id', '<>', $data['id']];
-        }
-        $admin = Admin::where($where)->findOrEmpty();
-        if (!$admin->isEmpty()) {
-            return '账号已被占用';
-        }
-        return true;
-    }
-
 
     /**
      * @notes 编辑情况下，检查是否填密码
@@ -160,4 +140,5 @@ class AdminValidate extends BaseValidate
         }
         return true;
     }
+
 }
