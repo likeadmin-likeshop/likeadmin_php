@@ -128,16 +128,13 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
         //获取角色数组（'角色id'=>'角色名称')
         $roleLists = Role::column('name', 'id');
 
-        //顶级部门
-        $dept = Dept::where(['pid' => 0])->findOrEmpty()['name'] ?? '公司';
-
         //管理员列表增加角色名称
         foreach ($adminLists as $k => $v) {
             $adminLists[$k]['role_name'] = $roleLists[$v['role_id']] ?? '';
             if ($v['root'] == 1) {
                 $adminLists[$k]['role_name'] = '系统管理员';
             }
-            $adminLists[$k]['dept_name'] = empty($v['dept_name']) ? $dept : $v['dept_name'];
+            $adminLists[$k]['dept_name'] = empty($v['dept_name']) ? '-' : $v['dept_name'];
         }
 
         return $adminLists;
