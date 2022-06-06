@@ -7,7 +7,7 @@
 			<el-form ref="formRefs" :rules="rules" class="ls-form" :model="formData" label-width="150px" size="small">
 				<!-- 账号输入框 -->
 				<el-form-item label="账号" prop="account">
-					<el-input v-model="formData.account" placeholder="请输入账号"></el-input>
+					<el-input v-model="formData.account" placeholder="请输入账号" :disabled="id && formData.root"></el-input>
 				</el-form-item>
 				<!-- 管理员头像 -->
 				<el-form-item label="头像">
@@ -58,7 +58,7 @@
 
 				<!-- 角色选择框 -->
 				<el-form-item label="角色" prop="role_id">
-					<el-select v-model="formData.role_id" placeholder="请选择角色">
+					<el-select v-model="formData.role_id" placeholder="请选择角色" :disabled="id && formData.root">
 						<el-option v-for="(item, index) in roleList" :key="index" :label="item.name" :value="item.id">
 						</el-option>
 					</el-select>
@@ -83,7 +83,8 @@
 
 				<!-- 管理员状态 -->
 				<el-form-item label="管理员状态">
-					<el-switch v-model="formData.disable" :active-value="0" :inactive-value="1" />
+					<el-switch v-model="formData.disable" :active-value="0" :inactive-value="1" :disabled="id && formData.root"/>
+					<div class="muted" v-if="id">超级管理员状态不允许关闭</div>
 				</el-form-item>
 
 				<!-- 多处登录 -->
@@ -185,6 +186,14 @@
 			page_type: 0,
 		}).then((res: any) => {
 			roleList.value = res.lists
+			
+			// 当编辑超级管理员时，他的role_id为0，没有相匹配的，需手动加入
+			if(id.value && formData.value.root == 1) {
+				roleList.value.push({
+					id: 0,
+					name: "系统管理员"
+				})
+			}
 		})
 	}
 
@@ -244,6 +253,7 @@
 			})
 			.then((res: any) => {
 				formData.value = res
+				res.jobs_id == 0 ? formData.value.jobs_id = '' : ''
 			})
 			.finally(() => {
 				loading.value = false

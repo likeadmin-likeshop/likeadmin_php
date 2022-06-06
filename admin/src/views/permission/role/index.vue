@@ -11,6 +11,7 @@
                         <el-table-column prop="name" label="名称"></el-table-column>
                         <el-table-column prop="desc" label="备注"></el-table-column>
                         <el-table-column prop label="权限"></el-table-column>
+						<el-table-column prop="num" label="管理员数"></el-table-column>
                         <el-table-column prop="create_time" label="创建时间"></el-table-column>
                         <el-table-column prop label="操作">
                             <template #default="{ row }">
