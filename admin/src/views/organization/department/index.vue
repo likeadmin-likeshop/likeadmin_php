@@ -109,15 +109,12 @@
 	}
 
 	// 获取列表数据
-	const getLists = (id: number) => {
+	const getLists = async () => {
 		loading.value = true
-		apiDeptLists({
+		lists.value =  await apiDeptLists({
 			...formData,
-		}).then((res) => {
-			lists.value = res
-		}).finally(() => {
-			loading.value = false
 		})
+		loading.value = false
 	}
 
 	// 删除 
@@ -131,7 +128,7 @@
 
 	// 展开/折叠列表
 	const openOrFold = () => {
-		console.log('触发')
+		// console.log('触发')
 		if (openIdArr.value.length) {
 			openIdArr.value = []
 		} else {
@@ -140,8 +137,10 @@
 		}
 	}
 
-	onMounted(() => {
-		getLists()
+	onMounted(async () => {
+		await getLists()
+		
+		openOrFold()
 	})
 </script>
 

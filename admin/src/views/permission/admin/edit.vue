@@ -255,8 +255,12 @@
 			if (!valid) {
 				return
 			}
-
-			formData.value.dept_id = formData.value.dept_id[formData.value.dept_id.length - 1]
+			// 因为组件绑定的pid是number，会匹配对应的联级数据
+			// 而选中后，pid是变为数组
+			// 所以pid是数组时（即新建部门或者编辑部门改变上级部门）
+			if(Array.isArray(formData.value.dept_id)) {
+				formData.value.dept_id = formData.value.dept_id[formData.value.dept_id.length - 1]
+			}
 
 			const promise = id.value ?
 				apiAdminEdit({
