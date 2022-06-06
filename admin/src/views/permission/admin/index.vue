@@ -88,7 +88,7 @@
                             >
                                 <el-button type="text">编辑</el-button>
                             </router-link>
-                            <popup class="m-r-10 inline" @confirm="handleDelete(row.id)">
+                            <popup class="m-r-10 inline" @confirm="handleDelete(row.id)" v-if="row.root != 1">
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>
