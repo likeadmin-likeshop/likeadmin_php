@@ -20,6 +20,7 @@ use app\common\lists\ListsSearchInterface;
 use app\common\lists\ListsSortInterface;
 use app\common\model\auth\Admin;
 use app\common\model\auth\Role;
+use app\common\model\dept\Dept;
 
 /**
  * 管理员列表
@@ -112,7 +113,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
     public function lists(): array
     {
         $field = [
-            'id', 'name', 'account', 'role_id', 'create_time', 'disable',
+            'id', 'name', 'account', 'role_id', 'create_time', 'disable', 'root',
             'login_time', 'login_ip', 'multipoint_login', 'avatar', 'dept_id'
         ];
 
@@ -127,9 +128,16 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
         //获取角色数组（'角色id'=>'角色名称')
         $roleLists = Role::column('name', 'id');
 
+        //顶级部门
+        $dept = Dept::where(['pid' => 0])->findOrEmpty()['name'] ?? '公司';
+
         //管理员列表增加角色名称
         foreach ($adminLists as $k => $v) {
             $adminLists[$k]['role_name'] = $roleLists[$v['role_id']] ?? '';
+            if ($v['root'] == 1) {
+                $adminLists[$k]['role_name'] = '超级管理员';
+            }
+            $adminLists[$k]['dept_name'] = empty($v['dept_name']) ? $dept : $v['dept_name'];
         }
 
         return $adminLists;
