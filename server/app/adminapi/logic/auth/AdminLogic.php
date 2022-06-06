@@ -191,7 +191,7 @@ class AdminLogic extends BaseLogic
     public static function detail($params) : array
     {
         return Admin::field([
-            'account', 'name', 'role_id', 'disable',
+            'account', 'name', 'role_id', 'disable', 'root',
             'multipoint_login', 'avatar', 'dept_id', 'jobs_id'
         ])->findOrEmpty($params['id'])->toArray();
     }
