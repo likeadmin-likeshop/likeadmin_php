@@ -135,7 +135,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
         foreach ($adminLists as $k => $v) {
             $adminLists[$k]['role_name'] = $roleLists[$v['role_id']] ?? '';
             if ($v['root'] == 1) {
-                $adminLists[$k]['role_name'] = '超级管理员';
+                $adminLists[$k]['role_name'] = '系统管理员';
             }
             $adminLists[$k]['dept_name'] = empty($v['dept_name']) ? $dept : $v['dept_name'];
         }
