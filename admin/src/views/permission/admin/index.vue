@@ -45,6 +45,11 @@
                         prop="role_name"
                         min-width="100"
                     ></el-table-column>
+					<el-table-column
+					    label="部门"
+					    prop="dept_name"
+					    min-width="100"
+					></el-table-column>
                     <el-table-column
                         label="创建时间"
                         prop="create_time"
