@@ -14,33 +14,20 @@
 
 namespace app\common\model\tools;
 
-use app\common\enum\GeneratorEnum;
+
 use app\common\model\BaseModel;
 use think\model\concern\SoftDelete;
 
 
 /**
- * 代码生成器-数据表信息模型
- * Class GenerateTable
+ * 代码生成器-数据表字段信息模型
+ * Class GenerateColumn
  * @package app\common\model\tools
  */
-class GenerateTable extends BaseModel
+class GenerateColumn extends BaseModel
 {
     use SoftDelete;
 
     protected $deleteTime = 'delete_time';
 
-
-    /**
-     * @notes 模板类型描述
-     * @param $value
-     * @param $data
-     * @return string|string[]
-     * @author 段誉
-     * @date 2022/6/14 11:25
-     */
-    public function getTemplateTypeDescAttr($value, $data)
-    {
-        return GeneratorEnum::getTemplateTypeDesc($data['template_type']);
-    }
 }

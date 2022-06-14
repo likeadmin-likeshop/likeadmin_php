@@ -22,6 +22,10 @@ class GeneratorEnum
     const TEMPLATE_TYPE_SINGLE = 0;// 单表
     const TEMPLATE_TYPE_TREE = 1; // 树表
 
+    // 生成方式
+    const GENERATE_TYPE_ZIP = 0; // 压缩包下载
+    const GENERATE_TYPE_MODULE = 1; // 生成到模块
+
 
     /**
      * @notes 获取模板类型描述

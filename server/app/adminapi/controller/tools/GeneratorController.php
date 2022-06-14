@@ -17,6 +17,7 @@ namespace app\adminapi\controller\tools;
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\tools\DataTableLists;
 use app\adminapi\lists\tools\GenerateTableLists;
+use app\adminapi\logic\tools\GeneratorLogic;
 
 /**
  * 代码生成器控制器
@@ -53,7 +54,10 @@ class GeneratorController extends BaseAdminController
     // 选择数据表
     public function selectTable()
     {
-
+//        $params = (new ArticleValidate())->post()->goCheck('add');
+        $params = input();
+        GeneratorLogic::selectTable($params);
+        return $this->success('添加成功', [], 1, 1);
     }
 
 
