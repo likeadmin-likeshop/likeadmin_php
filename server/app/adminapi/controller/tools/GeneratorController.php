@@ -26,22 +26,74 @@ use app\adminapi\lists\tools\GenerateTableLists;
 class GeneratorController extends BaseAdminController
 {
 
-    // 数据库中数据表列表
+    /**
+     * @notes 获取数据库中所有数据表信息
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/14 10:57
+     */
     public function dataTable()
     {
         return $this->dataLists(new DataTableLists());
     }
 
 
-    // 已选择的数据表列表
+    /**
+     * @notes 获取已选择的数据表
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/14 10:57
+     */
     public function generateTable()
     {
         return $this->dataLists(new GenerateTableLists());
     }
 
 
+    // 选择数据表
+    public function selectTable()
+    {
+
+    }
 
 
+    // 预览
+    public function preview()
+    {
+
+    }
+
+
+    // 生成代码
+    public function generateCode()
+    {
+
+    }
+
+    // 同步代码
+    public function syncCode()
+    {
+    }
+
+
+    // 编辑信息
+    public function edit()
+    {
+
+    }
+
+
+    // 详情
+    public function detail()
+    {
+
+    }
+
+    // 删除
+    public function delete()
+    {
+
+    }
 
 
 }
