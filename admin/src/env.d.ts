@@ -17,3 +17,5 @@ declare module 'nprogress' {
     export function start(): void
     export function done(): void
 }
+
+declare module 'vform3-builds'

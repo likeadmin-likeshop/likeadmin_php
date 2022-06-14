@@ -15,6 +15,7 @@
     "echarts": "^5.2.2",
     "element-plus": "^1.2.0-beta.6",
     "nprogress": "^0.2.0",
+    "vform3-builds": "^3.0.8",
     "vue": "^3.2.25",
     "vue-echarts": "^6.0.0",
     "vue-router": "^4.0.0-0",

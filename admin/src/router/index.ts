@@ -9,7 +9,7 @@ import permission from './modules/permission'
 import decoration from './modules/decoration'
 import content from './modules/content'
 import channel from './modules/channel'
-import application from './modules/application'
+import devTools from './modules/dev_tools'
 import organization from './modules/organization'
 export const asyncRoutes: Array<RouteRecordRaw> = [
     {
@@ -26,6 +26,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
             // application,// 应用管理
             // content, 	// 内容管理
 			// channel, 	// 渠道管理
+            devTools,
 			organization,	// 组织管理
             permission,		// 权限管理
             setting,		// 系统设置
