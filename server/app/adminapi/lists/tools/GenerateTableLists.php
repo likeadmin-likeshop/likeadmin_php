@@ -54,6 +54,7 @@ class GenerateTableLists extends BaseAdminDataLists implements ListsSearchInterf
     {
         return GenerateTable::where($this->searchWhere)
             ->order(['id' => 'desc'])
+            ->append(['template_type_desc'])
             ->select()
             ->toArray();
     }

@@ -12,35 +12,33 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\common\model\tools;
-
-use app\common\enum\GeneratorEnum;
-use app\common\model\BaseModel;
-use think\model\concern\SoftDelete;
+namespace app\common\enum;
 
 
-/**
- * 代码生成数据表信息模型
- * Class GenerateTable
- * @package app\common\model\tools
- */
-class GenerateTable extends BaseModel
+class GeneratorEnum
 {
-    use SoftDelete;
 
-    protected $deleteTime = 'delete_time';
+    // 模板类型
+    const TEMPLATE_TYPE_SINGLE = 0;// 单表
+    const TEMPLATE_TYPE_TREE = 1; // 树表
 
 
     /**
-     * @notes 模板类型描述
-     * @param $value
-     * @param $data
+     * @notes 获取模板类型描述
+     * @param bool $value
      * @return string|string[]
      * @author 段誉
-     * @date 2022/6/14 11:25
+     * @date 2022/6/14 11:24
      */
-    public function getTemplateTypeDescAttr($value, $data)
+    public static function getTemplateTypeDesc($value = true)
     {
-        return GeneratorEnum::getTemplateTypeDesc($data['template_type']);
+        $data = [
+            self::TEMPLATE_TYPE_SINGLE => '单表(增删改查)',
+            self::TEMPLATE_TYPE_TREE => '树表(增删改查)',
+        ];
+        if ($value === true) {
+            return $data;
+        }
+        return $data[$value] ?? '';
     }
 }
