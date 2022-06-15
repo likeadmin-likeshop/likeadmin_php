@@ -18,6 +18,7 @@ use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\tools\DataTableLists;
 use app\adminapi\lists\tools\GenerateTableLists;
 use app\adminapi\logic\tools\GeneratorLogic;
+use app\adminapi\validate\tools\SelectTableValidate;
 
 /**
  * 代码生成器控制器
@@ -51,13 +52,20 @@ class GeneratorController extends BaseAdminController
     }
 
 
-    // 选择数据表
+    /**
+     * @notes 选择数据表
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/15 10:09
+     */
     public function selectTable()
     {
-//        $params = (new ArticleValidate())->post()->goCheck('add');
-        $params = input();
-        GeneratorLogic::selectTable($params);
-        return $this->success('添加成功', [], 1, 1);
+        $params = (new SelectTableValidate())->post()->goCheck('select');
+        $result = GeneratorLogic::selectTable($params);
+        if (true === $result) {
+            return $this->success('添加成功', [], 1, 1);
+        }
+        return $this->fail(GeneratorLogic::getError());
     }
 
 

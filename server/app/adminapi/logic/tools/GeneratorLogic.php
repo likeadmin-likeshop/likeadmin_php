@@ -30,27 +30,6 @@ class GeneratorLogic extends BaseLogic
 {
 
 
-    public static function getFieldType(string $type): string
-    {
-        if (0 === strpos($type, 'set') || 0 === strpos($type, 'enum')) {
-            $result = 'string';
-        } elseif (preg_match('/(double|float|decimal|real|numeric)/is', $type)) {
-            $result = 'float';
-        } elseif (preg_match('/(int|serial|bit)/is', $type)) {
-            $result = 'int';
-        } elseif (preg_match('/bool/is', $type)) {
-            $result = 'bool';
-        } elseif (0 === strpos($type, 'timestamp')) {
-            $result = 'timestamp';
-        } elseif (0 === strpos($type, 'datetime')) {
-            $result = 'datetime';
-        } elseif (0 === strpos($type, 'date')) {
-            $result = 'date';
-        } else {
-            $result = 'string';
-        }
-        return $result;
-    }
 
 
     // 选择数据表
@@ -64,32 +43,13 @@ class GeneratorLogic extends BaseLogic
             foreach ($params['table'] as $item) {
                 // 添加主表基础信息
                 $generateTable = self::initTable($item);
-
                 // 添加数据表字段信息
                 $tableName = str_replace($tablePrefix, '', $item['name']);
                 $column = Db::name($tableName)->getFields();
-
-                $insertColumn = [];
-                foreach ($column as $value) {
-                    $columnData = [
-                        'table_id' => $generateTable['id'],
-                        'column_name' => $value['name'],
-                        'column_comment' => $value['comment'],
-                        'column_type' => self::getFieldType($value['type']),
-                        'is_null' => $value['notnull'] ? 0 : 1,
-                        'is_pk' => $value['primary'] ? 1 : 0,
-                    ];
-
-                    if (!in_array($value['name'], $defaultColumn)) {
-                        $columnData['is_insert'] = 1;
-                        $columnData['is_update'] = 1;
-                        $columnData['is_lists'] = 1;
-                        $columnData['is_query'] = 1;
-                    }
-                    $insertColumn[] = $columnData;
-                }
-                (new GenerateColumn())->saveAll($insertColumn);
+                // 添加表字段信息
+                self::initTableColumn($column, $generateTable['id'], $defaultColumn);
             }
+
             Db::commit();
             return true;
         } catch (\Exception $e) {
@@ -99,6 +59,8 @@ class GeneratorLogic extends BaseLogic
         }
     }
 
+
+    // 初始化代码生成数据表信息
     public static function initTable($tableData)
     {
         return GenerateTable::create([
@@ -110,8 +72,28 @@ class GeneratorLogic extends BaseLogic
         ]);
     }
 
-    public static function initTableColumn()
+    // 初始化代码生成字段信息
+    public static function initTableColumn($column, $tableId, $defaultColumn)
     {
+        $insertColumn = [];
+        foreach ($column as $value) {
+            $columnData = [
+                'table_id' => $tableId,
+                'column_name' => $value['name'],
+                'column_comment' => $value['comment'],
+                'column_type' => getDbFieldType($value['type']),
+                'is_null' => $value['notnull'] ? 0 : 1,
+                'is_pk' => $value['primary'] ? 1 : 0,
+            ];
 
+            if (!in_array($value['name'], $defaultColumn)) {
+                $columnData['is_insert'] = 1;
+                $columnData['is_update'] = 1;
+                $columnData['is_lists'] = 1;
+                $columnData['is_query'] = 1;
+            }
+            $insertColumn[] = $columnData;
+        }
+        (new GenerateColumn())->saveAll($insertColumn);
     }
 }
