@@ -29,7 +29,13 @@ use think\facade\Db;
 class GeneratorLogic extends BaseLogic
 {
 
-
+    // 代码生成表详情
+    public static function getGenerateTableDetail($params): array
+    {
+        return GenerateTable::with('table_column')
+            ->findOrEmpty((int)$params['id'])
+            ->toArray();
+    }
 
 
     // 选择数据表

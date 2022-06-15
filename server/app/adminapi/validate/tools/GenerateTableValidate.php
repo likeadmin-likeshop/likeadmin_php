@@ -24,14 +24,16 @@ use think\facade\Db;
  * Class SelectTableValidate
  * @package app\adminapi\validate\tools
  */
-class SelectTableValidate extends BaseValidate
+class GenerateTableValidate extends BaseValidate
 {
 
     protected $rule = [
+        'id' => 'require',
         'table' => 'require|array|checkTable',
     ];
 
     protected $message = [
+        'id.require' => '参数缺失',
         'table.require' => '参数缺失',
         'table.array' => '参数类型错误',
     ];
@@ -40,6 +42,12 @@ class SelectTableValidate extends BaseValidate
     public function sceneSelect()
     {
         return $this->only(['table']);
+    }
+
+
+    public function sceneDetail()
+    {
+        return $this->only(['id']);
     }
 
 

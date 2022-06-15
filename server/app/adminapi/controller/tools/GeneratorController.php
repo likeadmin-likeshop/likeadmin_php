@@ -18,7 +18,7 @@ use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\tools\DataTableLists;
 use app\adminapi\lists\tools\GenerateTableLists;
 use app\adminapi\logic\tools\GeneratorLogic;
-use app\adminapi\validate\tools\SelectTableValidate;
+use app\adminapi\validate\tools\GenerateTableValidate;
 
 /**
  * 代码生成器控制器
@@ -60,7 +60,7 @@ class GeneratorController extends BaseAdminController
      */
     public function selectTable()
     {
-        $params = (new SelectTableValidate())->post()->goCheck('select');
+        $params = (new GenerateTableValidate())->post()->goCheck('select');
         $result = GeneratorLogic::selectTable($params);
         if (true === $result) {
             return $this->success('添加成功', [], 1, 1);
@@ -98,7 +98,9 @@ class GeneratorController extends BaseAdminController
     // 详情
     public function detail()
     {
-
+        $params = (new GenerateTableValidate())->goCheck('detail');
+        $result = GeneratorLogic::getGenerateTableDetail($params);
+        return $this->success('', $result);
     }
 
     // 删除
