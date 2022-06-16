@@ -30,7 +30,7 @@ class GeneratorLogic extends BaseLogic
 {
 
     // 代码生成表详情
-    public static function getGenerateTableDetail($params): array
+    public static function getTableDetail($params): array
     {
         return GenerateTable::with('table_column')
             ->findOrEmpty((int)$params['id'])
@@ -66,6 +66,73 @@ class GeneratorLogic extends BaseLogic
     }
 
 
+    // 更新表信息
+    public static function editTable($params)
+    {
+        Db::startTrans();
+        try {
+            // 更新主表-数据表信息
+            GenerateTable::update([
+                'id' => $params['id'],
+                'table_name' => $params['table_name'],
+                'table_comment' => $params['table_comment'],
+                'template_type' => $params['template_type'],
+                'author' => $params['author'] ?? '',
+                'remark' => $params['remark'] ?? '',
+                'generate_type' => $params['generate_type'],
+                'module_name' => $params['module_name'],
+                'class_name' => $params['class_name'] ?? '',
+                'class_comment' => $params['class_comment'] ?? '',
+            ]);
+
+            // 更新从表-数据表字段信息
+            foreach ($params['column'] as $item) {
+                GenerateColumn::update([
+                    'id' => $item['id'],
+                    'column_comment' => $item['column_comment'],
+                    'is_null' => $item['is_null'],
+                    'is_pk' => $item['is_pk'],
+                    'is_insert' => $item['is_insert'],
+                    'is_update' => $item['is_update'],
+                    'is_lists' => $item['is_lists'],
+                    'is_query' => $item['is_query'],
+                    'query_type' => $item['query_type'],
+                    'view_type' => $item['view_type'],
+                ]);
+            }
+            Db::commit();
+            return true;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::$error = $e->getMessage();
+            return false;
+        }
+    }
+
+
+    /**
+     * @notes 删除表相关信息
+     * @param $params
+     * @return bool
+     * @author 段誉
+     * @date 2022/6/16 9:30
+     */
+    public static function deleteTable($params)
+    {
+        Db::startTrans();
+        try {
+            GenerateTable::where(['id' => $params['id']])->delete();
+            GenerateColumn::whereIn('table_id', $params['id'])->delete();
+            Db::commit();
+            return true;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::$error = $e->getMessage();
+            return false;
+        }
+    }
+
+
     // 初始化代码生成数据表信息
     public static function initTable($tableData)
     {
@@ -91,7 +158,6 @@ class GeneratorLogic extends BaseLogic
                 'is_null' => $value['notnull'] ? 0 : 1,
                 'is_pk' => $value['primary'] ? 1 : 0,
             ];
-
             if (!in_array($value['name'], $defaultColumn)) {
                 $columnData['is_insert'] = 1;
                 $columnData['is_update'] = 1;

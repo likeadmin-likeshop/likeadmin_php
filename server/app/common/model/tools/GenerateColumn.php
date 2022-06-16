@@ -16,7 +16,6 @@ namespace app\common\model\tools;
 
 
 use app\common\model\BaseModel;
-use think\model\concern\SoftDelete;
 
 
 /**
@@ -26,8 +25,15 @@ use think\model\concern\SoftDelete;
  */
 class GenerateColumn extends BaseModel
 {
-    use SoftDelete;
 
-    protected $deleteTime = 'delete_time';
-
+    /**
+     * @notes 关联table表
+     * @return \think\model\relation\BelongsTo
+     * @author 段誉
+     * @date 2022/6/15 18:59
+     */
+    public function generateTable()
+    {
+        return $this->belongsTo(GenerateTable::class, 'id', 'table_id');
+    }
 }

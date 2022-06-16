@@ -63,7 +63,7 @@ class GeneratorController extends BaseAdminController
         $params = (new GenerateTableValidate())->post()->goCheck('select');
         $result = GeneratorLogic::selectTable($params);
         if (true === $result) {
-            return $this->success('添加成功', [], 1, 1);
+            return $this->success('操作成功', [], 1, 1);
         }
         return $this->fail(GeneratorLogic::getError());
     }
@@ -91,22 +91,43 @@ class GeneratorController extends BaseAdminController
     // 编辑信息
     public function edit()
     {
-
+        $params = (new GenerateTableValidate())->post()->goCheck('edit');
+        $result = GeneratorLogic::editTable($params);
+        if (true === $result) {
+            return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail(GeneratorLogic::getError());
     }
 
 
-    // 详情
+    /**
+     * @notes 获取已选择的数据表详情
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/15 19:00
+     */
     public function detail()
     {
-        $params = (new GenerateTableValidate())->goCheck('detail');
-        $result = GeneratorLogic::getGenerateTableDetail($params);
+        $params = (new GenerateTableValidate())->goCheck('id');
+        $result = GeneratorLogic::getTableDetail($params);
         return $this->success('', $result);
     }
 
-    // 删除
+
+    /**
+     * @notes 删除已选择的数据表信息
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/15 19:00
+     */
     public function delete()
     {
-
+        $params = (new GenerateTableValidate())->post()->goCheck('id');
+        $result = GeneratorLogic::deleteTable($params);
+        if (true === $result) {
+            return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail(GeneratorLogic::getError());
     }
 
 

@@ -15,6 +15,7 @@
 namespace app\adminapi\validate\tools;
 
 
+use app\common\model\tools\GenerateTable;
 use app\common\validate\BaseValidate;
 use think\facade\Db;
 
@@ -28,7 +29,7 @@ class GenerateTableValidate extends BaseValidate
 {
 
     protected $rule = [
-        'id' => 'require',
+        'id' => 'require|checkTableData',
         'table' => 'require|array|checkTable',
     ];
 
@@ -39,18 +40,51 @@ class GenerateTableValidate extends BaseValidate
     ];
 
 
+    /**
+     * @notes 选择数据表场景
+     * @return GenerateTableValidate
+     * @author 段誉
+     * @date 2022/6/15 18:58
+     */
     public function sceneSelect()
     {
         return $this->only(['table']);
     }
 
 
-    public function sceneDetail()
+    /**
+     * @notes 需要校验id的场景
+     * @return GenerateTableValidate
+     * @author 段誉
+     * @date 2022/6/15 18:58
+     */
+    public function sceneId()
     {
         return $this->only(['id']);
     }
 
 
+    /**
+     * @notes 编辑场景
+     * @return GenerateTableValidate
+     * @author 段誉
+     * @date 2022/6/15 18:59
+     */
+    public function sceneEdit()
+    {
+        return $this->only(['id']);
+    }
+
+
+    /**
+     * @notes 校验选择的数据表信息
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2022/6/15 18:58
+     */
     protected function checkTable($value, $rule, $data)
     {
         foreach ($value as $item) {
@@ -58,6 +92,25 @@ class GenerateTableValidate extends BaseValidate
             if (empty($exist)) {
                 return '当前数据库不存在' . $item['name'] . '表';
             }
+        }
+        return true;
+    }
+
+
+    /**
+     * @notes 校验当前数据表是否存在
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2022/6/15 18:58
+     */
+    protected function checkTableData($value, $rule, $data)
+    {
+        $table = GenerateTable::findOrEmpty($value);
+        if ($table->isEmpty()) {
+            return '信息不存在';
         }
         return true;
     }

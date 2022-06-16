@@ -16,7 +16,6 @@ namespace app\common\model\tools;
 
 use app\common\enum\GeneratorEnum;
 use app\common\model\BaseModel;
-use think\model\concern\SoftDelete;
 
 
 /**
@@ -26,10 +25,6 @@ use think\model\concern\SoftDelete;
  */
 class GenerateTable extends BaseModel
 {
-    use SoftDelete;
-
-    protected $deleteTime = 'delete_time';
-
 
     /**
      * @notes 关联数据表字段
@@ -41,7 +36,6 @@ class GenerateTable extends BaseModel
     {
         return $this->hasMany(GenerateColumn::class, 'table_id', 'id');
     }
-
 
     /**
      * @notes 模板类型描述
