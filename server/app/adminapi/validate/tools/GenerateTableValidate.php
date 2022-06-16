@@ -88,6 +88,9 @@ class GenerateTableValidate extends BaseValidate
     protected function checkTable($value, $rule, $data)
     {
         foreach ($value as $item) {
+            if (!isset($item['name']) || !isset($item['comment'])) {
+                return '参数缺失';
+            }
             $exist = Db::query("SHOW TABLES LIKE'" . $item['name'] . "'");
             if (empty($exist)) {
                 return '当前数据库不存在' . $item['name'] . '表';

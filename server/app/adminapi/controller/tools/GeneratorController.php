@@ -61,7 +61,7 @@ class GeneratorController extends BaseAdminController
     public function selectTable()
     {
         $params = (new GenerateTableValidate())->post()->goCheck('select');
-        $result = GeneratorLogic::selectTable($params);
+        $result = GeneratorLogic::selectTable($params,$this->adminId);
         if (true === $result) {
             return $this->success('操作成功', [], 1, 1);
         }
@@ -82,9 +82,15 @@ class GeneratorController extends BaseAdminController
 
     }
 
-    // 同步代码
-    public function syncCode()
+    // 同步代码 -- 只是同步表字段
+    public function syncColumn()
     {
+        $params = (new GenerateTableValidate())->post()->goCheck('id');
+        $result = GeneratorLogic::syncColumn($params);
+        if (true === $result) {
+            return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail(GeneratorLogic::getError());
     }
 
 

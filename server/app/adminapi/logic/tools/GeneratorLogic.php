@@ -39,23 +39,18 @@ class GeneratorLogic extends BaseLogic
 
 
     // 选择数据表
-    public static function selectTable($params)
+    public static function selectTable($params, $adminId)
     {
         Db::startTrans();
         try {
-            $tablePrefix = config('database.connections.mysql.prefix');
-            $defaultColumn = ['id', 'create_time', 'update_time', 'delete_time'];
-
             foreach ($params['table'] as $item) {
                 // 添加主表基础信息
-                $generateTable = self::initTable($item);
-                // 添加数据表字段信息
-                $tableName = str_replace($tablePrefix, '', $item['name']);
-                $column = Db::name($tableName)->getFields();
+                $generateTable = self::initTable($item, $adminId);
+                // 获取数据表字段信息
+                $column = self::getTableColumn($item['name']);
                 // 添加表字段信息
-                self::initTableColumn($column, $generateTable['id'], $defaultColumn);
+                self::initTableColumn($column, $generateTable['id']);
             }
-
             Db::commit();
             return true;
         } catch (\Exception $e) {
@@ -133,21 +128,56 @@ class GeneratorLogic extends BaseLogic
     }
 
 
+    // 同步表字段
+    public static function syncColumn($params)
+    {
+        Db::startTrans();
+        try {
+            // table 信息
+            $table = GenerateTable::findOrEmpty($params['id']);
+            // 删除旧字段
+            GenerateColumn::whereIn('table_id', $table['id'])->delete();
+            // 获取当前数据表字段信息
+            $column = self::getTableColumn($table['table_name']);
+            // 创建新字段数据
+            self::initTableColumn($column, $table['id']);
+
+            Db::commit();
+            return true;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::$error = $e->getMessage();
+            return false;
+        }
+    }
+
+
+    public static function getTableColumn($tableName)
+    {
+        $tablePrefix = config('database.connections.mysql.prefix');
+        $tableName = str_replace($tablePrefix, '', $tableName);
+        return Db::name($tableName)->getFields();
+    }
+
+
     // 初始化代码生成数据表信息
-    public static function initTable($tableData)
+    public static function initTable($tableData, $adminId)
     {
         return GenerateTable::create([
             'table_name' => $tableData['name'],
             'table_comment' => $tableData['comment'],
             'template_type' => GeneratorEnum::TEMPLATE_TYPE_SINGLE,
             'generate_type' => GeneratorEnum::GENERATE_TYPE_ZIP,
-            'module_name' => 'adminapi'
+            'module_name' => 'adminapi',
+            'admin_id' => $adminId
         ]);
     }
 
     // 初始化代码生成字段信息
-    public static function initTableColumn($column, $tableId, $defaultColumn)
+    public static function initTableColumn($column, $tableId)
     {
+        $defaultColumn = ['id', 'create_time', 'update_time', 'delete_time'];
+
         $insertColumn = [];
         foreach ($column as $value) {
             $columnData = [
@@ -168,4 +198,5 @@ class GeneratorLogic extends BaseLogic
         }
         (new GenerateColumn())->saveAll($insertColumn);
     }
+
 }
