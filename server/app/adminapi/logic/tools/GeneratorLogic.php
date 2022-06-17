@@ -18,6 +18,8 @@ use app\common\enum\GeneratorEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\tools\GenerateColumn;
 use app\common\model\tools\GenerateTable;
+use app\common\service\generator\core\ControllerGenerator;
+use app\common\service\generator\GenerateService;
 use think\facade\Db;
 
 
@@ -76,7 +78,7 @@ class GeneratorLogic extends BaseLogic
                 'remark' => $params['remark'] ?? '',
                 'generate_type' => $params['generate_type'],
                 'module_name' => $params['module_name'],
-                'class_name' => $params['class_name'] ?? '',
+                'dir_name' => $params['dir_name'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
             ]);
 
@@ -152,6 +154,26 @@ class GeneratorLogic extends BaseLogic
     }
 
 
+    // 生成代码
+    public static function generate($params)
+    {
+        // 获取数据表信息
+        $tables = GenerateTable::with(['table_column'])
+            ->whereIn('id', $params['id'])
+            ->select();
+
+        foreach ($tables as $table) {
+           // 实例化控制器生成器
+            $ControllerGenerator = new GenerateService(new ControllerGenerator());
+            $ControllerGenerator->generate($table);
+
+        }
+
+
+    }
+
+
+    // 获取表字段信息
     public static function getTableColumn($tableName)
     {
         $tablePrefix = config('database.connections.mysql.prefix');

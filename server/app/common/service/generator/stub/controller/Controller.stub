@@ -1,0 +1,84 @@
+<?php
+// +----------------------------------------------------------------------
+// | likeadmin快速开发前后端分离管理后台（PHP版）
+// +----------------------------------------------------------------------
+// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
+// | 开源版本可自由商用，可去除界面版权logo
+// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
+// | github下载：https://github.com/likeshop-github/likeadmin
+// | 访问官网：https://www.likeadmin.cn
+// | likeadmin团队 版权所有 拥有最终解释权
+// +----------------------------------------------------------------------
+// | author: likeadminTeam
+// +----------------------------------------------------------------------
+
+namespace app\{MODULE_NAME}\controller\{DIR_NAME};
+
+use app\{MODULE_NAME}\controller\BaseAdminController;
+use app\{MODULE_NAME}\lists\{DIR_NAME}\{LISTS_NAME}Lists;
+use app\{MODULE_NAME}\logic\{DIR_NAME}\{LOGIC_NAME}Logic;
+use app\{MODULE_NAME}\validate\{DIR_NAME}\{VALIDATE_NAME}Validate;
+
+/**
+ * 资讯管理控制器
+ * Class {CALSS_NAME}Controller
+ * @package app\{MODULE_NAME}\controller\{DIR_NAME}
+ */
+class {CALSS_NAME}Controller extends BaseAdminController
+{
+
+
+    public function lists()
+    {
+        return $this->dataLists(new {LISTS_NAME}Lists());
+    }
+
+
+    public function add()
+    {
+        $params = (new {VALIDATE_NAME}Validate())->post()->goCheck('add');
+        {LOGIC_NAME}Logic::add($params);
+        return $this->success('添加成功', [], 1, 1);
+    }
+
+
+    public function edit()
+    {
+        $params = (new {VALIDATE_NAME}Validate())->post()->goCheck('edit');
+        $result = {LOGIC_NAME}Logic::edit($params);
+        if (true === $result) {
+            return $this->success('编辑成功', [], 1, 1);
+        }
+        return $this->fail({LOGIC_NAME}Logic::getError());
+    }
+
+
+    public function delete()
+    {
+        $params = (new {VALIDATE_NAME}Validate())->post()->goCheck('delete');
+        {LOGIC_NAME}Logic::delete($params);
+        return $this->success('删除成功', [], 1, 1);
+    }
+
+
+    public function detail()
+    {
+        $params = (new {VALIDATE_NAME}Validate())->goCheck('detail');
+        $result = {LOGIC_NAME}Logic::detail($params);
+        return $this->data($result);
+    }
+
+
+
+    public function updateStatus()
+    {
+        $params = (new {VALIDATE_NAME}Validate())->post()->goCheck('status');
+        $result = {LOGIC_NAME}Logic::updateStatus($params);
+        if (true === $result) {
+            return $this->success('修改成功', [], 1, 1);
+        }
+        return $this->fail({LOGIC_NAME}Logic::getError());
+    }
+
+
+}

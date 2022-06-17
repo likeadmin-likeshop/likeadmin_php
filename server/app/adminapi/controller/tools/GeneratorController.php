@@ -77,12 +77,20 @@ class GeneratorController extends BaseAdminController
 
 
     // 生成代码
-    public function generateCode()
+    public function generate()
     {
-
+        $params = [];
+        GeneratorLogic::generate($params);
     }
 
-    // 同步代码 -- 只是同步表字段
+
+
+    /**
+     * @notes 同步字段
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/17 15:22
+     */
     public function syncColumn()
     {
         $params = (new GenerateTableValidate())->post()->goCheck('id');
@@ -92,6 +100,7 @@ class GeneratorController extends BaseAdminController
         }
         return $this->fail(GeneratorLogic::getError());
     }
+
 
 
     // 编辑信息
