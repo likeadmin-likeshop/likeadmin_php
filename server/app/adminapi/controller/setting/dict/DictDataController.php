@@ -15,7 +15,7 @@
 namespace app\adminapi\controller\setting\dict;
 
 use app\adminapi\controller\BaseAdminController;
-use app\adminapi\lists\dict\DictDataLists;
+use app\adminapi\lists\setting\dict\DictDataLists;
 use app\adminapi\logic\setting\dict\DictDataLogic;
 use app\adminapi\validate\dict\DictDataValidate;
 

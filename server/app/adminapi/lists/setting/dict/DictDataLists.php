@@ -12,7 +12,7 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\adminapi\lists\dict;
+namespace app\adminapi\lists\setting\dict;
 
 use app\adminapi\lists\BaseAdminDataLists;
 use app\common\lists\ListsSearchInterface;

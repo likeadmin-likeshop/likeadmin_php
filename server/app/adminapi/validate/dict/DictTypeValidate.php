@@ -29,16 +29,19 @@ class DictTypeValidate extends BaseValidate
     
     protected $rule = [
         'id' => 'require|checkDictType',
-        'name' => 'require|length:1,90',
-        'type' => 'require',
+        'name' => 'require|length:1,255',
+        'type' => 'require|unique:' . DictType::class,
         'status' => 'require|in:0,1',
     ];
 
+
     protected $message = [
         'id.require' => '参数缺失',
-        'name.require' => '字典名称不能为空',
-        'name.length' => '字典名称长度须在1-90位字符',
-        'type.require' => '字典类型不能为空',
+        'name.require' => '请填写字典名称',
+        'name.length' => '字典名称长度须在1~255位字符',
+        'type.require' => '请填写字典类型',
+        'type.unique' => '字典类型已存在',
+        'status.require' => '请选择状态',
     ];
 
 
