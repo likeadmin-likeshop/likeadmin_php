@@ -83,7 +83,7 @@ class GeneratorLogic extends BaseLogic
             ]);
 
             // 更新从表-数据表字段信息
-            foreach ($params['column'] as $item) {
+            foreach ($params['table_column'] as $item) {
                 GenerateColumn::update([
                     'id' => $item['id'],
                     'column_comment' => $item['column_comment'] ?? '',
