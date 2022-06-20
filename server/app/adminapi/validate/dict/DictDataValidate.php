@@ -71,9 +71,15 @@ class DictDataValidate extends BaseValidate
     }
 
 
-
+    /**
+     * @notes 编辑场景
+     * @return DictDataValidate
+     * @author 段誉
+     * @date 2022/6/20 18:36
+     */
     public function sceneEdit()
     {
+        return $this->remove('type_id', true);
     }
 
 

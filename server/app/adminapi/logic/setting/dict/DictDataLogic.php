@@ -36,13 +36,9 @@ class DictDataLogic extends BaseLogic
      */
     public static function save(array $params)
     {
-        $dictType = DictType::findOrEmpty($params['type_id']);
-
         $data = [
             'name' => $params['name'],
             'value' => $params['value'],
-            'type_id' => $params['type_id'],
-            'type_value' => $dictType['type'],
             'sort' => $params['sort'] ?? 0,
             'status' => $params['status'],
             'remark' => $params['remark'] ?? '',
@@ -51,6 +47,9 @@ class DictDataLogic extends BaseLogic
         if (!empty($params['id'])) {
             return DictData::where(['id' => $params['id']])->update($data);
         } else {
+            $dictType = DictType::findOrEmpty($params['type_id']);
+            $data['type_id'] = $params['type_id'];
+            $data['type_value'] = $dictType['type'];
             return DictData::create($data);
         }
     }
