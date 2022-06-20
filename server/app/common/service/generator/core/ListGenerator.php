@@ -20,12 +20,6 @@ namespace app\common\service\generator\core;
 class ListGenerator extends BaseGenerator implements GenerateInterface
 {
 
-    public function check()
-    {
-        // TODO: Implement check() method.
-    }
-
-
     public function generate()
     {
         // TODO: Implement generate() method.

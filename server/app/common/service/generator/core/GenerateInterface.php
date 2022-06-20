@@ -17,8 +17,6 @@ namespace app\common\service\generator\core;
 
 interface GenerateInterface
 {
-    public function check();
-
     public function generate();
 
     public function preview();

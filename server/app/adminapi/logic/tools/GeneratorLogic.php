@@ -183,12 +183,9 @@ class GeneratorLogic extends BaseLogic
 
         foreach ($tables as $table) {
             // 实例化控制器生成器
-            $ControllerGenerator = new GenerateService(new ControllerGenerator());
+            $ControllerGenerator = new GenerateService();
             $ControllerGenerator->generate($table);
-
         }
-
-
     }
 
 

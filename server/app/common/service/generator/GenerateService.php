@@ -15,30 +15,40 @@
 namespace app\common\service\generator;
 
 
-use app\common\service\generator\core\GenerateInterface;
-
 class GenerateService
 {
-    protected $generate;
 
-    public function __construct(GenerateInterface $generate)
+    protected $tableData;
+
+
+    public function __construct()
     {
-        $this->generate = $generate;
     }
 
-    public function check(array $data): array
+
+    // 设置表信息
+    public function setTableData($table)
     {
-        return $this->generate->check($data);
+
     }
 
-    public function generate($table): array
+
+    // 生成文件
+    public function generate(array $tableData)
     {
-        return $this->generate->generate($table);
+        // 生成控制器文件
+        // 生成列表文件
+        // 生成模型文件
+        // 生成逻辑文件
+        // 生成验证器文件
     }
 
-    public function preview(array $data): array
+
+
+    // 预览文件
+    public function preview()
     {
-        return $this->generate->preview($data);
+
     }
 
 }

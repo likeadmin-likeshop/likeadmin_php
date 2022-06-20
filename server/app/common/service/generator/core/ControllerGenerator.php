@@ -26,12 +26,6 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     // 文件内容
     protected $content;
 
-
-    public function check()
-    {
-    }
-
-
     // 设置当前表信息
     public function setTableData($tableData)
     {
@@ -78,7 +72,10 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
+    // 预览文件
     public function preview()
     {
     }
+
+
 }
