@@ -31,7 +31,13 @@ use think\facade\Db;
 class GeneratorLogic extends BaseLogic
 {
 
-    // 代码生成表详情
+    /**
+     * @notes 表详情
+     * @param $params
+     * @return array
+     * @author 段誉
+     * @date 2022/6/20 10:45
+     */
     public static function getTableDetail($params): array
     {
         return GenerateTable::with('table_column')
@@ -40,7 +46,14 @@ class GeneratorLogic extends BaseLogic
     }
 
 
-    // 选择数据表
+    /**
+     * @notes 选择数据表
+     * @param $params
+     * @param $adminId
+     * @return bool
+     * @author 段誉
+     * @date 2022/6/20 10:44
+     */
     public static function selectTable($params, $adminId)
     {
         Db::startTrans();
@@ -63,7 +76,13 @@ class GeneratorLogic extends BaseLogic
     }
 
 
-    // 更新表信息
+    /**
+     * @notes 编辑表信息
+     * @param $params
+     * @return bool
+     * @author 段誉
+     * @date 2022/6/20 10:44
+     */
     public static function editTable($params)
     {
         Db::startTrans();
@@ -87,11 +106,11 @@ class GeneratorLogic extends BaseLogic
                 GenerateColumn::update([
                     'id' => $item['id'],
                     'column_comment' => $item['column_comment'] ?? '',
-                    'is_null' => $item['is_null'],
-                    'is_insert' => $item['is_insert'],
-                    'is_update' => $item['is_update'],
-                    'is_lists' => $item['is_lists'],
-                    'is_query' => $item['is_query'],
+                    'is_null' => $item['is_null'] ?? 0,
+                    'is_insert' => $item['is_insert'] ?? 0,
+                    'is_update' => $item['is_update'] ?? 0,
+                    'is_lists' => $item['is_lists'] ?? 0,
+                    'is_query' => $item['is_query'] ?? 0,
                     'query_type' => $item['query_type'],
                     'view_type' => $item['view_type'],
                 ]);

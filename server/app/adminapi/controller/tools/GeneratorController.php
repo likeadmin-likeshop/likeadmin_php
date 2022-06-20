@@ -18,6 +18,7 @@ use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\tools\DataTableLists;
 use app\adminapi\lists\tools\GenerateTableLists;
 use app\adminapi\logic\tools\GeneratorLogic;
+use app\adminapi\validate\tools\EditTableValidate;
 use app\adminapi\validate\tools\GenerateTableValidate;
 
 /**
@@ -102,11 +103,15 @@ class GeneratorController extends BaseAdminController
     }
 
 
-
-    // 编辑信息
+    /**
+     * @notes 编辑表信息
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/20 10:44
+     */
     public function edit()
     {
-        $params = (new GenerateTableValidate())->post()->goCheck('edit');
+        $params = (new EditTableValidate())->post()->goCheck();
         $result = GeneratorLogic::editTable($params);
         if (true === $result) {
             return $this->success('操作成功', [], 1, 1);

@@ -64,17 +64,6 @@ class GenerateTableValidate extends BaseValidate
     }
 
 
-    /**
-     * @notes 编辑场景
-     * @return GenerateTableValidate
-     * @author 段誉
-     * @date 2022/6/15 18:59
-     */
-    public function sceneEdit()
-    {
-        return $this->only(['id']);
-    }
-
 
     /**
      * @notes 校验选择的数据表信息
