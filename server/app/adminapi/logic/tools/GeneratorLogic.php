@@ -117,7 +117,7 @@ class GeneratorLogic extends BaseLogic
     {
         Db::startTrans();
         try {
-            GenerateTable::where(['id' => $params['id']])->delete();
+            GenerateTable::whereIn('id', $params['id'])->delete();
             GenerateColumn::whereIn('table_id', $params['id'])->delete();
             Db::commit();
             return true;
@@ -162,7 +162,7 @@ class GeneratorLogic extends BaseLogic
             ->select();
 
         foreach ($tables as $table) {
-           // 实例化控制器生成器
+            // 实例化控制器生成器
             $ControllerGenerator = new GenerateService(new ControllerGenerator());
             $ControllerGenerator->generate($table);
 
