@@ -41,7 +41,7 @@ class DictData extends BaseModel
      */
     public function getStatusDescAttr($value, $data)
     {
-        return $data['status'] ? '启用' : '停用';
+        return $data['status'] ? '正常' : '停用';
     }
 
 }
