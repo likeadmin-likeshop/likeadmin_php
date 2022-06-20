@@ -111,10 +111,17 @@ class GenerateTableValidate extends BaseValidate
      */
     protected function checkTableData($value, $rule, $data)
     {
-        $table = GenerateTable::findOrEmpty($value);
-        if ($table->isEmpty()) {
-            return '信息不存在';
+        if (!is_array($value)) {
+            $value = [$value];
         }
+
+        foreach ($value as $item) {
+            $table = GenerateTable::findOrEmpty($item);
+            if ($table->isEmpty()) {
+                return '信息不存在';
+            }
+        }
+
         return true;
     }
 
