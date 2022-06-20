@@ -113,6 +113,7 @@ class GeneratorLogic extends BaseLogic
                     'is_query' => $item['is_query'] ?? 0,
                     'query_type' => $item['query_type'],
                     'view_type' => $item['view_type'],
+                    'dict_type' => $item['dict_type'] ?? '',
                 ]);
             }
             Db::commit();
