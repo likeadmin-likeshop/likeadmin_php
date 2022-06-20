@@ -78,7 +78,7 @@ class GeneratorLogic extends BaseLogic
                 'remark' => $params['remark'] ?? '',
                 'generate_type' => $params['generate_type'],
                 'module_name' => $params['module_name'],
-                'dir_name' => $params['dir_name'] ?? '',
+                'class_dir' => $params['class_dir'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
             ]);
 
@@ -86,9 +86,8 @@ class GeneratorLogic extends BaseLogic
             foreach ($params['column'] as $item) {
                 GenerateColumn::update([
                     'id' => $item['id'],
-                    'column_comment' => $item['column_comment'],
+                    'column_comment' => $item['column_comment'] ?? '',
                     'is_null' => $item['is_null'],
-                    'is_pk' => $item['is_pk'],
                     'is_insert' => $item['is_insert'],
                     'is_update' => $item['is_update'],
                     'is_lists' => $item['is_lists'],
