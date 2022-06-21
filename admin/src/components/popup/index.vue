@@ -10,6 +10,7 @@
             :append-to-body="true"
             :width="width"
             :close-on-click-modal="clickModalClose"
+            @closed="handleEvent('close')"
         >
             <!-- 弹窗内容 -->
             <template v-if="title" #title>
@@ -98,11 +99,11 @@ export default defineComponent({
             default: ''
         }
     },
-    emits: ['confirm', 'cancel'],
+    emits: ['confirm', 'cancel', 'close'],
     setup(props, { emit }) {
         const visible = ref(false)
 
-        const handleEvent = (type: 'confirm' | 'cancel') => {
+        const handleEvent = (type: 'confirm' | 'cancel' | 'close') => {
             emit(type)
             if (!props.async || type === 'cancel') {
                 close()

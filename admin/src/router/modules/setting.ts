@@ -150,6 +150,34 @@ const routes: RouteRecordRaw = {
 					},
 				},
 			],
+		},
+        {
+			path: '/setting/dict',
+			redirect: '/setting/dict/type',
+			component: RouterView,
+			meta: { title: '字典管理' },
+			children: [
+				{
+					path: '/setting/dict/type',
+					component: () => import('@/views/setting/dict/type.vue'),
+					meta: {
+						title: '字典管理',
+						permission: ['view'],
+                        hidden: true,
+                        parent: '/setting/dict'
+					},
+				},
+                {
+					path: '/setting/dict/data',
+					component: () => import('@/views/setting/dict/data.vue'),
+					meta: {
+						title: '字典数据',
+						permission: ['view'],
+                        hidden: true,
+                        parent: '/setting/dict'
+					},
+				}
+			],
 		}
     ],
 }

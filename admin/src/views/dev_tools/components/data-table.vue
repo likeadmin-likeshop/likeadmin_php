@@ -2,7 +2,7 @@
     <div class="data-table">
         <popup
             ref="popupRef"
-            class="m-r-10 inline"
+            class="inline"
             :clickModalClose="false"
             title="选择表"
             width="900px"
@@ -27,7 +27,7 @@
                 </el-form-item>
             </el-form>
             <div class="m-15">
-                <el-table height="400" :data="pager.lists" size="small">
+                <el-table height="400" :data="pager.lists" size="small"  @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="表名称" prop="name" min-width="100" />
                     <el-table-column label="表描述" prop="comment" min-width="100" />
@@ -47,11 +47,15 @@
 
 <script lang="ts" setup>
 
-import { reactive, shallowRef, watch } from 'vue'
+import { reactive, ref, shallowRef, watch } from 'vue'
 import Popup from '@/components/popup/index.vue'
 import Pagination from '@/components/pagination/index.vue'
 import { usePages } from '@/core/hooks/pages';
-import { apiDataTable } from '@/api/dev_tools';
+import { apiDataTable, apiSelectTable } from '@/api/dev_tools';
+
+const emit = defineEmits<{
+    (event: 'success'): void
+}>()
 
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 
@@ -66,9 +70,23 @@ const { pager, requestApi, resetParams, resetPage } = usePages({
     size: 10
 })
 
-const handleConfirm = () => {
+const selectData = ref<any[]>([])
 
+const handleSelectionChange = (val: any[]) => {
+    selectData.value = val.map(({ name, comment }) => ({
+        name,
+        comment
+    }))
 }
+
+const handleConfirm = async () => {
+    await apiSelectTable({
+        table: selectData.value
+    })
+    popupRef.value?.close()
+    emit('success')
+}
+
 
 watch(() => popupRef.value?.visible, (value) => {
     if(value) requestApi()

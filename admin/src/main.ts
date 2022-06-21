@@ -9,6 +9,7 @@ import vars, { Variables } from './styles/export.module.scss'
 import useDirectives from './core/directives'
 import VForm3 from 'vform3-builds'  //引入VForm3库
 import 'vform3-builds/dist/designer.style.css'  //引入VForm3样式
+
 const app = createApp(App)
 app.config.globalProperties.$variables = vars
 

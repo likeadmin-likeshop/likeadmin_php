@@ -2,6 +2,7 @@
     <div class="admin">
         <el-card shadow="never">
             <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
+                <!-- 搜索条件 -->
                 <el-form-item label="账号：">
                     <el-input v-model="formData.account" class="ls-input" />
                 </el-form-item>
@@ -18,6 +19,7 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
+                 <!-- 搜索条件 -->
                 <el-form-item>
                     <div class="m-l-20">
                         <el-button type="primary" @click="resetPage">查询</el-button>
@@ -27,9 +29,7 @@
             </el-form>
         </el-card>
         <el-card v-loading="pager.loading" class="m-t-15" shadow="never">
-            <router-link to="/permission/admin/edit">
-                <el-button type="primary" size="small">新增管理员</el-button>
-            </router-link>
+            <el-button type="primary" size="small">新增管理员</el-button>
             <div class="m-t-15">
                 <el-table :data="pager.lists" size="small">
                     <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
@@ -40,31 +40,11 @@
                     </el-table-column>
                     <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
                     <el-table-column label="名称" prop="name" min-width="100"></el-table-column>
-                    <el-table-column
-                        label="角色"
-                        prop="role_name"
-                        min-width="100"
-                    ></el-table-column>
-					<el-table-column
-					    label="部门"
-					    prop="dept_name"
-					    min-width="100"
-					></el-table-column>
-                    <el-table-column
-                        label="创建时间"
-                        prop="create_time"
-                        min-width="150"
-                    ></el-table-column>
-                    <el-table-column
-                        label="最近登录时间"
-                        prop="login_time"
-                        min-width="150"
-                    ></el-table-column>
-                    <el-table-column
-                        label="最近登录IP"
-                        prop="login_ip"
-                        min-width="100"
-                    ></el-table-column>
+                    <el-table-column label="角色" prop="role_name" min-width="100"></el-table-column>
+                    <el-table-column label="部门" prop="dept_name" min-width="100"></el-table-column>
+                    <el-table-column label="创建时间" prop="create_time" min-width="150"></el-table-column>
+                    <el-table-column label="最近登录时间" prop="login_time" min-width="150"></el-table-column>
+                    <el-table-column label="最近登录IP" prop="login_ip" min-width="100"></el-table-column>
                     <el-table-column label="状态" min-width="100">
                         <template #default="{ row }">
                             <el-switch
@@ -88,7 +68,7 @@
                             >
                                 <el-button type="text">编辑</el-button>
                             </router-link>
-                            <popup class="m-r-10 inline" @confirm="handleDelete(row.id)" v-if="row.root != 1">
+                            <popup class="m-r-10 inline" @confirm="handleDelete(row.id)">
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>
@@ -108,71 +88,45 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
 import Pagination from '@/components/pagination/index.vue'
 import Popup from '@/components/popup/index.vue'
-import { apiAdminEdit, apiAdminLists, apiAdminDelete, apiRoleLists } from '@/api/auth'
+import { apiAdminEdit, apiAdminLists, apiAdminDelete } from '@/api/auth'
 import { usePages } from '@/core/hooks/pages'
-export default defineComponent({
-    components: {
-        Pagination,
-        Popup
-    },
-    setup() {
-        // 表单数据
-        const formData = reactive({
-            account: '',
-            name: '',
-            role_id: ''
-        })
-        const roleList: Ref<any[]> = ref([])
-        const { pager, requestApi, resetParams, resetPage } = usePages({
-            callback: apiAdminLists,
-            params: formData
-        })
-        const changeStatus = (data: any) => {
-            apiAdminEdit({
-                id: data.id,
-                account: data.account,
-                name: data.name,
-                role_id: data.role_id,
-                disable: data.disable,
-                multipoint_login: data.multipoint_login
-            }).finally(() => {
-                requestApi()
-            })
-        }
-
-        const handleDelete = (id: number) => {
-            apiAdminDelete({ id }).then(() => {
-                requestApi()
-            })
-        }
-
-        const getRoleList = () => {
-            apiRoleLists({
-                page_type: 1
-            }).then((res: any) => {
-                roleList.value = res.lists
-            })
-        }
-        onMounted(() => {
-            requestApi()
-            getRoleList()
-        })
-        return {
-            formData,
-            roleList,
-            pager,
-            requestApi,
-            resetParams,
-            resetPage,
-            changeStatus,
-            handleDelete
-        }
-    }
+// 查询条件
+const formData = reactive({
+    account: '',
+    name: '',
+    role_id: ''
 })
+
+// 字典数据
+const dictData= ref<Record<string, any[]>>({
+
+})
+// 分页相关
+const { pager, requestApi, resetParams, resetPage } = usePages({
+    callback: apiAdminLists,
+    params: formData
+})
+
+// 删除
+const handleDelete = async (id: number | any []) => {
+    await apiAdminDelete({ id })
+    requestApi()
+}
+
+const getRoleList = () => {
+    apiRoleLists({
+        page_type: 1
+    }).then((res: any) => {
+        roleList.value = res.lists
+    })
+}
+
+requestApi()
+getRoleList()
 </script>
 
 <style lang="scss" scoped>
