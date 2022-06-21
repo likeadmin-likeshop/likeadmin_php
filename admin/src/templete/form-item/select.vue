@@ -5,7 +5,7 @@
         <el-option 
             v-for="(item, index) in dictData.{字典类型}" 
             :key="index" 
-            :label="item.label"
+            :label="item.name"
             :value="item.value"
         />
     </el-select>

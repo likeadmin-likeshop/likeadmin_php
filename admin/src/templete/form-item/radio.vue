@@ -6,6 +6,6 @@
             v-for="(item, index) in dictData.{字典类型}" 
             :key="index" 
             :label="item.value"
-        >{{ item.label }}</el-radio>
+        >{{ item.name }}</el-radio>
     </el-radio-group>
 </el-form-item>
