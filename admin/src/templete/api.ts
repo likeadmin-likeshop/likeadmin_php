@@ -1,26 +1,26 @@
 import request from "@/utils/request"
 
-// 管理员列表
-export function apiAdminLists(params: any) {
-    return request.get('/auth.admin/lists', { params })
+// 字典类型列表
+export function apiDictTypeLists(params: any) {
+    return request.get('/setting.dict.dict_type/lists', { params })
 }
 
-// 管理员添加
-export function apiAdminAdd(params: any) {
-    return request.post('/auth.admin/add', params)
+// 添加字典类型
+export function apiDictTypeAdd(params: any) {
+    return request.post('/setting.dict.dict_type/add', params)
 }
 
-// 管理员编辑
-export function apiAdminEdit(params: any) {
-    return request.post('/auth.admin/edit', params)
+// 编辑字典类型
+export function apiDictTypeEdit(params: any) {
+    return request.post('/setting.dict.dict_type/edit', params)
 }
 
-// 管理员删除
-export function apiAdminDelete(params: any) {
-    return request.post('/auth.admin/delete', params)
+// 删除字典类型
+export function apiDictTypeDelete(params: any) {
+    return request.post('/setting.dict.dict_type/delete', params)
 }
 
-// 管理员详情
-export function apiAdminDetail(params: any) {
-    return request.get('/auth.admin/detail', { params })
+// 字典类型详情
+export function apiDictTypeDetail(params: any) {
+    return request.get('/setting.dict.dict_type/detail', { params })
 }

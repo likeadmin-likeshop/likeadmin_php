@@ -1,25 +1,24 @@
 <template>
-    <div class="admin">
+    <div>
         <el-card shadow="never">
             <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
-                <!-- 搜索条件 -->
-                <el-form-item label="账号：">
-                    <el-input v-model="formData.account" class="ls-input" />
-                </el-form-item>
-                <el-form-item label="名称：">
+                <el-form-item label="字典名称">
                     <el-input v-model="formData.name" class="ls-input" />
                 </el-form-item>
-                <el-form-item label="角色：">
-                    <el-select v-model="formData.role_id" placeholder="全部">
+                <el-form-item label="字典类型">
+                    <el-input v-model="formData.type" class="ls-input" />
+                </el-form-item>
+                <el-form-item label="状态">
+                    <el-select v-model="formData.status">
+                        <el-option label="全部" value />
                         <el-option
-                            v-for="(item, index) in roleList"
+                            v-for="(item, index) in dictData.dict_status"
                             :key="index"
                             :label="item.name"
-                            :value="item.id"
-                        ></el-option>
+                            :value="item.value"
+                        />
                     </el-select>
                 </el-form-item>
-                 <!-- 搜索条件 -->
                 <el-form-item>
                     <div class="m-l-20">
                         <el-button type="primary" @click="resetPage">查询</el-button>
@@ -28,47 +27,40 @@
                 </el-form-item>
             </el-form>
         </el-card>
-        <el-card v-loading="pager.loading" class="m-t-15" shadow="never">
-            <el-button type="primary" size="small">新增管理员</el-button>
+        <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
+            <el-button size="small" type="primary" @click="handleAdd">新增字典类型</el-button>
+            <popup
+                class="m-l-10 inline"
+                :disabled="!selectData.length"
+                content="确认删除选中字典？"
+                @confirm="handleDelete(selectData)"
+            >
+                <template #trigger>
+                    <el-button size="small" :disabled="!selectData.length">删除</el-button>
+                </template>
+            </popup>
             <div class="m-t-15">
-                <el-table :data="pager.lists" size="small">
-                    <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
-                    <el-table-column label="头像" min-width="100">
-                        <template #default="{ row }">
-                            <el-avatar :size="50" :src="row.avatar"></el-avatar>
+                <el-table
+                    :data="pager.lists"
+                    size="small"
+                    @selection-change="handleSelectionChange"
+                >
+                    <el-table-column type="selection" width="55" />
+                    <el-table-column label="ID" prop="id" />
+                    <el-table-column label="字典名称" prop="name" />
+                    <el-table-column label="字典类型" prop="type" />
+                    <el-table-column label="状态">
+                        <template v-slot="{ row }">
+                            <el-tag size="small" v-if="row.status == 1">正常</el-tag>
+                            <el-tag size="small" v-else type="danger">停用</el-tag>
                         </template>
                     </el-table-column>
-                    <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
-                    <el-table-column label="名称" prop="name" min-width="100"></el-table-column>
-                    <el-table-column label="角色" prop="role_name" min-width="100"></el-table-column>
-                    <el-table-column label="部门" prop="dept_name" min-width="100"></el-table-column>
-                    <el-table-column label="创建时间" prop="create_time" min-width="150"></el-table-column>
-                    <el-table-column label="最近登录时间" prop="login_time" min-width="150"></el-table-column>
-                    <el-table-column label="最近登录IP" prop="login_ip" min-width="100"></el-table-column>
-                    <el-table-column label="状态" min-width="100">
+                    <el-table-column label="备注" prop="remark" />
+                    <el-table-column label="创建时间" prop="create_time" />
+                    <el-table-column label="操作" width="200" fixed="right">
                         <template #default="{ row }">
-                            <el-switch
-                                v-model="row.disable"
-                                :active-value="0"
-                                :inactive-value="1"
-                                @change="changeStatus(row)"
-                            />
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="操作" width="150" fixed="right">
-                        <template #default="{ row }">
-                            <router-link
-                                class="m-r-10"
-                                :to="{
-                                    path: '/permission/admin/edit',
-                                    query: {
-                                        id: row.id
-                                    }
-                                }"
-                            >
-                                <el-button type="text">编辑</el-button>
-                            </router-link>
-                            <popup class="m-r-10 inline" @confirm="handleDelete(row.id)">
+                            <el-button type="text" @click="handleEdit(row.id)">编辑</el-button>
+                            <popup class="inline m-l-10" @confirm="handleDelete(row.id)">
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>
@@ -85,48 +77,79 @@
                 />
             </div>
         </el-card>
+        <edit v-model="showEdit" :select-id="selectId" @success="requestApi" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import Pagination from '@/components/pagination/index.vue'
-import Popup from '@/components/popup/index.vue'
-import { apiAdminEdit, apiAdminLists, apiAdminDelete } from '@/api/auth'
 import { usePages } from '@/core/hooks/pages'
+import { apiDictDataLists } from '@/api/dict'
+import { apiDictTypeLists, apiDictTypeDelete } from '@/api/dict'
+import Edit from './edit.vue'
+
+// 编辑时的id
+const selectId = ref<number>()
+
+// 是否显示编辑框
+const showEdit = ref(false)
+
 // 查询条件
 const formData = reactive({
-    account: '',
+    type: '',
     name: '',
-    role_id: ''
+    status: ''
 })
 
-// 字典数据
-const dictData= ref<Record<string, any[]>>({
+// 选中数据
+const selectData = ref<any[]>([])
 
-})
-// 分页相关
-const { pager, requestApi, resetParams, resetPage } = usePages({
-    callback: apiAdminLists,
-    params: formData
-})
-
-// 删除
-const handleDelete = async (id: number | any []) => {
-    await apiAdminDelete({ id })
-    requestApi()
+// 表格选择后回调事件
+const handleSelectionChange = (val: any[]) => {
+    selectData.value = val.map(({ id }) => id)
 }
 
-const getRoleList = () => {
-    apiRoleLists({
-        page_type: 1
+// 字典数据
+const dictData = reactive<Record<string, any[]>>({
+    dict_status: []
+})
+
+// 获取字典数据
+const getDictData = () => {
+    apiDictDataLists({
+        type_value: 'dict_status',
+        page_type: 0
     }).then((res: any) => {
-        roleList.value = res.lists
+        dictData.dict_status = res.lists
     })
 }
 
+// 分页相关
+const { pager, requestApi, resetParams, resetPage } = usePages({
+    callback: apiDictTypeLists,
+    params: formData
+})
+
+// 添加
+const handleAdd = () => {
+    showEdit.value = true
+    selectId.value = undefined
+}
+
+// 编辑
+const handleEdit = (id: number) => {
+    showEdit.value = true
+    selectId.value = id
+}
+
+// 删除
+const handleDelete = async (id: number | any[]) => {
+    await apiDictTypeDelete({ id })
+    requestApi()
+}
+
 requestApi()
-getRoleList()
+getDictData()
 </script>
 
 <style lang="scss" scoped>

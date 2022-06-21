@@ -1,11 +1,10 @@
 <template>
-    <div class="data-table">
+    <div class="edit">
         <popup
             ref="popupRef"
-            class="m-r-10 inline"
             :clickModalClose="false"
-            :title="selectId != undefined ? '编辑字典数据' : '添加字典数据'"
-            width="600px"
+            :title="popupTitle"
+            width="700px"
             :async="true"
             @confirm="handleConfirm"
             @close="handleClose"
@@ -17,24 +16,25 @@
                 label-width="80px"
                 size="small"
                 :rules="rules"
-                v-loading="loading"
+                v-loading="showLoading"
             >
-                <el-form-item label="字典类型">
-                    <el-input v-model="query.type" disabled />
-                </el-form-item>
                 <el-form-item label="数据名称" prop="name">
                     <el-input v-model="formData.name" placeholder="请输入数据名称" />
                 </el-form-item>
                 <el-form-item label="数据值" prop="value">
                     <el-input v-model="formData.value" placeholder="请输入数据值" />
                 </el-form-item>
+
                 <el-form-item label="排序" prop="sort">
                     <el-input v-model="formData.sort" />
                 </el-form-item>
-                <el-form-item label="状态" required prop="status">
+                <el-form-item label="状态" prop="status">
                     <el-radio-group v-model="formData.status">
-                        <el-radio :label="1">正常</el-radio>
-                        <el-radio :label="0">停用</el-radio>
+                        <el-radio
+                            v-for="(item, index) in dictData.dict_status"
+                            :key="index"
+                            :label="item.value"
+                        >{{ item.name }}</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="备注" prop="remark">
@@ -47,11 +47,12 @@
 
 <script lang="ts" setup>
 
-import { reactive, ref, shallowRef, watch } from 'vue'
+import { computed, reactive, ref, shallowRef, watch } from 'vue'
 import Popup from '@/components/popup/index.vue'
-import { apiDictDataAdd, apiDictDataDetail, apiDictDataEdit } from '@/api/dict'
+import { apiDictDataLists } from '@/api/dict'
+import { apiDictTypeAdd, apiDictTypeDetail, apiDictTypeEdit } from '@/api/dict'
 import { ElForm } from 'element-plus'
-import { useRoute } from 'vue-router'
+
 const props = defineProps<{
     modelValue: boolean
     selectId?: number
@@ -64,18 +65,33 @@ const emit = defineEmits<{
 
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const formRef = shallowRef<InstanceType<typeof ElForm>>()
-const { query } = useRoute()
+
+// 字典数据
+const dictData = reactive<Record<string, any[]>>({
+    dict_status: []
+})
+
+// 获取字典数据
+const getDictData = () => {
+    apiDictDataLists({
+        type_value: 'dict_status',
+        page_type: 0
+    }).then((res: any) => {
+        dictData.dict_status = res.lists
+    })
+}
+
+
+// 表单数据
 const formData = reactive({
     name: '',
     value: '',
     sort: '',
     status: 1,
-    remark: '',
-    type_id: query.id
+    remark: ''
 })
 
-
-
+// 表单验证
 const rules = reactive<any>({
     name: [{
         required: true,
@@ -89,29 +105,38 @@ const rules = reactive<any>({
     }]
 })
 
-const loading = ref(false)
+// 弹窗标题
+const popupTitle = computed(() => {
+    return props.selectId != undefined ? '编辑字典数据' : '添加字典数据'
+})
 
+// 是否显示loading
+const showLoading = ref(false)
+
+// 获取详情
 const getDetail = async () => {
     try {
-        loading.value = true
-        const data = await apiDictDataDetail({ id: props.selectId })
-        loading.value = false
+        showLoading.value = true
+        const data = await apiDictTypeDetail({ id: props.selectId })
+        showLoading.value = false
         Object.keys(formData).forEach(key => {
             //@ts-ignore
             formData[key] = data[key]
         })
     } catch (error) {
-        loading.value = false
+        showLoading.value = false
     }
 }
 
+// 提交按钮
 const handleConfirm = async () => {
     await formRef.value?.validate()
-    props.selectId ? await apiDictDataEdit({ id: props.selectId, ...formData }) : await apiDictDataAdd(formData)
+    props.selectId ? await apiDictTypeEdit({ id: props.selectId, ...formData }) : await apiDictTypeAdd(formData)
     popupRef.value?.close()
     emit('success')
 }
 
+// 关闭回调
 const handleClose = () => {
     formRef.value?.resetFields()
     emit('update:modelValue', false)
