@@ -80,7 +80,7 @@ class GeneratorController extends BaseAdminController
     // 生成代码
     public function generate()
     {
-        $params = [];
+        $params = input('');
         GeneratorLogic::generate($params);
     }
 

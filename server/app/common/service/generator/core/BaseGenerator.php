@@ -17,16 +17,105 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+use think\helper\Str;
+
+
 abstract class BaseGenerator
 {
 
     // 模板文件夹
     protected $templateDir;
 
+    // 模块名
+    protected $moduleName;
+
+    // 类目录
+    protected $classDir;
+
+    // 表信息
+    protected $tableData;
+
+    // 文件内容
+    protected $content;
+
+    // 项目基础路径
+    protected $basePath;
+
+    // 项目
+    protected $rootPath;
+
+    // 文件生成文件夹
+    protected $generatorDir;
 
     public function __construct()
     {
-        $this->templateDir = app()->getBasePath() . 'common/service/generator/stub/';
+        $this->basePath = app()->getBasePath();
+        $this->rootPath = app()->getRootPath();
+        $this->templateDir = $this->basePath . 'common/service/generator/stub/';
+        $this->generatorDir = $this->rootPath . 'runtime/generator/';
+        $this->checkDir($this->generatorDir);
+    }
+
+
+    // 创建文件夹
+    public function checkDir($path)
+    {
+        !is_dir($path) && mkdir($path, 0755, true);
+    }
+
+
+    // 设置表信息
+    public function setTableData($tableData)
+    {
+        $this->tableData = $tableData;
+    }
+
+    // 设置模块名
+    public function setModuleName(string $moduleName): void
+    {
+        $this->moduleName = strtolower($moduleName);
+    }
+
+
+    // 设置类目录
+    public function setClassDir(string $classDir): void
+    {
+        $this->classDir = $classDir;
+    }
+
+    // 设置生成文件内容
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+
+
+    // 获取模板路径
+    public function getTemplatePath(string $templateName): string
+    {
+        return $this->templateDir . $templateName . '.stub';
+    }
+
+
+    // 小驼峰命名
+    public function getLowerCamelName()
+    {
+        return Str::camel($this->getTableName());
+    }
+
+
+    // 大驼峰命名
+    public function getUpperCamelName()
+    {
+        return Str::studly($this->getTableName());
+    }
+
+
+    // 获取表名
+    public function getTableName()
+    {
+        $tablePrefix = config('database.connections.mysql.prefix');
+        return str_replace($tablePrefix, '', $this->tableData['table_name']);
     }
 
 }

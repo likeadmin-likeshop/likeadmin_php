@@ -12,39 +12,44 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\common\service\generator;
+namespace app\adminapi\logic\{DIR_NAME};
+
+use app\common\logic\BaseLogic;
+use app\common\model\{DIR_NAME}\{MODEL_NAME};
 
 
-use app\common\service\generator\core\ControllerGenerator;
-
-class GenerateService
+/**
+ * {LOGIC_NAME}逻辑
+ * Class {LOGIC_NAME}
+ * @package app\{MODULE_NAME}\logic\{DIR_NAME}
+ */
+class {LOGIC_NAME} extends BaseLogic
 {
 
-    public function generateBefore()
-    {
-        // 校验文件夹是否存在
-    }
 
-
-    // 生成文件
-    public function generate(array $tableData)
+    public static function add(array $params)
     {
-        // 设置控制器信息
-        $controllerGenerator =  new ControllerGenerator();
-        $controllerGenerator->setGenerateData($tableData);
-        $controllerGenerator->generate();
-        // 生成列表文件
-        // 生成模型文件
-        // 生成逻辑文件
-        // 生成验证器文件
+        return {MODEL_NAME}::create({CREATE_DATA});
     }
 
 
 
-    // 预览文件
-    public function preview()
+    public static function edit(array $params)
     {
-
+        return {MODEL_NAME}::update({UPDATE_DATA});
     }
 
+
+
+    public static function delete(array $params)
+    {
+        DictType::destroy($params['{$PK}']);
+    }
+
+
+
+    public static function detail($params): array
+    {
+        return DictType::findOrEmpty($params['{$PK}'])->toArray();
+    }
 }

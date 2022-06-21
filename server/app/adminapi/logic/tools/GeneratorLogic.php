@@ -180,9 +180,9 @@ class GeneratorLogic extends BaseLogic
             ->whereIn('id', $params['id'])
             ->select()->toArray();
 
+        $ControllerGenerator = new GenerateService();
+
         foreach ($tables as $table) {
-            // 实例化控制器生成器
-            $ControllerGenerator = new GenerateService();
             $ControllerGenerator->generate($table);
         }
     }

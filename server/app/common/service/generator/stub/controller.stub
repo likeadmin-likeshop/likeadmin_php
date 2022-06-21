@@ -24,7 +24,7 @@
  * Class {UPPER_CAMEL_NAME}Controller
  * @package app\{MODULE_NAME}\controller{PACKAGE_NAME}
  */
-class {UPPER_CAMEL_NAME} Controller extends {EXTENDS_CONTROLLER}
+class {UPPER_CAMEL_NAME}Controller extends {EXTENDS_CONTROLLER}
 {
 
 
