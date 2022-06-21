@@ -60,14 +60,14 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
 
         // 等待替换的内容
         $waitReplace = [
-            $this->getNameSpaceTpl(),
-            $this->getUseTpl(),
-            $this->getClassCommentTpl(),
+            $this->getNameSpaceContent(),
+            $this->getUseContent(),
+            $this->getClassCommentContent(),
             $this->getUpperCamelName(),
             $this->moduleName,
-            $this->getPackageNameTpl(),
-            $this->getExtendsListsTpl(),
-            $this->getPkTpl(),
+            $this->getPackageNameContent(),
+            $this->getExtendsListsContent(),
+            $this->getPkContent(),
             $this->getQueryConditionContent()
         ];
 
@@ -81,7 +81,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取命名空间模板内容
-    public function getNameSpaceTpl()
+    public function getNameSpaceContent()
     {
         if (!empty($this->classDir)) {
             return "namespace app\\" . $this->moduleName . "\\lists\\" . $this->classDir . ';';
@@ -91,7 +91,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取use模板内容
-    public function getUseTpl()
+    public function getUseContent()
     {
         if ($this->moduleName == 'adminapi') {
             $tpl = "use app\\" . $this->moduleName . "\\lists\\BaseAdminDataLists;" . PHP_EOL;
@@ -110,7 +110,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取类描述
-    public function getClassCommentTpl()
+    public function getClassCommentContent()
     {
         if (!empty($this->tableData['class_comment'])) {
             $tpl = $this->tableData['class_comment'] . '列表';
@@ -122,14 +122,14 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取包名
-    public function getPackageNameTpl()
+    public function getPackageNameContent()
     {
         return !empty($this->classDir) ? $this->classDir : '';
     }
 
 
     // 获取继承控制器
-    public function getExtendsListsTpl()
+    public function getExtendsListsContent()
     {
         $tpl = 'BaseAdminDataLists';
         if ($this->moduleName != 'adminapi') {
@@ -140,7 +140,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取主键
-    public function getPkTpl()
+    public function getPkContent()
     {
         $pk = 'id';
         if (empty($this->tableColumn)) {

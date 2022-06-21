@@ -54,13 +54,13 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
 
         // 等待替换的内容
         $waitReplace = [
-            $this->getNameSpaceTpl(),
-            $this->getUseTpl(),
-            $this->getClassCommentTpl(),
+            $this->getNameSpaceContent(),
+            $this->getUseContent(),
+            $this->getClassCommentContent(),
             $this->getUpperCamelName(),
             $this->moduleName,
-            $this->getPackageNameTpl(),
-            $this->getExtendsControllerTpl(),
+            $this->getPackageNameContent(),
+            $this->getExtendsControllerContent(),
         ];
 
         $templatePath = $this->getTemplatePath('controller');
@@ -73,7 +73,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取命名空间模板内容
-    public function getNameSpaceTpl()
+    public function getNameSpaceContent()
     {
         if (!empty($this->classDir)) {
             return "namespace app\\" . $this->moduleName . "\\controller\\" . $this->classDir . ';';
@@ -83,7 +83,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取use模板内容
-    public function getUseTpl()
+    public function getUseContent()
     {
         if ($this->moduleName == 'adminapi') {
             $tpl = "use app\\" . $this->moduleName . "\\controller\\BaseAdminController;" . PHP_EOL;
@@ -106,7 +106,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取类描述
-    public function getClassCommentTpl()
+    public function getClassCommentContent()
     {
         if (!empty($this->tableData['class_comment'])) {
             $tpl = $this->tableData['class_comment'] . '控制器';
@@ -118,14 +118,14 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
 
 
     // 获取包名
-    public function getPackageNameTpl()
+    public function getPackageNameContent()
     {
         return !empty($this->classDir) ? '\\' . $this->classDir : '';
     }
 
 
     // 获取继承控制器
-    public function getExtendsControllerTpl()
+    public function getExtendsControllerContent()
     {
         $tpl = 'BaseAdminController';
         if ($this->moduleName != 'adminapi') {
