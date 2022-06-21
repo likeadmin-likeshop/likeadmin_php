@@ -115,10 +115,14 @@ class DictTypeValidate extends BaseValidate
      */
     protected function checkAbleDelete($value)
     {
-        $dictData = DictData::where('type_id', $value)->findOrEmpty();
-        if (!$dictData->isEmpty()) {
-            return '字典类型已被使用，请先删除绑定该字典类型的数据';
+        $dictData = DictData::whereIn('type_id', $value)->select();
+
+        foreach ($dictData as $item) {
+            if (!empty($item)) {
+                return '字典类型已被使用，请先删除绑定该字典类型的数据';
+            }
         }
+
         return true;
     }
 
