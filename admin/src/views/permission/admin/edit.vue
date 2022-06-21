@@ -207,9 +207,7 @@
 			})
 	}
 
-	// 判断是否禁用
-	// 编辑时，过滤掉当前部门, 过滤禁用
-	// 添加时，过滤禁用
+	// 判断是否禁用， 添加禁用字段disabled
 	const isDisabled = (treeArr: Array) => {
 		let newTree = treeArr.map((item) => {
 
