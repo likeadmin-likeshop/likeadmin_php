@@ -37,7 +37,7 @@ class DictDataLists extends BaseAdminDataLists implements ListsSearchInterface
     {
         return [
             '%like%' => ['name', 'type_value'],
-            '=' => ['status']
+            '=' => ['status', 'type_id']
         ];
     }
 

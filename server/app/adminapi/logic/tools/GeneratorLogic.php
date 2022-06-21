@@ -18,7 +18,6 @@ use app\common\enum\GeneratorEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\tools\GenerateColumn;
 use app\common\model\tools\GenerateTable;
-use app\common\service\generator\core\ControllerGenerator;
 use app\common\service\generator\GenerateService;
 use think\facade\Db;
 
@@ -179,7 +178,7 @@ class GeneratorLogic extends BaseLogic
         // 获取数据表信息
         $tables = GenerateTable::with(['table_column'])
             ->whereIn('id', $params['id'])
-            ->select();
+            ->select()->toArray();
 
         foreach ($tables as $table) {
             // 实例化控制器生成器
