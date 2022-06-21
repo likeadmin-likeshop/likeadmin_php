@@ -1,15 +1,15 @@
 <template>
     <div>
         <el-card shadow="never">
-            <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
+            <el-form class="ls-form" :model="queryParams" label-width="80px" size="small" inline>
                 <el-form-item label="字典名称">
-                    <el-input v-model="formData.name" class="ls-input" />
+                    <el-input v-model="queryParams.name" class="ls-input" />
                 </el-form-item>
                 <el-form-item label="字典类型">
-                    <el-input v-model="formData.type" class="ls-input" />
+                    <el-input v-model="queryParams.type" class="ls-input" />
                 </el-form-item>
                 <el-form-item label="状态">
-                    <el-select v-model="formData.status">
+                    <el-select v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option
                             v-for="(item, index) in dictData.dict_status"
@@ -95,7 +95,7 @@ const selectId = ref<number>()
 const showEdit = ref(false)
 
 // 查询条件
-const formData = reactive({
+const queryParams = reactive({
     type: '',
     name: '',
     status: ''
@@ -127,7 +127,7 @@ const getDictData = () => {
 // 分页相关
 const { pager, requestApi, resetParams, resetPage } = usePages({
     callback: apiDictTypeLists,
-    params: formData
+    params: queryParams
 })
 
 // 添加
