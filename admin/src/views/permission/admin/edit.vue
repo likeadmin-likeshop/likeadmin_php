@@ -211,10 +211,10 @@
 	const isDisabled = (treeArr: Array) => {
 		let newTree = treeArr.map((item) => {
 
-			const children = item.children
+			const children = item.children || []
 			if (children.length) isDisabled(children)
 
-			if (item.id == id.value || item.status == 0) {
+			if (item.status == 0) {
 				item.disabled = true
 			} else {
 				item.disabled = false

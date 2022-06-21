@@ -133,7 +133,7 @@
 	const isDisabled = (treeArr: Array) => {
 		let newTree = treeArr.map((item) => {
 
-			const children = item.children
+			const children = item.children || []
 			if (children.length) isDisabled(children)
 
 			if (item.id == id.value || item.status == 0) {
