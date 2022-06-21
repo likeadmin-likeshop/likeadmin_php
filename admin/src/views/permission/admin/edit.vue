@@ -207,14 +207,16 @@
 			})
 	}
 
-	// 判断是否禁用， 添加禁用字段disabled
+	// 判断是否禁用
+	// 编辑时，过滤掉当前部门, 过滤禁用
+	// 添加时，过滤禁用
 	const isDisabled = (treeArr: Array) => {
 		let newTree = treeArr.map((item) => {
 
-			const children = item.children
+			const children = item.children || []
 			if (children.length) isDisabled(children)
 
-			if (item.id == id.value || item.status == 0) {
+			if (item.status == 0) {
 				item.disabled = true
 			} else {
 				item.disabled = false
