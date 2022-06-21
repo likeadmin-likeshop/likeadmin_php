@@ -210,7 +210,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
     {
         $dir = $this->generatorDir;
         if (!empty($this->classDir)) {
-            $dir = $this->generatorDir . $this->classDir . '/';
+            $dir = $this->generatorDir . $this->classDir . '/lists/';
             $this->checkDir($dir);
         }
         return $dir;
