@@ -12,35 +12,34 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\adminapi\lists\dept;
+{NAMESPACE}
 
-use app\adminapi\lists\BaseAdminDataLists;
+
+{USE}
 use app\common\lists\ListsSearchInterface;
-use app\common\model\{DIR_NAME}\{MODEL_NAME};
 
 
 /**
- * {LISTS_NAME}
- * Class {LISTS_NAME}
- * @package app\adminapi\lists\{DIR_NAME}}
+ * {CLASS_COMMENT}
+ * Class {UPPER_CAMEL_NAME}Lists
+ * @package app\{MODULE_NAME}\lists\{PACKAGE_NAME}
  */
-class {LISTS_NAME} extends BaseAdminDataLists implements ListsSearchInterface
+class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInterface
 {
 
     public function setSearch(): array
     {
         return [
-            '%like%' => ['name'],
-            '=' => ['code']
+{QUERY_CONDITION}
         ];
     }
 
 
     public function lists(): array
     {
-        $lists = {MODEL_NAME}::where($this->searchWhere)
+        $lists = {UPPER_CAMEL_NAME}::where($this->searchWhere)
             ->limit($this->limitOffset, $this->limitLength)
-            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->order(['{PK}' => 'desc'])
             ->select()
             ->toArray();
 
@@ -50,7 +49,7 @@ class {LISTS_NAME} extends BaseAdminDataLists implements ListsSearchInterface
 
     public function count(): int
     {
-        return {MODEL_NAME}::where($this->searchWhere)->count();
+        return {UPPER_CAMEL_NAME}::where($this->searchWhere)->count();
     }
 
 }

@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
-class ListGenerator extends BaseGenerator implements GenerateInterface
+class LogicGenerator extends BaseGenerator implements GenerateInterface
 {
 
     public function generate()

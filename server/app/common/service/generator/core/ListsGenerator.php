@@ -17,9 +17,13 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
-class ControllerGenerator extends BaseGenerator implements GenerateInterface
+/**
+ * 列表生成器
+ * Class ListsGenerator
+ * @package app\common\service\generator\core
+ */
+class ListsGenerator extends BaseGenerator implements GenerateInterface
 {
-
 
     // 设置生成数据
     public function setGenerateData($tableData)
@@ -49,7 +53,9 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
             '{UPPER_CAMEL_NAME}',
             '{MODULE_NAME}',
             '{PACKAGE_NAME}',
-            '{EXTENDS_CONTROLLER}'
+            '{EXTENDS_LISTS}',
+            '{PK}',
+            '{QUERY_CONDITION}'
         ];
 
         // 等待替换的内容
@@ -60,10 +66,12 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
             $this->getUpperCamelName(),
             $this->moduleName,
             $this->getPackageNameTpl(),
-            $this->getExtendsControllerTpl(),
+            $this->getExtendsListsTpl(),
+            $this->getPkTpl(),
+            $this->getQueryConditionContent()
         ];
 
-        $templatePath = $this->getTemplatePath('controller');
+        $templatePath = $this->getTemplatePath('lists');
 
         // 替换内容
         $content = str_replace($needReplace, $waitReplace, file_get_contents($templatePath));
@@ -76,9 +84,9 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     public function getNameSpaceTpl()
     {
         if (!empty($this->classDir)) {
-            return "namespace app\\" . $this->moduleName . "\\controller\\" . $this->classDir . ';';
+            return "namespace app\\" . $this->moduleName . "\\lists\\" . $this->classDir . ';';
         }
-        return "namespace app\\" . $this->moduleName . "\\controller;";
+        return "namespace app\\" . $this->moduleName . "\\lists;";
     }
 
 
@@ -86,19 +94,15 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     public function getUseTpl()
     {
         if ($this->moduleName == 'adminapi') {
-            $tpl = "use app\\" . $this->moduleName . "\\controller\\BaseAdminController;" . PHP_EOL;
+            $tpl = "use app\\" . $this->moduleName . "\\lists\\BaseAdminDataLists;" . PHP_EOL;
         } else {
-            $tpl = "use app\\common\\controller\\BaseLikeAdminController;" . PHP_EOL;
+            $tpl = "use app\\common\\lists\\BaseDataLists;" . PHP_EOL;
         }
 
         if (!empty($this->classDir)) {
-            $tpl .= "use app\\" . $this->moduleName . "\\lists\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Lists;" . PHP_EOL .
-                "use app\\" . $this->moduleName . "\\logic\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Logic;" . PHP_EOL .
-                "use app\\" . $this->moduleName . "\\validate\\" . $this->classDir . "\\" . $this->getUpperCamelName() . "Validate;";
+            $tpl .= "use app\\common\\model\\" . $this->classDir . "\\" . $this->getUpperCamelName() . ';';
         } else {
-            $tpl .= "use app\\" . $this->moduleName . "\\lists\\" . $this->getUpperCamelName() . "Lists;" . PHP_EOL .
-                "use app\\" . $this->moduleName . "\\logic\\" . $this->getUpperCamelName() . "Logic;" . PHP_EOL .
-                "use app\\" . $this->moduleName . "\\validate\\" . $this->getUpperCamelName() . "Validate;";
+            $tpl .= "use app\\common\\model\\" . $this->getUpperCamelName() . ';';
         }
 
         return $tpl;
@@ -109,9 +113,9 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     public function getClassCommentTpl()
     {
         if (!empty($this->tableData['class_comment'])) {
-            $tpl = $this->tableData['class_comment'] . '控制器';
+            $tpl = $this->tableData['class_comment'] . '列表';
         } else {
-            $tpl = $this->getUpperCamelName() . '控制器';
+            $tpl = $this->getUpperCamelName() . '列表';
         }
         return $tpl;
     }
@@ -120,25 +124,79 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     // 获取包名
     public function getPackageNameTpl()
     {
-        return !empty($this->classDir) ? '\\' . $this->classDir : '';
+        return !empty($this->classDir) ? $this->classDir : '';
     }
 
 
     // 获取继承控制器
-    public function getExtendsControllerTpl()
+    public function getExtendsListsTpl()
     {
-        $tpl = 'BaseAdminController';
+        $tpl = 'BaseAdminDataLists';
         if ($this->moduleName != 'adminapi') {
-            $tpl = 'BaseLikeAdminController';
+            $tpl = 'BaseDataLists';
         }
         return $tpl;
+    }
+
+
+    // 获取主键
+    public function getPkTpl()
+    {
+        $pk = 'id';
+        if (empty($this->tableColumn)) {
+            return $pk;
+        }
+
+        foreach ($this->tableColumn as $item) {
+            if ($item['is_pk']) {
+                $pk = $item['column_name'];
+            }
+        }
+
+        return $pk;
+    }
+
+
+    // 获取查询条件内容
+    public function getQueryConditionContent()
+    {
+        $columnQuery = array_column($this->tableColumn, 'query_type');
+        $query = array_unique($columnQuery);
+
+        $conditon = '';
+        foreach ($query as $queryName) {
+            $columnValue = '';
+            foreach ($this->tableColumn as $column) {
+                if ($queryName == $column['query_type']) {
+                    $columnValue .= "'" . $column['column_name'] . "', ";
+                }
+            }
+            if (!empty($columnValue)) {
+                $columnValue = substr($columnValue, 0, -2);
+                $conditon .= "'$queryName' => [" . trim($columnValue) . "]," . PHP_EOL;
+            }
+        }
+
+        $content = substr($conditon, 0, -1);
+        return $this->setBlankSpace($content, "            ");
+    }
+
+
+    // 设置空格占位
+    public function setBlankSpace($content, $blankpace)
+    {
+        $content = explode(PHP_EOL, $content);
+        foreach ($content as $line => $text) {
+            $content[$line] = $blankpace . $text;
+        }
+        return (implode(PHP_EOL, $content));
     }
 
 
     // 目标模块下的生成文件文件夹 (生成到模块时使用)
     public function getModuleGenerateDir()
     {
-        $dir = $this->basePath . $this->moduleName . '/controller/';
+        $dir = $this->basePath . $this->moduleName . '/lists/';
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
             $this->checkDir($dir);
@@ -162,7 +220,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     // 生成的文件名
     public function getGenerateName()
     {
-        return $this->getUpperCamelName() . 'Controller.php';
+        return $this->getUpperCamelName() . 'Lists.php';
     }
 
 

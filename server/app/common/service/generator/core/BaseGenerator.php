@@ -35,6 +35,9 @@ abstract class BaseGenerator
     // 表信息
     protected $tableData;
 
+    // 表字段信息
+    protected $tableColumn;
+
     // 文件内容
     protected $content;
 
@@ -68,6 +71,7 @@ abstract class BaseGenerator
     public function setTableData($tableData)
     {
         $this->tableData = $tableData;
+        $this->tableColumn = $tableData['table_column'] ?? [];
     }
 
     // 设置模块名
