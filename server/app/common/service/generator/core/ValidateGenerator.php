@@ -17,6 +17,11 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+/**
+ * 验证器生成器
+ * Class ValidateGenerator
+ * @package app\common\service\generator\core
+ */
 class ValidateGenerator extends BaseGenerator implements GenerateInterface
 {
 

@@ -12,44 +12,49 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\adminapi\logic\{DIR_NAME};
+{NAMESPACE}
 
+
+{USE}
 use app\common\logic\BaseLogic;
-use app\common\model\{DIR_NAME}\{MODEL_NAME};
 
 
 /**
- * {LOGIC_NAME}逻辑
- * Class {LOGIC_NAME}
- * @package app\{MODULE_NAME}\logic\{DIR_NAME}
+ * {CLASS_COMMENT}
+ * Class {UPPER_CAMEL_NAME}Logic
+ * @package app\{MODULE_NAME}\logic{PACKAGE_NAME}
  */
-class {LOGIC_NAME} extends BaseLogic
+class {UPPER_CAMEL_NAME}Logic extends BaseLogic
 {
 
 
     public static function add(array $params)
     {
-        return {MODEL_NAME}::create({CREATE_DATA});
+        return {UPPER_CAMEL_NAME}::create([
+{CREATE_DATA}
+        ]);
     }
 
 
 
     public static function edit(array $params)
     {
-        return {MODEL_NAME}::update({UPDATE_DATA});
+        return {UPPER_CAMEL_NAME}::update([
+{UPDATE_DATA}
+        ]);
     }
 
 
 
     public static function delete(array $params)
     {
-        DictType::destroy($params['{$PK}']);
+        {UPPER_CAMEL_NAME}::destroy($params['{PK}']);
     }
 
 
 
     public static function detail($params): array
     {
-        return DictType::findOrEmpty($params['{$PK}'])->toArray();
+        return {UPPER_CAMEL_NAME}::findOrEmpty($params['{PK}'])->toArray();
     }
 }

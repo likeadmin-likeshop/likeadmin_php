@@ -17,6 +17,7 @@ namespace app\common\service\generator;
 
 use app\common\service\generator\core\ControllerGenerator;
 use app\common\service\generator\core\ListsGenerator;
+use app\common\service\generator\core\LogicGenerator;
 use app\common\service\generator\core\ModelGenerator;
 use app\common\service\generator\core\ValidateGenerator;
 
@@ -49,7 +50,9 @@ class GenerateService
         $validateGenerator->setGenerateData($tableData);
         $validateGenerator->generate();
         // 生成逻辑文件
-
+        $logicGenerator = new LogicGenerator();
+        $logicGenerator->setGenerateData($tableData);
+        $logicGenerator->generate();
     }
 
 
