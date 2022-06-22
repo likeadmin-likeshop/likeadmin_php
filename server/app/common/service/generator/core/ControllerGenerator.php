@@ -155,7 +155,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     // runtime目录下的生成文件文件夹 (压缩包下载时使用)
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'app/' . $this->moduleName . '/controller/';
+        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/controller/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';

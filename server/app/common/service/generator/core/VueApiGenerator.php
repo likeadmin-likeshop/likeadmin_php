@@ -18,12 +18,13 @@ namespace app\common\service\generator\core;
 
 
 /**
- * 验证器生成器
- * Class ValidateGenerator
+ * vue-api生成器
+ * Class VueApiGenerator
  * @package app\common\service\generator\core
  */
-class ValidateGenerator extends BaseGenerator implements GenerateInterface
+class VueApiGenerator extends BaseGenerator implements GenerateInterface
 {
+
 
     // 设置生成数据
     public function setGenerateData($tableData)
@@ -47,27 +48,19 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
     {
         // 需要替换的变量
         $needReplace = [
-            '{NAMESPACE}',
-            '{CLASS_COMMENT}',
+            '{COMMENT}',
             '{UPPER_CAMEL_NAME}',
-            '{MODULE_NAME}',
-            '{PACKAGE_NAME}',
-            '{PK}',
-            '{RULE}'
+            '{ROUTE}'
         ];
 
         // 等待替换的内容
         $waitReplace = [
-            $this->getNameSpaceContent(),
-            $this->getClassCommentContent(),
+            $this->getCommentContent(),
             $this->getUpperCamelName(),
-            $this->moduleName,
-            $this->getPackageNameContent(),
-            $this->getPkContent(),
-            $this->getRuleContent()
+            $this->getRouteContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('validate');
+        $templatePath = $this->getTemplatePath('controller');
 
         // 替换内容
         $content = str_replace($needReplace, $waitReplace, file_get_contents($templatePath));
@@ -76,57 +69,28 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 验证规则
-    public function getRuleContent()
+    // 表描述
+    public function getCommentContent()
     {
-        $content = '';
-        foreach ($this->tableColumn as $column) {
-            if ($column['is_null'] == 0) {
-                $content .= "'" . $column['column_name'] . "' => 'require'," . PHP_EOL;
-            }
-        }
-        if (empty($content)) {
-            return $column;
-        }
-        $content = substr($content, 0, -2);
-        $content = $this->setBlankSpace($content, "        ");
-        return $content;
+        return $this->tableData['table_comment'];
     }
 
 
-    // 获取命名空间模板内容
-    public function getNameSpaceContent()
+    // 路由名称
+    public function getRouteContent()
     {
+        $content = $this->getTableName();
         if (!empty($this->classDir)) {
-            return "namespace app\\" . $this->moduleName . "\\validate\\" . $this->classDir . ';';
+            $content = $this->classDir . '.' . $this->getTableName();
         }
-        return "namespace app\\" . $this->moduleName . "\\validate;";
-    }
-
-
-    // 获取类描述
-    public function getClassCommentContent()
-    {
-        if (!empty($this->tableData['class_comment'])) {
-            $tpl = $this->tableData['class_comment'] . '验证器';
-        } else {
-            $tpl = $this->getUpperCamelName() . '验证器';
-        }
-        return $tpl;
-    }
-
-
-    // 获取包名
-    public function getPackageNameContent()
-    {
-        return !empty($this->classDir) ? '\\' . $this->classDir : '';
+        return $content;
     }
 
 
     // 目标模块下的生成文件文件夹 (生成到模块时使用)
     public function getModuleGenerateDir()
     {
-        $dir = $this->basePath . $this->moduleName . '/validate/';
+        $dir = $this->basePath . $this->moduleName . '/controller/';
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
             $this->checkDir($dir);
@@ -138,12 +102,8 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
     // runtime目录下的生成文件文件夹 (压缩包下载时使用)
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/validate/';
+        $dir = $this->generatorDir . 'vue/src/api/';
         $this->checkDir($dir);
-        if (!empty($this->classDir)) {
-            $dir .= $this->classDir . '/';
-            $this->checkDir($dir);
-        }
         return $dir;
     }
 
@@ -151,7 +111,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
     // 生成的文件名
     public function getGenerateName()
     {
-        return $this->getUpperCamelName() . 'Validate.php';
+        return $this->getTableName() . '.ts';
     }
 
 
