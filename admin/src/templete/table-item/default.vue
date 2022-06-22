@@ -1,0 +1,1 @@
+<el-table-column label="{字段描述}" prop="{字段名称}" />
