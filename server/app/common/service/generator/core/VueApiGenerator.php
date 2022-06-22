@@ -25,24 +25,12 @@ namespace app\common\service\generator\core;
 class VueApiGenerator extends BaseGenerator implements GenerateInterface
 {
 
-    // 设置生成数据
-    public function setGenerateData($tableData)
-    {
-        // 设置当前表信息
-        $this->setTableData($tableData);
-
-        // 设置模块名
-        $this->setModuleName($tableData['module_name']);
-
-        // 设置类目录
-        $this->setClassDir($tableData['class_dir'] ?? '');
-
-        // 替换模板变量
-        $this->replaceVariables();
-    }
-
-
-    // 替换变量
+    /**
+     * @notes 替换变量
+     * @return mixed|void
+     * @author 段誉
+     * @date 2022/6/22 18:19
+     */
     public function replaceVariables()
     {
         // 需要替换的变量
@@ -68,14 +56,24 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 表描述
+    /**
+     * @notes 描述
+     * @return mixed
+     * @author 段誉
+     * @date 2022/6/22 18:19
+     */
     public function getCommentContent()
     {
         return $this->tableData['table_comment'];
     }
 
 
-    // 路由名称
+    /**
+     * @notes 路由名称
+     * @return array|string|string[]
+     * @author 段誉
+     * @date 2022/6/22 18:19
+     */
     public function getRouteContent()
     {
         $content = $this->getTableName();
@@ -86,7 +84,12 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 目标模块下的生成文件文件夹 (生成到模块时使用)
+    /**
+     * @notes 获取文件生成到模块的文件夹路径
+     * @return mixed|void
+     * @author 段誉
+     * @date 2022/6/22 18:19
+     */
     public function getModuleGenerateDir()
     {
         $dir = dirname(app()->getRootPath());
@@ -100,7 +103,12 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // runtime目录下的生成文件文件夹 (压缩包下载时使用)
+    /**
+     * @notes 获取文件生成到runtime的文件夹路径
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:20
+     */
     public function getRuntimeGenerateDir()
     {
         $dir = $this->generatorDir . 'vue/src/api/';
@@ -109,31 +117,15 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 生成的文件名
+    /**
+     * @notes 生成的文件名
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:20
+     */
     public function getGenerateName()
     {
         return $this->getTableName() . '.ts';
-    }
-
-
-    // 生成文件
-    public function generate()
-    {
-        //生成方式  0-压缩包下载 1-生成到模块
-        if ($this->tableData['generate_type']) {
-            // 生成路径
-            $path = $this->getModuleGenerateDir() . $this->getGenerateName();
-            // 如文件已存在，则增加后续
-            if (file_exists($path)) {
-                $path .= '_' . time();
-            }
-        } else {
-            // 生成到runtime目录
-            $path = $this->getRuntimeGenerateDir() . $this->getGenerateName();
-        }
-
-        // 写入内容
-        file_put_contents($path, $this->content);
     }
 
 

@@ -34,31 +34,20 @@ class GenerateService
     // 生成文件
     public function generate(array $tableData)
     {
-        // 设置控制器信息
-        $controllerGenerator = new ControllerGenerator();
-        $controllerGenerator->setGenerateData($tableData);
-        $controllerGenerator->generate();
-        // 生成列表文件
-        $listsGenerator = new ListsGenerator();
-        $listsGenerator->setGenerateData($tableData);
-        $listsGenerator->generate();
-        // 生成模型文件
-        $modelGenerator = new ModelGenerator();
-        $modelGenerator->setGenerateData($tableData);
-        $modelGenerator->generate();
-        // 生成验证器文件
-        $validateGenerator = new ValidateGenerator();
-        $validateGenerator->setGenerateData($tableData);
-        $validateGenerator->generate();
-        // 生成逻辑文件
-        $logicGenerator = new LogicGenerator();
-        $logicGenerator->setGenerateData($tableData);
-        $logicGenerator->generate();
+        $generators = [
+            ControllerGenerator::class,
+            ListsGenerator::class,
+            ModelGenerator::class,
+            ValidateGenerator::class,
+            LogicGenerator::class,
+            VueApiGenerator::class,
+        ];
 
-        // vue-api
-        $vueApiGenerator = new VueApiGenerator();
-        $vueApiGenerator->setGenerateData($tableData);
-        $vueApiGenerator->generate();
+        foreach ($generators as $item) {
+            $generator = app()->make($item);
+            $generator->initGenerateData($tableData);
+            $generator->generate();
+        }
     }
 
 

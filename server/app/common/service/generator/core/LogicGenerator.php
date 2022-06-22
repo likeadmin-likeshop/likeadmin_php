@@ -25,24 +25,12 @@ namespace app\common\service\generator\core;
 class LogicGenerator extends BaseGenerator implements GenerateInterface
 {
 
-    // 设置生成数据
-    public function setGenerateData($tableData)
-    {
-        // 设置当前表信息
-        $this->setTableData($tableData);
-
-        // 设置模块名
-        $this->setModuleName($tableData['module_name']);
-
-        // 设置类目录
-        $this->setClassDir($tableData['class_dir'] ?? '');
-
-        // 替换模板变量
-        $this->replaceVariables();
-    }
-
-
-    // 替换变量
+    /**
+     * @notes 替换变量
+     * @return mixed|void
+     * @author 段誉
+     * @date 2022/6/22 18:14
+     */
     public function replaceVariables()
     {
         // 需要替换的变量
@@ -80,7 +68,12 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 添加内容
+    /**
+     * @notes 添加内容
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:14
+     */
     public function getCreateDataContent()
     {
         $content = '';
@@ -98,7 +91,12 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 编辑内容
+    /**
+     * @notes 编辑内容
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:14
+     */
     public function getUpdateDataContent()
     {
         $conditionContent = "'" . $this->getPkContent() . "' => " . '$params[' . "'" . $this->getPkContent() . "'" . '],' . PHP_EOL;
@@ -122,7 +120,12 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 获取命名空间模板内容
+    /**
+     * @notes 获取命名空间内容
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:14
+     */
     public function getNameSpaceContent()
     {
         if (!empty($this->classDir)) {
@@ -132,7 +135,12 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 获取use模板内容
+    /**
+     * @notes 获取use内容
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:14
+     */
     public function getUseContent()
     {
         $tpl = "use app\\common\\model\\" . $this->getUpperCamelName() . ';';
@@ -143,7 +151,12 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 获取类描述
+    /**
+     * @notes 获取类描述
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:14
+     */
     public function getClassCommentContent()
     {
         if (!empty($this->tableData['class_comment'])) {
@@ -155,14 +168,24 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 获取包名
+    /**
+     * @notes 获取包名
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:14
+     */
     public function getPackageNameContent()
     {
         return !empty($this->classDir) ? '\\' . $this->classDir : '';
     }
 
 
-    // 目标模块下的生成文件文件夹 (生成到模块时使用)
+    /**
+     * @notes 获取文件生成到模块的文件夹路径
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:15
+     */
     public function getModuleGenerateDir()
     {
         $dir = $this->basePath . $this->moduleName . '/logic/';
@@ -174,7 +197,12 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // runtime目录下的生成文件文件夹 (压缩包下载时使用)
+    /**
+     * @notes 获取文件生成到runtime的文件夹路径
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:15
+     */
     public function getRuntimeGenerateDir()
     {
         $dir = $this->generatorDir . 'php/app/' . $this->moduleName . '/logic/';
@@ -187,33 +215,15 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 生成的文件名
+    /**
+     * @notes 生成的文件名
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:15
+     */
     public function getGenerateName()
     {
         return $this->getUpperCamelName() . 'Logic.php';
-    }
-
-
-    // 生成文件
-    public function generate()
-    {
-        //生成方式  0-压缩包下载 1-生成到模块
-        if ($this->tableData['generate_type']) {
-            // 生成路径
-            $path = $this->getModuleGenerateDir() . $this->getGenerateName();
-            // 如文件已存在，则增加后续
-            if (file_exists($path)) {
-                $path .= '_' . time();
-            }
-        } else {
-            // 生成到runtime目录
-            $path = $this->getRuntimeGenerateDir() . $this->getGenerateName();
-        }
-
-        // 写入内容
-        file_put_contents($path, $this->content);
-
-        return true;
     }
 
 

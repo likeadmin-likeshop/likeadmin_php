@@ -20,35 +20,76 @@ namespace app\common\service\generator\core;
 use think\helper\Str;
 
 
+/**
+ * 生成器基类
+ * Class BaseGenerator
+ * @package app\common\service\generator\core
+ */
 abstract class BaseGenerator
 {
 
-    // 模板文件夹
+    /**
+     * 模板文件夹
+     * @var string
+     */
     protected $templateDir;
 
-    // 模块名
+
+    /**
+     * 模块名
+     * @var string
+     */
     protected $moduleName;
 
-    // 类目录
+
+    /**
+     * 类目录
+     * @var string
+     */
     protected $classDir;
 
-    // 表信息
+
+    /**
+     * 表信息
+     * @var array
+     */
     protected $tableData;
 
-    // 表字段信息
+
+    /**
+     * 表字段信息
+     * @var array
+     */
     protected $tableColumn;
 
-    // 文件内容
+
+    /**
+     * 文件内容
+     * @var string
+     */
     protected $content;
 
-    // 项目基础路径
+
+    /**
+     * basePath
+     * @var string
+     */
     protected $basePath;
 
-    // 项目
+
+    /**
+     * rootPath
+     * @var string
+     */
     protected $rootPath;
 
-    // 文件生成文件夹
+
+    /**
+     * 生成的文件夹
+     * @var string
+     */
     protected $generatorDir;
+
 
     public function __construct()
     {
@@ -60,62 +101,177 @@ abstract class BaseGenerator
     }
 
 
-    // 创建文件夹
+    /**
+     * @notes 初始化表表数据
+     * @param array $tableData
+     * @author 段誉
+     * @date 2022/6/22 18:03
+     */
+    public function initGenerateData(array $tableData)
+    {
+        // 设置当前表信息
+        $this->setTableData($tableData);
+        // 设置模块名
+        $this->setModuleName($tableData['module_name']);
+        // 设置类目录
+        $this->setClassDir($tableData['class_dir'] ?? '');
+        // 替换模板变量
+        $this->replaceVariables();
+    }
+
+
+    /**
+     * @notes 生成文件到模块或runtime目录
+     * @author 段誉
+     * @date 2022/6/22 18:03
+     */
+    public function generate()
+    {
+        //生成方式  0-压缩包下载 1-生成到模块
+        if ($this->tableData['generate_type']) {
+            // 生成路径
+            $path = $this->getModuleGenerateDir() . $this->getGenerateName();
+            // 如文件已存在，则增加后续
+            if (file_exists($path)) {
+                $path .= '_' . time();
+            }
+        } else {
+            // 生成到runtime目录
+            $path = $this->getRuntimeGenerateDir() . $this->getGenerateName();
+        }
+
+        // 写入内容
+        file_put_contents($path, $this->content);
+    }
+
+
+    /**
+     * @notes 获取文件生成到模块的文件夹路径
+     * @return mixed
+     * @author 段誉
+     * @date 2022/6/22 18:05
+     */
+    abstract public function getModuleGenerateDir();
+
+
+    /**
+     * @notes  获取文件生成到runtime的文件夹路径
+     * @return mixed
+     * @author 段誉
+     * @date 2022/6/22 18:05
+     */
+    abstract public function getRuntimeGenerateDir();
+
+
+    /**
+     * @notes 替换模板变量
+     * @return mixed
+     * @author 段誉
+     * @date 2022/6/22 18:06
+     */
+    abstract public function replaceVariables();
+
+
+    /**
+     * @notes 生成文件名
+     * @return mixed
+     * @author 段誉
+     * @date 2022/6/22 18:17
+     */
+    abstract public function getGenerateName();
+
+    /**
+     * @notes 文件夹不存在则创建
+     * @param $path
+     * @author 段誉
+     * @date 2022/6/22 18:07
+     */
     public function checkDir($path)
     {
         !is_dir($path) && mkdir($path, 0755, true);
     }
 
 
-    // 设置表信息
+    /**
+     * @notes 设置表信息
+     * @param $tableData
+     * @author 段誉
+     * @date 2022/6/22 18:07
+     */
     public function setTableData($tableData)
     {
-        $this->tableData = $tableData;
+        $this->tableData = !empty($tableData) ? $tableData : [];
         $this->tableColumn = $tableData['table_column'] ?? [];
     }
 
-    // 设置模块名
+
+    /**
+     * @notes 设置模块名
+     * @param string $moduleName
+     * @author 段誉
+     * @date 2022/6/22 18:07
+     */
     public function setModuleName(string $moduleName): void
     {
         $this->moduleName = strtolower($moduleName);
     }
 
 
-    // 设置类目录
+    /**
+     * @notes 设置类目录
+     * @param string $classDir
+     * @author 段誉
+     * @date 2022/6/22 18:08
+     */
     public function setClassDir(string $classDir): void
     {
         $this->classDir = $classDir;
     }
 
-    // 设置生成文件内容
+
+    /**
+     * @notes 设置生成文件内容
+     * @param string $content
+     * @author 段誉
+     * @date 2022/6/22 18:08
+     */
     public function setContent(string $content): void
     {
         $this->content = $content;
     }
 
 
-    // 获取模板路径
+    /**
+     * @notes 获取模板路径
+     * @param string $templateName
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:09
+     */
     public function getTemplatePath(string $templateName): string
     {
         return $this->templateDir . $templateName . '.stub';
     }
 
 
-    // 小驼峰命名
-    public function getLowerCamelName()
-    {
-        return Str::camel($this->getTableName());
-    }
-
-
-    // 大驼峰命名
+    /**
+     * @notes 大驼峰命名
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:09
+     */
     public function getUpperCamelName()
     {
         return Str::studly($this->getTableName());
     }
 
 
-    // 获取表名
+    /**
+     * @notes 获取表名
+     * @return array|string|string[]
+     * @author 段誉
+     * @date 2022/6/22 18:09
+     */
     public function getTableName()
     {
         $tablePrefix = config('database.connections.mysql.prefix');
@@ -123,7 +279,12 @@ abstract class BaseGenerator
     }
 
 
-    // 获取主键
+    /**
+     * @notes 获取表主键
+     * @return mixed|string
+     * @author 段誉
+     * @date 2022/6/22 18:09
+     */
     public function getPkContent()
     {
         $pk = 'id';
@@ -140,7 +301,14 @@ abstract class BaseGenerator
     }
 
 
-    // 设置空格占位
+    /**
+     * @notes 设置空额占位符
+     * @param $content
+     * @param $blankpace
+     * @return string
+     * @author 段誉
+     * @date 2022/6/22 18:09
+     */
     public function setBlankSpace($content, $blankpace)
     {
         $content = explode(PHP_EOL, $content);
