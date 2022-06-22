@@ -17,6 +17,7 @@
 
 {USE}
 use app\common\logic\BaseLogic;
+use think\facade\Db;
 
 
 /**
@@ -30,18 +31,36 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
 
     public static function add(array $params)
     {
-        return {UPPER_CAMEL_NAME}::create([
+        Db::startTrans();
+        try {
+            {UPPER_CAMEL_NAME}::create([
 {CREATE_DATA}
-        ]);
+            ]);
+            Db::commit();
+            return true;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::setError($e->getMessage());
+            return false;
+        }
     }
 
 
 
     public static function edit(array $params)
     {
-        return {UPPER_CAMEL_NAME}::update([
+        Db::startTrans();
+        try {
+            {UPPER_CAMEL_NAME}::update([
 {UPDATE_DATA}
-        ]);
+            ]);
+            Db::commit();
+            return true;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::setError($e->getMessage());
+            return false;
+        }
     }
 
 

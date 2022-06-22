@@ -86,7 +86,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
             return $content;
         }
         $content = substr($content, 0, -2);
-        $content = $this->setBlankSpace($content, "            ");
+        $content = $this->setBlankSpace($content, "                ");
         return $content;
     }
 
@@ -114,7 +114,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
 
         $columnContent = substr($columnContent, 0, -2);
         $content = $conditionContent . $columnContent;
-        $content = $this->setBlankSpace($content, "            ");
+        $content = $this->setBlankSpace($content, "                ");
 
         return $content;
     }

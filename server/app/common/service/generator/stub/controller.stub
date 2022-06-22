@@ -37,8 +37,11 @@ class {UPPER_CAMEL_NAME}Controller extends {EXTENDS_CONTROLLER}
     public function add()
     {
         $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck('add');
-        {UPPER_CAMEL_NAME}Logic::add($params);
-        return $this->success('添加成功', [], 1, 1);
+        $result = {UPPER_CAMEL_NAME}Logic::add($params);
+        if (true === $result) {
+            return $this->success('编辑成功', [], 1, 1);
+        }
+        return $this->fail({UPPER_CAMEL_NAME}Logic::getError());
     }
 
 
