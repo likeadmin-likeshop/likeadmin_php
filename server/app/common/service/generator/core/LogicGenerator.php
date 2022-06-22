@@ -101,14 +101,23 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     // 编辑内容
     public function getUpdateDataContent()
     {
-        $content = "'" . $this->getPkContent() . "' => " . '$params[' . "'" . $this->getPkContent() . "'" . '],' . PHP_EOL;
+        $conditionContent = "'" . $this->getPkContent() . "' => " . '$params[' . "'" . $this->getPkContent() . "'" . '],' . PHP_EOL;
+        $columnContent = '';
+
         foreach ($this->tableColumn as $column) {
             if ($column['is_update']) {
-                $content .= "'" . $column['column_name'] . "' => " . '$params[' . "'" . $column['column_name'] . "'" . '],' . PHP_EOL;
+                $columnContent .= "'" . $column['column_name'] . "' => " . '$params[' . "'" . $column['column_name'] . "'" . '],' . PHP_EOL;
             }
         }
-        $content = substr($content, 0, -2);
+
+        if (empty($columnContent)) {
+            return '';
+        }
+
+        $columnContent = substr($columnContent, 0, -2);
+        $content = $conditionContent . $columnContent;
         $content = $this->setBlankSpace($content, "            ");
+
         return $content;
     }
 

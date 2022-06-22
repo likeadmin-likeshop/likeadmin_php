@@ -38,6 +38,7 @@ class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInte
     public function lists(): array
     {
         $lists = {UPPER_CAMEL_NAME}::where($this->searchWhere)
+            ->field([{FIELD_DATA}])
             ->limit($this->limitOffset, $this->limitLength)
             ->order(['{PK}' => 'desc'])
             ->select()

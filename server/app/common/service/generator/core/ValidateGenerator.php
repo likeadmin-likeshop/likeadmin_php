@@ -85,6 +85,9 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
                 $content .= "'" . $column['column_name'] . "' => 'require'," . PHP_EOL;
             }
         }
+        if (empty($content)) {
+            return $column;
+        }
         $content = substr($content, 0, -2);
         $content = $this->setBlankSpace($content, "        ");
         return $content;

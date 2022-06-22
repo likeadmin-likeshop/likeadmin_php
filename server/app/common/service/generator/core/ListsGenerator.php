@@ -55,7 +55,8 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             '{PACKAGE_NAME}',
             '{EXTENDS_LISTS}',
             '{PK}',
-            '{QUERY_CONDITION}'
+            '{QUERY_CONDITION}',
+            '{FIELD_DATA}'
         ];
 
         // 等待替换的内容
@@ -68,7 +69,8 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             $this->getPackageNameContent(),
             $this->getExtendsListsContent(),
             $this->getPkContent(),
-            $this->getQueryConditionContent()
+            $this->getQueryConditionContent(),
+            $this->getFieldDataContent(),
         ];
 
         $templatePath = $this->getTemplatePath('lists');
@@ -161,6 +163,23 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
 
         $content = substr($conditon, 0, -1);
         return $this->setBlankSpace($content, "            ");
+    }
+
+
+    // 获取查询字段
+    public function getFieldDataContent()
+    {
+        $content = '';
+        foreach ($this->tableColumn as $column) {
+            if ($column['is_lists']) {
+                $content .= "'" . $column['column_name'] . "', ";
+            }
+        }
+        if (empty($content)) {
+            return $content;
+        }
+        $content = substr($content, 0, -2);
+        return $content;
     }
 
 
