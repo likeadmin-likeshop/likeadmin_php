@@ -92,14 +92,9 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getModuleGenerateDir()
     {
-        $dir = dirname(app()->getRootPath());
-        dd($dir);
-//        $dir = $this->basePath . $this->moduleName . '/controller/';
-//        if (!empty($this->classDir)) {
-//            $dir .= $this->classDir . '/';
-//            $this->checkDir($dir);
-//        }
-//        return $dir;
+        $dir = dirname(app()->getRootPath()) . '/admin/src/api/';
+        $this->checkDir($dir);
+        return $dir;
     }
 
 

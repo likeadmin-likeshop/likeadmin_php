@@ -110,7 +110,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getModuleGenerateDir()
     {
-        $dir = $this->basePath . $this->moduleName . '/model/';
+        $dir = $this->basePath . 'common/model/';
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
             $this->checkDir($dir);
