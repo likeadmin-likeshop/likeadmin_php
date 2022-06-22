@@ -180,13 +180,14 @@ abstract class BaseGenerator
      */
     abstract public function getGenerateName();
 
+
     /**
      * @notes 文件夹不存在则创建
-     * @param $path
+     * @param string $path
      * @author 段誉
      * @date 2022/6/22 18:07
      */
-    public function checkDir($path)
+    public function checkDir(string $path)
     {
         !is_dir($path) && mkdir($path, 0755, true);
     }

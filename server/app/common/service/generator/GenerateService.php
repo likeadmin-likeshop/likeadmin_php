@@ -25,7 +25,8 @@ use app\common\service\generator\core\VueApiGenerator;
 class GenerateService
 {
 
-    public function generateBefore()
+    // 校验表内容是否缺失
+    public function Before()
     {
         // 校验文件夹是否存在
     }
