@@ -76,7 +76,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
         if (!empty($this->classDir)) {
             return "namespace app\\common\\model\\" . $this->classDir . ';';
         }
-        return "namespace app\\common\\lists;";
+        return "namespace app\\common\\model;";
     }
 
 
