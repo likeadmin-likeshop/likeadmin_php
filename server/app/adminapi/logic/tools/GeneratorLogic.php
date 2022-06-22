@@ -175,15 +175,26 @@ class GeneratorLogic extends BaseLogic
     // 生成代码
     public static function generate($params)
     {
-        // 获取数据表信息
-        $tables = GenerateTable::with(['table_column'])
-            ->whereIn('id', $params['id'])
-            ->select()->toArray();
+        try {
+            // 获取数据表信息
+            $tables = GenerateTable::with(['table_column'])
+                ->whereIn('id', $params['id'])
+                ->select()->toArray();
 
-        $ControllerGenerator = new GenerateService();
+            if (empty($tables)) {
+                throw new \Exception('表数据不能为空');
+            }
 
-        foreach ($tables as $table) {
-            $ControllerGenerator->generate($table);
+            foreach ($tables as $table) {
+                app()->make(GenerateService::class)->generate($table);
+            }
+
+            return true;
+
+        } catch (\Exception $e) {
+            self::$error = $e->getMessage();
+            dd($e->getMessage());
+            return false;
         }
     }
 

@@ -29,6 +29,7 @@ class GenerateService
     public function Before()
     {
         // 校验文件夹是否存在
+        // 清空runtime目录 或设置一个缓存
     }
 
 
