@@ -17,6 +17,11 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+/**
+ * 控制器生成器
+ * Class ControllerGenerator
+ * @package app\common\service\generator\core
+ */
 class ControllerGenerator extends BaseGenerator implements GenerateInterface
 {
 

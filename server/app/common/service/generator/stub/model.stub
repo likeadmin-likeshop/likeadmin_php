@@ -12,18 +12,19 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\common\model\{DIR_NAME};
+{NAMESPACE}
+
 
 use app\common\model\BaseModel;
 use think\model\concern\SoftDelete;
 
 
 /**
- * {MODEL_NAME}模型
- * Class {MODEL_NAME}
- * @package app\common\model\{DIR_NAME}
+ * {CLASS_COMMENT}
+ * Class {UPPER_CAMEL_NAME}
+ * @package app\common\model{PACKAGE_NAME}
  */
-class {MODEL_NAME} extends BaseModel
+class {UPPER_CAMEL_NAME} extends BaseModel
 {
 
     use SoftDelete;

@@ -17,6 +17,7 @@ namespace app\common\service\generator;
 
 use app\common\service\generator\core\ControllerGenerator;
 use app\common\service\generator\core\ListsGenerator;
+use app\common\service\generator\core\ModelGenerator;
 
 class GenerateService
 {
@@ -39,8 +40,12 @@ class GenerateService
         $listsGenerator->setGenerateData($tableData);
         $listsGenerator->generate();
         // 生成模型文件
-        // 生成逻辑文件
+        $modelGenerator = new ModelGenerator();
+        $modelGenerator->setGenerateData($tableData);
+        $modelGenerator->generate();
         // 生成验证器文件
+        // 生成逻辑文件
+
     }
 
 
