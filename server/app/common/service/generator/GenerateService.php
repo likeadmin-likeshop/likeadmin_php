@@ -20,6 +20,7 @@ use app\common\service\generator\core\ListsGenerator;
 use app\common\service\generator\core\LogicGenerator;
 use app\common\service\generator\core\ModelGenerator;
 use app\common\service\generator\core\ValidateGenerator;
+use app\common\service\generator\core\VueApiGenerator;
 
 class GenerateService
 {
@@ -53,6 +54,11 @@ class GenerateService
         $logicGenerator = new LogicGenerator();
         $logicGenerator->setGenerateData($tableData);
         $logicGenerator->generate();
+
+        // vue-api
+        $vueApiGenerator = new VueApiGenerator();
+        $vueApiGenerator->setGenerateData($tableData);
+        $vueApiGenerator->generate();
     }
 
 

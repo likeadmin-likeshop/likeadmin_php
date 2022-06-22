@@ -25,7 +25,6 @@ namespace app\common\service\generator\core;
 class VueApiGenerator extends BaseGenerator implements GenerateInterface
 {
 
-
     // 设置生成数据
     public function setGenerateData($tableData)
     {
@@ -60,7 +59,7 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
             $this->getRouteContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('controller');
+        $templatePath = $this->getTemplatePath('vue_api');
 
         // 替换内容
         $content = str_replace($needReplace, $waitReplace, file_get_contents($templatePath));
@@ -90,12 +89,14 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
     // 目标模块下的生成文件文件夹 (生成到模块时使用)
     public function getModuleGenerateDir()
     {
-        $dir = $this->basePath . $this->moduleName . '/controller/';
-        if (!empty($this->classDir)) {
-            $dir .= $this->classDir . '/';
-            $this->checkDir($dir);
-        }
-        return $dir;
+        $dir = dirname(app()->getRootPath());
+        dd($dir);
+//        $dir = $this->basePath . $this->moduleName . '/controller/';
+//        if (!empty($this->classDir)) {
+//            $dir .= $this->classDir . '/';
+//            $this->checkDir($dir);
+//        }
+//        return $dir;
     }
 
 
@@ -133,8 +134,6 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
 
         // 写入内容
         file_put_contents($path, $this->content);
-
-        return true;
     }
 
 
