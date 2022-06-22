@@ -139,24 +139,6 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 获取主键
-    public function getPkContent()
-    {
-        $pk = 'id';
-        if (empty($this->tableColumn)) {
-            return $pk;
-        }
-
-        foreach ($this->tableColumn as $item) {
-            if ($item['is_pk']) {
-                $pk = $item['column_name'];
-            }
-        }
-
-        return $pk;
-    }
-
-
     // 获取查询条件内容
     public function getQueryConditionContent()
     {
@@ -182,21 +164,11 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 设置空格占位
-    public function setBlankSpace($content, $blankpace)
-    {
-        $content = explode(PHP_EOL, $content);
-        foreach ($content as $line => $text) {
-            $content[$line] = $blankpace . $text;
-        }
-        return (implode(PHP_EOL, $content));
-    }
-
-
     // 目标模块下的生成文件文件夹 (生成到模块时使用)
     public function getModuleGenerateDir()
     {
         $dir = $this->basePath . $this->moduleName . '/lists/';
+        $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
             $this->checkDir($dir);
@@ -208,9 +180,10 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
     // runtime目录下的生成文件文件夹 (压缩包下载时使用)
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir;
+        $dir = $this->generatorDir . $this->moduleName .'/lists/';
+        $this->checkDir($dir);
         if (!empty($this->classDir)) {
-            $dir = $this->generatorDir . $this->classDir . '/lists/';
+            $dir .= $this->classDir . '/';
             $this->checkDir($dir);
         }
         return $dir;

@@ -122,4 +122,32 @@ abstract class BaseGenerator
         return str_replace($tablePrefix, '', $this->tableData['table_name']);
     }
 
+
+    // 获取主键
+    public function getPkContent()
+    {
+        $pk = 'id';
+        if (empty($this->tableColumn)) {
+            return $pk;
+        }
+
+        foreach ($this->tableColumn as $item) {
+            if ($item['is_pk']) {
+                $pk = $item['column_name'];
+            }
+        }
+        return $pk;
+    }
+
+
+    // 设置空格占位
+    public function setBlankSpace($content, $blankpace)
+    {
+        $content = explode(PHP_EOL, $content);
+        foreach ($content as $line => $text) {
+            $content[$line] = $blankpace . $text;
+        }
+        return (implode(PHP_EOL, $content));
+    }
+
 }

@@ -12,44 +12,40 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\adminapi\validate\{DIR_NAME};
+{NAMESPACE}
 
-use app\common\model\{DIR_NAME}\{MODLE_NAME};
+
 use app\common\validate\BaseValidate;
 
 
 /**
- * {VALIDATE_NAME}验证
- * Class DictDataValidate
- * @package app\adminapi\validate\dict
+ * {CLASS_COMMENT}
+ * Class {UPPER_CAMEL_NAME}Validate
+ * @package app\{MODULE_NAME}\validate{PACKAGE_NAME}
  */
-class {VALIDATE_NAME} extends BaseValidate
+class {UPPER_CAMEL_NAME}Validate extends BaseValidate
 {
 
     protected $rule = [
-        'id' => 'require',
-        'name' => 'require',
-        'value' => 'require',
-        'type_id' => 'require',
-        'status' => 'require',
+{RULE}
     ];
 
 
     public function sceneAdd()
     {
-        return $this->remove('id', true);
+        return $this->remove('{PK}', true);
     }
 
 
-    public function sceneId()
+    public function sceneDelete()
     {
-        return $this->only(['id']);
+        return $this->only(['{PK}']);
     }
 
 
-    public function sceneEdit()
+    public function sceneDetail()
     {
-
+        return $this->only(['{PK}']);
     }
 
 }

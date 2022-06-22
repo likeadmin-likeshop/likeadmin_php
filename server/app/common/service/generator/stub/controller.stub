@@ -44,7 +44,7 @@ class {UPPER_CAMEL_NAME}Controller extends {EXTENDS_CONTROLLER}
 
     public function edit()
     {
-        $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck('edit');
+        $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck();
         $result = {UPPER_CAMEL_NAME}Logic::edit($params);
         if (true === $result) {
             return $this->success('编辑成功', [], 1, 1);

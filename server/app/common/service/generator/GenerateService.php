@@ -18,6 +18,7 @@ namespace app\common\service\generator;
 use app\common\service\generator\core\ControllerGenerator;
 use app\common\service\generator\core\ListsGenerator;
 use app\common\service\generator\core\ModelGenerator;
+use app\common\service\generator\core\ValidateGenerator;
 
 class GenerateService
 {
@@ -32,7 +33,7 @@ class GenerateService
     public function generate(array $tableData)
     {
         // 设置控制器信息
-        $controllerGenerator =  new ControllerGenerator();
+        $controllerGenerator = new ControllerGenerator();
         $controllerGenerator->setGenerateData($tableData);
         $controllerGenerator->generate();
         // 生成列表文件
@@ -44,10 +45,12 @@ class GenerateService
         $modelGenerator->setGenerateData($tableData);
         $modelGenerator->generate();
         // 生成验证器文件
+        $validateGenerator = new ValidateGenerator();
+        $validateGenerator->setGenerateData($tableData);
+        $validateGenerator->generate();
         // 生成逻辑文件
 
     }
-
 
 
     // 预览文件

@@ -22,7 +22,7 @@ use app\common\lists\ListsSearchInterface;
 /**
  * {CLASS_COMMENT}
  * Class {UPPER_CAMEL_NAME}Lists
- * @package app\{MODULE_NAME}\lists\{PACKAGE_NAME}
+ * @package app\{MODULE_NAME}\lists{PACKAGE_NAME}
  */
 class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInterface
 {
