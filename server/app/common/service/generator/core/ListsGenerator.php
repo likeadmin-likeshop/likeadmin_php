@@ -199,7 +199,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
     // runtime目录下的生成文件文件夹 (压缩包下载时使用)
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . $this->moduleName .'/lists/';
+        $dir = $this->generatorDir . 'app/' . $this->moduleName . '/lists/';
         $this->checkDir($dir);
         if (!empty($this->classDir)) {
             $dir .= $this->classDir . '/';
