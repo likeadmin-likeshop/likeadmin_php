@@ -18,11 +18,11 @@ namespace app\common\service\generator\core;
 
 
 /**
- * vue-index生成器
- * Class VueIndexGenerator
+ * vue-edit生成器
+ * Class VueEditGenerator
  * @package app\common\service\generator\core
  */
-class VueIndexGenerator extends BaseGenerator implements GenerateInterface
+class VueEditGenerator extends BaseGenerator implements GenerateInterface
 {
 
     /**
@@ -35,26 +35,28 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
     {
         // 需要替换的变量
         $needReplace = [
-            '{SEARCH_VIEW}',
-            '{LISTS_VIEW}',
+            '{FORM_VIEW}',
             '{UPPER_CAMEL_NAME}',
-            '{QUERY_PARAMS}',
             '{DICT_DATA}',
             '{DICT_DATA_API}',
+            '{FORM_DATA}',
+            '{FORM_VALIDATE}',
+            '{TABLE_COMMENT}',
             '{PK}',
         ];
 
         // 等待替换的内容
         $waitReplace = [
-            $this->getSearchViewContent(),
-            $this->getListsViewContent(),
+            $this->getFormViewContent(),
             $this->getUpperCamelName(),
-            $this->getQueryParamsContent(),
             $this->getDictDataContent(),
             $this->getDictDataApiContent(),
+            $this->getFormDataContent(),
+            $this->getFormValidateContent(),
+            $this->tableData['table_comment'],
             $this->getPkContent()
         ];
-        $templatePath = $this->getTemplatePath('vue_index');
+        $templatePath = $this->getTemplatePath('vue_edit');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -64,16 +66,16 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 获取搜索快内容
+     * @notes 获取表单内容
      * @return string
      * @author 段誉
      * @date 2022/6/23 11:57
      */
-    public function getSearchViewContent()
+    public function getFormViewContent()
     {
         $content = '';
         foreach ($this->tableColumn as $column) {
-            if (!$column['is_query'] || $column['is_pk']) {
+            if (!$column['is_insert'] || !$column['is_update'] || $column['is_pk']) {
                 continue;
             }
 
@@ -87,7 +89,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $column['column_name'],
                 $column['dict_type'],
             ];
-            $templatePath = $this->getTemplatePath('search_item/' . $column['view_type']);
+            $templatePath = $this->getTemplatePath('form_item/' . $column['view_type']);
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -100,70 +102,6 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
 
         $content = $this->setBlankSpace($content, '                ');
         return $content;
-    }
-
-
-    /**
-     * @notes 获取列表内容
-     * @return string
-     * @author 段誉
-     * @date 2022/6/23 11:57
-     */
-    public function getListsViewContent()
-    {
-        $content = '';
-        foreach ($this->tableColumn as $column) {
-            if (!$column['is_lists']) {
-                continue;
-            }
-
-            $needReplace = [
-                '{COLUMN_COMMENT}',
-                '{COLUMN_NAME}',
-                '{DICT_TYPE}',
-            ];
-            $waitReplace = [
-                $column['column_comment'],
-                $column['column_name'],
-                $column['dict_type'],
-            ];
-            $templatePath = $this->getTemplatePath('table_item/default');
-
-            if ($column['view_type'] == 'imageSelect') {
-                $templatePath = $this->getTemplatePath('table_item/image');
-            }
-            if (in_array($column['view_type'], ['select', 'radio', 'checkbox'])) {
-                $templatePath = $this->getTemplatePath('table_item/options');
-            }
-            if (!file_exists($templatePath)) {
-                continue;
-            }
-            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . PHP_EOL;
-        }
-        if (!empty($content)) {
-            $content = substr($content, 0, -1);
-        }
-        return $this->setBlankSpace($content, '                            ');
-    }
-
-
-    /**
-     * @notes 获取查询条件内容
-     * @return string
-     * @author 段誉
-     * @date 2022/6/23 11:57
-     */
-    public function getQueryParamsContent()
-    {
-        $content = '';
-        foreach ($this->tableColumn as $column) {
-            if (!$column['is_query'] || $column['is_pk']) {
-                continue;
-            }
-            $content .= $column['column_name'] . ':' . "''," . PHP_EOL;
-        }
-        $content = substr($content, 0, -2);
-        return $this->setBlankSpace($content, '    ');
     }
 
 
@@ -233,6 +171,78 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
+     * @notes 获取表单默认字段内容
+     * @return string
+     * @author 段誉
+     * @date 2022/6/23 15:15
+     */
+    public function getFormDataContent()
+    {
+        $content = '';
+        $isExist = [];
+        foreach ($this->tableColumn as $column) {
+            if (!$column['is_insert'] || !$column['is_update'] || $column['is_pk']) {
+                continue;
+            }
+            if (in_array($column['column_name'], $isExist)) {
+                continue;
+            }
+            $content .= $column['column_name'] . ':' . "''," . PHP_EOL;
+            $isExist[] = $column['column_name'];
+        }
+        if (!empty($content)) {
+            $content = substr($content, 0, -1);
+        }
+        return $this->setBlankSpace($content, '    ');
+    }
+
+
+    /**
+     * @notes 表单验证内容
+     * @return false|string
+     * @author 段誉
+     * @date 2022/6/23 15:16
+     */
+    public function getFormValidateContent()
+    {
+        $content = '';
+        $isExist = [];
+        $specDictType = ['input', 'textarea', 'editor'];
+
+        foreach ($this->tableColumn as $column) {
+            if (!$column['is_insert'] || !$column['is_update'] || $column['is_pk']) {
+                continue;
+            }
+            if (in_array($column['column_name'], $isExist)) {
+                continue;
+            }
+
+            $validateMsg = in_array($column['view_type'], $specDictType) ? '请输入' : '请选择';
+            $validateMsg .= $column['column_comment'];
+
+            $needReplace = [
+                '{COLUMN_NAME}',
+                '{VALIDATE_MSG}',
+            ];
+            $waitReplace = [
+                $column['column_name'],
+                $validateMsg,
+            ];
+            $templatePath = $this->getTemplatePath('other_item/formValidate');
+            if (!file_exists($templatePath)) {
+                continue;
+            }
+
+            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . PHP_EOL;
+
+            $isExist[] = $column['column_name'];
+        }
+        $content = substr($content, 0, -1);
+        return $content;
+    }
+
+
+    /**
      * @notes 获取文件生成到模块的文件夹路径
      * @return mixed|void
      * @author 段誉
@@ -270,7 +280,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getGenerateName()
     {
-        return 'index.vue';
+        return 'edit.vue';
     }
 
 

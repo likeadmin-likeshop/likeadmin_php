@@ -21,6 +21,7 @@ use app\common\service\generator\core\LogicGenerator;
 use app\common\service\generator\core\ModelGenerator;
 use app\common\service\generator\core\ValidateGenerator;
 use app\common\service\generator\core\VueApiGenerator;
+use app\common\service\generator\core\VueEditGenerator;
 use app\common\service\generator\core\VueIndexGenerator;
 
 class GenerateService
@@ -45,6 +46,7 @@ class GenerateService
             LogicGenerator::class,
             VueApiGenerator::class,
             VueIndexGenerator::class,
+            VueEditGenerator::class,
         ];
 
         foreach ($generators as $item) {
