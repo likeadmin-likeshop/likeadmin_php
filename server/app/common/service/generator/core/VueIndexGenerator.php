@@ -64,7 +64,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
 
 
     /**
-     * @notes 获取搜索快内容
+     * @notes 获取搜索内容
      * @return string
      * @author 段誉
      * @date 2022/6/23 11:57

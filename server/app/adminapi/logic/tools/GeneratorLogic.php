@@ -148,7 +148,13 @@ class GeneratorLogic extends BaseLogic
     }
 
 
-    // 同步表字段
+    /**
+     * @notes 同步表字段
+     * @param $params
+     * @return bool
+     * @author 段誉
+     * @date 2022/6/23 16:28
+     */
     public static function syncColumn($params)
     {
         Db::startTrans();
@@ -172,7 +178,13 @@ class GeneratorLogic extends BaseLogic
     }
 
 
-    // 生成代码
+    /**
+     * @notes 生成代码
+     * @param $params
+     * @return bool
+     * @author 段誉
+     * @date 2022/6/23 16:28
+     */
     public static function generate($params)
     {
         try {
@@ -182,11 +194,25 @@ class GeneratorLogic extends BaseLogic
                 ->select()->toArray();
 
             $generator = app()->make(GenerateService::class);
-            // 设置生成状态 180秒
-            $generator->setGenerateStatus();
+            $generator->delGenerateDirContent();
+            $flag = array_unique(array_column($tables, 'table_name'));
+            $flag = implode(',', $flag);
+            $generator->setGenerateFlag(md5($flag.time()), false);
+       
+            // 循环生成
             foreach ($tables as $table) {
                 $generator->generate($table);
             }
+
+
+            dd($generator->getGenerateFlag());
+
+            if ($generator->getGenerateFlag()) {
+                // 下载压缩包
+                // 删除缓存
+                $generator->delGenerateFlag();
+            }
+
             return true;
 
         } catch (\Exception $e) {
@@ -196,6 +222,13 @@ class GeneratorLogic extends BaseLogic
     }
 
 
+    /**
+     * @notes 预览
+     * @param $params
+     * @return false
+     * @author 段誉
+     * @date 2022/6/23 16:27
+     */
     public static function preview($params)
     {
         try {
@@ -214,7 +247,13 @@ class GeneratorLogic extends BaseLogic
     }
 
 
-    // 获取表字段信息
+    /**
+     * @notes 获取表字段信息
+     * @param $tableName
+     * @return array
+     * @author 段誉
+     * @date 2022/6/23 16:28
+     */
     public static function getTableColumn($tableName)
     {
         $tablePrefix = config('database.connections.mysql.prefix');
@@ -223,7 +262,14 @@ class GeneratorLogic extends BaseLogic
     }
 
 
-    // 初始化代码生成数据表信息
+    /**
+     * @notes 初始化代码生成数据表信息
+     * @param $tableData
+     * @param $adminId
+     * @return GenerateTable|\think\Model
+     * @author 段誉
+     * @date 2022/6/23 16:28
+     */
     public static function initTable($tableData, $adminId)
     {
         return GenerateTable::create([
@@ -236,7 +282,15 @@ class GeneratorLogic extends BaseLogic
         ]);
     }
 
-    // 初始化代码生成字段信息
+
+    /**
+     * @notes 初始化代码生成字段信息
+     * @param $column
+     * @param $tableId
+     * @throws \Exception
+     * @author 段誉
+     * @date 2022/6/23 16:28
+     */
     public static function initTableColumn($column, $tableId)
     {
         $defaultColumn = ['id', 'create_time', 'update_time', 'delete_time'];

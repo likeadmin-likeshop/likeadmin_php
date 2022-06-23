@@ -27,20 +27,45 @@ use app\common\service\generator\core\VueIndexGenerator;
 class GenerateService
 {
 
+    // 标记
+    protected $flag;
+
+    // 删除生成文件夹内容
+    public function delGenerateDirContent()
+    {
+        // 删除runtime目录制定文件夹
+        $path = root_path() . 'runtime/generator/';
+        !is_dir($path) && mkdir($path, 0755, true);
+        del_target_dir($path, false);
+    }
+
+
     // 设置生成状态
-    public function setGenerateStatus()
+    public function setGenerateFlag($name, $status = false)
     {
+        $this->flag = $name;
+        cache($name, (int)$status, 3600);
+    }
 
+    // 获取生成状态标记
+    public function getGenerateFlag()
+    {
+        return cache($this->flag);
+    }
+
+    // 删除标记时间
+    public function delGenerateFlag()
+    {
+        cache($this->flag, null);
     }
 
 
-    // 删除生成状态
-    public function delGenerateStatus()
-    {
-
-    }
-
-
+    /**
+     * @notes 生成器相关类
+     * @return string[]
+     * @author 段誉
+     * @date 2022/6/23 17:17
+     */
     public function getGeneratorClass()
     {
         return [
@@ -63,6 +88,10 @@ class GenerateService
             $generator = app()->make($item);
             $generator->initGenerateData($tableData);
             $generator->generate();
+            // 是否为压缩包下载
+            if ($generator->isGenerateTypeZip()) {
+                $this->setGenerateFlag($this->flag, true);
+            }
         }
     }
 

@@ -93,10 +93,10 @@ abstract class BaseGenerator
 
     public function __construct()
     {
-        $this->basePath = app()->getBasePath();
-        $this->rootPath = app()->getRootPath();
+        $this->basePath = base_path();
+        $this->rootPath = root_path();
         $this->templateDir = $this->basePath . 'common/service/generator/stub/';
-        $this->generatorDir = $this->rootPath . 'runtime/generator/';
+        $this->generatorDir = $this->rootPath . 'runtime/generate/';
         $this->checkDir($this->generatorDir);
     }
 
@@ -334,6 +334,18 @@ abstract class BaseGenerator
     public function replaceFileData($needReplace, $waitReplace, $template)
     {
         return str_replace($needReplace, $waitReplace, file_get_contents($template));
+    }
+
+
+    /**
+     * @notes 生成方式是否为压缩包
+     * @return bool
+     * @author 段誉
+     * @date 2022/6/23 17:02
+     */
+    public function isGenerateTypeZip()
+    {
+        return $this->tableData['generate_type'] == 0;
     }
 
 }
