@@ -240,8 +240,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getModuleGenerateDir()
     {
-        $moduleName = str_replace('api', '', $this->moduleName);
-        $dir = dirname(app()->getRootPath()) . '/admin/src/views/' . $moduleName . '/';
+        $dir = dirname(app()->getRootPath()) . '/admin/src/views/' . $this->getTableName() . '/';
         $this->checkDir($dir);
         return $dir;
     }
@@ -255,8 +254,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $moduleName = str_replace('api', '', $this->moduleName);
-        $dir = $this->generatorDir . 'vue/src/views/' . $moduleName . '/';
+        $dir = $this->generatorDir . 'vue/src/views/' . $this->getTableName() . '/';
         $this->checkDir($dir);
         return $dir;
     }

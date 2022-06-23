@@ -197,24 +197,21 @@ class GeneratorLogic extends BaseLogic
             $generator->delGenerateDirContent();
             $flag = array_unique(array_column($tables, 'table_name'));
             $flag = implode(',', $flag);
-            $generator->setGenerateFlag(md5($flag.time()), false);
-       
+            $generator->setGenerateFlag(md5($flag . time()), false);
+
             // 循环生成
             foreach ($tables as $table) {
                 $generator->generate($table);
             }
 
-
-            dd($generator->getGenerateFlag());
-
+            // 生成压缩包
             if ($generator->getGenerateFlag()) {
-                // 下载压缩包
-                // 删除缓存
+                $generator->zipFile();
+                $generator->download();
                 $generator->delGenerateFlag();
             }
 
             return true;
-
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
             return false;
