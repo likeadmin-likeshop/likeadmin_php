@@ -1,0 +1,11 @@
+<!-- 下拉框 -->
+<el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
+    <el-select v-model="queryParams.{COLUMN_NAME}" clearable placeholder="请选择{COLUMN_COMMENT}">
+        <el-option 
+            v-for="(item, index) in dictData.{DICT_TYPE}"
+            :key="index" 
+            :label="item.label"
+            :value="item.value"
+        />
+    </el-select>
+</el-form-item>

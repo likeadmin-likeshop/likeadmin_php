@@ -67,7 +67,7 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
 
     public static function delete(array $params)
     {
-        {UPPER_CAMEL_NAME}::destroy($params['{PK}']);
+        return {UPPER_CAMEL_NAME}::destroy($params['{PK}']);
     }
 
 

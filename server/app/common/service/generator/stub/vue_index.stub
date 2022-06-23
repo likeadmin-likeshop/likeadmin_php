@@ -1,0 +1,126 @@
+<template>
+    <div>
+        <el-card shadow="never">
+            <el-form class="ls-form" :model="queryParams" label-width="80px" size="small" inline>
+{SEARCH_VIEW}
+                <el-form-item>
+                    <div class="m-l-20">
+                        <el-button type="primary" @click="resetPage">查询</el-button>
+                        <el-button @click="resetParams">重置</el-button>
+                    </div>
+                </el-form-item>
+            </el-form>
+        </el-card>
+        <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
+            <el-button size="small" type="primary" @click="handleAdd">新增</el-button>
+            <popup
+                class="m-l-10 inline"
+                :disabled="!selectData.length"
+                content="确认删除选中？"
+                @confirm="handleDelete(selectData)"
+            >
+                <template #trigger>
+                    <el-button size="small" :disabled="!selectData.length">删除</el-button>
+                </template>
+            </popup>
+            <div class="m-t-15">
+                <el-table
+                    :data="pager.lists"
+                    size="small"
+                    @selection-change="handleSelectionChange"
+                >
+                    <el-table-column type="selection" width="55" />
+{LISTS_VIEW}
+                    <el-table-column label="操作" width="200" fixed="right">
+                        <template #default="{ row }">
+                            <el-button type="text" @click="handleEdit(row.{PK})">编辑</el-button>
+                            <popup class="inline m-l-10" @confirm="handleDelete(row.{PK})">
+                                <template #trigger>
+                                    <el-button type="text">删除</el-button>
+                                </template>
+                            </popup>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div class="flex row-right">
+                <pagination
+                    v-model="pager"
+                    layout="total, prev, pager, next, jumper"
+                    @change="requestApi"
+                />
+            </div>
+        </el-card>
+        <edit v-model="showEdit" :select-id="selectId" @success="requestApi" />
+    </div>
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
+import { usePages } from '@/core/hooks/pages'
+import { apiDictDataLists } from '@/api/dict'
+import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/dict'
+import Edit from './edit.vue'
+
+// 编辑时的id
+const selectId = ref<number>()
+
+// 是否显示编辑框
+const showEdit = ref(false)
+
+// 查询条件
+const queryParams = reactive({
+{QUERY_PARAMS}
+})
+
+// 选中数据
+const selectData = ref<any[]>([])
+
+// 表格选择后回调事件
+const handleSelectionChange = (val: any[]) => {
+    selectData.value = val.map(({ {PK} }) => {PK})
+}
+
+// 字典数据
+const dictData = reactive<Record<string, any[]>>({
+{DICT_DATA}
+})
+
+// 获取字典数据
+const getDictData = () => {
+{DICT_DATA_API}
+}
+
+// 分页相关
+const { pager, requestApi, resetParams, resetPage } = usePages({
+    callback: api{UPPER_CAMEL_NAME}Lists,
+    params: queryParams
+})
+
+// 添加
+const handleAdd = () => {
+    showEdit.value = true
+    selectId.value = undefined
+}
+
+// 编辑
+const handleEdit = ({PK}: number) => {
+    showEdit.value = true
+    selectId.value = {PK}
+}
+
+// 删除
+const handleDelete = async ({PK}: number | any[]) => {
+    await api{UPPER_CAMEL_NAME}Delete({ {PK} })
+    requestApi()
+}
+
+requestApi()
+getDictData()
+</script>
+
+<style lang="scss" scoped>
+.ls-form {
+    margin-bottom: -16px;
+}
+</style>

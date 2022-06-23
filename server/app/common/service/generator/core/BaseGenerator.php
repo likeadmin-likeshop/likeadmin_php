@@ -321,4 +321,19 @@ abstract class BaseGenerator
         return (implode(PHP_EOL, $content));
     }
 
+
+    /**
+     * @notes 替换内容
+     * @param $needReplace
+     * @param $waitReplace
+     * @param $template
+     * @return array|false|string|string[]
+     * @author 段誉
+     * @date 2022/6/23 9:52
+     */
+    public function replaceFileData($needReplace, $waitReplace, $template)
+    {
+        return str_replace($needReplace, $waitReplace, file_get_contents($template));
+    }
+
 }
