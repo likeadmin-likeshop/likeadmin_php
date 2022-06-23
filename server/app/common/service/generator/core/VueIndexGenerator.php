@@ -274,9 +274,19 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
-    // 预览文件
-    public function preview()
+    /**
+     * @notes 文件信息
+     * @return array
+     * @author 段誉
+     * @date 2022/6/23 15:57
+     */
+    public function fileInfo(): array
     {
+        return [
+            'name' => $this->getGenerateName(),
+            'type' => 'vue',
+            'content' => $this->content
+        ];
     }
 
 

@@ -62,7 +62,7 @@ class GeneratorController extends BaseAdminController
     public function selectTable()
     {
         $params = (new GenerateTableValidate())->post()->goCheck('select');
-        $result = GeneratorLogic::selectTable($params,$this->adminId);
+        $result = GeneratorLogic::selectTable($params, $this->adminId);
         if (true === $result) {
             return $this->success('操作成功', [], 1, 1);
         }
@@ -70,20 +70,28 @@ class GeneratorController extends BaseAdminController
     }
 
 
-    // 预览
-    public function preview()
-    {
-
-    }
-
-
     // 生成代码
     public function generate()
     {
         $params = input('');
-        GeneratorLogic::generate($params);
+        $result = GeneratorLogic::generate($params);
+        if (true === $result) {
+            return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail(GeneratorLogic::getError());
     }
 
+
+    // 生成代码
+    public function preview()
+    {
+        $params = (new GenerateTableValidate())->post()->goCheck('id');
+        $result = GeneratorLogic::preview($params);
+        if (false === $result) {
+            return $this->fail(GeneratorLogic::getError());
+        }
+        return $this->data($result);
+    }
 
 
     /**

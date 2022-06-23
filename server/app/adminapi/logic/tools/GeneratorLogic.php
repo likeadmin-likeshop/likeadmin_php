@@ -181,19 +181,34 @@ class GeneratorLogic extends BaseLogic
                 ->whereIn('id', $params['id'])
                 ->select()->toArray();
 
-            if (empty($tables)) {
-                throw new \Exception('表数据不能为空');
-            }
-
+            $generator = app()->make(GenerateService::class);
+            // 设置生成状态 180秒
+            $generator->setGenerateStatus();
             foreach ($tables as $table) {
-                app()->make(GenerateService::class)->generate($table);
+                $generator->generate($table);
             }
-
             return true;
 
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
-            dd($e->getMessage());
+            return false;
+        }
+    }
+
+
+    public static function preview($params)
+    {
+        try {
+            // 获取数据表信息
+            $table = GenerateTable::with(['table_column'])
+                ->whereIn('id', $params['id'])
+                ->findOrEmpty()->toArray();
+
+            $generateService = app()->make(GenerateService::class);
+            return $generateService->preview($table);
+
+        } catch (\Exception $e) {
+            self::$error = $e->getMessage();
             return false;
         }
     }

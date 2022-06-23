@@ -27,18 +27,23 @@ use app\common\service\generator\core\VueIndexGenerator;
 class GenerateService
 {
 
-    // 校验表内容是否缺失
-    public function Before()
+    // 设置生成状态
+    public function setGenerateStatus()
     {
-        // 校验文件夹是否存在
-        // 清空runtime目录 或设置一个缓存
+
     }
 
 
-    // 生成文件
-    public function generate(array $tableData)
+    // 删除生成状态
+    public function delGenerateStatus()
     {
-        $generators = [
+
+    }
+
+
+    public function getGeneratorClass()
+    {
+        return [
             ControllerGenerator::class,
             ListsGenerator::class,
             ModelGenerator::class,
@@ -48,8 +53,13 @@ class GenerateService
             VueIndexGenerator::class,
             VueEditGenerator::class,
         ];
+    }
 
-        foreach ($generators as $item) {
+
+    // 生成文件
+    public function generate(array $tableData)
+    {
+        foreach ($this->getGeneratorClass() as $item) {
             $generator = app()->make($item);
             $generator->initGenerateData($tableData);
             $generator->generate();
@@ -58,9 +68,15 @@ class GenerateService
 
 
     // 预览文件
-    public function preview()
+    public function preview(array $tableData)
     {
-
+        $data = [];
+        foreach ($this->getGeneratorClass() as $item) {
+            $generator = app()->make($item);
+            $generator->initGenerateData($tableData);
+            $data[] = $generator->fileInfo();
+        }
+        return $data;
     }
 
 }

@@ -19,5 +19,5 @@ interface GenerateInterface
 {
     public function generate();
 
-    public function preview();
+    public function fileInfo();
 }
