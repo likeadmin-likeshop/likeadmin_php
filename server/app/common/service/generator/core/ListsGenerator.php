@@ -65,7 +65,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
         $templatePath = $this->getTemplatePath('lists');
 
         // 替换内容
-        $content = str_replace($needReplace, $waitReplace, file_get_contents($templatePath));
+        $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
 
         $this->setContent($content);
     }
