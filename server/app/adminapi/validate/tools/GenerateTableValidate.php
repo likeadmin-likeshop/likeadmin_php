@@ -31,14 +31,14 @@ class GenerateTableValidate extends BaseValidate
     protected $rule = [
         'id' => 'require|checkTableData',
         'table' => 'require|array|checkTable',
-        'name' => 'require'
+        'file' => 'require'
     ];
 
     protected $message = [
         'id.require' => '参数缺失',
         'table.require' => '参数缺失',
         'table.array' => '参数类型错误',
-        'name.require' => '下载失败',
+        'file.require' => '下载失败',
     ];
 
 
@@ -74,7 +74,7 @@ class GenerateTableValidate extends BaseValidate
      */
     public function sceneDownload()
     {
-        return $this->only(['name']);
+        return $this->only(['file']);
     }
 
 

@@ -214,9 +214,10 @@ class GenerateService
      * @author 段誉
      * @date 2022/6/24 9:41
      */
-    public function getZipTempName()
+    public function getDownloadUrl()
     {
-        return $this->zipTempName;
+        $vars = ['file' => $this->zipTempName];
+        return (string)url("adminapi/tools.generator/download", $vars, false, true);
     }
 
 }

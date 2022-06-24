@@ -209,7 +209,7 @@ class GeneratorLogic extends BaseLogic
             if ($generator->getGenerateFlag()) {
                 $generator->zipFile();
                 $generator->delGenerateFlag();
-                $zipFile = $generator->getZipTempName();
+                $zipFile = $generator->getDownloadUrl();
             }
             return ['file' => $zipFile];
         } catch (\Exception $e) {
@@ -323,6 +323,9 @@ class GeneratorLogic extends BaseLogic
      */
     public static function download(string $fileName)
     {
+        if (empty($fileName)) {
+            return false;
+        }
         $path = root_path() . 'runtime/generate/' . $fileName;
         return file_exists($path) ? $path : false;
     }
