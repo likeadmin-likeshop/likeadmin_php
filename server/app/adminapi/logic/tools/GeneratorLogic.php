@@ -295,7 +295,7 @@ class GeneratorLogic extends BaseLogic
         $insertColumn = [];
         foreach ($column as $value) {
             $required = 0;
-            if ($value['notnull'] && !$value['primary']) {
+            if ($value['notnull'] && !$value['primary'] && !in_array($value['name'], $defaultColumn)) {
                 $required = 1;
             }
             $columnData = [
