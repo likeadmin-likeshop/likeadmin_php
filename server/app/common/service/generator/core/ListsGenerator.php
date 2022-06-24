@@ -45,7 +45,10 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             '{EXTENDS_LISTS}',
             '{PK}',
             '{QUERY_CONDITION}',
-            '{FIELD_DATA}'
+            '{FIELD_DATA}',
+            '{NOTES}',
+            '{AUTHOR}',
+            '{DATE}'
         ];
 
         // 等待替换的内容
@@ -60,6 +63,9 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             $this->getPkContent(),
             $this->getQueryConditionContent(),
             $this->getFieldDataContent(),
+            $this->tableData['class_comment'],
+            $this->getAuthorContent(),
+            $this->getNoteDateContent(),
         ];
 
         $templatePath = $this->getTemplatePath('lists');

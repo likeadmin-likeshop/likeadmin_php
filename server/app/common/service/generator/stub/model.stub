@@ -16,7 +16,6 @@
 
 
 use app\common\model\BaseModel;
-use think\model\concern\SoftDelete;
 
 
 /**
@@ -27,8 +26,5 @@ use think\model\concern\SoftDelete;
 class {UPPER_CAMEL_NAME} extends BaseModel
 {
 
-    use SoftDelete;
-
-    protected $deleteTime = 'delete_time';
 
 }

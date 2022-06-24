@@ -29,13 +29,21 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
 {
 
 
-    public static function add(array $params)
+    /**
+     * @notes 添加{NOTES}
+     * @param array $params
+     * @return bool
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public static function add(array $params): bool
     {
         Db::startTrans();
         try {
             {UPPER_CAMEL_NAME}::create([
 {CREATE_DATA}
             ]);
+
             Db::commit();
             return true;
         } catch (\Exception $e) {
@@ -46,14 +54,21 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
     }
 
 
-
-    public static function edit(array $params)
+    /**
+     * @notes 编辑{NOTES}
+     * @param array $params
+     * @return bool
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public static function edit(array $params): bool
     {
         Db::startTrans();
         try {
             {UPPER_CAMEL_NAME}::update([
 {UPDATE_DATA}
             ]);
+
             Db::commit();
             return true;
         } catch (\Exception $e) {
@@ -64,14 +79,26 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
     }
 
 
-
-    public static function delete(array $params)
+    /**
+     * @notes 删除{NOTES}
+     * @param array $params
+     * @return bool
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public static function delete(array $params): bool
     {
         return {UPPER_CAMEL_NAME}::destroy($params['{PK}']);
     }
 
 
-
+    /**
+     * @notes 获取{NOTES}详情
+     * @param $params
+     * @return array
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public static function detail($params): array
     {
         return {UPPER_CAMEL_NAME}::findOrEmpty($params['{PK}'])->toArray();

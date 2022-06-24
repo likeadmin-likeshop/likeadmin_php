@@ -42,7 +42,10 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             '{MODULE_NAME}',
             '{PACKAGE_NAME}',
             '{PK}',
-            '{RULE}'
+            '{RULE}',
+            '{NOTES}',
+            '{AUTHOR}',
+            '{DATE}'
         ];
 
         // 等待替换的内容
@@ -53,7 +56,10 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             $this->moduleName,
             $this->getPackageNameContent(),
             $this->getPkContent(),
-            $this->getRuleContent()
+            $this->getRuleContent(),
+            $this->tableData['class_comment'],
+            $this->getAuthorContent(),
+            $this->getNoteDateContent(),
         ];
 
         $templatePath = $this->getTemplatePath('validate');

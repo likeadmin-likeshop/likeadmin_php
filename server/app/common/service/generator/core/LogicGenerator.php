@@ -44,6 +44,9 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
             '{PK}',
             '{CREATE_DATA}',
             '{UPDATE_DATA}',
+            '{NOTES}',
+            '{AUTHOR}',
+            '{DATE}'
         ];
 
         // 等待替换的内容
@@ -56,7 +59,10 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
             $this->getPackageNameContent(),
             $this->getPkContent(),
             $this->getCreateDataContent(),
-            $this->getUpdateDataContent()
+            $this->getUpdateDataContent(),
+            $this->tableData['class_comment'],
+            $this->getAuthorContent(),
+            $this->getNoteDateContent(),
         ];
 
         $templatePath = $this->getTemplatePath('logic');

@@ -27,6 +27,13 @@ use app\common\lists\ListsSearchInterface;
 class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInterface
 {
 
+
+    /**
+     * @notes 设置搜索条件
+     * @return \string[][]
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function setSearch(): array
     {
         return [
@@ -35,19 +42,32 @@ class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInte
     }
 
 
+    /**
+     * @notes 获取{NOTES}列表
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function lists(): array
     {
-        $lists = {UPPER_CAMEL_NAME}::where($this->searchWhere)
+        return {UPPER_CAMEL_NAME}::where($this->searchWhere)
             ->field([{FIELD_DATA}])
             ->limit($this->limitOffset, $this->limitLength)
             ->order(['{PK}' => 'desc'])
             ->select()
             ->toArray();
-
-        return $lists;
     }
 
 
+    /**
+     * @notes 获取{NOTES}数量
+     * @return int
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function count(): int
     {
         return {UPPER_CAMEL_NAME}::where($this->searchWhere)->count();

@@ -26,23 +26,48 @@ use app\common\validate\BaseValidate;
 class {UPPER_CAMEL_NAME}Validate extends BaseValidate
 {
 
+
+    /**
+     * @notes 设置搜索条件
+     * @return \string[][]
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     protected $rule = [
 {RULE}
     ];
 
 
+    /**
+     * @notes 添加场景
+     * @return {UPPER_CAMEL_NAME}Validate
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function sceneAdd()
     {
         return $this->remove('{PK}', true);
     }
 
 
+    /**
+     * @notes 删除场景
+     * @return {UPPER_CAMEL_NAME}Validate
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function sceneDelete()
     {
         return $this->only(['{PK}']);
     }
 
 
+    /**
+     * @notes 详情场景
+     * @return {UPPER_CAMEL_NAME}Validate
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function sceneDetail()
     {
         return $this->only(['{PK}']);
