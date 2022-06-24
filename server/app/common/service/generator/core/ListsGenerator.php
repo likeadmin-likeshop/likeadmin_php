@@ -199,17 +199,15 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getFieldDataContent()
     {
-        $content = '';
+        $content = "'" . $this->getPkContent() . "', ";
+        $isExist = [$this->getPkContent()];
         foreach ($this->tableColumn as $column) {
-            if ($column['is_lists']) {
+            if ($column['is_lists'] && !in_array($column['column_name'], $isExist)) {
                 $content .= "'" . $column['column_name'] . "', ";
+                $isExist[] = $column['column_name'];
             }
         }
-        if (empty($content)) {
-            return $content;
-        }
-        $content = substr($content, 0, -2);
-        return $content;
+        return substr($content, 0, -2);
     }
 
 
