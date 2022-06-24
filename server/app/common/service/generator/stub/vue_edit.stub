@@ -112,7 +112,7 @@ watch(() => props.modelValue, (value) => {
         popupRef.value?.close()
     }
 })
-
+getDictData()
 </script>
 
 <style lang="scss" scoped>
