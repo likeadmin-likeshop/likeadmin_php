@@ -126,7 +126,7 @@
                         <el-form-item label="模板类型" required>
                             <el-radio-group v-model="formData.template_type">
                                 <el-radio :label="0">单表（curd）</el-radio>
-                                <el-radio :label="1">树表（curd）</el-radio>
+                                <!-- <el-radio :label="1">树表（curd）</el-radio> -->
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="生成方式" required>

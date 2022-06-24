@@ -36,3 +36,18 @@ export function apiGenerateEdit(params: any) {
     return request.post('/tools.generator/edit', params)
 }
 
+//预览代码
+export function apiGeneratePreview(params: any) {
+    return request.post('/tools.generator/preview', params)
+}
+
+//生成代码
+export function apiGenerateCode(params: any) {
+    return request.post('/tools.generator/generate', params)
+}
+
+
+//下载压缩包
+export function apiGenerateDownload(params: any) {
+    return request.post('/tools.generator/download', params)
+}

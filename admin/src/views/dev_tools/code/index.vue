@@ -20,7 +20,7 @@
             <data-table class="inline m-r-10" @success="requestApi">
                 <el-button type="primary" size="small">导入数据表</el-button>
             </data-table>
-            <el-button size="small">生成代码</el-button>
+            <el-button size="small" :disabled="!selectData.length" @click="handleGenerate(selectData)">生成代码</el-button>
             <popup
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
@@ -44,8 +44,8 @@
                     <el-table-column label="更新时间" prop="update_time" />
                     <el-table-column label="操作" width="240" fixed="right">
                         <template #default="{ row }">
-                            <el-button type="text">预览</el-button>
-                            <el-button type="text">代码生成</el-button>
+                            <el-button type="text" @click="handlePreview(row.id)">预览</el-button>
+                            <el-button type="text" @click="handleGenerate(row.id)">代码生成</el-button>
                             <router-link
                                 class="m-l-10"
                                 :to="{
@@ -57,7 +57,11 @@
                             >
                                 <el-button type="text">编辑</el-button>
                             </router-link>
-                            <popup class="inline m-l-10" content="确认要同步表结构吗？" @confirm="handleSync(row.id)">
+                            <popup
+                                class="inline m-l-10"
+                                content="确认要同步表结构吗？"
+                                @confirm="handleSync(row.id)"
+                            >
                                 <template #trigger>
                                     <el-button type="text">同步</el-button>
                                 </template>
@@ -79,22 +83,30 @@
                 />
             </div>
         </el-card>
+        <code-preview v-if="codePreview.show" v-model="codePreview.show" :code="codePreview.code" />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { apiGenerateTable, apiSyncColumn, apiGenerateDel } from '@/api/dev_tools'
+import { apiGenerateTable, apiSyncColumn, apiGenerateDel, apiGeneratePreview, apiGenerateCode, apiGenerateDownload } from '@/api/dev_tools'
 import { usePages } from '@/core/hooks/pages'
 import { reactive, ref } from 'vue'
 import DataTable from '../components/data-table.vue'
 import Pagination from '@/components/pagination/index.vue'
+import CodePreview from '../components/code-preview.vue'
 import Popup from '@/components/popup/index.vue'
 import { useRouter } from 'vue-router'
+import { ElLoading } from 'element-plus'
 
 const router = useRouter()
 const formData = reactive({
     table_name: '',
     table_comment: ''
+})
+
+const codePreview = reactive({
+    show: false,
+    code: []
 })
 
 const { pager, requestApi, resetParams, resetPage } = usePages({
@@ -116,6 +128,24 @@ const handleSync = async (id: number) => {
 const handleDelete = async (id: number | any[]) => {
     await apiGenerateDel({ id })
     requestApi()
+}
+
+const handlePreview = async (id: number) => {
+    const loadingInstance = ElLoading.service({
+        text: '正在生成中...'
+    })
+    const data: any = await apiGeneratePreview({ id })
+    codePreview.show = true
+    codePreview.code = data
+    loadingInstance.close()
+}
+
+const handleGenerate = async(id: number | number []) => {
+    const data: any = await apiGenerateCode({id})
+    if(data.file) {
+        window.open(data.file, '_blank')
+    }
+    
 }
 
 
