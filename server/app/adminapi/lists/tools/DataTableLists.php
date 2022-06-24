@@ -55,7 +55,8 @@ class DataTableLists extends BaseAdminDataLists
     {
         $lists = array_map("array_change_key_case", $this->queryResult());
         $offset = max(0, ($this->pageNo - 1) * $this->pageSize);
-        return array_slice($lists, $offset, $this->pageSize, true);
+        $lists = array_slice($lists, $offset, $this->pageSize, true);
+        return array_values($lists);
     }
 
 
