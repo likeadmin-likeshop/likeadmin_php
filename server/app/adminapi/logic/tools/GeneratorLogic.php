@@ -294,12 +294,16 @@ class GeneratorLogic extends BaseLogic
 
         $insertColumn = [];
         foreach ($column as $value) {
+            $required = 0;
+            if ($value['notnull'] && !$value['primary']) {
+                $required = 1;
+            }
             $columnData = [
                 'table_id' => $tableId,
                 'column_name' => $value['name'],
                 'column_comment' => $value['comment'],
                 'column_type' => getDbFieldType($value['type']),
-                'is_required' => $value['is_required'] ? 1 : 0,
+                'is_required' => $required,
                 'is_pk' => $value['primary'] ? 1 : 0,
             ];
             if (!in_array($value['name'], $defaultColumn)) {
