@@ -145,7 +145,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
         if (!empty($content)) {
             $content = substr($content, 0, -1);
         }
-        return $this->setBlankSpace($content, '                            ');
+        return $this->setBlankSpace($content, '                        ');
     }
 
 
