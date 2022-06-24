@@ -305,6 +305,30 @@ abstract class BaseGenerator
 
 
     /**
+     * @notes 获取作者信息
+     * @return mixed|string
+     * @author 段誉
+     * @date 2022/6/24 10:18
+     */
+    public function getAuthorContent()
+    {
+        return empty($this->tableData['author']) ? 'likeadmin' : $this->tableData['author'];
+    }
+
+
+    /**
+     * @notes 代码生成备注时间
+     * @return false|string
+     * @author 段誉
+     * @date 2022/6/24 10:28
+     */
+    public function getNoteDateContent()
+    {
+        return date('Y/m/d H:i');
+    }
+
+
+    /**
      * @notes 设置空额占位符
      * @param $content
      * @param $blankpace

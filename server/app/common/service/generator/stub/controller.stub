@@ -28,12 +28,24 @@ class {UPPER_CAMEL_NAME}Controller extends {EXTENDS_CONTROLLER}
 {
 
 
+    /**
+     * @notes 获取{NOTES}列表
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function lists()
     {
         return $this->dataLists(new {UPPER_CAMEL_NAME}Lists());
     }
 
 
+    /**
+     * @notes 添加{NOTES}
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function add()
     {
         $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck('add');
@@ -45,6 +57,12 @@ class {UPPER_CAMEL_NAME}Controller extends {EXTENDS_CONTROLLER}
     }
 
 
+    /**
+     * @notes 编辑{NOTES}
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function edit()
     {
         $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck();
@@ -56,6 +74,12 @@ class {UPPER_CAMEL_NAME}Controller extends {EXTENDS_CONTROLLER}
     }
 
 
+    /**
+     * @notes 删除{NOTES}
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function delete()
     {
         $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck('delete');
@@ -64,6 +88,12 @@ class {UPPER_CAMEL_NAME}Controller extends {EXTENDS_CONTROLLER}
     }
 
 
+    /**
+     * @notes 获取{NOTES}详情
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
     public function detail()
     {
         $params = (new {UPPER_CAMEL_NAME}Validate())->goCheck('detail');

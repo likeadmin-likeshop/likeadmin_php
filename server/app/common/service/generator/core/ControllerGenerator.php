@@ -41,7 +41,10 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
             '{UPPER_CAMEL_NAME}',
             '{MODULE_NAME}',
             '{PACKAGE_NAME}',
-            '{EXTENDS_CONTROLLER}'
+            '{EXTENDS_CONTROLLER}',
+            '{NOTES}',
+            '{AUTHOR}',
+            '{DATE}'
         ];
 
         // 等待替换的内容
@@ -53,6 +56,9 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
             $this->moduleName,
             $this->getPackageNameContent(),
             $this->getExtendsControllerContent(),
+            $this->tableData['class_comment'],
+            $this->getAuthorContent(),
+            $this->getNoteDateContent(),
         ];
 
         $templatePath = $this->getTemplatePath('controller');
