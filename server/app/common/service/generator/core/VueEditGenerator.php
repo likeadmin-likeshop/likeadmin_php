@@ -80,7 +80,6 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             if (!$column['is_insert'] || !$column['is_update'] || $column['is_pk']) {
                 continue;
             }
-
             $needReplace = [
                 '{COLUMN_COMMENT}',
                 '{COLUMN_NAME}',
@@ -189,7 +188,14 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             if (in_array($column['column_name'], $isExist)) {
                 continue;
             }
-            $content .= $column['column_name'] . ':' . "''," . PHP_EOL;
+
+            // 复选框类型返回数组
+            if ($column['view_type'] == 'checkbox') {
+                $content .= $column['column_name'] . ':' . "[]," . PHP_EOL;
+            } else {
+                $content .= $column['column_name'] . ':' . "''," . PHP_EOL;
+            }
+
             $isExist[] = $column['column_name'];
         }
         if (!empty($content)) {
