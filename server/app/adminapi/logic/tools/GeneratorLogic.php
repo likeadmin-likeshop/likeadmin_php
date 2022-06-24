@@ -299,7 +299,7 @@ class GeneratorLogic extends BaseLogic
                 'column_name' => $value['name'],
                 'column_comment' => $value['comment'],
                 'column_type' => getDbFieldType($value['type']),
-                'is_required' => $value['notnull'] ? 0 : 1,
+                'is_required' => $value['is_required'] ? 1 : 0,
                 'is_pk' => $value['primary'] ? 1 : 0,
             ];
             if (!in_array($value['name'], $defaultColumn)) {
