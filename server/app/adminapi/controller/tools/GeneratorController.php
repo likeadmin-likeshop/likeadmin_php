@@ -29,6 +29,7 @@ use app\adminapi\validate\tools\GenerateTableValidate;
 class GeneratorController extends BaseAdminController
 {
 
+    public array $notNeedLogin = ['download'];
 
     /**
      * @notes 获取数据库中所有数据表信息
