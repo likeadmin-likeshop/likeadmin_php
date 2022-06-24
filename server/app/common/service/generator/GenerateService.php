@@ -23,6 +23,7 @@ use app\common\service\generator\core\ValidateGenerator;
 use app\common\service\generator\core\VueApiGenerator;
 use app\common\service\generator\core\VueEditGenerator;
 use app\common\service\generator\core\VueIndexGenerator;
+use app\common\service\generator\core\VueRouterGenerator;
 
 
 /**
@@ -122,6 +123,7 @@ class GenerateService
             VueApiGenerator::class,
             VueIndexGenerator::class,
             VueEditGenerator::class,
+            VueRouterGenerator::class
         ];
     }
 
