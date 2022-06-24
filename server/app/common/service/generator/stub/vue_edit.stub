@@ -84,6 +84,7 @@ const getDetail = async () => {
             //@ts-ignore
             formData[key] = data[key]
         })
+        {CHECKBOX_SPLIT}
     } catch (error) {
         showLoading.value = false
     }
@@ -92,6 +93,7 @@ const getDetail = async () => {
 // 提交按钮
 const handleConfirm = async () => {
     await formRef.value?.validate()
+    {CHECKBOX_JOIN}
     props.selectId ? await api{UPPER_CAMEL_NAME}Edit({ {PK}: props.selectId, ...formData }) : await api{UPPER_CAMEL_NAME}Add(formData)
     popupRef.value?.close()
     emit('success')

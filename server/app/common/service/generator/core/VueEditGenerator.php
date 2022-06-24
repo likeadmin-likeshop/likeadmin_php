@@ -43,7 +43,9 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             '{FORM_VALIDATE}',
             '{TABLE_COMMENT}',
             '{PK}',
-            '{API_DIR}'
+            '{API_DIR}',
+            '{CHECKBOX_JOIN}',
+            '{CHECKBOX_SPLIT}'
         ];
 
         // 等待替换的内容
@@ -56,7 +58,9 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getFormValidateContent(),
             $this->tableData['table_comment'],
             $this->getPkContent(),
-            $this->getTableName()
+            $this->getTableName(),
+            $this->getCheckBoxJoinContent(),
+            $this->getCheckBoxSplitContent(),
         ];
         $templatePath = $this->getTemplatePath('vue_edit');
 
@@ -64,6 +68,58 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
 
         $this->setContent($content);
+    }
+
+
+    /**
+     * @notes 复选框处理
+     * @return string
+     * @author 段誉
+     * @date 2022/6/24 19:30
+     */
+    public function getCheckBoxJoinContent()
+    {
+        $content = '';
+        foreach ($this->tableColumn as $column) {
+            if (empty($column['view_type']) || $column['is_pk']) {
+                continue;
+            }
+            if ($column['view_type'] != 'checkbox') {
+                continue;
+            }
+            $content .= '//@ts-ignore' . PHP_EOL;
+            $content .= 'formData.' . $column['column_name'] . ' = formData.' . $column['column_name'] . '.join(",")' . PHP_EOL;
+        }
+        if (!empty($content)) {
+            $content = substr($content, 0, -1);
+        }
+        return $this->setBlankSpace($content, '    ');
+    }
+
+
+    /**
+     * @notes 复选框处理
+     * @return string
+     * @author 段誉
+     * @date 2022/6/24 19:30
+     */
+    public function getCheckBoxSplitContent()
+    {
+        $content = '';
+        foreach ($this->tableColumn as $column) {
+            if (empty($column['view_type']) || $column['is_pk']) {
+                continue;
+            }
+            if ($column['view_type'] != 'checkbox') {
+                continue;
+            }
+            $content .= '//@ts-ignore' . PHP_EOL;
+            $content .= 'formData.' . $column['column_name'] . ' = String(data.' . $column['column_name'] . ').split(",")' . PHP_EOL;
+        }
+        if (!empty($content)) {
+            $content = substr($content, 0, -1);
+        }
+        return $this->setBlankSpace($content, '    ');
     }
 
 
