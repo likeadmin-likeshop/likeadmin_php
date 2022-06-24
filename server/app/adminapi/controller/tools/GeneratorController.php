@@ -70,19 +70,46 @@ class GeneratorController extends BaseAdminController
     }
 
 
-    // 生成代码
+    /**
+     * @notes 生成代码
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/23 19:08
+     */
     public function generate()
     {
-        $params = input('');
+        $params = (new GenerateTableValidate())->post()->goCheck('id');
         $result = GeneratorLogic::generate($params);
-        if (true === $result) {
-            return $this->success('操作成功', [], 1, 1);
+        if (false === $result) {
+            return $this->fail(GeneratorLogic::getError());
         }
-        return $this->fail(GeneratorLogic::getError());
+        return $this->success('操作成功', $result, 1, 1);
     }
 
 
-    // 生成代码
+    /**
+     * @notes 下载文件
+     * @return \think\response\File|\think\response\Json
+     * @author 段誉
+     * @date 2022/6/24 9:51
+     */
+    public function download()
+    {
+        $fileName = $this->request->post('name', '');
+        $result = GeneratorLogic::download($fileName);
+        if (false === $result) {
+            return $this->fail('下载失败!');
+        }
+        return download($result);
+    }
+
+
+    /**
+     * @notes 预览代码
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/6/23 19:07
+     */
     public function preview()
     {
         $params = (new GenerateTableValidate())->post()->goCheck('id');

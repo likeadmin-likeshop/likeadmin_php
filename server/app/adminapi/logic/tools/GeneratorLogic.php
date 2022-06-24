@@ -181,9 +181,9 @@ class GeneratorLogic extends BaseLogic
     /**
      * @notes 生成代码
      * @param $params
-     * @return bool
+     * @return false|int[]
      * @author 段誉
-     * @date 2022/6/23 16:28
+     * @date 2022/6/24 9:43
      */
     public static function generate($params)
     {
@@ -204,14 +204,14 @@ class GeneratorLogic extends BaseLogic
                 $generator->generate($table);
             }
 
+            $zipFile = '';
             // 生成压缩包
             if ($generator->getGenerateFlag()) {
                 $generator->zipFile();
-                $generator->download();
                 $generator->delGenerateFlag();
+                $zipFile = $generator->getZipTempName();
             }
-
-            return true;
+            return ['file' => $zipFile];
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
             return false;
@@ -312,5 +312,23 @@ class GeneratorLogic extends BaseLogic
         }
         (new GenerateColumn())->saveAll($insertColumn);
     }
+
+
+    /**
+     * @notes 下载文件
+     * @param $fileName
+     * @return false|string
+     * @author 段誉
+     * @date 2022/6/24 9:51
+     */
+    public static function download(string $fileName)
+    {
+        if (empty($fileName)) {
+            return false;
+        }
+        $path = root_path() . 'runtime/generate/' . $fileName;
+        return file_exists($path) ? $path : false;
+    }
+
 
 }

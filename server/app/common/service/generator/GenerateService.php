@@ -42,6 +42,9 @@ class GenerateService
     // runtime目录
     protected $runtimePath;
 
+    // 压缩包名称
+    protected $zipTempName;
+
     // 压缩包临时路径
     protected $zipTempPath;
 
@@ -170,6 +173,7 @@ class GenerateService
     public function zipFile()
     {
         $fileName = 'curd-' . date('YmdHis') . '.zip';
+        $this->zipTempName = $fileName;
         $this->zipTempPath = $this->generatePath . $fileName;
         $zip = new \ZipArchive();
         $zip->open($this->zipTempPath, \ZipArchive::CREATE);
@@ -192,8 +196,10 @@ class GenerateService
         while (($filename = readdir($handler)) !== false) {
             if ($filename != '.' && $filename != '..') {
                 if (is_dir($basePath . $dirName . '/' . $filename)) {
+                    // 如当前路径是文件夹
                     $this->addFileZip($basePath, $dirName . '/' . $filename, $zip);
                 } else {
+                    // 写入文件到压缩包
                     $zip->addFile($basePath . $dirName . '/' . $filename, $dirName . '/' . $filename);
                 }
             }
@@ -201,15 +207,16 @@ class GenerateService
         closedir($handler);
     }
 
+
     /**
-     * @notes 下载
+     * @notes 返回压缩包临时路径
+     * @return mixed
      * @author 段誉
-     * @date 2022/6/23 19:02
+     * @date 2022/6/24 9:41
      */
-    public function download()
+    public function getZipTempName()
     {
-        download($this->zipTempPath);
-        unlink($this->zipTempPath);
+        return $this->zipTempName;
     }
 
 }
