@@ -1,0 +1,1 @@
+import{_ as o}from"./index.c7cd6466.js";import{a as r,b as n,k as c}from"./vendor.41e472b3.js";const s={};function t(_,a){const e=r("v-form-designer");return n(),c(e)}var p=o(s,[["render",t]]);export{p as default};
