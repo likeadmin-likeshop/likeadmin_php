@@ -26,7 +26,7 @@
                     </div>
                 </el-form-item>
             </el-form>
-            <div class="m-15">
+            <div class="m-15" v-loading="pager.loading">
                 <el-table height="400" :data="pager.lists" size="small"  @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="表名称" prop="name" min-width="100" />

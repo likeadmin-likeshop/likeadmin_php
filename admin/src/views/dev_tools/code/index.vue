@@ -79,7 +79,7 @@
                     </el-table-column>
                 </el-table>
             </div>
-            <div class="flex row-right">
+            <div class="flex row-right m-t-20">
                 <pagination
                     v-model="pager"
                     layout="total, prev, pager, next, jumper"

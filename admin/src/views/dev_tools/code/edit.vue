@@ -140,7 +140,7 @@
                             <div class="muted">生成文件所在模块</div>
                         </el-form-item>
                         <el-form-item label="类目录">
-                            <el-input v-model="formData.class_name"></el-input>
+                            <el-input v-model="formData.class_dir"></el-input>
                             <div class="muted">
                                 生成文件所在目录名,不填则在模块对应文件夹内生成。
                                 <br />例：填写test，则控制器xxxControlle文件生成在app/模块名/controller/test文件夹下。不填时，xxxController生成在app/模块名/controller文件夹下。
@@ -182,7 +182,7 @@ const formData = reactive({
     template_type: 0,
     generate_type: 0,
     module_name: '',
-    class_name: '',
+    class_dir: '',
     class_comment: '',
     table_column: []
 })
