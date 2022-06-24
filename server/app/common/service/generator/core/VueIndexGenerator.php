@@ -42,6 +42,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             '{DICT_DATA}',
             '{DICT_DATA_API}',
             '{PK}',
+            '{API_DIR}'
         ];
 
         // 等待替换的内容
@@ -52,7 +53,8 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getQueryParamsContent(),
             $this->getDictDataContent(),
             $this->getDictDataApiContent(),
-            $this->getPkContent()
+            $this->getPkContent(),
+            $this->getTableName()
         ];
         $templatePath = $this->getTemplatePath('vue_index');
 

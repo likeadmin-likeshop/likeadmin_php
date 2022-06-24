@@ -43,6 +43,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             '{FORM_VALIDATE}',
             '{TABLE_COMMENT}',
             '{PK}',
+            '{API_DIR}'
         ];
 
         // 等待替换的内容
@@ -54,7 +55,8 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getFormDataContent(),
             $this->getFormValidateContent(),
             $this->tableData['table_comment'],
-            $this->getPkContent()
+            $this->getPkContent(),
+            $this->getTableName()
         ];
         $templatePath = $this->getTemplatePath('vue_edit');
 
@@ -233,11 +235,11 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 continue;
             }
 
-            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . PHP_EOL;
+            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . ',' . PHP_EOL;
 
             $isExist[] = $column['column_name'];
         }
-        $content = substr($content, 0, -1);
+        $content = substr($content, 0, -2);
         return $content;
     }
 

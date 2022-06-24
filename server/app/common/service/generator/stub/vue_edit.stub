@@ -29,7 +29,7 @@
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
 import Popup from '@/components/popup/index.vue'
 import { apiDictDataLists } from '@/api/dict'
-import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Detail, api{UPPER_CAMEL_NAME}Edit } from '@/api/dict'
+import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Detail, api{UPPER_CAMEL_NAME}Edit } from '@/api/{API_DIR}'
 import { ElForm } from 'element-plus'
 
 const props = defineProps<{
