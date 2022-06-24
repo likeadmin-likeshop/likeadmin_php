@@ -166,7 +166,12 @@
             <el-button type="primary" size="small" @click="onSubmit">保存</el-button>
         </footer-btns>
 
-        <popup ref="popupRef" class="inline" content="生成到模块方式如遇同名文件会覆盖旧文件，确定要选择此方式吗？" @cancel="formData.generate_type = 0" />
+        <popup
+            ref="popupRef"
+            class="inline"
+            content="生成到模块方式如遇同名文件会覆盖旧文件，确定要选择此方式吗？"
+            @cancel="formData.generate_type = 0"
+        />
     </div>
 </template>
 
@@ -195,6 +200,8 @@ const formData = reactive({
     table_column: []
 })
 
+const isRadioClick = ref(false)
+
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 
 const dictData = ref<any[]>([])
@@ -218,6 +225,13 @@ const getDetails = async () => {
         //@ts-ignore
         formData[key] = data[key]
     })
+
+    watch(() => formData.generate_type, (value) => {
+        if (value == 1) {
+            popupRef.value?.open()
+        }
+    })
+
 }
 const getDict = async () => {
     const data: any = await apiDictTypeLists({
@@ -231,11 +245,6 @@ const onSubmit = async () => {
     router.back()
 }
 
-watch(() => formData.generate_type, (value) => {
-    if(value == 1) {
-        popupRef.value?.open()
-    }
-})
 
 getDetails()
 getDict()
