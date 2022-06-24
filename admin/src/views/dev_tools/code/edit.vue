@@ -116,7 +116,12 @@
                             <el-table-column label="字典类型">
                                 <template v-slot="{ row }">
                                     <el-select v-model="row.dict_type" placeholder="字典类型">
-                                        <el-option v-for="(item,index) in dictData" :key="index" :label="item.name" :value="item.type" />
+                                        <el-option
+                                            v-for="(item,index) in dictData"
+                                            :key="index"
+                                            :label="item.name"
+                                            :value="item.type"
+                                        />
                                     </el-select>
                                 </template>
                             </el-table-column>
@@ -160,14 +165,17 @@
         <footer-btns>
             <el-button type="primary" size="small" @click="onSubmit">保存</el-button>
         </footer-btns>
+
+        <popup ref="popupRef" class="inline" content="生成到模块方式如遇同名文件会覆盖旧文件，确定要选择此方式吗？" @cancel="formData.generate_type = 0" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { apiGenerateEdit, apiTableDetail } from "@/api/dev_tools"
-import { reactive, ref } from "vue"
+import { reactive, ref, shallowRef, watch } from "vue"
 import { useRoute, useRouter } from 'vue-router'
 import FooterBtns from '@/components/footer-btns/index.vue'
+import Popup from '@/components/popup/index.vue'
 import Editor from '@/components/editor/index.vue'
 import { apiDictTypeLists } from "@/api/dict"
 const route = useRoute()
@@ -186,6 +194,9 @@ const formData = reactive({
     class_comment: '',
     table_column: []
 })
+
+const popupRef = shallowRef<InstanceType<typeof Popup>>()
+
 const dictData = ref<any[]>([])
 const rules = reactive({
     table_name: [
@@ -209,7 +220,7 @@ const getDetails = async () => {
     })
 }
 const getDict = async () => {
-    const data:any = await apiDictTypeLists({
+    const data: any = await apiDictTypeLists({
         page_type: 0
     })
     dictData.value = data.lists
@@ -219,6 +230,12 @@ const onSubmit = async () => {
     await apiGenerateEdit(formData)
     router.back()
 }
+
+watch(() => formData.generate_type, (value) => {
+    if(value == 1) {
+        popupRef.value?.open()
+    }
+})
 
 getDetails()
 getDict()
