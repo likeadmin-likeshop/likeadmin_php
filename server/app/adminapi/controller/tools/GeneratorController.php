@@ -29,7 +29,7 @@ use app\adminapi\validate\tools\GenerateTableValidate;
 class GeneratorController extends BaseAdminController
 {
 
-    
+
     /**
      * @notes 获取数据库中所有数据表信息
      * @return \think\response\Json
@@ -99,7 +99,7 @@ class GeneratorController extends BaseAdminController
         $params = (new GenerateTableValidate())->goCheck('download');
         $result = GeneratorLogic::download($params['file']);
         if (false === $result) {
-            return $this->fail('下载失败');
+            return $this->fail(GeneratorLogic::getError() ?: '下载失败');
         }
         return download($result, 'likeadmin-curd.zip');
     }

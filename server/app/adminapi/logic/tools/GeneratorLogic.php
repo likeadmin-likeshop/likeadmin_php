@@ -323,11 +323,18 @@ class GeneratorLogic extends BaseLogic
      */
     public static function download(string $fileName)
     {
-        if (empty($fileName)) {
+        $cacheFileName = cache('curd_file_name' . $fileName);
+        if (empty($cacheFileName)) {
+            self::$error = '请重新生成代码';
             return false;
         }
         $path = root_path() . 'runtime/generate/' . $fileName;
-        return file_exists($path) ? $path : false;
+        if (!file_exists($path)) {
+            self::$error = '下载失败';
+            return false;
+        }
+        cache('curd_file_name' . $fileName, null);
+        return $path;
     }
 
 
