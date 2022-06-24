@@ -1,6 +1,6 @@
 <template>
     <div class="code-preview">
-        <el-dialog v-model="modelValue" width="1000px" title="代码预览">
+        <el-dialog v-model="show" width="1000px" title="代码预览">
             <el-tabs v-model="activeName" class="demo-tabs">
                 <el-tab-pane
                     v-for="(item, index) in code"
@@ -26,10 +26,14 @@
 import { copyClipboard } from '@/utils/util'
 import { CopyDocument } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { reactive, ref, shallowRef, watch } from 'vue'
+import { computed, reactive, ref, shallowRef, watch } from 'vue'
 const props = defineProps<{
     modelValue: boolean
     code: any[]
+}>()
+
+const emit = defineEmits<{
+    (event: 'update:modelValue', value: boolean): void
 }>()
 
 const activeName = ref('index0')
@@ -41,6 +45,15 @@ const handleCopy = (text: string) => {
         ElMessage.error('复制失败')
     })
 }
+
+const show = computed<boolean>({
+    get() {
+        return props.modelValue
+    },
+    set(value) {
+        emit('update:modelValue', value)
+    }
+})
 
 </script>
 

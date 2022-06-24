@@ -20,7 +20,11 @@
             <data-table class="inline m-r-10" @success="requestApi">
                 <el-button type="primary" size="small">导入数据表</el-button>
             </data-table>
-            <el-button size="small" :disabled="!selectData.length" @click="handleGenerate(selectData)">生成代码</el-button>
+            <el-button
+                size="small"
+                :disabled="!selectData.length"
+                @click="handleGenerate(selectData)"
+            >生成代码</el-button>
             <popup
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
@@ -134,18 +138,25 @@ const handlePreview = async (id: number) => {
     const loadingInstance = ElLoading.service({
         text: '正在生成中...'
     })
-    const data: any = await apiGeneratePreview({ id })
-    codePreview.show = true
-    codePreview.code = data
-    loadingInstance.close()
+    try {
+
+        const data: any = await apiGeneratePreview({ id })
+        codePreview.show = true
+        codePreview.code = data
+        loadingInstance.close()
+    } catch (error) {
+        loadingInstance.close()
+    }
+
+
 }
 
-const handleGenerate = async(id: number | number []) => {
-    const data: any = await apiGenerateCode({id})
-    if(data.file) {
+const handleGenerate = async (id: number | number[]) => {
+    const data: any = await apiGenerateCode({ id })
+    if (data.file) {
         window.open(data.file, '_blank')
     }
-    
+
 }
 
 

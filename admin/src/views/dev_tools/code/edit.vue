@@ -43,9 +43,9 @@
                             <el-table-column label="必填" width="50">
                                 <template v-slot="{ row }">
                                     <el-checkbox
-                                        v-model="row.is_null"
-                                        :true-label="0"
-                                        :false-label="1"
+                                        v-model="row.is_required"
+                                        :true-label="1"
+                                        :false-label="0"
                                     ></el-checkbox>
                                 </template>
                             </el-table-column>
