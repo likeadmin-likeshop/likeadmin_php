@@ -79,18 +79,14 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuleContent()
     {
-        $content = '';
+        $content = "'" . $this->getPkContent() . "' => 'require'," . PHP_EOL;
         foreach ($this->tableColumn as $column) {
             if ($column['is_required'] == 1) {
                 $content .= "'" . $column['column_name'] . "' => 'require'," . PHP_EOL;
             }
         }
-        if (empty($content)) {
-            return $column;
-        }
         $content = substr($content, 0, -2);
-        $content = $this->setBlankSpace($content, "        ");
-        return $content;
+        return $this->setBlankSpace($content, "        ");
     }
 
 
