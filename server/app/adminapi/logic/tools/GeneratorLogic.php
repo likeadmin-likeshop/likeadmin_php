@@ -105,7 +105,7 @@ class GeneratorLogic extends BaseLogic
                 GenerateColumn::update([
                     'id' => $item['id'],
                     'column_comment' => $item['column_comment'] ?? '',
-                    'is_null' => $item['is_null'] ?? 0,
+                    'is_required' => $item['is_required'] ?? 0,
                     'is_insert' => $item['is_insert'] ?? 0,
                     'is_update' => $item['is_update'] ?? 0,
                     'is_lists' => $item['is_lists'] ?? 0,
@@ -299,7 +299,7 @@ class GeneratorLogic extends BaseLogic
                 'column_name' => $value['name'],
                 'column_comment' => $value['comment'],
                 'column_type' => getDbFieldType($value['type']),
-                'is_null' => $value['notnull'] ? 0 : 1,
+                'is_required' => $value['notnull'] ? 0 : 1,
                 'is_pk' => $value['primary'] ? 1 : 0,
             ];
             if (!in_array($value['name'], $defaultColumn)) {

@@ -81,7 +81,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
     {
         $content = '';
         foreach ($this->tableColumn as $column) {
-            if ($column['is_null'] == 0) {
+            if ($column['is_required'] == 0) {
                 $content .= "'" . $column['column_name'] . "' => 'require'," . PHP_EOL;
             }
         }
