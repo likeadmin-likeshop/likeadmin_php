@@ -196,7 +196,7 @@ class GenerateService
         while (($filename = readdir($handler)) !== false) {
             if ($filename != '.' && $filename != '..') {
                 if (is_dir($basePath . $dirName . '/' . $filename)) {
-                    // 如当前路径是文件夹
+                    // 当前路径是文件夹
                     $this->addFileZip($basePath, $dirName . '/' . $filename, $zip);
                 } else {
                     // 写入文件到压缩包

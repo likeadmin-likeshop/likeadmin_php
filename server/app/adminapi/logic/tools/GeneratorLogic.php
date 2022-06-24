@@ -323,9 +323,6 @@ class GeneratorLogic extends BaseLogic
      */
     public static function download(string $fileName)
     {
-        if (empty($fileName)) {
-            return false;
-        }
         $path = root_path() . 'runtime/generate/' . $fileName;
         return file_exists($path) ? $path : false;
     }
