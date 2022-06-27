@@ -167,14 +167,14 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             if (!$column['is_query'] || $column['is_pk']) {
                 continue;
             }
-            $content .= $column['column_name'] . ':' . "''," . PHP_EOL;
+            $content .= $column['column_name'] . ":''," . PHP_EOL;
             if ($column['query_type'] == 'between' && $column['view_type'] == 'datetime') {
                 $queryDate = true;
             }
         }
         if ($queryDate) {
-            $content .= 'start_time:' . "''," . PHP_EOL;
-            $content .= 'end_time:' . "''," . PHP_EOL;
+            $content .= "start_time:''," . PHP_EOL;
+            $content .= "end_time:''," . PHP_EOL;
         }
         $content = substr($content, 0, -2);
         return $this->setBlankSpace($content, '    ');
