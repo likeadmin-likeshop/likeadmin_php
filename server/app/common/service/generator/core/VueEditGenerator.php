@@ -45,7 +45,8 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             '{PK}',
             '{API_DIR}',
             '{CHECKBOX_JOIN}',
-            '{CHECKBOX_SPLIT}'
+            '{CHECKBOX_SPLIT}',
+            '{FORM_DATE}'
         ];
 
         // 等待替换的内容
@@ -61,6 +62,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getTableName(),
             $this->getCheckBoxJoinContent(),
             $this->getCheckBoxSplitContent(),
+            $this->getFormDateContent(),
         ];
         $templatePath = $this->getTemplatePath('vue_edit');
 
@@ -120,6 +122,33 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $content = substr($content, 0, -1);
         }
         return $this->setBlankSpace($content, '    ');
+    }
+
+
+
+    /**
+     * @notes 表单日期处理
+     * @return string
+     * @author 段誉
+     * @date 2022/6/27 16:45
+     */
+    public function getFormDateContent()
+    {
+        $content = '';
+        foreach ($this->tableColumn as $column) {
+            if (empty($column['view_type']) || $column['is_pk']) {
+                continue;
+            }
+            if ($column['view_type'] != 'datetime' || $column['column_type'] != 'int') {
+                continue;
+            }
+            $content .= '//@ts-ignore' . PHP_EOL;
+            $content .= 'formData.' . $column['column_name'] . ' = timeFormat(formData.' . $column['column_name'] . ','."'yyyy-mm-dd hh:MM:ss'".') ' . PHP_EOL;
+        }
+        if (!empty($content)) {
+            $content = substr($content, 0, -1);
+        }
+        return $this->setBlankSpace($content, '        ');
     }
 
 

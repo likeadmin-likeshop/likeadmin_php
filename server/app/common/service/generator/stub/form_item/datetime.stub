@@ -2,7 +2,7 @@
     <el-date-picker 
         v-model="formData.{COLUMN_NAME}"
         clearable
-        type="date"
+        type="datetime"
         value-format="YYYY-MM-DD HH:mm:ss"
         placeholder="选择{COLUMN_COMMENT}">
     </el-date-picker>

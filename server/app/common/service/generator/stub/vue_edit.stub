@@ -31,6 +31,7 @@ import Popup from '@/components/popup/index.vue'
 import { apiDictDataLists } from '@/api/dict'
 import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Detail, api{UPPER_CAMEL_NAME}Edit } from '@/api/{API_DIR}'
 import { ElForm } from 'element-plus'
+import { timeFormat } from '@/utils/util'
 
 const props = defineProps<{
     modelValue: boolean
@@ -84,7 +85,8 @@ const getDetail = async () => {
             //@ts-ignore
             formData[key] = data[key]
         })
-        {CHECKBOX_SPLIT}
+{CHECKBOX_SPLIT}
+{FORM_DATE}
     } catch (error) {
         showLoading.value = false
     }
