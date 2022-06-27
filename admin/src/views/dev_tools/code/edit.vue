@@ -88,14 +88,14 @@
                             <el-table-column label="查询方式">
                                 <template v-slot="{ row }">
                                     <el-select v-model="row.query_type">
-                                        <el-option label="=" value="EQ" />
-                                        <el-option label="!=" value="NE" />
-                                        <el-option label=">" value="GT" />
-                                        <el-option label=">=" value="GTE" />
-                                        <el-option label="<" value="LT" />
-                                        <el-option label="<=" value="LTE" />
-                                        <el-option label="LIKE" value="LIKE" />
-                                        <el-option label="BETWEEN" value="BETWEEN" />
+                                        <el-option label="=" value="=" />
+                                        <el-option label="!=" value="!=" />
+                                        <el-option label=">" value=">" />
+                                        <el-option label=">=" value=">=" />
+                                        <el-option label="<" value="<" />
+                                        <el-option label="<=" value="<=" />
+                                        <el-option label="LIKE" value="like" />
+                                        <el-option label="BETWEEN" value="between" />
                                     </el-select>
                                 </template>
                             </el-table-column>
