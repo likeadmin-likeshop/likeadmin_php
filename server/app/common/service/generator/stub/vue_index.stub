@@ -61,6 +61,7 @@ import { usePages } from '@/core/hooks/pages'
 import { apiDictDataLists } from '@/api/dict'
 import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'
 import Edit from './edit.vue'
+import { timeFormat } from '@/utils/util'
 
 // 编辑时的id
 const selectId = ref<number>()

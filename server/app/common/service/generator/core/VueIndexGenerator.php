@@ -129,17 +129,21 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $column['column_name'],
                 $column['dict_type'],
             ];
-            $templatePath = $this->getTemplatePath('table_item/default');
 
+            $templatePath = $this->getTemplatePath('table_item/default');
             if ($column['view_type'] == 'imageSelect') {
                 $templatePath = $this->getTemplatePath('table_item/image');
             }
             if (in_array($column['view_type'], ['select', 'radio', 'checkbox'])) {
                 $templatePath = $this->getTemplatePath('table_item/options');
             }
+            if ($column['column_type'] == 'int' && $column['view_type'] == 'datetime') {
+                $templatePath = $this->getTemplatePath('table_item/datetime');
+            }
             if (!file_exists($templatePath)) {
                 continue;
             }
+
             $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . PHP_EOL;
         }
         if (!empty($content)) {
