@@ -20,7 +20,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
             {
                 path: '/workbench',
                 component: workbench,
-                meta: { title: '工作台', icon: 'icon-home', permission: ['view'] }
+                meta: { title: '工作台', icon: 'icon_dianpu_home', permission: ['view'] }
             },
 			// decoration, // 装修管理
             // application,// 应用管理

@@ -4,7 +4,7 @@ const routes: RouteRecordRaw = {
     path: '/setting',
     redirect: '/setting/service',
     component: RouterView,
-    meta: { title: '系统设置', icon: 'icon-setting' },
+    meta: { title: '系统设置', icon: 'icon_kdzs_mdsz' },
     children: [
         {
             path: '/setting/service',

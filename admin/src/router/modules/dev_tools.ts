@@ -4,7 +4,7 @@ const routes: RouteRecordRaw = {
     path: '/dev_tools',
     redirect: '/dev_tools/form',
     component: RouterView,
-    meta: { title: '开发工具', icon: 'icon-setting' },
+    meta: { title: '开发工具', icon: 'icon_set_weihu' },
     children: [
 
         {
