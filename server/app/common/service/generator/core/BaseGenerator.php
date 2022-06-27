@@ -131,19 +131,12 @@ abstract class BaseGenerator
         if ($this->tableData['generate_type']) {
             // 生成路径
             $path = $this->getModuleGenerateDir() . $this->getGenerateName();
-//            // 如文件已存在，则增加后续
-//            if (file_exists($path)) {
-//                $path .= '_' . time();
-//            }
-            // 写入内容
-            file_put_contents($path, $this->content);
         } else {
             // 生成到runtime目录
             $path = $this->getRuntimeGenerateDir() . $this->getGenerateName();
-            // 写入内容
-            file_put_contents($path, $this->content);
-            // 生成压缩包
         }
+        // 写入内容
+        file_put_contents($path, $this->content);
     }
 
 
