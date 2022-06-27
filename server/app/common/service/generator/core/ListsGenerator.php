@@ -176,13 +176,25 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
         foreach ($query as $queryName) {
             $columnValue = '';
             foreach ($this->tableColumn as $column) {
-                if ($queryName == $column['query_type']) {
+                if ($queryName == $column['query_type'] && $queryName != 'between') {
                     $columnValue .= "'" . $column['column_name'] . "', ";
                 }
             }
             if (!empty($columnValue)) {
                 $columnValue = substr($columnValue, 0, -2);
                 $conditon .= "'$queryName' => [" . trim($columnValue) . "]," . PHP_EOL;
+            }
+        }
+
+        // 另外处理between情况
+        foreach ($this->tableColumn as $item) {
+            if ($item['query_type'] != 'between') {
+                continue;
+            }
+            if ($item['view_type'] == 'datetime') {
+                $conditon .= "'between_time' => " . "'" . $item['column_name'] . "'," . PHP_EOL;
+            } else {
+                $conditon .= "'between' => " . "'" . $item['column_name'] . "'," . PHP_EOL;
             }
         }
 
