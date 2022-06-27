@@ -84,16 +84,16 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
     {
         $content = '';
         foreach ($this->tableColumn as $column) {
-            if ($column['is_insert']) {
-                $content .= "'" . $column['column_name'] . "' => " . '$params[' . "'" . $column['column_name'] . "'" . '],' . PHP_EOL;
+            if (!$column['is_insert']) {
+                continue;
             }
+            $content .= $this->addEditColumn($column);
         }
         if (empty($content)) {
             return $content;
         }
         $content = substr($content, 0, -2);
-        $content = $this->setBlankSpace($content, "                ");
-        return $content;
+        return $this->setBlankSpace($content, "                ");
     }
 
 
@@ -109,19 +109,37 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
         $columnContent = '';
 
         foreach ($this->tableColumn as $column) {
-            if ($column['is_update']) {
-                $columnContent .= "'" . $column['column_name'] . "' => " . '$params[' . "'" . $column['column_name'] . "'" . '],' . PHP_EOL;
+            if (!$column['is_update']) {
+                continue;
             }
+            $columnContent .= $this->addEditColumn($column);
         }
 
         if (empty($columnContent)) {
-            return '';
+            return $columnContent;
         }
 
         $columnContent = substr($columnContent, 0, -2);
         $content = $conditionContent . $columnContent;
-        $content = $this->setBlankSpace($content, "                ");
+        return $this->setBlankSpace($content, "                ");
+    }
 
+
+    /**
+     * @notes 添加编辑字段内容
+     * @param $column
+     * @return mixed
+     * @author 段誉
+     * @date 2022/6/27 15:37
+     */
+    public function addEditColumn($column)
+    {
+        if ($column['column_type'] == 'int' && $column['view_type'] == 'datetime') {
+            // 物理类型为int，显示类型选择日期的情况
+            $content = "'" . $column['column_name'] . "' => " . 'strtotime($params[' . "'" . $column['column_name'] . "'" . ']),' . PHP_EOL;
+        } else {
+            $content = "'" . $column['column_name'] . "' => " . '$params[' . "'" . $column['column_name'] . "'" . '],' . PHP_EOL;
+        }
         return $content;
     }
 
