@@ -15,7 +15,7 @@
     <el-date-picker 
         v-model="formData.{字段名称}"
         clearable
-        type="date"
+        type="datetime"
         value-format="YYYY-MM-DD HH:mm:ss"
         placeholder="选择{字段描述}">
     </el-date-picker>

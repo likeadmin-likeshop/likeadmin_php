@@ -52,6 +52,7 @@ import Popup from '@/components/popup/index.vue'
 import { apiDictDataLists } from '@/api/dict'
 import { apiDictTypeAdd, apiDictTypeDetail, apiDictTypeEdit } from '@/api/dict'
 import { ElForm } from 'element-plus'
+import dataVue from '@/views/setting/dict/data.vue'
 
 const props = defineProps<{
     modelValue: boolean
@@ -123,6 +124,8 @@ const getDetail = async () => {
             //@ts-ignore
             formData[key] = data[key]
         })
+        //@ts-ignore 
+        formData.{字段名称} = new Date(formData.{字段名称}) 
     } catch (error) {
         showLoading.value = false
     }
