@@ -211,7 +211,9 @@ class GeneratorLogic extends BaseLogic
                 $generator->delGenerateFlag();
                 $zipFile = $generator->getDownloadUrl();
             }
+
             return ['file' => $zipFile];
+
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
             return false;
