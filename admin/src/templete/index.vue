@@ -87,7 +87,7 @@ import { usePages } from '@/core/hooks/pages'
 import { apiDictDataLists } from '@/api/dict'
 import { apiDictTypeLists, apiDictTypeDelete } from '@/api/dict'
 import Edit from './edit.vue'
-
+import { timeFormat } from '@/utils/util'
 // 编辑时的id
 const selectId = ref<number>()
 
