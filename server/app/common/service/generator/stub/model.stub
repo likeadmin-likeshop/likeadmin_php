@@ -26,5 +26,6 @@ use app\common\model\BaseModel;
 class {UPPER_CAMEL_NAME} extends BaseModel
 {
 
+    protected $name = '{TABLE_NAME}';
 
 }

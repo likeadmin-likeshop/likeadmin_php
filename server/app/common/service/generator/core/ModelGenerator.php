@@ -39,6 +39,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             '{CLASS_COMMENT}',
             '{UPPER_CAMEL_NAME}',
             '{PACKAGE_NAME}',
+            '{TABLE_NAME}'
         ];
 
         // 等待替换的内容
@@ -47,6 +48,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             $this->getClassCommentContent(),
             $this->getUpperCamelName(),
             $this->getPackageNameContent(),
+            $this->getTableName()
         ];
 
         $templatePath = $this->getTemplatePath('model');
