@@ -14,8 +14,8 @@
 					<el-table-column label="储存位置" prop="path"> </el-table-column>
 					<el-table-column label="状态">
 						<template #default="{ row }">
-							<el-switch v-model="row.status" :active-value="1" :inactive-value="0"
-								@change="handleChange(row)" />
+							<el-tag size="small" v-if="row.status == 1">开启</el-tag>
+							<el-tag size="small" type="info" v-else>关闭</el-tag>
 						</template>
 					</el-table-column>
 					<el-table-column label="操作" fixed="right">
