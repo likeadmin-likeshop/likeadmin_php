@@ -143,6 +143,9 @@ class GenerateService
             // 是否为压缩包下载
             if ($generator->isGenerateTypeZip()) {
                 $this->setGenerateFlag($this->flag, true);
+            } elseif ($item == 'app\common\service\generator\core\VueRouterGenerator') {
+                // 生成到模块时,更新主路由文件
+                $generator->updateMainRouter();
             }
         }
     }

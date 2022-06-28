@@ -50,6 +50,58 @@ class VueRouterGenerator extends BaseGenerator implements GenerateInterface
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
 
         $this->setContent($content);
+
+    }
+
+
+    /**
+     * @notes 更新主路由文件
+     * @author 段誉
+     * @date 2022/6/27 19:02
+     */
+    public function updateMainRouter()
+    {
+        $mainRouter = dirname(app()->getRootPath()) . '/admin/src/router/index.ts';
+        $needReplace = [
+            '//{GENERATOR_IMPORT_TAG}',
+            '//{GENERATOR_ROUTER_TAG}'
+        ];
+        $import = 'import ' . $this->getLowerCamelName() . " from './modules/" . $this->getTableName() . "'" . PHP_EOL;
+        $router = $this->getLowerCamelName() . ',    // '. $this->tableData['table_comment'] . PHP_EOL;
+
+        if ($this->checkContentIsExist($mainRouter, $import) || $this->checkContentIsExist($mainRouter, $router)) {
+            return true;
+        }
+
+        $router .= '            //{GENERATOR_ROUTER_TAG}';
+        $import .= "//{GENERATOR_IMPORT_TAG}";
+
+        $waitReplace = [
+            $import,
+            $router
+        ];
+        $content = $this->replaceFileData($needReplace, $waitReplace, $mainRouter);
+        // 写入内容
+        file_put_contents($mainRouter, $content);
+    }
+
+
+    /**
+     * @notes 内容是否已存在
+     * @param $file
+     * @param $content
+     * @return bool
+     * @author 段誉
+     * @date 2022/6/28 9:42
+     */
+    public function checkContentIsExist($file, $content)
+    {
+        $fileContent = file_get_contents($file);
+        $result = strstr($fileContent, $content);
+        if (false === $result) {
+            return false;
+        }
+        return true;
     }
 
 

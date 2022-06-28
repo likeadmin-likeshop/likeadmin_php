@@ -11,6 +11,8 @@ import content from './modules/content'
 import channel from './modules/channel'
 import devTools from './modules/dev_tools'
 import organization from './modules/organization'
+//{GENERATOR_IMPORT_TAG}
+
 export const asyncRoutes: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -30,6 +32,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 			organization,	// 组织管理
             permission,		// 权限管理
             setting,		// 系统设置
+            //{GENERATOR_ROUTER_TAG}
         ]
     }
 ]

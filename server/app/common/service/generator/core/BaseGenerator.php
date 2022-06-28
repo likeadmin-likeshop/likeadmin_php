@@ -140,6 +140,9 @@ abstract class BaseGenerator
     }
 
 
+
+
+
     /**
      * @notes 获取文件生成到模块的文件夹路径
      * @return mixed
@@ -247,6 +250,18 @@ abstract class BaseGenerator
     public function getTemplatePath(string $templateName): string
     {
         return $this->templateDir . $templateName . '.stub';
+    }
+
+
+    /**
+     * @notes 小驼峰命名
+     * @return string
+     * @author 段誉
+     * @date 2022/6/27 18:44
+     */
+    public function getLowerCamelName()
+    {
+        return Str::camel($this->getTableName());
     }
 
 
