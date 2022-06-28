@@ -1,0 +1,6 @@
+<el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
+    <data-picker
+        v-model:start_time="queryParams.start_time"
+        v-model:end_time="queryParams.end_time"
+    />
+</el-form-item>

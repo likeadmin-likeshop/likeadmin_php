@@ -28,6 +28,32 @@ return [
             ],
         ]
     ],
+    // 开发工具
+    'tools' => [
+        // 代码生成
+        'generator' => [
+            'page_path' => '/dev_tools/code',
+            'view' => [
+                'button_auth' => ['view'],
+                'action_auth' => [
+                    'tools.generator/generatetable',
+                    'tools.generator/datatable',
+                ],
+            ],
+            'manage' => [
+                'button_auth' => ['auth_all'],
+                'action_auth' => [
+                    'tools.generator/preview',
+                    'tools.generator/selecttable',
+                    'tools.generator/selecttable',
+                    'tools.generator/edit',
+                    'tools.generator/synccolumn',
+                    'tools.generator/delete',
+                    'tools.generator/generate',
+                ],
+            ],
+        ],
+    ],
     // 组织管理
     'dept' => [
         // 部门管理
@@ -185,7 +211,30 @@ return [
                 'action_auth'   => ['auth.admin/editself'],
             ],
         ],
-
+        // 字典管理
+        'dict'          => [
+            'page_path'     => '/dict/type',
+            'view'      => [
+                'button_auth'   => ['view'],
+                'action_auth'   => [
+                    'setting.dict.dicttype/lists',
+                    'setting.dict.dictdata/lists',
+                    'setting.dict.dicttype/detail',
+                    'setting.dict.dictdata/detail',
+                ],
+            ],
+            'manage'     => [
+                'button_auth'   => ['auth_all'],
+                'action_auth'   => [
+                    'setting.dict.dicttype/add',
+                    'setting.dict.dicttype/edit',
+                    'setting.dict.dicttype/delete',
+                    'setting.dict.dictdata/add',
+                    'setting.dict.dictdata/edit',
+                    'setting.dict.dictdata/delete',
+                ],
+            ],
+        ],
     ],
 
 ];

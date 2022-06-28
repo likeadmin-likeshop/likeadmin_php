@@ -1,0 +1,9 @@
+<el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
+    <el-date-picker 
+        v-model="formData.{COLUMN_NAME}"
+        clearable
+        type="datetime"
+        value-format="YYYY-MM-DD HH:mm:ss"
+        placeholder="选择{COLUMN_COMMENT}">
+    </el-date-picker>
+</el-form-item>

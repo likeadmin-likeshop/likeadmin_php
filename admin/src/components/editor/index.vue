@@ -92,7 +92,7 @@ const tiny = reactive({
         tinymce.value.type = 'file';
       }
       // 打开资源管理器
-      materialRef.value.showPopup(1)
+      materialRef.value?.showPopup(1)
       // 保存回调到全局
       tinymce.value.callback = callback
     }
@@ -104,7 +104,7 @@ const tiny = reactive({
 // 确认选择文件时
 const handleMaterialFile = (event: Event) => {
   tinymce.value.callback(event);
-  materialRef.value.fileList = []
+  // materialRef.value?.fileList = []
 }
 /** Methods End **/
 </script>

@@ -1,0 +1,9 @@
+<el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
+    <el-radio-group v-model="formData.{COLUMN_NAME}" placeholder="请选择{COLUMN_COMMENT}">
+        <el-radio 
+            v-for="(item, index) in dictData.{DICT_TYPE}"
+            :key="index" 
+            :label="item.value"
+        >{{ item.name }}</el-radio>
+    </el-radio-group>
+</el-form-item>

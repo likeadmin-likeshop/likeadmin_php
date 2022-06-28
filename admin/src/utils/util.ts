@@ -154,3 +154,27 @@ export function flatten(tree = [], arr = [], childrenKey = 'children') {
     })
     return arr
 }
+
+/**
+ * @description 复制到剪切板
+ * @param value { String } 复制内容
+ * @return { Promise } resolve | reject
+ */
+ export const copyClipboard = (value: string) => {
+    const elInput = document.createElement('input')
+
+    elInput.setAttribute('value', value)
+    document.body.appendChild(elInput)
+    elInput.select()
+
+    try {
+        if (document.execCommand('copy')) {
+            return Promise.resolve()
+        }
+        throw new Error()
+    } catch (err) {
+        return Promise.reject(err)
+    } finally {
+        document.body.removeChild(elInput)
+    }
+}

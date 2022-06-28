@@ -24,7 +24,7 @@
                     <el-input class="ls-input" v-model="formData.original_id" show-word-limit />
                 </el-form-item>
                 <el-form-item label="二维码" prop="qr_code">
-                    <material-select :limit="1" v-model="formData.qr_code" />
+                    <material-select v-model="formData.qr_code" />
                     <div class="muted xs m-r-16">建议尺寸：宽400px*高400px。jpg，jpeg，png格式</div>
                 </el-form-item>
             </div>
