@@ -16,11 +16,6 @@ const routes: RouteRecordRaw = {
             path: '/dev_tools/code/edit',
             component: () => import('@/views/dev_tools/code/edit.vue'),
             meta: { hidden: true, title: '编辑', parent: '/dev_tools/code' },
-        },
-        {
-            path: '/dev_tools/form',
-            component: () => import('@/views/dev_tools/form.vue'),
-            meta: { title: '表单设计器' },
         }
     ],
 }

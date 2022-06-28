@@ -7,8 +7,6 @@ import useElement from './plugins/element'
 import useVueEcharts from './plugins/vue-echarts'
 import vars, { Variables } from './styles/export.module.scss'
 import useDirectives from './core/directives'
-import VForm3 from 'vform3-builds'  //引入VForm3库
-import 'vform3-builds/dist/designer.style.css'  //引入VForm3样式
 
 const app = createApp(App)
 app.config.globalProperties.$variables = vars
@@ -21,7 +19,7 @@ useElement(app)
 // vue-echarts
 useVueEcharts(app)
 
-app.use(router).use(store, injectionKey).use(VForm3)
+app.use(router).use(store, injectionKey)
 
 app.mount('#app')
 // 声明vue上的属性
