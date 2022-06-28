@@ -1,0 +1,5 @@
+<el-table-column label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
+    <template #default="{ row }">
+        <dict-value :options="dictData.{DICT_TYPE}" :value="row.{COLUMN_NAME}" />
+    </template>
+</el-table-column>

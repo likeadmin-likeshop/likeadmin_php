@@ -147,3 +147,33 @@ function del_target_dir($path, $delDir)
         return false;
     }
 }
+
+
+/**
+ * @notes 获取数据表字段类型
+ * @param string $type
+ * @return string
+ * @author 段誉
+ * @date 2022/6/15 10:11
+ */
+function getDbFieldType(string $type): string
+{
+    if (0 === strpos($type, 'set') || 0 === strpos($type, 'enum')) {
+        $result = 'string';
+    } elseif (preg_match('/(double|float|decimal|real|numeric)/is', $type)) {
+        $result = 'float';
+    } elseif (preg_match('/(int|serial|bit)/is', $type)) {
+        $result = 'int';
+    } elseif (preg_match('/bool/is', $type)) {
+        $result = 'bool';
+    } elseif (0 === strpos($type, 'timestamp')) {
+        $result = 'timestamp';
+    } elseif (0 === strpos($type, 'datetime')) {
+        $result = 'datetime';
+    } elseif (0 === strpos($type, 'date')) {
+        $result = 'date';
+    } else {
+        $result = 'string';
+    }
+    return $result;
+}

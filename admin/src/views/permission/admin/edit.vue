@@ -84,7 +84,7 @@
 				<!-- 管理员状态 -->
 				<el-form-item label="管理员状态">
 					<el-switch v-model="formData.disable" :active-value="0" :inactive-value="1" :disabled="id && formData.root"/>
-					<div class="muted" v-if="id">超级管理员状态不允许关闭</div>
+					<div class="muted" v-if="id && formData.root">系统管理员状态不允许关闭</div>
 				</el-form-item>
 
 				<!-- 多处登录 -->

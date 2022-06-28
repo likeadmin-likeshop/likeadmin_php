@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 import { terminal } from '@/config/app'
 
-export function adminLists(params: any) {
+export function apiAdminLists(params: any) {
     return request.get('/auth.admin/lists', { params })
 }
 

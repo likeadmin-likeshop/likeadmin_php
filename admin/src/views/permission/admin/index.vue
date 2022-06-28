@@ -112,7 +112,7 @@
 import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
 import Pagination from '@/components/pagination/index.vue'
 import Popup from '@/components/popup/index.vue'
-import { apiAdminEdit, adminLists, apiAdminDelete, apiRoleLists } from '@/api/auth'
+import { apiAdminEdit, apiAdminLists, apiAdminDelete, apiRoleLists } from '@/api/auth'
 import { usePages } from '@/core/hooks/pages'
 export default defineComponent({
     components: {
@@ -128,7 +128,7 @@ export default defineComponent({
         })
         const roleList: Ref<any[]> = ref([])
         const { pager, requestApi, resetParams, resetPage } = usePages({
-            callback: adminLists,
+            callback: apiAdminLists,
             params: formData
         })
         const changeStatus = (data: any) => {
@@ -168,7 +168,6 @@ export default defineComponent({
             requestApi,
             resetParams,
             resetPage,
-            adminLists,
             changeStatus,
             handleDelete
         }

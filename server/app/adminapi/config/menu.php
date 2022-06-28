@@ -18,6 +18,29 @@ return [
             ]
         ],
     ],
+    // 开发工具
+    [
+        'name' => '开发工具',
+        'type' => 1,
+        'sons' => [
+            [
+                'name' => '代码生成器',
+                'type' => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'tools/generator.view'
+                    ],
+                    [
+                        'name'      => '管理',
+                        'type'      => 2,
+                        'auth_key'  => 'tools/generator.manage'
+                    ],
+                ],
+            ]
+        ],
+    ],
     // 组织管理
     [
         'name' => '组织管理',
@@ -200,6 +223,22 @@ return [
                         'name'      => '保存',
                         'type'      => 2,
                         'auth_key'  => 'setting/selfSetting.save'
+                    ],
+                ],
+            ],
+            [
+                'name'  => '字典管理',
+                'type'  => 1,
+                'sons'  => [
+                    [
+                        'name'      => '查看',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/dict.view'
+                    ],
+                    [
+                        'name'      => '管理',
+                        'type'      => 2,
+                        'auth_key'  => 'setting/dict.manage'
                     ],
                 ],
             ],

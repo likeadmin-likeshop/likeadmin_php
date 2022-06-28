@@ -4,7 +4,7 @@ const routes: RouteRecordRaw = {
     path: '/setting',
     redirect: '/setting/service',
     component: RouterView,
-    meta: { title: '系统设置', icon: 'icon-setting' },
+    meta: { title: '系统设置', icon: 'icon_kdzs_mdsz' },
     children: [
         {
             path: '/setting/service',
@@ -149,6 +149,34 @@ const routes: RouteRecordRaw = {
 						hidden: true,
 					},
 				},
+			],
+		},
+        {
+			path: '/setting/dict',
+			redirect: '/setting/dict/type',
+			component: RouterView,
+			meta: { title: '字典管理' },
+			children: [
+				{
+					path: '/setting/dict/type',
+					component: () => import('@/views/setting/dict/type.vue'),
+					meta: {
+						title: '字典管理',
+						permission: ['view'],
+                        hidden: true,
+                        parent: '/setting/dict'
+					},
+				},
+                {
+					path: '/setting/dict/data',
+					component: () => import('@/views/setting/dict/data.vue'),
+					meta: {
+						title: '字典数据',
+						permission: ['view'],
+                        hidden: true,
+                        parent: '/setting/dict'
+					},
+				}
 			],
 		}
     ],

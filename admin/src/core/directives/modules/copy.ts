@@ -7,9 +7,9 @@
 
 import { ElMessage } from 'element-plus'
 import Clipboard from 'clipboard'
-;(function copyboard() {
+function copyboard() {
     const clipboard = new Clipboard('.copy-btn')
-
+    console.log(clipboard)
     clipboard.on('success', e => {
         ElMessage.success('复制成功')
         e.clearSelection()
@@ -19,7 +19,8 @@ import Clipboard from 'clipboard'
         console.error(err)
         ElMessage.success('复制失败')
     })
-})()
+}
+copyboard()
 
 export default {
     mounted: (el: HTMLElement, binding: any) => {

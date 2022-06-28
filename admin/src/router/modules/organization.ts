@@ -4,7 +4,7 @@ const routes: RouteRecordRaw = {
     path: '/organization',
     redirect: '/organization/department',
     component: RouterView,
-    meta: { title: '组织管理', icon: 'icon-quanxian' },
+    meta: { title: '组织管理', icon: 'icon_user_dengji' },
     children: [
         {
             path: '/organization/department',

@@ -4,7 +4,7 @@ const routes: RouteRecordRaw = {
     path: '/permission',
     redirect: '/permission/admin',
     component: RouterView,
-    meta: { title: '权限管理', icon: 'icon-quanxian' },
+    meta: { title: '权限管理', icon: 'icon_show' },
     children: [
         {
             path: '/permission/admin',
