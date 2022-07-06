@@ -1,7 +1,7 @@
 <!-- H5 -->
 <template>
 	<!-- Main Form Start -->
-	<el-form ref="formRef" :model="formData" label-width="140px" size="small">
+	<el-form ref="formRef" :model="formData" label-width="140px">
 		<!-- 微信小程序 -->
 		<el-card shadow="never" class="ls-card m-t-16">
 			<el-form-item label="H5状态">
@@ -22,7 +22,7 @@
 
 	<!-- Footer Start -->
 	<footer-btns>
-		<el-button type="primary" size="small" @click="onSubmit">保存</el-button>
+		<el-button type="primary" @click="onSubmit">保存</el-button>
 	</footer-btns>
 	<!-- Footer End -->
 </template>
@@ -44,8 +44,8 @@ interface formDataObj {
 
 /** Data Start **/
 const formData = ref<formDataObj>({
-	status: 1, 
-	url: '', 		
+	status: 1,
+	url: '',
 })
 /** Data End **/
 

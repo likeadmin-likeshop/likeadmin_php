@@ -7,16 +7,16 @@
 	<!-- Header Alert End -->
 
 	<!-- Main Form Start -->
-	<el-form ref="formRef" :model="formData" :rules="rules" label-width="140px" size="small">
+	<el-form ref="formRef" :model="formData" :rules="rules" label-width="140px">
 		<!-- 微信小程序 Start -->
 		<el-card shadow="never" class="m-t-16">
 			<template #header>微信小程序</template>
 
 			<el-form-item label="小程序名称">
-				<el-input class="ls-input" v-model="formData.name" size="small"></el-input>
+				<el-input class="ls-input" v-model="formData.name"></el-input>
 			</el-form-item>
 			<el-form-item label="原始ID">
-				<el-input class="ls-input" v-model="formData.original_id" size="small"></el-input>
+				<el-input class="ls-input" v-model="formData.original_id"></el-input>
 			</el-form-item>
 			<el-form-item label="小程序码">
 				<material-select :limit="1" v-model="formData.qr_code" />
@@ -29,10 +29,10 @@
 		<el-card shadow="never" class="m-t-16">
 			<template #header>开发者ID</template>
 			<el-form-item label="AppID" prop="app_id">
-				<el-input class="ls-input" v-model="formData.app_id" size="small"></el-input>
+				<el-input class="ls-input" v-model="formData.app_id"></el-input>
 			</el-form-item>
 			<el-form-item label="AppSecret" prop="app_secret">
-				<el-input class="ls-input" v-model="formData.app_secret" size="small"></el-input>
+				<el-input class="ls-input" v-model="formData.app_secret"></el-input>
 				<div class="muted xs m-r-16">小程序账号登录微信公众平台，点击开发>开发设置->开发者ID，设置AppID和AppSecret</div>
 			</el-form-item>
 		</el-card>
@@ -42,28 +42,28 @@
 		<el-card shadow="never" class="m-t-16">
 			<template #header>服务器域名</template>
 			<el-form-item label="request合法域名">
-				<el-input class="ls-input m-r-10" v-model="formData.request_domain" size="small" disabled></el-input>
-				<el-button size="small" v-on:copy="formData.request_domain">复制</el-button>
+				<el-input class="ls-input m-r-10" v-model="formData.request_domain" disabled></el-input>
+				<el-button v-on:copy="formData.request_domain">复制</el-button>
 				<div class="muted xs m-r-16">小程序账号登录微信公众平台，点击开发>开发设置->服务器域名，填写https协议域名</div>
 			</el-form-item>
 			<el-form-item label="socket合法域名">
-				<el-input class="ls-input m-r-10" v-model="formData.socket_domain" size="small" disabled></el-input>
-				<el-button size="small" v-on:copy="formData.socket_domain">复制</el-button>
+				<el-input class="ls-input m-r-10" v-model="formData.socket_domain" disabled></el-input>
+				<el-button v-on:copy="formData.socket_domain">复制</el-button>
 				<div class="muted xs m-r-16">小程序账号登录微信公众平台，点击开发>开发设置->服务器域名，填写wss协议域名</div>
 			</el-form-item>
 			<el-form-item label="uploadFile合法域名">
-				<el-input class="ls-input m-r-10" v-model="formData.upload_file_domain" size="small" disabled></el-input>
-				<el-button size="small" v-on:copy="formData.upload_file_domain">复制</el-button>
+				<el-input class="ls-input m-r-10" v-model="formData.upload_file_domain" disabled></el-input>
+				<el-button v-on:copy="formData.upload_file_domain">复制</el-button>
 				<div class="muted xs m-r-16">小程序账号登录微信公众平台，点击开发>开发设置->服务器域名，填写https协议域名</div>
 			</el-form-item>
 			<el-form-item label="downloadFile合法域名">
-				<el-input class="ls-input m-r-10" v-model="formData.download_file_domain" size="small" disabled></el-input>
-				<el-button size="small" v-on:copy="formData.download_file_domain">复制</el-button>
+				<el-input class="ls-input m-r-10" v-model="formData.download_file_domain" disabled></el-input>
+				<el-button v-on:copy="formData.download_file_domain">复制</el-button>
 				<div class="muted xs m-r-16">小程序账号登录微信公众平台，点击开发>开发设置->服务器域名，填写https协议域名</div>
 			</el-form-item>
 			<el-form-item label="udp合法域名">
-				<el-input class="ls-input m-r-10" v-model="formData.udp_domain" size="small" disabled></el-input>
-				<el-button size="small" v-on:copy="formData.udp_domain">复制</el-button>
+				<el-input class="ls-input m-r-10" v-model="formData.udp_domain" disabled></el-input>
+				<el-button v-on:copy="formData.udp_domain">复制</el-button>
 				<div class="muted xs m-r-16">小程序账号登录微信公众平台，点击开发>开发设置->服务器域名，填写udp协议域名</div>
 			</el-form-item>
 		</el-card>
@@ -73,8 +73,8 @@
 		<el-card shadow="never" class="m-t-16">
 			<template #header>业务域名</template>
 			<el-form-item label="业务域名">
-				<el-input class="ls-input m-r-10" v-model="formData.business_domain" size="small" disabled></el-input>
-				<el-button size="small" v-on:copy="formData.business_domain">复制</el-button>
+				<el-input class="ls-input m-r-10" v-model="formData.business_domain" disabled></el-input>
+				<el-button v-on:copy="formData.business_domain">复制</el-button>
 				<div class="muted xs m-r-16">小程序账号登录微信公众平台，点击开发>开发设置->业务域名，填写业务域名</div>
 			</el-form-item>
 		</el-card>
@@ -84,7 +84,7 @@
 
 	<!-- Footer Start -->
 	<footer-btns>
-		<el-button type="primary" size="small" @click="onSubmit(formRef)">保存</el-button>
+		<el-button type="primary" @click="onSubmit(formRef)">保存</el-button>
 	</footer-btns>
 	<!-- Footer End -->
 </template>

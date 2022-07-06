@@ -11,7 +11,6 @@
                 :model="formData"
                 :rules="rules"
                 label-width="150px"
-                size="small"
             >
                 <el-form-item label="资讯标题：" prop="title">
                     <el-input
@@ -42,7 +41,6 @@
                 <el-form-item label="状态：" prop="is_show">
                     <el-switch
                         v-model="formData.is_show"
-                        size="small"
                         :active-text="formData.is_show ? '启用' : '关闭'"
                         :active-value="1"
                         :inactive-value="0"
@@ -56,101 +54,101 @@
         </el-card>
 
         <footer-btns>
-            <el-button type="primary" size="small" @click="onSubmit(formDataRefs)">保存</el-button>
+            <el-button type="primary" @click="onSubmit(formDataRefs)">保存</el-button>
         </footer-btns>
     </div>
 </template>
 
 <script setup lang="ts">
-    import { onMounted, reactive, ref } from 'vue'
-    import type { ElForm } from 'element-plus'
-    import MaterialSelect from '@/components/material-select/index.vue'
-    import FooterBtns from '@/components/footer-btns/index.vue'
-    import Editor from '@/components/editor/index.vue'
-    import {
-        apiArticleAdd,
-        apiArticleEdit,
-        apiArticleDetail,
-        apiAllArticleCategory,
-    } from '@/api/information'
-    import { useAdmin } from '@/core/hooks/app'
+import { onMounted, reactive, ref } from 'vue'
+import type { ElForm } from 'element-plus'
+import MaterialSelect from '@/components/material-select/index.vue'
+import FooterBtns from '@/components/footer-btns/index.vue'
+import Editor from '@/components/editor/index.vue'
+import {
+    apiArticleAdd,
+    apiArticleEdit,
+    apiArticleDetail,
+    apiAllArticleCategory,
+} from '@/api/information'
+import { useAdmin } from '@/core/hooks/app'
 
-    interface formDataObj {
-        title: string
-        image: string
-        cid: number | string
-        is_show: number
-        content: string
-    }
+interface formDataObj {
+    title: string
+    image: string
+    cid: number | string
+    is_show: number
+    content: string
+}
 
-    // 所属分类
-    let informationClassify = ref<any[]>([])
+// 所属分类
+let informationClassify = ref<any[]>([])
 
-    type FormInstance = InstanceType<typeof ElForm>
-    const formDataRefs = ref<FormInstance>()
+type FormInstance = InstanceType<typeof ElForm>
+const formDataRefs = ref<FormInstance>()
 
-    const { router, route } = useAdmin()
-    const id: any = route.query.id
+const { router, route } = useAdmin()
+const id: any = route.query.id
 
-    // 表单数据
-    let formData = ref<formDataObj>({
-        title: '', // 资讯标题
-        image: '', // 封面图
-        cid: '', // 所属分类
-        is_show: 1, // 状态
-        content: '',
+// 表单数据
+let formData = ref<formDataObj>({
+    title: '', // 资讯标题
+    image: '', // 封面图
+    cid: '', // 所属分类
+    is_show: 1, // 状态
+    content: '',
+})
+
+// 表单校验规则
+const rules = reactive<any>({
+    title: [{ required: true, message: '请输入标题', trigger: ['blur'] }],
+    image: [{ required: true, message: '不能为空', trigger: ['blur'] }],
+})
+
+// 获取详情
+const getInformationDetali = async (id: number) => {
+    ; (formData.value as {}) = await apiArticleDetail({ id })
+}
+
+// 添加
+const handleInformationAdd = async () => {
+    await apiArticleAdd({ ...formData.value })
+    router.back()
+}
+
+// 编辑
+const handleInformationEdit = async () => {
+    await apiArticleEdit({ ...formData.value })
+    router.back()
+}
+
+// 获取所属分类
+const getInformationClassify = async () => {
+    ; (informationClassify.value as {}) = await apiAllArticleCategory()
+}
+
+// 提交数据
+const onSubmit = (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    formEl.validate((valid) => {
+        if (!valid) return false
+        if (!id) handleInformationAdd()
+        else handleInformationEdit()
     })
+}
 
-    // 表单校验规则
-    const rules = reactive<any>({
-        title: [{ required: true, message: '请输入标题', trigger: ['blur'] }],
-        image: [{ required: true, message: '不能为空', trigger: ['blur'] }],
-    })
-
-    // 获取详情
-    const getInformationDetali = async (id: number) => {
-        ;(formData.value as {}) = await apiArticleDetail({ id })
-    }
-
-    // 添加
-    const handleInformationAdd = async () => {
-        await apiArticleAdd({ ...formData.value })
-        router.back()
-    }
-
-    // 编辑
-    const handleInformationEdit = async () => {
-        await apiArticleEdit({ ...formData.value })
-        router.back()
-    }
-
-    // 获取所属分类
-    const getInformationClassify = async () => {
-        ;(informationClassify.value as {}) = await apiAllArticleCategory()
-    }
-
-    // 提交数据
-    const onSubmit = (formEl: FormInstance | undefined) => {
-        if (!formEl) return
-        formEl.validate((valid) => {
-            if (!valid) return false
-            if (!id) handleInformationAdd()
-            else handleInformationEdit()
-        })
-    }
-
-    onMounted(() => {
-        if (id) getInformationDetali(id)
-        getInformationClassify()
-    })
+onMounted(() => {
+    if (id) getInformationDetali(id)
+    getInformationClassify()
+})
 </script>
 
 <style lang="scss" scoped>
-    .ls-input {
-        width: 340px;
-    }
+.ls-input {
+    width: 340px;
+}
 
-    .rich-text {
-        width: 1000px;
-    }
+.rich-text {
+    width: 1000px;
+}
 </style>

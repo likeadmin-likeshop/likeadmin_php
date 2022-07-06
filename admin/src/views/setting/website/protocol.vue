@@ -13,12 +13,7 @@
         <!-- Header Form End -->
 
         <!-- Main Editor Start -->
-        <editor
-            v-model="formData.service_content"
-            width="1000"
-            height="664"
-            class="m-l-14"
-        ></editor>
+        <editor v-model="formData.service_content" width="1000" height="664" class="m-l-14"></editor>
         <!-- Main Editor End -->
     </el-card>
     <!-- 服务协议 End -->
@@ -37,58 +32,53 @@
         <!-- Header Form End -->
 
         <!-- Main Editor Start -->
-        <editor
-            v-model="formData.privacy_content"
-            width="1000"
-            height="664"
-            class="m-l-14"
-        ></editor>
+        <editor v-model="formData.privacy_content" width="1000" height="664" class="m-l-14"></editor>
         <!-- Main Editor End -->
     </el-card>
     <!-- 政策协议 End -->
 
     <!-- Footer Start -->
     <footer-btns>
-        <el-button type="primary" size="small" @click="handleProtocolEdit">保存</el-button>
+        <el-button type="primary" @click="handleProtocolEdit">保存</el-button>
     </footer-btns>
     <!-- Footer End -->
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue'
-    import { apiGetProtocol, apiSetProtocol } from '@/api/setting'
-    import Editor from '@/components/editor/index.vue'
-    import FooterBtns from '@/components/footer-btns/index.vue'
+import { ref } from 'vue'
+import { apiGetProtocol, apiSetProtocol } from '@/api/setting'
+import Editor from '@/components/editor/index.vue'
+import FooterBtns from '@/components/footer-btns/index.vue'
 
-    /** Interface Star **/
-    interface formDataObj {
-        service_title: string
-        service_content: string
-        privacy_title: string
-        privacy_content: string
-    }
-    /** Interface End **/
+/** Interface Star **/
+interface formDataObj {
+    service_title: string
+    service_content: string
+    privacy_title: string
+    privacy_content: string
+}
+/** Interface End **/
 
-    /** Data Start **/
-    let formData = ref<formDataObj>({
-        service_title: '',
-        service_content: '',
-        privacy_title: '',
-        privacy_content: '',
-    })
-    /** Data End **/
+/** Data Start **/
+let formData = ref<formDataObj>({
+    service_title: '',
+    service_content: '',
+    privacy_title: '',
+    privacy_content: '',
+})
+/** Data End **/
 
-    /** Methods Start **/
-    const protocolGet = async (): Promise<void> => {
-        ;(formData.value as object) = await apiGetProtocol()
-    }
-    const handleProtocolEdit = async (): Promise<void> => {
-        await apiSetProtocol({ ...formData.value })
-        protocolGet()
-    }
-    /** Methods End **/
-
-    /** Life Cycle Start **/
+/** Methods Start **/
+const protocolGet = async (): Promise<void> => {
+    ; (formData.value as object) = await apiGetProtocol()
+}
+const handleProtocolEdit = async (): Promise<void> => {
+    await apiSetProtocol({ ...formData.value })
     protocolGet()
+}
+/** Methods End **/
+
+/** Life Cycle Start **/
+protocolGet()
     /** Life Cycle End **/
 </script>

@@ -14,7 +14,6 @@
                 ref="formRef"
                 :model="formData"
                 label-width="80px"
-                size="small"
                 :rules="rules"
                 v-loading="showLoading"
             >
@@ -125,7 +124,7 @@ const getDetail = async () => {
             formData[key] = data[key]
         })
         //@ts-ignore 
-        formData.{字段名称} = new Date(formData.{字段名称}) 
+        formData.{ 字段名称 } = new Date(formData.{ 字段名称 })
     } catch (error) {
         showLoading.value = false
     }

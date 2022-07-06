@@ -41,9 +41,7 @@
             </el-form>
 
             <div class="desc m-t-20" style="margin-left: 135px">
-                <div v-for="(item, index) in formData.system_notice.tips" :key="index">
-                    {{ item }}
-                </div>
+                <div v-for="(item, index) in formData.system_notice.tips" :key="index">{{ item }}</div>
             </div>
         </div>
     </el-card>
@@ -115,9 +113,7 @@
                 </el-form-item>
 
                 <el-form-item label="模板内容" size="mini" required>
-                    <el-button type="primary" size="mini" @click="onAddModeField"
-                        >新增模板字段</el-button
-                    >
+                    <el-button type="primary" size="mini" @click="onAddModeField">新增模板字段</el-button>
 
                     <el-table
                         class="m-t-12"
@@ -155,8 +151,7 @@
                                     type="text"
                                     size="mall"
                                     @click="formData.oa_notice.tpl.splice(scope.$index, 1)"
-                                    >删除</el-button
-                                >
+                                >删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -195,9 +190,7 @@
                 </el-form-item>
 
                 <el-form-item label="模板内容" size="mini" required>
-                    <el-button type="primary" size="mini" @click="onAddWeChatModeField"
-                        >新增模板字段</el-button
-                    >
+                    <el-button type="primary" size="mini" @click="onAddWeChatModeField">新增模板字段</el-button>
 
                     <el-table
                         class="m-t-12"
@@ -235,8 +228,7 @@
                                     type="text"
                                     size="mall"
                                     @click="formData.mnp_notice.tpl.splice(scope.$index, 1)"
-                                    >删除</el-button
-                                >
+                                >删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -252,114 +244,114 @@
 
     <!-- Footer Start -->
     <footer-btns>
-        <el-button type="primary" size="small" @click="onSubmit()">保存</el-button>
+        <el-button type="primary" @click="onSubmit()">保存</el-button>
     </footer-btns>
     <!-- Footer End -->
 </template>
 
 <script lang="ts" setup>
-    import { ref } from 'vue'
-    import { apiNoticeDetail, apiNoticeEdit } from '@/api/application'
-    import { useAdmin } from '@/core/hooks/app'
-    import FooterBtns from '@/components/footer-btns/index.vue'
+import { ref } from 'vue'
+import { apiNoticeDetail, apiNoticeEdit } from '@/api/application'
+import { useAdmin } from '@/core/hooks/app'
+import FooterBtns from '@/components/footer-btns/index.vue'
 
-    /** Data Start **/
-    const { router, route } = useAdmin()
-    const id = ref<any>(route.query.id)
-    const formData = ref<any>({
-        // 系统通知
-        system_notice: {
-            is_show: false,
-            content: '',
-            status: '',
-            title: '',
-        },
-        // 短信通知
-        sms_notice: {
-            content: '',
-            is_show: true,
-            status: '',
-            template_id: '',
-        },
-        // 微信模板
-        oa_notice: {
-            first: '',
-            is_show: false,
-            name: '',
-            remark: '',
-            status: '',
-            template_id: '',
-            template_sn: '',
-            tpl: [],
-        },
-        // 微信小程序
-        mnp_notice: {
-            is_show: false,
-            name: '',
-            status: '',
-            template_id: '',
-            template_sn: '',
-            tpl: [],
-        },
+/** Data Start **/
+const { router, route } = useAdmin()
+const id = ref<any>(route.query.id)
+const formData = ref<any>({
+    // 系统通知
+    system_notice: {
+        is_show: false,
+        content: '',
+        status: '',
+        title: '',
+    },
+    // 短信通知
+    sms_notice: {
+        content: '',
+        is_show: true,
+        status: '',
+        template_id: '',
+    },
+    // 微信模板
+    oa_notice: {
+        first: '',
+        is_show: false,
+        name: '',
+        remark: '',
+        status: '',
+        template_id: '',
+        template_sn: '',
+        tpl: [],
+    },
+    // 微信小程序
+    mnp_notice: {
+        is_show: false,
+        name: '',
+        status: '',
+        template_id: '',
+        template_sn: '',
+        tpl: [],
+    },
+})
+/** Data End **/
+
+/** Methods Start **/
+// 提交保存
+const onSubmit = async (): Promise<void> => {
+    const params = {
+        id: id.value,
+        template: [
+            {
+                type: 'system',
+                ...formData.value.system_notice,
+            },
+            {
+                type: 'sms',
+                ...formData.value.sms_notice,
+            },
+            {
+                type: 'oa',
+                ...formData.value.oa_notice,
+            },
+            {
+                type: 'mnp',
+                ...formData.value.mnp_notice,
+            },
+        ],
+    }
+    await apiNoticeEdit({ ...params })
+    router.back()
+}
+// 获取详情
+const getNoticeDetail = async (): Promise<void> => {
+    formData.value = await apiNoticeDetail({ id: id.value })
+}
+// 新增微信模板字段
+const onAddModeField = (): void => {
+    formData.value.oa_notice.tpl.push({
+        tpl_name: '',
+        tpl_keyword: '',
+        tpl_content: '',
     })
-    /** Data End **/
+}
+// 新增微信小程序模板字段
+const onAddWeChatModeField = (): void => {
+    formData.value.mnp_notice.tpl.push({
+        tpl_name: '',
+        tpl_keyword: '',
+        tpl_content: '',
+    })
+}
+/** Methods End **/
 
-    /** Methods Start **/
-    // 提交保存
-    const onSubmit = async (): Promise<void> => {
-        const params = {
-            id: id.value,
-            template: [
-                {
-                    type: 'system',
-                    ...formData.value.system_notice,
-                },
-                {
-                    type: 'sms',
-                    ...formData.value.sms_notice,
-                },
-                {
-                    type: 'oa',
-                    ...formData.value.oa_notice,
-                },
-                {
-                    type: 'mnp',
-                    ...formData.value.mnp_notice,
-                },
-            ],
-        }
-        await apiNoticeEdit({ ...params })
-        router.back()
-    }
-    // 获取详情
-    const getNoticeDetail = async (): Promise<void> => {
-        formData.value = await apiNoticeDetail({ id: id.value })
-    }
-    // 新增微信模板字段
-    const onAddModeField = (): void => {
-        formData.value.oa_notice.tpl.push({
-            tpl_name: '',
-            tpl_keyword: '',
-            tpl_content: '',
-        })
-    }
-    // 新增微信小程序模板字段
-    const onAddWeChatModeField = (): void => {
-        formData.value.mnp_notice.tpl.push({
-            tpl_name: '',
-            tpl_keyword: '',
-            tpl_content: '',
-        })
-    }
-    /** Methods End **/
-
-    /** Life Cycle Start **/
-    if (id.value) getNoticeDetail()
+/** Life Cycle Start **/
+if (id.value) getNoticeDetail()
     /** Life Cycle End **/
 </script>
 
 <style lang="scss" scoped>
-    :deep(.text .el-textarea__inner) {
-        height: 100px !important;
-    }
+:deep(.text .el-textarea__inner) {
+    height: 100px !important;
+}
 </style>

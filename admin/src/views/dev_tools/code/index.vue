@@ -1,7 +1,7 @@
 <template>
     <div class="code-generation">
         <el-card shadow="never">
-            <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
+            <el-form class="ls-form" :model="formData" label-width="80px" inline>
                 <el-form-item label="表名称">
                     <el-input v-model="formData.table_name" class="ls-input" />
                 </el-form-item>
@@ -18,13 +18,9 @@
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
             <data-table class="inline m-r-10" @success="requestApi">
-                <el-button type="primary" size="small">导入数据表</el-button>
+                <el-button type="primary">导入数据表</el-button>
             </data-table>
-            <el-button
-                size="small"
-                :disabled="!selectData.length"
-                @click="handleGenerate(selectData)"
-            >生成代码</el-button>
+            <el-button :disabled="!selectData.length" @click="handleGenerate(selectData)">生成代码</el-button>
             <popup
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
@@ -32,15 +28,11 @@
                 @confirm="handleDelete(selectData)"
             >
                 <template #trigger>
-                    <el-button size="small" :disabled="!selectData.length">删除</el-button>
+                    <el-button :disabled="!selectData.length">删除</el-button>
                 </template>
             </popup>
             <div class="m-t-15">
-                <el-table
-                    :data="pager.lists"
-                    size="small"
-                    @selection-change="handleSelectionChange"
-                >
+                <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="表名称" prop="table_name" />
                     <el-table-column label="表描述" prop="table_comment" />

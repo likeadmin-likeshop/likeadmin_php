@@ -2,12 +2,8 @@
     <div class="error">
         <div>
             <div class="error-code">{{ code }}</div>
-            <div class="lg lighter m-t-30 m-b-30">
-                {{ title }}
-            </div>
-            <el-button type="primary" size="small" @click="$router.go(-1)">
-                {{ second }} 秒后返回上一页
-            </el-button>
+            <div class="lg lighter m-t-30 m-b-30">{{ title }}</div>
+            <el-button type="primary" @click="$router.go(-1)">{{ second }} 秒后返回上一页</el-button>
         </div>
     </div>
 </template>

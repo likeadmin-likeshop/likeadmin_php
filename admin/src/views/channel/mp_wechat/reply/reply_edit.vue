@@ -21,7 +21,7 @@
 	<!-- Header End -->
 
 	<!-- Main Start -->
-	<el-form :rules="rules" ref="formRef" :model="formData" label-width="120px" size="small">
+	<el-form :rules="rules" ref="formRef" :model="formData" label-width="120px">
 		<el-card shadow="never" class="m-t-16">
 			<div class="card-title">关注回复</div>
 			<div class="card-content m-t-24">
@@ -71,8 +71,8 @@
 
 	<!-- Footer Start -->
 	<footer-btns>
-		<el-button size="small" @click="$router.back()">取消</el-button>
-		<el-button type="primary" size="small" @click="onSubmit(formRef)">保存</el-button>
+		<el-button @click="$router.back()">取消</el-button>
+		<el-button type="primary" @click="onSubmit(formRef)">保存</el-button>
 	</footer-btns>
 	<!-- Footer End -->
 </template>

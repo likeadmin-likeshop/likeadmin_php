@@ -4,13 +4,7 @@
             <el-page-header content="编辑" @back="$router.back()" />
         </el-card>
         <el-card class="m-t-16" shadow="never">
-            <el-form
-                class="ls-form"
-                :model="formData"
-                size="small"
-                label-width="80px"
-                :rules="rules"
-            >
+            <el-form class="ls-form" :model="formData" label-width="80px" :rules="rules">
                 <el-tabs v-model="activeName">
                     <el-tab-pane label="基础信息" name="base">
                         <el-form-item label="表名称" prop="table_name">
@@ -163,7 +157,7 @@
             </el-form>
         </el-card>
         <footer-btns>
-            <el-button type="primary" size="small" @click="onSubmit">保存</el-button>
+            <el-button type="primary" @click="onSubmit">保存</el-button>
         </footer-btns>
 
         <popup

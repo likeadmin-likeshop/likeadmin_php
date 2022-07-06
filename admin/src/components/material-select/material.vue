@@ -62,7 +62,7 @@
             </el-scrollbar>
             <div class="flex flex-center">
                 <popover-input tips="分类名称" type="text" @confirm="handleAddCate">
-                    <el-button size="small">添加分组</el-button>
+                    <el-button>添加分组</el-button>
                 </popover-input>
             </div>
         </div>
@@ -76,7 +76,7 @@
                         :show-progress="true"
                         @change="refresh"
                     >
-                        <el-button size="small" type="primary">本地上传</el-button>
+                        <el-button type="primary">本地上传</el-button>
                     </upload>
                     <popup
                         class="m-r-10 inline"
@@ -85,7 +85,7 @@
                         @confirm="batchFileDelete()"
                     >
                         <template #trigger>
-                            <el-button size="small" :disabled="!select.length">删除</el-button>
+                            <el-button :disabled="!select.length">删除</el-button>
                         </template>
                     </popup>
                     <popup
@@ -95,7 +95,7 @@
                         title="移动文件"
                     >
                         <template #trigger>
-                            <el-button size="small" :disabled="!select.length">移动</el-button>
+                            <el-button :disabled="!select.length">移动</el-button>
                         </template>
 
                         <div>
@@ -113,7 +113,6 @@
                     </popup>
                 </div>
                 <el-input
-                    size="small"
                     placeholder="请输入名字"
                     style="width: 280px"
                     v-model="fileParams.name"
@@ -167,14 +166,18 @@
                     已选择 {{ select.length }}
                     <span v-if="limit">/{{ limit }}</span>
                 </div>
-                <el-button type="text" size="small" @click="clearSelect">清空</el-button>
+                <el-button type="text" @click="clearSelect">清空</el-button>
             </div>
 
             <el-scrollbar class="ls-scrollbar" style="height: calc(100% - 32px)">
                 <ul class="select-lists flex-col p-t-10">
                     <li class="m-b-16" v-for="item in select" :key="item.id">
                         <div class="select-item">
-                            <file-item :uri="item.uri" file-size="100px" @close="cancelSelete(item.id)"></file-item>
+                            <file-item
+                                :uri="item.uri"
+                                file-size="100px"
+                                @close="cancelSelete(item.id)"
+                            ></file-item>
                         </div>
                     </li>
                 </ul>

@@ -8,7 +8,6 @@
                 class="ls-form"
                 :model="formData"
                 label-width="150px"
-                size="small"
             >
                 <el-form-item label="网站名称" prop="name">
                     <el-input
@@ -21,9 +20,7 @@
                 <el-form-item label="网站图标" prop="web_favicon" required>
                     <material-select v-model="formData.web_favicon" :limit="1" />
                     <div class="flex">
-                        <div class="muted xs m-r-16">
-                            建议尺寸：100*100像素，支持jpg，jpeg，png格式
-                        </div>
+                        <div class="muted xs m-r-16">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
                         <el-popover placement="right" width="200" trigger="hover">
                             <el-image
                                 src="https://img2.baidu.com/it/u=3357699356,1912406716&fm=26&fmt=auto&gp=0.jpg"
@@ -35,9 +32,7 @@
                 <el-form-item label="网站LOGO" prop="web_logo" required>
                     <material-select v-model="formData.web_logo" :limit="1" />
                     <div class="flex">
-                        <div class="muted xs m-r-16">
-                            建议尺寸：100*100像素，支持jpg，jpeg，png格式
-                        </div>
+                        <div class="muted xs m-r-16">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
                         <el-popover placement="right" width="200" trigger="hover">
                             <el-image
                                 src="https://img2.baidu.com/it/u=3357699356,1912406716&fm=26&fmt=auto&gp=0.jpg"
@@ -49,9 +44,7 @@
                 <el-form-item label="登录页广告图" prop="login_image" required>
                     <material-select v-model="formData.login_image" :limit="1" />
                     <div class="flex">
-                        <div class="muted xs m-r-16">
-                            建议尺寸：100*100像素，支持jpg，jpeg，png格式
-                        </div>
+                        <div class="muted xs m-r-16">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
                         <el-popover placement="right" width="200" trigger="hover">
                             <el-image
                                 src="https://img2.baidu.com/it/u=3357699356,1912406716&fm=26&fmt=auto&gp=0.jpg"

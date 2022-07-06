@@ -12,10 +12,8 @@
         width="40vw"
     >
         <template #trigger>
-            <el-button v-if="type === 'primary'" type="primary" size="small">
-                {{ btnText }}
-            </el-button>
-            <el-button v-if="type === 'text'" type="text" size="small">{{ btnText }}</el-button>
+            <el-button v-if="type === 'primary'" type="primary">{{ btnText }}</el-button>
+            <el-button v-if="type === 'text'" type="text">{{ btnText }}</el-button>
         </template>
 
         <el-form
@@ -38,7 +36,6 @@
             <el-form-item label="状态：">
                 <el-switch
                     v-model="formData.is_show"
-                    size="small"
                     :active-text="formData.is_show ? '启用' : '关闭'"
                     :active-value="1"
                     :inactive-value="0"
@@ -49,106 +46,106 @@
 </template>
 
 <script lang="ts" setup>
-    import {
-        apiArticleCategoryAdd,
-        apiArticleCategoryEdit,
-        apiArticleCategoryDetail,
-    } from '@/api/information'
-    import Popup from '@/components/popup/index.vue'
-    import { ref, reactive, withDefaults, defineEmits } from 'vue'
-    import type { ElForm } from 'element-plus'
+import {
+    apiArticleCategoryAdd,
+    apiArticleCategoryEdit,
+    apiArticleCategoryDetail,
+} from '@/api/information'
+import Popup from '@/components/popup/index.vue'
+import { ref, reactive, withDefaults, defineEmits } from 'vue'
+import type { ElForm } from 'element-plus'
 
-    interface classifyFormObj {
-        name?: string
-        sort?: number
-        is_show?: string | number
+interface classifyFormObj {
+    name?: string
+    sort?: number
+    is_show?: string | number
+}
+
+type FormInstance = InstanceType<typeof ElForm>
+const classifyFormRef = ref<FormInstance>()
+
+const props = withDefaults(
+    defineProps<{
+        type?: string
+        id?: object | any
+        btnText: string
+    }>(),
+    {
+        type: 'add',
+        id: '',
+        btnText: '',
     }
+)
 
-    type FormInstance = InstanceType<typeof ElForm>
-    const classifyFormRef = ref<FormInstance>()
+const emit = defineEmits(['refresh'])
 
-    const props = withDefaults(
-        defineProps<{
-            type?: string
-            id?: object | any
-            btnText: string
-        }>(),
-        {
-            type: 'add',
-            id: '',
-            btnText: '',
-        }
-    )
+/** Data Start **/
+const formData = ref<classifyFormObj>({
+    name: '',
+    sort: 0,
+    is_show: '',
+})
 
-    const emit = defineEmits(['refresh'])
+// 表单校验规则
+const rules = reactive({
+    name: [{ required: true, message: '请输入资讯分类', trigger: 'blur' }] as any[],
+})
+const popupRef = ref<any>(null)
+/** Data End **/
 
-    /** Data Start **/
-    const formData = ref<classifyFormObj>({
-        name: '',
-        sort: 0,
-        is_show: '',
+/** Methods Start **/
+// 弹窗关闭
+const handleClose = (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    formEl.resetFields()
+}
+
+// 弹窗打开时
+const handleOpen = () => {
+    if (props.id) getClassifyDetail(props.id)
+}
+
+// 获取分类详情
+const getClassifyDetail = async (id: number) => {
+    ; (formData.value as {}) = await apiArticleCategoryDetail({ id })
+}
+
+// 添加分类
+const addClassify = async () => {
+    await apiArticleCategoryAdd({ ...formData.value })
+    emit('refresh')
+}
+
+// 编辑分类
+const editClassify = async () => {
+    await apiArticleCategoryEdit({ ...formData.value, id: props.id })
+    emit('refresh')
+}
+
+// 提交表单
+const onSubmit = (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    formEl.validate((valid) => {
+        if (!valid) return false
+        if (!props.id) addClassify()
+        else editClassify()
+        popupRef.value.visible = false
     })
-
-    // 表单校验规则
-    const rules = reactive({
-        name: [{ required: true, message: '请输入资讯分类', trigger: 'blur' }] as any[],
-    })
-    const popupRef = ref<any>(null)
-    /** Data End **/
-
-    /** Methods Start **/
-    // 弹窗关闭
-    const handleClose = (formEl: FormInstance | undefined) => {
-        if (!formEl) return
-        formEl.resetFields()
-    }
-
-    // 弹窗打开时
-    const handleOpen = () => {
-        if (props.id) getClassifyDetail(props.id)
-    }
-
-    // 获取分类详情
-    const getClassifyDetail = async (id: number) => {
-        ;(formData.value as {}) = await apiArticleCategoryDetail({ id })
-    }
-
-    // 添加分类
-    const addClassify = async () => {
-        await apiArticleCategoryAdd({ ...formData.value })
-        emit('refresh')
-    }
-
-    // 编辑分类
-    const editClassify = async () => {
-        await apiArticleCategoryEdit({ ...formData.value, id: props.id })
-        emit('refresh')
-    }
-
-    // 提交表单
-    const onSubmit = (formEl: FormInstance | undefined) => {
-        if (!formEl) return
-        formEl.validate((valid) => {
-            if (!valid) return false
-            if (!props.id) addClassify()
-            else editClassify()
-            popupRef.value.visible = false
-        })
-    }
+}
     /** Methods End **/
 </script>
 
 <style lang="scss">
-    .el-dialog__header {
-        text-align: left;
-        font-size: 16px;
-        color: #101010;
-    }
-    .ls-input {
-        width: 340px;
-    }
-    .classify-form {
-        margin-top: 30px;
-        margin-bottom: 100px;
-    }
+.el-dialog__header {
+    text-align: left;
+    font-size: 16px;
+    color: #101010;
+}
+.ls-input {
+    width: 340px;
+}
+.classify-form {
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
 </style>

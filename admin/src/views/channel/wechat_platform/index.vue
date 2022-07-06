@@ -1,7 +1,7 @@
 <!-- 微信开放平台 -->
 <template>
 	<!-- Main Form Start -->
-	<el-form :rules="formRules" ref="formRef" :model="form" label-width="140px" size="small">
+	<el-form :rules="formRules" ref="formRef" :model="form" label-width="140px">
 		<!-- 微信开放平台 -->
 		<el-card shadow="never" class="m-t-16">
 			<template #header>微信开放平台</template>
@@ -15,10 +15,10 @@
 				/>
 			</div>
 			<el-form-item label="AppID" prop="app_id">
-				<el-input class="ls-input m-r-10" size="small" v-model="form.app_id"></el-input>
+				<el-input class="ls-input m-r-10" v-model="form.app_id"></el-input>
 			</el-form-item>
 			<el-form-item label="AppSecret" prop="app_secret">
-				<el-input class="ls-input m-r-10" size="small" v-model="form.app_secret"></el-input>
+				<el-input class="ls-input m-r-10" v-model="form.app_secret"></el-input>
 			</el-form-item>
 		</el-card>
 	</el-form>
@@ -26,7 +26,7 @@
 
 	<!-- Footer Start -->
 	<footer-btns>
-		<el-button type="primary" size="small" @click="onSubmit(formRef)">保存</el-button>
+		<el-button type="primary" @click="onSubmit(formRef)">保存</el-button>
 	</footer-btns>
 	<!-- Footer End -->
 </template>
@@ -72,7 +72,7 @@ const handleAppStoreEdit = async (): Promise<void> => {
 // 提交数据
 const onSubmit = (formEl: FormInstance | undefined): void => {
 	if (!formEl) return
-	formEl.validate((valid): boolean | undefined=> {
+	formEl.validate((valid): boolean | undefined => {
 		if (!valid) return false
 		handleAppStoreEdit()
 	})

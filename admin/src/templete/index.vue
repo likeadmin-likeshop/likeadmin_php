@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-card shadow="never">
-            <el-form class="ls-form" :model="queryParams" label-width="80px" size="small" inline>
+            <el-form class="ls-form" :model="queryParams" label-width="80px" inline>
                 <el-form-item label="字典名称">
                     <el-input v-model="queryParams.name" class="ls-input" />
                 </el-form-item>
@@ -28,7 +28,7 @@
             </el-form>
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <el-button size="small" type="primary" @click="handleAdd">新增字典类型</el-button>
+            <el-button type="primary" @click="handleAdd">新增字典类型</el-button>
             <popup
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
@@ -36,23 +36,19 @@
                 @confirm="handleDelete(selectData)"
             >
                 <template #trigger>
-                    <el-button size="small" :disabled="!selectData.length">删除</el-button>
+                    <el-button :disabled="!selectData.length">删除</el-button>
                 </template>
             </popup>
             <div class="m-t-15">
-                <el-table
-                    :data="pager.lists"
-                    size="small"
-                    @selection-change="handleSelectionChange"
-                >
+                <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="ID" prop="id" />
                     <el-table-column label="字典名称" prop="name" />
                     <el-table-column label="字典类型" prop="type" />
                     <el-table-column label="状态">
                         <template v-slot="{ row }">
-                            <el-tag size="small" v-if="row.status == 1">正常</el-tag>
-                            <el-tag size="small" v-else type="danger">停用</el-tag>
+                            <el-tag v-if="row.status == 1">正常</el-tag>
+                            <el-tag v-else type="danger">停用</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column label="备注" prop="remark" />

@@ -10,7 +10,7 @@
     </el-card>
     <!-- Header Alert End -->
 
-    <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px" size="small">
+    <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
         <!-- 微信公众号 Start -->
         <el-card shadow="never" class="m-t-16">
             <template #header>
@@ -132,8 +132,8 @@
 
     <!-- Footer Start -->
     <footer-btns>
-        <el-button size="small" @click="onResetFrom">重置</el-button>
-        <el-button type="primary" size="small" @click="onSubmitFrom(formRef)">保存</el-button>
+        <el-button @click="onResetFrom">重置</el-button>
+        <el-button type="primary" @click="onSubmitFrom(formRef)">保存</el-button>
     </footer-btns>
     <!-- Footer End -->
 </template>

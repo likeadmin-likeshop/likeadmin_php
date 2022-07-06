@@ -2,13 +2,7 @@
     <div class="dict">
         <el-card shadow="never">
             <el-page-header content="数据管理" @back="$router.back()" />
-            <el-form
-                class="ls-form m-t-16"
-                :model="formData"
-                label-width="80px"
-                size="small"
-                inline
-            >
+            <el-form class="ls-form m-t-16" :model="formData" label-width="80px" inline>
                 <el-form-item label="数据名称">
                     <el-input v-model="formData.name" class="ls-input" />
                 </el-form-item>
@@ -28,7 +22,7 @@
             </el-form>
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <el-button size="small" type="primary" @click="handelShowEdit(true)">添加数据</el-button>
+            <el-butto type="primary" @click="handelShowEdit(true)">添加数据</el-butto>
             <popup
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
@@ -36,23 +30,19 @@
                 @confirm="handleDelete(selectData)"
             >
                 <template #trigger>
-                    <el-button size="small" :disabled="!selectData.length">删除</el-button>
+                    <el-butto :disabled="!selectData.length">删除</el-butto>
                 </template>
             </popup>
             <div class="m-t-15">
-                <el-table
-                    :data="pager.lists"
-                    size="small"
-                    @selection-change="handleSelectionChange"
-                >
+                <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="ID" prop="id" />
                     <el-table-column label="数据名称" prop="name" />
                     <el-table-column label="数据值" prop="value" />
                     <el-table-column label="状态">
                         <template v-slot="{ row }">
-                            <el-tag size="small" v-if="row.status == 1">正常</el-tag>
-                            <el-tag size="small" v-else type="danger">停用</el-tag>
+                            <el-ta v-if="row.status == 1">正常</el-ta>
+                            <el-ta v-else type="danger">停用</el-ta>
                         </template>
                     </el-table-column>
                     <el-table-column label="备注" prop="remark" />

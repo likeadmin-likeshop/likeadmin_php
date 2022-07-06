@@ -15,7 +15,6 @@
                 ref="formRef"
                 :model="formData"
                 label-width="80px"
-                size="small"
                 :rules="rules"
                 v-loading="loading"
             >

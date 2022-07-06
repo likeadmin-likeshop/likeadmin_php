@@ -13,7 +13,7 @@
 
 	<el-card shadow="never" class="m-t-20">
 		<!-- Header BtnGroup Start -->
-		<el-button size="small" type="primary" @click="onReplyAdd()">新增关键字回复</el-button>
+		<el-button type="primary" @click="onReplyAdd()">新增关键字回复</el-button>
 		<!-- Header BtnGroup Start -->
 
 		<!-- Main TableData Start -->
@@ -40,10 +40,10 @@
 				</el-table-column>
 				<el-table-column fixed="right" label="操作" min-width="120px">
 					<template #default="scope">
-						<!-- <el-button type="text" size="small" @click="onUserLevelEdit(scope.row)">详情</el-button> -->
-						<el-button type="text" size="small" @click="onReplyEdit(scope.row)">编辑</el-button>
+						<!-- <el-button type="text" @click="onUserLevelEdit(scope.row)">详情</el-button> -->
+						<el-button type="text" @click="onReplyEdit(scope.row)">编辑</el-button>
 						<popup class="m-l-10 inline" @confirm="onMpWeChatReplyDelete(scope.row)">
-							<el-button type="text" size="small" slot="trigger">删除</el-button>
+							<el-button type="text" slot="trigger">删除</el-button>
 						</popup>
 					</template>
 				</el-table-column>

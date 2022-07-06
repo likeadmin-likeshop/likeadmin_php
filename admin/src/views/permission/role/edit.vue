@@ -11,7 +11,6 @@
                 class="ls-form"
                 :model="formData"
                 label-width="150px"
-                size="small"
             >
                 <!-- 名称 -->
                 <el-form-item label="名称" prop="name">
@@ -29,8 +28,8 @@
                 <!-- 权限 -->
                 <el-form-item label="权限" prop="auth_keys">
                     <div class="flex" style="margin-top: 3px">
-                        <el-button type="text" size="mini" @click="allSelect()"> 全选 </el-button>
-                        <el-button type="text" size="mini" @click="close()"> 全不选 </el-button>
+                        <el-button type="text" size="mini" @click="allSelect()">全选</el-button>
+                        <el-button type="text" size="mini" @click="close()">全不选</el-button>
                     </div>
 
                     <el-tree
@@ -43,7 +42,7 @@
                             children: 'sons',
                             label: 'name'
                         }"
-                        empty-text=""
+                        empty-text
                         show-checkbox
                         @check-change="handlePermissionsCheckChange"
                     />
@@ -52,7 +51,7 @@
         </el-card>
 
         <footer-btns>
-            <el-button type="primary" size="small" @click="onSubmit">保存</el-button>
+            <el-button type="primary" @click="onSubmit">保存</el-button>
         </footer-btns>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <!-- APP商城 -->
 <template>
 	<!-- Main Form Start -->
-	<el-form ref="formRef" :model="formData" label-width="140px" size="small">
+	<el-form ref="formRef" :model="formData" label-width="140px">
 		<!-- APP 下载 -->
 		<el-card shadow="never" class="m-t-16">
 			<template #header>APP下载</template>
@@ -31,7 +31,7 @@
 
 	<!-- Footer Start -->
 	<footer-btns>
-		<el-button type="primary" size="small" @click="onSubmit">保存</el-button>
+		<el-button type="primary" @click="onSubmit">保存</el-button>
 	</footer-btns>
 	<!-- Footer End -->
 </template>

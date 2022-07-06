@@ -40,7 +40,7 @@
         <el-card shadow="never" class="m-l-16 mp_wechat__form">
             <div class="mp_wechat__form--title">菜单配置</div>
             <div class="m-t-16">
-                <el-button type="primary" plain size="small" @click="onMenuAdd">
+                <el-button type="primary" plain @click="onMenuAdd">
                     <i class="el-icon-plus"></i>
                     <span>新增主菜单（{{ formData.menu.length || 0 }}/3）</span>
                 </el-button>
@@ -63,7 +63,6 @@
                         :model="formData.menu[index]"
                         :rules="rules"
                         label-position="top"
-                        size="small"
                     >
                         <!-- 主菜单名称 -->
                         <el-form-item label="主菜单" prop="name">
@@ -153,7 +152,6 @@
                                 <template #trigger>
                                     <el-button
                                         type="text"
-                                        size="small"
                                     >添加子菜单（{{ formData.menu[index].sub_button.length || 0 }}/5）</el-button>
                                 </template>
                             </popup>
@@ -167,8 +165,8 @@
 
     <!-- Footer Start -->
     <footer-btns>
-        <el-button size="small" @click="onFromSave">保存</el-button>
-        <el-button type="primary" size="small" @click="onFromPublish">保存并发布</el-button>
+        <el-button @click="onFromSave">保存</el-button>
+        <el-button type="primary" @click="onFromPublish">保存并发布</el-button>
     </footer-btns>
     <!-- Footer End -->
 </template>

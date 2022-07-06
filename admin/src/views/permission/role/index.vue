@@ -2,16 +2,16 @@
     <div class="role">
         <el-card shadow="never">
             <router-link to="/permission/role/edit">
-                <el-button type="primary" size="small">新增角色</el-button>
+                <el-button type="primary">新增角色</el-button>
             </router-link>
             <div v-loading="pager.loading" class="m-t-15">
                 <div class="m-t-15">
-                    <el-table :data="pager.lists" size="small">
+                    <el-table :data="pager.lists">
                         <el-table-column prop="id" label="ID"></el-table-column>
                         <el-table-column prop="name" label="名称"></el-table-column>
                         <el-table-column prop="desc" label="备注"></el-table-column>
                         <el-table-column prop label="权限"></el-table-column>
-						<el-table-column prop="num" label="管理员数"></el-table-column>
+                        <el-table-column prop="num" label="管理员数"></el-table-column>
                         <el-table-column prop="create_time" label="创建时间"></el-table-column>
                         <el-table-column prop label="操作">
                             <template #default="{ row }">
