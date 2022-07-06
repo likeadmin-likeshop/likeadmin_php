@@ -6,7 +6,6 @@ import * as ElementPlusIcons from '@element-plus/icons-vue'
 
 const iconfonts: string[] = []
 export default (app: App<Element>) => {
-    app.use(ElementPlus, { zIndex: 3000, locale: zhCn })
     // 统一注册Icon图标
     // 全局注册ElementPlus图标
     for (const [key, component] of Object.entries(ElementPlusIcons)) {

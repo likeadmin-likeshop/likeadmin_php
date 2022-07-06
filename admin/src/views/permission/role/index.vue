@@ -2,7 +2,7 @@
     <div class="role-lists">
         <el-card shadow="never">
             <div v-perms="['auth.role/add']" class="m-b-16">
-                <router-link to="/team/role/add">
+                <router-link to="/permission/role/edit">
                     <el-button type="primary">新增角色</el-button>
                 </router-link>
             </div>
@@ -21,7 +21,7 @@
                                     v-perms="['auth.role/edit']"
                                     class="m-r-10"
                                     :to="{
-                                        path: '/team/role/add',
+                                        path: '/permission/role/edit',
                                         query: {
                                             id: row.id
                                         }
