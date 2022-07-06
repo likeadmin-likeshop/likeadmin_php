@@ -14,7 +14,10 @@
 
 namespace app\adminapi\logic\auth;
 
-use think\facade\Config;
+use app\common\model\auth\Admin;
+use app\common\model\auth\SystemMenu;
+use app\common\model\auth\SystemRoleMenu;
+
 
 /**
  * 权限功能类
@@ -23,49 +26,86 @@ use think\facade\Config;
  */
 class AuthLogic
 {
+
     /**
-     * @notes 获取菜单
-     * @return array
+     * @notes 获取全部权限
+     * @return mixed
      * @author 段誉
-     * @date 2021/12/27 17:22
+     * @date 2022/7/1 11:55
      */
-    public static function getMenu() : array
+    public static function getAllAuth()
     {
-        return Config::get('menu');
+        return SystemMenu::distinct(true)
+            ->where([
+                ['is_disable', '=', 0],
+                ['perms', '<>', '']
+            ])
+            ->column('perms');
     }
 
+
     /**
-     * @notes 获取权限
-     * @param array $authKeys array-返回指定权限
-     * @return array
-     * @author cjhao
-     * @date 2021/8/26 11:09
+     * @notes 获取当前管理员角色按钮权限
+     * @param $roleId
+     * @return mixed
+     * @author 段誉
+     * @date 2022/7/1 16:10
      */
-    public static function getAuth(array $authKeys = []):array
+    public static function getBtnAuthByRoleId($admin)
     {
-        $authConfigList = Config::get('auth');
-        //获取指定权限
-        if(!empty($authKeys)){
-            $authList = [];
-            foreach ($authKeys as $keys){
-                $keyList = explode('/',$keys);
-                $authConfig = $authConfigList[$keyList[0]] ?? [];
-                if(empty($authConfig)){
-                    continue;
-                }
-                $keyList = explode('.',$keyList[1]);
-
-                $buttonAuth = $authConfig[$keyList[0]][$keyList[1]]['button_auth'] ?? [];
-                $actionAuth = $authConfig[$keyList[0]][$keyList[1]]['action_auth'] ?? [];
-
-                $authList = [
-                    'button_auth'   => array_merge($authList['button_auth'] ?? [],$buttonAuth),
-                    'action_auth'   => array_merge($authList['action_auth'] ?? [],$actionAuth),
-                ];
-            }
-            return $authList;
+        if ($admin['root']) {
+            return ['*'];
         }
-        return $authConfigList;
 
+        $menuId = SystemRoleMenu::whereIn('role_id', $admin['role_id'])
+            ->column('menu_id');
+
+        $where[] = ['is_disable', '=', 0];
+        $where[] = ['perms', '<>', ''];
+
+        $roleAuth = SystemMenu::distinct(true)
+            ->where('id', 'in', $menuId)
+            ->where($where)
+            ->column('perms');
+
+        $allAuth = SystemMenu::distinct(true)
+            ->where($where)
+            ->column('perms');
+
+        $hasAllAuth = array_diff($allAuth, $roleAuth);
+        if (empty($hasAllAuth)) {
+            return ['*'];
+        }
+
+        return $roleAuth;
+    }
+
+
+    /**
+     * @notes 获取管理员角色关联的菜单id(菜单，权限)
+     * @param int $adminId
+     * @return array
+     * @author 段誉
+     * @date 2022/7/1 15:56
+     */
+    public static function getAuthByAdminId(int $adminId): array
+    {
+        $admin = Admin::with(['role_menu'])
+            ->where(['id' => $adminId])
+            ->findOrEmpty()->toArray();
+
+        if (empty($admin)) {
+            return [];
+        }
+
+        $menuId = array_column($admin['role_menu'], 'menu_id');
+
+        return SystemMenu::distinct(true)
+            ->where([
+                ['is_disable', '=', 0],
+                ['perms', '<>', ''],
+                ['id', 'in', $menuId],
+            ])
+            ->column('perms');
     }
 }

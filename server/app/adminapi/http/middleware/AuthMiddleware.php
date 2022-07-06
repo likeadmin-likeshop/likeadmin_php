@@ -49,13 +49,14 @@ class AuthMiddleware
         }
         $accessUri = strtolower($request->controller() . '/' . $request->action());//当前访问uri
         $adminAuthCache = new AdminAuthCache($request->adminInfo['admin_id']);
-        $allUri = $adminAuthCache->getAllUri()['action_auth'];
+        $allUri = $adminAuthCache->getAllUri();
+
         //判断该当前访问的uri是否存在，不存在无需验证
         if (!in_array($accessUri, $allUri)) {
             return $next($request);
         }
         //管理员访问的uri判断
-        $AdminUris = $adminAuthCache->getAdminUri()['action_auth'] ?? [];
+        $AdminUris = $adminAuthCache->getAdminUri() ?? [];
         if (in_array($accessUri, $AdminUris)) {
             return $next($request);
         }

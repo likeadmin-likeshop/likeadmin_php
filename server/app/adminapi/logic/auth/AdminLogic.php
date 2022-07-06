@@ -188,12 +188,23 @@ class AdminLogic extends BaseLogic
      * @author 段誉
      * @date 2021/12/29 11:07
      */
-    public static function detail($params) : array
+    public static function detail($params, $action = 'detail') : array
     {
-        return Admin::field([
+        $admin = Admin::field([
             'account', 'name', 'role_id', 'disable', 'root',
             'multipoint_login', 'avatar', 'dept_id', 'jobs_id'
         ])->findOrEmpty($params['id'])->toArray();
+
+        if ($action == 'detail') {
+            return $admin;
+        }
+
+        $result['user'] = $admin;
+        // 当前管理员角色拥有的菜单
+        $result['menu'] = MenuLogic::getMenuByAdminId($params['id']);
+        // 当前管理员橘色拥有的按钮权限
+        $result['permissions'] = AuthLogic::getBtnAuthByRoleId($admin);
+        return $result;
     }
 
 

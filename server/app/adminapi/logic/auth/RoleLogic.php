@@ -16,11 +16,12 @@ namespace app\adminapi\logic\auth;
 
 use app\common\{
     cache\AdminAuthCache,
-    model\auth\RoleAuthIndex,
     model\auth\Role,
-    logic\BaseLogic
+    logic\BaseLogic,
+    model\auth\SystemRoleMenu
 };
 use think\facade\Db;
+
 
 /**
  * 角色逻辑层
@@ -37,28 +38,35 @@ class RoleLogic extends BaseLogic
      * @author 段誉
      * @date 2021/12/29 11:50
      */
-    public static function add(array $params) : bool
+    public static function add(array $params): bool
     {
         Db::startTrans();
-        try{
-            $authKeys = $params['auth_keys'];
-            //处理规格值
-            array_walk($authKeys, function (&$auth){
-                $auth = ['auth_key'=>$auth];
-            });
+        try {
+            $menuId = !empty($params['menu_id']) ? $params['menu_id'] : [];
 
-            $role = new Role();
-            $role->name = $params['name'];
-            $role->desc = $params['desc'];
-            $role->save();
-            $role->roleAuthIndex()->saveAll($authKeys);
+            $role = Role::create([
+                'name' => $params['name'],
+                'desc' => $params['desc'] ?? '',
+                'sort' => $params['sort'] ?? 0,
+            ]);
+
+            $data = [];
+            foreach ($menuId as $item) {
+                if (empty($item)) {
+                    continue;
+                }
+                $data[] = [
+                    'role_id' => $role['id'],
+                    'menu_id' => $item,
+                ];
+            }
+            (new SystemRoleMenu)->insertAll($data);
 
             Db::commit();
             return true;
-
         } catch (\Exception $e) {
             Db::rollback();
-            self::$error =$e->getMessage();
+            self::$error = $e->getMessage();
             return false;
         }
     }
@@ -71,28 +79,34 @@ class RoleLogic extends BaseLogic
      * @author 段誉
      * @date 2021/12/29 14:16
      */
-    public static function edit(array $params) : bool
+    public static function edit(array $params): bool
     {
         Db::startTrans();
-        try{
-            $authKeys = $params['auth_keys'];
-            //处理规格值
-            array_walk($authKeys, function (&$auth){
-                $auth = ['auth_key'=>$auth];
-            });
+        try {
+            $menuId = !empty($params['menu_id']) ? $params['menu_id'] : [];
 
-            $role = Role::find($params['id']);
-            RoleAuthIndex::where(['role_id'=>$params['id']])->delete();
+            Role::update([
+                'id' => $params['id'],
+                'name' => $params['name'],
+                'desc' => $params['desc'] ?? '',
+                'sort' => $params['sort'] ?? 0,
+            ]);
 
-            $role->name = $params['name'];
-            $role->desc = $params['desc'];
-            $role->save();
-            $role->roleAuthIndex()->saveAll($authKeys);
+            SystemRoleMenu::where(['role_id' => $params['id']])->delete();
+
+            $data = [];
+            foreach ($menuId as $item) {
+                $data[] = [
+                    'role_id' => $params['id'],
+                    'menu_id' => $item,
+                ];
+            }
+            (new SystemRoleMenu)->insertAll($data);
+
             (new AdminAuthCache())->deleteTag();
 
             Db::commit();
             return true;
-
         } catch (\Exception $e) {
             Db::rollback();
             self::$error = $e->getMessage();
@@ -109,7 +123,7 @@ class RoleLogic extends BaseLogic
      */
     public static function delete(int $id)
     {
-        Role::destroy(['id'=>$id]);
+        Role::destroy(['id' => $id]);
         (new AdminAuthCache())->deleteTag();
         return true;
     }
@@ -125,12 +139,12 @@ class RoleLogic extends BaseLogic
      * @author 段誉
      * @date 2021/12/29 14:17
      */
-    public static function detail(int $id) : array
+    public static function detail(int $id): array
     {
-        $detail = Role::field('id,name,desc')->find($id);
-        $authList = $detail->roleAuthIndex()->select()->toArray();
-        $authKeys = array_column($authList,'auth_key');
-        $detail->auth_keys = $authKeys;
+        $detail = Role::field('id,name,desc,sort')->find($id);
+        $authList = $detail->roleMenuIndex()->select()->toArray();
+        $menuId = array_column($authList, 'menu_id');
+        $detail['menu_id'] = $menuId;
         return $detail->toArray();
     }
 
