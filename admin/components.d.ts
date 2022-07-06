@@ -5,12 +5,15 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AppLink: typeof import('./src/components/app-link/index.vue')['default']
     DataPicker: typeof import('./src/components/data-picker/index.vue')['default']
     DelWrap: typeof import('./src/components/del-wrap/index.vue')['default']
     DictValue: typeof import('./src/components/dict-value/index.vue')['default']
     Editor: typeof import('./src/components/editor/index.vue')['default']
     FileItem: typeof import('./src/components/material-select/file-item.vue')['default']
     FooterBtns: typeof import('./src/components/footer-btns/index.vue')['default']
+    Icon: typeof import('./src/components/icon/index.vue')['default']
+    ImageContain: typeof import('./src/components/image-contain/index.vue')['default']
     Material: typeof import('./src/components/material-select/material.vue')['default']
     MaterialSelect: typeof import('./src/components/material-select/index.vue')['default']
     Pagination: typeof import('./src/components/pagination/index.vue')['default']
@@ -18,6 +21,7 @@ declare module '@vue/runtime-core' {
     Popup: typeof import('./src/components/popup/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('./src/components/icon/select.vue')['default']
     Upload: typeof import('./src/components/upload/index.vue')['default']
   }
 }
