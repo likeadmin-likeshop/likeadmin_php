@@ -115,6 +115,18 @@ class MenuValidate extends BaseValidate
 
 
     /**
+     * @notes 更新状态场景
+     * @return MenuValidate
+     * @author 段誉
+     * @date 2022/7/6 17:04
+     */
+    public function sceneStatus()
+    {
+        return $this->only(['id', 'is_disable']);
+    }
+
+
+    /**
      * @notes 校验菜单名称是否已存在
      * @param $value
      * @param $rule

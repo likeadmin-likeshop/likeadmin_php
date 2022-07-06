@@ -115,4 +115,18 @@ class MenuController extends BaseAdminController
     }
 
 
+    /**
+     * @notes 更新状态
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/7/6 17:04
+     */
+    public function updateStatus()
+    {
+        $params = (new MenuValidate())->post()->goCheck('status');
+        MenuLogic::updateStatus($params);
+        return $this->success('操作成功', [], 1, 1);
+    }
+
+
 }

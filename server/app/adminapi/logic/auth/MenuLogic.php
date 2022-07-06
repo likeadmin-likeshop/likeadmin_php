@@ -148,4 +148,20 @@ class MenuLogic extends BaseLogic
         SystemRoleMenu::where(['menu_id' => $params['id']])->delete();
     }
 
+
+    /**
+     * @notes 更新状态
+     * @param array $params
+     * @return SystemMenu
+     * @author 段誉
+     * @date 2022/7/6 17:02
+     */
+    public static function updateStatus(array $params)
+    {
+        return SystemMenu::update([
+            'id' => $params['id'],
+            'is_disable' => $params['is_disable']
+        ]);
+    }
+
 }
