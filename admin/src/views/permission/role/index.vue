@@ -19,7 +19,7 @@
                             <template #default="{ row }">
                                 <router-link
                                     v-perms="['auth.role/edit']"
-                                    class="mr-3"
+                                    class="m-r-10"
                                     :to="{
                                         path: '/team/role/add',
                                         query: {
@@ -31,7 +31,7 @@
                                 </router-link>
                                 <popup
                                     v-perms="['auth.role/delete']"
-                                    class="mr-3 inline-block"
+                                    class="m-r-10 inline"
                                     @confirm="handleDelete(row.id)"
                                 >
                                     <template #trigger>

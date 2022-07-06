@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw, RouterView } from 'vue-router'
 import Layout from '@/layout/index.vue'
 
 /**
@@ -28,6 +28,13 @@ export const constRoutes: RouteRecordRaw[] = [
 	{
 		path: '/login',
 		component: () => import('@/views/account/login.vue')
+	},
+	{
+		path: '/user/setting',
+		meta: {
+			title: '个人设置'
+		},
+		component: () => import('@/views/setting/personal/personal_data.vue')
 	},
 	{
 		path: '/permission',
@@ -69,7 +76,44 @@ export const constRoutes: RouteRecordRaw[] = [
 				meta: { title: '编辑', activeMenu: '/dev_tools/code' },
 			}
 		],
+	},
+	{
+		path: '/setting',
+		component: Layout,
+		children: [
+			{
+				path: '/setting/storage/edit',
+				component: () => import('@/views/setting/storage/edit.vue'),
+				meta: {
+					title: '存储设置',
+					activeMenu: '/setting/storage/'
+				},
+			},
+		],
+	},
+	{
+		path: '/organization',
+		component: Layout,
+		children: [
+			{
+				path: '/organization/department/edit',
+				component: () => import('@/views/organization/department/edit.vue'),
+				meta: {
+					title: '部门管理',
+					activeMenu: '/organization/department',
+				}
+			},
+			{
+				path: '/organization/post/edit',
+				component: () => import('@/views/organization/post/edit.vue'),
+				meta: {
+					title: '岗位管理',
+					activeMenu: '/organization/post'
+				}
+			}
+		]
 	}
+
 ]
 
 export const indexRoute: RouteRecordRaw = {
