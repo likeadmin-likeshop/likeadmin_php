@@ -57,7 +57,7 @@
         </el-card>
 
         <footer-btns>
-            <el-button type="primary" size="small" @click="setWebsite">保存</el-button>
+            <el-button type="primary" @click="setWebsite">保存</el-button>
         </footer-btns>
     </div>
 </template>

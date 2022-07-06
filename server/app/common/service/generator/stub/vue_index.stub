@@ -1,8 +1,8 @@
 <template>
     <div>
         <el-card shadow="never">
-            <el-form class="ls-form" :model="queryParams" label-width="80px" size="small" inline>
-{SEARCH_VIEW}
+            <el-form class="ls-form" :model="queryParams" label-width="80px" inline>
+                {SEARCH_VIEW}
                 <el-form-item>
                     <div class="m-l-20">
                         <el-button type="primary" @click="resetPage">查询</el-button>
@@ -12,7 +12,7 @@
             </el-form>
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <el-button size="small" type="primary" @click="handleAdd">新增</el-button>
+            <el-button type="primary" @click="handleAdd">新增</el-button>
             <popup
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
@@ -20,17 +20,16 @@
                 @confirm="handleDelete(selectData)"
             >
                 <template #trigger>
-                    <el-button size="small" :disabled="!selectData.length">删除</el-button>
+                    <el-button  :disabled="!selectData.length">删除</el-button>
                 </template>
             </popup>
             <div class="m-t-15">
                 <el-table
                     :data="pager.lists"
-                    size="small"
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="55" />
-{LISTS_VIEW}
+                    {LISTS_VIEW}
                     <el-table-column label="操作" width="200" fixed="right">
                         <template #default="{ row }">
                             <el-button type="text" @click="handleEdit(row.{PK})">编辑</el-button>
