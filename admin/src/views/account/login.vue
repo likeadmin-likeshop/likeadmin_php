@@ -9,9 +9,7 @@
                     }"
                 ></div>
                 <div class="login-form flex flex-col">
-                    <div class="f-s-24 f-w-500 text-center m-b-40">
-                        {{ config.web_name }}
-                    </div>
+                    <div class="f-s-24 f-w-500 text-center m-b-40">{{ config.web_name }}</div>
                     <el-form ref="loginFormRefs" :model="loginForm" status-icon :rules="rules">
                         <el-form-item prop="account">
                             <el-input
@@ -20,7 +18,9 @@
                                 @keyup.enter="handleEnter"
                             >
                                 <template #prepend>
-                                    <el-icon><avatar /></el-icon>
+                                    <el-icon>
+                                        <avatar />
+                                    </el-icon>
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -33,7 +33,9 @@
                                 @keyup.enter="handleLogin"
                             >
                                 <template #prepend>
-                                    <el-icon><lock /></el-icon>
+                                    <el-icon>
+                                        <lock />
+                                    </el-icon>
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -41,18 +43,18 @@
                     <div class="m-b-20">
                         <el-checkbox v-model="remAccount" label="记住账号"></el-checkbox>
                     </div>
-                    <el-button type="primary" :loading="loginLoading" @click="handleLogin"
-                        >登录</el-button
-                    >
+                    <el-button type="primary" :loading="loginLoading" @click="handleLogin">登录</el-button>
                 </div>
             </div>
         </div>
         <div class="login-footer">
             <div class="flex flex-center muted xs m-t-20">
                 <span class="m-r-10">{{ config.copyright_info }}</span>
-                <a class="link muted" :href="config.icp_link" target="_blank">{{
-                    config.icp_number
-                }}</a>
+                <a class="link muted" :href="config.icp_link" target="_blank">
+                    {{
+                        config.icp_number
+                    }}
+                </a>
             </div>
         </div>
     </div>
@@ -153,11 +155,12 @@ export default defineComponent({
 <style lang="scss" scoped>
 .login {
     min-height: 100vh;
-    background-image: url('./images/login_bg.png');
+    background-image: url("./images/login_bg.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     .login-card {
+        min-width: 800px;
         width: 800px;
         height: 400px;
         border-radius: 10px;

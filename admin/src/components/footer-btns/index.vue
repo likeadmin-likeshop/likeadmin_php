@@ -1,6 +1,6 @@
 <template>
     <div class="footer-wrap">
-        <div class="footer-content">
+        <div class="footer-content bg-white flex flex-center">
             <div class="flex flex-center">
                 <slot></slot>
             </div>

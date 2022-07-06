@@ -72,7 +72,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import { apiBuyHouseList } from '@/api/entrust'
+// import { apiBuyHouseList } from '@/api/entrust'
 import Pagination from '@/components/pagination/index.vue'
 import Popup from '@/components/Popup/index.vue'
 import { usePages } from '@/core/hooks/pages'
@@ -86,10 +86,10 @@ const formData = reactive({
     end: '',
 })
 
-const { pager, requestApi, resetParams, resetPage } = usePages({
-    callback: apiBuyHouseList,
-    params: formData,
-})
+// const { pager, requestApi, resetParams, resetPage } = usePages({
+//     callback: apiBuyHouseList,
+//     params: formData,
+// })
 </script>
 
 <style lang="scss" scoped></style>

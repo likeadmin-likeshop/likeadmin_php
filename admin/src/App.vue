@@ -1,8 +1,5 @@
 <template>
-    <keep-alive>
-        <router-view v-if="keepAlive && routerAlive" />
-    </keep-alive>
-    <router-view v-if="!keepAlive && routerAlive" />
+    <router-view />
 </template>
 
 <script lang="ts">
@@ -11,15 +8,6 @@ import { useAdmin } from './core/hooks/app'
 export default defineComponent({
     setup() {
         const { store, route } = useAdmin()
-        const routerAlive = ref(true)
-        const keepAlive = computed(() => route.meta.keepAlive)
-        const reload = () => {
-            routerAlive.value = false
-            nextTick(() => {
-                routerAlive.value = true
-            })
-        }
-        provide('reload', reload)
         onMounted(async () => {
             // 获取配置
             const data = await store.dispatch('app/getConfig')
@@ -35,15 +23,11 @@ export default defineComponent({
             favicon.href = data.web_favicon
             document.head.appendChild(favicon)
         })
-        return {
-            routerAlive,
-            keepAlive
-        }
     }
 })
 </script>
 
 <style lang="scss">
-@import './assets/font/iconfont.css';
-@import './styles/index.scss';
+@import "./assets/font/iconfont.css";
+@import "./styles/index.scss";
 </style>
