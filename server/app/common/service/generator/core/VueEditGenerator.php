@@ -303,7 +303,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
         $specDictType = ['input', 'textarea', 'editor'];
 
         foreach ($this->tableColumn as $column) {
-            if (!$column['is_insert'] || !$column['is_update'] || $column['is_pk']) {
+            if (!$column['is_required'] || $column['is_pk']) {
                 continue;
             }
             if (in_array($column['column_name'], $isExist)) {
