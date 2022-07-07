@@ -10,10 +10,14 @@
                 >
                     <div class="flex">
                         <el-scrollbar class="flex-1" style="height:70vh;">
-                            <div class="content">{{ item.content }}</div>
+                            <pre>{{ item.content }}</pre>
                         </el-scrollbar>
                         <div>
-                            <el-button @click="handleCopy(item.content)" type="text" :icon="CopyDocument">复制</el-button>
+                            <el-button
+                                @click="handleCopy(item.content)"
+                                type="text"
+                                :icon="CopyDocument"
+                            >复制</el-button>
                         </div>
                     </div>
                 </el-tab-pane>
@@ -39,6 +43,7 @@ const emit = defineEmits<{
 const activeName = ref('index0')
 
 const handleCopy = (text: string) => {
+    console.log(text)
     copyClipboard(text).then(() => {
         ElMessage.success('复制成功')
     }).catch(() => {

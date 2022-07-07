@@ -2,13 +2,7 @@
 <template>
     <div class="cache">
         <el-card shadow="never">
-            <el-alert
-                class="xxl"
-                title="温馨提示：管理系统运行过程中产生的缓存"
-                type="primary"
-                :closable="false"
-                show-icon
-            ></el-alert>
+            <el-alert class="xxl" title="温馨提示：管理系统运行过程中产生的缓存" :closable="false" show-icon></el-alert>
         </el-card>
 
         <el-card class="m-t-15" shadow="never">
@@ -19,6 +13,7 @@
                     <el-table-column label="操作" width="150" fixed="right">
                         <template #default="scope">
                             <popup
+                                v-perms="['setting.system.cache/clear']"
                                 class="m-r-10 inline"
                                 @confirm="handleClean"
                                 content="确定要清除系统缓存？"

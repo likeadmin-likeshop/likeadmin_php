@@ -39,7 +39,6 @@ const user: Module<UserModule, any> = {
             commit('setToken', '')
             commit('setUser', {})
             commit('setPermissions', {})
-            cache.remove(TOKEN)
         },
         // 登录
         login({ commit }, playload: any) {
@@ -64,7 +63,7 @@ const user: Module<UserModule, any> = {
             return new Promise((resolve, reject) => {
                 apiLogout()
                     .then((data) => {
-                        dispatch('clearUserCache')
+                        cache.remove(TOKEN)
                         resolve(data)
                     })
                     .catch((error) => {

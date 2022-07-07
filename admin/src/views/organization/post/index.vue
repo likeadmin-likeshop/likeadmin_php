@@ -23,7 +23,7 @@
 			</el-form>
 		</el-card>
 		<el-card v-loading="pager.loading" class="m-t-15" shadow="never">
-			<router-link to="/organization/post/edit">
+			<router-link v-perms="['dept.jobs/add']" to="/organization/post/edit">
 				<el-button type="primary">新增岗位</el-button>
 			</router-link>
 			<div class="m-t-15">
@@ -40,6 +40,7 @@
 					<el-table-column label="操作" min-width="100" fixed="right">
 						<template #default="{ row }">
 							<router-link
+								v-perms="['dept.jobs/edit']"
 								class="m-r-10"
 								:to="{
 									path: '/organization/post/edit',
@@ -50,7 +51,7 @@
 							>
 								<el-button type="text">编辑</el-button>
 							</router-link>
-							<popup class="m-r-10 inline" @confirm="handleDelete(row.id)">
+							<popup v-perms="['dept.jobs/delete']" class="m-r-10 inline" @confirm="handleDelete(row.id)">
 								<template #trigger>
 									<el-button type="text">删除</el-button>
 								</template>

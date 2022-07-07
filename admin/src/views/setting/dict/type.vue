@@ -24,8 +24,13 @@
             </el-form>
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <el-button type="primary" @click="handelShowEdit(true)">新增字典类型</el-button>
+            <el-button
+                v-perms="['setting.dict.dict_type/add']"
+                type="primary"
+                @click="handelShowEdit(true)"
+            >新增字典类型</el-button>
             <popup
+                v-perms="['setting.dict.dict_type/delete']"
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
                 content="确认删除选中字典？"
@@ -51,9 +56,14 @@
                     <el-table-column label="创建时间" prop="create_time" />
                     <el-table-column label="操作" width="200" fixed="right">
                         <template #default="{ row }">
-                            <el-button type="text" @click="handelShowEdit(true, row.id)">编辑</el-button>
+                            <el-button
+                                v-perms="['setting.dict.dict_type/edit']"
+                                type="text"
+                                @click="handelShowEdit(true, row.id)"
+                            >编辑</el-button>
                             <router-link
                                 class="m-l-10"
+                                v-perms="['setting.dict.dict_data/lists']"
                                 :to="{
                                     path: '/setting/dict/data',
                                     query: {
@@ -64,7 +74,11 @@
                             >
                                 <el-button type="text">数据管理</el-button>
                             </router-link>
-                            <popup class="inline m-l-10" @confirm="handleDelete(row.id)">
+                            <popup
+                                v-perms="['setting.dict.dict_type/delete']"
+                                class="inline m-l-10"
+                                @confirm="handleDelete(row.id)"
+                            >
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>

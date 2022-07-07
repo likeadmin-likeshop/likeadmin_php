@@ -86,9 +86,17 @@ export const constRoutes: RouteRecordRaw[] = [
 				component: () => import('@/views/setting/storage/edit.vue'),
 				meta: {
 					title: '存储设置',
-					activeMenu: '/setting/storage/'
+					activeMenu: '/setting/storage'
 				},
 			},
+			{
+				path: '/setting/dict/data',
+				component: () => import('@/views/setting/dict/data.vue'),
+				meta: {
+					title: '数据管理',
+					activeMenu: '/setting/dict'
+				},
+			}
 		],
 	},
 	{

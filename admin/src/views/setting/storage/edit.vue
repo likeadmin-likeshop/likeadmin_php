@@ -11,21 +11,18 @@
 			<el-alert
 				v-if="engine == storage.QINIU"
 				title="温馨提示：切换七牛云存储后，素材库需要重新上传至七牛云。"
-				type="primary"
 				:closable="false"
 				show-icon
 			/>
 			<el-alert
 				v-if="engine == storage.ALIYUN"
 				title="温馨提示：切换阿里云OSS后，素材库需要重新上传至阿里云OSS。"
-				type="primary"
 				:closable="false"
 				show-icon
 			/>
 			<el-alert
 				v-if="engine == storage.QCLOUD"
 				title="温馨提示：切换腾讯云OSS后，素材库需要重新上传至腾讯云OSS。"
-				type="primary"
 				:closable="false"
 				show-icon
 			/>
@@ -37,11 +34,13 @@
 				<!-- 存储设置 -->
 				<div class="card-content m-t-24">
 					<el-form-item label="存储方式">
-						<div v-if="engine === storage.LOCAL">本地存储</div>
-						<div v-if="engine === storage.QINIU">七牛云存储</div>
-						<div v-if="engine === storage.ALIYUN">阿里云OSS</div>
-						<div v-if="engine === storage.QCLOUD">腾讯云OSS</div>
-						<div v-if="engine === storage.LOCAL" class="muted xs m-r-16">本地存储方式不需要配置其他参数</div>
+						<div>
+							<div v-if="engine === storage.LOCAL">本地存储</div>
+							<div v-if="engine === storage.QINIU">七牛云存储</div>
+							<div v-if="engine === storage.ALIYUN">阿里云OSS</div>
+							<div v-if="engine === storage.QCLOUD">腾讯云OSS</div>
+							<div v-if="engine === storage.LOCAL" class="muted xs m-l-16">本地存储方式不需要配置其他参数</div>
+						</div>
 					</el-form-item>
 				</div>
 				<div v-if="engine !== 'local'">
@@ -59,8 +58,10 @@
 							<el-option label="https://" value="https://"></el-option>
 							<el-option label="http://" value="http://"></el-option>
 						</el-select>-->
-						<el-input v-model="form.domain" placeholder="请输入空间域名"></el-input>
-						<div class="muted xs m-r-16">请补全http://或https://，例如https://static.cloud.com</div>
+						<div>
+							<el-input v-model="form.domain" placeholder="请输入空间域名"></el-input>
+							<div class="muted xs m-r-16">请补全http://或https://，例如https://static.cloud.com</div>
+						</div>
 					</el-form-item>
 					<el-form-item v-if="engine == storage.QCLOUD" label="REGION" prop="region">
 						<el-input v-model="form.region" placeholder="请输入region"></el-input>

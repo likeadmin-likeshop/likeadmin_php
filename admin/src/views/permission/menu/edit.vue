@@ -176,19 +176,12 @@ const formRules = {
       message: '请输入组件地址',
       trigger: 'blur'
     }
-  ],
-  perms: [
-    {
-      required: true,
-      message: '请输入权限字符',
-      trigger: 'blur'
-    }
   ]
 }
 const menuLists = ref<any[]>([])
 
 const getMenuLists = async () => {
-  const data: any = await apiMenuLists({ page_type: 1 })
+  const data: any = await apiMenuLists({ page_type: 0 })
   const menu = { id: 0, name: '顶级', children: [] }
   menu.children = data.lists
   menuLists.value.push(menu)

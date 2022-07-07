@@ -18,7 +18,7 @@
 		</el-form>
 	</el-card>
 	<el-card v-loading="loading" class="m-t-15" shadow="never">
-		<router-link to="/organization/department/edit">
+		<router-link v-perms="['dept.dept/add']" to="/organization/department/edit">
 			<el-button type="primary">新增部门</el-button>
 		</router-link>
 		<el-button type style="margin-left: 16px;" @click="openOrFold()">全部展开/折叠</el-button>
@@ -35,6 +35,7 @@
 				<el-table-column label="操作" width="100" fixed="right">
 					<template #default="{ row }">
 						<router-link
+							v-perms="['dept.dept/edit']"
 							class="m-r-10"
 							:to="{
 								path: '/organization/department/edit',
@@ -45,7 +46,12 @@
 						>
 							<el-button type="text">编辑</el-button>
 						</router-link>
-						<popup class="m-r-10 inline" @confirm="handleDelete(row.id)" v-show="row.pid">
+						<popup
+							v-perms="['dept.dept/delete']"
+							class="m-r-10 inline"
+							@confirm="handleDelete(row.id)"
+							v-show="row.pid"
+						>
 							<template #trigger>
 								<el-button type="text">删除</el-button>
 							</template>

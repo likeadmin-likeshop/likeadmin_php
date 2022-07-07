@@ -5,7 +5,6 @@
 			<el-alert
 				class="xxl"
 				title="温馨提示：1.切换存储方式后，需要将资源文件传输至新的存储端；2.请勿随意切换存储方式，可能导致图片无法查看"
-				type="primary"
 				:closable="false"
 				show-icon
 			></el-alert>
@@ -16,14 +15,14 @@
 				<el-table class="m-t-20" :data="storageLists">
 					<el-table-column label="储存方式" prop="name"></el-table-column>
 					<el-table-column label="储存位置" prop="path"></el-table-column>
-					<el-table-column label="状态">
+					<el-table-column label="状态" width="100">
 						<template #default="{ row }">
-							<el-tag size="small" v-if="row.status == 1">开启</el-tag>
-							<el-tag size="small" type="info" v-else>关闭</el-tag>
+							<el-tag v-if="row.status == 1">开启</el-tag>
+							<el-tag type="info" v-else>关闭</el-tag>
 						</template>
 					</el-table-column>
-					<el-table-column label="操作" fixed="right">
-						<template #default="{ row }">
+					<el-table-column label="操作" fixed="right" width="100">
+						<template #default="{ row }" v-perms="['setting.storage/setup']">
 							<router-link
 								class="m-r-10"
 								:to="{

@@ -5,7 +5,7 @@
             <span class="md f-w-600">服务协议</span>
         </template>
         <!-- Header Form Start -->
-        <el-form :model="formData" label-width="80px" size="mini" inline>
+        <el-form :model="formData" label-width="80px" inline>
             <el-form-item label="协议名称">
                 <el-input class="ls-input" v-model="formData.service_title" />
             </el-form-item>
@@ -24,7 +24,7 @@
             <span class="md f-w-600">隐私协议</span>
         </template>
         <!-- Header Form Start -->
-        <el-form :model="formData" label-width="80px" size="mini" inline>
+        <el-form :model="formData" label-width="80px" inline>
             <el-form-item label="协议名称">
                 <el-input class="ls-input" v-model="formData.privacy_title" />
             </el-form-item>
@@ -38,7 +38,7 @@
     <!-- 政策协议 End -->
 
     <!-- Footer Start -->
-    <footer-btns>
+    <footer-btns v-perms="['setting.web.web_setting/setAgreement']">
         <el-button type="primary" @click="handleProtocolEdit">保存</el-button>
     </footer-btns>
     <!-- Footer End -->

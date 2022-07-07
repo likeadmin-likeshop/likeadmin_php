@@ -88,7 +88,7 @@ const getPageTitle = computed(() => {
 })
 const getOptionsList = () => {
     apiMenuLists({
-        page_type: 1
+        page_type: 0
     }).then((res: any) => {
         state.menuTree = res.lists
         state.menuArray = treeToArray(res.lists)
@@ -106,7 +106,9 @@ const getDetail = async () => {
             //@ts-ignore
             state.formData[key] = data[key]
         })
-        nextTick(() => setDeptAllCheckedKeys())
+        setTimeout(() => {
+            setDeptAllCheckedKeys()
+        }, 100)
         state.loading = false
     } catch (error) {
         state.loading = false

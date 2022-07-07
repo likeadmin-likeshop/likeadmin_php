@@ -22,7 +22,11 @@
             </el-form>
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <el-butto type="primary" @click="handelShowEdit(true)">添加数据</el-butto>
+            <el-button
+                v-perms="['setting.dict.dict_data/add']"
+                type="primary"
+                @click="handelShowEdit(true)"
+            >添加数据</el-button>
             <popup
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
@@ -30,7 +34,7 @@
                 @confirm="handleDelete(selectData)"
             >
                 <template #trigger>
-                    <el-butto :disabled="!selectData.length">删除</el-butto>
+                    <el-button :disabled="!selectData.length">删除</el-button>
                 </template>
             </popup>
             <div class="m-t-15">
@@ -41,16 +45,24 @@
                     <el-table-column label="数据值" prop="value" />
                     <el-table-column label="状态">
                         <template v-slot="{ row }">
-                            <el-ta v-if="row.status == 1">正常</el-ta>
-                            <el-ta v-else type="danger">停用</el-ta>
+                            <el-tag v-if="row.status == 1">正常</el-tag>
+                            <el-tag v-else type="danger">停用</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column label="备注" prop="remark" />
                     <el-table-column label="排序" prop="sort" />
                     <el-table-column label="操作" width="150" fixed="right">
                         <template #default="{ row }">
-                            <el-button type="text" @click="handelShowEdit(true, row.id)">编辑</el-button>
-                            <popup class="inline m-l-10" @confirm="handleDelete(row.id)">
+                            <el-button
+                                v-perms="['setting.dict.dict_data/edit']"
+                                type="text"
+                                @click="handelShowEdit(true, row.id)"
+                            >编辑</el-button>
+                            <popup
+                                v-perms="['setting.dict.dict_data/delete']"
+                                class="inline m-l-10"
+                                @confirm="handleDelete(row.id)"
+                            >
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>

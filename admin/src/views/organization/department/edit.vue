@@ -39,8 +39,10 @@
 
 			<!-- 岗位排序 -->
 			<el-form-item label="排序" prop="sort">
-				<el-input v-model="formData.sort" placeholder="请输入排序" type="number"></el-input>
-				<div class="muted">默认为0， 数值越大越排前</div>
+				<div>
+					<el-input style="width:280px;" v-model="formData.sort" placeholder="请输入排序" type="number"></el-input>
+					<div class="form-tips">默认为0， 数值越大越排前</div>
+				</div>
 			</el-form-item>
 
 			<!-- 管理员状态 -->

@@ -10,7 +10,13 @@
                 ></div>
                 <div class="login-form flex flex-col">
                     <div class="f-s-24 f-w-500 text-center m-b-40">{{ config.web_name }}</div>
-                    <el-form ref="loginFormRefs" :model="loginForm" status-icon :rules="rules">
+                    <el-form
+                        ref="loginFormRefs"
+                        :model="loginForm"
+                        status-icon
+                        :rules="rules"
+                        size="large"
+                    >
                         <el-form-item prop="account">
                             <el-input
                                 v-model="loginForm.account"
@@ -43,7 +49,12 @@
                     <div class="m-b-20">
                         <el-checkbox v-model="remAccount" label="记住账号"></el-checkbox>
                     </div>
-                    <el-button type="primary" :loading="loginLoading" @click="handleLogin">登录</el-button>
+                    <el-button
+                        type="primary"
+                        :loading="loginLoading"
+                        @click="handleLogin"
+                        size="large"
+                    >登录</el-button>
                 </div>
             </div>
         </div>

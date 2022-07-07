@@ -17,11 +17,20 @@
             </el-form>
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <data-table class="inline m-r-10" @success="requestApi">
+            <data-table
+                v-perms="['tools.generator/selectTable']"
+                class="inline m-r-10"
+                @success="requestApi"
+            >
                 <el-button type="primary">导入数据表</el-button>
             </data-table>
-            <el-button :disabled="!selectData.length" @click="handleGenerate(selectData)">生成代码</el-button>
+            <el-button
+                v-perms="['tools.generator/generate']"
+                :disabled="!selectData.length"
+                @click="handleGenerate(selectData)"
+            >生成代码</el-button>
             <popup
+                v-perms="['tools.generator/delete']"
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
                 content="确认删除选中数据表？"
@@ -40,10 +49,19 @@
                     <el-table-column label="更新时间" prop="update_time" />
                     <el-table-column label="操作" width="240" fixed="right">
                         <template #default="{ row }">
-                            <el-button type="text" @click="handlePreview(row.id)">预览</el-button>
-                            <el-button type="text" @click="handleGenerate(row.id)">代码生成</el-button>
+                            <el-button
+                                v-perms="['tools.generator/preview']"
+                                type="text"
+                                @click="handlePreview(row.id)"
+                            >预览</el-button>
+                            <el-button
+                                v-perms="['tools.generator/generate']"
+                                type="text"
+                                @click="handleGenerate(row.id)"
+                            >代码生成</el-button>
                             <router-link
                                 class="m-l-10"
+                                v-perms="['tools.generator/edit']"
                                 :to="{
                                     path: '/dev_tools/code/edit',
                                     query: {
@@ -54,6 +72,7 @@
                                 <el-button type="text">编辑</el-button>
                             </router-link>
                             <popup
+                                v-perms="['tools.generator/syncColumn']"
                                 class="inline m-l-10"
                                 content="确认要同步表结构吗？"
                                 @confirm="handleSync(row.id)"
@@ -62,7 +81,11 @@
                                     <el-button type="text">同步</el-button>
                                 </template>
                             </popup>
-                            <popup class="inline m-l-10" @confirm="handleDelete(row.id)">
+                            <popup
+                                v-perms="['tools.generator/delete']"
+                                class="inline m-l-10"
+                                @confirm="handleDelete(row.id)"
+                            >
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>

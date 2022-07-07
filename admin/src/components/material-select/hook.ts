@@ -51,7 +51,7 @@ export function useCate(typeValue: Ref<any>) {
         return new Promise((resolve, reject) => {
             apiFileCateLists({
                 type: typeValue.value,
-                page_type: 1,
+                page_type: 0,
             }).then((res: any) => {
                 const item: any[] = [
                     {

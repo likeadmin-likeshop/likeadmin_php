@@ -31,7 +31,8 @@ router.beforeEach(async (to, from, next) => {
             const routes = store.getters.sidebar
             // 没有菜单跳转到403页面
             if (!routes.length) {
-                store.dispatch('user/logout')
+                await store.dispatch('user/logout')
+                store.dispatch('user/clearUserCache')
                 next('/403')
             }
             // 找到第一个有效路由
