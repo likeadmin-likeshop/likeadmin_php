@@ -1,1 +1,0 @@
-import{d as o,_ as s,o as a,c as r,f as e,aO as n}from"./index.140321e9.js";const c=o({}),_={class:"footer-wrap"},d={class:"footer-content bg-white flex flex-center"},i={class:"flex flex-center"};function f(t,p,l,x,h,v){return a(),r("div",_,[e("div",d,[e("div",i,[n(t.$slots,"default",{},void 0,!0)])])])}var m=s(c,[["render",f],["__scopeId","data-v-1e08b800"]]);export{m as F};
