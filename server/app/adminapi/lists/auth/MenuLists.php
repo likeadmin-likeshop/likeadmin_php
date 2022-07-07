@@ -43,7 +43,7 @@ class MenuLists extends BaseAdminDataLists
     public function lists(): array
     {
         $lists = SystemMenu::limit($this->limitOffset, $this->limitLength)
-            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->order(['sort' => 'desc', 'id' => 'asc'])
             ->select()
             ->toArray();
         return linear_to_tree($lists, 'children');
