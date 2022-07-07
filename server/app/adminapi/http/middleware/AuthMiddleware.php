@@ -45,11 +45,12 @@ class AuthMiddleware
         }
 
         //系统默认超级管理员，无需权限验证
-        if (1 === $request->adminInfo['root'] ) {
+        if (1 === $request->adminInfo['root']) {
             return $next($request);
         }
 
         $accessUri = Str::snake($request->controller() . '/' . $request->action());
+        $accessUri = strtolower($accessUri);
         $adminAuthCache = new AdminAuthCache($request->adminInfo['admin_id']);
         $allUri = $adminAuthCache->getAllUri();
 
