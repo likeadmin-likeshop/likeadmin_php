@@ -10,7 +10,7 @@
                 >
                     <div class="flex">
                         <el-scrollbar class="flex-1" style="height:70vh;">
-                            <pre v-html="highlightedCode(item.content, item.name)"></pre>
+                            <highlightjs autodetect :code="item.content" />
                         </el-scrollbar>
                         <div>
                             <el-button
@@ -31,19 +31,6 @@ import { CopyDocument } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
 import useClipboard from 'vue-clipboard3'
-import hljs from 'highlight.js/lib/core'
-import javascript from 'highlight.js/lib/languages/javascript'
-import xml from 'highlight.js/lib/languages/xml'
-import ts from 'highlight.js/lib/languages/typescript'
-import php from 'highlight.js/lib/languages/php'
-import sql from 'highlight.js/lib/languages/sql'
-hljs.registerLanguage("php", php)
-hljs.registerLanguage("ts", ts);
-hljs.registerLanguage("html", xml);
-hljs.registerLanguage("vue", xml);
-hljs.registerLanguage("javascript", javascript)
-hljs.registerLanguage("javascript", sql)
-import "highlight.js/styles/github.css"
 
 const props = defineProps<{
     modelValue: boolean
@@ -76,12 +63,11 @@ const show = computed<boolean>({
 })
 
 
-const highlightedCode = (code: string, key: string) => {
-    const index = key.indexOf(".")
-    var language = key.slice(index + 1)
-    const result = hljs.highlight(language, code, true)
-    return result.value || '&nbsp;'
-}
+// const highlightedCode = (code: string) => {
+//     const result = hljs.highlightAuto(code)
+//     console.log(result)
+//     return result.value || '&nbsp;'
+// }
 
 </script>
 

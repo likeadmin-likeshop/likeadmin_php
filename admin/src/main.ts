@@ -7,6 +7,7 @@ import useElement from './plugins/element'
 import useVueEcharts from './plugins/vue-echarts'
 import vars, { Variables } from './styles/export.module.scss'
 import useDirectives from './core/directives'
+import useHljs from './plugins/hljs'
 
 const app = createApp(App)
 app.config.globalProperties.$variables = vars
@@ -18,6 +19,7 @@ useDirectives(app)
 useElement(app)
 // vue-echarts
 useVueEcharts(app)
+useHljs(app)
 
 app.use(router).use(store, injectionKey)
 
