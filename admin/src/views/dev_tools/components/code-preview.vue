@@ -63,11 +63,5 @@ const show = computed<boolean>({
 })
 
 
-// const highlightedCode = (code: string) => {
-//     const result = hljs.highlightAuto(code)
-//     console.log(result)
-//     return result.value || '&nbsp;'
-// }
-
 </script>
 

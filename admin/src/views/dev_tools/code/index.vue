@@ -109,7 +109,7 @@
 <script lang="ts" setup>
 import { apiGenerateTable, apiSyncColumn, apiGenerateDel, apiGeneratePreview, apiGenerateCode, apiGenerateDownload } from '@/api/dev_tools'
 import { usePages } from '@/core/hooks/pages'
-import { reactive, ref } from 'vue'
+import { reactive, ref, nextTick } from 'vue'
 import DataTable from '../components/data-table.vue'
 import Pagination from '@/components/pagination/index.vue'
 import CodePreview from '../components/code-preview.vue'
@@ -150,17 +150,21 @@ const handleDelete = async (id: number | any[]) => {
 }
 
 const handlePreview = async (id: number) => {
-    const loadingInstance = ElLoading.service({
-        text: '正在生成中...'
-    })
+    // const loadingInstance = ElLoading.service({
+    //     text: '正在生成中...',
+    //     fullscreen: true
+    // })
     try {
 
         const data: any = await apiGeneratePreview({ id })
-        codePreview.show = true
         codePreview.code = data
-        loadingInstance.close()
+        codePreview.show = true
+        // loadingInstance.close()
+        // setTimeout(() => {
+        //     
+        // }, 50)
     } catch (error) {
-        loadingInstance.close()
+        // loadingInstance.close()
     }
 
 
