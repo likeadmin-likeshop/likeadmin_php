@@ -31,6 +31,7 @@ import { copyClipboard } from '@/utils/util'
 import { CopyDocument } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
+import useClipboard from 'vue-clipboard3'
 const props = defineProps<{
     modelValue: boolean
     code: any[]
@@ -39,16 +40,17 @@ const props = defineProps<{
 const emit = defineEmits<{
     (event: 'update:modelValue', value: boolean): void
 }>()
+const { toClipboard } = useClipboard()
 
 const activeName = ref('index0')
 
-const handleCopy = (text: string) => {
-    console.log(text)
-    copyClipboard(text).then(() => {
+const handleCopy = async (text: string) => {
+    try {
+        await toClipboard(text)
         ElMessage.success('复制成功')
-    }).catch(() => {
+    } catch (e) {
         ElMessage.error('复制失败')
-    })
+    }
 }
 
 const show = computed<boolean>({

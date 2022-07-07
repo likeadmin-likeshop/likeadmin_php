@@ -17,6 +17,8 @@ declare module '@vue/runtime-core' {
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
+    ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
+    ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDialog: typeof import('element-plus/es')['ElDialog']
