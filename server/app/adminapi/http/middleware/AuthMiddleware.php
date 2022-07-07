@@ -20,6 +20,7 @@ use app\common\{
     cache\AdminAuthCache,
     service\JsonService
 };
+use think\helper\Str;
 
 /**
  * 权限验证中间件
@@ -47,7 +48,8 @@ class AuthMiddleware
         if (1 === $request->adminInfo['root'] ) {
             return $next($request);
         }
-        $accessUri = strtolower($request->controller() . '/' . $request->action());//当前访问uri
+
+        $accessUri = Str::snake($request->controller() . '/' . $request->action());
         $adminAuthCache = new AdminAuthCache($request->adminInfo['admin_id']);
         $allUri = $adminAuthCache->getAllUri();
 
@@ -55,6 +57,7 @@ class AuthMiddleware
         if (!in_array($accessUri, $allUri)) {
             return $next($request);
         }
+
         //管理员访问的uri判断
         $AdminUris = $adminAuthCache->getAdminUri() ?? [];
         if (in_array($accessUri, $AdminUris)) {
