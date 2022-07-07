@@ -28,9 +28,15 @@ class Role extends BaseModel
 
     protected $deleteTime = 'delete_time';
 
-    public function roleAuthIndex()
-    {
-        return $this->hasMany(RoleAuthIndex::class,'role_id');
 
+    /**
+     * @notes 角色与菜单关联关系
+     * @return \think\model\relation\HasMany
+     * @author 段誉
+     * @date 2022/7/6 11:16
+     */
+    public function roleMenuIndex()
+    {
+        return $this->hasMany(SystemRoleMenu::class, 'role_id');
     }
 }

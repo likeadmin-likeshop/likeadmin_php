@@ -42,7 +42,10 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             '{DICT_DATA}',
             '{DICT_DATA_API}',
             '{PK}',
-            '{API_DIR}'
+            '{API_DIR}',
+            '{PERMS_ADD}',
+            '{PERMS_EDIT}',
+            '{PERMS_DELETE}'
         ];
 
         // 等待替换的内容
@@ -54,7 +57,10 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getDictDataContent(),
             $this->getDictDataApiContent(),
             $this->getPkContent(),
-            $this->getTableName()
+            $this->getTableName(),
+            $this->getPermsContent(),
+            $this->getPermsContent('edit'),
+            $this->getPermsContent('delete'),
         ];
         $templatePath = $this->getTemplatePath('vue_index');
 
@@ -243,6 +249,24 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
         }
         $content = substr($content, 0, -2);
         return $content;
+    }
+
+
+    /**
+     * @notes 权限规则
+     * @param string $type
+     * @return string
+     * @author 段誉
+     * @date 2022/7/7 9:47
+     */
+    public function getPermsContent($type = 'add')
+    {
+        if (!empty($this->classDir)) {
+            $classDir = $this->classDir.'.';
+        } else {
+            $classDir = '';
+        }
+        return trim($classDir.$this->getTableName(). '/'. $type);
     }
 
 

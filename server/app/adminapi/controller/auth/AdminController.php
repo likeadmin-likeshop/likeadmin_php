@@ -110,7 +110,7 @@ class AdminController extends BaseAdminController
      */
     public function mySelf()
     {
-        $result = AdminLogic::detail(['id' => $this->adminId]);
+        $result = AdminLogic::detail(['id' => $this->adminId], 'auth');
         return $this->data($result);
     }
 

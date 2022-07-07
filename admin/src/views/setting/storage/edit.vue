@@ -8,26 +8,38 @@
 
 		<!-- 提示 -->
 		<el-card shadow="never" class="m-t-15" v-if="engine !== storage.LOCAL">
-			<el-alert v-if="engine == storage.QINIU" title="温馨提示：切换七牛云存储后，素材库需要重新上传至七牛云。" type="primary" :closable="false"
-				show-icon />
-			<el-alert v-if="engine == storage.ALIYUN" title="温馨提示：切换阿里云OSS后，素材库需要重新上传至阿里云OSS。" type="primary"
-				:closable="false" show-icon />
-			<el-alert v-if="engine == storage.QCLOUD" title="温馨提示：切换腾讯云OSS后，素材库需要重新上传至腾讯云OSS。" type="primary"
-				:closable="false" show-icon />
+			<el-alert
+				v-if="engine == storage.QINIU"
+				title="温馨提示：切换七牛云存储后，素材库需要重新上传至七牛云。"
+				:closable="false"
+				show-icon
+			/>
+			<el-alert
+				v-if="engine == storage.ALIYUN"
+				title="温馨提示：切换阿里云OSS后，素材库需要重新上传至阿里云OSS。"
+				:closable="false"
+				show-icon
+			/>
+			<el-alert
+				v-if="engine == storage.QCLOUD"
+				title="温馨提示：切换腾讯云OSS后，素材库需要重新上传至腾讯云OSS。"
+				:closable="false"
+				show-icon
+			/>
 		</el-card>
 
 		<!-- 表单 -->
 		<el-card shadow="never" class="m-t-15">
-			<el-form ref="formRef" :model="form" :rules="formRules" label-width="240px" size="small" class="ls-form">
+			<el-form ref="formRef" :model="form" :rules="formRules" label-width="240px" class="ls-form">
 				<!-- 存储设置 -->
 				<div class="card-content m-t-24">
 					<el-form-item label="存储方式">
-						<div v-if="engine === storage.LOCAL">本地存储</div>
-						<div v-if="engine === storage.QINIU">七牛云存储</div>
-						<div v-if="engine === storage.ALIYUN">阿里云OSS</div>
-						<div v-if="engine === storage.QCLOUD">腾讯云OSS</div>
-						<div v-if="engine === storage.LOCAL" class="muted xs m-r-16">
-							本地存储方式不需要配置其他参数
+						<div>
+							<div v-if="engine === storage.LOCAL">本地存储</div>
+							<div v-if="engine === storage.QINIU">七牛云存储</div>
+							<div v-if="engine === storage.ALIYUN">阿里云OSS</div>
+							<div v-if="engine === storage.QCLOUD">腾讯云OSS</div>
+							<div v-if="engine === storage.LOCAL" class="muted xs m-l-16">本地存储方式不需要配置其他参数</div>
 						</div>
 					</el-form-item>
 				</div>
@@ -45,10 +57,10 @@
 						<!-- <el-select class="ls-select" v-model="form" placeholder="https://">
 							<el-option label="https://" value="https://"></el-option>
 							<el-option label="http://" value="http://"></el-option>
-						</el-select> -->
-						<el-input v-model="form.domain" placeholder="请输入空间域名"></el-input>
-						<div class="muted xs m-r-16">
-							请补全http://或https://，例如https://static.cloud.com
+						</el-select>-->
+						<div>
+							<el-input v-model="form.domain" placeholder="请输入空间域名"></el-input>
+							<div class="muted xs m-r-16">请补全http://或https://，例如https://static.cloud.com</div>
 						</div>
 					</el-form-item>
 					<el-form-item v-if="engine == storage.QCLOUD" label="REGION" prop="region">
@@ -66,115 +78,115 @@
 
 		<!--  保存  -->
 		<footer-btns>
-			<el-button type="primary" size="small" @click="onSubmit">保存</el-button>
+			<el-button type="primary" @click="onSubmit">保存</el-button>
 		</footer-btns>
 	</div>
 </template>
 
 <script lang="ts" setup>
-	import {
-		apiStorageDetail,
-		apiStorageSetup
-	} from '@/api/setting'
-	import {
-		ref,
-		onMounted
-	} from 'vue'
-	import {
-		ElForm
-	} from 'element-plus'
-	import {
-		useAdmin
-	} from '@/core/hooks/app'
-	import FooterBtns from '@/components/footer-btns/index.vue'
-	import { storage } from '@/utils/type'
+import {
+	apiStorageDetail,
+	apiStorageSetup
+} from '@/api/setting'
+import {
+	ref,
+	onMounted
+} from 'vue'
+import {
+	ElForm
+} from 'element-plus'
+import {
+	useAdmin
+} from '@/core/hooks/app'
+import FooterBtns from '@/components/footer-btns/index.vue'
+import { storage } from '@/utils/type'
 
-	/** S Data **/
-	const {
-		route,
-		router
-	} = useAdmin()
+/** S Data **/
+const {
+	route,
+	router
+} = useAdmin()
 
-	// 存储方式
-	let engine = ref < string > ('') // 存储引擎名称：local-本地，qiniu-七牛云,aliyun-阿里云OSS,qcloud-腾讯云OS:
-	// 设置表单
-	let form = ref < object > ({
-		bucket: '',
-		access_key: '',
-		secret_key: '',
-		domain: '',
-		region: '', // 腾讯云需要
-		status: 0
-	})
+// 存储方式
+let engine = ref<string>('') // 存储引擎名称：local-本地，qiniu-七牛云,aliyun-阿里云OSS,qcloud-腾讯云OS:
+// 设置表单
+let form = ref<object>({
+	bucket: '',
+	access_key: '',
+	secret_key: '',
+	domain: '',
+	region: '', // 腾讯云需要
+	status: 0
+})
 
-	let formRules = ref({
-		bucket: [{
-			required: true,
-			message: '请输入存储空间名称',
-			trigger: 'blur'
-		}],
-		access_key: [{
-			required: true,
-			message: '请输入ACCESS_KEY',
-			trigger: 'blur'
-		}],
-		secret_key: [{
-			required: true,
-			message: '请输入SECRET_KEY',
-			trigger: 'blur'
-		}],
-		domain: [{
-			required: true,
-			message: '请输入空间域名',
-			trigger: 'blur'
-		}],
-		region: [{
-			required: true,
-			message: '请输入REGION',
-			trigger: 'blur'
-		}]
-	})
+let formRules = ref({
+	bucket: [{
+		required: true,
+		message: '请输入存储空间名称',
+		trigger: 'blur'
+	}],
+	access_key: [{
+		required: true,
+		message: '请输入ACCESS_KEY',
+		trigger: 'blur'
+	}],
+	secret_key: [{
+		required: true,
+		message: '请输入SECRET_KEY',
+		trigger: 'blur'
+	}],
+	domain: [{
+		required: true,
+		message: '请输入空间域名',
+		trigger: 'blur'
+	}],
+	region: [{
+		required: true,
+		message: '请输入REGION',
+		trigger: 'blur'
+	}]
+})
 
-	const formRef: Ref < typeof ElForm | null > = ref(null)
-	/** E Data **/
+const formRef: Ref<typeof ElForm | null> = ref(null)
+/** E Data **/
 
-	/** S Methods **/
-	const onSubmit = () => {
-		// 验证表单格式是否正确
-		formRef.value?.validate((valid: boolean) => {
-			if (!valid) {
-				return
-			}
-			// 请求发送
-			apiStorageSetup({
-					...form.value,
-					engine: engine.value,
-				})
-				.then((res: any) => {
-					setTimeout(() => router.back(), 500)
-				})
-				.catch((err: any) => {
-					console.log('err', err)
-				})
-		})
-	}
-
-	// 获取引擎配置
-	const getStorageDetail = async () => {
-		form.value = await apiStorageDetail({
-			engine: engine.value
-		})
-	}
-	/** E Methods **/
-
-	/** S Life Cycle **/
-	onMounted(async () => {
-		if (route.query.engine) {
-			console.log('route.query.engine', route.query.engine)
-			engine.value = route.query.engine
+/** S Methods **/
+const onSubmit = () => {
+	// 验证表单格式是否正确
+	formRef.value?.validate((valid: boolean) => {
+		if (!valid) {
+			return
 		}
-		await getStorageDetail()
+		// 请求发送
+		apiStorageSetup({
+			...form.value,
+			engine: engine.value,
+		})
+			.then((res: any) => {
+				setTimeout(() => router.back(), 500)
+			})
+			.catch((err: any) => {
+				console.log('err', err)
+			})
 	})
+}
+
+// 获取引擎配置
+const getStorageDetail = async () => {
+	form.value = await apiStorageDetail({
+		engine: engine.value
+	})
+}
+/** E Methods **/
+
+/** S Life Cycle **/
+onMounted(async () => {
+	if (route.query.engine) {
+		console.log('route.query.engine', route.query.engine)
+		engine.value = route.query.engine
+	}
+	await getStorageDetail()
+})
 	/** E Life Cycle **/
 </script>
 

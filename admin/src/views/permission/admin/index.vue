@@ -1,7 +1,7 @@
 <template>
     <div class="admin">
         <el-card shadow="never">
-            <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
+            <el-form class="ls-form" :model="formData" label-width="80px" inline>
                 <el-form-item label="账号：">
                     <el-input v-model="formData.account" class="ls-input" />
                 </el-form-item>
@@ -27,11 +27,11 @@
             </el-form>
         </el-card>
         <el-card v-loading="pager.loading" class="m-t-15" shadow="never">
-            <router-link to="/permission/admin/edit">
-                <el-button type="primary" size="small">新增管理员</el-button>
+            <router-link v-perms="['auth.admin/add']" to="/permission/admin/edit">
+                <el-button type="primary">新增管理员</el-button>
             </router-link>
             <div class="m-t-15">
-                <el-table :data="pager.lists" size="small">
+                <el-table :data="pager.lists">
                     <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
                     <el-table-column label="头像" min-width="100">
                         <template #default="{ row }">
@@ -40,32 +40,12 @@
                     </el-table-column>
                     <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
                     <el-table-column label="名称" prop="name" min-width="100"></el-table-column>
-                    <el-table-column
-                        label="角色"
-                        prop="role_name"
-                        min-width="100"
-                    ></el-table-column>
-					<el-table-column
-					    label="部门"
-					    prop="dept_name"
-					    min-width="100"
-					></el-table-column>
-                    <el-table-column
-                        label="创建时间"
-                        prop="create_time"
-                        min-width="150"
-                    ></el-table-column>
-                    <el-table-column
-                        label="最近登录时间"
-                        prop="login_time"
-                        min-width="150"
-                    ></el-table-column>
-                    <el-table-column
-                        label="最近登录IP"
-                        prop="login_ip"
-                        min-width="100"
-                    ></el-table-column>
-                    <el-table-column label="状态" min-width="100">
+                    <el-table-column label="角色" prop="role_name" min-width="100"></el-table-column>
+                    <el-table-column label="部门" prop="dept_name" min-width="100"></el-table-column>
+                    <el-table-column label="创建时间" prop="create_time" min-width="150"></el-table-column>
+                    <el-table-column label="最近登录时间" prop="login_time" min-width="150"></el-table-column>
+                    <el-table-column label="最近登录IP" prop="login_ip" min-width="100"></el-table-column>
+                    <el-table-column label="状态" min-width="100" v-perms="['auth.admin/edit']">
                         <template #default="{ row }">
                             <el-switch
                                 v-model="row.disable"
@@ -78,6 +58,7 @@
                     <el-table-column label="操作" width="150" fixed="right">
                         <template #default="{ row }">
                             <router-link
+                                v-perms="['auth.admin/edit']"
                                 class="m-r-10"
                                 :to="{
                                     path: '/permission/admin/edit',
@@ -88,7 +69,12 @@
                             >
                                 <el-button type="text">编辑</el-button>
                             </router-link>
-                            <popup class="m-r-10 inline" @confirm="handleDelete(row.id)" v-if="row.root != 1">
+                            <popup
+                                v-perms="['auth.admin/delete']"
+                                class="m-r-10 inline"
+                                @confirm="handleDelete(row.id)"
+                                v-if="row.root != 1"
+                            >
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>
@@ -152,7 +138,7 @@ export default defineComponent({
 
         const getRoleList = () => {
             apiRoleLists({
-                page_type: 1
+                page_type: 0
             }).then((res: any) => {
                 roleList.value = res.lists
             })

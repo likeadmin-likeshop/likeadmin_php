@@ -8,42 +8,32 @@
                 <div>
                     <div class="m-b-20">版本号：{{ workbenchData.version.version }}</div>
                     <!-- <div>官网地址：{{ workbenchData.version.website }}</div> -->
-					<div>官网名称：{{ workbenchData.version.name }}</div>
+                    <div>官网名称：{{ workbenchData.version.name }}</div>
                 </div>
             </el-card>
             <el-card class="flex-3 m-l-15" shadow="never">
                 <template #header>
                     <div>
                         <span class="card-title">今日数据</span>
-                        <span class="muted xs m-l-15"
-                            >更新时间：{{ workbenchData.today.time }}</span
-                        >
+                        <span class="muted xs m-l-15">更新时间：{{ workbenchData.today.time }}</span>
                     </div>
                 </template>
 
                 <div class="flex">
                     <div class="flex-1">
                         <div class="lighter m-b-10">访问量</div>
-                        <div class="f-s-32 m-b-10">
-                            {{ workbenchData.today.today_visitor }}
-                        </div>
+                        <div class="f-s-32 m-b-10">{{ workbenchData.today.today_visitor }}</div>
                         <div class="lighter">总访问量：{{ workbenchData.today.total_visitor }}</div>
                     </div>
                     <div class="flex-1">
                         <div class="lighter m-b-10">销售额</div>
-                        <div class="f-s-32 m-b-10">
-                            {{ workbenchData.today.today_sales }}
-                        </div>
+                        <div class="f-s-32 m-b-10">{{ workbenchData.today.today_sales }}</div>
                         <div class="lighter">总销售额：{{ workbenchData.today.total_sales }}</div>
                     </div>
                     <div class="flex-1">
                         <div class="lighter m-b-10">新增用户</div>
-                        <div class="f-s-32 m-b-10">
-                            {{ workbenchData.today.today_new_user }}
-                        </div>
-                        <div class="lighter">
-                            总访用户：{{ workbenchData.today.total_new_user }}
-                        </div>
+                        <div class="f-s-32 m-b-10">{{ workbenchData.today.today_new_user }}</div>
+                        <div class="lighter">总访用户：{{ workbenchData.today.total_new_user }}</div>
                     </div>
                 </div>
             </el-card>
@@ -61,7 +51,7 @@
                     >
                         <router-link :to="item.url">
                             <view class="flex flex-center">
-                            	<el-image style="width: 48px; height: 48px" :src="item?.image"></el-image>
+                                <el-image style="width: 48px; height: 48px" :src="item?.image"></el-image>
                             </view>
                             <div class="m-t-8 normal text-center">{{ item.name }}</div>
                         </router-link>
@@ -93,30 +83,22 @@
                                     v-if="scope.$index == 0"
                                     class="icon"
                                     style="background: #f86056; color: #fff"
-                                >
-                                    {{ scope.$index + 1 }}
-                                </div>
+                                >{{ scope.$index + 1 }}</div>
                                 <div
                                     v-if="scope.$index == 1"
                                     class="icon"
                                     style="background: #fc8d2e; color: #fff"
-                                >
-                                    {{ scope.$index + 1 }}
-                                </div>
+                                >{{ scope.$index + 1 }}</div>
                                 <div
                                     v-if="scope.$index == 2"
                                     class="icon"
                                     style="background: #fcbc2e; color: #fff"
-                                >
-                                    {{ scope.$index + 1 }}
-                                </div>
-                                <div v-if="scope.$index > 2" class="icon">
-                                    {{ scope.$index + 1 }}
-                                </div>
+                                >{{ scope.$index + 1 }}</div>
+                                <div v-if="scope.$index > 2" class="icon">{{ scope.$index + 1 }}</div>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="name" label="文章名称"> </el-table-column>
-                        <el-table-column prop="read" label="阅读量"> </el-table-column>
+                        <el-table-column prop="name" label="文章名称"></el-table-column>
+                        <el-table-column prop="read" label="阅读量"></el-table-column>
                     </el-table>
                 </div>
             </el-card>
@@ -221,7 +203,7 @@ export default defineComponent({
         font-size: 14px;
         &::before {
             position: absolute;
-            content: '';
+            content: "";
             display: inline-block;
             top: 50%;
             left: 0;
@@ -255,7 +237,7 @@ export default defineComponent({
         color: #333;
         border-radius: 2px;
         background: #f5f5f5;
-        font-family: 'PingFang SC';
+        font-family: "PingFang SC";
         font-weight: normal;
         font-size: 12px;
         line-height: 25px;

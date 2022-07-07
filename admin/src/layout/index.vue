@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import LayoutAside from './components/layout-aside/index.vue'
+import LayoutAside from './components/layout-aside.vue'
 import LayoutMain from './components/layout-main.vue'
 import LayoutHeader from './components/layout-header.vue'
 export default defineComponent({

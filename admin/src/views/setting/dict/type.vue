@@ -1,7 +1,7 @@
 <template>
     <div class="dict">
         <el-card shadow="never">
-            <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
+            <el-form class="ls-form" :model="formData" label-width="80px" inline>
                 <el-form-item label="字典名称">
                     <el-input v-model="formData.name" class="ls-input" />
                 </el-form-item>
@@ -24,40 +24,46 @@
             </el-form>
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <el-button size="small" type="primary" @click="handelShowEdit(true)">新增字典类型</el-button>
+            <el-button
+                v-perms="['setting.dict.dict_type/add']"
+                type="primary"
+                @click="handelShowEdit(true)"
+            >新增字典类型</el-button>
             <popup
+                v-perms="['setting.dict.dict_type/delete']"
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
                 content="确认删除选中字典？"
                 @confirm="handleDelete(selectData)"
             >
                 <template #trigger>
-                    <el-button size="small" :disabled="!selectData.length">删除</el-button>
+                    <el-button :disabled="!selectData.length">删除</el-button>
                 </template>
             </popup>
             <div class="m-t-15">
-                <el-table
-                    :data="pager.lists"
-                    size="small"
-                    @selection-change="handleSelectionChange"
-                >
+                <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="ID" prop="id" />
                     <el-table-column label="字典名称" prop="name" />
                     <el-table-column label="字典类型" prop="type" />
                     <el-table-column label="状态">
                         <template v-slot="{ row }">
-                            <el-tag size="small" v-if="row.status == 1">正常</el-tag>
-                            <el-tag size="small" v-else type="danger">停用</el-tag>
+                            <el-tag v-if="row.status == 1">正常</el-tag>
+                            <el-tag v-else type="danger">停用</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column label="备注" prop="remark" />
                     <el-table-column label="创建时间" prop="create_time" />
                     <el-table-column label="操作" width="200" fixed="right">
                         <template #default="{ row }">
-                            <el-button type="text" @click="handelShowEdit(true, row.id)">编辑</el-button>
+                            <el-button
+                                v-perms="['setting.dict.dict_type/edit']"
+                                type="text"
+                                @click="handelShowEdit(true, row.id)"
+                            >编辑</el-button>
                             <router-link
                                 class="m-l-10"
+                                v-perms="['setting.dict.dict_data/lists']"
                                 :to="{
                                     path: '/setting/dict/data',
                                     query: {
@@ -68,7 +74,11 @@
                             >
                                 <el-button type="text">数据管理</el-button>
                             </router-link>
-                            <popup class="inline m-l-10" @confirm="handleDelete(row.id)">
+                            <popup
+                                v-perms="['setting.dict.dict_type/delete']"
+                                class="inline m-l-10"
+                                @confirm="handleDelete(row.id)"
+                            >
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>

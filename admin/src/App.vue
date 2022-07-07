@@ -1,49 +1,37 @@
 <template>
-    <keep-alive>
-        <router-view v-if="keepAlive && routerAlive" />
-    </keep-alive>
-    <router-view v-if="!keepAlive && routerAlive" />
+    <el-config-provider :locale="elConfig.locale" :z-index="elConfig.zIndex">
+        <router-view />
+    </el-config-provider>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref, nextTick, provide, onMounted } from 'vue'
+<script lang="ts" setup>
+import { computed, ref, nextTick, provide, onMounted } from 'vue'
 import { useAdmin } from './core/hooks/app'
-export default defineComponent({
-    setup() {
-        const { store, route } = useAdmin()
-        const routerAlive = ref(true)
-        const keepAlive = computed(() => route.meta.keepAlive)
-        const reload = () => {
-            routerAlive.value = false
-            nextTick(() => {
-                routerAlive.value = true
-            })
-        }
-        provide('reload', reload)
-        onMounted(async () => {
-            // 获取配置
-            const data = await store.dispatch('app/getConfig')
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+const { store, route } = useAdmin()
 
-            // 设置网站logo
-            let favicon: HTMLLinkElement = document.querySelector('link[rel="icon"]')!
-            if (favicon) {
-                favicon.href = data.web_favicon
-                return
-            }
-            favicon = document.createElement('link')
-            favicon.rel = 'icon'
-            favicon.href = data.web_favicon
-            document.head.appendChild(favicon)
-        })
-        return {
-            routerAlive,
-            keepAlive
-        }
+const elConfig = {
+    zIndex: 3000,
+    locale: zhCn
+}
+onMounted(async () => {
+    // 获取配置
+    const data = await store.dispatch('app/getConfig')
+
+    // 设置网站logo
+    let favicon: HTMLLinkElement = document.querySelector('link[rel="icon"]')!
+    if (favicon) {
+        favicon.href = data.web_favicon
+        return
     }
+    favicon = document.createElement('link')
+    favicon.rel = 'icon'
+    favicon.href = data.web_favicon
+    document.head.appendChild(favicon)
 })
 </script>
 
 <style lang="scss">
-@import './assets/font/iconfont.css';
-@import './styles/index.scss';
+@import "./assets/font/iconfont.css";
+@import "./styles/index.scss";
 </style>

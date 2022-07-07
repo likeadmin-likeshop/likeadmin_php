@@ -1,8 +1,13 @@
 // 引入所有样式
 // @use 'element-plus/theme-chalk/src/index.scss';
 @import "element-plus/theme-chalk/src/index.scss";
+
 :root {
     --el-font-weight-primary: 400;
+
+    .el-checkbox {
+        --el-checkbox-font-size: 13px;
+    }
 }
 
 .el-menu {
@@ -52,6 +57,7 @@
     min-height: 100%;
     position: static;
     overflow: hidden;
+
     .el-dialog {
         --el-dialog-content-font-size: var(--el-font-size-base);
         flex: none;
@@ -79,9 +85,9 @@
     .el-form-item__content {
         font-size: var(--el-font-size-base);
 
-        & > .el-cascader,
-        & > .el-select,
-        & > .el-input {
+        &>.el-cascader,
+        &>.el-select,
+        &>.el-input {
             width: 280px;
         }
     }
@@ -89,6 +95,7 @@
 
 .el-table {
     font-size: var(--el-font-size-base);
+
     thead th {
         font-weight: 400;
     }
@@ -99,6 +106,6 @@
 }
 
 .el-alert--primary {
-	color: $color-primary;
-	background-color: $color-primary-light-9;
+    color: $color-primary;
+    background-color: $color-primary-light-9;
 }

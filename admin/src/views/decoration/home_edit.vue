@@ -6,14 +6,7 @@
     <!-- Header End -->
 
     <!-- Main Start -->
-    <el-form
-        ref="formRef"
-        :model="formData"
-        :rules="rules"
-        label-width="120px"
-        class="formData"
-        size="small"
-    >
+    <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px" class="formData">
         <el-card shadow="never" style="margin-top: 15px">
             <el-form-item label="菜单名称:" prop="name">
                 <el-input class="ls-input" v-model="formData.name" placeholder="请输入"></el-input>
@@ -73,7 +66,6 @@
             <el-form-item label="状态:" prop="status">
                 <el-switch
                     v-model="formData.status"
-                    size="small"
                     :active-text="formData.status ? '启用' : '关闭'"
                     :active-value="1"
                     :inactive-value="0"
@@ -85,134 +77,134 @@
 
     <!-- Footer Start -->
     <footer-btns>
-        <el-button type="primary" size="small" @click="onSubmit(formRef)">保存</el-button>
+        <el-button type="primary" @click="onSubmit(formRef)">保存</el-button>
     </footer-btns>
     <!-- Footer End -->
 </template>
 
 <script setup lang="ts">
-    import {
-        apiShowPage,
-        apiHomeMenuAdd,
-        apiHomeMenuEdit,
-        apiHomeMenuDetail,
-    } from '@/api/decoration'
-    import { ref, reactive } from 'vue'
-    import FooterBtns from '@/components/footer-btns/index.vue'
-    import MaterialSelect from '@/components/material-select/index.vue'
-    import type { ElForm } from 'element-plus'
-    import { useAdmin } from '@/core/hooks/app'
+import {
+    apiShowPage,
+    apiHomeMenuAdd,
+    apiHomeMenuEdit,
+    apiHomeMenuDetail,
+} from '@/api/decoration'
+import { ref, reactive } from 'vue'
+import FooterBtns from '@/components/footer-btns/index.vue'
+import MaterialSelect from '@/components/material-select/index.vue'
+import type { ElForm } from 'element-plus'
+import { useAdmin } from '@/core/hooks/app'
 
-    /* Interface Start */
-    interface formDataObj {
-        name?: string //菜单名称
-        image?: string //菜单图片
-        link_type?: number | string //链接类型：1-商城页面；2-商品分类；3-自定义链接
-        link_address: string | number //链接地址
-        sort: number //排序
-        status: number //状态
+/* Interface Start */
+interface formDataObj {
+    name?: string //菜单名称
+    image?: string //菜单图片
+    link_type?: number | string //链接类型：1-商城页面；2-商品分类；3-自定义链接
+    link_address: string | number //链接地址
+    sort: number //排序
+    status: number //状态
+}
+interface Lists {
+    name: string
+    index: number
+    id: number | string
+}
+
+type FormInstance = InstanceType<typeof ElForm>
+const formRef = ref<FormInstance>()
+/* Interface End */
+
+/* Data Start */
+const { router, route } = useAdmin()
+const id: any = route.query.id
+let formData = ref<formDataObj>({
+    name: '',
+    image: '',
+    link_type: 1,
+    link_address: '',
+    sort: 0,
+    status: 1,
+})
+
+let showPageData = ref<Array<Lists> | null>([]) //商品页面
+let goodsCategoryPage = ref<Array<Lists> | null>([]) //分类页面数据
+const goodsLink = ref<number | string>('') //link_type === 1 时商品页面的选择
+const categoryLink = ref<number | string>('') //link_type === 2 时分类页面的选择
+const customLink = ref<number | string>('') //自定义路径
+
+// 表单娇艳规则
+const rules = reactive<object>({
+    name: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
+    link_address: [{ required: true, message: '链接地址不能为空', trigger: [] }],
+    status: [{ required: true, message: '请选择状态', trigger: 'change' }],
+})
+
+/* Data End */
+
+/* Methods Start */
+// 获取详情
+const getHomeMenuDetail = async (id: number): Promise<void> => {
+    (formData.value as object) = await apiHomeMenuDetail({ id })
+    switch (formData.value.link_type) {
+        case 1:
+            goodsLink.value = formData.value.link_address
+            break
+        case 2:
+            categoryLink.value = formData.value.link_address
+            break
+        case 3:
+            customLink.value = formData.value.link_address
+            break
     }
-    interface Lists {
-        name: string
-        index: number
-        id: number | string
+}
+// 获取商城页面
+const getShowPage = async (): Promise<void> => {
+    (showPageData.value as object) = await apiShowPage()
+}
+
+// 添加菜单
+const handleHomeMenuAdd = async (): Promise<void> => {
+    await apiHomeMenuAdd({ ...formData.value })
+    router.back()
+}
+// 编辑菜单
+const handleHomeMenuEdit = async (): Promise<void> => {
+    await apiHomeMenuEdit({ ...formData.value })
+    router.back()
+}
+// 提交数据
+const onSubmit = (formEl: FormInstance | undefined): void => {
+    switch (formData.value.link_type) {
+        case 1:
+            formData.value.link_address = goodsLink.value
+            break
+        case 2:
+            formData.value.link_address = categoryLink.value
+            break
+        case 3:
+            formData.value.link_address = customLink.value
+            break
     }
-
-    type FormInstance = InstanceType<typeof ElForm>
-    const formRef = ref<FormInstance>()
-    /* Interface End */
-
-    /* Data Start */
-    const { router, route } = useAdmin()
-    const id: any = route.query.id
-    let formData = ref<formDataObj>({
-        name: '',
-        image: '',
-        link_type: 1,
-        link_address: '',
-        sort: 0,
-        status: 1,
+    if (!formEl) return
+    formEl.validate((valid): boolean | undefined => {
+        if (!valid) return false
+        if (!id) handleHomeMenuAdd()
+        else handleHomeMenuEdit()
     })
+}
 
-    let showPageData = ref<Array<Lists> | null>([]) //商品页面
-    let goodsCategoryPage = ref<Array<Lists> | null>([]) //分类页面数据
-    const goodsLink = ref<number | string>('') //link_type === 1 时商品页面的选择
-    const categoryLink = ref<number | string>('') //link_type === 2 时分类页面的选择
-    const customLink = ref<number | string>('') //自定义路径
+/* Methods End */
 
-    // 表单娇艳规则
-    const rules = reactive<object>({
-        name: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
-        link_address: [{ required: true, message: '链接地址不能为空', trigger: [] }],
-        status: [{ required: true, message: '请选择状态', trigger: 'change' }],
-    })
-
-    /* Data End */
-
-    /* Methods Start */
-    // 获取详情
-    const getHomeMenuDetail = async (id: number): Promise<void> => {
-        (formData.value as object) = await apiHomeMenuDetail({ id })
-        switch (formData.value.link_type) {
-            case 1:
-                goodsLink.value = formData.value.link_address
-                break
-            case 2:
-                categoryLink.value = formData.value.link_address
-                break
-            case 3:
-                customLink.value = formData.value.link_address
-                break
-        }
-    }
-    // 获取商城页面
-    const getShowPage = async (): Promise<void> => {
-        (showPageData.value as object) = await apiShowPage()
-    }
-
-    // 添加菜单
-    const handleHomeMenuAdd = async (): Promise<void> => {
-        await apiHomeMenuAdd({ ...formData.value })
-        router.back()
-    }
-    // 编辑菜单
-    const handleHomeMenuEdit = async (): Promise<void> => {
-        await apiHomeMenuEdit({ ...formData.value })
-        router.back()
-    }
-    // 提交数据
-    const onSubmit = (formEl: FormInstance | undefined): void => {
-        switch (formData.value.link_type) {
-            case 1:
-                formData.value.link_address = goodsLink.value
-                break
-            case 2:
-                formData.value.link_address = categoryLink.value
-                break
-            case 3:
-                formData.value.link_address = customLink.value
-                break
-        }
-        if (!formEl) return
-        formEl.validate((valid): boolean | undefined => {
-            if (!valid) return false
-            if (!id) handleHomeMenuAdd()
-            else handleHomeMenuEdit()
-        })
-    }
-
-    /* Methods End */
-
-    /* LifeCycle Start */
-    // 请求详情 => 如果是编辑的话
-    if (id) getHomeMenuDetail(id)
-    getShowPage()
+/* LifeCycle Start */
+// 请求详情 => 如果是编辑的话
+if (id) getHomeMenuDetail(id)
+getShowPage()
     /* LifeCycle End */
 </script>
 
 <style lang="scss" scoped>
-    .ls-input,
-    .select {
-        width: 340px;
-    }
+.ls-input,
+.select {
+    width: 340px;
+}
 </style>
