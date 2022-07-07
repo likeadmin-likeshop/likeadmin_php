@@ -1,1 +1,0 @@
-import e from"./error.1272d58e.js";import{d as u,c as o,a as r,o as t}from"./index.94cff847.js";const a={class:"error404"},p=u({__name:"404",setup(c){return(s,n)=>(t(),o("div",a,[r(e,{code:"404",title:"\u54CE\u5440\uFF0C\u51FA\u9519\u4E86\uFF01\u60A8\u8BBF\u95EE\u7684\u9875\u9762\u4E0D\u5B58\u5728\u2026"})]))}});export{p as default};
