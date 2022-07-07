@@ -30,6 +30,7 @@
                     <div>
                         <el-checkbox label="展开/折叠" @change="handleExpand" />
                         <el-checkbox label="全选/不全选" @change="handleSelectAll" />
+                        <el-checkbox v-model="state.checkStrictly" label="父子联动" />
                         <div>
                             <el-tree
                                 ref="treeRef"
@@ -38,6 +39,7 @@
                                     label: 'name',
                                     children: 'children'
                                 }"
+                                :check-strictly="!state.checkStrictly"
                                 node-key="id"
                                 :default-expand-all="state.isExpand"
                                 show-checkbox
@@ -65,6 +67,7 @@ const router = useRouter()
 const state = reactive({
     loading: false,
     isExpand: false,
+    checkStrictly: true,
     menuArray: [] as any[],
     menuTree: [],
     formData: {

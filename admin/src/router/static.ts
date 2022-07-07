@@ -30,11 +30,18 @@ export const constRoutes: RouteRecordRaw[] = [
 		component: () => import('@/views/account/login.vue')
 	},
 	{
-		path: '/user/setting',
-		meta: {
-			title: '个人设置'
-		},
-		component: () => import('@/views/setting/personal/personal_data.vue')
+		path: '/user',
+		component: Layout,
+		children: [
+			{
+				path: 'setting',
+				meta: {
+					title: '个人设置'
+				},
+				component: () => import('@/views/setting/personal/personal_data.vue')
+			}
+		]
+
 	},
 	{
 		path: '/permission',
