@@ -1,22 +1,24 @@
 <template>
-    <div class="role">
+    <div class="role-lists">
         <el-card shadow="never">
-            <router-link to="/permission/role/edit">
-                <el-button type="primary" size="small">新增角色</el-button>
-            </router-link>
-            <div v-loading="pager.loading" class="m-t-15">
-                <div class="m-t-15">
-                    <el-table :data="pager.lists" size="small">
+            <div v-perms="['auth.role/add']" class="m-b-16">
+                <router-link to="/permission/role/edit">
+                    <el-button type="primary">新增角色</el-button>
+                </router-link>
+            </div>
+            <div v-loading="pager.loading">
+                <div>
+                    <el-table :data="pager.lists">
                         <el-table-column prop="id" label="ID"></el-table-column>
                         <el-table-column prop="name" label="名称"></el-table-column>
                         <el-table-column prop="desc" label="备注"></el-table-column>
-                        <el-table-column prop label="权限"></el-table-column>
-						<el-table-column prop="num" label="管理员数"></el-table-column>
+                        <el-table-column prop="sort" label="排序"></el-table-column>
+                        <el-table-column prop="num" label="管理员人数"></el-table-column>
                         <el-table-column prop="create_time" label="创建时间"></el-table-column>
                         <el-table-column prop label="操作">
                             <template #default="{ row }">
-                                <!-- 编辑 -->
                                 <router-link
+                                    v-perms="['auth.role/edit']"
                                     class="m-r-10"
                                     :to="{
                                         path: '/permission/role/edit',
@@ -25,83 +27,43 @@
                                         }
                                     }"
                                 >
-                                    <el-button type="text" size="mini">编辑</el-button>
+                                    <el-button link type="primary">编辑</el-button>
                                 </router-link>
-                                <!-- 删除 -->
-                                <popup class="m-r-10 inline" @confirm="handleDelete(row.id)">
+                                <popup
+                                    v-perms="['auth.role/delete']"
+                                    class="m-r-10 inline"
+                                    @confirm="handleDelete(row.id)"
+                                >
                                     <template #trigger>
-                                        <el-button type="text" size="mini">删除</el-button>
+                                        <el-button link type="primary">删除</el-button>
                                     </template>
                                 </popup>
                             </template>
                         </el-table-column>
                     </el-table>
                 </div>
-                <div class="flex row-right">
-                    <pagination
-                        v-model="pager"
-                        layout="total, prev, pager, next, jumper"
-                        @change="requestApi"
-                    />
+                <div class="flex justify-end m-t-16">
+                    <pagination v-model="pager" @change="requestApi" />
                 </div>
             </div>
         </el-card>
     </div>
 </template>
-
-<script lang="ts">
-import { defineComponent, reactive, onMounted } from 'vue'
-import { apiRoleLists, apiRoleDel } from '@/api/auth'
-import Pagination from '@/components/pagination/index.vue'
-import Popup from '@/components/popup/index.vue'
+  
+<script lang="ts" setup>
+import { reactive } from 'vue'
+import { apiRoleLists, apiRoleDelete } from '@/api/auth'
 import { usePages } from '@/core/hooks/pages'
-export default defineComponent({
-    components: {
-        Pagination,
-        Popup
-    },
-    setup() {
-        // 表单数据
-        const formData = reactive({
-            id: 0, // 角色id
-            name: '', // 角色名称
-            desc: '', // 备注
-            create_time: '', // 创建时间
-            num: 0 // 使用该角色的人数
-        })
-
-        const { pager, requestApi } = usePages({
-            callback: apiRoleLists,
-            params: formData
-        })
-
-        // 删除角色
-        const handleDelete = (id: number) => {
-            apiRoleDel({
-                id
-            })
-                .then((res: any) => {
-                    console.log('res', res)
-                    requestApi()
-                })
-                .catch((err: any) => {
-                    console.log('err', err)
-                })
-        }
-
-        onMounted(() => {
-            requestApi()
-        })
-
-        return {
-            formData,
-            apiRoleLists,
-            handleDelete,
-            pager,
-            requestApi
-        }
-    }
+const { pager, requestApi } = usePages({
+    callback: apiRoleLists
 })
-</script>
 
-<style lang="scss" scoped></style>
+// 删除角色
+const handleDelete = async (id: number) => {
+    await apiRoleDelete({ id })
+    requestApi()
+}
+
+requestApi()
+</script>
+  

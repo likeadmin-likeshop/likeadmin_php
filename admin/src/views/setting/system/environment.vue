@@ -5,8 +5,8 @@
             <div>服务器信息</div>
             <div class="m-t-15">
                 <el-table :data="info.server">
-                    <el-table-column prop="param" label="参数"> </el-table-column>
-                    <el-table-column prop="value" label="值"> </el-table-column>
+                    <el-table-column prop="param" label="参数"></el-table-column>
+                    <el-table-column prop="value" label="值"></el-table-column>
                 </el-table>
             </div>
         </el-card>
@@ -15,19 +15,15 @@
             <div>PHP环境要求</div>
             <div class="m-t-15">
                 <el-table :data="info.env">
-                    <el-table-column prop="option" label="选项"> </el-table-column>
-                    <el-table-column prop="require" label="要求"> </el-table-column>
-                    <el-table-column prop="status" label="状态">
+                    <el-table-column prop="option" label="选项"></el-table-column>
+                    <el-table-column prop="require" label="要求"></el-table-column>
+                    <el-table-column label="状态">
                         <template #default="scope">
-                            <el-icon v-show="scope.row.status" color="#67C23A">
-                                <Select />
-                            </el-icon>
-                            <el-icon v-show="!scope.row.status" color="#DB2828">
-                                <close-bold />
-                            </el-icon>
+                            <icon v-if="scope.row.status" name="el-icon-Select" color="#67C23A" />
+                            <icon v-else name="el-icon-CloseBold" color="#DB2828" />
                         </template>
                     </el-table-column>
-                    <el-table-column prop="remark" label="说明及帮助"> </el-table-column>
+                    <el-table-column prop="remark" label="说明及帮助"></el-table-column>
                 </el-table>
             </div>
         </el-card>
@@ -36,19 +32,15 @@
             <div>目录权限</div>
             <div class="m-t-15">
                 <el-table :data="info.auth">
-                    <el-table-column prop="dir" label="选项"> </el-table-column>
-                    <el-table-column prop="require" label="要求"> </el-table-column>
-                    <el-table-column prop="status" label="状态">
+                    <el-table-column prop="dir" label="选项"></el-table-column>
+                    <el-table-column prop="require" label="要求"></el-table-column>
+                    <el-table-column label="状态">
                         <template #default="scope">
-                            <el-icon v-show="scope.row.status" color="#67C23A">
-                                <Select />
-                            </el-icon>
-                            <el-icon v-show="!scope.row.status" color="#DB2828">
-                                <close-bold />
-                            </el-icon>
+                            <icon v-if="scope.row.status" name="el-icon-Select" color="#67C23A" />
+                            <icon v-else name="el-icon-CloseBold" color="#DB2828" />
                         </template>
                     </el-table-column>
-                    <el-table-column prop="remark" label="说明及帮助"> </el-table-column>
+                    <el-table-column prop="remark" label="说明及帮助"></el-table-column>
                 </el-table>
             </div>
         </el-card>

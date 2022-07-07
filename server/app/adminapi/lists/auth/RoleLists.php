@@ -62,7 +62,7 @@ class RoleLists extends BaseAdminDataLists
      */
     public function lists(): array
     {
-        $lists = Role::field('id,name,desc,create_time')
+        $lists = Role::field('id,name,desc,sort,create_time')
             ->limit($this->limitOffset, $this->limitLength)
             ->order('id', 'desc')
             ->select()

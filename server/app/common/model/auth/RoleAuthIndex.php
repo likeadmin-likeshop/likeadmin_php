@@ -16,6 +16,7 @@ namespace app\common\model\auth;
 
 use app\common\model\BaseModel;
 
+
 /**
  * 角色与权限关系模型
  * Class DevAuthRoleIndex

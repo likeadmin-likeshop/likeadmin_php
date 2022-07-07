@@ -13,36 +13,30 @@
             @closed="handleEvent('close')"
         >
             <!-- 弹窗内容 -->
-            <template v-if="title" #title>
-                {{ title }}
-            </template>
+            <template v-if="title" #title>{{ title }}</template>
             <template v-else #title>
                 <div class="flex col-center">
-                    <el-icon :size="25" :color="$variables.color_warning"
-                        ><warning-filled
-                    /></el-icon>
+                    <el-icon :size="25" :color="$variables.color_warning">
+                        <warning-filled />
+                    </el-icon>
                     <span class="m-l-6">温馨提示</span>
                 </div>
             </template>
 
             <!-- 自定义内容 -->
-            <slot>
-                {{ content }}
-            </slot>
+            <slot>{{ content }}</slot>
             <!-- 底部弹窗页脚 -->
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button v-if="cancelButtonText" size="small" @click="handleEvent('cancel')">
-                        {{ cancelButtonText }}
-                    </el-button>
+                    <el-button
+                        v-if="cancelButtonText"
+                        @click="handleEvent('cancel')"
+                    >{{ cancelButtonText }}</el-button>
                     <el-button
                         v-if="confirmButtonText"
-                        size="small"
                         type="primary"
                         @click="handleEvent('confirm')"
-                    >
-                        {{ confirmButtonText }}
-                    </el-button>
+                    >{{ confirmButtonText }}</el-button>
                 </div>
             </template>
         </el-dialog>

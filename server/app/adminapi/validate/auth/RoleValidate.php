@@ -31,7 +31,7 @@ class RoleValidate extends BaseValidate
     protected $rule = [
         'id' => 'require|checkRole',
         'name' => 'require|max:64|unique:' . Role::class . ',name',
-        'auth_keys' => 'array|checkAuth',
+        'menu_id' => 'array',
     ];
 
     protected $message = [
@@ -39,7 +39,7 @@ class RoleValidate extends BaseValidate
         'name.require' => '请输入角色名称',
         'name.max' => '角色名称最长为16个字符',
         'name.unique' => '角色名称已存在',
-        'auth_keys.array' => '权限格式错误'
+        'menu_id.array' => '权限格式错误'
     ];
 
     /**
@@ -50,7 +50,7 @@ class RoleValidate extends BaseValidate
      */
     public function sceneAdd()
     {
-        return $this->only(['name', 'auth_keys']);
+        return $this->only(['name', 'menu_id']);
     }
 
     /**
@@ -119,36 +119,4 @@ class RoleValidate extends BaseValidate
         return true;
     }
 
-
-
-    /**
-     * @notes 验证权限数据是否完整
-     * @param $value
-     * @param $rule
-     * @param $data
-     * @return bool|string
-     * @author 段誉
-     * @date 2021/12/29 15:50
-     */
-    public function checkAuth($value, $rule, $data)
-    {
-        $configAuth = AuthLogic::getAuth();
-
-        foreach ($value as $postAuth) {
-            $keyList = explode('/', $postAuth);
-            if (empty($keyList)) {
-                return '权限数据错误';
-            }
-            $keys = explode('.', $keyList[1] ?? '');
-            if (count($keys) < 2) {
-                return '权限数据错误';
-            }
-            $auth = $configAuth[$keyList[0]][$keys[0]][$keys[1]] ?? [];
-            if (empty($auth)) {
-                return '权限数据错误';
-            }
-        }
-        return true;
-
-    }
 }

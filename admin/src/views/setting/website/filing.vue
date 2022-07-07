@@ -1,63 +1,60 @@
 <!-- 备案信息 -->
 <template>
     <div class="website-filing">
-        <el-card shadow="never" class="">
+        <el-card shadow="never" class>
             <el-form
                 ref="form"
                 :rules="rules"
                 class="ls-form"
                 :model="formData"
                 label-width="150px"
-                size="small"
             >
                 <!-- 版权信息输入框 -->
                 <el-form-item label="版权信息" prop="info">
-                    <el-input v-model="formData.info" placeholder="请输入版权信息"></el-input>
-                    <div class="muted xs m-r-16">例如填写，Copyright © 2019-2020 公司名称</div>
+                    <div>
+                        <el-input class="ls-input" v-model="formData.info" placeholder="请输入版权信息"></el-input>
+                        <div class="muted xs m-r-16">例如填写，Copyright © 2019-2020 公司名称</div>
+                    </div>
                 </el-form-item>
 
                 <!-- ICP备案号输入框 -->
                 <el-form-item label="ICP备案号" prop="icp_number">
-                    <el-input
-                        v-model="formData.icp_number"
-                        placeholder="请输入ICP备案号"
-                    ></el-input>
+                    <el-input v-model="formData.icp_number" placeholder="请输入ICP备案号"></el-input>
                 </el-form-item>
 
                 <!-- ICP备案号链接输入框 -->
                 <el-form-item label="ICP备案号链接" prop="icp_link">
-                    <el-input
-                        v-model="formData.icp_link"
-                        placeholder="请输入ICP备案号链接"
-                    ></el-input>
-                    <div class="muted xs m-r-16">
-                        例如填写域名信息备案系统链接，http://beian.miit.gov.cn
+                    <div>
+                        <el-input
+                            class="ls-input"
+                            v-model="formData.icp_link"
+                            placeholder="请输入ICP备案号链接"
+                        ></el-input>
+                        <div class="muted xs m-r-16">例如填写域名信息备案系统链接，http://beian.miit.gov.cn</div>
                     </div>
                 </el-form-item>
 
                 <!--公安备案号输入框 -->
                 <el-form-item label="公安备案号" prop="public_number">
-                    <el-input
-                        v-model="formData.public_number"
-                        placeholder="请输入公安备案号"
-                    ></el-input>
+                    <el-input v-model="formData.public_number" placeholder="请输入公安备案号"></el-input>
                 </el-form-item>
 
                 <!-- 公安备案号链接输入框 -->
                 <el-form-item label="公安备案号链接" prop="public_link">
-                    <el-input
-                        v-model="formData.public_link"
-                        placeholder="请输入公安备案号链接"
-                    ></el-input>
-                    <div class="muted xs m-r-16">
-                        例如填写公安信息备案系统链接，http://www.beian.gov.cn
+                    <div>
+                        <el-input
+                            class="ls-input"
+                            v-model="formData.public_link"
+                            placeholder="请输入公安备案号链接"
+                        ></el-input>
+                        <div class="muted xs m-r-16">例如填写公安信息备案系统链接，http://www.beian.gov.cn</div>
                     </div>
                 </el-form-item>
             </el-form>
         </el-card>
 
-        <footer-btns>
-            <el-button type="primary" size="small" @click="setCopyright">保存</el-button>
+        <footer-btns v-perms="['setting.web.web_setting/setCopyright']">
+            <el-button type="primary" @click="setCopyright">保存</el-button>
         </footer-btns>
     </div>
 </template>
@@ -135,4 +132,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.ls-input {
+    width: 280px;
+}
+</style>

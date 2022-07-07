@@ -1,0 +1,19 @@
+
+/* 列表 */
+INSERT INTO `{MENU_TABLE}`(`pid`, `type`, `name`, `icon`, `sort`, `perms`, `paths`, `component`, `selected`, `params`, `is_cache`, `is_show`, `is_disable`, `create_time`, `update_time`)
+ VALUES ({PARTNER_ID}, 'C', '{LISTS_NAME}', '', 1, '{PERMS_NAME}/lists', 'test_demo', 'test_demo/index', '', '', 0, 1, 0, {CREATE_TIME}, {UPDATE_TIME});
+
+/* 列表菜单id */
+SELECT @pid := LAST_INSERT_ID();
+
+/* 添加 */
+INSERT INTO `{MENU_TABLE}`(`pid`, `type`, `name`, `icon`, `sort`, `perms`, `paths`, `component`, `selected`, `params`, `is_cache`, `is_show`, `is_disable`, `create_time`, `update_time`)
+ VALUES (@pid, 'A', '添加', '', 1, '{PERMS_NAME}/add', '', '', '', '', 0, 1, 0, {CREATE_TIME}, {UPDATE_TIME});
+
+/* 编辑 */
+INSERT INTO `{MENU_TABLE}`(`pid`, `type`, `name`, `icon`, `sort`, `perms`, `paths`, `component`, `selected`, `params`, `is_cache`, `is_show`, `is_disable`, `create_time`, `update_time`)
+ VALUES (@pid, 'A', '编辑', '', 1, '{PERMS_NAME}/edit', '', '', '', '', 0, 1, 0, {CREATE_TIME}, {UPDATE_TIME});
+
+/* 删除 */
+INSERT INTO `{MENU_TABLE}`(`pid`, `type`, `name`, `icon`, `sort`, `perms`, `paths`, `component`, `selected`, `params`, `is_cache`, `is_show`, `is_disable`, `create_time`, `update_time`)
+ VALUES (@pid, 'A', '删除', '', 1, '{PERMS_NAME}/delete', '', '', '', '', 0, 1, 0, {CREATE_TIME}, {UPDATE_TIME});

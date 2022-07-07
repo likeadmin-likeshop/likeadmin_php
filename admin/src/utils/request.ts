@@ -5,9 +5,6 @@ import { ElMessage } from 'element-plus'
 import { version } from '@/config/app'
 import store from '@/store'
 import { throttle } from './util'
-import router from '@/router'
-import cache from './cache'
-import { TOKEN } from '@/config/cachekey'
 // 事件集
 const eventResponse = {
     // 成功
@@ -26,10 +23,9 @@ const eventResponse = {
     },
     // 重定向
     redirect: throttle(() => {
-        store.commit('user/setToken', '')
-        store.commit('user/setUser', {})
-        cache.remove(TOKEN)
-        router.push('/login')
+        store.dispatch('user/logout').then(() => {
+            location.reload()
+        })
         return Promise.reject()
     }),
     // 打开新的页面

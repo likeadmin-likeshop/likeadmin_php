@@ -12,7 +12,7 @@
             <template #trigger>
                 <slot></slot>
             </template>
-            <el-form class="ls-form" :model="formData" label-width="80px" size="small" inline>
+            <el-form class="ls-form" :model="formData" label-width="80px" inline>
                 <el-form-item label="表名称">
                     <el-input v-model="formData.name" style="width: 200px;" />
                 </el-form-item>
@@ -27,7 +27,11 @@
                 </el-form-item>
             </el-form>
             <div class="m-15" v-loading="pager.loading">
-                <el-table height="400" :data="pager.lists" size="small"  @selection-change="handleSelectionChange">
+                <el-table
+                    height="400"
+                    :data="pager.lists"
+                    @selection-change="handleSelectionChange"
+                >
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="表名称" prop="name" min-width="100" />
                     <el-table-column label="表描述" prop="comment" min-width="100" />
@@ -89,11 +93,10 @@ const handleConfirm = async () => {
 
 
 watch(() => popupRef.value?.visible, (value) => {
-    if(value) requestApi()
+    if (value) requestApi()
 })
 
 </script>
 
 <style lang="scss" scoped>
-
 </style>

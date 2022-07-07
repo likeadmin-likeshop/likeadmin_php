@@ -51,10 +51,18 @@ class Admin extends BaseModel
     }
 
 
-    public function roleAuthIndex()
+    /**
+     * @notes 角色菜单关联
+     * @return \think\model\relation\HasMany
+     * @author 段誉
+     * @date 2022/7/7 12:04
+     */
+    public function roleMenu()
     {
-        return $this->hasMany(RoleAuthIndex::class,'role_id','role_id');
+        return $this->hasMany(SystemRoleMenu::class,'role_id','role_id');
     }
+
+
 
     /**
      * @notes 获取禁用状态

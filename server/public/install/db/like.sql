@@ -250,6 +250,7 @@ CREATE TABLE `ls_role`  (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '名称',
   `desc` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '描述',
+  `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(10) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(10) NULL DEFAULT NULL COMMENT '更新时间',
   `delete_time` int(10) NULL DEFAULT NULL COMMENT '删除时间',
@@ -257,13 +258,44 @@ CREATE TABLE `ls_role`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表';
 
 -- ----------------------------
--- Table structure for ls_role_auth_index
+-- Table structure for ls_system_menu
 -- ----------------------------
-DROP TABLE IF EXISTS `ls_role_auth_index`;
-CREATE TABLE `ls_role_auth_index`  (
-  `role_id` int(11) NOT NULL COMMENT '菜单权限ID',
-  `auth_key` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限key',
-  UNIQUE INDEX `unique`(`role_id`, `auth_key`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色与权限关系表';
+DROP TABLE IF EXISTS `ls_system_menu`;
+CREATE TABLE `ls_system_menu`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `pid` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上级菜单',
+  `type` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '权限类型: M=目录，C=菜单，A=按钮',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
+  `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '菜单图标',
+  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT 0 COMMENT '菜单排序',
+  `perms` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '权限标识',
+  `paths` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '路由地址',
+  `component` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '前端组件',
+  `selected` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '选中路径',
+  `params` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '路由参数',
+  `is_cache` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否缓存: 0=否, 1=是',
+  `is_show` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否显示: 0=否, 1=是',
+  `is_disable` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否禁用: 0=否, 1=是',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表';
+
+-- ----------------------------
+-- Records of ls_system_menu
+-- ----------------------------
+BEGIN;
+INSERT INTO `ls_system_menu` VALUES (4, 0, 'M', '权限管理', 'el-icon-Coordinate', 1, '', 'permission', '', '', '', 0, 1, 0, 1656664556, 1657161921), (5, 0, 'C', '工作台', 'el-icon-HomeFilled', 10, 'workbench/index', 'workbench', 'workbench/index', '', '', 0, 1, 0, 1656664793, 1657162472), (6, 4, 'C', '菜单', '', 1, 'auth.menu/lists', 'menu', 'permission/menu/index', '', '', 1, 1, 0, 1656664960, 1657173957), (7, 4, 'C', '管理员', '', 1, 'auth.admin/lists', 'admin', 'permission/admin/index', '', '', 0, 1, 0, 1656901567, 1657173972), (8, 4, 'C', '角色', '', 1, 'auth.role/lists', 'role', 'permission/role/index', '', '', 0, 1, 0, 1656901660, 1657173980), (12, 8, 'A', '新增角色', '', 1, 'auth.role/add', '', '', '', '', 0, 1, 0, 1657001790, 1657073691), (14, 8, 'A', '编辑角色', '', 1, 'auth.role/edit', '', '', '', '', 0, 1, 0, 1657001924, 1657073676), (15, 8, 'A', '删除角色', '', 1, 'auth.role/delete', '', '', '', '', 0, 1, 0, 1657001982, 1657073665), (16, 6, 'A', '新增菜单', '', 1, 'auth.menu/add', '', '', '', '', 0, 1, 0, 1657072523, 1657072523), (17, 6, 'A', '编辑菜单', '', 1, 'auth.menu/edit', '', '', '', '', 0, 1, 0, 1657073955, 1657073955), (18, 6, 'A', '删除菜单', '', 1, 'auth.menu/delete', '', '', '', '', 0, 1, 0, 1657073987, 1657074002), (19, 7, 'A', '新增管理员', '', 1, 'auth.admin/add', '', '', '', '', 0, 1, 0, 1657074035, 1657074035), (20, 7, 'A', '编辑管理员', '', 1, 'auth.admin/edit', '', '', '', '', 0, 1, 0, 1657074071, 1657074071), (21, 7, 'A', '删除管理员', '', 1, 'auth.admin/delete', '', '', '', '', 0, 1, 0, 1657074108, 1657074108), (23, 0, 'M', '开发工具', 'el-icon-ScaleToOriginal', 1, '', 'tools', '', '', '', 0, 1, 0, 1657097744, 1657161913), (24, 23, 'C', '代码生成器', '', 1, 'tools.generator/generateTable', 'dev_tools/code', 'dev_tools/code/index', '', '', 0, 1, 0, 1657098110, 1657162653), (25, 0, 'M', '组织管理', 'el-icon-User', 1, '', 'organization', '', '', '', 0, 1, 0, 1657099914, 1657161926), (26, 25, 'C', '部门管理', '', 1, 'dept.dept/lists', 'department', 'organization/department/index', '', '', 0, 1, 0, 1657099989, 1657163565), (27, 25, 'C', '岗位管理', '', 1, 'dept.jobs/lists', 'post', 'organization/post/index', '', '', 0, 1, 0, 1657100044, 1657163752), (28, 0, 'M', '系统设置', 'el-icon-Tools', 1, '', 'setting', '', '', '', 0, 1, 0, 1657100164, 1657100164), (29, 28, 'M', '网站设置', '', 1, '', 'website', '', '', '', 0, 1, 0, 1657100230, 1657100230), (30, 29, 'C', '网站信息', '', 1, 'setting.web.web_setting/getWebsite', 'information', 'setting/website/information', '', '', 0, 1, 0, 1657100306, 1657164412), (31, 29, 'C', '网站备案', '', 1, 'setting.web.web_setting/getCopyright', 'filing', 'setting/website/filing', '', '', 0, 1, 0, 1657100434, 1657164723), (32, 29, 'C', '政策协议', '', 1, 'setting.web.web_setting/getAgreement', 'protocol', 'setting/website/protocol', '', '', 0, 1, 0, 1657100571, 1657164770), (33, 28, 'C', '存储设置', '', 1, 'setting.storage/lists', 'storage', 'setting/storage/index', '', '', 0, 1, 0, 1657160959, 1657165191), (34, 28, 'C', '字典管理', '', 1, 'setting.dict.dict_type/lists', 'dict', 'setting/dict/type', '', '', 0, 1, 0, 1657161211, 1657166400), (35, 28, 'M', '系统维护', '', 1, '', 'system', '', '', '', 0, 1, 0, 1657161569, 1657161569), (36, 35, 'C', '系统日志', '', 1, 'setting.system.log/lists', 'journal', 'setting/system/journal', '', '', 0, 1, 0, 1657161696, 1657165722), (37, 35, 'C', '系统缓存', '', 1, '', 'cache', 'setting/system/cache', '', '', 0, 1, 0, 1657161896, 1657173767), (38, 35, 'C', '系统环境', '', 1, 'setting.system.system/info', 'environment', 'setting/system/environment', '', '', 0, 1, 0, 1657162000, 1657173794), (39, 24, 'A', '导入数据表', '', 1, 'tools.generator/selectTable', '', '', '', '', 0, 1, 0, 1657162736, 1657162736), (40, 24, 'A', '代码生成', '', 1, 'tools.generator/generate', '', '', '', '', 0, 1, 0, 1657162806, 1657162806), (41, 24, 'A', '编辑数据表', '', 1, 'tools.generator/edit', '', '', '', '', 0, 1, 0, 1657162866, 1657163032), (42, 24, 'A', '同步表结构', '', 1, 'tools.generator/syncColumn', '', '', '', '', 0, 1, 0, 1657162934, 1657162934), (43, 24, 'A', '删除数据表', '', 1, 'tools.generator/delete', '', '', '', '', 0, 1, 0, 1657163015, 1657163015), (44, 24, 'A', '预览代码', '', 1, 'tools.generator/preview', '', '', '', '', 0, 1, 0, 1657163263, 1657163263), (45, 26, 'A', '新增部门', '', 1, 'dept.dept/add', '', '', '', '', 0, 1, 0, 1657163548, 1657163548), (46, 26, 'A', '编辑部门', '', 1, 'dept.dept/edit', '', '', '', '', 0, 1, 0, 1657163599, 1657163599), (47, 26, 'A', '删除部门', '', 1, 'dept.dept/delete', '', '', '', '', 0, 1, 0, 1657163687, 1657163687), (48, 27, 'A', '新增岗位', '', 1, 'dept.jobs/add', '', '', '', '', 0, 1, 0, 1657163778, 1657163778), (49, 27, 'A', '编辑岗位', '', 1, 'dept.jobs/edit', '', '', '', '', 0, 1, 0, 1657163800, 1657163800), (50, 27, 'A', '删除岗位', '', 1, 'dept.jobs/delete', '', '', '', '', 0, 1, 0, 1657163820, 1657163820), (51, 30, 'A', '保存网站信息', '', 1, 'setting.web.web_setting/setWebsite', '', '', '', '', 0, 1, 0, 1657164469, 1657164469), (52, 31, 'A', '保存网站备案', '', 1, 'setting.web.web_setting/setCopyright', '', '', '', '', 0, 1, 0, 1657164692, 1657164692), (53, 32, 'A', '保存政策协议', '', 1, 'setting.web.web_setting/setAgreement', '', '', '', '', 0, 1, 0, 1657164824, 1657164824), (54, 33, 'A', '设置存储', '', 1, 'setting.storage/setup', '', '', '', '', 0, 1, 0, 1657165303, 1657165303), (55, 34, 'A', '新增字典类型', '', 1, 'setting.dict.dict_type/add', '', '', '', '', 0, 1, 0, 1657166966, 1657166966), (56, 34, 'A', '编辑字典类型', '', 1, 'setting.dict.dict_type/edit', '', '', '', '', 0, 1, 0, 1657166997, 1657166997), (57, 34, 'A', '删除字典类型', '', 1, 'setting.dict.dict_type/delete', '', '', '', '', 0, 1, 0, 1657167038, 1657167038), (58, 34, 'A', '新增字典数据', '', 1, 'setting.dict.dict_data/add', '', '', '', '', 0, 1, 0, 1657167317, 1657167317), (59, 34, 'A', '编辑字典数据', '', 1, 'setting.dict.dict_data/edit', '', '', '', '', 0, 1, 0, 1657167371, 1657167371), (60, 34, 'A', '删除字典数据', '', 1, 'setting.dict.dict_data/delete', '', '', '', '', 0, 1, 0, 1657167397, 1657167397), (61, 37, 'A', '清除系统缓存', '', 1, 'setting.system.cache/clear', '', '', '', '', 0, 1, 0, 1657173837, 1657173939), (62, 34, 'A', '字典数据管理', '', 1, 'setting.dict.dict_data/lists', '', '', '', '', 0, 1, 0, 1657174351, 1657174351);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for ls_system_role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `ls_system_role_menu`;
+CREATE TABLE `ls_system_role_menu`  (
+  `role_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '角色ID',
+  `menu_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '菜单ID',
+  PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单关系表';
 
 SET FOREIGN_KEY_CHECKS = 1;

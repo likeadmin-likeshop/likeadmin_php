@@ -5,10 +5,55 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>admin</title>
-    
-    <script type="module" crossorigin src="/admin/assets/index.2dcd0ed9.js"></script>
-    <link rel="modulepreload" href="/admin/assets/vendor.eb12b813.js">
-    <link rel="stylesheet" href="/admin/assets/index.876f162c.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .preload {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+      }
+  
+      .circular {
+        height: 42px;
+        width: 42px;
+        animation: loading-rotate 2s linear infinite;
+      }
+  
+      .circular .path {
+        animation: loading-dash 1.5s ease-in-out infinite;
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: 0;
+        stroke-width: 2;
+        stroke: #4073fa;
+        stroke-linecap: round;
+      }
+  
+      @keyframes loading-rotate {
+        100% {
+          transform: rotate(1turn);
+        }
+      }
+  
+      @keyframes loading-dash {
+  
+        0% {
+          stroke-dasharray: 90, 150;
+          stroke-dashoffset: -40px;
+        }
+  
+        100% {
+          stroke-dasharray: 90, 150;
+          stroke-dashoffset: -120px;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/admin/assets/index.384b7db0.js"></script>
+    <link rel="stylesheet" href="/admin/assets/index.e281bcaa.css">
   </head>
   <body>
     <div id="app">

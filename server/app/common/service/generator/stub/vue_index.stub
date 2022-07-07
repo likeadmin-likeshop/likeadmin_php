@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-card shadow="never">
-            <el-form class="ls-form" :model="queryParams" label-width="80px" size="small" inline>
+            <el-form class="ls-form" :model="queryParams" label-width="80px" inline>
 {SEARCH_VIEW}
                 <el-form-item>
                     <div class="m-l-20">
@@ -12,29 +12,29 @@
             </el-form>
         </el-card>
         <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <el-button size="small" type="primary" @click="handleAdd">新增</el-button>
+            <el-button type="primary" @click="handleAdd" v-perms="['{PERMS_ADD}']">新增</el-button>
             <popup
+                v-perms="['{PERMS_DELETE}']"
                 class="m-l-10 inline"
                 :disabled="!selectData.length"
                 content="确认删除选中？"
                 @confirm="handleDelete(selectData)"
             >
                 <template #trigger>
-                    <el-button size="small" :disabled="!selectData.length">删除</el-button>
+                    <el-button  :disabled="!selectData.length">删除</el-button>
                 </template>
             </popup>
             <div class="m-t-15">
                 <el-table
                     :data="pager.lists"
-                    size="small"
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="55" />
 {LISTS_VIEW}
                     <el-table-column label="操作" width="200" fixed="right">
                         <template #default="{ row }">
-                            <el-button type="text" @click="handleEdit(row.{PK})">编辑</el-button>
-                            <popup class="inline m-l-10" @confirm="handleDelete(row.{PK})">
+                            <el-button type="text" @click="handleEdit(row.{PK})" v-perms="['{PERMS_EDIT}']">编辑</el-button>
+                            <popup class="inline m-l-10" @confirm="handleDelete(row.{PK})" v-perms="['{PERMS_DELETE}']">
                                 <template #trigger>
                                     <el-button type="text">删除</el-button>
                                 </template>

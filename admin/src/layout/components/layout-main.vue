@@ -1,26 +1,15 @@
 <template>
-    <div class="layout-main">
-        <el-scrollbar>
-            <div class="p-15">
-                <perm />
-            </div>
-        </el-scrollbar>
-    </div>
+	<div class="layout-main flex-1">
+		<el-scrollbar>
+			<div class="p-16 main-content">
+				<router-view></router-view>
+			</div>
+		</el-scrollbar>
+	</div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import Perm from './perm.vue'
-export default defineComponent({
-    components: {
-        Perm
-    }
-})
-</script>
-
-<style lang="scss" scoped>
+<style lang="scss">
 .layout-main {
-    flex: 1;
-    min-height: 0;
+	min-height: 0;
 }
 </style>

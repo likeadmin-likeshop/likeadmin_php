@@ -118,22 +118,32 @@
 
 // 内、外边距[1-60]
 @for $i from 0 through 60 {
+
     // 只要偶数和能被5整除的数
     @if $i % 2==0 or $i % 5==0 {
+
         // 如：m-30
         .m-#{$i} {
             margin: $i + px;
         }
+
         // 如：p-30
         .p-#{$i} {
             padding: $i + px;
         }
-        @each $short, $long in l left, t top, r right, b bottom {
+
+        @each $short,
+        $long in l left,
+        t top,
+        r right,
+        b bottom {
+
             //如： m-l-6
             // 外边距
             .m-#{$short}-#{$i} {
                 margin-#{$long}: $i + px;
             }
+
             //如： p-l-30
             // 内边距
             .p-#{$short}-#{$i} {
@@ -187,6 +197,7 @@
 .text-right {
     text-align: right;
 }
+
 /** E 内容排序方式 **/
 
 /** S Flex-弹性布局 **/
@@ -208,6 +219,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .flex-none {
     flex: none;
 }
@@ -295,4 +307,13 @@
     display: block;
     clear: both;
     visibility: hidden;
+}
+
+
+.form-tips {
+    display: block;
+    line-height: 1.4;
+    padding-top: 5px;
+    font-size: 12px;
+    color: $color-text-secondary;
 }
