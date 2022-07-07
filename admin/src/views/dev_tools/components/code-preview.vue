@@ -36,11 +36,13 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import xml from 'highlight.js/lib/languages/xml'
 import ts from 'highlight.js/lib/languages/typescript'
 import php from 'highlight.js/lib/languages/php'
+import sql from 'highlight.js/lib/languages/sql'
 hljs.registerLanguage("php", php)
 hljs.registerLanguage("ts", ts);
 hljs.registerLanguage("html", xml);
 hljs.registerLanguage("vue", xml);
 hljs.registerLanguage("javascript", javascript)
+hljs.registerLanguage("javascript", sql)
 import "highlight.js/styles/github.css"
 
 const props = defineProps<{
