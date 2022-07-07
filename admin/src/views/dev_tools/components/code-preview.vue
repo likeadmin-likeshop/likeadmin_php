@@ -27,7 +27,6 @@
 </template>
 
 <script lang="ts" setup>
-import { copyClipboard } from '@/utils/util'
 import { CopyDocument } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { computed, reactive, ref, shallowRef, watch } from 'vue'

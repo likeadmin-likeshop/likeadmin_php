@@ -135,21 +135,32 @@
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="模块名" prop="module_name">
-                            <el-input v-model="formData.module_name" placeholder="请输入模块名"></el-input>
-                            <div class="muted">生成文件所在模块</div>
+                            <div>
+                                <el-input
+                                    class="ls-input"
+                                    v-model="formData.module_name"
+                                    placeholder="请输入模块名"
+                                ></el-input>
+                                <div class="form-tips">生成文件所在模块</div>
+                            </div>
                         </el-form-item>
                         <el-form-item label="类目录">
-                            <el-input v-model="formData.class_dir"></el-input>
-                            <div class="muted">
-                                生成文件所在目录名,不填则在模块对应文件夹内生成。
-                                <br />例：填写test，则控制器xxxControlle文件生成在app/模块名/controller/test文件夹下。不填时，xxxController生成在app/模块名/controller文件夹下。
+                            <div>
+                                <el-input class="ls-input" v-model="formData.class_dir"></el-input>
+                                <div class="form-tips">
+                                    生成文件所在目录名,不填则在模块对应文件夹内生成。
+                                    <br />例：填写test，则控制器xxxControlle文件生成在app/模块名/controller/test文件夹下。
+                                    <br />不填时，xxxController生成在app/模块名/controller文件夹下。
+                                </div>
                             </div>
                         </el-form-item>
                         <el-form-item label="类描述">
-                            <el-input v-model="formData.class_comment"></el-input>
-                            <div class="muted">
-                                生成文件描述。
-                                <br />例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
+                            <div>
+                                <el-input class="ls-input" v-model="formData.class_comment"></el-input>
+                                <div class="form-tips">
+                                    生成文件描述。
+                                    <br />例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
+                                </div>
                             </div>
                         </el-form-item>
                     </el-tab-pane>
@@ -243,3 +254,9 @@ const onSubmit = async () => {
 getDetails()
 getDict()
 </script>
+
+<style lang="scss" scoped>
+.ls-input {
+    width: 280px;
+}
+</style>
