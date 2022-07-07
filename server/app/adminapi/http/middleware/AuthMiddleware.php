@@ -49,10 +49,13 @@ class AuthMiddleware
             return $next($request);
         }
 
-        $accessUri = Str::snake($request->controller() . '/' . $request->action());
-        $accessUri = strtolower($accessUri);
+
+        $accessUri = strtolower($request->controller() . '/' . $request->action());
         $adminAuthCache = new AdminAuthCache($request->adminInfo['admin_id']);
-        $allUri = $adminAuthCache->getAllUri();
+
+        $allUri = array_map(function ($item){
+            return strtolower(Str::camel($item));
+        }, $adminAuthCache->getAllUri());
 
         //判断该当前访问的uri是否存在，不存在无需验证
         if (!in_array($accessUri, $allUri)) {
