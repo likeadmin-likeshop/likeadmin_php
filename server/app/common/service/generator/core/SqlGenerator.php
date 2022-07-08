@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+use think\facade\Db;
+
 /**
  * sql文件生成器
  * Class SqlGenerator
@@ -46,8 +48,8 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
         // 等待替换的内容
         $waitReplace = [
             $this->getMenuTableNameContent(),
-            100, // TODO
-            $this->getCommentContent(),
+            $this->getMenuPidContent(),
+            $this->getListsNameContent(),
             $this->getTableName(),
             time(),
             time()
@@ -68,9 +70,21 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
      * @author 段誉
      * @date 2022/6/22 18:19
      */
-    public function getCommentContent()
+    public function getListsNameContent()
     {
-        return $this->tableData['table_comment'];
+        return $this->tableData['menu']['name'] ?? $this->tableData['table_comment'];
+    }
+
+
+    /**
+     * @notes 获取上级菜单内容
+     * @return int|mixed
+     * @author 段誉
+     * @date 2022/7/8 11:39
+     */
+    public function getMenuPidContent()
+    {
+        return $this->tableData['menu']['pid'] ?? 0;
     }
 
 
@@ -84,6 +98,41 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
     {
         $tablePrefix = config('database.connections.mysql.prefix');
         return $tablePrefix . 'system_menu';
+    }
+
+
+    /**
+     * @notes 是否构建菜单
+     * @return bool
+     * @author 段誉
+     * @date 2022/7/8 14:24
+     */
+    public function isBuildMenu()
+    {
+        $menuType = $this->tableData['menu']['type'] ?? 0;
+        return $menuType == 1;
+    }
+
+
+    /**
+     * @notes 构建菜单
+     * @return bool
+     * @author 段誉
+     * @date 2022/7/8 15:27
+     */
+    public function buildMenuHandle()
+    {
+        if (empty($this->content)) {
+            return false;
+        }
+        $sqls = explode(';', trim($this->content));
+        //执行sql
+        foreach ($sqls as $sql) {
+            if (!empty(trim($sql))) {
+                Db::execute($sql . ';');
+            }
+        }
+        return true;
     }
 
 
