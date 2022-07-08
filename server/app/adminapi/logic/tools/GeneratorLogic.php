@@ -43,12 +43,11 @@ class GeneratorLogic extends BaseLogic
             ->findOrEmpty((int)$params['id'])
             ->toArray();
 
-        if (empty($detail['menu'])) {
-            $detail['menu']['pid'] = 0;
-            $detail['menu']['name'] = $detail['table_comment'];
-            $detail['menu']['type'] = 0;
-        }
-        
+        $detail['menu']['pid'] = intval($detail['menu']['pid'] ?? 0);
+        $detail['menu']['type'] = intval($detail['menu']['type'] ?? 0);
+        $detail['menu']['name'] = !empty($detail['menu']['name'])
+            ? $detail['menu']['name'] : $detail['table_comment'];
+
         return $detail;
     }
 
@@ -108,8 +107,8 @@ class GeneratorLogic extends BaseLogic
                 'class_comment' => $params['class_comment'] ?? '',
                 'menu' => [
                     'pid' => $params['menu']['pid'] ?? 0,
-                    'name' => $params['menu']['name'] ?? $params['table_comment'],
                     'type' => $params['menu']['type'] ?? 0,
+                    'name' => $params['menu']['name'] ?? $params['table_comment'],
                 ]
             ]);
 
@@ -293,8 +292,8 @@ class GeneratorLogic extends BaseLogic
             'admin_id' => $adminId,
             'menu' => [
                 'pid' => 0, // 父级菜单id
-                'name' => $tableData['comment'], // 菜单名称
                 'type' => 0, // 构建方式 0-手动添加 1-自动构建
+                'name' => $tableData['comment'], // 菜单名称
             ]
         ]);
     }
