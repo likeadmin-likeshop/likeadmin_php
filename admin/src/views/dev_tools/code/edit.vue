@@ -32,7 +32,7 @@
                         </el-form-item>
                     </el-tab-pane>
                     <el-tab-pane label="字段管理" name="field">
-                        <el-table :data="formData.table_column" style="width: 100%" size="small">
+                        <el-table :data="formData.table_column" style="width: 100%">
                             <el-table-column label="字段列名" prop="column_name" />
                             <el-table-column label="字段描述" prop="column_comment">
                                 <template v-slot="{ row }">
