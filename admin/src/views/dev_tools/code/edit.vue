@@ -34,7 +34,7 @@
                                 </template>
                             </el-table-column>
                             <el-table-column label="物理类型" prop="column_type" />
-                            <el-table-column label="必填" width="50">
+                            <el-table-column label="必填" width="80">
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_required"
@@ -43,7 +43,7 @@
                                     ></el-checkbox>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="插入" width="50">
+                            <el-table-column label="插入" width="80">
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_insert"
@@ -52,7 +52,7 @@
                                     ></el-checkbox>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="编辑" width="50">
+                            <el-table-column label="编辑" width="80">
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_update"
@@ -61,7 +61,7 @@
                                     ></el-checkbox>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="列表" width="50">
+                            <el-table-column label="列表" width="80">
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_lists"
@@ -70,7 +70,7 @@
                                     ></el-checkbox>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="查询" width="50">
+                            <el-table-column label="查询" width="80">
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_query"
@@ -122,13 +122,13 @@
                         </el-table>
                     </el-tab-pane>
                     <el-tab-pane label="生成配置" name="config">
-                        <el-form-item label="模板类型" required>
+                        <el-form-item label="模板类型" prop="template_type">
                             <el-radio-group v-model="formData.template_type">
                                 <el-radio :label="0">单表（curd）</el-radio>
                                 <!-- <el-radio :label="1">树表（curd）</el-radio> -->
                             </el-radio-group>
                         </el-form-item>
-                        <el-form-item label="生成方式" required>
+                        <el-form-item label="生成方式" prop="generate_type">
                             <el-radio-group v-model="formData.generate_type">
                                 <el-radio :label="0">压缩包下载</el-radio>
                                 <el-radio :label="1">生成到模块</el-radio>
@@ -220,6 +220,8 @@ const rules = reactive({
     module_name: [
         { required: true, message: '请输入模块名', trigger: 'blur' },
     ],
+    generate_type: [{ required: true, trigger: 'change' }],
+    template_type: [{ required: true, trigger: 'change' }]
 })
 
 const getDetails = async () => {
