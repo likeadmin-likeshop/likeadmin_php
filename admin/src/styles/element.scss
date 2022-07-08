@@ -8,104 +8,106 @@
     .el-checkbox {
         --el-checkbox-font-size: 13px;
     }
-}
 
-.el-menu {
-    border-right: none !important;
+    .el-menu {
+        border-right: none !important;
 
-    .el-menu--horizontal {
-        border-bottom: none;
+        .el-menu--horizontal {
+            border-bottom: none;
+        }
     }
-}
 
-.ls-scrollbar.el-scrollbar .el-scrollbar__wrap {
-    overflow-x: hidden;
-}
+    .ls-scrollbar.el-scrollbar .el-scrollbar__wrap {
+        overflow-x: hidden;
+    }
 
-.ls-view .el-tabs .el-tabs__item {
-    height: 60px;
-    line-height: 60px;
-}
+    .ls-view .el-tabs .el-tabs__item {
+        height: 60px;
+        line-height: 60px;
+    }
 
-.el-tabs .el-tabs__nav-wrap::after {
-    height: 1px;
-    background-color: #e5e5e5;
-}
+    .el-tabs .el-tabs__nav-wrap::after {
+        height: 1px;
+        background-color: #e5e5e5;
+    }
 
-.el-input-group__prepend {
-    background-color: #fff;
-}
+    .el-input-group__prepend {
+        background-color: #fff;
+    }
 
-.el-loading-spinner {
-    font-size: 26px;
-}
+    .el-loading-spinner {
+        font-size: 26px;
+    }
 
-.el-textarea .el-textarea__inner {
-    resize: none;
-}
+    .el-textarea .el-textarea__inner {
+        resize: none;
+    }
 
-.el-image .el-image__error {
-    font-size: 12px;
-}
+    .el-image .el-image__error {
+        font-size: 12px;
+    }
 
-// 弹窗居中
-.el-overlay-dialog {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 1000px;
-    min-height: 100%;
-    position: static;
-    overflow: hidden;
-
-    .el-dialog {
-        --el-dialog-content-font-size: var(--el-font-size-base);
-        flex: none;
+    // 弹窗居中
+    .el-overlay-dialog {
         display: flex;
-        flex-direction: column;
-        margin: 20px !important;
-        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+        min-width: 1000px;
+        min-height: 100%;
+        position: static;
+        overflow: hidden;
 
-        &.body-padding .el-dialog__body {
-            padding: 0;
-        }
+        .el-dialog {
+            --el-dialog-content-font-size: var(--el-font-size-base);
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            margin: 20px !important;
+            border-radius: 5px;
 
-        .el-dialog__body {
-            flex: 1;
-            padding: 15px 20px;
+            &.body-padding .el-dialog__body {
+                padding: 0;
+            }
+
+            .el-dialog__body {
+                flex: 1;
+                padding: 15px 20px;
+            }
         }
     }
-}
 
-.el-card {
-    border: none;
-}
+    .el-card {
+        border: none;
+    }
 
-.el-form.ls-form {
-    .el-form-item__content {
+    .el-form.ls-form {
+        .el-form-item__content {
+            font-size: var(--el-font-size-base);
+
+            &>.el-cascader,
+            &>.el-select,
+            &>.el-input {
+                width: 280px;
+            }
+        }
+    }
+
+    .el-table {
+        --el-table-header-bg-color: var(--el-color-primary-light-9);
         font-size: var(--el-font-size-base);
 
-        &>.el-cascader,
-        &>.el-select,
-        &>.el-input {
-            width: 280px;
+        thead th {
+            color: var(--el-text-color-primary);
+            font-weight: 400;
         }
     }
-}
 
-.el-table {
-    font-size: var(--el-font-size-base);
-
-    thead th {
-        font-weight: 400;
+    .el-icon {
+        font-size: var(--font-size);
     }
-}
 
-.el-icon {
-    font-size: var(--font-size);
-}
-
-.el-alert--primary {
-    color: $color-primary;
-    background-color: $color-primary-light-9;
+    .el-alert--primary {
+        color: $color-primary;
+        background-color: $color-primary-light-9;
+    }
 }
