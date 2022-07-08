@@ -39,9 +39,16 @@ class GeneratorLogic extends BaseLogic
      */
     public static function getTableDetail($params): array
     {
-        return GenerateTable::with('table_column')
+        $detail = GenerateTable::with('table_column')
             ->findOrEmpty((int)$params['id'])
             ->toArray();
+
+        $detail['menu']['pid'] = intval($detail['menu']['pid'] ?? 0);
+        $detail['menu']['type'] = intval($detail['menu']['type'] ?? 0);
+        $detail['menu']['name'] = !empty($detail['menu']['name'])
+            ? $detail['menu']['name'] : $detail['table_comment'];
+
+        return $detail;
     }
 
 
@@ -98,6 +105,11 @@ class GeneratorLogic extends BaseLogic
                 'module_name' => $params['module_name'],
                 'class_dir' => $params['class_dir'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
+                'menu' => [
+                    'pid' => $params['menu']['pid'] ?? 0,
+                    'type' => $params['menu']['type'] ?? 0,
+                    'name' => $params['menu']['name'] ?? $params['table_comment'],
+                ]
             ]);
 
             // 更新从表-数据表字段信息
@@ -277,7 +289,12 @@ class GeneratorLogic extends BaseLogic
             'template_type' => GeneratorEnum::TEMPLATE_TYPE_SINGLE,
             'generate_type' => GeneratorEnum::GENERATE_TYPE_ZIP,
             'module_name' => 'adminapi',
-            'admin_id' => $adminId
+            'admin_id' => $adminId,
+            'menu' => [
+                'pid' => 0, // 父级菜单id
+                'type' => 0, // 构建方式 0-手动添加 1-自动构建
+                'name' => $tableData['comment'], // 菜单名称
+            ]
         ]);
     }
 

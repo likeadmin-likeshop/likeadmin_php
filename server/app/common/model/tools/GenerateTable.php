@@ -26,6 +26,10 @@ use app\common\model\BaseModel;
 class GenerateTable extends BaseModel
 {
 
+    protected $json = ['menu'];
+
+    protected $jsonAssoc = true;
+
     /**
      * @notes 关联数据表字段
      * @return \think\model\relation\HasMany

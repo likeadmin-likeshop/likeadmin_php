@@ -19,6 +19,7 @@ use app\common\service\generator\core\ControllerGenerator;
 use app\common\service\generator\core\ListsGenerator;
 use app\common\service\generator\core\LogicGenerator;
 use app\common\service\generator\core\ModelGenerator;
+use app\common\service\generator\core\SqlGenerator;
 use app\common\service\generator\core\ValidateGenerator;
 use app\common\service\generator\core\VueApiGenerator;
 use app\common\service\generator\core\VueEditGenerator;
@@ -122,6 +123,7 @@ class GenerateService
             VueApiGenerator::class,
             VueIndexGenerator::class,
             VueEditGenerator::class,
+            SqlGenerator::class,
         ];
     }
 
@@ -141,6 +143,10 @@ class GenerateService
             // 是否为压缩包下载
             if ($generator->isGenerateTypeZip()) {
                 $this->setGenerateFlag($this->flag, true);
+            }
+            // 是否构建菜单
+            if ($item == 'app\common\service\generator\core\SqlGenerator') {
+                $generator->isBuildMenu() && $generator->buildMenuHandle();
             }
         }
     }
