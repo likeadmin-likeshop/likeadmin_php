@@ -1,18 +1,13 @@
 <template>
     <div class="popover-input">
-        <el-popover v-model:visible="visible" placement="top" :width="width" trigger="manual">
+        <el-popover v-model:visible="visible" placement="top" :width="width">
             <div class="flex">
                 <div class="popover-input__input m-r-10 flex-1">
-                    <el-input
-                        v-model="value"
-                        :type="type"
-                        size="mini"
-                        :placeholder="placeholder"
-                    ></el-input>
+                    <el-input v-model.trim="value" :type="type" :placeholder="placeholder"></el-input>
                 </div>
                 <div class="popover-input__btns flex-none">
-                    <el-button type="text" size="mini" @click="close">取消</el-button>
-                    <el-button type="primary" size="mini" @click="handleConfirm">确定</el-button>
+                    <el-button type="text" @click="close">取消</el-button>
+                    <el-button type="primary" @click="handleConfirm">确定</el-button>
                 </div>
             </div>
             <template #reference>
