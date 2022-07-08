@@ -39,9 +39,17 @@ class GeneratorLogic extends BaseLogic
      */
     public static function getTableDetail($params): array
     {
-        return GenerateTable::with('table_column')
+        $detail = GenerateTable::with('table_column')
             ->findOrEmpty((int)$params['id'])
             ->toArray();
+
+        if (empty($detail['menu'])) {
+            $detail['menu']['pid'] = 0;
+            $detail['menu']['name'] = $detail['table_comment'];
+            $detail['menu']['type'] = 0;
+        }
+        
+        return $detail;
     }
 
 
