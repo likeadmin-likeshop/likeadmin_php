@@ -99,9 +99,9 @@ class GeneratorLogic extends BaseLogic
                 'class_dir' => $params['class_dir'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
                 'menu' => [
-                    'pid' => $params['menu_pid'] ?? 0,
-                    'name' => $params['menu_name'] ?? $params['table_comment'],
-                    'type' => $params['menu_type'] ?? 0,
+                    'pid' => $params['menu']['pid'] ?? 0,
+                    'name' => $params['menu']['name'] ?? $params['table_comment'],
+                    'type' => $params['menu']['type'] ?? 0,
                 ]
             ]);
 
