@@ -4,6 +4,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import OptimizationPersist from 'vite-plugin-optimize-persist'
+import PkgConfig from 'vite-plugin-package-config'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import {
   createStyleImportPlugin,
@@ -11,18 +13,22 @@ import {
 } from 'vite-plugin-style-import'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), vueJsx(),
-  createStyleImportPlugin({
-    resolves: [
-      ElementPlusResolve()
-    ]
-  }),
-  AutoImport({
-    resolvers: [ElementPlusResolver()],
-  }),
-  Components({
-    resolvers: [ElementPlusResolver()],
-  })],
+  plugins: [
+    PkgConfig(),
+    OptimizationPersist(),
+    vue(),
+    vueJsx(),
+    createStyleImportPlugin({
+      resolves: [
+        ElementPlusResolve()
+      ]
+    }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    })],
   // 引入第三方的配置
   base: '/admin/',
   resolve: {
