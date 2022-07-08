@@ -4,7 +4,13 @@
             <el-page-header content="编辑" @back="$router.back()" />
         </el-card>
         <el-card class="m-t-16" shadow="never">
-            <el-form class="ls-form" :model="formData" label-width="80px" :rules="rules">
+            <el-form
+                ref="formRef"
+                class="ls-form"
+                :model="formData"
+                label-width="80px"
+                :rules="rules"
+            >
                 <el-tabs v-model="activeName">
                     <el-tab-pane label="基础信息" name="base">
                         <el-form-item label="表名称" prop="table_name">
@@ -26,7 +32,7 @@
                         </el-form-item>
                     </el-tab-pane>
                     <el-tab-pane label="字段管理" name="field">
-                        <el-table :data="formData.table_column" style="width: 100%">
+                        <el-table :data="formData.table_column" style="width: 100%" size="small">
                             <el-table-column label="字段列名" prop="column_name" />
                             <el-table-column label="字段描述" prop="column_comment">
                                 <template v-slot="{ row }">
@@ -163,6 +169,35 @@
                                 </div>
                             </div>
                         </el-form-item>
+                        <el-form-item label="父级菜单" prop="menu.pid">
+                            <el-tree-select
+                                v-model="formData.menu.pid"
+                                :data="menuLists"
+                                clearable
+                                node-key="id"
+                                :props="{
+                                    label: 'name'
+                                }"
+                                placeholder="请选择父级菜单"
+                                check-strictly
+                            />
+                        </el-form-item>
+                        <el-form-item label="菜单名称" prop="menu.name">
+                            <el-input
+                                class="ls-input"
+                                v-model="formData.menu.name"
+                                placeholder="请输入菜单名称"
+                            ></el-input>
+                        </el-form-item>
+                        <el-form-item label="菜单构建" prop="menu.type" required>
+                            <div>
+                                <el-radio-group v-model="formData.menu.type">
+                                    <el-radio :label="1">自动构建</el-radio>
+                                    <el-radio :label="0">手动添加</el-radio>
+                                </el-radio-group>
+                                <div class="form-tips">自动构建：自动执行生成菜单sql。手动添加：自行添加菜单。</div>
+                            </div>
+                        </el-form-item>
                     </el-tab-pane>
                 </el-tabs>
             </el-form>
@@ -188,6 +223,8 @@ import FooterBtns from '@/components/footer-btns/index.vue'
 import Popup from '@/components/popup/index.vue'
 import Editor from '@/components/editor/index.vue'
 import { apiDictTypeLists } from "@/api/dict"
+import { apiMenuLists } from "@/api/auth"
+import type { FormInstance } from "element-plus"
 const route = useRoute()
 const router = useRouter()
 const activeName = ref('base')
@@ -202,14 +239,20 @@ const formData = reactive({
     module_name: '',
     class_dir: '',
     class_comment: '',
-    table_column: []
+    table_column: [],
+    menu: {
+        pid: 0,
+        name: '',
+        type: 0
+    }
 })
 
 const isRadioClick = ref(false)
 
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
-
+const formRef = shallowRef<FormInstance>()
 const dictData = ref<any[]>([])
+const menuLists = ref<any[]>([])
 const rules = reactive({
     table_name: [
         { required: true, message: '请输入表名称', trigger: 'blur' },
@@ -221,7 +264,9 @@ const rules = reactive({
         { required: true, message: '请输入模块名', trigger: 'blur' },
     ],
     generate_type: [{ required: true, trigger: 'change' }],
-    template_type: [{ required: true, trigger: 'change' }]
+    template_type: [{ required: true, trigger: 'change' }],
+    ['menu.pid']: [{ required: true, message: '请选择父级菜单', trigger: 'blur' }],
+    ['menu.name']: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }]
 })
 
 const getDetails = async () => {
@@ -247,7 +292,17 @@ const getDict = async () => {
     dictData.value = data.lists
 }
 
+
+
+const getMenuLists = async () => {
+    const data: any = await apiMenuLists({ page_type: 0 })
+    const menu = { id: 0, name: '顶级', children: [] }
+    menu.children = data.lists
+    menuLists.value.push(menu)
+}
+
 const onSubmit = async () => {
+    await formRef.value?.validate()
     await apiGenerateEdit(formData)
     router.back()
 }
@@ -255,6 +310,7 @@ const onSubmit = async () => {
 
 getDetails()
 getDict()
+getMenuLists()
 </script>
 
 <style lang="scss" scoped>
