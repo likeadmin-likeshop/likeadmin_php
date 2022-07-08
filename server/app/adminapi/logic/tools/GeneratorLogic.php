@@ -98,6 +98,11 @@ class GeneratorLogic extends BaseLogic
                 'module_name' => $params['module_name'],
                 'class_dir' => $params['class_dir'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
+                'menu' => [
+                    'pid' => $params['menu_pid'] ?? 0,
+                    'name' => $params['menu_name'] ?? $params['table_comment'],
+                    'type' => $params['menu_type'] ?? 0,
+                ]
             ]);
 
             // 更新从表-数据表字段信息
@@ -277,7 +282,12 @@ class GeneratorLogic extends BaseLogic
             'template_type' => GeneratorEnum::TEMPLATE_TYPE_SINGLE,
             'generate_type' => GeneratorEnum::GENERATE_TYPE_ZIP,
             'module_name' => 'adminapi',
-            'admin_id' => $adminId
+            'admin_id' => $adminId,
+            'menu' => [
+                'pid' => 0, // 父级菜单id
+                'name' => $tableData['comment'], // 菜单名称
+                'type' => 0, // 构建方式 0-手动添加 1-自动构建
+            ]
         ]);
     }
 
