@@ -26,31 +26,6 @@ class ConfigController extends BaseAdminController
 {
     public array $notNeedLogin = ['getConfig'];
 
-    /**
-     * @notes 获取权限
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2021/12/29 15:45
-     */
-    public function getAuth()
-    {
-        $result = ConfigLogic::getAuth($this->adminInfo);
-        return $this->data($result);
-    }
-
-
-    /**
-     * @notes 获取菜单
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2021/12/27 17:23
-     */
-    public function getMenu()
-    {
-        $result = AuthLogic::getMenu();
-        return $this->data($result);
-    }
-
 
     /**
      * @notes 基础配置
