@@ -7,28 +7,25 @@ interface Options {
     size?: number
     callback: (_arg: any) => Promise<any>
     params?: Record<any, any>
+    firstLoading?: boolean
 }
 
 let paramsInit: Record<any, any> = {}
 
 export function usePages(options: Options) {
-    const { page = 1, size = 15, callback, params = {} } = options
+    const { page = 1, size = 15, callback, params = {}, firstLoading = false } = options
     // 记录分页初始参数
     paramsInit = Object.assign({}, toRaw(params))
     // 分页数据
     const pager = reactive({
         page,
         size,
-        loading: false,
+        loading: firstLoading,
         count: 0,
         lists: [] as any[]
     })
     // 请求分页接口
     const requestApi = () => {
-        // 禁止并发请求
-        if (pager.loading) {
-            return Promise.reject()
-        }
         pager.loading = true
         return callback({
             page_no: pager.page,

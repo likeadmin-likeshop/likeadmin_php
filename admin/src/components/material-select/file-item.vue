@@ -1,25 +1,11 @@
 
 <template>
     <div>
-        <del-wrap @close="$emit('close')">
-            <div
-                class="file-item"
-                :style="{ height: fileSize, width: fileSize }"
-            >
-                <el-image
-                    class="image"
-                    v-if="type.type == 'image'"
-                    fit="contain"
-                    :src="uri"
-                ></el-image>
-                <video
-                    class="video"
-                    v-else-if="type.type == 'video'"
-                    :src="uri"
-                ></video>
-                <slot></slot>
-            </div>
-        </del-wrap>
+        <div class="file-item" :style="{ height: fileSize, width: fileSize }">
+            <el-image class="image" v-if="type == 'image'" fit="contain" :src="uri"></el-image>
+            <video class="video" v-else-if="type == 'video'" :src="uri"></video>
+            <slot></slot>
+        </div>
     </div>
 </template>
 

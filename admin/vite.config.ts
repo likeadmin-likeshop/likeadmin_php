@@ -27,6 +27,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
+      directoryAsNamespace: true,
       resolvers: [ElementPlusResolver()],
     })],
   // 引入第三方的配置

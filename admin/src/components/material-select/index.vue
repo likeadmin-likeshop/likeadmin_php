@@ -10,12 +10,7 @@
         >
             <template v-if="!hiddenUpload" #trigger>
                 <div class="material-select__trigger clearfix" @click.stop>
-                    <draggable
-                        class="draggable"
-                        v-model="fileList"
-                        animation="300"
-                        item-key="id"
-                    >
+                    <draggable class="draggable" v-model="fileList" animation="300" item-key="id">
                         <template v-slot:item="{ element, index }">
                             <div
                                 class="material-preview"
@@ -25,7 +20,11 @@
                                 }"
                                 @click="showPopup(index)"
                             >
-                                <file-item :uri="element" :file-size="size" @close="deleteImg(index)" />
+                                <file-item
+                                    :uri="element"
+                                    :file-size="size"
+                                    @close="deleteImg(index)"
+                                />
                             </div>
                         </template>
                     </draggable>
@@ -46,7 +45,9 @@
                                     height: size,
                                 }"
                             >
-                                <el-icon :size="25"><plus /></el-icon>
+                                <el-icon :size="25">
+                                    <plus />
+                                </el-icon>
                                 <span>添加</span>
                             </div>
                         </slot>
@@ -56,6 +57,7 @@
             <div class="material-wrap">
                 <material
                     ref="materialRefs"
+                    :type="type"
                     :file-size="fileSize"
                     :limit="meterialLimit"
                     @change="selectChange"
@@ -69,12 +71,10 @@
 <script lang="ts">
 import {
     provide,
-    reactive,
     defineComponent,
     computed,
     ref,
     Ref,
-    toRef,
     toRefs,
     watch,
     nextTick,
@@ -112,7 +112,7 @@ export default defineComponent({
         },
         // 选择数量限制
         limit: {
-            // type: Number,
+            type: Number,
             default: 1,
         },
         // 禁用选择
@@ -129,10 +129,10 @@ export default defineComponent({
 
     emits: ['change', 'update:modelValue'],
     setup(props, { emit }) {
-        const popupRef: Ref<typeof Popup | null> = ref(null)
-        const materialRefs: Ref<typeof Material | null> = ref(null)
-        const fileList: Ref<any[]> = ref([])
-        const select: Ref<any[]> = ref([])
+        const popupRef = ref<InstanceType<typeof Popup>>()
+        const materialRefs = ref<InstanceType<typeof Material>>()
+        const fileList = ref<any[]>([])
+        const select = ref<any[]>([])
         const isAdd = ref(true)
         const currentIndex = ref(-1)
         const { disabled, limit, modelValue } = toRefs(props)
@@ -144,16 +144,7 @@ export default defineComponent({
                     return '视频'
             }
         })
-        const typeValue = computed(() => {
-            switch (props.type) {
-                case 'image':
-                    return 10
-                case 'video':
-                    return 20
-                case 'file':
-                    return 30
-            }
-        })
+
         const showUpload = computed(() => {
             return props.limit - fileList.value.length > 0
         })
@@ -169,7 +160,7 @@ export default defineComponent({
             if (!isAdd.value) {
                 fileList.value.splice(currentIndex.value, 1, selectUri.shift())
             } else {
-                fileList.value = [...fileList.value,...selectUri]
+                fileList.value = [...fileList.value, ...selectUri]
             }
             handleChange()
         }
@@ -205,10 +196,7 @@ export default defineComponent({
         watch(modelValue, (val: any[] | string) => {
             fileList.value = Array.isArray(val) ? val : val == '' ? [] : [val]
         })
-        provide('type', props)
-        provide('fileSize', props.fileSize)
         provide('limit', props.limit)
-        provide('typeValue', typeValue)
         provide('hiddenUpload', props.hiddenUpload)
         return {
             popupRef,

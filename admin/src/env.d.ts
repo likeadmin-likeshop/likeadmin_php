@@ -12,6 +12,8 @@ declare module 'vuedraggable/src/vuedraggable' {
     export default d
 }
 
+declare module 'vue3-video-play'
+
 declare module 'nprogress' {
     export function configure(options: any): void
     export function start(): void
