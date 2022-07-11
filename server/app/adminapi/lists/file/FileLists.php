@@ -53,7 +53,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
      */
     public function lists(): array
     {
-        $lists = (new File())->field(['id,cid,type,name,uri'])
+        $lists = (new File())->field(['id,cid,type,name,uri,create_time'])
             ->order('id', 'desc')
             ->where($this->searchWhere)
             ->limit($this->limitOffset, $this->limitLength)
