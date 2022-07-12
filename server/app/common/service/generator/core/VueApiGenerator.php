@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace app\common\service\generator\core;
 
+use think\helper\Str;
 
 /**
  * vue-api生成器
@@ -80,7 +81,7 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
         if (!empty($this->classDir)) {
             $content = $this->classDir . '.' . $this->getTableName();
         }
-        return $content;
+        return Str::lower($content);
     }
 
 
@@ -120,7 +121,7 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getGenerateName()
     {
-        return $this->getTableName() . '.ts';
+        return $this->getLowerTableName() . '.ts';
     }
 
 

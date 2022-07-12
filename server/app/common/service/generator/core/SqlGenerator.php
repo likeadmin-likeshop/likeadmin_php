@@ -18,6 +18,7 @@ namespace app\common\service\generator\core;
 
 
 use think\facade\Db;
+use think\helper\Str;
 
 /**
  * sql文件生成器
@@ -41,6 +42,8 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
             '{PARTNER_ID}',
             '{LISTS_NAME}',
             '{PERMS_NAME}',
+            '{PATHS_NAME}',
+            '{COMPONENT_NAME}',
             '{CREATE_TIME}',
             '{UPDATE_TIME}'
         ];
@@ -50,7 +53,9 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
             $this->getMenuTableNameContent(),
             $this->getMenuPidContent(),
             $this->getListsNameContent(),
-            $this->getTableName(),
+            $this->getLowerTableName(),
+            $this->getLowerTableName(),
+            $this->getLowerTableName(),
             time(),
             time()
         ];

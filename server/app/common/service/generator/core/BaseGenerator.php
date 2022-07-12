@@ -140,9 +140,6 @@ abstract class BaseGenerator
     }
 
 
-
-
-
     /**
      * @notes 获取文件生成到模块的文件夹路径
      * @return mixed
@@ -274,6 +271,18 @@ abstract class BaseGenerator
     public function getUpperCamelName()
     {
         return Str::studly($this->getTableName());
+    }
+
+
+    /**
+     * @notes 表名小写
+     * @return string
+     * @author 段誉
+     * @date 2022/7/12 10:41
+     */
+    public function getLowerTableName()
+    {
+        return Str::lower($this->getTableName());
     }
 
 
