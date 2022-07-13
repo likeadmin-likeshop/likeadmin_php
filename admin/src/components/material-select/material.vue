@@ -1,6 +1,6 @@
 
 <template>
-    <div class="material flex col-stretch" v-loading="pager.loading">
+    <div class="material flex col-stretch">
         <div class="material__left">
             <el-scrollbar class="ls-scrollbar" style="height: calc(100% - 40px)">
                 <div class="material-left__content p-t-16 p-b-16">
