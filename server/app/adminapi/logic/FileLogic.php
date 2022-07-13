@@ -18,6 +18,8 @@ namespace app\adminapi\logic;
 use app\common\logic\BaseLogic;
 use app\common\model\file\File;
 use app\common\model\file\FileCate;
+use app\common\service\ConfigService;
+use app\common\service\storage\Driver as StorageDriver;
 
 /**
  * 文件逻辑层
@@ -64,6 +66,14 @@ class FileLogic extends BaseLogic
      */
     public static function delete($params)
     {
+        $result = File::whereIn('id', $params['ids'])->select();
+        $StorageDriver = new StorageDriver([
+            'default' => ConfigService::get('storage', 'default', 'local'),
+            'engine'  => ConfigService::get('storage') ?? ['local'=>[]],
+        ]);
+        foreach ($result as $item) {
+            $StorageDriver->delete($item['uri']);
+        }
         File::destroy($params['ids']);
     }
 
