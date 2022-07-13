@@ -56,7 +56,7 @@ import { reactive, ref, onMounted } from 'vue'
 import type { ElForm } from 'element-plus'
 import MaterialSelect from '@/components/material-select/index.vue'
 import FooterBtns from '@/components/footer-btns/index.vue'
-import { apiAuthAdminEditSelf, apiAuthAdminMySelf } from '@/api/setting'
+import { apiAdminInfoEdit } from '@/api/admin'
 import { ElMessage } from 'element-plus'
 import { useAdmin } from '@/core/hooks/app'
 
@@ -65,7 +65,7 @@ type FormInstance = InstanceType<typeof ElForm>
 const formRefs = ref<FormInstance>()
 
 // 表单数据
-const formData = ref({
+const formData = reactive({
 	avatar: '', 			// 头像
 	account: '',        	// 账号
 	name: '', 				// 名称
@@ -93,45 +93,48 @@ const rules = reactive<object>({
 })
 
 // 获取个人设置
-const getAuthAdminMySelf = async (): Promise<void> => {
-	formData.value = await apiAuthAdminMySelf()
+const getAuthAdminMySelf = async () => {
+	const userInfo = store.getters.userInfo
+	for (let key in formData) {
+		//@ts-ignore
+		formData[key] = userInfo[key]
+	}
 }
 
 // 设置个人设置
-const setAuthAdminEditSelf = async (): Promise<void> => {
-	if (formData.value.password_old || formData.value.password || formData.value.password_confirm) {
-		if (!formData.value.password_old) {
+const setAuthAdminEditSelf = async () => {
+	if (formData.password_old || formData.password || formData.password_confirm) {
+		if (!formData.password_old) {
 			return ElMessage({ type: 'error', message: '请输入当前密码' })
 		}
 
-		if (!formData.value.password) {
+		if (!formData.password) {
 			return ElMessage({ type: 'error', message: '请输入新的密码' })
 		}
 
-		if (!formData.value.password_confirm) {
+		if (!formData.password_confirm) {
 			return ElMessage({ type: 'error', message: '请输入确定密码' })
 		}
 
-		if (formData.value.password_confirm != formData.value.password) {
+		if (formData.password_confirm != formData.password) {
 			return ElMessage({ type: 'error', message: '两次输入的密码不一样' })
 		}
 	}
 
-	if (formData.value.password_old && formData.value.password && formData.value.password_confirm) {
-		if (formData.value.password_old.length < 6 || formData.value.password_old.length > 32) {
+	if (formData.password_old && formData.password && formData.password_confirm) {
+		if (formData.password_old.length < 6 || formData.password_old.length > 32) {
 			return ElMessage({ type: 'error', message: '密码长度在6到32之间' })
 		}
-		if (formData.value.password.length < 6 || formData.value.password.length > 32) {
+		if (formData.password.length < 6 || formData.password.length > 32) {
 			return ElMessage({ type: 'error', message: '密码长度在6到32之间' })
 		}
-		if (formData.value.password_confirm.length < 6 || formData.value.password_confirm.length > 32) {
+		if (formData.password_confirm.length < 6 || formData.password_confirm.length > 32) {
 			return ElMessage({ type: 'error', message: '密码长度在6到32之间' })
 		}
 	}
 
-	await apiAuthAdminEditSelf({ ...formData.value })
-	getAuthAdminMySelf()
-	store.dispatch('user/getUser')
+	await apiAdminInfoEdit(formData)
+	store.dispatch('user/getInfo')
 }
 
 // 提交数据

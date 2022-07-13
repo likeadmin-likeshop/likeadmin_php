@@ -115,7 +115,7 @@
                     </popup>
                 </div>
                 <el-input
-                    placeholder="请输入名字"
+                    placeholder="请输入名称"
                     style="width: 280px"
                     v-model="fileParams.name"
                     @keyup.enter="refresh"
@@ -178,7 +178,7 @@
                             </div>
                         </file-item>
 
-                        <div class="item-name line-1 xs p-t-10">{{ item.name }}</div>
+                        <div class="item-name line-1 p-t-10">{{ item.name }}</div>
                         <div class="operation-btns flex col-center">
                             <popover-input
                                 type="text"
@@ -207,6 +207,7 @@
                     :data="pager.lists"
                     width="100%"
                     height="100%"
+                    @row-click="selectFile"
                 >
                     <el-table-column width="55">
                         <template #default="{ row }">
@@ -223,11 +224,7 @@
                     </el-table-column>
                     <el-table-column label="名称" min-width="100" show-overflow-tooltip>
                         <template #default="{ row }">
-                            <el-button
-                                type="primary"
-                                link
-                                @click="handlePreview(row.uri)"
-                            >{{ row.name }}</el-button>
+                            <el-link @click.stop="handlePreview(row.uri)">{{ row.name }}</el-link>
                         </template>
                     </el-table-column>
                     <el-table-column prop="create_time" label="上传时间" min-width="100" />
@@ -238,14 +235,16 @@
                                 type="text"
                                 :value="row.name"
                                 @confirm="fileRename($event, row.id)"
+                                @click.stop
                             >
                                 <el-button type="primary" link>重命名</el-button>
                             </popover-input>
-                            <el-button type="primary" link @click="handlePreview(row.uri)">查看</el-button>
+                            <el-button type="primary" link @click.stop="handlePreview(row.uri)">查看</el-button>
                             <popup
                                 class="m-r-10 inline"
                                 content="确认删除后，本地或云存储图片也将同步删除，如图片已被使用，请谨慎操作！"
                                 @confirm="batchFileDelete([row.id])"
+                                @click.stop
                             >
                                 <template #trigger>
                                     <el-button type="primary" link>删除</el-button>
@@ -333,7 +332,7 @@
                 </ul>
             </el-scrollbar>
         </div>
-        <Preview v-model="showPreview" :url="previewUrl" :type="type" />
+        <preview v-model="showPreview" :url="previewUrl" :type="type" />
     </div>
 </template>
 

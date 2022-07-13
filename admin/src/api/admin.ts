@@ -15,3 +15,8 @@ export function apiLogout() {
 export function apiAdminInfo() {
     return request.get('/auth.admin/mySelf')
 }
+
+// 编辑管理员信息
+export function apiAdminInfoEdit(params: any) {
+    return request.post('/auth.admin/editSelf', params)
+}
