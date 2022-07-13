@@ -6,9 +6,11 @@ import {
     apiFileDelete,
     apiFileList,
     apiFileMove,
+    apiFileRename,
 } from "@/api/app"
 import { usePages } from "@/core/hooks/pages"
 import { ElMessage } from "element-plus"
+import { shallowRef } from "vue"
 import { computed, inject, reactive, ref, Ref } from "vue"
 
 
@@ -81,9 +83,13 @@ export function useCate(typeValue: Ref<any>) {
 
 
 // 处理文件的钩子函数
-export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>) {
+export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>, size: number) {
+    const tableRef = shallowRef()
+    const listShowType = ref('normal')
     const moveId = ref(0)
     const select: Ref<any[]> = ref([])
+    const isCheckAll = ref(false)
+    const isIndeterminate = ref(false)
     const fileParams = reactive({
         name: "",
         type: type,
@@ -91,9 +97,11 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
     })
     const { pager, requestApi, resetPage } = usePages({
         callback: apiFileList,
-        params: fileParams
+        params: fileParams,
+        firstLoading: true,
+        size
     })
-  
+
 
     const selectStatus = computed(
         () => (id: number) => select.value.find((item: any) => item.id == id)
@@ -149,11 +157,32 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
     const cancelSelete = (id: number) => {
         select.value = select.value.filter((item) => item.id != id)
     }
+    const selectAll = (value: boolean) => {
+        isIndeterminate.value = false
+        tableRef.value?.toggleAllSelection()
+        if (value) {
+            select.value = [...pager.lists]
+            return
+        }
+        clearSelect()
+    }
+    const fileRename = (name: string, id: number) => {
+        apiFileRename({
+            id,
+            name
+        }).then(() => {
+            getFileList()
+        })
+    }
     return {
+        listShowType,
+        tableRef,
         moveId,
         pager,
         fileParams,
         select,
+        isCheckAll,
+        isIndeterminate,
         getFileList,
         refresh,
         batchFileDelete,
@@ -161,6 +190,8 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>)
         selectFile,
         selectStatus,
         clearSelect,
-        cancelSelete
+        cancelSelete,
+        selectAll,
+        fileRename
     }
 }

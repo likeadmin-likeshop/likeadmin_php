@@ -14,11 +14,7 @@
 
 namespace app\adminapi\logic;
 
-use app\common\{
-    cache\AdminAuthCache,
-    service\ConfigService,
-    service\FileService
-};
+use app\common\service\{FileService, ConfigService};
 
 /**
  * 配置类逻辑层
@@ -37,7 +33,7 @@ class ConfigLogic
     {
         $config = [
             // 文件域名
-            'oss_domain' => FileService::getFileUrl('', 'domain'),
+            'oss_domain' => FileService::getFileUrl(),
 
             // 网站名称
             'web_name' => ConfigService::get('website', 'name'),
@@ -60,30 +56,6 @@ class ConfigLogic
             'public_link' => ConfigService::get('copyright', 'public_link'),
         ];
         return $config;
-    }
-
-
-    /**
-     * @notes 获取菜单权限
-     * @param array $adminInfo
-     * @return array
-     * @author 段誉
-     * @date 2021/12/27 16:00
-     */
-    public static function getAuth(array $adminInfo): array
-    {
-        $data = [
-            'root' => $adminInfo['root'],
-            'auth' => [],
-        ];
-        if (1 == $adminInfo['root']) {
-            return $data;
-        }
-        $adminAuthCache = new AdminAuthCache($adminInfo['admin_id']);
-        $pageAuth = $adminAuthCache->getAdminPageAuth();
-        $data['auth'] = $pageAuth;
-
-        return $data;
     }
 
 

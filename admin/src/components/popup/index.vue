@@ -13,8 +13,8 @@
             @closed="handleEvent('close')"
         >
             <!-- 弹窗内容 -->
-            <template v-if="title" #title>{{ title }}</template>
-            <template v-else #title>
+            <template v-if="title" #header>{{ title }}</template>
+            <template v-else #header>
                 <div class="flex col-center">
                     <el-icon :size="25" :color="$variables.color_warning">
                         <warning-filled />

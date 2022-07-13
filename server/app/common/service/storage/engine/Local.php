@@ -40,8 +40,12 @@ class Local extends Server
      */
     public function delete($fileName)
     {
-        // 文件所在目录
-        $filePath = public_path() . "/{$fileName}";
+        $check = strpos($fileName, '/');
+        if ($check !== false && $check == 0) {
+            // 文件所在目录
+            $fileName = substr_replace($fileName,"",0,1);
+        }
+        $filePath = public_path() . "{$fileName}";
         return !file_exists($filePath) ?: unlink($filePath);
     }
 

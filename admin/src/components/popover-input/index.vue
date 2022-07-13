@@ -3,7 +3,7 @@
         <el-popover v-model:visible="visible" placement="top" :width="width">
             <div class="flex">
                 <div class="popover-input__input m-r-10 flex-1">
-                    <el-input v-model.trim="value" :type="type" :placeholder="placeholder"></el-input>
+                    <el-input v-model.trim="inputValue" :type="type" :placeholder="placeholder"></el-input>
                 </div>
                 <div class="popover-input__btns flex-none">
                     <el-button type="text" @click="close">取消</el-button>
@@ -31,6 +31,9 @@ export default defineComponent({
             type: Number,
             default: 250
         },
+        value: {
+            type: String
+        },
         placeholder: {
             type: String,
             default: ''
@@ -43,7 +46,7 @@ export default defineComponent({
     emits: ['confirm'],
     setup(props, { emit }) {
         const visible = ref(false)
-        const value = ref('')
+        const inputValue = ref(props.value)
         const open = () => {
             if (props.disabled) {
                 return
@@ -55,15 +58,15 @@ export default defineComponent({
         }
 
         const handleConfirm = () => {
-            if (value.value) {
-                emit('confirm', value.value)
-                value.value = ''
+            if (inputValue.value) {
+                emit('confirm', inputValue.value)
+                inputValue.value = ''
             }
             close()
         }
         return {
             visible,
-            value,
+            inputValue,
             open,
             close,
             handleConfirm

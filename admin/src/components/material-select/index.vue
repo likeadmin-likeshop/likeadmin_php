@@ -7,15 +7,11 @@
             custom-class="body-padding"
             :title="`选择${tipsText}`"
             @confirm="handleConfirm"
+            @close="handleClose"
         >
             <template v-if="!hiddenUpload" #trigger>
                 <div class="material-select__trigger clearfix" @click.stop>
-                    <draggable
-                        class="draggable"
-                        v-model="fileList"
-                        animation="300"
-                        item-key="id"
-                    >
+                    <draggable class="draggable" v-model="fileList" animation="300" item-key="id">
                         <template v-slot:item="{ element, index }">
                             <div
                                 class="material-preview"
@@ -25,7 +21,16 @@
                                 }"
                                 @click="showPopup(index)"
                             >
-                                <file-item :uri="element" :file-size="size" @close="deleteImg(index)" />
+                                <del-wrap @close="deleteImg(index)">
+                                    <file-item :uri="element" :file-size="size" :type="type"></file-item>
+                                </del-wrap>
+                                <div class="operation-btns xs text-center">
+                                    <span>修改</span>
+                                    |
+                                    <span
+                                        @click.stop="handlePreview(element)"
+                                    >查看</span>
+                                </div>
                             </div>
                         </template>
                     </draggable>
@@ -46,7 +51,9 @@
                                     height: size,
                                 }"
                             >
-                                <el-icon :size="25"><plus /></el-icon>
+                                <el-icon :size="25">
+                                    <plus />
+                                </el-icon>
                                 <span>添加</span>
                             </div>
                         </slot>
@@ -56,12 +63,14 @@
             <div class="material-wrap">
                 <material
                     ref="materialRefs"
+                    :type="type"
                     :file-size="fileSize"
                     :limit="meterialLimit"
                     @change="selectChange"
                 />
             </div>
         </popup>
+        <preview v-model="showPreview" :url="previewUrl" :type="type" />
     </div>
 </template>
 
@@ -69,12 +78,9 @@
 <script lang="ts">
 import {
     provide,
-    reactive,
     defineComponent,
     computed,
     ref,
-    Ref,
-    toRef,
     toRefs,
     watch,
     nextTick,
@@ -83,12 +89,14 @@ import Draggable from 'vuedraggable'
 import Popup from '@/components/popup/index.vue'
 import FileItem from './file-item.vue'
 import Material from './material.vue'
+import Preview from './preview.vue'
 export default defineComponent({
     components: {
         Popup,
         Draggable,
         FileItem,
         Material,
+        Preview
     },
     props: {
         modelValue: {
@@ -112,7 +120,7 @@ export default defineComponent({
         },
         // 选择数量限制
         limit: {
-            // type: Number,
+            type: Number,
             default: 1,
         },
         // 禁用选择
@@ -129,10 +137,12 @@ export default defineComponent({
 
     emits: ['change', 'update:modelValue'],
     setup(props, { emit }) {
-        const popupRef: Ref<typeof Popup | null> = ref(null)
-        const materialRefs: Ref<typeof Material | null> = ref(null)
-        const fileList: Ref<any[]> = ref([])
-        const select: Ref<any[]> = ref([])
+        const popupRef = ref<InstanceType<typeof Popup>>()
+        const materialRefs = ref<InstanceType<typeof Material>>()
+        const previewUrl = ref("")
+        const showPreview = ref(false)
+        const fileList = ref<any[]>([])
+        const select = ref<any[]>([])
         const isAdd = ref(true)
         const currentIndex = ref(-1)
         const { disabled, limit, modelValue } = toRefs(props)
@@ -144,16 +154,7 @@ export default defineComponent({
                     return '视频'
             }
         })
-        const typeValue = computed(() => {
-            switch (props.type) {
-                case 'image':
-                    return 10
-                case 'video':
-                    return 20
-                case 'file':
-                    return 30
-            }
-        })
+
         const showUpload = computed(() => {
             return props.limit - fileList.value.length > 0
         })
@@ -169,7 +170,7 @@ export default defineComponent({
             if (!isAdd.value) {
                 fileList.value.splice(currentIndex.value, 1, selectUri.shift())
             } else {
-                fileList.value = [...fileList.value,...selectUri]
+                fileList.value = [...fileList.value, ...selectUri]
             }
             handleChange()
         }
@@ -192,9 +193,7 @@ export default defineComponent({
                 limit.value != 1 ? fileList.value : fileList.value[0] || ''
             emit('update:modelValue', valueImg)
             emit('change', valueImg)
-            nextTick(() => {
-                materialRefs.value?.clearSelect()
-            })
+
         }
 
         const deleteImg = (index: number) => {
@@ -202,13 +201,21 @@ export default defineComponent({
             handleChange()
         }
 
+        const handlePreview = (url: string) => {
+            previewUrl.value = url
+            showPreview.value = true
+        }
+
+        const handleClose = () => {
+            nextTick(() => {
+                materialRefs.value?.clearSelect()
+            })
+        }
+
         watch(modelValue, (val: any[] | string) => {
             fileList.value = Array.isArray(val) ? val : val == '' ? [] : [val]
         })
-        provide('type', props)
-        provide('fileSize', props.fileSize)
         provide('limit', props.limit)
-        provide('typeValue', typeValue)
         provide('hiddenUpload', props.hiddenUpload)
         return {
             popupRef,
@@ -220,7 +227,11 @@ export default defineComponent({
             showUpload,
             showPopup,
             selectChange,
-            deleteImg
+            deleteImg,
+            previewUrl,
+            showPreview,
+            handlePreview,
+            handleClose
         }
     },
 })
@@ -230,6 +241,7 @@ export default defineComponent({
 .material-select {
     .material-upload,
     .material-preview {
+        position: relative;
         border-radius: 4px;
         cursor: pointer;
         color: $color-text-secondary;
@@ -242,6 +254,21 @@ export default defineComponent({
         }
         &.is-one {
             margin-bottom: 0;
+        }
+        &:hover {
+            .operation-btns {
+                display: block;
+            }
+        }
+        .operation-btns {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.4);
+            position: absolute;
+            bottom: 0;
+            border-radius: 4px;
+            width: 100%;
+            line-height: 2;
+            color: #fff;
         }
     }
     .material-upload {

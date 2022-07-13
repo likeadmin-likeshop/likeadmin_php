@@ -21,7 +21,7 @@ class FileService
 
     /**
      * @notes 补全路径
-     * @param $uri
+     * @param string $uri
      * @param string $type
      * @return string
      * @author 段誉
@@ -35,13 +35,12 @@ class FileService
      *      例: FileService::getFileUrl('uploads/img.png', 'public_path');
      *      返回 /project-services/likeadmin/server/public/uploads/img.png
      *
-     * 场景三:获取当前储存方式的域名, 仅传参$type = domain;
-     *      例: FileService::getFileUrl('', 'domain');
+     * 场景三:获取当前储存方式的域名
+     *      例: FileService::getFileUrl();
      *      返回 http://www.likeadmin.localhost/
      */
-    public static function getFileUrl($uri = '', string $type = '') : string
+    public static function getFileUrl(string $uri = '', string $type = '') : string
     {
-        if (empty($uri) && empty($type)) return '';
         if (strstr($uri, 'http://'))  return $uri;
         if (strstr($uri, 'https://')) return $uri;
 
@@ -55,15 +54,17 @@ class FileService
             if($type == 'public_path') {
                 return public_path(). $uri;
             }
-            return request()->domain() . '/' . $uri;
+            $domain = request()->domain();
         } else {
             $storage = Cache::get('STORAGE_ENGINE');
             if (!$storage) {
                 $storage = ConfigService::get('storage', $default);
                 Cache::set('STORAGE_ENGINE', $storage);
             }
-            return $storage ?  $storage['domain'] . '/' . $uri : $uri;
+            $domain = $storage ?  $storage['domain'] : '';
         }
+
+        return self::format($domain, $uri);
     }
 
     /**
@@ -86,5 +87,30 @@ class FileService
     }
 
 
+    /**
+     * @notes 格式化url
+     * @param $domain
+     * @param $uri
+     * @return string
+     * @author 段誉
+     * @date 2022/7/11 10:36
+     */
+    public static function format($domain, $uri)
+    {
+        // 处理域名
+        $domainLen = strlen($domain);
+        $domainRight = substr($domain, $domainLen -1, 1);
+        if ('/' == $domainRight) {
+            $domain = substr_replace($domain,'',$domainLen -1, 1);
+        }
+
+        // 处理uri
+        $uriLeft = substr($uri, 0, 1);
+        if('/' == $uriLeft) {
+            $uri = substr_replace($uri,'',0, 1);
+        }
+
+        return trim($domain) . '/' . trim($uri);
+    }
 
 }

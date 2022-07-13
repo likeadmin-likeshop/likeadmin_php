@@ -1,7 +1,7 @@
 import { Module } from 'vuex'
 import cache from '@/utils/cache'
 import { TOKEN } from '@/config/cachekey'
-import { apiLogin, apiLogout, apiUserInfo } from '@/api/user'
+import { apiLogin, apiLogout, apiAdminInfo } from '@/api/admin'
 import { filterAsyncRoutes } from '@/router/util'
 export interface UserModule {
     token: string
@@ -74,7 +74,7 @@ const user: Module<UserModule, any> = {
         // 获取管理员信息
         getInfo({ commit }) {
             return new Promise((resolve, reject) => {
-                apiUserInfo()
+                apiAdminInfo()
                     .then((data: any) => {
                         commit('setUser', data.user)
                         commit('setSidebar', data.user)

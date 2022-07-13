@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+
 /**
  * vue-index生成器
  * Class VueIndexGenerator
@@ -247,8 +248,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
 
             $isExist[] = $column['dict_type'];
         }
-        $content = substr($content, 0, -2);
-        return $content;
+        return substr($content, 0, -2);
     }
 
 
@@ -262,11 +262,11 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
     public function getPermsContent($type = 'add')
     {
         if (!empty($this->classDir)) {
-            $classDir = $this->classDir.'.';
+            $classDir = $this->classDir . '.';
         } else {
             $classDir = '';
         }
-        return trim($classDir.$this->getTableName(). '/'. $type);
+        return trim($classDir . $this->getLowerTableName() . '/' . $type);
     }
 
 
@@ -278,7 +278,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getModuleGenerateDir()
     {
-        $dir = dirname(app()->getRootPath()) . '/admin/src/views/' . $this->getTableName() . '/';
+        $dir = dirname(app()->getRootPath()) . '/admin/src/views/' . $this->getLowerTableName() . '/';
         $this->checkDir($dir);
         return $dir;
     }
@@ -292,7 +292,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getRuntimeGenerateDir()
     {
-        $dir = $this->generatorDir . 'vue/src/views/' . $this->getTableName() . '/';
+        $dir = $this->generatorDir . 'vue/src/views/' . $this->getLowerTableName() . '/';
         $this->checkDir($dir);
         return $dir;
     }

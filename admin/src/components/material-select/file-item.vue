@@ -1,36 +1,18 @@
 
 <template>
     <div>
-        <del-wrap @close="$emit('close')">
-            <div
-                class="file-item"
-                :style="{ height: fileSize, width: fileSize }"
-            >
-                <el-image
-                    class="image"
-                    v-if="type.type == 'image'"
-                    fit="contain"
-                    :src="uri"
-                ></el-image>
-                <video
-                    class="video"
-                    v-else-if="type.type == 'video'"
-                    :src="uri"
-                ></video>
-                <slot></slot>
-            </div>
-        </del-wrap>
+        <div class="file-item" :style="{ height: fileSize, width: fileSize }">
+            <el-image class="image" v-if="type == 'image'" fit="contain" :src="uri"></el-image>
+            <video class="video" v-else-if="type == 'video'" :src="uri"></video>
+            <slot></slot>
+        </div>
     </div>
 </template>
 
 
 <script lang="ts">
-import DelWrap from '@/components/del-wrap/index.vue'
-import { defineComponent, inject } from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
-    components: {
-        DelWrap,
-    },
     props: {
         // 图片地址
         uri: {
@@ -41,14 +23,16 @@ export default defineComponent({
             type: String,
             default: '100px',
         },
+        // 文件类型
+        type: {
+            type: String,
+            default: 'image',
+        },
     },
     emits: ['close'],
     setup() {
-        const type = inject<any>('type')
-        return {
-            type
-        }
-    },
+
+    }
 })
 </script>
 

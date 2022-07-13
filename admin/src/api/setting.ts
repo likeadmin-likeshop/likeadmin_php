@@ -82,17 +82,6 @@ export function apiSystemCacheClear() {
 }
 /** E 系统维护 **/
 
-/** S 管理员信息 **/
-// 编辑管理员信息
-export function apiAuthAdminEditSelf(params: any) {
-    return request.post('/auth.admin/editSelf', params)
-}
-
-// 获取管理员信息
-export function apiAuthAdminMySelf() {
-    return request.post('/auth.admin/mySelf')
-}
-/** E 管理员信息 **/
 
 
 /** S 存储设置 **/

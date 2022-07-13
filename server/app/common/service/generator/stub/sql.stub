@@ -1,5 +1,5 @@
 INSERT INTO `{MENU_TABLE}`(`pid`, `type`, `name`, `icon`, `sort`, `perms`, `paths`, `component`, `selected`, `params`, `is_cache`, `is_show`, `is_disable`, `create_time`, `update_time`)
- VALUES ({PARTNER_ID}, 'C', '{LISTS_NAME}', '', 1, '{PERMS_NAME}/lists', 'test_demo', 'test_demo/index', '', '', 0, 1, 0, {CREATE_TIME}, {UPDATE_TIME});
+ VALUES ({PARTNER_ID}, 'C', '{LISTS_NAME}', '', 1, '{PERMS_NAME}/lists', '{PATHS_NAME}', '{COMPONENT_NAME}/index', '', '', 0, 1, 0, {CREATE_TIME}, {UPDATE_TIME});
 
 SELECT @pid := LAST_INSERT_ID();
 
