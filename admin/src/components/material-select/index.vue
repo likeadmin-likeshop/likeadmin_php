@@ -70,7 +70,7 @@
                 />
             </div>
         </popup>
-        <Preview v-model="showPreview" :url="previewUrl" :type="type" />
+        <preview v-model="showPreview" :url="previewUrl" :type="type" />
     </div>
 </template>
 
@@ -81,7 +81,6 @@ import {
     defineComponent,
     computed,
     ref,
-    Ref,
     toRefs,
     watch,
     nextTick,

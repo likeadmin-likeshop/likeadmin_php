@@ -1,1 +1,0 @@
-import{p as e,c as h}from"./isEqual.4fe5ed00.js";import{a6 as m,a4 as t}from"./index.4ed0f585.js";var r=m?m.isConcatSpreadable:void 0;function y(n){return t(n)||e(n)||!!(r&&n&&n[r])}function x(n,f,o,s,a){var b=-1,g=n.length;for(o||(o=y),a||(a=[]);++b<g;){var i=n[b];f>0&&o(i)?f>1?x(i,f-1,o,s,a):h(a,i):s||(a[a.length]=i)}return a}export{x as b};

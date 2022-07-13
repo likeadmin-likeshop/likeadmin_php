@@ -98,7 +98,7 @@ export function useFile(cateId: Ref<string>, type: Ref<any>, limit: Ref<number>,
     const { pager, requestApi, resetPage } = usePages({
         callback: apiFileList,
         params: fileParams,
-        firstLoading: false,
+        firstLoading: true,
         size
     })
 

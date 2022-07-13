@@ -1,7 +1,12 @@
 <template>
     <div v-show="modelValue">
         <div v-if="type == 'image'">
-            <el-image-viewer :url-list="[url]" hide-on-click-modal @close="handleClose" />
+            <el-image-viewer
+                v-if="previewLists.length"
+                :url-list="previewLists"
+                hide-on-click-modal
+                @close="handleClose"
+            />
         </div>
         <div v-if="type == 'video'">
             <el-dialog v-model="modelValue" width="740px" title="视频预览" :before-close="handleClose">
@@ -37,13 +42,19 @@ const handleClose = () => {
     emit('update:modelValue', false)
 }
 
+const previewLists = ref<any[]>([])
+
 watch(() => props.modelValue, (value) => {
     if (value) {
         nextTick(() => {
+            previewLists.value = [props.url]
             playerRef.value?.play()
         })
     } else {
-        playerRef.value?.pause()
+        nextTick(() => {
+            previewLists.value = []
+            playerRef.value?.pause()
+        })
     }
 })
 

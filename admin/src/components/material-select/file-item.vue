@@ -11,12 +11,8 @@
 
 
 <script lang="ts">
-import DelWrap from '@/components/del-wrap/index.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
-    components: {
-        DelWrap,
-    },
     props: {
         // 图片地址
         uri: {
@@ -33,7 +29,10 @@ export default defineComponent({
             default: 'image',
         },
     },
-    emits: ['close']
+    emits: ['close'],
+    setup() {
+
+    }
 })
 </script>
 
