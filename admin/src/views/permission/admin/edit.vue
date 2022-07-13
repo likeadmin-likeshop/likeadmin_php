@@ -11,7 +11,7 @@
 				</el-form-item>
 				<!-- 管理员头像 -->
 				<el-form-item label="头像">
-					<div>
+					<div class="flex-1">
 						<material-select v-model="formData.avatar" :limit="1"></material-select>
 						<div class="form-tips">建议尺寸：100*100px，支持jpg，jpeg，png格式</div>
 					</div>

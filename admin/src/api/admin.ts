@@ -12,6 +12,6 @@ export function apiLogout() {
 }
 
 // 用户信息
-export function apiUserInfo() {
+export function apiAdminInfo() {
     return request.get('/auth.admin/mySelf')
 }

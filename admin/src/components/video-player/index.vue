@@ -2,6 +2,7 @@
 <template>
     <div>
         <VideoPlay
+            ref="playerRef"
             v-bind="options"
             :src="src"
             @play="onPlay"
@@ -13,7 +14,7 @@
 </template>
    
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, shallowRef } from 'vue'
 import 'vue3-video-play/dist/style.css'
 import VideoPlay from 'vue3-video-play'
 import vars from '@/styles/export.module.scss'
@@ -24,7 +25,10 @@ const props = defineProps({
     },
     width: String,
     height: String,
+    poster: String
 })
+
+const playerRef = shallowRef()
 const options = reactive({
     color: vars.color_primary, //主题色
     muted: false, //静音
@@ -40,6 +44,15 @@ const options = reactive({
     poster: '', //封面
     ...props
 })
+
+const play = () => {
+    playerRef.value.play()
+}
+
+const pause = () => {
+    playerRef.value.pause()
+}
+
 const onPlay = (event: any) => {
     console.log('播放')
 }
@@ -53,5 +66,11 @@ const onTimeupdate = (event: any) => {
 const onCanplay = (event: any) => {
     console.log(event, '可以播放')
 }
+
+defineExpose({
+    play,
+    pause
+})
+
 
 </script>

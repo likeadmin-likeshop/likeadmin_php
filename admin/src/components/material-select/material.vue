@@ -165,7 +165,12 @@
                         :key="item.id"
                         :style="{ width: fileSize }"
                     >
-                        <file-item :uri="item.uri" :file-size="fileSize" @click="selectFile(item)">
+                        <file-item
+                            :uri="item.uri"
+                            :file-size="fileSize"
+                            :type="type"
+                            @click="selectFile(item)"
+                        >
                             <div class="item-selected" v-if="selectStatus(item.id)">
                                 <el-icon color="#fff" :size="24">
                                     <check />
@@ -320,11 +325,9 @@
                 <ul class="select-lists flex-col p-t-10">
                     <li class="m-b-16" v-for="item in select" :key="item.id">
                         <div class="select-item">
-                            <file-item
-                                :uri="item.uri"
-                                file-size="100px"
-                                @close="cancelSelete(item.id)"
-                            ></file-item>
+                            <del-wrap @close="cancelSelete(item.id)">
+                                <file-item :uri="item.uri" file-size="100px" :type="type"></file-item>
+                            </del-wrap>
                         </div>
                     </li>
                 </ul>
@@ -380,7 +383,6 @@ export default defineComponent({
     emits: ['change'],
     setup(props, { emit }) {
         const treeRefs: Ref<typeof ElTree | null> = ref(null)
-        provide('type', props.type)
 
         const { limit } = toRefs(props)
         const typeValue = computed(() => {

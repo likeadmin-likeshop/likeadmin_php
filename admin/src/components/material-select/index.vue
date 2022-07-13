@@ -7,6 +7,7 @@
             custom-class="body-padding"
             :title="`选择${tipsText}`"
             @confirm="handleConfirm"
+            @close="handleClose"
         >
             <template v-if="!hiddenUpload" #trigger>
                 <div class="material-select__trigger clearfix" @click.stop>
@@ -20,11 +21,16 @@
                                 }"
                                 @click="showPopup(index)"
                             >
-                                <file-item
-                                    :uri="element"
-                                    :file-size="size"
-                                    @close="deleteImg(index)"
-                                />
+                                <del-wrap @close="deleteImg(index)">
+                                    <file-item :uri="element" :file-size="size" :type="type"></file-item>
+                                </del-wrap>
+                                <div class="operation-btns xs text-center">
+                                    <span>修改</span>
+                                    |
+                                    <span
+                                        @click.stop="handlePreview(element)"
+                                    >查看</span>
+                                </div>
                             </div>
                         </template>
                     </draggable>
@@ -64,6 +70,7 @@
                 />
             </div>
         </popup>
+        <Preview v-model="showPreview" :url="previewUrl" :type="type" />
     </div>
 </template>
 
@@ -83,12 +90,14 @@ import Draggable from 'vuedraggable'
 import Popup from '@/components/popup/index.vue'
 import FileItem from './file-item.vue'
 import Material from './material.vue'
+import Preview from './preview.vue'
 export default defineComponent({
     components: {
         Popup,
         Draggable,
         FileItem,
         Material,
+        Preview
     },
     props: {
         modelValue: {
@@ -131,6 +140,8 @@ export default defineComponent({
     setup(props, { emit }) {
         const popupRef = ref<InstanceType<typeof Popup>>()
         const materialRefs = ref<InstanceType<typeof Material>>()
+        const previewUrl = ref("")
+        const showPreview = ref(false)
         const fileList = ref<any[]>([])
         const select = ref<any[]>([])
         const isAdd = ref(true)
@@ -183,14 +194,23 @@ export default defineComponent({
                 limit.value != 1 ? fileList.value : fileList.value[0] || ''
             emit('update:modelValue', valueImg)
             emit('change', valueImg)
-            nextTick(() => {
-                materialRefs.value?.clearSelect()
-            })
+
         }
 
         const deleteImg = (index: number) => {
             fileList.value.splice(index, 1)
             handleChange()
+        }
+
+        const handlePreview = (url: string) => {
+            previewUrl.value = url
+            showPreview.value = true
+        }
+
+        const handleClose = () => {
+            nextTick(() => {
+                materialRefs.value?.clearSelect()
+            })
         }
 
         watch(modelValue, (val: any[] | string) => {
@@ -208,7 +228,11 @@ export default defineComponent({
             showUpload,
             showPopup,
             selectChange,
-            deleteImg
+            deleteImg,
+            previewUrl,
+            showPreview,
+            handlePreview,
+            handleClose
         }
     },
 })
@@ -218,6 +242,7 @@ export default defineComponent({
 .material-select {
     .material-upload,
     .material-preview {
+        position: relative;
         border-radius: 4px;
         cursor: pointer;
         color: $color-text-secondary;
@@ -230,6 +255,21 @@ export default defineComponent({
         }
         &.is-one {
             margin-bottom: 0;
+        }
+        &:hover {
+            .operation-btns {
+                display: block;
+            }
+        }
+        .operation-btns {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.4);
+            position: absolute;
+            bottom: 0;
+            border-radius: 4px;
+            width: 100%;
+            line-height: 2;
+            color: #fff;
         }
     }
     .material-upload {

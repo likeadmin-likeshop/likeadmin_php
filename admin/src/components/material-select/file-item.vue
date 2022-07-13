@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import DelWrap from '@/components/del-wrap/index.vue'
-import { defineComponent, inject } from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
     components: {
         DelWrap,
@@ -27,14 +27,13 @@ export default defineComponent({
             type: String,
             default: '100px',
         },
+        // 文件类型
+        type: {
+            type: String,
+            default: 'image',
+        },
     },
-    emits: ['close'],
-    setup() {
-        const type = inject<any>('type')
-        return {
-            type
-        }
-    },
+    emits: ['close']
 })
 </script>
 
