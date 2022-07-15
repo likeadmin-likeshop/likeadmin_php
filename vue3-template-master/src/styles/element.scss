@@ -1,0 +1,17 @@
+
+.el-button {
+  background-color: var(--el-button-bg-color,var(--el-color-white))
+}
+
+.el-drawer {
+  --el-drawer-padding-primary: 16px;
+  &__header {
+    margin-bottom: 0;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--el-border-color-lighter);
+    
+  }
+  &__title {
+    @apply text-tx-primary;
+  }
+}
