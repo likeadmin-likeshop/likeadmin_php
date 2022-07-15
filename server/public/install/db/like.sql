@@ -201,6 +201,7 @@ CREATE TABLE `ls_generate_table`  (
   `class_dir` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '类目录名',
   `class_comment` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '类描述',
   `admin_id` int(11) NULL DEFAULT 0 COMMENT '管理员id',
+  `menu` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '菜单配置',
   `create_time` int(10) NOT NULL COMMENT '创建时间',
   `update_time` int(10) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
