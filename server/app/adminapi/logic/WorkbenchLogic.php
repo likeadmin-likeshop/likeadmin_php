@@ -45,8 +45,8 @@ class WorkbenchLogic extends BaseLogic
             'menu' => self::menu(),
             // 近15日访客数
             'visitor' => self::visitor(),
-            // 文章阅读量排名
-            'article' => self::article()
+            // 服务支持
+            'support' => self::support()
         ];
     }
 
@@ -57,23 +57,48 @@ class WorkbenchLogic extends BaseLogic
      * @author 段誉
      * @date 2021/12/29 16:40
      */
-    public static function menu() : array
+    public static function menu(): array
     {
         return [
             [
-                'name' => '工作台',
+                'name' => '管理员',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => '/workbench'
+                'url' => '/permission/admin/index'
+            ],
+            [
+                'name' => '角色管理',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => '/permission/role/index'
+            ],
+            [
+                'name' => '部门管理',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => '/organization/department/index'
+            ],
+            [
+                'name' => '字典管理',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => '/setting/dict/type'
+            ],
+            [
+                'name' => '代码生成器',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => '/dev_tools/code/index'
+            ],
+            [
+                'name' => '素材中心',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => '/material/index'
+            ],
+            [
+                'name' => '菜单权限',
+                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'url' => '/permission/menu/index'
             ],
             [
                 'name' => '网站信息',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
                 'url' => '/setting/website/information'
-            ],
-            [
-                'name' => '系统环境',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => '/setting/website/environment'
             ],
         ];
     }
@@ -85,12 +110,17 @@ class WorkbenchLogic extends BaseLogic
      * @author 段誉
      * @date 2021/12/29 16:08
      */
-    public static function versionInfo() : array
+    public static function versionInfo(): array
     {
         return [
             'version' => config('project.version'),
             'website' => config('project.website.url'),
             'name' => ConfigService::get('website', 'name'),
+            'based' => 'vue3.x、ElementUI、MySQL',
+            'channel' => [
+                'website' => 'https://www.likeadmin.cn',
+                'gitee' => 'https://gitee.com/likeshop_gitee/likeadmin',
+            ]
         ];
     }
 
@@ -101,7 +131,7 @@ class WorkbenchLogic extends BaseLogic
      * @author 段誉
      * @date 2021/12/29 16:15
      */
-    public static function today() : array
+    public static function today(): array
     {
         return [
             'time' => date('Y-m-d H:i:s'),
@@ -119,23 +149,11 @@ class WorkbenchLogic extends BaseLogic
             'today_new_user' => 30,
             // 总用户量
             'total_new_user' => 3000,
-        ];
-    }
 
-
-    /**
-     * @notes 文章阅读排名
-     * @return array[]
-     * @author 段誉
-     * @date 2021/12/29 16:40
-     */
-    public static function article() : array
-    {
-        return [
-            ['name' => '文章1', 'read' => 1000],
-            ['name' => '文章2', 'read' => 800],
-            ['name' => '文章3', 'read' => 600],
-            ['name' => '文章4', 'read' => 400],
+            // 订单量 (笔)
+            'order_num' => 12,
+            // 总订单量
+            'order_sum' => 255
         ];
     }
 
@@ -146,13 +164,13 @@ class WorkbenchLogic extends BaseLogic
      * @author 段誉
      * @date 2021/12/29 16:57
      */
-    public static function visitor() : array
+    public static function visitor(): array
     {
         $num = [];
         $date = [];
-        for($i = 0; $i < 15; $i ++) {
-            $where_start = strtotime("- ".$i."day");
-            $date[] = date('Y/m/d',$where_start);
+        for ($i = 0; $i < 15; $i++) {
+            $where_start = strtotime("- " . $i . "day");
+            $date[] = date('Y/m/d', $where_start);
             $num[$i] = rand(0, 100);
         }
 
@@ -160,6 +178,29 @@ class WorkbenchLogic extends BaseLogic
             'date' => $date,
             'list' => [
                 ['name' => '访客数', 'data' => $num]
+            ]
+        ];
+    }
+
+
+    /**
+     * @notes 服务支持
+     * @return array[]
+     * @author 段誉
+     * @date 2022/7/18 11:18
+     */
+    public static function support()
+    {
+        return [
+            [
+                'image' => FileService::getFileUrl(config('project.default_image.qq_group')),
+                'title' => '扫码进入QQ交流群',
+                'desc' => '疑难疑点 进入QQ群',
+            ],
+            [
+                'image' => FileService::getFileUrl(config('project.default_image.customer_service')),
+                'title' => '扫码进入QQ交流群',
+                'desc' => '想了解更多请添加客服',
             ]
         ];
     }
