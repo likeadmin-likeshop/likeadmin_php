@@ -1,4 +1,5 @@
 //引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
+
 import * as echarts from 'echarts/core'
 //引入柱状图图表，图表后缀都为 Chart
 import {
@@ -32,6 +33,7 @@ import {
 import { CanvasRenderer } from 'echarts/renderers'
 //标签自动布局，全局过渡动画等特性
 import { LabelLayout, UniversalTransition } from 'echarts/features'
+import type { App } from 'vue'
 
 // 注册必须的组件
 echarts.use([
