@@ -21,6 +21,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
     "vue": "^3.2.37",
+    "vue-clipboard3": "^2.0.0",
     "vue-echarts": "^6.2.3",
     "vue-router": "^4.0.16",
     "vuedraggable": "^4.1.0"

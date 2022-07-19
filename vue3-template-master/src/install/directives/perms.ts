@@ -4,13 +4,13 @@
  *  <el-button v-perms="['auth.menu/edit']">编辑</el-button>
  */
 
-import useUserStore from '@/stores'
+import useUserStore from '@/stores/modules/user'
 
 export default {
   mounted: (el: HTMLElement, binding: any) => {
     const { value } = binding
     const userStore = useUserStore()
-    const permissions = userStore.permissions
+    const permissions = userStore.perms
     const all_permission = '*'
     if (Array.isArray(value)) {
       if (value.length > 0) {

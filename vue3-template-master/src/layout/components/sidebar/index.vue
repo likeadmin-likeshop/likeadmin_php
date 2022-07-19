@@ -4,15 +4,16 @@
     :style="sidebarStyle"
     :class="`theme-${sideTheme}`"
   >
-    <div
-      class="logo flex items-center p-4"
-      :class="{
-        'bg-primary': sideTheme == 'light'
-      }"
-    >
+    <div class="logo">
       <image-contain width="33" height="33" :src="config.web_logo" />
       <transition name="slide-fade" mode="out-in" :duration="300">
-        <div v-show="!isCollapse" class="line-1 text-white ml-4">{{ config.web_name }}</div>
+        <div
+          v-show="!isCollapse"
+          class="line-1 ml-4"
+          :class="{ 'text-white': sideTheme == 'dark' }"
+        >
+          {{ config.web_name }}
+        </div>
       </transition>
     </div>
     <div class="flex-1 min-h-0">
@@ -65,6 +66,7 @@ const menuProps = computed(() => {
 
 <style lang="scss" scoped>
 .sidebar-wrap {
+  @apply border-r border-br-light;
   &.theme-dark {
     background-color: var(--side-dark-color);
     .el-menu {
@@ -86,7 +88,6 @@ const menuProps = computed(() => {
   }
   .el-menu {
     border-right: none;
-
     &:not(.el-menu--collapse) {
       width: var(--aside-width);
     }
@@ -96,6 +97,7 @@ const menuProps = computed(() => {
   }
   .logo {
     height: var(--header-height);
+    @apply flex items-center p-4;
   }
   .slide-fade-enter-active {
     transition: all 0.3s ease-out;
