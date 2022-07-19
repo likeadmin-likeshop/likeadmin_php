@@ -8,7 +8,7 @@
  <br>
 
 ## 👨‍💻‍ 简介
-<a href="https://gitee.com/likeshop_gitee">likeshop开源团队</a>基于以往开源产品的经验，希望能够为开源社区做出更多的贡献，推出永久免费开源的likeadmin通用前后端分离管理后台系统。遵循Apache2开源许可协议，您可以免费使用，甚至允许把你基于likeadmin开发的软件应用开源、发布、销售。
+<a href="https://gitee.com/likeshop_gitee">likeshop开源团队</a>基于以往开源产品的经验，希望能够为开源社区做出更多的贡献，推出永久免费开源的likeadmin通用前后端分离管理后台系统。遵循MIT开源许可协议，您可以免费使用，甚至允许把你基于likeadmin开发的软件应用开源、发布、销售。
 <br>
 ### 🏀 联系我们
 likeadmin官网：https://www.likeadmin.cn/
