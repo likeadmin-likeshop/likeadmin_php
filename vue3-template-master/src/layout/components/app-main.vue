@@ -3,11 +3,7 @@
     <el-scrollbar>
       <div class="p-4">
         <router-view v-if="isRouteShow" v-slot="{ Component, route }">
-          <transition>
-            <keep-alive>
-              <component :is="Component" :key="route.fullPath" />
-            </keep-alive>
-          </transition>
+          <component :is="Component" :key="route.fullPath" />
         </router-view>
       </div>
     </el-scrollbar>
