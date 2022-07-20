@@ -1,36 +1,31 @@
 import request from '@/utils/request'
 
 // 菜单列表
-export function apiMenuLists(params: Record<string, any>) {
+export function getMenuLists(params: Record<string, any>) {
   return request.get('/auth.menu/lists', { params })
 }
 
 // 添加菜单
-export function apiMenuAdd(params: Record<string, any>) {
+export function menuAdd(params: Record<string, any>) {
   return request.post('/auth.menu/add', params)
 }
 
 // 编辑菜单
-export function apiMenuEdit(params: Record<string, any>) {
+export function menuEdit(params: Record<string, any>) {
   return request.post('/auth.menu/edit', params)
 }
 
-// 菜单详情
-export function apiMenuDetail(params: Record<string, any>) {
-  return request.get('/auth.menu/detail', { params })
-}
-
-// 菜单详情
-export function apiMenuDelete(params: Record<string, any>) {
+// 菜单删除
+export function menuDelete(params: Record<string, any>) {
   return request.post('/auth.menu/delete', params)
 }
 
-export function apiAdminLists(params: any) {
+export function getAdminLists(params: any) {
   return request.get('/auth.admin/lists', { params })
 }
 
 // 管理员添加
-export function apiAdminAdd(params: any) {
+export function adminAdd(params: any) {
   return request.post('/auth.admin/add', params)
 }
 

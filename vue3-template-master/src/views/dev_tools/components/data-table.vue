@@ -48,11 +48,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, shallowRef, watch } from 'vue'
 import Popup from '@/components/popup/index.vue'
 import Pagination from '@/components/pagination/index.vue'
 import { usePaging } from '@/hooks/paging'
-import { getDataTable, selectTable } from '@/api/dev_tools'
+import { dataTable, selectTable } from '@/api/tools/code'
 
 const emit = defineEmits<{
   (event: 'success'): void
@@ -66,7 +65,7 @@ const formData = reactive({
 })
 
 const { pager, requestApi, resetParams, resetPage } = usePaging({
-  fetchFun: getDataTable,
+  fetchFun: dataTable,
   params: formData,
   size: 10
 })

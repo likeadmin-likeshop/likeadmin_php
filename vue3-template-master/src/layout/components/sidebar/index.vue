@@ -9,7 +9,7 @@
       <transition name="slide-fade" mode="out-in" :duration="300">
         <div
           v-show="!isCollapse"
-          class="line-1 ml-4"
+          class="ml-12 truncate logo-title"
           :class="{ 'text-white': sideTheme == 'dark' }"
         >
           {{ config.web_name }}
@@ -97,7 +97,11 @@ const menuProps = computed(() => {
   }
   .logo {
     height: var(--header-height);
-    @apply flex items-center p-4;
+    @apply flex items-center p-4 relative;
+    .logo-title {
+      width: 60%;
+      position: absolute;
+    }
   }
   .slide-fade-enter-active {
     transition: all 0.3s ease-out;

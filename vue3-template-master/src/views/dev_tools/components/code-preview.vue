@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ElMessage } from 'element-plus'
+import feedback from '@/utils/feedback'
 import useClipboard from 'vue-clipboard3'
 
 const props = defineProps<{
@@ -46,9 +46,9 @@ const activeTab = ref('index0')
 const handleCopy = async (text: string) => {
   try {
     await toClipboard(text)
-    ElMessage.success('复制成功')
+    feedback.msgSuccess('复制成功')
   } catch (e) {
-    ElMessage.error('复制失败')
+    feedback.msgError('复制失败')
   }
 }
 

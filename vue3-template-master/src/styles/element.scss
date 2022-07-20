@@ -1,6 +1,35 @@
 
 :root {
-  
+
+  // 弹窗居中
+  .el-overlay-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1000px;
+    min-height: 100%;
+    position: static;
+    overflow: hidden;
+
+    .el-dialog {
+      --el-dialog-content-font-size: var(--el-font-size-base);
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      margin: 20px !important;
+      border-radius: 5px;
+
+      &.body-padding .el-dialog__body {
+        padding: 0;
+      }
+
+      .el-dialog__body {
+        flex: 1;
+        padding: 15px 20px;
+      }
+    }
+  }
+
   .el-drawer {
     --el-drawer-padding-primary: 16px;
     &__header {
@@ -33,4 +62,10 @@
   .el-checkbox {
     --el-checkbox-font-size: var(--el-font-size-base);
   }  
+  .el-dialog__header {
+    @apply border-b border-br;
+  }
+  .el-dialog__footer {
+    @apply border-t border-br;
+  }
 }

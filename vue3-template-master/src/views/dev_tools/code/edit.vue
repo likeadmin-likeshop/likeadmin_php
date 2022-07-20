@@ -205,9 +205,9 @@
 </template>
 
 <script lang="ts" setup>
-import { generateEdit, getTableDetail } from '@/api/dev_tools'
+import { generateEdit, tableDetail } from '@/api/tools/code'
 import { apiDictTypeLists } from '@/api/dict'
-import { apiMenuLists } from '@/api/auth'
+import { getMenuLists } from '@/api/auth'
 import type { FormInstance } from 'element-plus'
 import feedback from '@/utils/feedback'
 const route = useRoute()
@@ -246,7 +246,7 @@ const rules = reactive({
 })
 
 const getDetails = async () => {
-  const data = await getTableDetail({
+  const data = await tableDetail({
     id: route.query.id
   })
   Object.keys(formData).forEach((key) => {
@@ -274,8 +274,8 @@ const getDict = async () => {
   dictData.value = data.lists
 }
 
-const getMenuLists = async () => {
-  const data: any = await apiMenuLists({ page_type: 0 })
+const getMenu = async () => {
+  const data: any = await getMenuLists({ page_type: 0 })
   const menu = { id: 0, name: '顶级', children: [] }
   menu.children = data.lists
   menuLists.value.push(menu)
@@ -289,5 +289,5 @@ const onSubmit = async () => {
 
 getDetails()
 getDict()
-getMenuLists()
+getMenu()
 </script>

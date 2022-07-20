@@ -106,12 +106,12 @@
 
 <script lang="ts" setup>
 import {
-  getGenerateTable,
+  generateTable,
   syncColumn,
   generateDelete,
   generatePreview,
   generateCode
-} from '@/api/dev_tools'
+} from '@/api/tools/code'
 import { usePaging } from '@/hooks/paging'
 import DataTable from '../components/data-table.vue'
 import CodePreview from '../components/code-preview.vue'
@@ -129,7 +129,7 @@ const previewState = reactive({
 })
 
 const { pager, requestApi, resetParams, resetPage } = usePaging({
-  fetchFun: getGenerateTable,
+  fetchFun: generateTable,
   params: formData
 })
 

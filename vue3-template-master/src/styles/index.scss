@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  body {
     @apply text-base text-tx-primary overflow-y-hidden;
     
   }

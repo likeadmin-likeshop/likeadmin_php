@@ -1,0 +1,78 @@
+<template>
+  <div class="role-lists">
+    <el-card class="!border-none" shadow="never">
+      <div>
+        <el-button v-perms="['auth.role/add']" type="primary" @click="handleAdd">
+          <template #icon>
+            <icon name="el-icon-Plus" />
+          </template>
+          新增角色
+        </el-button>
+      </div>
+      <div class="mt-4" v-loading="pager.loading">
+        <div>
+          <el-table :data="pager.lists">
+            <el-table-column prop="id" label="ID"></el-table-column>
+            <el-table-column prop="name" label="名称"></el-table-column>
+            <el-table-column prop="desc" label="备注"></el-table-column>
+            <el-table-column prop="sort" label="排序"></el-table-column>
+            <el-table-column prop="num" label="管理员人数"></el-table-column>
+            <el-table-column prop="create_time" label="创建时间"></el-table-column>
+            <el-table-column label="操作">
+              <template #default="{ row }">
+                <el-button
+                  link
+                  type="primary"
+                  v-perms="['auth.role/edit']"
+                  @click="handleEdit(row)"
+                >
+                  编辑
+                </el-button>
+                <el-button
+                  v-perms="['auth.role/delete']"
+                  link
+                  type="danger"
+                  @click="handleDelete(row.id)"
+                >
+                  删除
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+        <div class="flex justify-end mt-4">
+          <pagination v-model="pager" @change="requestApi" />
+        </div>
+      </div>
+    </el-card>
+    <edit-popup ref="editRef" @success="requestApi" />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { roleLists, roleDelete } from '@/api/perms/role'
+import { usePaging } from '@/hooks/paging'
+import feedback from '@/utils/feedback'
+import EditPopup from './edit.vue'
+const editRef = shallowRef<InstanceType<typeof EditPopup>>()
+const { pager, requestApi } = usePaging({
+  fetchFun: roleLists
+})
+const handleAdd = () => {
+  editRef.value?.open('add')
+}
+
+const handleEdit = (data: any) => {
+  editRef.value?.open('edit')
+  editRef.value?.setFormData(data)
+}
+
+// 删除角色
+const handleDelete = async (id: number) => {
+  await feedback.confirm('确认要删除？')
+  await roleDelete({ id })
+  requestApi()
+}
+
+requestApi()
+</script>

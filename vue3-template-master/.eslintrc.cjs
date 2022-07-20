@@ -30,7 +30,10 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     'no-undef': 'off',
     'vue/prefer-import-from-vue': 'off',
-    'no-prototype-builtins': 'off'
+    'no-prototype-builtins': 'off',
+    'prefer-spread': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-non-null-asserted-optional-chain': 'off'
   },
   globals: {
     module: 'readonly'

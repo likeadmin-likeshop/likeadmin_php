@@ -1,12 +1,12 @@
 import request from '@/utils/request'
 
 // 代码生成已选数据表列表接口
-export function getGenerateTable(params: any) {
+export function generateTable(params: any) {
   return request.get('/tools.generator/generateTable', params)
 }
 
 // 数据表列表接口
-export function getDataTable(params: any) {
+export function dataTable(params: any) {
   return request.get('/tools.generator/dataTable', params)
 }
 
@@ -16,7 +16,7 @@ export function selectTable(params: any) {
 }
 
 // 已选择的数据表详情
-export function getTableDetail(params: any) {
+export function tableDetail(params: any) {
   return request.get('/tools.generator/detail', params)
 }
 
@@ -43,9 +43,4 @@ export function generatePreview(params: any) {
 //生成代码
 export function generateCode(params: any) {
   return request.post('/tools.generator/generate', params)
-}
-
-//下载压缩包
-export function generateDownload(params: any) {
-  return request.post('/tools.generator/download', params)
 }
