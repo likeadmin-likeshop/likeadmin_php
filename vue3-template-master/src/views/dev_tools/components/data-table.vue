@@ -19,14 +19,17 @@
           <el-input v-model="formData.comment" />
         </el-form-item>
         <el-form-item>
-          <div class="ml-5">
-            <el-button type="primary" @click="resetPage">查询</el-button>
-            <el-button @click="resetParams">重置</el-button>
-          </div>
+          <el-button type="primary" @click="resetPage">查询</el-button>
+          <el-button @click="resetParams">重置</el-button>
         </el-form-item>
       </el-form>
       <div class="m-4" v-loading="pager.loading">
-        <el-table height="400" :data="pager.lists" @selection-change="handleSelectionChange">
+        <el-table
+          height="400"
+          size="large"
+          :data="pager.lists"
+          @selection-change="handleSelectionChange"
+        >
           <el-table-column type="selection" width="55" />
           <el-table-column label="表名称" prop="name" min-width="100" />
           <el-table-column label="表描述" prop="comment" min-width="100" />
@@ -92,5 +95,3 @@ watch(
   }
 )
 </script>
-
-<style lang="scss" scoped></style>

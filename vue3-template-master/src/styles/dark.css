@@ -1,6 +1,6 @@
 :root.dark {
   color-scheme: dark;
-
+  --table-header-bg-color: var(--el-bg-color);
   --el-bg-color-page: #0a0a0a;
   --el-bg-color: #141414;
   --el-bg-color-overlay: #1d1e1f;
@@ -21,7 +21,7 @@
   --el-fill-color-light: #262727;
   --el-fill-color-lighter: #1d1d1d;
   --el-fill-color-extra-light: #191919;
-  --el-fill-color-blank: transparent;
+  --el-fill-color-blank: var(--el-bg-color);
   --el-mask-color: rgba(0, 0, 0, 0.8);
   --el-mask-color-extra-light: rgba(0, 0, 0, 0.3);
   --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.36),

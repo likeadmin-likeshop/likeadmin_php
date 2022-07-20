@@ -1,32 +1,35 @@
 <template>
   <div class="code-edit">
-    <el-card shadow="never">
-      <el-page-header content="编辑" @back="$router.back()" />
+    <el-card class="!border-none" shadow="never">
+      <el-page-header content="编辑数据表" @back="$router.back()" />
     </el-card>
-    <el-card class="m-t-16" shadow="never">
-      <el-form ref="formRef" class="ls-form" :model="formData" label-width="80px" :rules="rules">
+    <el-card class="mt-4 !border-none" shadow="never">
+      <el-form ref="formRef" class="ls-form" :model="formData" label-width="120px" :rules="rules">
         <el-tabs v-model="activeName">
           <el-tab-pane label="基础信息" name="base">
             <el-form-item label="表名称" prop="table_name">
-              <el-input v-model="formData.table_name" placeholder="请输入表名称"></el-input>
+              <div class="w-80">
+                <el-input v-model="formData.table_name" placeholder="请输入表名称" />
+              </div>
             </el-form-item>
             <el-form-item label="表描述" prop="table_comment">
-              <el-input v-model="formData.table_comment" placeholder="请输入表描述"></el-input>
+              <div class="w-80">
+                <el-input v-model="formData.table_comment" placeholder="请输入表描述" />
+              </div>
             </el-form-item>
             <el-form-item label="作者">
-              <el-input v-model="formData.author"></el-input>
+              <div class="w-80">
+                <el-input v-model="formData.author" />
+              </div>
             </el-form-item>
             <el-form-item label="备注">
-              <el-input
-                v-model="formData.remark"
-                class="el-input"
-                type="textarea"
-                :rows="4"
-              ></el-input>
+              <div class="w-80">
+                <el-input v-model="formData.remark" class="el-input" type="textarea" :rows="4" />
+              </div>
             </el-form-item>
           </el-tab-pane>
           <el-tab-pane label="字段管理" name="field">
-            <el-table :data="formData.table_column" style="width: 100%">
+            <el-table :data="formData.table_column">
               <el-table-column label="字段列名" prop="column_name" />
               <el-table-column label="字段描述" prop="column_comment">
                 <template v-slot="{ row }">
@@ -135,18 +138,16 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item label="模块名" prop="module_name">
-              <div>
-                <el-input
-                  class="ls-input"
-                  v-model="formData.module_name"
-                  placeholder="请输入模块名"
-                ></el-input>
+              <div class="w-80">
+                <el-input v-model="formData.module_name" placeholder="请输入模块名" />
                 <div class="form-tips">生成文件所在模块</div>
               </div>
             </el-form-item>
             <el-form-item label="类目录">
               <div>
-                <el-input class="ls-input" v-model="formData.class_dir"></el-input>
+                <div class="w-80">
+                  <el-input v-model="formData.class_dir"></el-input>
+                </div>
                 <div class="form-tips">
                   生成文件所在目录名,不填则在模块对应文件夹内生成。
                   <br />例：填写test，则控制器xxxControlle文件生成在app/模块名/controller/test文件夹下。
@@ -156,7 +157,9 @@
             </el-form-item>
             <el-form-item label="类描述">
               <div>
-                <el-input class="ls-input" v-model="formData.class_comment"></el-input>
+                <div class="w-80">
+                  <el-input v-model="formData.class_comment"></el-input>
+                </div>
                 <div class="form-tips">
                   生成文件描述。
                   <br />例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
@@ -165,6 +168,7 @@
             </el-form-item>
             <el-form-item label="父级菜单" prop="menu.pid">
               <el-tree-select
+                class="w-80"
                 v-model="formData.menu.pid"
                 :data="menuLists"
                 clearable
@@ -177,11 +181,9 @@
               />
             </el-form-item>
             <el-form-item label="菜单名称" prop="menu.name">
-              <el-input
-                class="ls-input"
-                v-model="formData.menu.name"
-                placeholder="请输入菜单名称"
-              ></el-input>
+              <div class="w-80">
+                <el-input v-model="formData.menu.name" placeholder="请输入菜单名称"></el-input>
+              </div>
             </el-form-item>
             <el-form-item label="菜单构建" prop="menu.type" required>
               <div>
@@ -199,13 +201,6 @@
     <footer-btns>
       <el-button type="primary" @click="onSubmit">保存</el-button>
     </footer-btns>
-
-    <popup
-      ref="popupRef"
-      class="inline"
-      content="生成到模块方式如遇同名文件会覆盖旧文件，确定要选择此方式吗？"
-      @cancel="formData.generate_type = 0"
-    />
   </div>
 </template>
 
@@ -213,8 +208,8 @@
 import { generateEdit, getTableDetail } from '@/api/dev_tools'
 import { apiDictTypeLists } from '@/api/dict'
 import { apiMenuLists } from '@/api/auth'
-import Popup from '@/components/popup/index.vue'
 import type { FormInstance } from 'element-plus'
+import feedback from '@/utils/feedback'
 const route = useRoute()
 const router = useRouter()
 const activeName = ref('base')
@@ -237,7 +232,6 @@ const formData = reactive({
   }
 })
 
-const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const formRef = shallowRef<FormInstance>()
 const dictData = ref<any[]>([])
 const menuLists = ref<any[]>([])
@@ -264,7 +258,11 @@ const getDetails = async () => {
     () => formData.generate_type,
     (value) => {
       if (value == 1) {
-        popupRef.value?.open()
+        feedback
+          .confirm('生成到模块方式如遇同名文件会覆盖旧文件，确定要选择此方式吗？')
+          .catch(() => {
+            formData.generate_type = 0
+          })
       }
     }
   )
@@ -293,9 +291,3 @@ getDetails()
 getDict()
 getMenuLists()
 </script>
-
-<style lang="scss" scoped>
-.ls-input {
-  width: 280px;
-}
-</style>

@@ -33,6 +33,19 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     component: () => import('@/views/account/login.vue')
+  },
+  {
+    path: '/dev_tools',
+    component: Layout,
+    children: [
+      {
+        path: 'code/edit',
+        component: () => import('@/views/dev_tools/code/edit.vue'),
+        meta: {
+          activeMenu: '/dev_tools/code'
+        }
+      }
+    ]
   }
 ]
 

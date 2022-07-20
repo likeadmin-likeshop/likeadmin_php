@@ -1,9 +1,7 @@
 <template>
   <div class="footer-btns">
     <div class="footer-btns__content">
-      <div class="flex flex-center">
-        <slot></slot>
-      </div>
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -21,7 +19,9 @@ export default defineComponent({})
     bottom: 0;
     height: 60px;
     right: 0;
+    left: 0;
     z-index: 99;
+    @apply flex justify-center items-center shadow bg-white;
   }
 }
 </style>

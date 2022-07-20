@@ -1,18 +1,16 @@
 <template>
   <div class="code-generation">
     <el-card class="!border-none" shadow="never">
-      <el-form class="ls-form" :model="formData" label-width="80px" inline>
+      <el-form class="ls-form mb-[-16px]" :model="formData" label-width="80px" inline>
         <el-form-item label="表名称">
-          <el-input v-model="formData.table_name" class="ls-input" />
+          <el-input v-model="formData.table_name" />
         </el-form-item>
         <el-form-item label="表描述">
-          <el-input v-model="formData.table_comment" class="ls-input" />
+          <el-input v-model="formData.table_comment" />
         </el-form-item>
         <el-form-item>
-          <div class="m-l-20">
-            <el-button type="primary" @click="resetPage">查询</el-button>
-            <el-button @click="resetParams">重置</el-button>
-          </div>
+          <el-button type="primary" @click="resetPage">查询</el-button>
+          <el-button @click="resetParams">重置</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -49,7 +47,7 @@
       </el-button>
 
       <div class="mt-4">
-        <el-table :data="pager.lists" @selection-change="handleSelectionChange">
+        <el-table :data="pager.lists" size="large" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" />
           <el-table-column label="表名称" prop="table_name" />
           <el-table-column label="表描述" prop="table_comment" />
@@ -102,7 +100,7 @@
         <pagination v-model="pager" @change="requestApi" />
       </div>
     </el-card>
-    <code-preview v-if="codePreview.show" v-model="codePreview.show" :code="codePreview.code" />
+    <code-preview v-if="previewState.show" v-model="previewState.show" :code="previewState.code" />
   </div>
 </template>
 
@@ -117,15 +115,16 @@ import {
 import { usePaging } from '@/hooks/paging'
 import DataTable from '../components/data-table.vue'
 import CodePreview from '../components/code-preview.vue'
-import modal from '@/utils/modal'
+import feedback from '@/utils/feedback'
 
 const formData = reactive({
   table_name: '',
   table_comment: ''
 })
 
-const codePreview = reactive({
+const previewState = reactive({
   show: false,
+  loading: false,
   code: []
 })
 
@@ -141,32 +140,20 @@ const handleSelectionChange = (val: any[]) => {
 }
 
 const handleSync = async (id: number) => {
-  await modal.confirm('确认要同步表结构？')
+  await feedback.confirm('确认要同步表结构？')
   await syncColumn({ id })
 }
 
 const handleDelete = async (id: number | any[]) => {
-  await modal.confirm('确认要删除？')
+  await feedback.confirm('确认要删除？')
   await generateDelete({ id })
   requestApi()
 }
 
 const handlePreview = async (id: number) => {
-  // const loadingInstance = ElLoading.service({
-  //     text: '正在生成中...',
-  //     fullscreen: true
-  // })
-  try {
-    const data: any = await generatePreview({ id })
-    codePreview.code = data
-    codePreview.show = true
-    // loadingInstance.close()
-    // setTimeout(() => {
-    //
-    // }, 50)
-  } catch (error) {
-    // loadingInstance.close()
-  }
+  const data: any = await generatePreview({ id })
+  previewState.code = data
+  previewState.show = true
 }
 
 const handleGenerate = async (id: number | number[]) => {
@@ -178,9 +165,3 @@ const handleGenerate = async (id: number | number[]) => {
 
 requestApi()
 </script>
-
-<style lang="scss" scoped>
-.ls-form {
-  margin-bottom: -16px;
-}
-</style>

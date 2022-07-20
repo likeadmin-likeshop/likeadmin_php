@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { setTheme } from '@/utils/theme'
 import { useDark, useToggle } from '@vueuse/core'
-
 const isDark = useDark()
 const toggleDark = () => {
   useToggle(isDark)()

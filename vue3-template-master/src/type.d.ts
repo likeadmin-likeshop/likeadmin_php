@@ -2,8 +2,8 @@ import 'vue-router'
 declare module 'vue-router' {
   // 扩展 RouteMeta
   interface RouteMeta {
-    title: string
-    icon: string
-    hidden: boolean
+    title?: string
+    icon?: string
+    hidden?: boolean
   }
 }

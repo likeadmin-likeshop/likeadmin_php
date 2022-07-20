@@ -1,8 +1,5 @@
-.el-button {
-  background-color: var(--el-button-bg-color,var(--el-color-white))
-}
-:root {
 
+:root {
   
   .el-drawer {
     --el-drawer-padding-primary: 16px;
@@ -19,7 +16,7 @@
   
   .el-table {
     --el-table-header-text-color: var(--el-text-color-primary);
-    --el-table-header-bg-color: #f8f8f8;
+    --el-table-header-bg-color: var(--table-header-bg-color);
     font-size: var(--el-font-size-base);
   
     thead {

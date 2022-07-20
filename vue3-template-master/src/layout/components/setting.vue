@@ -25,6 +25,12 @@
           <el-color-picker v-model="theme" :predefine="predefineColors" @change="themeChange" />
         </div>
       </div>
+      <div class="setting-item mb-5 flex justify-between items-center">
+        <span class="text-tx-secondary">开启黑暗模式</span>
+        <div>
+          <el-switch :model-value="isDark" @change="toggleDark" />
+        </div>
+      </div>
     </el-drawer>
   </div>
 </template>
@@ -32,7 +38,7 @@
 <script setup lang="ts">
 import useSettingStore from '@/stores/modules/setting'
 import { setTheme } from '@/utils/theme'
-import { useDark } from '@vueuse/core'
+import { useDark, useToggle } from '@vueuse/core'
 import theme_light from '@/assets/images/theme_white.png'
 import theme_dark from '@/assets/images/theme_black.png'
 
@@ -87,6 +93,11 @@ const theme = computed({
 const isDark = useDark()
 const themeChange = () => {
   setTheme(theme.value, 'primary', isDark.value)
+}
+
+const toggleDark = () => {
+  useToggle(isDark)()
+  themeChange()
 }
 </script>
 

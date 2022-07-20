@@ -4,7 +4,14 @@
 
 @layer base {
   html {
-    @apply text-base text-tx-primary;
+    @apply text-base text-tx-primary overflow-y-hidden;
+    
+  }
+  .form-tips {
+    @apply text-tx-secondary text-xs leading-6;
+  }
+  .el-button {
+    background-color: var(--el-button-bg-color,var(--el-color-white))
   }
 }
 @import 'element.scss';
