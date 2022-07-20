@@ -39,10 +39,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref, ref, shallowRef } from 'vue'
+import { computed, defineComponent, ref, shallowRef } from 'vue'
 import { ElMessage, ElUpload } from 'element-plus'
-import useUserStore from '@/store/modules/user'
-import { version } from '@/config'
+import useUserStore from '@/stores/modules/user'
 export default defineComponent({
   components: {},
   props: {
@@ -79,7 +78,7 @@ export default defineComponent({
     const action = ref(`${import.meta.env.VITE_APP_BASE_URL}/adminapi/upload/${props.type}`)
     const headers = computed(() => ({
       token: userStore.token,
-      version: version
+      version: 1.2
     }))
     const visible = ref(false)
     const fileList = ref<any[]>([])
