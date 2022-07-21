@@ -8,6 +8,7 @@ declare module '@vue/runtime-core' {
     AppLink: typeof import('./src/components/app-link/index.vue')['default']
     Breadcrumb: typeof import('./src/components/breadcrumb/index.vue')['default']
     ColorPicker: typeof import('./src/components/color-picker/index.vue')['default']
+    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']

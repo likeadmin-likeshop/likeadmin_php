@@ -26,7 +26,12 @@
           </template>
           新增
         </el-button>
-        <el-button @click="handleExpand">全部展开/折叠</el-button>
+        <el-button @click="handleExpand">
+          <template #icon>
+            <icon name="el-icon-Sort" />
+          </template>
+          展开/折叠
+        </el-button>
       </div>
       <el-table
         ref="tableRef"
@@ -86,13 +91,13 @@
 </template>
 <script lang="ts" setup>
 import { menuDelete, menuLists } from '@/api/perms/menu'
-import { ElTable } from 'element-plus'
+import type { ElTable } from 'element-plus'
 import { usePaging } from '@/hooks/paging'
 import { EMenuType } from '@/config/enums'
 import EditPopup from './edit.vue'
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
-const isExternal = ref(false)
+let isExpand = false
 const queryParams = reactive({
   page_type: 0,
   name: '',
@@ -124,8 +129,8 @@ const handleDelete = async (id: number) => {
 }
 
 const handleExpand = () => {
-  isExternal.value = !isExternal.value
-  toggleExpand(pager.lists, isExternal.value)
+  isExpand = !isExpand
+  toggleExpand(pager.lists, isExpand)
 }
 
 const toggleExpand = (children: any[], unfold = true) => {

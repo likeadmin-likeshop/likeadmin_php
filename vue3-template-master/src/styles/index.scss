@@ -8,7 +8,7 @@
     
   }
   .form-tips {
-    @apply text-tx-secondary text-xs leading-6;
+    @apply text-tx-secondary text-xs leading-6 mt-1;
   }
   .el-button {
     background-color: var(--el-button-bg-color,var(--el-color-white))

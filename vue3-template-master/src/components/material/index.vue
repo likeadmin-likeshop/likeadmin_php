@@ -126,13 +126,13 @@
               </div>
             </file-item>
             <el-tooltip effect="light" placement="top" :content="item.name">
-              <div class="item-name truncate text-xs mt-2">{{ item.name }}</div>
+              <div class="item-name truncate mt-2">{{ item.name }}</div>
             </el-tooltip>
             <div class="operation-btn flex">
               <popover-input>
                 <el-button type="primary" link>重命名</el-button>
               </popover-input>
-              <el-button type="primary" link @click="previewLists = [item.uri]">查看</el-button>
+              <el-button type="primary" link @click="previewLists = [item.uri]"> 查看 </el-button>
             </div>
           </li>
         </ul>

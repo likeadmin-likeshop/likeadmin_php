@@ -250,7 +250,5 @@ provide('hiddenUpload', props.hiddenUpload)
 }
 .material-wrap {
   height: 540px;
-  border-top: 1px solid var(--el-border-color);
-  border-bottom: 1px solid var(--el-border-color);
 }
 </style>
