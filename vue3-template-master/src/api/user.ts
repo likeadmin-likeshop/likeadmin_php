@@ -1,9 +1,9 @@
-import defaultconfig from '@/config'
+import config from '@/config'
 import request from '@/utils/request'
 
 // 登录
 export function login(params: Record<string, any>) {
-  return request.post('/login/account', { ...params, terminal: defaultconfig.terminal })
+  return request.post('/login/account', { ...params, terminal: config.terminal })
 }
 
 // 退出登录

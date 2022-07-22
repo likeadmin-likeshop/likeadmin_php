@@ -1,7 +1,7 @@
 <!-- 网站信息 -->
 <template>
   <div class="website-information">
-    <el-card shadow="never">
+    <el-card shadow="never" class="!border-none">
       <el-form ref="formRef" :rules="rules" class="ls-form" :model="formData" label-width="120px">
         <el-form-item label="网站名称" prop="name">
           <div class="w-80">
@@ -65,38 +65,19 @@ const rules = {
 }
 
 // 获取备案信息
-const getData = () => {
-  getWebsite().then((res: any) => {
-    console.log('res', res)
-    formData.name = res.name
-    formData.web_favicon = res.web_favicon
-    formData.web_logo = res.web_logo
-    formData.login_image = res.login_image
-  })
+const getData = async () => {
+  const data = await getWebsite()
+  for (const key in formData) {
+    //@ts-ignore
+    formData[key] = data[key]
+  }
 }
 
 // 设置备案信息
-const handleSubmit = () => {
-  formRef.value?.validate((valid: boolean) => {
-    if (!valid) {
-      return
-    }
-
-    console.log('fasdfasd')
-    setWebsite({
-      name: formData.name,
-      web_favicon: formData.web_favicon,
-      web_logo: formData.web_logo,
-      login_image: formData.login_image
-    })
-      .then((res: any) => {
-        console.log('res', res)
-        getData()
-      })
-      .catch((err: any) => {
-        console.log('err', err)
-      })
-  })
+const handleSubmit = async () => {
+  await formRef.value?.validate()
+  await setWebsite(formData)
+  getData()
 }
 
 getData()

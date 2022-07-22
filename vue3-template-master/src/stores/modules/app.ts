@@ -34,8 +34,8 @@ export const useAppStore = defineStore({
           })
       })
     },
-    toggleSidebar() {
-      this.sidebar.opened = !this.sidebar.opened
+    toggleSidebar(toggle?: boolean) {
+      this.sidebar.opened = toggle ?? !this.sidebar.opened
       if (this.sidebar.opened) {
         cache.set(ECacheKey.SIDEBAR_STATUS, 1)
       } else {

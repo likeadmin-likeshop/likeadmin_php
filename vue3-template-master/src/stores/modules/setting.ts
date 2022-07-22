@@ -1,27 +1,18 @@
 import { defineStore } from 'pinia'
-import defaultConfig from '@/config'
+import defaultSetting from '@/config/setting'
 import cache from '@/utils/cache'
 import { ECacheKey } from '@/config/enums'
 import { isObject } from '@vue/shared'
-const { title, theme, sideTheme, sideDarkColor } = defaultConfig
+import { setTheme } from '@/utils/theme'
+import { useDark } from '@vueuse/core'
 const storageSetting = cache.get(ECacheKey.SETTING)
-interface ISate {
-  show: boolean
-  title: string
-  theme: string
-  sideTheme: string
-  sideDarkColor: string
-}
 
 export const useSettingStore = defineStore({
   id: 'setting',
-  state: (): ISate => {
+  state: () => {
     const state = {
       show: false,
-      title,
-      theme,
-      sideTheme,
-      sideDarkColor
+      ...defaultSetting
     }
     isObject(storageSetting) && Object.assign(state, storageSetting)
     return state
@@ -37,6 +28,19 @@ export const useSettingStore = defineStore({
       const settings: any = Object.assign({}, this.$state)
       delete settings.show
       cache.set(ECacheKey.SETTING, settings)
+    },
+    setTheme(isDark: boolean) {
+      setTheme(
+        {
+          primary: this.theme,
+          success: this.successTheme,
+          warning: this.warningTheme,
+          danger: this.dangerTheme,
+          error: this.errorTheme,
+          info: this.infoTheme
+        },
+        isDark
+      )
     }
   }
 })

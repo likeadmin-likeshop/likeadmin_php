@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useDark } from '@vueuse/core'
+import { useDark, useWindowSize, useThrottleFn } from '@vueuse/core'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-import { setTheme } from './utils/theme'
 import useAppStore from './stores/modules/app'
 import useSettingStore from './stores/modules/setting'
 const appStore = useAppStore()
@@ -10,12 +9,10 @@ const elConfig = {
   zIndex: 3000,
   locale: zhCn
 }
-
 const isDark = useDark()
-//设置主题色
-
 onMounted(async () => {
-  setTheme(settingStore.theme, 'primary', isDark.value)
+  //设置主题色
+  settingStore.setTheme(isDark.value)
   // 获取配置
   const data: any = await appStore.getConfig()
   // 设置网站logo
@@ -29,6 +26,18 @@ onMounted(async () => {
   favicon.href = data.web_favicon
   document.head.appendChild(favicon)
 })
+
+const { width } = useWindowSize()
+watch(
+  width,
+  useThrottleFn((value) => {
+    if (value > 1180) {
+      appStore.toggleSidebar(true)
+    } else {
+      appStore.toggleSidebar(false)
+    }
+  })
+)
 </script>
 
 <template>

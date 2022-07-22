@@ -48,7 +48,7 @@ const activeMenu = computed<string>(() => (route.meta?.activeMenu as string) ?? 
 const userStore = useUserStore()
 const sidebar = computed(() => userStore.routes)
 const appStore = useAppStore()
-const isCollapse = computed(() => appStore.sidebar.opened)
+const isCollapse = computed(() => !appStore.sidebar.opened)
 const config = computed(() => appStore.config)
 const settingStore = useSettingStore()
 const sideTheme = computed(() => settingStore.sideTheme)

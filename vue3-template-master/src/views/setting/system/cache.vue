@@ -38,7 +38,7 @@ const cacheDate = ref<Array<object>>([
 
 // 清理缓存
 const handleClean = async () => {
-  feedback.confirm('确认清除系统缓存？')
+  await feedback.confirm('确认清除系统缓存？')
   await systemCacheClear()
 }
 </script>

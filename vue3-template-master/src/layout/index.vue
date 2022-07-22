@@ -1,10 +1,10 @@
 <template>
-  <div class="app-container flex h-screen min-w-[1280px]">
+  <div class="app-container flex h-screen min-w-[1180px] w-full">
     <div class="app-aside">
       <sidebar />
     </div>
 
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1 flex flex-col min-w-0">
       <div class="app-header">
         <navbar />
       </div>

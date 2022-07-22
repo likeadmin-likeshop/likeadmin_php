@@ -1,7 +1,7 @@
 <!-- 备案信息 -->
 <template>
   <div class="website-filing">
-    <el-card shadow="never" class>
+    <el-card shadow="never" class="!border-none">
       <el-form ref="form" class="ls-form" :model="formData" label-width="120px">
         <!-- 版权信息输入框 -->
         <el-form-item label="版权信息" prop="info">

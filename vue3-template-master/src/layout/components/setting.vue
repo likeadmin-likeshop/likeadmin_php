@@ -37,7 +37,6 @@
 
 <script setup lang="ts">
 import useSettingStore from '@/stores/modules/setting'
-import { setTheme } from '@/utils/theme'
 import { useDark, useToggle } from '@vueuse/core'
 import theme_light from '@/assets/images/theme_white.png'
 import theme_dark from '@/assets/images/theme_black.png'
@@ -92,7 +91,7 @@ const theme = computed({
 
 const isDark = useDark()
 const themeChange = () => {
-  setTheme(theme.value, 'primary', isDark.value)
+  settingStore.setTheme(isDark.value)
 }
 
 const toggleDark = () => {

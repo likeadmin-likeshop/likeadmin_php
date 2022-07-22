@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply text-base text-tx-primary overflow-y-hidden;
+    @apply text-base text-tx-primary overflow-y-hidden overflow-x-auto;
     
   }
   .form-tips {

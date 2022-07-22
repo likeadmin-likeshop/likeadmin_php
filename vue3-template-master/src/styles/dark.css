@@ -30,4 +30,7 @@
   --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.72);
   --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.72),
     0px 12px 32px #000000, 0px 8px 16px -8px #000000 !important;
+  /* wangeditor主题 */
+  /* --w-e-textarea-bg-color: #333;
+  --w-e-textarea-color: #fff; */
 }
