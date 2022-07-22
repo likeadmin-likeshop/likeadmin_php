@@ -17,7 +17,6 @@
             :rules="rules"
             :model="formData"
             label-width="120px"
-            size="large"
           >
             <el-form-item label="名称" prop="name">
               <div class="w-80">
@@ -66,7 +65,7 @@
 </template>
 <script lang="ts" setup>
 import type { CheckboxValueType, ElTree, FormInstance } from 'element-plus'
-import { roleAdd, roleEdit, roleDetail } from '@/api/perms/role'
+import { roleAdd, roleEdit } from '@/api/perms/role'
 import { menuLists } from '@/api/perms/menu'
 import Popup from '@/components/popup/index.vue'
 import { treeToArray } from '@/utils/util'
@@ -158,24 +157,15 @@ const open = (type = 'add') => {
   mode.value = type
   popupRef.value?.open()
 }
-const getDetail = async (id: number) => {
-  loading.value = true
-  try {
-    const data = await roleDetail({ id })
-    Object.keys(formData).forEach((key) => {
+
+const setFormData = (data: Record<any, any>) => {
+  for (const key in formData) {
+    if (data[key] != null && data[key] != undefined) {
       //@ts-ignore
       formData[key] = data[key]
-    })
-    setTimeout(() => {
-      setDeptAllCheckedKeys()
-    }, 100)
-    loading.value = false
-  } catch (error) {
-    loading.value = false
+    }
   }
-}
-const setFormData = (data: Record<any, any>) => {
-  getDetail(data.id)
+  setDeptAllCheckedKeys()
 }
 
 getOptionsList()

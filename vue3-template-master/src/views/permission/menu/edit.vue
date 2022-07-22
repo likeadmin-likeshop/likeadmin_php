@@ -86,14 +86,14 @@
               </div>
             </el-form-item>
             <!-- <el-form-item v-if="formData.type == EMenuType.MENU" label="是否缓存" prop="is_cache" required>
-          <div>
-            <el-radio-group v-model="formData.is_cache">
-              <el-radio :label="1">缓存</el-radio>
-              <el-radio :label="0">不缓存</el-radio>
-            </el-radio-group>
-            <div class="form-tips">选择缓存则会被`keep-alive`缓存</div>
-          </div>
-        </el-form-item>-->
+              <div>
+                <el-radio-group v-model="formData.is_cache">
+                  <el-radio :label="1">缓存</el-radio>
+                  <el-radio :label="0">不缓存</el-radio>
+                </el-radio-group>
+                <div class="form-tips">选择缓存则会被`keep-alive`缓存</div>
+              </div>
+            </el-form-item>-->
             <el-form-item
               v-if="formData.type != EMenuType.BUTTON"
               label="是否显示"

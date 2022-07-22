@@ -23,7 +23,7 @@ export function usePaging(options: Options) {
     lists: [] as any[]
   })
   // 请求分页接口
-  const requestApi = () => {
+  const getLists = () => {
     pager.loading = true
     return fetchFun({
       page_no: pager.page,
@@ -45,18 +45,18 @@ export function usePaging(options: Options) {
   // 重置为第一页
   const resetPage = () => {
     pager.page = 1
-    requestApi()
+    getLists()
   }
   // 重置参数
   const resetParams = () => {
     Object.keys(paramsInit).forEach((item) => {
       params[item] = paramsInit[item]
     })
-    requestApi()
+    getLists()
   }
   return {
     pager,
-    requestApi,
+    getLists,
     resetParams,
     resetPage
   }

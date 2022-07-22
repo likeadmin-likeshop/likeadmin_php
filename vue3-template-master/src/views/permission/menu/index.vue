@@ -3,10 +3,10 @@
     <el-card class="!border-none" shadow="never">
       <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
         <el-form-item label="菜单名称">
-          <el-input v-model="queryParams.name" placeholder="请输入菜单名称"></el-input>
+          <el-input v-model="queryParams.name" />
         </el-form-item>
         <el-form-item label="菜单状态">
-          <el-select v-model="queryParams.is_disable" placeholder="请选择菜单状态">
+          <el-select v-model="queryParams.is_disable">
             <el-option label="全部" value />
             <el-option label="正常" value="0" />
             <el-option label="停用" value="1" />
@@ -86,7 +86,7 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <edit-popup ref="editRef" @success="requestApi" />
+    <edit-popup ref="editRef" @success="getLists" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -104,7 +104,7 @@ const queryParams = reactive({
   is_disable: ''
 })
 
-const { pager, requestApi, resetPage, resetParams } = usePaging({
+const { pager, getLists, resetPage, resetParams } = usePaging({
   fetchFun: menuLists,
   params: queryParams
 })
@@ -125,7 +125,7 @@ const handleEdit = (data: any) => {
 
 const handleDelete = async (id: number) => {
   await menuDelete({ id })
-  requestApi()
+  getLists()
 }
 
 const handleExpand = () => {
@@ -142,5 +142,5 @@ const toggleExpand = (children: any[], unfold = true) => {
   }
 }
 
-requestApi()
+getLists()
 </script>

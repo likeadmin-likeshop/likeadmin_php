@@ -170,7 +170,7 @@
               <el-tree-select
                 class="w-80"
                 v-model="formData.menu.pid"
-                :data="menuLists"
+                :data="menuOptions"
                 clearable
                 node-key="id"
                 :props="{
@@ -206,10 +206,10 @@
 
 <script lang="ts" setup>
 import { generateEdit, tableDetail } from '@/api/tools/code'
-import { apiDictTypeLists } from '@/api/dict'
-import { getMenuLists } from '@/api/auth'
+import { dictTypeLists } from '@/api/setting/dict'
 import type { FormInstance } from 'element-plus'
 import feedback from '@/utils/feedback'
+import { menuLists } from '@/api/perms/menu'
 const route = useRoute()
 const router = useRouter()
 const activeName = ref('base')
@@ -234,7 +234,7 @@ const formData = reactive({
 
 const formRef = shallowRef<FormInstance>()
 const dictData = ref<any[]>([])
-const menuLists = ref<any[]>([])
+const menuOptions = ref<any[]>([])
 const rules = reactive({
   table_name: [{ required: true, message: '请输入表名称', trigger: 'blur' }],
   table_comment: [{ required: true, message: '请输入表描述', trigger: 'blur' }],
@@ -268,17 +268,17 @@ const getDetails = async () => {
   )
 }
 const getDict = async () => {
-  const data: any = await apiDictTypeLists({
+  const data: any = await dictTypeLists({
     page_type: 0
   })
   dictData.value = data.lists
 }
 
 const getMenu = async () => {
-  const data: any = await getMenuLists({ page_type: 0 })
+  const data: any = await menuLists({ page_type: 0 })
   const menu = { id: 0, name: '顶级', children: [] }
   menu.children = data.lists
-  menuLists.value.push(menu)
+  menuOptions.value.push(menu)
 }
 
 const onSubmit = async () => {

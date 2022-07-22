@@ -32,3 +32,8 @@ export function fileDelete(params: Record<string, any>) {
 export function fileMove(params: Record<string, any>) {
   return request.post('/file/move', params)
 }
+
+// 文件重命名
+export function fileRename(params: { id: number; name: string }) {
+  return request.post('/file/rename', params)
+}

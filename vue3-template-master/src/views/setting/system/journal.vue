@@ -55,7 +55,7 @@
         </el-table>
       </div>
       <div class="flex mt-4 justify-end">
-        <pagination v-model="pager" @change="requestApi" />
+        <pagination v-model="pager" @change="getLists" />
       </div>
     </el-card>
   </div>
@@ -112,13 +112,13 @@ const visitType = ref<Array<any>>([
   }
 ])
 
-const { pager, requestApi, resetParams, resetPage } = usePaging({
+const { pager, getLists, resetParams, resetPage } = usePaging({
   fetchFun: systemLogLists,
   params: formData.value
 })
 
 onMounted(() => {
-  requestApi()
+  getLists()
 })
 </script>
 

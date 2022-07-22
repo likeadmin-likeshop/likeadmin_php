@@ -4,7 +4,6 @@ import cache from '@/utils/cache'
 import { ECacheKey } from '@/config/enums'
 import { isObject } from '@vue/shared'
 import { setTheme } from '@/utils/theme'
-import { useDark } from '@vueuse/core'
 const storageSetting = cache.get(ECacheKey.SETTING)
 
 export const useSettingStore = defineStore({
@@ -29,6 +28,7 @@ export const useSettingStore = defineStore({
       delete settings.show
       cache.set(ECacheKey.SETTING, settings)
     },
+    // 设置主题色
     setTheme(isDark: boolean) {
       setTheme(
         {

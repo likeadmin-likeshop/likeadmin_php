@@ -37,11 +37,7 @@
         </el-table>
       </div>
       <div class="flex justify-end mt-4">
-        <pagination
-          v-model="pager"
-          layout="total, prev, pager, next, jumper"
-          @change="requestApi"
-        />
+        <pagination v-model="pager" layout="total, prev, pager, next, jumper" @change="getLists" />
       </div>
     </popup>
   </div>
@@ -64,7 +60,7 @@ const formData = reactive({
   comment: '' // 表描述
 })
 
-const { pager, requestApi, resetParams, resetPage } = usePaging({
+const { pager, getLists, resetParams, resetPage } = usePaging({
   fetchFun: dataTable,
   params: formData,
   size: 10
@@ -90,7 +86,7 @@ const handleConfirm = async () => {
 watch(
   () => popupRef.value?.visible,
   (value) => {
-    if (value) requestApi()
+    if (value) getLists()
   }
 )
 </script>

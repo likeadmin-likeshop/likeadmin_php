@@ -7,3 +7,5 @@ declare module 'vue-router' {
     hidden?: boolean
   }
 }
+
+declare module 'vue3-video-play'

@@ -18,7 +18,7 @@
       <data-table
         v-perms="['tools.generator/selectTable']"
         class="inline-block mr-[10px]"
-        @success="requestApi"
+        @success="getLists"
       >
         <el-button type="primary">
           <template #icon>
@@ -97,7 +97,7 @@
         </el-table>
       </div>
       <div class="flex justify-end mt-4">
-        <pagination v-model="pager" @change="requestApi" />
+        <pagination v-model="pager" @change="getLists" />
       </div>
     </el-card>
     <code-preview v-if="previewState.show" v-model="previewState.show" :code="previewState.code" />
@@ -128,7 +128,7 @@ const previewState = reactive({
   code: []
 })
 
-const { pager, requestApi, resetParams, resetPage } = usePaging({
+const { pager, getLists, resetParams, resetPage } = usePaging({
   fetchFun: generateTable,
   params: formData
 })
@@ -147,7 +147,7 @@ const handleSync = async (id: number) => {
 const handleDelete = async (id: number | any[]) => {
   await feedback.confirm('确认要删除？')
   await generateDelete({ id })
-  requestApi()
+  getLists()
 }
 
 const handlePreview = async (id: number) => {
@@ -163,5 +163,5 @@ const handleGenerate = async (id: number | number[]) => {
   }
 }
 
-requestApi()
+getLists()
 </script>

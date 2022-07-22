@@ -37,7 +37,8 @@
           <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
           <el-table-column label="头像" min-width="100">
             <template #default="{ row }">
-              <el-avatar :size="50" :src="row.avatar"></el-avatar>
+              <!-- <el-avatar :size="50" :src="row.avatar"></el-avatar> -->
+              <el-image :src="row.avatar" preview-teleported :preview-src-list="[row.avatar]" />
             </template>
           </el-table-column>
           <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
@@ -75,14 +76,10 @@
         </el-table>
       </div>
       <div class="flex mt-4 justify-end">
-        <pagination
-          v-model="pager"
-          layout="total, prev, pager, next, jumper"
-          @change="requestApi"
-        />
+        <pagination v-model="pager" layout="total, prev, pager, next, jumper" @change="getLists" />
       </div>
     </el-card>
-    <edit-popup ref="editRef" @success="requestApi" />
+    <edit-popup ref="editRef" @success="getLists" />
   </div>
 </template>
 
@@ -100,7 +97,7 @@ const formData = reactive({
   role_id: ''
 })
 const roleList = ref<any[]>([])
-const { pager, requestApi, resetParams, resetPage } = usePaging({
+const { pager, getLists, resetParams, resetPage } = usePaging({
   fetchFun: adminLists,
   params: formData
 })
@@ -114,7 +111,7 @@ const changeStatus = (data: any) => {
     disable: data.disable,
     multipoint_login: data.multipoint_login
   }).finally(() => {
-    requestApi()
+    getLists()
   })
 }
 const handleAdd = () => {
@@ -129,7 +126,7 @@ const handleEdit = (data: any) => {
 const handleDelete = async (id: number) => {
   await feedback.confirm('确认要删除？')
   await adminDelete({ id })
-  requestApi()
+  getLists()
 }
 
 const getRoleList = () => {
@@ -140,7 +137,7 @@ const getRoleList = () => {
   })
 }
 onMounted(() => {
-  requestApi()
+  getLists()
   getRoleList()
 })
 </script>

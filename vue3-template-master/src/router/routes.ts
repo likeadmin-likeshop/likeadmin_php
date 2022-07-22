@@ -27,10 +27,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/error/403.vue')
   },
   {
-    path: '/index',
-    component: () => import('@/views/index.vue')
-  },
-  {
     path: '/login',
     component: () => import('@/views/account/login.vue')
   },
@@ -43,6 +39,19 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/dev_tools/code/edit.vue'),
         meta: {
           activeMenu: '/dev_tools/code'
+        }
+      }
+    ]
+  },
+  {
+    path: '/setting',
+    component: Layout,
+    children: [
+      {
+        path: 'dict/data',
+        component: () => import('@/views/setting/dict/data/index.vue'),
+        meta: {
+          activeMenu: '/setting/dict'
         }
       }
     ]

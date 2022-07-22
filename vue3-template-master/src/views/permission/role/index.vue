@@ -41,11 +41,11 @@
           </el-table>
         </div>
         <div class="flex justify-end mt-4">
-          <pagination v-model="pager" @change="requestApi" />
+          <pagination v-model="pager" @change="getLists" />
         </div>
       </div>
     </el-card>
-    <edit-popup ref="editRef" @success="requestApi" />
+    <edit-popup ref="editRef" @success="getLists" />
   </div>
 </template>
 
@@ -55,7 +55,7 @@ import { usePaging } from '@/hooks/paging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
-const { pager, requestApi } = usePaging({
+const { pager, getLists } = usePaging({
   fetchFun: roleLists
 })
 const handleAdd = () => {
@@ -71,8 +71,8 @@ const handleEdit = (data: any) => {
 const handleDelete = async (id: number) => {
   await feedback.confirm('确认要删除？')
   await roleDelete({ id })
-  requestApi()
+  getLists()
 }
 
-requestApi()
+getLists()
 </script>

@@ -57,7 +57,7 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <edit-popup ref="editRef" @success="requestApi" />
+    <edit-popup ref="editRef" @success="getLists" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -71,7 +71,7 @@ const queryParams = reactive({
   status: ''
 })
 
-const { pager, requestApi, resetPage, resetParams } = usePaging({
+const { pager, getLists, resetPage, resetParams } = usePaging({
   fetchFun: jobsLists,
   params: queryParams
 })
@@ -87,8 +87,8 @@ const handleEdit = (data: any) => {
 
 const handleDelete = async (id: number) => {
   await jobsDelete({ id })
-  requestApi()
+  getLists()
 }
 
-requestApi()
+getLists()
 </script>
