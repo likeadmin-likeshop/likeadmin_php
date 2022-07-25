@@ -21,7 +21,7 @@ export default defineComponent({})
     right: 0;
     left: 0;
     z-index: 99;
-    @apply flex justify-center items-center shadow bg-white;
+    @apply flex justify-center items-center shadow bg-body;
   }
 }
 </style>

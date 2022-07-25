@@ -58,15 +58,17 @@ const sidebarStyle = computed(() => {
 const menuProps = computed(() => {
   return {
     'background-color': sideTheme.value == 'dark' ? settingStore.sideDarkColor : '',
-    'text-color': sideTheme.value == 'dark' ? 'var(--color-white)' : '',
-    'active-text-color': sideTheme.value == 'dark' ? 'var(--color-white)' : ''
+    'text-color': sideTheme.value == 'dark' ? 'var(--el-text-color-primary)' : '',
+    'active-text-color': sideTheme.value == 'dark' ? 'var(--el-text-color-primary)' : ''
   }
 })
 </script>
 
 <style lang="scss" scoped>
 .sidebar-wrap {
-  @apply border-r border-br-light;
+  position: relative;
+  z-index: 999;
+  @apply border-r border-br-light bg-body;
   &.theme-dark {
     background-color: var(--side-dark-color);
     .el-menu {

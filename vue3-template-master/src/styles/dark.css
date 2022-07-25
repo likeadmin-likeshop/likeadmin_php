@@ -31,6 +31,20 @@
   --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.72),
     0px 12px 32px #000000, 0px 8px 16px -8px #000000 !important;
   /* wangeditor主题 */
-  /* --w-e-textarea-bg-color: #333;
-  --w-e-textarea-color: #fff; */
+  --w-e-textarea-bg-color: var(--el-bg-color);
+  --w-e-textarea-color: var(--el-text-color-primary);
+  --w-e-textarea-border-color: var(--el-border-color);
+  --w-e-textarea-slight-border-color: var(--el-border-color-light);
+  --w-e-textarea-slight-color: var(--el-border-color);
+  --w-e-textarea-slight-bg-color: var(--el-bg-color-page);
+  /* --w-e-textarea-selected-border-color: #b4d5ff;
+  --w-e-textarea-handler-bg-color: #4290f7; */
+  --w-e-toolbar-color: var(--el-text-color-primary);
+  --w-e-toolbar-bg-color: var(--el-bg-color);
+  --w-e-toolbar-active-color: var(--el-text-color-primary);
+  --w-e-toolbar-active-bg-color: var(--el-bg-color);
+  --w-e-toolbar-disabled-color: var(--el-text-color-disabled);
+  --w-e-toolbar-border-color: var(--el-border-color);
+  --w-e-modal-button-bg-color: var(--el-bg-color);
+  --w-e-modal-button-border-color: var(--el-border-color);
 }
