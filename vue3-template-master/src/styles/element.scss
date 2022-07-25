@@ -62,4 +62,27 @@
   .el-checkbox {
     --el-checkbox-font-size: var(--el-font-size-base);
   } 
+
+  .el-menu--popup-container{
+    &.theme-light {
+      .el-menu {
+        .el-menu-item {
+          &.is-active {
+            @apply bg-primary-light-9 border-primary border-r-2;
+          }
+        }
+      }
+    }
+    &.theme-dark {
+      background-color: var(--side-dark-color);
+      .el-menu {
+        .el-menu-item {
+          &.is-active {
+            @apply bg-primary;
+          }
+        }
+      }
+    }
+  }
+  
 }

@@ -2,15 +2,15 @@
   <template v-if="!route.meta?.hidden">
     <app-link v-if="!hasShowChild" :to="`${routePath}?${queryStr}`">
       <el-menu-item :index="routePath">
-        <icon :name="routeMeta?.icon" />
+        <icon v-if="routeMeta?.icon" :name="routeMeta?.icon" />
         <template #title>
           <span>{{ routeMeta?.title }}</span>
         </template>
       </el-menu-item>
     </app-link>
-    <el-sub-menu v-else :index="routePath" popper-class="theme-dark">
+    <el-sub-menu v-else :index="routePath" :popper-class="popperClass">
       <template #title>
-        <icon :name="routeMeta?.icon" />
+        <icon v-if="routeMeta?.icon" :name="routeMeta?.icon" />
         <span>{{ routeMeta?.title }}</span>
       </template>
       <menu-item
@@ -18,6 +18,7 @@
         :key="resolvePath(item.path)"
         :route="item"
         :route-path="resolvePath(item.path)"
+        :popper-class="popperClass"
       />
     </el-sub-menu>
   </template>
@@ -30,6 +31,7 @@ import type { RouteMeta, RouteRecordRaw } from 'vue-router'
 interface Props {
   route: RouteRecordRaw
   routePath: string
+  popperClass: string
 }
 
 const props = defineProps<Props>()

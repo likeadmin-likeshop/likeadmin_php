@@ -22,7 +22,6 @@
           v-bind="menuProps"
           :default-active="activeMenu"
           :collapse="isCollapse"
-          :unique-opened="true"
           mode="vertical"
         >
           <menu-item
@@ -30,6 +29,7 @@
             :key="route.path"
             :route="route"
             :route-path="route.path"
+            :popper-class="`theme-${sideTheme}`"
           />
         </el-menu>
       </el-scrollbar>
@@ -59,7 +59,7 @@ const menuProps = computed(() => {
   return {
     'background-color': sideTheme.value == 'dark' ? settingStore.sideDarkColor : '',
     'text-color': sideTheme.value == 'dark' ? 'var(--color-white)' : '',
-    'active-text-color': sideTheme.value == 'dark' ? 'var(--el-color-white)' : ''
+    'active-text-color': sideTheme.value == 'dark' ? 'var(--color-white)' : ''
   }
 })
 </script>
@@ -76,12 +76,17 @@ const menuProps = computed(() => {
         }
       }
     }
+    :deep(.el-menu--collapse) {
+      .el-sub-menu.is-active .el-sub-menu__title {
+        @apply bg-primary #{!important};
+      }
+    }
   }
   &.theme-light {
-    .el-menu {
-      :deep(.el-menu-item) {
+    :deep(.el-menu) {
+      .el-menu-item {
         &.is-active {
-          @apply bg-primary-light-9 border-primary;
+          @apply bg-primary-light-9 border-r-2 border-primary;
         }
       }
     }
@@ -90,9 +95,6 @@ const menuProps = computed(() => {
     border-right: none;
     &:not(.el-menu--collapse) {
       width: var(--aside-width);
-    }
-    :deep(.el-menu-item) {
-      border-right: 2px solid transparent;
     }
   }
   .logo {
