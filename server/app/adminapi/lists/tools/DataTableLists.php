@@ -39,7 +39,7 @@ class DataTableLists extends BaseAdminDataLists
             $sql .= "AND name LIKE '%" . $this->params['name'] . "%'";
         }
         if (!empty($this->params['comment'])) {
-            $sql .= "AND name LIKE '%" . $this->params['comment'] . "%'";
+            $sql .= "AND comment LIKE '%" . $this->params['comment'] . "%'";
         }
         return Db::query($sql);
     }
