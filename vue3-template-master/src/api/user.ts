@@ -15,3 +15,8 @@ export function logout() {
 export function getUserInfo() {
   return request.get('/auth.admin/mySelf')
 }
+
+// 编辑管理员信息
+export function setUserInfo(params: any) {
+  return request.post('/auth.admin/editSelf', params)
+}

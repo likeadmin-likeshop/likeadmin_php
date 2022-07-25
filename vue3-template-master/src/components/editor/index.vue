@@ -29,14 +29,16 @@ const props = withDefaults(
     mode?: 'default' | 'simple'
     height?: string | number
     width?: string | number
-    toolbarConfig?: IToolbarConfig
-    editorConfig?: IEditorConfig
+    toolbarConfig?: Partial<IToolbarConfig>
   }>(),
   {
     modelValue: '',
     mode: 'simple',
     height: '100%',
-    width: 'auto'
+    width: 'auto',
+    toolbarConfig: () => ({
+      excludeKeys: ['fullScreen']
+    })
   }
 )
 
@@ -46,6 +48,17 @@ const emit = defineEmits<{
 
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
+
+const editorConfig: Partial<IEditorConfig> = {
+  MENU_CONF: {
+    // uploadImage: {
+    //   customBrowseAndUpload(res: any, insertFn: InsertFnType) {
+    //     console.log(res)
+    //     // insertFn(url, alt, href)
+    //   }
+    // }
+  }
+}
 
 const styles = computed<CSSProperties>(() => ({
   height: addUnit(props.height),
@@ -67,7 +80,7 @@ onBeforeUnmount(() => {
   editor.destroy()
 })
 
-const handleCreated = (editor: string) => {
+const handleCreated = (editor: any) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
 </script>
