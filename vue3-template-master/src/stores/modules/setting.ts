@@ -41,6 +41,13 @@ export const useSettingStore = defineStore({
         },
         isDark
       )
+    },
+    resetTheme() {
+      for (const key in defaultSetting) {
+        //@ts-ignore
+        this[key] = defaultSetting[key]
+      }
+      cache.remove(ECacheKey.SETTING)
     }
   }
 })

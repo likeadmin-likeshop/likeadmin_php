@@ -31,6 +31,9 @@
           <el-switch :model-value="isDark" @change="toggleDark" />
         </div>
       </div>
+      <div class="setting-item mb-5 flex justify-between items-center">
+        <el-button @click="resetTheme">重置主题</el-button>
+      </div>
     </el-drawer>
   </div>
 </template>
@@ -96,6 +99,11 @@ const themeChange = () => {
 
 const toggleDark = () => {
   useToggle(isDark)()
+  themeChange()
+}
+const resetTheme = () => {
+  isDark.value = false
+  settingStore.resetTheme()
   themeChange()
 }
 </script>
