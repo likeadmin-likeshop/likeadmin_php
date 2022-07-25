@@ -43,10 +43,11 @@ export function useCate(type: number) {
   }
 
   // 添加分组
-  const handleAddCate = async (name: string) => {
+  const handleAddCate = async () => {
+    const { value } = await feedback.prompt('', '添加分组')
     await fileCateAdd({
       type,
-      name,
+      name: value,
       pid: 0
     })
     getCateLists()
@@ -54,15 +55,17 @@ export function useCate(type: number) {
 
   // 编辑分组
   const handleEditCate = async (name: string, id: number) => {
+    const { value } = await feedback.prompt('', '重命分组', { inputValue: name })
     await fileCateEdit({
       id,
-      name
+      name: value
     })
     getCateLists()
   }
 
   // 删除分组
   const handleDeleteCate = async (id: number) => {
+    await feedback.confirm('确认要删除？')
     await fileCateDelete({ id })
     getCateLists()
   }
@@ -167,13 +170,13 @@ export function useFile(cateId: Ref<string>, type: Ref<number>, limit: Ref<numbe
     clearSelect()
   }
 
-  const handleFileRename = (name: string, id: number) => {
-    fileRename({
+  const handleFileRename = async (name: string, id: number) => {
+    const { value } = await feedback.prompt('', '重命名', { inputValue: name })
+    await fileRename({
       id,
-      name
-    }).then(() => {
-      getFileList()
+      name: value
     })
+    getFileList()
   }
   return {
     listShowType,

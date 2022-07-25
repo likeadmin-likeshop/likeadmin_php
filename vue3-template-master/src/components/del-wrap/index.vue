@@ -40,7 +40,7 @@ export default defineComponent({
     right: -8px;
     width: 16px;
     height: 16px;
-    background-color: var(--el-mask-color-extra-light);
+    background-color: rgba(0, 0, 0, 0.3);
     justify-content: center;
     align-items: center;
     border-radius: 50%;

@@ -37,8 +37,7 @@
           <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
           <el-table-column label="头像" min-width="100">
             <template #default="{ row }">
-              <!-- <el-avatar :size="50" :src="row.avatar"></el-avatar> -->
-              <el-image :src="row.avatar" preview-teleported :preview-src-list="[row.avatar]" />
+              <el-avatar :size="50" :src="row.avatar"></el-avatar>
             </template>
           </el-table-column>
           <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
@@ -79,7 +78,7 @@
         <pagination v-model="pager" layout="total, prev, pager, next, jumper" @change="getLists" />
       </div>
     </el-card>
-    <edit-popup ref="editRef" @success="getLists" />
+    <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
   </div>
 </template>
 
@@ -97,6 +96,7 @@ const formData = reactive({
   role_id: ''
 })
 const roleList = ref<any[]>([])
+const showEdit = ref(false)
 const { pager, getLists, resetParams, resetPage } = usePaging({
   fetchFun: adminLists,
   params: formData
@@ -114,11 +114,15 @@ const changeStatus = (data: any) => {
     getLists()
   })
 }
-const handleAdd = () => {
+const handleAdd = async () => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('add')
 }
 
-const handleEdit = (data: any) => {
+const handleEdit = async (data: any) => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('edit')
   editRef.value?.setFormData(data)
 }

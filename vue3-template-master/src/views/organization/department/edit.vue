@@ -21,12 +21,9 @@
                 node-key="id"
                 :props="{
                   value: 'id',
-                  label: 'name',
-                  checkStrictly: true,
-                  disabled(data: any) {
-                    return data.status !== 1
-                  }
+                  label: 'name'
                 }"
+                check-strictly
                 :default-expand-all="true"
                 placeholder="请选择上级部门"
               />
@@ -65,7 +62,7 @@
 import type { FormInstance } from 'element-plus'
 import { deptLists, deptEdit, deptAdd } from '@/api/org/department'
 import Popup from '@/components/popup/index.vue'
-const emit = defineEmits(['success'])
+const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const leaderList = ref<any[]>([])
@@ -127,7 +124,7 @@ const setFormData = (data: Record<any, any>) => {
 }
 
 const handleClose = () => {
-  formRef.value?.resetFields()
+  emit('close')
 }
 
 getOptions()

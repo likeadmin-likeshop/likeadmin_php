@@ -1,4 +1,10 @@
-import { ElMessage, ElMessageBox, ElNotification, ElLoading } from 'element-plus'
+import {
+  ElMessage,
+  ElMessageBox,
+  ElNotification,
+  ElLoading,
+  type ElMessageBoxOptions
+} from 'element-plus'
 import type { LoadingInstance } from 'element-plus/es/components/loading/src/loading'
 
 export class Feedback {
@@ -64,11 +70,11 @@ export class Feedback {
     })
   }
   // 提交内容
-  prompt(msg: string) {
-    return ElMessageBox.prompt(msg, '温馨提示', {
+  prompt(content: string, title: string, options?: ElMessageBoxOptions) {
+    return ElMessageBox.prompt(content, title, {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
-      type: 'warning'
+      ...options
     })
   }
   // 打开全局loading

@@ -61,11 +61,5 @@
   
   .el-checkbox {
     --el-checkbox-font-size: var(--el-font-size-base);
-  }  
-  .el-dialog__header {
-    @apply border-b border-br;
-  }
-  .el-dialog__footer {
-    @apply border-t border-br;
-  }
+  } 
 }

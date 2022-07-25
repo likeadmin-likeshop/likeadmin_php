@@ -74,8 +74,7 @@
                     $router.push({
                       path: '/setting/dict/data',
                       query: {
-                        id: row.id,
-                        type: row.type
+                        id: row.id
                       }
                     })
                   "
@@ -99,7 +98,7 @@
         </div>
       </div>
     </el-card>
-    <edit-popup ref="editRef" @success="getLists" />
+    <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
   </div>
 </template>
 
@@ -109,7 +108,7 @@ import { usePaging } from '@/hooks/paging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
-
+const showEdit = ref(false)
 const queryParams = reactive({
   name: '',
   type: '',
@@ -127,11 +126,15 @@ const handleSelectionChange = (val: any[]) => {
   selectData.value = val.map(({ id }) => id)
 }
 
-const handleAdd = () => {
+const handleAdd = async () => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('add')
 }
 
-const handleEdit = (data: any) => {
+const handleEdit = async (data: any) => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('edit')
   editRef.value?.setFormData(data)
 }

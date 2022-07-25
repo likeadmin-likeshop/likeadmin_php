@@ -51,14 +51,15 @@
 import type { FormInstance } from 'element-plus'
 import { jobsEdit, jobsAdd } from '@/api/org/post'
 import Popup from '@/components/popup/index.vue'
-const emit = defineEmits(['success'])
+const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const mode = ref('add')
 const popupTitle = computed(() => {
-  return mode.value == 'edit' ? '编辑菜单' : '新增菜单'
+  return mode.value == 'edit' ? '编辑岗位' : '新增岗位'
 })
 const formData = reactive({
+  id: '',
   name: '',
   code: '',
   sort: 0,
@@ -86,6 +87,7 @@ const formRules = {
 const handleSubmit = async () => {
   await formRef.value?.validate()
   mode.value == 'edit' ? await jobsEdit(formData) : await jobsAdd(formData)
+  popupRef.value?.close()
   emit('success')
 }
 
@@ -104,7 +106,7 @@ const setFormData = (data: Record<any, any>) => {
 }
 
 const handleClose = () => {
-  formRef.value?.resetFields()
+  emit('close')
 }
 
 defineExpose({

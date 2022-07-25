@@ -133,13 +133,15 @@ import type { FormInstance } from 'element-plus'
 import { menuLists, menuEdit, menuAdd } from '@/api/perms/menu'
 import { EMenuType } from '@/config/enums'
 import Popup from '@/components/popup/index.vue'
-const emit = defineEmits(['success'])
+
+const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const mode = ref('add')
 const popupTitle = computed(() => {
   return mode.value == 'edit' ? '编辑菜单' : '新增菜单'
 })
+
 const formData = reactive({
   id: '',
   //父级id
@@ -212,6 +214,7 @@ const getMenu = async () => {
 const handleSubmit = async () => {
   await formRef.value?.validate()
   mode.value == 'edit' ? await menuEdit(formData) : await menuAdd(formData)
+  popupRef.value?.close()
   emit('success')
 }
 
@@ -230,7 +233,7 @@ const setFormData = (data: Record<any, any>) => {
 }
 
 const handleClose = () => {
-  formRef.value?.resetFields()
+  emit('close')
 }
 
 getMenu()

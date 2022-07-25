@@ -48,6 +48,7 @@ import Popup from '@/components/popup/index.vue'
 import Pagination from '@/components/pagination/index.vue'
 import { usePaging } from '@/hooks/paging'
 import { dataTable, selectTable } from '@/api/tools/code'
+import feedback from '@/utils/feedback'
 
 const emit = defineEmits<{
   (event: 'success'): void
@@ -76,6 +77,7 @@ const handleSelectionChange = (val: any[]) => {
 }
 
 const handleConfirm = async () => {
+  if (!selectData.value.length) return feedback.msgError('请选择数据表')
   await selectTable({
     table: selectData.value
   })

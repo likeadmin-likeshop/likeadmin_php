@@ -1,24 +1,6 @@
 <template>
   <div class="menu-lists">
     <el-card class="!border-none" shadow="never">
-      <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
-        <el-form-item label="菜单名称">
-          <el-input v-model="queryParams.name" />
-        </el-form-item>
-        <el-form-item label="菜单状态">
-          <el-select v-model="queryParams.is_disable">
-            <el-option label="全部" value />
-            <el-option label="正常" value="0" />
-            <el-option label="停用" value="1" />
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="resetPage">查询</el-button>
-          <el-button @click="resetParams">重置</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-    <el-card class="!border-none mt-4" shadow="never">
       <div>
         <el-button v-perms="['auth.menu/add']" type="primary" @click="handleAdd()">
           <template #icon>
@@ -86,7 +68,7 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <edit-popup ref="editRef" @success="getLists" />
+    <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -98,18 +80,17 @@ import EditPopup from './edit.vue'
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 let isExpand = false
-const queryParams = reactive({
-  page_type: 0,
-  name: '',
-  is_disable: ''
-})
-
-const { pager, getLists, resetPage, resetParams } = usePaging({
+const showEdit = ref(false)
+const { pager, getLists } = usePaging({
   fetchFun: menuLists,
-  params: queryParams
+  params: {
+    page_type: 0
+  }
 })
 
-const handleAdd = (id?: number) => {
+const handleAdd = async (id?: number) => {
+  showEdit.value = true
+  await nextTick()
   if (id) {
     editRef.value?.setFormData({
       pid: id
@@ -118,7 +99,9 @@ const handleAdd = (id?: number) => {
   editRef.value?.open('add')
 }
 
-const handleEdit = (data: any) => {
+const handleEdit = async (data: any) => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('edit')
   editRef.value?.setFormData(data)
 }

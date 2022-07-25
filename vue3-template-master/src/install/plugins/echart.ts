@@ -33,7 +33,6 @@ import {
 import { CanvasRenderer } from 'echarts/renderers'
 //标签自动布局，全局过渡动画等特性
 import { LabelLayout, UniversalTransition } from 'echarts/features'
-import type { App } from 'vue'
 
 // 注册必须的组件
 echarts.use([

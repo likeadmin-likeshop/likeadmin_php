@@ -12,13 +12,17 @@
           </div>
           <div class="flex leading-9">
             <div class="w-20">基于框架</div>
-            <span>vue3.x、ElementUI、MySQL</span>
+            <span> {{ workbenchData.version.based }}</span>
           </div>
           <div class="flex leading-9">
             <div class="w-20">获取渠道</div>
             <div>
-              <el-button type="success" size="small">官网</el-button>
-              <el-button type="danger" size="small">Gitee</el-button>
+              <a :href="workbenchData.version.channel.website" target="_blank">
+                <el-button type="success" size="small">官网</el-button>
+              </a>
+              <a class="ml-3" :href="workbenchData.version.channel.gitee" target="_blank">
+                <el-button type="danger" size="small">Gitee</el-button>
+              </a>
             </div>
           </div>
         </div>
@@ -120,12 +124,18 @@
 
 <script lang="ts" setup>
 import { getWorkbench } from '@/api/app'
+import { useDark } from '@vueuse/core'
 import vCharts from 'vue-echarts'
 // 表单数据
-const workbenchData = reactive({
+const workbenchData: any = reactive({
   version: {
     version: '', // 版本号
-    website: '' // 官网
+    website: '', // 官网
+    based: '',
+    channel: {
+      gitee: '',
+      website: ''
+    }
   },
   support: [],
   today: {}, // 今日数据
@@ -161,6 +171,8 @@ const workbenchData = reactive({
     ]
   }
 })
+
+const isDark = useDark()
 
 // 获取工作台主页数据
 const getData = () => {

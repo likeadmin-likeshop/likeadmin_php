@@ -20,7 +20,11 @@
           >
             <el-form-item label="字典类型">
               <div class="w-80">
-                <el-input :model-value="dictType" placeholder="请输入字典类型" disabled />
+                <el-input
+                  :model-value="formData.type_value"
+                  placeholder="请输入字典类型"
+                  disabled
+                />
               </div>
             </el-form-item>
             <el-form-item label="数据名称" prop="name">
@@ -54,18 +58,18 @@
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
-import { dictTypeAdd, dictTypeEdit } from '@/api/setting/dict'
+import { dictDataAdd, dictDataEdit } from '@/api/setting/dict'
 
-const emit = defineEmits(['success'])
+const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const mode = ref('add')
 const popupTitle = computed(() => {
-  return mode.value == 'edit' ? '编辑字典类型' : '新增字典类型'
+  return mode.value == 'edit' ? '编辑字典数据' : '新增字典数据'
 })
 const { query } = useRoute()
-const dictType = computed(() => query.type as string)
 const formData = reactive({
+  type_value: '',
   name: '',
   value: '',
   sort: 0,
@@ -82,7 +86,7 @@ const rules = {
       trigger: ['blur']
     }
   ],
-  type: [
+  value: [
     {
       required: true,
       message: '请输入字典类型',
@@ -93,13 +97,13 @@ const rules = {
 
 const handleSubmit = async () => {
   await formRef.value?.validate()
-  mode.value == 'edit' ? await dictTypeEdit(formData) : await dictTypeAdd(formData)
+  mode.value == 'edit' ? await dictDataEdit(formData) : await dictDataAdd(formData)
   popupRef.value?.close()
   emit('success')
 }
 
 const handleClose = () => {
-  formRef.value?.resetFields()
+  emit('close')
 }
 
 const open = (type = 'add') => {

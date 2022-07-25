@@ -98,8 +98,10 @@ export default defineComponent({
     }
 
     const close = () => {
-      emit('close')
       visible.value = false
+      nextTick(() => {
+        emit('close')
+      })
     }
     const open = () => {
       if (props.disabled) {

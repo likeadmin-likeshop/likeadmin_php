@@ -71,7 +71,7 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <edit-popup ref="editRef" @success="getLists" />
+    <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -88,7 +88,7 @@ const queryParams = reactive({
   status: '',
   name: ''
 })
-
+const showEdit = ref(false)
 const getLists = async () => {
   loading.value = true
   lists.value = await deptLists(queryParams)
@@ -100,7 +100,9 @@ const resetParams = () => {
   getLists()
 }
 
-const handleAdd = (id?: number) => {
+const handleAdd = async (id?: number) => {
+  showEdit.value = true
+  await nextTick()
   if (id) {
     editRef.value?.setFormData({
       pid: id
@@ -109,7 +111,9 @@ const handleAdd = (id?: number) => {
   editRef.value?.open('add')
 }
 
-const handleEdit = (data: any) => {
+const handleEdit = async (data: any) => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('edit')
   editRef.value?.setFormData(data)
 }

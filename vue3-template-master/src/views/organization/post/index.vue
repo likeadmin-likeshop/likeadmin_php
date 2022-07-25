@@ -57,7 +57,7 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <edit-popup ref="editRef" @success="getLists" />
+    <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -65,6 +65,7 @@ import { jobsDelete, jobsLists } from '@/api/org/post'
 import { usePaging } from '@/hooks/paging'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
+const showEdit = ref(false)
 const queryParams = reactive({
   code: '',
   name: '',
@@ -76,11 +77,15 @@ const { pager, getLists, resetPage, resetParams } = usePaging({
   params: queryParams
 })
 
-const handleAdd = () => {
+const handleAdd = async () => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('add')
 }
 
-const handleEdit = (data: any) => {
+const handleEdit = async (data: any) => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('edit')
   editRef.value?.setFormData(data)
 }

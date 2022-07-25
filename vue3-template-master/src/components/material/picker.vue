@@ -23,7 +23,7 @@
                 <del-wrap @close="deleteImg(index)">
                   <file-item :uri="element" :file-size="size" :type="type"></file-item>
                 </del-wrap>
-                <div class="operation-btns xs text-center">
+                <div class="operation-btns text-xs text-center">
                   <span>修改</span>
                   |
                   <span @click.stop="handlePreview(element)">查看</span>
@@ -42,15 +42,13 @@
           >
             <slot name="upload">
               <div
-                class="upload-btn flex flex-col flex-center"
+                class="upload-btn"
                 :style="{
                   width: size,
                   height: size
                 }"
               >
-                <el-icon :size="25">
-                  <plus />
-                </el-icon>
+                <icon :size="25" name="el-icon-Plus" />
                 <span>添加</span>
               </div>
             </slot>
@@ -200,9 +198,16 @@ export default defineComponent({
       })
     }
 
-    watch(modelValue, (val: any[] | string) => {
-      fileList.value = Array.isArray(val) ? val : val == '' ? [] : [val]
-    })
+    watch(
+      modelValue,
+      (val: any[] | string) => {
+        console.log(val)
+        fileList.value = Array.isArray(val) ? val : val == '' ? [] : [val]
+      },
+      {
+        immediate: true
+      }
+    )
     provide('limit', props.limit)
     provide('hiddenUpload', props.hiddenUpload)
     return {
@@ -232,7 +237,6 @@ export default defineComponent({
     position: relative;
     border-radius: 4px;
     cursor: pointer;
-    // color: $color-text-secondary;
     margin-right: 8px;
     margin-bottom: 8px;
     box-sizing: border-box;
@@ -250,24 +254,23 @@ export default defineComponent({
     }
     .operation-btns {
       display: none;
-      background-color: rgba(0, 0, 0, 0.4);
       position: absolute;
       bottom: 0;
       border-radius: 4px;
       width: 100%;
       line-height: 2;
       color: #fff;
+      background-color: rgba(0, 0, 0, 0.3);
     }
   }
   .material-upload {
     .upload-btn {
-      box-sizing: border-box;
-      border-radius: 4px;
-      border: 1px dashed #d7d7d7;
+      @apply box-border rounded border-br border-dashed border flex flex-col justify-center items-center;
     }
   }
 }
 .material-wrap {
-  height: 540px;
+  height: 560px;
+  @apply border-t border-b border-br;
 }
 </style>

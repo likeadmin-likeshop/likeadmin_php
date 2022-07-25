@@ -37,6 +37,7 @@ export default defineComponent({
   position: relative;
   border-radius: 4px;
   overflow: hidden;
+  @apply bg-br-light border border-br-light;
   .image,
   .video {
     display: block;

@@ -9,7 +9,7 @@
           :index="item.type"
           :key="item.type"
         >
-          <material :type="item.type" mode="page" file-size="120px" :limit="-1" :page-size="15" />
+          <material :type="item.type" mode="page" file-size="120px" :limit="-1" :page-size="20" />
         </el-tab-pane>
       </el-tabs>
     </el-card>

@@ -26,7 +26,7 @@
             <el-form-item label="头像">
               <div>
                 <div>
-                  <material-picker v-model="formData.avatar" :limit="1"></material-picker>
+                  <material-picker v-model="formData.avatar" :limit="20"></material-picker>
                 </div>
                 <div class="form-tips">建议尺寸：100*100px，支持jpg，jpeg，png格式</div>
               </div>
@@ -38,6 +38,35 @@
                 <el-input v-model="formData.name" placeholder="请输入名称"></el-input>
               </div>
             </el-form-item>
+            <el-form-item label="归属部门" prop="dept_id">
+              <el-tree-select
+                class="w-80"
+                v-model="formData.dept_id"
+                :data="options.dept"
+                clearable
+                node-key="id"
+                :props="{
+                  value: 'id',
+                  label: 'name',
+                  disabled(data: any) {
+                    return data.status !== 1
+                  }
+                }"
+                check-strictly
+                :default-expand-all="true"
+                placeholder="请选择上级部门"
+              />
+            </el-form-item>
+            <el-form-item label="归属部门" prop="dept_id">
+              <el-select class="w-80" v-model="formData.jobs_id" placeholder="请选择岗位">
+                <el-option
+                  v-for="(item, index) in options.jobs"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.id"
+                ></el-option>
+              </el-select>
+            </el-form-item>
 
             <!-- 角色选择框 -->
             <el-form-item label="角色" prop="role_id">
@@ -47,9 +76,9 @@
                 class="w-80"
                 placeholder="请选择角色"
               >
-                <el-option v-if="formData.root == 1" label="超级管理员" :value="0"></el-option>
+                <el-option v-if="formData.root == 1" label="系统管理员" :value="0"></el-option>
                 <el-option
-                  v-for="(item, index) in roleList"
+                  v-for="(item, index) in options.role"
                   :key="index"
                   :label="item.name"
                   :value="item.id"
@@ -111,16 +140,21 @@ import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
 import { roleLists } from '@/api/perms/role'
 import { adminAdd, adminEdit } from '@/api/perms/admin'
-const emit = defineEmits(['success'])
+import { deptLists } from '@/api/org/department'
+import { jobsLists } from '@/api/org/post'
+const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const mode = ref('add')
 const popupTitle = computed(() => {
-  return mode.value == 'edit' ? '编辑菜单' : '新增菜单'
+  return mode.value == 'edit' ? '编辑管理员' : '新增管理员'
 })
 const formData = reactive({
+  id: '',
   account: '',
   name: '',
+  dept_id: '',
+  jobs_id: '',
   role_id: '',
   avatar: '',
   password: '',
@@ -152,22 +186,49 @@ const formRules = reactive({
       trigger: ['blur']
     }
   ],
-  password: [] as any[],
-  password_confirm: [] as any[]
+  password: [
+    {
+      required: true,
+      message: '请输入密码',
+      trigger: ['blur']
+    }
+  ] as any[],
+  password_confirm: [
+    {
+      required: true,
+      message: '请输入确认密码',
+      trigger: ['blur']
+    }
+  ] as any[]
 })
-const roleList = ref<any[]>([])
+const options = reactive({
+  role: [] as any[],
+  dept: [] as any[],
+  jobs: [] as any[]
+})
 
-const getRoleList = () => {
+const getOptions = () => {
   roleLists({
-    page_type: 1
-  }).then((res: any) => {
-    roleList.value = res.lists
+    page_type: 0
+  }).then((data: any) => {
+    options.role = data.lists
+  })
+  deptLists({
+    page_type: 0
+  }).then((data: any) => {
+    options.dept = data
+  })
+  jobsLists({
+    page_type: 0
+  }).then((data: any) => {
+    options.jobs = data.lists
   })
 }
 
 const handleSubmit = async () => {
   await formRef.value?.validate()
   mode.value == 'edit' ? await adminEdit(formData) : await adminAdd(formData)
+  popupRef.value?.close()
   emit('success')
 }
 
@@ -183,29 +244,15 @@ const setFormData = (data: Record<any, any>) => {
       formData[key] = data[key]
     }
   }
-  if (mode.value == 'add') {
-    formRules.password = [
-      {
-        required: true,
-        message: '请输入密码',
-        trigger: ['blur']
-      }
-    ]
-    formRules.password_confirm = [
-      {
-        required: true,
-        message: '请输入确认密码',
-        trigger: ['blur']
-      }
-    ]
-  }
+  formRules.password = []
+  formRules.password_confirm = []
 }
 
 const handleClose = () => {
-  formRef.value?.resetFields()
+  emit('close')
 }
 
-getRoleList()
+getOptions()
 
 defineExpose({
   open,

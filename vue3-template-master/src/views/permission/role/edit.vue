@@ -69,7 +69,7 @@ import { roleAdd, roleEdit } from '@/api/perms/role'
 import { menuLists } from '@/api/perms/menu'
 import Popup from '@/components/popup/index.vue'
 import { treeToArray } from '@/utils/util'
-const emit = defineEmits(['success'])
+const emit = defineEmits(['success', 'close'])
 const treeRef = shallowRef<InstanceType<typeof ElTree>>()
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
@@ -80,7 +80,7 @@ const checkStrictly = ref(true)
 const menuArray = ref<any[]>([])
 const menuTree = ref<any[]>([])
 const popupTitle = computed(() => {
-  return mode.value == 'edit' ? '编辑菜单' : '新增菜单'
+  return mode.value == 'edit' ? '编辑角色' : '新增角色'
 })
 const formData = reactive({
   id: '',
@@ -100,12 +100,15 @@ const rules = {
   ]
 }
 
-const getOptionsList = () => {
+const getOptions = () => {
   menuLists({
     page_type: 0
   }).then((res: any) => {
     menuTree.value = res.lists
     menuArray.value = treeToArray(res.lists)
+    nextTick(() => {
+      setDeptAllCheckedKeys()
+    })
   })
 }
 
@@ -145,12 +148,12 @@ const handleSubmit = async () => {
   await formRef.value?.validate()
   formData.menu_id = getDeptAllCheckedKeys()!
   mode.value == 'edit' ? await roleEdit(formData) : await roleAdd(formData)
+  popupRef.value?.close()
   emit('success')
 }
 
 const handleClose = () => {
-  formRef.value?.resetFields()
-  treeRef.value?.setCheckedKeys([])
+  emit('close')
 }
 
 const open = (type = 'add') => {
@@ -158,17 +161,16 @@ const open = (type = 'add') => {
   popupRef.value?.open()
 }
 
-const setFormData = (data: Record<any, any>) => {
+const setFormData = async (data: Record<any, any>) => {
   for (const key in formData) {
     if (data[key] != null && data[key] != undefined) {
       //@ts-ignore
       formData[key] = data[key]
     }
   }
-  setDeptAllCheckedKeys()
 }
 
-getOptionsList()
+getOptions()
 
 defineExpose({
   open,

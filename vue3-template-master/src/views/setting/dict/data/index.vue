@@ -3,6 +3,16 @@
     <el-card class="!border-none" shadow="never">
       <el-page-header class="mb-4" content="数据管理" @back="$router.back()" />
       <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
+        <el-form-item label="字典名称">
+          <el-select v-model="queryParams.type_id" @change="getLists">
+            <el-option
+              v-for="item in options.dict_type"
+              :label="item.name"
+              :value="item.id"
+              :key="item.id"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item label="数据名称">
           <el-input v-model="queryParams.name" />
         </el-form-item>
@@ -81,23 +91,28 @@
         </div>
       </div>
     </el-card>
-    <edit-popup ref="editRef" @success="getLists" />
+    <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { dictDataDelete, dictDataLists } from '@/api/setting/dict'
+import { dictDataDelete, dictDataLists, dictTypeLists } from '@/api/setting/dict'
 import { usePaging } from '@/hooks/paging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const { query } = useRoute()
-
+const showEdit = ref(false)
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 
 const queryParams = reactive({
-  type_id: query.id,
+  type: '',
+  type_id: Number(query.id),
   name: '',
   status: ''
+})
+
+const options = reactive({
+  dict_type: [] as any[]
 })
 
 const { pager, getLists, resetPage, resetParams } = usePaging({
@@ -111,11 +126,19 @@ const handleSelectionChange = (val: any[]) => {
   selectData.value = val.map(({ id }) => id)
 }
 
-const handleAdd = () => {
+const handleAdd = async () => {
+  showEdit.value = true
+  await nextTick()
+  const type = options.dict_type.find((item) => item.id == queryParams.type_id)
+  editRef.value?.setFormData({
+    type_value: type?.type
+  })
   editRef.value?.open('add')
 }
 
-const handleEdit = (data: any) => {
+const handleEdit = async (data: any) => {
+  showEdit.value = true
+  await nextTick()
   editRef.value?.open('edit')
   editRef.value?.setFormData(data)
 }
@@ -126,5 +149,10 @@ const handleDelete = async (id: any[] | number) => {
   getLists()
 }
 
+const getOptions = async () => {
+  const data: any = await dictTypeLists({ page_type: 0 })
+  options.dict_type = data.lists
+}
+getOptions()
 getLists()
 </script>

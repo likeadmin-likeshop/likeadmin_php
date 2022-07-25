@@ -1,52 +1,47 @@
 <template>
   <div class="material" v-loading="pager.loading">
     <div class="material__left">
-      <el-scrollbar style="height: calc(100% - 40px)">
-        <div class="material-left__content pt-4 pr-4">
-          <el-tree
-            ref="treeRef"
-            node-key="id"
-            :data="cateLists"
-            empty-text="''"
-            :highlight-current="true"
-            :expand-on-click-node="false"
-            :current-node-key="cateId"
-            @node-click="handleCatSelect"
-          >
-            <template v-slot="{ data }">
-              <div class="flex flex-1 items-center min-w-0">
-                <img class="w-[20px] h-[16px] mr-3" src="@/assets/images/icon_folder.png" />
-                <span class="flex-1 truncate mr-2">
-                  <overflow-tooltip :content="data.name" />
-                </span>
-                <el-dropdown v-if="data.id > 0" :hide-on-click="false">
-                  <span class="muted m-r-10">···</span>
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <div>
-                        <popover-input
-                          type="text"
-                          tips="分类名称"
-                          @confirm="handleEditCate($event, data.id)"
-                        >
+      <div class="flex-1 min-h-0">
+        <el-scrollbar>
+          <div class="material-left__content pt-4 pr-4 p-b-4">
+            <el-tree
+              ref="treeRef"
+              node-key="id"
+              :data="cateLists"
+              empty-text="''"
+              :highlight-current="true"
+              :expand-on-click-node="false"
+              :current-node-key="cateId"
+              @node-click="handleCatSelect"
+            >
+              <template v-slot="{ data }">
+                <div class="flex flex-1 items-center min-w-0">
+                  <img class="w-[20px] h-[16px] mr-3" src="@/assets/images/icon_folder.png" />
+                  <span class="flex-1 truncate mr-2">
+                    <overflow-tooltip :content="data.name" />
+                  </span>
+                  <el-dropdown v-if="data.id > 0" :hide-on-click="false">
+                    <span class="muted m-r-10">···</span>
+                    <template #dropdown>
+                      <el-dropdown-menu>
+                        <div @click="handleEditCate(data.name, data.id)">
                           <el-dropdown-item>命名分组</el-dropdown-item>
-                        </popover-input>
-                      </div>
-                      <div @click="handleDeleteCate(data.id)">
-                        <el-dropdown-item>删除分组</el-dropdown-item>
-                      </div>
-                    </el-dropdown-menu>
-                  </template>
-                </el-dropdown>
-              </div>
-            </template>
-          </el-tree>
-        </div>
-      </el-scrollbar>
-      <div class="flex justify-center">
-        <popover-input tips="分类名称" type="text" @confirm="handleAddCate">
-          <el-button>添加分组</el-button>
-        </popover-input>
+                        </div>
+                        <div @click="handleDeleteCate(data.id)">
+                          <el-dropdown-item>删除分组</el-dropdown-item>
+                        </div>
+                      </el-dropdown-menu>
+                    </template>
+                  </el-dropdown>
+                </div>
+              </template>
+            </el-tree>
+          </div>
+        </el-scrollbar>
+      </div>
+
+      <div class="flex justify-center p-2 border-t border-br">
+        <el-button @click="handleAddCate">添加分组</el-button>
       </div>
     </div>
     <div class="material__center flex flex-col">
@@ -61,7 +56,11 @@
           >
             <el-button type="primary">本地上传</el-button>
           </upload>
-          <el-button v-if="mode == 'page'" :disabled="!select.length" @click="batchFileDelete()">
+          <el-button
+            v-if="mode == 'page'"
+            :disabled="!select.length"
+            @click.stop="batchFileDelete()"
+          >
             删除
           </el-button>
 
@@ -143,18 +142,25 @@
             :key="item.id"
             :style="{ width: fileSize }"
           >
-            <file-item :uri="item.uri" :file-size="fileSize" :type="type" @click="selectFile(item)">
-              <div class="item-selected" v-if="isSelect(item.id)">
-                <icon :size="24" name="el-icon-Check" color="#fff" />
-              </div>
-            </file-item>
+            <del-wrap @close="batchFileDelete([item.id])">
+              <file-item
+                :uri="item.uri"
+                :file-size="fileSize"
+                :type="type"
+                @click="selectFile(item)"
+              >
+                <div class="item-selected" v-if="isSelect(item.id)">
+                  <icon :size="24" name="el-icon-Check" color="#fff" />
+                </div>
+              </file-item>
+            </del-wrap>
+
             <overflow-tooltip class="mt-1" :content="item.name" />
-            <div class="operation-btns flex col-center">
-              <el-button type="primary" link @confirm="handleFileRename($event, item.id)">
+            <div class="operation-btns flex items-center">
+              <el-button type="primary" link @click="handleFileRename(item.name, item.id)">
                 重命名
               </el-button>
               <el-button type="primary" link @click="handlePreview(item.uri)">查看</el-button>
-              <el-button type="primary" link @click="batchFileDelete([item.id])">删除</el-button>
             </div>
           </li>
         </ul>
@@ -186,17 +192,13 @@
           <el-table-column prop="create_time" label="上传时间" min-width="100" />
           <el-table-column label="操作" width="200" fixed="right">
             <template #default="{ row }">
-              <!-- <popover-input
-                class="inline"
-                type="text"
-                :value="row.name"
-                @confirm="handleFileRename($event, row.id)"
-                @click.stop
-              > -->
-              <el-button type="primary" link>重命名</el-button>
-              <!-- </popover-input> -->
+              <el-button type="primary" link @click.stop="handleFileRename(row.name, row.id)">
+                重命名
+              </el-button>
               <el-button type="primary" link @click.stop="handlePreview(row.uri)">查看</el-button>
-              <el-button type="primary" link @confirm="batchFileDelete([row.id])">删除</el-button>
+              <el-button type="primary" link @click.stop="batchFileDelete([row.id])">
+                删除
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -251,25 +253,26 @@
       </div>
     </div>
     <div class="material__right" v-if="mode == 'picker'">
-      <div class="flex row-between pl-3 pr-3">
-        <div class="sm flex flex-center">
+      <div class="flex justify-between p-2 flex-wrap">
+        <div class="sm flex items-center">
           已选择 {{ select.length }}
           <span v-if="limit">/{{ limit }}</span>
         </div>
-        <el-button type="text" @click="clearSelect">清空</el-button>
+        <el-button type="primary" link @click="clearSelect">清空</el-button>
       </div>
-
-      <el-scrollbar class="ls-scrollbar" style="height: calc(100% - 32px)">
-        <ul class="select-lists flex-col p-t-10">
-          <li class="m-b-16" v-for="item in select" :key="item.id">
-            <div class="select-item">
-              <del-wrap @close="cancelSelete(item.id)">
-                <file-item :uri="item.uri" file-size="100px" :type="type"></file-item>
-              </del-wrap>
-            </div>
-          </li>
-        </ul>
-      </el-scrollbar>
+      <div class="flex-1 min-h-0">
+        <el-scrollbar class="ls-scrollbar">
+          <ul class="select-lists flex flex-col p-t-3">
+            <li class="mb-4" v-for="item in select" :key="item.id">
+              <div class="select-item">
+                <del-wrap @close="cancelSelete(item.id)">
+                  <file-item :uri="item.uri" file-size="100px" :type="type"></file-item>
+                </del-wrap>
+              </div>
+            </li>
+          </ul>
+        </el-scrollbar>
+      </div>
     </div>
     <preview v-model="showPreview" :url="previewUrl" :type="type" />
   </div>
@@ -299,7 +302,7 @@ const props = defineProps({
   },
   pageSize: {
     type: Number,
-    default: 10
+    default: 15
   }
 })
 const emit = defineEmits(['change'])
@@ -411,6 +414,7 @@ defineExpose({
 .material {
   @apply h-full min-h-0 flex flex-1;
   &__left {
+    @apply border-r border-br flex flex-col;
     width: 200px;
     :deep(.el-tree-node__content) {
       height: 36px;
@@ -418,8 +422,6 @@ defineExpose({
   }
   &__center {
     flex: 1;
-    // border-left: 1px solid $border-color-base;
-
     padding: 16px 16px 5px;
     min-width: 0;
     min-height: 0;
@@ -464,8 +466,8 @@ defineExpose({
     }
   }
   &__right {
-    // border-left: 1px solid $border-color-base;
-    width: 150px;
+    @apply border-l border-br flex flex-col;
+    width: 130px;
     .select-lists {
       padding: 10px;
 
