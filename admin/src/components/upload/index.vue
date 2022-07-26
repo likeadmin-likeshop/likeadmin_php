@@ -42,6 +42,7 @@
 import { computed, defineComponent, ref, shallowRef } from 'vue'
 import { ElMessage, ElUpload } from 'element-plus'
 import useUserStore from '@/stores/modules/user'
+import config from '@/config'
 export default defineComponent({
     components: {},
     props: {
@@ -78,7 +79,7 @@ export default defineComponent({
         const action = ref(`${import.meta.env.VITE_APP_BASE_URL}/adminapi/upload/${props.type}`)
         const headers = computed(() => ({
             token: userStore.token,
-            version: 1.2
+            version: config.version
         }))
         const visible = ref(false)
         const fileList = ref<any[]>([])

@@ -3,11 +3,13 @@ import useUserStore from '@/stores/modules/user'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress'
+import configs from '@/config'
 
 const config = {
     baseURL: `${import.meta.env.VITE_APP_BASE_URL}/adminapi`,
     headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        version: configs.version
     },
     timeout: 10 * 1000 // Timeout
 }
