@@ -6,8 +6,6 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { computed } from "vue"
-
 const props = defineProps<{
     options: any[]
     value: any
@@ -20,5 +18,4 @@ const values = computed(() => {
         return []
     }
 })
-
 </script>

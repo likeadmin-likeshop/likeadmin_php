@@ -1,73 +1,74 @@
 <template>
     <div>
-        <el-card shadow="never">
-            <el-form class="ls-form" :model="queryParams" label-width="80px" inline>
+        <el-card class="!border-none mb-4" shadow="never">
+            <el-form class="mb-[-16px]" :model="queryParams" label-width="80px" inline>
 {SEARCH_VIEW}
                 <el-form-item>
-                    <div class="m-l-20">
-                        <el-button type="primary" @click="resetPage">查询</el-button>
-                        <el-button @click="resetParams">重置</el-button>
-                    </div>
+                    <el-button type="primary" @click="resetPage">查询</el-button>
+                    <el-button @click="resetParams">重置</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
-        <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
-            <el-button type="primary" @click="handleAdd" v-perms="['{PERMS_ADD}']">新增</el-button>
-            <popup
-                v-perms="['{PERMS_DELETE}']"
-                class="m-l-10 inline"
-                :disabled="!selectData.length"
-                content="确认删除选中？"
-                @confirm="handleDelete(selectData)"
-            >
-                <template #trigger>
-                    <el-button  :disabled="!selectData.length">删除</el-button>
+        <el-card class="!border-none" v-loading="pager.loading" shadow="never">
+            <el-button v-perms="['{PERMS_ADD}']" type="primary" @click="handleAdd">
+                <template #icon>
+                    <icon name="el-icon-Plus" />
                 </template>
-            </popup>
-            <div class="m-t-15">
-                <el-table
-                    :data="pager.lists"
-                    @selection-change="handleSelectionChange"
-                >
+                新增
+            </el-button>
+            <el-button
+                v-perms="['{PERMS_DELETE}']"
+                :disabled="!selectData.length"
+                @click="handleDelete(selectData)"
+            >
+                删除
+            </el-button>
+            <div class="mt-4">
+                <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
 {LISTS_VIEW}
                     <el-table-column label="操作" width="200" fixed="right">
                         <template #default="{ row }">
-                            <el-button type="text" @click="handleEdit(row.{PK})" v-perms="['{PERMS_EDIT}']">编辑</el-button>
-                            <popup class="inline m-l-10" @confirm="handleDelete(row.{PK})" v-perms="['{PERMS_DELETE}']">
-                                <template #trigger>
-                                    <el-button type="text">删除</el-button>
-                                </template>
-                            </popup>
+                             <el-button
+                                v-perms="['{PERMS_EDIT}']"
+                                type="primary"
+                                link
+                                @click="handleEdit(row)"
+                            >
+                                编辑
+                            </el-button>
+                            <el-button
+                                v-perms="['{PERMS_DELETE}']"
+                                type="danger"
+                                link
+                                @click="handleDelete(row.{PK})"
+                            >
+                                删除
+                            </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-            <div class="flex row-right">
-                <pagination
-                    v-model="pager"
-                    layout="total, prev, pager, next, jumper"
-                    @change="requestApi"
-                />
+            <div class="flex mt-4 justify-end">
+                <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
-        <edit v-model="showEdit" :select-id="selectId" @success="requestApi" />
+        <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
-import { usePages } from '@/core/hooks/pages'
-import { apiDictDataLists } from '@/api/dict'
+import { usePaging } from '@/hooks/paging'
+import { dictDataLists } from '@/api/setting/dict'
 import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'
-import Edit from './edit.vue'
 import { timeFormat } from '@/utils/util'
+import feedback from '@/utils/feedback'
+import EditPopup from './edit.vue'
 
-// 编辑时的id
-const selectId = ref<number>()
-
+const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 // 是否显示编辑框
 const showEdit = ref(false)
+
 
 // 查询条件
 const queryParams = reactive({
@@ -93,35 +94,34 @@ const getDictData = () => {
 }
 
 // 分页相关
-const { pager, requestApi, resetParams, resetPage } = usePages({
-    callback: api{UPPER_CAMEL_NAME}Lists,
+const { pager, getLists, resetParams, resetPage } = usePaging({
+    fetchFun: api{UPPER_CAMEL_NAME}Lists,
     params: queryParams
 })
 
 // 添加
-const handleAdd = () => {
+const handleAdd = async () => {
     showEdit.value = true
-    selectId.value = undefined
+    await nextTick()
+    editRef.value?.open('add')
 }
 
 // 编辑
-const handleEdit = ({PK}: number) => {
+const handleEdit = async (data: any) => {
     showEdit.value = true
-    selectId.value = {PK}
+    await nextTick()
+    editRef.value?.open('edit')
+    editRef.value?.setFormData(data)
 }
 
 // 删除
 const handleDelete = async ({PK}: number | any[]) => {
+    await feedback.confirm('确定要删除？')
     await api{UPPER_CAMEL_NAME}Delete({ {PK} })
-    requestApi()
+    getLists()
 }
 
-requestApi()
+getLists()
 getDictData()
 </script>
 
-<style lang="scss" scoped>
-.ls-form {
-    margin-bottom: -16px;
-}
-</style>

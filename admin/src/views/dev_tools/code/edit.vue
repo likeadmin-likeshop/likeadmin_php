@@ -1,38 +1,52 @@
 <template>
     <div class="code-edit">
-        <el-card shadow="never">
-            <el-page-header content="编辑" @back="$router.back()" />
+        <el-card class="!border-none" shadow="never">
+            <el-page-header content="编辑数据表" @back="$router.back()" />
         </el-card>
-        <el-card class="m-t-16" shadow="never">
+        <el-card class="mt-4 !border-none" shadow="never">
             <el-form
                 ref="formRef"
                 class="ls-form"
                 :model="formData"
-                label-width="80px"
+                label-width="120px"
                 :rules="rules"
             >
                 <el-tabs v-model="activeName">
                     <el-tab-pane label="基础信息" name="base">
                         <el-form-item label="表名称" prop="table_name">
-                            <el-input v-model="formData.table_name" placeholder="请输入表名称"></el-input>
+                            <div class="w-80">
+                                <el-input
+                                    v-model="formData.table_name"
+                                    placeholder="请输入表名称"
+                                />
+                            </div>
                         </el-form-item>
                         <el-form-item label="表描述" prop="table_comment">
-                            <el-input v-model="formData.table_comment" placeholder="请输入表描述"></el-input>
+                            <div class="w-80">
+                                <el-input
+                                    v-model="formData.table_comment"
+                                    placeholder="请输入表描述"
+                                />
+                            </div>
                         </el-form-item>
                         <el-form-item label="作者">
-                            <el-input v-model="formData.author"></el-input>
+                            <div class="w-80">
+                                <el-input v-model="formData.author" />
+                            </div>
                         </el-form-item>
                         <el-form-item label="备注">
-                            <el-input
-                                v-model="formData.remark"
-                                class="el-input"
-                                type="textarea"
-                                :rows="4"
-                            ></el-input>
+                            <div class="w-80">
+                                <el-input
+                                    v-model="formData.remark"
+                                    class="el-input"
+                                    type="textarea"
+                                    :rows="4"
+                                />
+                            </div>
                         </el-form-item>
                     </el-tab-pane>
                     <el-tab-pane label="字段管理" name="field">
-                        <el-table :data="formData.table_column" style="width: 100%">
+                        <el-table :data="formData.table_column">
                             <el-table-column label="字段列名" prop="column_name" />
                             <el-table-column label="字段描述" prop="column_comment">
                                 <template v-slot="{ row }">
@@ -117,7 +131,7 @@
                                 <template v-slot="{ row }">
                                     <el-select v-model="row.dict_type" placeholder="字典类型">
                                         <el-option
-                                            v-for="(item,index) in dictData"
+                                            v-for="(item, index) in dictData"
                                             :key="index"
                                             :label="item.name"
                                             :value="item.type"
@@ -141,18 +155,19 @@
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="模块名" prop="module_name">
-                            <div>
+                            <div class="w-80">
                                 <el-input
-                                    class="ls-input"
                                     v-model="formData.module_name"
                                     placeholder="请输入模块名"
-                                ></el-input>
+                                />
                                 <div class="form-tips">生成文件所在模块</div>
                             </div>
                         </el-form-item>
                         <el-form-item label="类目录">
                             <div>
-                                <el-input class="ls-input" v-model="formData.class_dir"></el-input>
+                                <div class="w-80">
+                                    <el-input v-model="formData.class_dir"></el-input>
+                                </div>
                                 <div class="form-tips">
                                     生成文件所在目录名,不填则在模块对应文件夹内生成。
                                     <br />例：填写test，则控制器xxxControlle文件生成在app/模块名/controller/test文件夹下。
@@ -162,7 +177,9 @@
                         </el-form-item>
                         <el-form-item label="类描述">
                             <div>
-                                <el-input class="ls-input" v-model="formData.class_comment"></el-input>
+                                <div class="w-80">
+                                    <el-input v-model="formData.class_comment"></el-input>
+                                </div>
                                 <div class="form-tips">
                                     生成文件描述。
                                     <br />例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
@@ -171,8 +188,9 @@
                         </el-form-item>
                         <el-form-item label="父级菜单" prop="menu.pid">
                             <el-tree-select
+                                class="w-80"
                                 v-model="formData.menu.pid"
-                                :data="menuLists"
+                                :data="menuOptions"
                                 clearable
                                 node-key="id"
                                 :props="{
@@ -183,11 +201,12 @@
                             />
                         </el-form-item>
                         <el-form-item label="菜单名称" prop="menu.name">
-                            <el-input
-                                class="ls-input"
-                                v-model="formData.menu.name"
-                                placeholder="请输入菜单名称"
-                            ></el-input>
+                            <div class="w-80">
+                                <el-input
+                                    v-model="formData.menu.name"
+                                    placeholder="请输入菜单名称"
+                                ></el-input>
+                            </div>
                         </el-form-item>
                         <el-form-item label="菜单构建" prop="menu.type" required>
                             <div>
@@ -195,7 +214,9 @@
                                     <el-radio :label="1">自动构建</el-radio>
                                     <el-radio :label="0">手动添加</el-radio>
                                 </el-radio-group>
-                                <div class="form-tips">自动构建：自动执行生成菜单sql。手动添加：自行添加菜单。</div>
+                                <div class="form-tips">
+                                    自动构建：自动执行生成菜单sql。手动添加：自行添加菜单。
+                                </div>
                             </div>
                         </el-form-item>
                     </el-tab-pane>
@@ -205,26 +226,15 @@
         <footer-btns>
             <el-button type="primary" @click="onSubmit">保存</el-button>
         </footer-btns>
-
-        <popup
-            ref="popupRef"
-            class="inline"
-            content="生成到模块方式如遇同名文件会覆盖旧文件，确定要选择此方式吗？"
-            @cancel="formData.generate_type = 0"
-        />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { apiGenerateEdit, apiTableDetail } from "@/api/dev_tools"
-import { reactive, ref, shallowRef, watch } from "vue"
-import { useRoute, useRouter } from 'vue-router'
-import FooterBtns from '@/components/footer-btns/index.vue'
-import Popup from '@/components/popup/index.vue'
-import Editor from '@/components/editor/index.vue'
-import { apiDictTypeLists } from "@/api/dict"
-import { apiMenuLists } from "@/api/auth"
-import type { FormInstance } from "element-plus"
+import { generateEdit, tableDetail } from '@/api/tools/code'
+import { dictTypeLists } from '@/api/setting/dict'
+import type { FormInstance } from 'element-plus'
+import feedback from '@/utils/feedback'
+import { menuLists } from '@/api/perms/menu'
 const route = useRoute()
 const router = useRouter()
 const activeName = ref('base')
@@ -247,22 +257,13 @@ const formData = reactive({
     }
 })
 
-const isRadioClick = ref(false)
-
-const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const formRef = shallowRef<FormInstance>()
 const dictData = ref<any[]>([])
-const menuLists = ref<any[]>([])
+const menuOptions = ref<any[]>([])
 const rules = reactive({
-    table_name: [
-        { required: true, message: '请输入表名称', trigger: 'blur' },
-    ],
-    table_comment: [
-        { required: true, message: '请输入表描述', trigger: 'blur' },
-    ],
-    module_name: [
-        { required: true, message: '请输入模块名', trigger: 'blur' },
-    ],
+    table_name: [{ required: true, message: '请输入表名称', trigger: 'blur' }],
+    table_comment: [{ required: true, message: '请输入表描述', trigger: 'blur' }],
+    module_name: [{ required: true, message: '请输入模块名', trigger: 'blur' }],
     generate_type: [{ required: true, trigger: 'change' }],
     template_type: [{ required: true, trigger: 'change' }],
     ['menu.pid']: [{ required: true, message: '请选择父级菜单', trigger: 'blur' }],
@@ -270,7 +271,7 @@ const rules = reactive({
 })
 
 const getDetails = async () => {
-    const data = await apiTableDetail({
+    const data = await tableDetail({
         id: route.query.id
     })
     Object.keys(formData).forEach((key) => {
@@ -278,43 +279,40 @@ const getDetails = async () => {
         formData[key] = data[key]
     })
 
-    watch(() => formData.generate_type, (value) => {
-        if (value == 1) {
-            popupRef.value?.open()
+    watch(
+        () => formData.generate_type,
+        (value) => {
+            if (value == 1) {
+                feedback
+                    .confirm('生成到模块方式如遇同名文件会覆盖旧文件，确定要选择此方式吗？')
+                    .catch(() => {
+                        formData.generate_type = 0
+                    })
+            }
         }
-    })
-
+    )
 }
 const getDict = async () => {
-    const data: any = await apiDictTypeLists({
+    const data: any = await dictTypeLists({
         page_type: 0
     })
     dictData.value = data.lists
 }
 
-
-
-const getMenuLists = async () => {
-    const data: any = await apiMenuLists({ page_type: 0 })
+const getMenu = async () => {
+    const data: any = await menuLists({ page_type: 0 })
     const menu = { id: 0, name: '顶级', children: [] }
     menu.children = data.lists
-    menuLists.value.push(menu)
+    menuOptions.value.push(menu)
 }
 
 const onSubmit = async () => {
     await formRef.value?.validate()
-    await apiGenerateEdit(formData)
+    await generateEdit(formData)
     router.back()
 }
 
-
 getDetails()
 getDict()
-getMenuLists()
+getMenu()
 </script>
-
-<style lang="scss" scoped>
-.ls-input {
-    width: 280px;
-}
-</style>

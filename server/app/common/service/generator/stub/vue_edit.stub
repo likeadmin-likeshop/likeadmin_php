@@ -1,49 +1,47 @@
 <template>
-    <div class="edit">
+    <div class="edit-popup">
         <popup
             ref="popupRef"
-            :clickModalClose="false"
             :title="popupTitle"
-            width="700px"
             :async="true"
-            @confirm="handleConfirm"
+            width="700px"
+            :clickModalClose="true"
+            @confirm="handleSubmit"
             @close="handleClose"
         >
-            <el-form
-                class="m-r-40"
-                ref="formRef"
-                :model="formData"
-                label-width="80px"
-                :rules="rules"
-                v-loading="showLoading"
-            >
+            <div class="h-[400px]">
+                <el-scrollbar>
+                    <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
 {FORM_VIEW}
-            </el-form>
+                    </el-form>
+                </el-scrollbar>
+            </div>
         </popup>
     </div>
 </template>
 
 <script lang="ts" setup>
-
-import { computed, reactive, ref, shallowRef, watch } from 'vue'
+import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
-import { apiDictDataLists } from '@/api/dict'
-import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Detail, api{UPPER_CAMEL_NAME}Edit } from '@/api/{API_DIR}'
-import { ElForm } from 'element-plus'
+import { dictDataLists } from '@/api/setting/dict'
+import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Edit } from '@/api/{API_DIR}'
 import { timeFormat } from '@/utils/util'
 
-const props = defineProps<{
-    modelValue: boolean
-    selectId?: number
-}>()
-
-const emit = defineEmits<{
-    (event: 'success'): void
-    (event: 'update:modelValue', value: boolean): void
-}>()
-
+const emit = defineEmits(['success', 'close'])
+const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
-const formRef = shallowRef<InstanceType<typeof ElForm>>()
+const mode = ref('add')
+
+// 弹窗标题
+const popupTitle = computed(() => {
+    return mode.value == 'edit' ? '编辑{TABLE_COMMENT}' : '新增{TABLE_COMMENT}'
+})
+
+// 表单数据
+const formData = reactive({
+    {PK}: '',
+{FORM_DATA}
+})
 
 // 字典数据
 const dictData = reactive<Record<string, any[]>>({
@@ -55,68 +53,51 @@ const getDictData = () => {
 {DICT_DATA_API}
 }
 
-
-// 表单数据
-const formData = reactive({
-{FORM_DATA}
-})
-
 // 表单验证
-const rules = reactive<any>({
+const formRules = reactive<any>({
 {FORM_VALIDATE}
 })
 
-// 弹窗标题
-const popupTitle = computed(() => {
-    return props.selectId != undefined ? '编辑{TABLE_COMMENT}' : '添加{TABLE_COMMENT}'
-})
-
-// 是否显示loading
-const showLoading = ref(false)
 
 // 获取详情
-const getDetail = async () => {
-    try {
-        showLoading.value = true
-        const data = await api{UPPER_CAMEL_NAME}Detail({ {PK}: props.selectId })
-        showLoading.value = false
-        Object.keys(formData).forEach(key => {
+const setFormData = (data: Record<any, any>) => {
+    for (const key in formData) {
+        if (data[key] != null && data[key] != undefined) {
             //@ts-ignore
             formData[key] = data[key]
-        })
+        }
+    }
 {CHECKBOX_SPLIT}
 {FORM_DATE}
-    } catch (error) {
-        showLoading.value = false
-    }
 }
 
+
 // 提交按钮
-const handleConfirm = async () => {
+const handleSubmit = async () => {
     await formRef.value?.validate()
-    {CHECKBOX_JOIN}
-    props.selectId ? await api{UPPER_CAMEL_NAME}Edit({ {PK}: props.selectId, ...formData }) : await api{UPPER_CAMEL_NAME}Add(formData)
+    const data = { ...formData, {CHECKBOX_JOIN} }
+    mode.value == 'edit' 
+        ? await api{UPPER_CAMEL_NAME}Edit(data) 
+        : await api{UPPER_CAMEL_NAME}Add(data)
     popupRef.value?.close()
     emit('success')
 }
 
-// 关闭回调
-const handleClose = () => {
-    formRef.value?.resetFields()
-    emit('update:modelValue', false)
+//打开弹窗
+const open = (type = 'add') => {
+    mode.value = type
+    popupRef.value?.open()
 }
 
+// 关闭回调
+const handleClose = () => {
+    emit('close')
+}
 
-watch(() => props.modelValue, (value) => {
-    if (value) {
-        popupRef.value?.open()
-        props.selectId && getDetail()
-    } else {
-        popupRef.value?.close()
-    }
-})
 getDictData()
-</script>
 
-<style lang="scss" scoped>
-</style>
+defineExpose({
+    open,
+    setFormData
+})
+</script>

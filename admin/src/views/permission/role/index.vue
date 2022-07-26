@@ -1,12 +1,15 @@
 <template>
     <div class="role-lists">
-        <el-card shadow="never">
-            <div v-perms="['auth.role/add']" class="m-b-16">
-                <router-link to="/permission/role/edit">
-                    <el-button type="primary">新增角色</el-button>
-                </router-link>
+        <el-card class="!border-none" shadow="never">
+            <div>
+                <el-button v-perms="['auth.role/add']" type="primary" @click="handleAdd">
+                    <template #icon>
+                        <icon name="el-icon-Plus" />
+                    </template>
+                    新增角色
+                </el-button>
             </div>
-            <div v-loading="pager.loading">
+            <div class="mt-4" v-loading="pager.loading">
                 <div>
                     <el-table :data="pager.lists">
                         <el-table-column prop="id" label="ID"></el-table-column>
@@ -15,55 +18,66 @@
                         <el-table-column prop="sort" label="排序"></el-table-column>
                         <el-table-column prop="num" label="管理员人数"></el-table-column>
                         <el-table-column prop="create_time" label="创建时间"></el-table-column>
-                        <el-table-column prop label="操作">
+                        <el-table-column label="操作">
                             <template #default="{ row }">
-                                <router-link
+                                <el-button
+                                    link
+                                    type="primary"
                                     v-perms="['auth.role/edit']"
-                                    class="m-r-10"
-                                    :to="{
-                                        path: '/permission/role/edit',
-                                        query: {
-                                            id: row.id
-                                        }
-                                    }"
+                                    @click="handleEdit(row)"
                                 >
-                                    <el-button link type="primary">编辑</el-button>
-                                </router-link>
-                                <popup
+                                    编辑
+                                </el-button>
+                                <el-button
                                     v-perms="['auth.role/delete']"
-                                    class="m-r-10 inline"
-                                    @confirm="handleDelete(row.id)"
+                                    link
+                                    type="danger"
+                                    @click="handleDelete(row.id)"
                                 >
-                                    <template #trigger>
-                                        <el-button link type="primary">删除</el-button>
-                                    </template>
-                                </popup>
+                                    删除
+                                </el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                 </div>
-                <div class="flex justify-end m-t-16">
-                    <pagination v-model="pager" @change="requestApi" />
+                <div class="flex justify-end mt-4">
+                    <pagination v-model="pager" @change="getLists" />
                 </div>
             </div>
         </el-card>
+        <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
-  
+
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { apiRoleLists, apiRoleDelete } from '@/api/auth'
-import { usePages } from '@/core/hooks/pages'
-const { pager, requestApi } = usePages({
-    callback: apiRoleLists
+import { roleLists, roleDelete } from '@/api/perms/role'
+import { usePaging } from '@/hooks/paging'
+import feedback from '@/utils/feedback'
+import EditPopup from './edit.vue'
+const editRef = shallowRef<InstanceType<typeof EditPopup>>()
+const showEdit = ref(false)
+const { pager, getLists } = usePaging({
+    fetchFun: roleLists
 })
+const handleAdd = async () => {
+    showEdit.value = true
+    await nextTick()
+    editRef.value?.open('add')
+}
+
+const handleEdit = async (data: any) => {
+    showEdit.value = true
+    await nextTick()
+    editRef.value?.open('edit')
+    editRef.value?.setFormData(data)
+}
 
 // 删除角色
 const handleDelete = async (id: number) => {
-    await apiRoleDelete({ id })
-    requestApi()
+    await feedback.confirm('确认要删除？')
+    await roleDelete({ id })
+    getLists()
 }
 
-requestApi()
+getLists()
 </script>
-  

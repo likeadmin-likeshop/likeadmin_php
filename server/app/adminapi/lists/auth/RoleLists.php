@@ -62,7 +62,8 @@ class RoleLists extends BaseAdminDataLists
      */
     public function lists(): array
     {
-        $lists = Role::field('id,name,desc,sort,create_time')
+        $lists = Role::with(['role_menu_index'])
+            ->field('id,name,desc,sort,create_time')
             ->limit($this->limitOffset, $this->limitLength)
             ->order('id', 'desc')
             ->select()
@@ -73,6 +74,9 @@ class RoleLists extends BaseAdminDataLists
         foreach ($lists as $key => $role) {
             //使用角色的人数
             $lists[$key]['num'] = $roleCountList[$role['id']] ?? 0;
+            $menuId = array_column($role['role_menu_index'], 'menu_id');
+            $lists[$key]['menu_id'] = $menuId;
+            unset($lists[$key]['role_menu_index']);
         }
 
         return $lists;

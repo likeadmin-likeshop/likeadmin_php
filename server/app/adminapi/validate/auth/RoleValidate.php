@@ -14,12 +14,9 @@
 
 namespace app\adminapi\validate\auth;
 
-use app\adminapi\logic\auth\AuthLogic;
-use app\common\{
-    model\auth\Role,
-    model\auth\Admin,
-    validate\BaseValidate
-};
+
+use app\common\validate\BaseValidate;
+use app\common\model\auth\{Role, Admin};
 
 /**
  * 角色验证器

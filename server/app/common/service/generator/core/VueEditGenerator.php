@@ -89,13 +89,12 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             if ($column['view_type'] != 'checkbox') {
                 continue;
             }
-            $content .= '//@ts-ignore' . PHP_EOL;
-            $content .= 'formData.' . $column['column_name'] . ' = formData.' . $column['column_name'] . '.join(",")' . PHP_EOL;
+            $content .= $column['column_name'] . ': formData.' . $column['column_name'] . '.join(",")' . PHP_EOL;
         }
         if (!empty($content)) {
             $content = substr($content, 0, -1);
         }
-        return $this->setBlankSpace($content, '    ');
+        return $content;
     }
 
 
@@ -116,7 +115,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 continue;
             }
             $content .= '//@ts-ignore' . PHP_EOL;
-            $content .= 'formData.' . $column['column_name'] . ' = String(data.' . $column['column_name'] . ').split(",")' . PHP_EOL;
+            $content .= 'data.' . $column['column_name'] . ' && ' .'(formData.' . $column['column_name'] . ' = String(data.' . $column['column_name'] . ').split(","))' . PHP_EOL;
         }
         if (!empty($content)) {
             $content = substr($content, 0, -1);
@@ -148,7 +147,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
         if (!empty($content)) {
             $content = substr($content, 0, -1);
         }
-        return $this->setBlankSpace($content, '        ');
+        return $this->setBlankSpace($content, '    ');
     }
 
 
@@ -186,7 +185,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $content = substr($content, 0, -1);
         }
 
-        $content = $this->setBlankSpace($content, '                ');
+        $content = $this->setBlankSpace($content, '                        ');
         return $content;
     }
 
@@ -208,7 +207,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             if (in_array($column['dict_type'], $isExist)) {
                 continue;
             }
-            $content .= $column['dict_type'] . ':' . "[]," . PHP_EOL;
+            $content .= $column['dict_type'] . ': ' . "[]," . PHP_EOL;
             $isExist[] = $column['dict_type'];
         }
         if (!empty($content)) {
@@ -247,11 +246,11 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             if (!file_exists($templatePath)) {
                 continue;
             }
-            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . ',' . PHP_EOL;
+            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . '' . PHP_EOL;
 
             $isExist[] = $column['dict_type'];
         }
-        $content = substr($content, 0, -2);
+        $content = substr($content, 0, -1);
         return $content;
     }
 
@@ -276,9 +275,9 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
 
             // 复选框类型返回数组
             if ($column['view_type'] == 'checkbox') {
-                $content .= $column['column_name'] . ':' . "[]," . PHP_EOL;
+                $content .= $column['column_name'] . ': ' . "[]," . PHP_EOL;
             } else {
-                $content .= $column['column_name'] . ':' . "''," . PHP_EOL;
+                $content .= $column['column_name'] . ': ' . "''," . PHP_EOL;
             }
 
             $isExist[] = $column['column_name'];

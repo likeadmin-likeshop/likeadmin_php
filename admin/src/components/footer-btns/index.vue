@@ -1,9 +1,7 @@
 <template>
-    <div class="footer-wrap">
-        <div class="footer-content bg-white flex flex-center">
-            <div class="flex flex-center">
-                <slot></slot>
-            </div>
+    <div class="footer-btns">
+        <div class="footer-btns__content">
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -14,15 +12,16 @@ export default defineComponent({})
 </script>
 
 <style scoped lang="scss">
-.footer-wrap {
+.footer-btns {
     height: 60px;
-    .footer-content {
+    &__content {
         position: fixed;
         bottom: 0;
-        left: $layout-aside-width;
         height: 60px;
         right: 0;
+        left: 0;
         z-index: 99;
+        @apply flex justify-center items-center shadow bg-body;
     }
 }
 </style>

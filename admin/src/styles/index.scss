@@ -1,10 +1,29 @@
-/**
-全局样式
- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-// 初始化默认样式
-@import 'reset';
-// 公共样式
-@import 'common';
-// element样式
-@import 'element';
+@layer base {
+    body {
+        @apply text-base text-tx-primary overflow-y-hidden overflow-x-auto;
+    }
+    .form-tips {
+        @apply text-tx-secondary text-xs leading-6 mt-1;
+    }
+    .el-button {
+        background-color: var(--el-button-bg-color, var(--el-color-white));
+    }
+    .clearfix:after {
+        content: '';
+        display: block;
+        clear: both;
+        visibility: hidden;
+    }
+}
+@import 'element.scss';
+@import 'dark.css';
+@import 'var.css';
+
+/* NProgress */
+#nprogress .bar {
+    @apply bg-primary #{!important};
+}
