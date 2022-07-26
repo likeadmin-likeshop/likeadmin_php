@@ -2,7 +2,6 @@
     <div class="data-table">
         <popup
             ref="popupRef"
-            class="inline"
             :clickModalClose="false"
             title="选择表"
             width="900px"
@@ -12,23 +11,22 @@
             <template #trigger>
                 <slot></slot>
             </template>
-            <el-form class="ls-form" :model="formData" label-width="80px" inline>
+            <el-form class="ls-form" :model="formData" inline>
                 <el-form-item label="表名称">
-                    <el-input v-model="formData.name" style="width: 200px;" />
+                    <el-input v-model="formData.name" />
                 </el-form-item>
                 <el-form-item label="表描述">
-                    <el-input v-model="formData.comment" style="width: 200px;" />
+                    <el-input v-model="formData.comment" />
                 </el-form-item>
                 <el-form-item>
-                    <div class="m-l-20">
-                        <el-button type="primary" @click="resetPage">查询</el-button>
-                        <el-button @click="resetParams">重置</el-button>
-                    </div>
+                    <el-button type="primary" @click="resetPage">查询</el-button>
+                    <el-button @click="resetParams">重置</el-button>
                 </el-form-item>
             </el-form>
-            <div class="m-15" v-loading="pager.loading">
+            <div class="m-4" v-loading="pager.loading">
                 <el-table
                     height="400"
+                    size="large"
                     :data="pager.lists"
                     @selection-change="handleSelectionChange"
                 >
@@ -38,11 +36,11 @@
                     <el-table-column label="创建时间" prop="create_time" min-width="100" />
                 </el-table>
             </div>
-            <div class="flex row-right">
+            <div class="flex justify-end mt-4">
                 <pagination
                     v-model="pager"
                     layout="total, prev, pager, next, jumper"
-                    @change="requestApi"
+                    @change="getLists"
                 />
             </div>
         </popup>
@@ -50,12 +48,11 @@
 </template>
 
 <script lang="ts" setup>
-
-import { reactive, ref, shallowRef, watch } from 'vue'
 import Popup from '@/components/popup/index.vue'
 import Pagination from '@/components/pagination/index.vue'
-import { usePages } from '@/core/hooks/pages';
-import { apiDataTable, apiSelectTable } from '@/api/dev_tools';
+import { usePaging } from '@/hooks/paging'
+import { dataTable, selectTable } from '@/api/tools/code'
+import feedback from '@/utils/feedback'
 
 const emit = defineEmits<{
     (event: 'success'): void
@@ -65,11 +62,11 @@ const popupRef = shallowRef<InstanceType<typeof Popup>>()
 
 const formData = reactive({
     name: '', // 表名称
-    comment: '', // 表描述
+    comment: '' // 表描述
 })
 
-const { pager, requestApi, resetParams, resetPage } = usePages({
-    callback: apiDataTable,
+const { pager, getLists, resetParams, resetPage } = usePaging({
+    fetchFun: dataTable,
     params: formData,
     size: 10
 })
@@ -84,19 +81,18 @@ const handleSelectionChange = (val: any[]) => {
 }
 
 const handleConfirm = async () => {
-    await apiSelectTable({
+    if (!selectData.value.length) return feedback.msgError('请选择数据表')
+    await selectTable({
         table: selectData.value
     })
     popupRef.value?.close()
     emit('success')
 }
 
-
-watch(() => popupRef.value?.visible, (value) => {
-    if (value) requestApi()
-})
-
+watch(
+    () => popupRef.value?.visible,
+    (value) => {
+        if (value) getLists()
+    }
+)
 </script>
-
-<style lang="scss" scoped>
-</style>

@@ -1,52 +1,4 @@
-// 引入所有样式
-// @use 'element-plus/theme-chalk/src/index.scss';
-@import "element-plus/theme-chalk/src/index.scss";
-
 :root {
-    --el-font-weight-primary: 400;
-
-    .el-checkbox {
-        --el-checkbox-font-size: 13px;
-    }
-
-    .el-menu {
-        border-right: none !important;
-
-        .el-menu--horizontal {
-            border-bottom: none;
-        }
-    }
-
-    .ls-scrollbar.el-scrollbar .el-scrollbar__wrap {
-        overflow-x: hidden;
-    }
-
-    .ls-view .el-tabs .el-tabs__item {
-        height: 60px;
-        line-height: 60px;
-    }
-
-    .el-tabs .el-tabs__nav-wrap::after {
-        height: 1px;
-        background-color: #e5e5e5;
-    }
-
-    .el-input-group__prepend {
-        background-color: #fff;
-    }
-
-    .el-loading-spinner {
-        font-size: 26px;
-    }
-
-    .el-textarea .el-textarea__inner {
-        resize: none;
-    }
-
-    .el-image .el-image__error {
-        font-size: 12px;
-    }
-
     // 弹窗居中
     .el-overlay-dialog {
         display: flex;
@@ -76,34 +28,57 @@
         }
     }
 
-    .el-card {
-        border: none;
-    }
-
-    .el-form.ls-form {
-        .el-form-item__content {
-            font-size: var(--el-font-size-base);
-
-            &>.el-cascader,
-            &>.el-select,
-            &>.el-input {
-                width: 280px;
-            }
+    .el-drawer {
+        --el-drawer-padding-primary: 16px;
+        &__header {
+            margin-bottom: 0;
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--el-border-color-lighter);
+        }
+        &__title {
+            @apply text-tx-primary;
         }
     }
 
     .el-table {
-        --el-table-header-bg-color: var(--el-color-primary-light-9);
+        --el-table-header-text-color: var(--el-text-color-primary);
+        --el-table-header-bg-color: var(--table-header-bg-color);
         font-size: var(--el-font-size-base);
 
-        thead th {
-            color: var(--el-text-color-primary);
-            font-weight: 400;
+        thead {
+            th {
+                font-weight: 400;
+            }
         }
     }
 
-    .el-alert--primary {
-        color: $color-primary;
-        background-color: $color-primary-light-9;
+    .el-input-group__prepend {
+        background-color: var(--el-fill-color-blank);
+    }
+
+    .el-checkbox {
+        --el-checkbox-font-size: var(--el-font-size-base);
+    }
+
+    .el-menu--popup-container {
+        &.theme-light {
+            .el-menu {
+                .el-menu-item {
+                    &.is-active {
+                        @apply bg-primary-light-9 border-primary border-r-2;
+                    }
+                }
+            }
+        }
+        &.theme-dark {
+            background-color: var(--side-dark-color);
+            .el-menu {
+                .el-menu-item {
+                    &.is-active {
+                        @apply bg-primary;
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,23 +1,20 @@
-<template>
-    <el-config-provider :locale="elConfig.locale" :z-index="elConfig.zIndex">
-        <router-view />
-    </el-config-provider>
-</template>
-
-<script lang="ts" setup>
-import { computed, ref, nextTick, provide, onMounted } from 'vue'
-import { useAdmin } from './core/hooks/app'
+<script setup lang="ts">
+import { useDark, useWindowSize, useThrottleFn } from '@vueuse/core'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-const { store, route } = useAdmin()
-
+import useAppStore from './stores/modules/app'
+import useSettingStore from './stores/modules/setting'
+const appStore = useAppStore()
+const settingStore = useSettingStore()
 const elConfig = {
     zIndex: 3000,
     locale: zhCn
 }
+const isDark = useDark()
 onMounted(async () => {
+    //设置主题色
+    settingStore.setTheme(isDark.value)
     // 获取配置
-    const data = await store.dispatch('app/getConfig')
-
+    const data: any = await appStore.getConfig()
     // 设置网站logo
     let favicon: HTMLLinkElement = document.querySelector('link[rel="icon"]')!
     if (favicon) {
@@ -29,9 +26,24 @@ onMounted(async () => {
     favicon.href = data.web_favicon
     document.head.appendChild(favicon)
 })
+
+const { width } = useWindowSize()
+watch(
+    width,
+    useThrottleFn((value) => {
+        if (value > 1180) {
+            appStore.toggleSidebar(true)
+        } else {
+            appStore.toggleSidebar(false)
+        }
+    })
+)
 </script>
 
-<style lang="scss">
-@import "./assets/font/iconfont.css";
-@import "./styles/index.scss";
-</style>
+<template>
+    <el-config-provider :locale="elConfig.locale" :z-index="elConfig.zIndex">
+        <router-view />
+    </el-config-provider>
+</template>
+
+<style></style>

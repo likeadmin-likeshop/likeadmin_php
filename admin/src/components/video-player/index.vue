@@ -1,7 +1,6 @@
-
 <template>
     <div>
-        <VideoPlay
+        <video-play
             ref="playerRef"
             v-bind="options"
             :src="src"
@@ -12,12 +11,11 @@
         />
     </div>
 </template>
-   
+
 <script setup lang="ts">
 import { reactive, shallowRef } from 'vue'
 import 'vue3-video-play/dist/style.css'
 import VideoPlay from 'vue3-video-play'
-import vars from '@/styles/export.module.scss'
 const props = defineProps({
     src: {
         type: String,
@@ -30,14 +28,14 @@ const props = defineProps({
 
 const playerRef = shallowRef()
 const options = reactive({
-    color: vars.color_primary, //主题色
+    color: 'var(--el-color-primary)', //主题色
     muted: false, //静音
     webFullScreen: false,
-    speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
+    speedRate: ['0.75', '1.0', '1.25', '1.5', '2.0'], //播放倍速
     autoPlay: true, //自动播放
     loop: false, //循环播放
     mirror: false, //镜像画面
-    ligthOff: false,  //关灯模式
+    ligthOff: false, //关灯模式
     volume: 0.3, //默认音量大小
     control: true, //是否显示控制器
     title: '', //视频名称
@@ -54,7 +52,7 @@ const pause = () => {
 }
 
 const onPlay = (event: any) => {
-    console.log('播放')
+    console.log(event, '播放')
 }
 const onPause = (event: any) => {
     console.log(event, '暂停')
@@ -71,6 +69,4 @@ defineExpose({
     play,
     pause
 })
-
-
 </script>

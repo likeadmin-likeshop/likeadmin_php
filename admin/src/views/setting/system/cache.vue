@@ -1,52 +1,44 @@
 <!-- 系统缓存 -->
 <template>
     <div class="cache">
-        <el-card shadow="never">
-            <el-alert class="xxl" title="温馨提示：管理系统运行过程中产生的缓存" :closable="false" show-icon></el-alert>
+        <el-card class="!border-none" shadow="never">
+            <el-alert
+                type="warning"
+                title="温馨提示：管理系统运行过程中产生的缓存"
+                :closable="false"
+                show-icon
+            ></el-alert>
         </el-card>
 
-        <el-card class="m-t-15" shadow="never">
-            <div>
-                <el-table class="m-t-20" :data="cacheDate">
-                    <el-table-column label="管理内容" prop="content"></el-table-column>
-                    <el-table-column label="内容说明" prop="desc"></el-table-column>
-                    <el-table-column label="操作" width="150" fixed="right">
-                        <template #default="scope">
-                            <popup
-                                v-perms="['setting.system.cache/clear']"
-                                class="m-r-10 inline"
-                                @confirm="handleClean"
-                                content="确定要清除系统缓存？"
-                            >
-                                <template #trigger>
-                                    <el-button type="text">清除系统缓存</el-button>
-                                </template>
-                            </popup>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </div>
+        <el-card class="!border-none mt-4" shadow="never">
+            <el-table :data="cacheDate" size="large">
+                <el-table-column label="管理内容" prop="content"></el-table-column>
+                <el-table-column label="内容说明" prop="desc"></el-table-column>
+                <el-table-column label="操作" width="150" fixed="right">
+                    <template #default>
+                        <el-button type="primary" link @click="handleClean">清除系统缓存</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
         </el-card>
     </div>
 </template>
 
 <script setup lang="ts">
-import {
-    apiSystemCacheClear
-} from '@/api/setting'
-import { ref } from 'vue'
-import Popup from '@/components/Popup/index.vue'
+import { systemCacheClear } from '@/api/setting/system'
+import feedback from '@/utils/feedback'
 
 // 列表数据
-let cacheDate = ref<Array<object>>([{
-    content: '系统缓存',
-    desc: '系统运行过程中产生的各类缓存数据',
-}])
+const cacheDate = ref<Array<object>>([
+    {
+        content: '系统缓存',
+        desc: '系统运行过程中产生的各类缓存数据'
+    }
+])
 
 // 清理缓存
 const handleClean = async () => {
-    await apiSystemCacheClear()
+    await feedback.confirm('确认清除系统缓存？')
+    await systemCacheClear()
 }
 </script>
-
-<style lang="scss" scoped></style>

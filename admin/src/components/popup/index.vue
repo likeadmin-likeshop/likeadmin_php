@@ -7,36 +7,30 @@
         <el-dialog
             v-model="visible"
             :custom-class="customClass"
+            :center="center"
             :append-to-body="true"
             :width="width"
             :close-on-click-modal="clickModalClose"
-            @closed="handleEvent('close')"
+            @closed="close"
         >
             <!-- 弹窗内容 -->
             <template v-if="title" #header>{{ title }}</template>
-            <template v-else #header>
-                <div class="flex col-center">
-                    <el-icon :size="25" :color="$variables.color_warning">
-                        <warning-filled />
-                    </el-icon>
-                    <span class="m-l-6">温馨提示</span>
-                </div>
-            </template>
 
             <!-- 自定义内容 -->
             <slot>{{ content }}</slot>
             <!-- 底部弹窗页脚 -->
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button
-                        v-if="cancelButtonText"
-                        @click="handleEvent('cancel')"
-                    >{{ cancelButtonText }}</el-button>
+                    <el-button v-if="cancelButtonText" @click="handleEvent('cancel')">
+                        {{ cancelButtonText }}
+                    </el-button>
                     <el-button
                         v-if="confirmButtonText"
                         type="primary"
                         @click="handleEvent('confirm')"
-                    >{{ confirmButtonText }}</el-button>
+                    >
+                        {{ confirmButtonText }}
+                    </el-button>
                 </div>
             </template>
         </el-dialog>
@@ -44,9 +38,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref } from 'vue'
 export default defineComponent({
-    components: {},
     props: {
         title: {
             // 弹窗标题
@@ -56,7 +48,7 @@ export default defineComponent({
         content: {
             // 弹窗内容
             type: String,
-            default: '确认要删除？'
+            default: ''
         },
         confirmButtonText: {
             // 确认按钮内容
@@ -88,16 +80,21 @@ export default defineComponent({
             type: Boolean,
             default: true
         },
+        center: {
+            // 是否居中布局
+            type: Boolean,
+            default: false
+        },
         customClass: {
             type: String,
             default: ''
         }
     },
-    emits: ['confirm', 'cancel', 'close'],
+    emits: ['confirm', 'cancel', 'close', 'open'],
     setup(props, { emit }) {
         const visible = ref(false)
 
-        const handleEvent = (type: 'confirm' | 'cancel' | 'close') => {
+        const handleEvent = (type: 'confirm' | 'cancel') => {
             emit(type)
             if (!props.async || type === 'cancel') {
                 close()
@@ -106,11 +103,15 @@ export default defineComponent({
 
         const close = () => {
             visible.value = false
+            nextTick(() => {
+                emit('close')
+            })
         }
         const open = () => {
             if (props.disabled) {
                 return
             }
+            emit('open')
             visible.value = true
         }
         provide('visible', visible)

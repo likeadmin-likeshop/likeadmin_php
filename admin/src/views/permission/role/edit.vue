@@ -1,121 +1,119 @@
 <template>
-    <div class="role-add">
-        <el-card shadow="never">
-            <el-page-header :content="getPageTitle" @back="$router.back()" />
-        </el-card>
-        <el-card v-loading="state.loading" shadow="never" class="m-t-16">
-            <el-form
-                class="ls-form"
-                ref="formRef"
-                :rules="state.rules"
-                :model="state.formData"
-                label-width="120px"
-            >
-                <el-form-item label="名称" prop="name">
-                    <el-input class="ls-input" v-model="state.formData.name" placeholder="请输入名称"></el-input>
-                </el-form-item>
-                <el-form-item label="备注" prop="desc">
-                    <el-input
-                        style="width:280px;"
-                        v-model="state.formData.desc"
-                        type="textarea"
-                        :rows="4"
-                        placeholder="请输入备注"
-                    ></el-input>
-                </el-form-item>
-                <el-form-item label="排序" prop="sort">
-                    <el-input-number v-model="state.formData.sort" />
-                </el-form-item>
-                <el-form-item label="权限">
-                    <div>
-                        <el-checkbox label="展开/折叠" @change="handleExpand" />
-                        <el-checkbox label="全选/不全选" @change="handleSelectAll" />
-                        <el-checkbox v-model="state.checkStrictly" label="父子联动" />
-                        <div>
-                            <el-tree
-                                ref="treeRef"
-                                :data="state.menuTree"
-                                :props="{
-                                    label: 'name',
-                                    children: 'children'
-                                }"
-                                :check-strictly="!state.checkStrictly"
-                                node-key="id"
-                                :default-expand-all="state.isExpand"
-                                show-checkbox
-                            />
-                        </div>
-                    </div>
-                </el-form-item>
-            </el-form>
-        </el-card>
-        <footer-btns>
-            <el-button type="primary" @click="handleSubmit">保存</el-button>
-        </footer-btns>
+    <div class="edit-popup">
+        <popup
+            ref="popupRef"
+            :title="popupTitle"
+            :async="true"
+            width="700px"
+            :clickModalClose="true"
+            @confirm="handleSubmit"
+            @close="handleClose"
+        >
+            <div class="h-[400px]" v-loading="loading">
+                <el-scrollbar>
+                    <el-form
+                        class="ls-form"
+                        ref="formRef"
+                        :rules="rules"
+                        :model="formData"
+                        label-width="120px"
+                    >
+                        <el-form-item label="名称" prop="name">
+                            <div class="w-80">
+                                <el-input
+                                    class="ls-input"
+                                    v-model="formData.name"
+                                    placeholder="请输入名称"
+                                />
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="备注" prop="desc">
+                            <div class="w-80">
+                                <el-input
+                                    v-model="formData.desc"
+                                    type="textarea"
+                                    :rows="4"
+                                    placeholder="请输入备注"
+                                />
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="排序" prop="sort">
+                            <el-input-number v-model="formData.sort" />
+                        </el-form-item>
+                        <el-form-item label="权限" prop="menu_id">
+                            <div>
+                                <el-checkbox label="展开/折叠" @change="handleExpand" />
+                                <el-checkbox label="全选/不全选" @change="handleSelectAll" />
+                                <el-checkbox v-model="checkStrictly" label="父子联动" />
+                                <div>
+                                    <el-tree
+                                        ref="treeRef"
+                                        :data="menuTree"
+                                        :props="{
+                                            label: 'name',
+                                            children: 'children'
+                                        }"
+                                        :check-strictly="!checkStrictly"
+                                        node-key="id"
+                                        :default-expand-all="isExpand"
+                                        show-checkbox
+                                    />
+                                </div>
+                            </div>
+                        </el-form-item>
+                    </el-form>
+                </el-scrollbar>
+            </div>
+        </popup>
     </div>
 </template>
 <script lang="ts" setup>
-import { shallowRef, ref, toRefs, reactive, computed, nextTick } from 'vue'
-import type { ElTree, FormInstance } from 'element-plus'
-import { useRouter, useRoute } from 'vue-router'
-import { apiRoleAdd, apiRoleDetail, apiMenuLists, apiRoleEdit } from '@/api/auth'
+import type { CheckboxValueType, ElTree, FormInstance } from 'element-plus'
+import { roleAdd, roleEdit } from '@/api/perms/role'
+import { menuLists } from '@/api/perms/menu'
+import Popup from '@/components/popup/index.vue'
 import { treeToArray } from '@/utils/util'
-const formRef = shallowRef<FormInstance>()
+const emit = defineEmits(['success', 'close'])
 const treeRef = shallowRef<InstanceType<typeof ElTree>>()
-const { query } = useRoute()
-const router = useRouter()
-const state = reactive({
-    loading: false,
-    isExpand: false,
-    checkStrictly: true,
-    menuArray: [] as any[],
-    menuTree: [],
-    formData: {
-        name: '',
-        desc: '',
-        sort: 0,
-        menu_id: [] as any[]
-    },
-    rules: {
-        name: [
-            {
-                required: true,
-                message: '请输入名称',
-                trigger: ['blur']
-            }
-        ]
-    }
+const formRef = shallowRef<FormInstance>()
+const popupRef = shallowRef<InstanceType<typeof Popup>>()
+const mode = ref('add')
+const loading = ref(false)
+const isExpand = ref(false)
+const checkStrictly = ref(true)
+const menuArray = ref<any[]>([])
+const menuTree = ref<any[]>([])
+const popupTitle = computed(() => {
+    return mode.value == 'edit' ? '编辑角色' : '新增角色'
 })
-const getPageTitle = computed(() => {
-    return query.id ? '编辑角色' : '新增角色'
+const formData = reactive({
+    id: '',
+    name: '',
+    desc: '',
+    sort: 0,
+    menu_id: [] as any[]
 })
-const getOptionsList = () => {
-    apiMenuLists({
-        page_type: 0
-    }).then((res: any) => {
-        state.menuTree = res.lists
-        state.menuArray = treeToArray(res.lists)
-    })
+
+const rules = {
+    name: [
+        {
+            required: true,
+            message: '请输入名称',
+            trigger: ['blur']
+        }
+    ]
 }
 
-const getDetail = async () => {
-    if (!query.id) {
-        return
-    }
-    state.loading = true
-    try {
-        const data = await apiRoleDetail({ id: query.id })
-        Object.keys(state.formData).forEach((key) => {
-            //@ts-ignore
-            state.formData[key] = data[key]
-        })
-        setTimeout(() => {
+const getOptions = () => {
+    menuLists({
+        page_type: 0
+    }).then((res: any) => {
+        menuTree.value = res.lists
+        menuArray.value = treeToArray(res.lists)
+        nextTick(() => {
             setDeptAllCheckedKeys()
-        }, 100)
-        state.loading = false
-    } catch (error) {
-        state.loading = false
-    }
+        })
+    })
 }
 
 // 获取所有选择的节点包括半选中节点
@@ -127,37 +125,59 @@ const getDeptAllCheckedKeys = () => {
 }
 
 const setDeptAllCheckedKeys = () => {
-    state.formData.menu_id.forEach((v) => {
+    formData.menu_id.forEach((v) => {
         nextTick(() => {
             treeRef.value?.setChecked(v, true, false)
         })
     })
 }
 
-const handleExpand = (check: boolean) => {
-    const treeList = state.menuTree
+const handleExpand = (check: CheckboxValueType) => {
+    const treeList = menuTree.value
     for (let i = 0; i < treeList.length; i++) {
         //@ts-ignore
         treeRef.value.store.nodesMap[treeList[i].id].expanded = check
     }
 }
 
-const handleSelectAll = (check: boolean) => {
+const handleSelectAll = (check: CheckboxValueType) => {
     if (check) {
-        treeRef.value?.setCheckedKeys(state.menuArray.map((item) => item.id))
+        treeRef.value?.setCheckedKeys(menuArray.value.map((item) => item.id))
     } else {
         treeRef.value?.setCheckedKeys([])
     }
 }
 
 const handleSubmit = async () => {
-    const id = query.id
     await formRef.value?.validate()
-    state.formData.menu_id = getDeptAllCheckedKeys()!
-    id ? await apiRoleEdit({ id, ...state.formData }) : await apiRoleAdd(state.formData)
-    router.back()
+    formData.menu_id = getDeptAllCheckedKeys()!
+    mode.value == 'edit' ? await roleEdit(formData) : await roleAdd(formData)
+    popupRef.value?.close()
+    emit('success')
 }
-getOptionsList()
-getDetail()
+
+const handleClose = () => {
+    emit('close')
+}
+
+const open = (type = 'add') => {
+    mode.value = type
+    popupRef.value?.open()
+}
+
+const setFormData = async (data: Record<any, any>) => {
+    for (const key in formData) {
+        if (data[key] != null && data[key] != undefined) {
+            //@ts-ignore
+            formData[key] = data[key]
+        }
+    }
+}
+
+getOptions()
+
+defineExpose({
+    open,
+    setFormData
+})
 </script>
-  

@@ -1,135 +1,145 @@
 <template>
     <div class="code-generation">
-        <el-card shadow="never">
-            <el-form class="ls-form" :model="formData" label-width="80px" inline>
+        <el-card class="!border-none" shadow="never">
+            <el-form class="ls-form mb-[-16px]" :model="formData" label-width="80px" inline>
                 <el-form-item label="表名称">
-                    <el-input v-model="formData.table_name" class="ls-input" />
+                    <el-input v-model="formData.table_name" />
                 </el-form-item>
                 <el-form-item label="表描述">
-                    <el-input v-model="formData.table_comment" class="ls-input" />
+                    <el-input v-model="formData.table_comment" />
                 </el-form-item>
                 <el-form-item>
-                    <div class="m-l-20">
-                        <el-button type="primary" @click="resetPage">查询</el-button>
-                        <el-button @click="resetParams">重置</el-button>
-                    </div>
+                    <el-button type="primary" @click="resetPage">查询</el-button>
+                    <el-button @click="resetParams">重置</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
-        <el-card class="m-t-16" v-loading="pager.loading" shadow="never">
+        <el-card class="mt-4 !border-none" v-loading="pager.loading" shadow="never">
             <data-table
                 v-perms="['tools.generator/selectTable']"
-                class="inline m-r-10"
-                @success="requestApi"
+                class="inline-block mr-[10px]"
+                @success="getLists"
             >
-                <el-button type="primary">导入数据表</el-button>
+                <el-button type="primary">
+                    <template #icon>
+                        <icon name="el-icon-Plus" />
+                    </template>
+                    导入数据表
+                </el-button>
             </data-table>
+            <el-button
+                v-perms="['tools.generator/delete']"
+                :disabled="!selectData.length"
+                @click="handleDelete(selectData)"
+                type="danger"
+            >
+                <template #icon>
+                    <icon name="el-icon-Delete" />
+                </template>
+                删除
+            </el-button>
             <el-button
                 v-perms="['tools.generator/generate']"
                 :disabled="!selectData.length"
                 @click="handleGenerate(selectData)"
-            >生成代码</el-button>
-            <popup
-                v-perms="['tools.generator/delete']"
-                class="m-l-10 inline"
-                :disabled="!selectData.length"
-                content="确认删除选中数据表？"
-                @confirm="handleDelete(selectData)"
             >
-                <template #trigger>
-                    <el-button :disabled="!selectData.length">删除</el-button>
-                </template>
-            </popup>
-            <div class="m-t-15">
-                <el-table :data="pager.lists" @selection-change="handleSelectionChange">
+                生成代码
+            </el-button>
+
+            <div class="mt-4">
+                <el-table
+                    :data="pager.lists"
+                    size="large"
+                    @selection-change="handleSelectionChange"
+                >
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="表名称" prop="table_name" />
                     <el-table-column label="表描述" prop="table_comment" />
                     <el-table-column label="创建时间" prop="create_time" />
                     <el-table-column label="更新时间" prop="update_time" />
-                    <el-table-column label="操作" width="240" fixed="right">
+                    <el-table-column label="操作" width="280" fixed="right">
                         <template #default="{ row }">
                             <el-button
                                 v-perms="['tools.generator/preview']"
-                                type="text"
+                                type="primary"
+                                link
                                 @click="handlePreview(row.id)"
-                            >预览</el-button>
+                            >
+                                预览
+                            </el-button>
                             <el-button
                                 v-perms="['tools.generator/generate']"
-                                type="text"
+                                type="primary"
+                                link
                                 @click="handleGenerate(row.id)"
-                            >代码生成</el-button>
-                            <router-link
-                                class="m-l-10"
-                                v-perms="['tools.generator/edit']"
-                                :to="{
-                                    path: '/dev_tools/code/edit',
-                                    query: {
-                                        id: row.id
-                                    }
-                                }"
                             >
-                                <el-button type="text">编辑</el-button>
-                            </router-link>
-                            <popup
+                                代码生成
+                            </el-button>
+                            <el-button v-perms="['tools.generator/edit']" type="primary" link>
+                                <router-link
+                                    :to="{
+                                        path: '/dev_tools/code/edit',
+                                        query: {
+                                            id: row.id
+                                        }
+                                    }"
+                                >
+                                    编辑
+                                </router-link>
+                            </el-button>
+                            <el-button
                                 v-perms="['tools.generator/syncColumn']"
-                                class="inline m-l-10"
-                                content="确认要同步表结构吗？"
-                                @confirm="handleSync(row.id)"
+                                type="primary"
+                                link
+                                @click="handleSync(row.id)"
                             >
-                                <template #trigger>
-                                    <el-button type="text">同步</el-button>
-                                </template>
-                            </popup>
-                            <popup
-                                v-perms="['tools.generator/delete']"
-                                class="inline m-l-10"
-                                @confirm="handleDelete(row.id)"
+                                同步
+                            </el-button>
+                            <el-button type="danger" link @click="handleDelete(row.id)"
+                                >删除</el-button
                             >
-                                <template #trigger>
-                                    <el-button type="text">删除</el-button>
-                                </template>
-                            </popup>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-            <div class="flex row-right m-t-20">
-                <pagination
-                    v-model="pager"
-                    layout="total, prev, pager, next, jumper"
-                    @change="requestApi"
-                />
+            <div class="flex justify-end mt-4">
+                <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
-        <code-preview v-if="codePreview.show" v-model="codePreview.show" :code="codePreview.code" />
+        <code-preview
+            v-if="previewState.show"
+            v-model="previewState.show"
+            :code="previewState.code"
+        />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { apiGenerateTable, apiSyncColumn, apiGenerateDel, apiGeneratePreview, apiGenerateCode, apiGenerateDownload } from '@/api/dev_tools'
-import { usePages } from '@/core/hooks/pages'
-import { reactive, ref, nextTick } from 'vue'
+import {
+    generateTable,
+    syncColumn,
+    generateDelete,
+    generatePreview,
+    generateCode
+} from '@/api/tools/code'
+import { usePaging } from '@/hooks/paging'
 import DataTable from '../components/data-table.vue'
-import Pagination from '@/components/pagination/index.vue'
 import CodePreview from '../components/code-preview.vue'
-import Popup from '@/components/popup/index.vue'
-import { useRouter } from 'vue-router'
-import { ElLoading } from 'element-plus'
+import feedback from '@/utils/feedback'
 
-const router = useRouter()
 const formData = reactive({
     table_name: '',
     table_comment: ''
 })
 
-const codePreview = reactive({
+const previewState = reactive({
     show: false,
+    loading: false,
     code: []
 })
 
-const { pager, requestApi, resetParams, resetPage } = usePages({
-    callback: apiGenerateTable,
+const { pager, getLists, resetParams, resetPage } = usePaging({
+    fetchFun: generateTable,
     params: formData
 })
 
@@ -139,52 +149,29 @@ const handleSelectionChange = (val: any[]) => {
     selectData.value = val.map(({ id }) => id)
 }
 
-
 const handleSync = async (id: number) => {
-    await apiSyncColumn({ id })
+    await feedback.confirm('确认要同步表结构？')
+    await syncColumn({ id })
 }
 
 const handleDelete = async (id: number | any[]) => {
-    await apiGenerateDel({ id })
-    requestApi()
+    await feedback.confirm('确认要删除？')
+    await generateDelete({ id })
+    getLists()
 }
 
 const handlePreview = async (id: number) => {
-    // const loadingInstance = ElLoading.service({
-    //     text: '正在生成中...',
-    //     fullscreen: true
-    // })
-    try {
-
-        const data: any = await apiGeneratePreview({ id })
-        codePreview.code = data
-        codePreview.show = true
-        // loadingInstance.close()
-        // setTimeout(() => {
-        //     
-        // }, 50)
-    } catch (error) {
-        // loadingInstance.close()
-    }
-
-
+    const data: any = await generatePreview({ id })
+    previewState.code = data
+    previewState.show = true
 }
 
 const handleGenerate = async (id: number | number[]) => {
-    const data: any = await apiGenerateCode({ id })
+    const data: any = await generateCode({ id })
     if (data.file) {
         window.open(data.file, '_blank')
     }
-
 }
 
-
-requestApi()
-
+getLists()
 </script>
-
-<style lang="scss" scoped>
-.ls-form {
-    margin-bottom: -16px;
-}
-</style>
