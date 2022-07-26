@@ -20,11 +20,8 @@
 namespace app\adminapi\validate\auth;
 
 
-use app\common\{
-    model\auth\SystemMenu,
-    model\auth\SystemRoleMenu,
-    validate\BaseValidate
-};
+use app\common\validate\BaseValidate;
+use app\common\model\auth\{Role,SystemMenu};
 
 
 /**
@@ -170,8 +167,8 @@ class MenuValidate extends BaseValidate
             return '存在子菜单,不允许删除';
         }
 
-        // 已绑定菜单不可以删除
-        $isBindRole = SystemRoleMenu::where(['menu_id' => $value])->findOrEmpty();
+        // 已绑定角色菜单不可以删除
+        $isBindRole = Role::hasWhere('roleMenuIndex', ['menu_id' => $value])->findOrEmpty();
         if (!$isBindRole->isEmpty()) {
             return '已分配菜单不可删除';
         }
