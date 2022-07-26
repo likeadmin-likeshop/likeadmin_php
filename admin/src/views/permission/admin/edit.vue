@@ -28,7 +28,7 @@
                                 <div>
                                     <material-picker
                                         v-model="formData.avatar"
-                                        :limit="20"
+                                        :limit="1"
                                     ></material-picker>
                                 </div>
                                 <div class="form-tips">
@@ -54,12 +54,12 @@
                                 clearable
                                 node-key="id"
                                 :props="{
-                  value: 'id',
-                  label: 'name',
-                  disabled(data: any) {
-                    return data.status !== 1
-                  }
-                }"
+                                    value: 'id',
+                                    label: 'name',
+                                    disabled(data: any) {
+                                        return data.status !== 1
+                                    }
+                                }"
                                 check-strictly
                                 :default-expand-all="true"
                                 placeholder="请选择上级部门"

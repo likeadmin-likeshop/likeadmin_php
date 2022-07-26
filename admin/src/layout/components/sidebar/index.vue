@@ -58,8 +58,8 @@ const sidebarStyle = computed(() => {
 const menuProps = computed(() => {
     return {
         'background-color': sideTheme.value == 'dark' ? settingStore.sideDarkColor : '',
-        'text-color': sideTheme.value == 'dark' ? 'var(--el-text-color-primary)' : '',
-        'active-text-color': sideTheme.value == 'dark' ? 'var(--el-text-color-primary)' : ''
+        'text-color': sideTheme.value == 'dark' ? 'var(--el-color-white)' : '',
+        'active-text-color': sideTheme.value == 'dark' ? 'var(--el-color-white)' : ''
     }
 })
 </script>

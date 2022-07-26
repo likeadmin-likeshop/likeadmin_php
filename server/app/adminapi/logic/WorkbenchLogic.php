@@ -63,27 +63,27 @@ class WorkbenchLogic extends BaseLogic
             [
                 'name' => '管理员',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => '/permission/admin/index'
+                'url' => '/permission/admin'
             ],
             [
                 'name' => '角色管理',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => '/permission/role/index'
+                'url' => '/permission/role'
             ],
             [
                 'name' => '部门管理',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => '/organization/department/index'
+                'url' => '/organization/department'
             ],
             [
                 'name' => '字典管理',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => '/setting/dict/type'
+                'url' => '/setting/dict'
             ],
             [
                 'name' => '代码生成器',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => '/dev_tools/code/index'
+                'url' => '/dev_tools/code'
             ],
             [
                 'name' => '素材中心',
@@ -93,7 +93,7 @@ class WorkbenchLogic extends BaseLogic
             [
                 'name' => '菜单权限',
                 'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
-                'url' => '/permission/menu/index'
+                'url' => '/permission/menu'
             ],
             [
                 'name' => '网站信息',

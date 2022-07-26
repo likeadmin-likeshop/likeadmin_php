@@ -81,6 +81,6 @@ const openSetting = () => {
 <style lang="scss">
 .navbar {
     height: var(--header-height);
-    @apply flex items-center pl-4 pr-4;
+    @apply flex items-center pl-4 pr-4 bg-body;
 }
 </style>
