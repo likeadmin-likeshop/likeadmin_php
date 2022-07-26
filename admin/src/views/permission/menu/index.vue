@@ -24,7 +24,7 @@
                 row-key="id"
                 :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
             >
-                <el-table-column label="菜单名称" prop="name" min-width="150" />
+                <el-table-column label="菜单名称" prop="name" min-width="150" show-overflow-tooltip />
                 <el-table-column label="类型" prop="type" min-width="80">
                     <template #default="{ row }">
                         <div v-if="row.type == EMenuType.CATALOGUE">目录</div>
@@ -39,14 +39,14 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="权限标识" prop="perms" min-width="150"></el-table-column>
+                <el-table-column label="权限标识" prop="perms" min-width="150" show-overflow-tooltip />
                 <el-table-column label="状态" prop="is_disable" min-width="100">
                     <template #default="{ row }">
                         <el-tag v-if="row.is_disable == 0">正常</el-tag>
                         <el-tag v-else type="danger">停用</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="排序" prop="sort" min-width="100"></el-table-column>
+                <el-table-column label="排序" prop="sort" min-width="100" />
                 <el-table-column
                     label="更新时间"
                     prop="update_time"
