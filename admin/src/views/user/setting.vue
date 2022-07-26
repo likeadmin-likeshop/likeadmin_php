@@ -1,7 +1,7 @@
 <!-- 个人资料 -->
 <template>
     <div class="user-setting">
-        <el-card class="m-t-15" shadow="never">
+        <el-card class="!border-none" shadow="never">
             <el-form
                 ref="formRef"
                 class="ls-form"

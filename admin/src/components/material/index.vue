@@ -171,9 +171,9 @@
                             >
                                 重命名
                             </el-button>
-                            <el-button type="primary" link @click="handlePreview(item.uri)"
-                                >查看</el-button
-                            >
+                            <el-button type="primary" link @click="handlePreview(item.uri)">
+                                查看
+                            </el-button>
                         </div>
                     </li>
                 </ul>
@@ -222,7 +222,7 @@
                     </el-table-column>
                 </el-table>
                 <div
-                    class="flex flex-1 row-center col-center"
+                    class="flex flex-1 justify-center items-center"
                     v-if="!pager.loading && !pager.lists.length"
                 >
                     暂无数据~

@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     DelWrap: typeof import('./src/components/del-wrap/index.vue')['default']
     DictValue: typeof import('./src/components/dict-value/index.vue')['default']
     Editor: typeof import('./src/components/editor/index.vue')['default']
+    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']

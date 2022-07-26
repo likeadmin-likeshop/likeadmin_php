@@ -27,6 +27,7 @@ module.exports = {
             'tx-disabled': 'var(--el-text-color-disabled)',
             br: 'var(--el-border-color)',
             'br-light': 'var(--el-border-color-light)',
+            'br-extra-light': 'var(--el-border-color-extra-light)',
             'br-dark': 'var( --el-border-color-dark)',
             fill: 'var(--el-fill-color)',
             mask: 'var(--el-mask-color)'

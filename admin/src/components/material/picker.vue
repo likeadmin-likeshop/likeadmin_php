@@ -74,7 +74,6 @@
 </template>
 
 <script lang="ts">
-import { provide, defineComponent, computed, ref, toRefs, watch, nextTick } from 'vue'
 import Draggable from 'vuedraggable'
 import Popup from '@/components/popup/index.vue'
 import FileItem from './file.vue'
