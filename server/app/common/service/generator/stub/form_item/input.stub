@@ -1,3 +1,5 @@
 <el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
-    <el-input v-model="formData.{COLUMN_NAME}" clearable placeholder="请输入{COLUMN_COMMENT}" />
+    <div class="w-80">
+        <el-input v-model="formData.{COLUMN_NAME}" clearable placeholder="请输入{COLUMN_COMMENT}" />
+    </div>
 </el-form-item>

@@ -1,5 +1,6 @@
 <el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
     <el-select v-model="queryParams.{COLUMN_NAME}" clearable placeholder="请选择{COLUMN_COMMENT}">
+        <el-option label="全部" value=""></el-option>
         <el-option 
             v-for="(item, index) in dictData.{DICT_TYPE}"
             :key="index" 
