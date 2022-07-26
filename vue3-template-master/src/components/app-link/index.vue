@@ -1,7 +1,7 @@
 <template>
-  <component :is="type" v-bind="linkProps">
-    <slot />
-  </component>
+    <component :is="type" v-bind="linkProps">
+        <slot />
+    </component>
 </template>
 
 <script lang="ts" setup>
@@ -10,29 +10,29 @@
  */
 import { isExternal } from '@/utils/validate'
 interface Props {
-  to: string | Record<string, string>
-  replace?: boolean
+    to: string | Record<string, string>
+    replace?: boolean
 }
 const props = defineProps<Props>()
 
 const isExternalLink = computed(() => {
-  return typeof props.to !== 'object' && isExternal(props.to)
+    return typeof props.to !== 'object' && isExternal(props.to)
 })
 
 const type = computed(() => {
-  if (isExternalLink.value) {
-    return 'a'
-  }
-  return 'router-link'
+    if (isExternalLink.value) {
+        return 'a'
+    }
+    return 'router-link'
 })
 
 const linkProps = computed(() => {
-  if (isExternalLink.value) {
-    return {
-      href: props.to,
-      target: '_blank'
+    if (isExternalLink.value) {
+        return {
+            href: props.to,
+            target: '_blank'
+        }
     }
-  }
-  return props
+    return props
 })
 </script>

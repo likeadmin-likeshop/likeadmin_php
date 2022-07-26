@@ -1,41 +1,51 @@
 <template>
-  <div class="setting">
-    <el-drawer v-model="showSetting" append-to-body direction="rtl" size="270px" title="主题设置">
-      <div class="setting-item mb-5">
-        <span class="text-tx-secondary">风格设置</span>
-        <div class="flex mt-4 cursor-pointer">
-          <div
-            class="mr-4 flex relative"
-            v-for="item in sideThemeList"
-            :key="item.type"
-            @click="sideTheme = item.type"
-          >
-            <img :src="item.image" width="52" height="36" />
-            <icon
-              v-if="sideTheme == item.type"
-              class="icon-select text-primary"
-              name="el-icon-Select"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="setting-item mb-5 flex justify-between items-center">
-        <span class="text-tx-secondary">主题颜色</span>
-        <div>
-          <el-color-picker v-model="theme" :predefine="predefineColors" @change="themeChange" />
-        </div>
-      </div>
-      <div class="setting-item mb-5 flex justify-between items-center">
-        <span class="text-tx-secondary">开启黑暗模式</span>
-        <div>
-          <el-switch :model-value="isDark" @change="toggleDark" />
-        </div>
-      </div>
-      <div class="setting-item mb-5 flex justify-between items-center">
-        <el-button @click="resetTheme">重置主题</el-button>
-      </div>
-    </el-drawer>
-  </div>
+    <div class="setting">
+        <el-drawer
+            v-model="showSetting"
+            append-to-body
+            direction="rtl"
+            size="270px"
+            title="主题设置"
+        >
+            <div class="setting-item mb-5">
+                <span class="text-tx-secondary">风格设置</span>
+                <div class="flex mt-4 cursor-pointer">
+                    <div
+                        class="mr-4 flex relative"
+                        v-for="item in sideThemeList"
+                        :key="item.type"
+                        @click="sideTheme = item.type"
+                    >
+                        <img :src="item.image" width="52" height="36" />
+                        <icon
+                            v-if="sideTheme == item.type"
+                            class="icon-select text-primary"
+                            name="el-icon-Select"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="setting-item mb-5 flex justify-between items-center">
+                <span class="text-tx-secondary">主题颜色</span>
+                <div>
+                    <el-color-picker
+                        v-model="theme"
+                        :predefine="predefineColors"
+                        @change="themeChange"
+                    />
+                </div>
+            </div>
+            <div class="setting-item mb-5 flex justify-between items-center">
+                <span class="text-tx-secondary">开启黑暗模式</span>
+                <div>
+                    <el-switch :model-value="isDark" @change="toggleDark" />
+                </div>
+            </div>
+            <div class="setting-item mb-5 flex justify-between items-center">
+                <el-button @click="resetTheme">重置主题</el-button>
+            </div>
+        </el-drawer>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -48,69 +58,69 @@ const settingStore = useSettingStore()
 
 const predefineColors = ref(['#409EFF', '#28C76F', '#EA5455', '#FF9F43', '#01CFE8', '#4A5DFF'])
 const sideThemeList = [
-  {
-    type: 'dark',
-    image: theme_dark
-  },
-  {
-    type: 'light',
-    image: theme_light
-  }
+    {
+        type: 'dark',
+        image: theme_dark
+    },
+    {
+        type: 'light',
+        image: theme_light
+    }
 ]
 
 const sideTheme = computed({
-  get() {
-    return settingStore.sideTheme
-  },
-  set(value) {
-    settingStore.setSetting({
-      key: 'sideTheme',
-      value
-    })
-  }
+    get() {
+        return settingStore.sideTheme
+    },
+    set(value) {
+        settingStore.setSetting({
+            key: 'sideTheme',
+            value
+        })
+    }
 })
 const showSetting = computed({
-  get() {
-    return settingStore.show
-  },
-  set(value) {
-    settingStore.setSetting({
-      key: 'show',
-      value
-    })
-  }
+    get() {
+        return settingStore.show
+    },
+    set(value) {
+        settingStore.setSetting({
+            key: 'show',
+            value
+        })
+    }
 })
 const theme = computed({
-  get() {
-    return settingStore.theme
-  },
-  set(value) {
-    settingStore.setSetting({
-      key: 'theme',
-      value
-    })
-  }
+    get() {
+        return settingStore.theme
+    },
+    set(value) {
+        settingStore.setSetting({
+            key: 'theme',
+            value
+        })
+    }
 })
 
 const isDark = useDark()
 const themeChange = () => {
-  settingStore.setTheme(isDark.value)
+    settingStore.setTheme(isDark.value)
 }
 
 const toggleDark = () => {
-  useToggle(isDark)()
-  themeChange()
+    useToggle(isDark)()
+    themeChange()
 }
 const resetTheme = () => {
-  isDark.value = false
-  settingStore.resetTheme()
-  themeChange()
+    isDark.value = false
+    settingStore.resetTheme()
+    themeChange()
 }
 </script>
 
 <style lang="scss" scoped>
 .icon-select {
-  @apply absolute left-1/2 top-1/2;
-  transform: translate(-50%, -50%);
+    @apply absolute left-1/2 top-1/2;
+    transform: translate(-50%, -50%);
 }
 </style>

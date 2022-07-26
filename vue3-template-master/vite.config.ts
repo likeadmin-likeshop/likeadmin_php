@@ -10,30 +10,30 @@ import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-i
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    host: '0.0.0.0'
-  },
-  plugins: [
-    vue(),
-    vueJsx(),
-    AutoImport({
-      imports: ['vue', 'vue-router'],
-      resolvers: [ElementPlusResolver()],
-      eslintrc: {
-        enabled: true
-      }
-    }),
-    Components({
-      directoryAsNamespace: true,
-      resolvers: [ElementPlusResolver()]
-    }),
-    createStyleImportPlugin({
-      resolves: [ElementPlusResolve()]
-    })
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+    server: {
+        host: '0.0.0.0'
+    },
+    plugins: [
+        vue(),
+        vueJsx(),
+        AutoImport({
+            imports: ['vue', 'vue-router'],
+            resolvers: [ElementPlusResolver()],
+            eslintrc: {
+                enabled: true
+            }
+        }),
+        Components({
+            directoryAsNamespace: true,
+            resolvers: [ElementPlusResolver()]
+        }),
+        createStyleImportPlugin({
+            resolves: [ElementPlusResolve()]
+        })
+    ],
+    resolve: {
+        alias: {
+            '@': fileURLToPath(new URL('./src', import.meta.url))
+        }
     }
-  }
 })

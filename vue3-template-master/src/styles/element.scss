@@ -1,88 +1,84 @@
-
 :root {
+    // 弹窗居中
+    .el-overlay-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 1000px;
+        min-height: 100%;
+        position: static;
+        overflow: hidden;
 
-  // 弹窗居中
-  .el-overlay-dialog {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 1000px;
-    min-height: 100%;
-    position: static;
-    overflow: hidden;
+        .el-dialog {
+            --el-dialog-content-font-size: var(--el-font-size-base);
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            margin: 20px !important;
+            border-radius: 5px;
 
-    .el-dialog {
-      --el-dialog-content-font-size: var(--el-font-size-base);
-      flex: none;
-      display: flex;
-      flex-direction: column;
-      margin: 20px !important;
-      border-radius: 5px;
+            &.body-padding .el-dialog__body {
+                padding: 0;
+            }
 
-      &.body-padding .el-dialog__body {
-        padding: 0;
-      }
-
-      .el-dialog__body {
-        flex: 1;
-        padding: 15px 20px;
-      }
-    }
-  }
-
-  .el-drawer {
-    --el-drawer-padding-primary: 16px;
-    &__header {
-      margin-bottom: 0;
-      padding: 13px 16px;
-      border-bottom: 1px solid var(--el-border-color-lighter);
-      
-    }
-    &__title {
-      @apply text-tx-primary;
-    }
-  }
-  
-  .el-table {
-    --el-table-header-text-color: var(--el-text-color-primary);
-    --el-table-header-bg-color: var(--table-header-bg-color);
-    font-size: var(--el-font-size-base);
-  
-    thead {
-      th {
-        font-weight: 400;
-      }
-    }
-  }
-  
-  .el-input-group__prepend {
-    background-color: var(--el-fill-color-blank);
-  }
-  
-  .el-checkbox {
-    --el-checkbox-font-size: var(--el-font-size-base);
-  } 
-
-  .el-menu--popup-container{
-    &.theme-light {
-      .el-menu {
-        .el-menu-item {
-          &.is-active {
-            @apply bg-primary-light-9 border-primary border-r-2;
-          }
+            .el-dialog__body {
+                flex: 1;
+                padding: 15px 20px;
+            }
         }
-      }
     }
-    &.theme-dark {
-      background-color: var(--side-dark-color);
-      .el-menu {
-        .el-menu-item {
-          &.is-active {
-            @apply bg-primary;
-          }
+
+    .el-drawer {
+        --el-drawer-padding-primary: 16px;
+        &__header {
+            margin-bottom: 0;
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--el-border-color-lighter);
         }
-      }
+        &__title {
+            @apply text-tx-primary;
+        }
     }
-  }
-  
+
+    .el-table {
+        --el-table-header-text-color: var(--el-text-color-primary);
+        --el-table-header-bg-color: var(--table-header-bg-color);
+        font-size: var(--el-font-size-base);
+
+        thead {
+            th {
+                font-weight: 400;
+            }
+        }
+    }
+
+    .el-input-group__prepend {
+        background-color: var(--el-fill-color-blank);
+    }
+
+    .el-checkbox {
+        --el-checkbox-font-size: var(--el-font-size-base);
+    }
+
+    .el-menu--popup-container {
+        &.theme-light {
+            .el-menu {
+                .el-menu-item {
+                    &.is-active {
+                        @apply bg-primary-light-9 border-primary border-r-2;
+                    }
+                }
+            }
+        }
+        &.theme-dark {
+            background-color: var(--side-dark-color);
+            .el-menu {
+                .el-menu-item {
+                    &.is-active {
+                        @apply bg-primary;
+                    }
+                }
+            }
+        }
+    }
 }

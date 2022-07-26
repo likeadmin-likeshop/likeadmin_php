@@ -1,4 +1,4 @@
-// import { isObject } from 'lodash-es'
+import { isObject } from '@vue/shared'
 
 /**
  * @author Jason
@@ -7,7 +7,7 @@
  * @param {String} unit 单位 px em rem
  */
 export const addUnit = (value: string | number, unit = 'px') => {
-  return !Object.is(Number(value), NaN) ? `${value}${unit}` : value
+    return !Object.is(Number(value), NaN) ? `${value}${unit}` : value
 }
 
 /**
@@ -17,7 +17,7 @@ export const addUnit = (value: string | number, unit = 'px') => {
  * @return {Boolean}
  */
 export const isEmpty = (value: unknown) => {
-  return value !== null && value !== '' && typeof value !== 'undefined'
+    return value !== null && value !== '' && typeof value !== 'undefined'
 }
 
 /**
@@ -28,20 +28,20 @@ export const isEmpty = (value: unknown) => {
  */
 
 export const treeToArray = (data: any[], props = { children: 'children' }) => {
-  data = JSON.parse(JSON.stringify(data))
-  const { children } = props
-  const newData = []
-  const queue: any[] = []
-  data.forEach((child: any) => queue.push(child))
-  while (queue.length) {
-    const item: any = queue.shift()
-    if (item[children]) {
-      item[children].forEach((child: any) => queue.push(child))
-      delete item[children]
+    data = JSON.parse(JSON.stringify(data))
+    const { children } = props
+    const newData = []
+    const queue: any[] = []
+    data.forEach((child: any) => queue.push(child))
+    while (queue.length) {
+        const item: any = queue.shift()
+        if (item[children]) {
+            item[children].forEach((child: any) => queue.push(child))
+            delete item[children]
+        }
+        newData.push(item)
     }
-    newData.push(item)
-  }
-  return newData
+    return newData
 }
 
 /**
@@ -50,15 +50,15 @@ export const treeToArray = (data: any[], props = { children: 'children' }) => {
  * @param {String} path  数据
  */
 export function getNormalPath(path: string) {
-  if (path.length === 0 || !path || path == 'undefined') {
-    return path
-  }
-  const newPath = path.replace('//', '/')
-  const length = newPath.length
-  if (newPath[length - 1] === '/') {
-    return newPath.slice(0, length - 1)
-  }
-  return newPath
+    if (path.length === 0 || !path || path == 'undefined') {
+        return path
+    }
+    const newPath = path.replace('//', '/')
+    const length = newPath.length
+    if (newPath[length - 1] === '/') {
+        return newPath.slice(0, length - 1)
+    }
+    return newPath
 }
 
 /**
@@ -68,24 +68,24 @@ export function getNormalPath(path: string) {
  * @return {string} Query语法
  */
 export function objectToQuery(params: Record<string, any>): string {
-  // let query = ''
-  // for (const props of Object.keys(params)) {
-  //   const value = params[props]
-  //   const part = encodeURIComponent(props) + '='
-  //   if (!isEmpty(value)) {
-  //     if (isObject(value)) {
-  //       for (const key of Object.keys(value)) {
-  //         if (!isEmpty(value[key])) {
-  //           const params = props + '[' + key + ']'
-  //           const subPart = encodeURIComponent(params) + '='
-  //           query += subPart + encodeURIComponent(value[key]) + '&'
-  //         }
-  //       }
-  //     } else {
-  //       query += part + encodeURIComponent(value) + '&'
-  //     }
-  //   }
-  // }
-  // return query.slice(0, -1)
-  return ''
+    let query = ''
+    for (const props of Object.keys(params)) {
+        const value = params[props]
+        const part = encodeURIComponent(props) + '='
+        if (!isEmpty(value)) {
+            if (isObject(value)) {
+                for (const key of Object.keys(value)) {
+                    if (!isEmpty(value[key])) {
+                        const params = props + '[' + key + ']'
+                        const subPart = encodeURIComponent(params) + '='
+                        query += subPart + encodeURIComponent(value[key]) + '&'
+                    }
+                }
+            } else {
+                query += part + encodeURIComponent(value) + '&'
+            }
+        }
+    }
+    return query.slice(0, -1)
+    return ''
 }

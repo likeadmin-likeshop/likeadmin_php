@@ -7,7 +7,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppLink: typeof import('./src/components/app-link/index.vue')['default']
     Breadcrumb: typeof import('./src/components/breadcrumb/index.vue')['default']
+    DataPicker: typeof import('./src/components/data-picker/index.vue')['default']
     DelWrap: typeof import('./src/components/del-wrap/index.vue')['default']
+    DictValue: typeof import('./src/components/dict-value/index.vue')['default']
     Editor: typeof import('./src/components/editor/index.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']

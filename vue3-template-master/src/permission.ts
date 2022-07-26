@@ -18,53 +18,54 @@ const defaultPath = '/'
 const whiteList = ['/login', '/403']
 
 router.beforeEach(async (to, from, next) => {
-  console.log(to)
-  // 开始 Progress Bar
-  NProgress.start()
-  const userStore = useUserStore()
-  if (userStore.token) {
-    // 获取用户信息
-    const hasGetUserInfo = Object.keys(userStore.userInfo).length !== 0
-    if (hasGetUserInfo) {
-      if (to.path === loginPath) {
-        next({ path: defaultPath })
-      } else {
+    console.log(to)
+    // 开始 Progress Bar
+    NProgress.start()
+    const userStore = useUserStore()
+    if (userStore.token) {
+        // 获取用户信息
+        const hasGetUserInfo = Object.keys(userStore.userInfo).length !== 0
+        if (hasGetUserInfo) {
+            if (to.path === loginPath) {
+                next({ path: defaultPath })
+            } else {
+                next()
+            }
+        } else {
+            try {
+                await userStore.getUserInfo()
+                const routes = userStore.routes
+                // 找到第一个有效路由
+                indexRoute.redirect = { name: findFirstValidRoute(routes) }
+                // 动态添加index路由
+                router.addRoute(indexRoute)
+                routes.forEach((route: any) => {
+                    // https 则不插入
+                    if (isExternal(route.path)) {
+                        return
+                    }
+                    if (!route.children) {
+                        router.addRoute(INDEX_ROUTE_NAME, route)
+                        return
+                    }
+                    // 动态添加可访问路由表
+                    router.addRoute(route)
+                })
+                next({ ...to, replace: true })
+            } catch (err) {
+                userStore.resetLoginInfo()
+                next({ path: loginPath, query: { redirect: to.fullPath } })
+            }
+        }
+    } else if (whiteList.includes(to.path)) {
+        // 在免登录白名单，直接进入
         next()
-      }
     } else {
-      try {
-        await userStore.getUserInfo()
-        const routes = userStore.routes
-        // 找到第一个有效路由
-        indexRoute.redirect = { name: findFirstValidRoute(routes) }
-        // 动态添加index路由
-        router.addRoute(indexRoute)
-        routes.forEach((route: any) => {
-          // https 则不插入
-          if (isExternal(route.path)) {
-            return
-          }
-          if (!route.children) {
-            router.addRoute(INDEX_ROUTE_NAME, route)
-            return
-          }
-          // 动态添加可访问路由表
-          router.addRoute(route)
-        })
-        next({ ...to, replace: true })
-      } catch (err) {
-        userStore.resetLoginInfo()
         next({ path: loginPath, query: { redirect: to.fullPath } })
-      }
     }
-  } else if (whiteList.includes(to.path)) {
-    // 在免登录白名单，直接进入
-    next()
-  } else {
-    next({ path: loginPath, query: { redirect: to.fullPath } })
-  }
 })
 
 router.afterEach(() => {
-  NProgress.done()
+    // console.log(router.getRoutes())
+    NProgress.done()
 })

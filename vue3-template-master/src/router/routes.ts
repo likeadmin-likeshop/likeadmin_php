@@ -18,63 +18,63 @@ import Layout from '@/layout/index.vue'
 export const INDEX_ROUTE_NAME = Symbol()
 
 export const constantRoutes: Array<RouteRecordRaw> = [
-  {
-    path: '/:pathMatch(.*)*',
-    component: () => import('@/views/error/404.vue')
-  },
-  {
-    path: '/403',
-    component: () => import('@/views/error/403.vue')
-  },
-  {
-    path: '/login',
-    component: () => import('@/views/account/login.vue')
-  },
-  {
-    path: '/user',
-    component: Layout,
-    children: [
-      {
-        path: 'setting',
-        component: () => import('@/views/user/setting.vue'),
-        meta: {
-          title: '个人设置'
-        }
-      }
-    ]
-  },
-  {
-    path: '/dev_tools',
-    component: Layout,
-    children: [
-      {
-        path: 'code/edit',
-        component: () => import('@/views/dev_tools/code/edit.vue'),
-        meta: {
-          title: '编辑数据表',
-          activeMenu: '/dev_tools/code'
-        }
-      }
-    ]
-  },
-  {
-    path: '/setting',
-    component: Layout,
-    children: [
-      {
-        path: 'dict/data',
-        component: () => import('@/views/setting/dict/data/index.vue'),
-        meta: {
-          title: '数据管理',
-          activeMenu: '/setting/dict'
-        }
-      }
-    ]
-  }
+    {
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/views/error/404.vue')
+    },
+    {
+        path: '/403',
+        component: () => import('@/views/error/403.vue')
+    },
+    {
+        path: '/login',
+        component: () => import('@/views/account/login.vue')
+    },
+    {
+        path: '/user',
+        component: Layout,
+        children: [
+            {
+                path: 'setting',
+                component: () => import('@/views/user/setting.vue'),
+                meta: {
+                    title: '个人设置'
+                }
+            }
+        ]
+    },
+    {
+        path: '/dev_tools',
+        component: Layout,
+        children: [
+            {
+                path: 'code/edit',
+                component: () => import('@/views/dev_tools/code/edit.vue'),
+                meta: {
+                    title: '编辑数据表',
+                    activeMenu: '/dev_tools/code'
+                }
+            }
+        ]
+    },
+    {
+        path: '/setting',
+        component: Layout,
+        children: [
+            {
+                path: 'dict/data',
+                component: () => import('@/views/setting/dict/data/index.vue'),
+                meta: {
+                    title: '数据管理',
+                    activeMenu: '/setting/dict'
+                }
+            }
+        ]
+    }
 ]
 
 export const indexRoute: RouteRecordRaw = {
-  path: '/',
-  component: Layout,
-  name: INDEX_ROUTE_NAME
+    path: '/',
+    component: Layout,
+    name: INDEX_ROUTE_NAME
 }

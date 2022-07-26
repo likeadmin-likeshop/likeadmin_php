@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <el-tooltip v-bind="props" :disabled="disabled" placement="top" :teleported="false">
-      <div ref="textRef" class="overflow-text truncate">{{ content }}</div>
-    </el-tooltip>
-  </div>
+    <div>
+        <el-tooltip v-bind="props" :disabled="disabled" placement="top" :teleported="false">
+            <div ref="textRef" class="overflow-text truncate">{{ content }}</div>
+        </el-tooltip>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -15,11 +15,11 @@ const textRef = shallowRef<HTMLElement>()
 const disabled = ref(false)
 
 useEventListener(textRef, 'mouseenter', () => {
-  if (textRef.value?.scrollWidth! > textRef.value?.offsetWidth!) {
-    disabled.value = false
-  } else {
-    disabled.value = true
-  }
+    if (textRef.value?.scrollWidth! > textRef.value?.offsetWidth!) {
+        disabled.value = false
+    } else {
+        disabled.value = true
+    }
 })
 </script>
 
