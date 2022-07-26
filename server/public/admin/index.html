@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>admin</title>
+    <title>后台管理系统</title>
     <style>
       * {
         margin: 0;
@@ -21,11 +21,13 @@
       .circular {
         height: 42px;
         width: 42px;
-        animation: loading-rotate 2s linear infinite;
+        -webkit-animation: loading-rotate 2s linear infinite;
+                animation: loading-rotate 2s linear infinite;
       }
   
       .circular .path {
-        animation: loading-dash 1.5s ease-in-out infinite;
+        -webkit-animation: loading-dash 1.5s ease-in-out infinite;
+                animation: loading-dash 1.5s ease-in-out infinite;
         stroke-dasharray: 90, 150;
         stroke-dashoffset: 0;
         stroke-width: 2;
@@ -33,9 +35,28 @@
         stroke-linecap: round;
       }
   
+      @-webkit-keyframes loading-rotate {
+        100% {
+          transform: rotate(1turn);
+        }
+      }
+  
       @keyframes loading-rotate {
         100% {
           transform: rotate(1turn);
+        }
+      }
+  
+      @-webkit-keyframes loading-dash {
+  
+        0% {
+          stroke-dasharray: 90, 150;
+          stroke-dashoffset: -40px;
+        }
+  
+        100% {
+          stroke-dasharray: 90, 150;
+          stroke-dashoffset: -120px;
         }
       }
   
@@ -52,8 +73,8 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="/admin/assets/index.fe71d24f.js"></script>
-    <link rel="stylesheet" href="/admin/assets/index.21d94b44.css">
+    <script type="module" crossorigin src="/admin/assets/index.c3aea19d.js"></script>
+    <link rel="stylesheet" href="/admin/assets/index.3e5b14a1.css">
   </head>
   <body>
     <div id="app">
