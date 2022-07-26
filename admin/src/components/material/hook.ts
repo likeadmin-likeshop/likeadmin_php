@@ -115,7 +115,7 @@ export function useFile(cateId: Ref<string>, type: Ref<number>, limit: Ref<numbe
     }
 
     const isSelect = (id: number) => {
-        return select.value.find((item: any) => item.id == id)
+        return !!select.value.find((item: any) => item.id == id)
     }
 
     const batchFileDelete = async (id?: number[]) => {

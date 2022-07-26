@@ -142,6 +142,7 @@ const setUser = async () => {
         }
     }
     await setUserInfo(formData)
+    userStore.getUserInfo()
 }
 
 // 提交数据

@@ -212,9 +212,9 @@
                             >
                                 重命名
                             </el-button>
-                            <el-button type="primary" link @click.stop="handlePreview(row.uri)"
-                                >查看</el-button
-                            >
+                            <el-button type="primary" link @click.stop="handlePreview(row.uri)">
+                                查看
+                            </el-button>
                             <el-button type="primary" link @click.stop="batchFileDelete([row.id])">
                                 删除
                             </el-button>
@@ -241,9 +241,9 @@
                                 当页全选
                             </el-checkbox>
                         </span>
-                        <el-button :disabled="!select.length" @click="batchFileDelete()"
-                            >删除</el-button
-                        >
+                        <el-button :disabled="!select.length" @click="batchFileDelete()">
+                            删除
+                        </el-button>
                         <popup
                             class="ml-3 inline"
                             @confirm="batchFileMove"
