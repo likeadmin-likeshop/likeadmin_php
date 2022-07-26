@@ -1,5 +1,5 @@
 <el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
-    <el-select v-model="formData.{COLUMN_NAME}" clearable placeholder="请选择{COLUMN_COMMENT}">
+    <el-select class="w-80" v-model="formData.{COLUMN_NAME}" clearable placeholder="请选择{COLUMN_COMMENT}">
         <el-option 
             v-for="(item, index) in dictData.{DICT_TYPE}"
             :key="index" 

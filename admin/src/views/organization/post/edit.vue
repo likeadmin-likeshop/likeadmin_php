@@ -1,160 +1,120 @@
-<!-- 岗位编辑 -->
 <template>
-	<div class="post-edit">
-		<el-card shadow="never">
-			<el-page-header :content="id ? '编辑岗位' : '新增岗位'" @back="$router.back()" />
-		</el-card>
-		<el-card v-loading="loading" shadow="never" class="m-t-15">
-			<el-form ref="formRefs" :rules="rules" class="ls-form" :model="formData" label-width="150px">
-				<!-- 岗位名称 -->
-				<el-form-item label="岗位名称" prop="name">
-					<el-input v-model="formData.name" placeholder="请输入岗位名称"></el-input>
-				</el-form-item>
-
-				<!-- 岗位编码 -->
-				<el-form-item label="岗位编码" prop="code">
-					<el-input v-model="formData.code" placeholder="请输入岗位编码"></el-input>
-				</el-form-item>
-
-				<!-- 岗位排序 -->
-				<el-form-item label="排序" prop="sort">
-					<div>
-						<el-input style="width: 280px;" v-model="formData.sort" placeholder="请输入排序" type="number"></el-input>
-						<div class="muted">默认为0， 数值越大越排前</div>
-					</div>
-				</el-form-item>
-
-				<!-- 备注 -->
-				<el-form-item label="备注" prop="remark">
-					<el-input
-						v-model="formData.remark"
-						placeholder="请输入备注"
-						type="textarea"
-						:autosize="{ minRows: 4, maxRows: 6 }"
-					></el-input>
-				</el-form-item>
-
-				<!-- 管理员状态 -->
-				<el-form-item label="岗位状态">
-					<el-switch v-model="formData.status" :active-value="1" :inactive-value="0" />
-				</el-form-item>
-			</el-form>
-		</el-card>
-		<footer-btns>
-			<el-button type="primary" @click="onSubmit">保存</el-button>
-		</footer-btns>
-	</div>
+    <div class="edit-popup">
+        <popup
+            ref="popupRef"
+            :title="popupTitle"
+            :async="true"
+            width="700px"
+            :clickModalClose="true"
+            @confirm="handleSubmit"
+            @close="handleClose"
+        >
+            <div class="h-[400px]">
+                <el-scrollbar>
+                    <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
+                        <el-form-item label="岗位名称" prop="name">
+                            <div class="w-80">
+                                <el-input v-model="formData.name" placeholder="请输入岗位名称" />
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="岗位编码" prop="code">
+                            <div class="w-80">
+                                <el-input v-model="formData.code" placeholder="请输入岗位编码" />
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="排序" prop="sort">
+                            <div>
+                                <el-input-number v-model="formData.sort" />
+                                <div class="form-tips">默认为0， 数值越大越排前</div>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="备注" prop="remark">
+                            <div class="w-80">
+                                <el-input
+                                    v-model="formData.remark"
+                                    placeholder="请输入备注"
+                                    type="textarea"
+                                    :autosize="{ minRows: 4, maxRows: 6 }"
+                                />
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="岗位状态">
+                            <el-switch
+                                v-model="formData.status"
+                                :active-value="1"
+                                :inactive-value="0"
+                            />
+                        </el-form-item>
+                    </el-form>
+                </el-scrollbar>
+            </div>
+        </popup>
+    </div>
 </template>
-
 <script lang="ts" setup>
-import {
-	computed,
-	defineComponent,
-	onMounted,
-	reactive,
-	Ref,
-	ref,
-	toRefs
-} from 'vue'
-import FooterBtns from '@/components/footer-btns/index.vue'
-import {
-	apiJobsEdit,
-	apiJobsAdd,
-	apiJobsDetail,
-} from '@/api/organization'
-import {
-	ElForm
-} from 'element-plus'
-import {
-	useAdmin
-} from '@/core/hooks/app'
+import type { FormInstance } from 'element-plus'
+import { jobsEdit, jobsAdd } from '@/api/org/post'
+import Popup from '@/components/popup/index.vue'
+const emit = defineEmits(['success', 'close'])
+const formRef = shallowRef<FormInstance>()
+const popupRef = shallowRef<InstanceType<typeof Popup>>()
+const mode = ref('add')
+const popupTitle = computed(() => {
+    return mode.value == 'edit' ? '编辑岗位' : '新增岗位'
+})
+const formData = reactive({
+    id: '',
+    name: '',
+    code: '',
+    sort: 0,
+    remark: '',
+    status: 1
+})
 
-
-const formRefs: Ref<typeof ElForm | null> = ref(null)
-
-const {
-	router,
-	route
-} = useAdmin()
-
-const id = computed(() => route.query?.id)
-const loading = ref(false)
-
-// 表单数据
-const {
-	formData,
-	rules
-} = toRefs(
-	reactive({
-		formData: {
-			name: '',
-			code: '',
-			sort: 0,
-			remark: '',
-			status: 0,
-		},
-		rules: {
-			code: [{
-				required: true,
-				message: '请输入岗位编码',
-				trigger: ['blur']
-			}],
-			name: [{
-				required: true,
-				message: '请输入岗位名称',
-				trigger: ['blur']
-			}],
-		}
-	})
-)
-
-// 获取详情
-const getDetail = () => {
-
-	if (!id.value) {
-		return
-	}
-
-	loading.value = true
-
-	apiJobsDetail({
-		id: id.value
-	})
-		.then((res: any) => {
-			formData.value = res
-		})
-		.finally(() => {
-			loading.value = false
-		})
+const formRules = {
+    code: [
+        {
+            required: true,
+            message: '请输入岗位编码',
+            trigger: ['blur']
+        }
+    ],
+    name: [
+        {
+            required: true,
+            message: '请输入岗位名称',
+            trigger: ['blur']
+        }
+    ]
 }
 
-// 提交
-const onSubmit = () => {
-	formRefs.value?.validate((valid: boolean) => {
-		if (!valid) {
-			return
-		}
-		const promise = id.value ?
-			apiJobsEdit({
-				...formData.value,
-				id: id.value
-			}) :
-			apiJobsAdd(formData.value)
-		promise.then(() => {
-			setTimeout(() => router.go(-1), 500)
-		})
-	})
+const handleSubmit = async () => {
+    await formRef.value?.validate()
+    mode.value == 'edit' ? await jobsEdit(formData) : await jobsAdd(formData)
+    popupRef.value?.close()
+    emit('success')
 }
 
-onMounted(() => {
-	getDetail()
+const open = (type = 'add') => {
+    mode.value = type
+    popupRef.value?.open()
+}
+
+const setFormData = (data: Record<any, any>) => {
+    for (const key in formData) {
+        if (data[key] != null && data[key] != undefined) {
+            //@ts-ignore
+            formData[key] = data[key]
+        }
+    }
+}
+
+const handleClose = () => {
+    emit('close')
+}
+
+defineExpose({
+    open,
+    setFormData
 })
 </script>
-
-<style lang="scss" scoped>
-.post-edit {
-	:deep(.el-textarea) {
-		width: 340px;
-	}
-}
-</style>

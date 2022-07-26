@@ -1,8 +1,8 @@
-import request from "@/utils/request"
+import request from '@/utils/request'
 
 // {COMMENT}列表
 export function api{UPPER_CAMEL_NAME}Lists(params: any) {
-    return request.get('/{ROUTE}/lists', { params })
+    return request.get('/{ROUTE}/lists', params)
 }
 
 // 添加{COMMENT}
@@ -18,9 +18,4 @@ export function api{UPPER_CAMEL_NAME}Edit(params: any) {
 // 删除{COMMENT}
 export function api{UPPER_CAMEL_NAME}Delete(params: any) {
     return request.post('/{ROUTE}/delete', params)
-}
-
-// {COMMENT}详情
-export function api{UPPER_CAMEL_NAME}Detail(params: any) {
-    return request.get('/{ROUTE}/detail', { params })
 }

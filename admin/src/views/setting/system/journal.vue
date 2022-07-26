@@ -1,10 +1,10 @@
 <!-- 系统日志 -->
 <template>
     <div class="journal">
-        <el-card shadow="never">
-            <el-form class="ls-form" :model="formData" label-width="80px" inline>
+        <el-card class="!border-none" shadow="never">
+            <el-form class="ls-form" :model="formData" inline>
                 <el-form-item label="管理员">
-                    <el-input placeholder="请输入" class="ls-input" v-model="formData.admin_name" />
+                    <el-input placeholder="请输入" v-model="formData.admin_name" />
                 </el-form-item>
 
                 <el-form-item label="访问方式">
@@ -19,7 +19,7 @@
                 </el-form-item>
 
                 <el-form-item label="来源IP">
-                    <el-input placeholder="请输入" class="ls-input" v-model="formData.ip" />
+                    <el-input placeholder="请输入" v-model="formData.ip" />
                 </el-form-item>
 
                 <el-form-item label="访问时间">
@@ -30,52 +30,40 @@
                 </el-form-item>
 
                 <el-form-item label="访问链接">
-                    <el-input placeholder="请输入" class="ls-input" v-model="formData.url" />
+                    <el-input placeholder="请输入" v-model="formData.url" />
                 </el-form-item>
 
                 <el-form-item>
-                    <div class="m-l-20">
-                        <el-button type="primary" @click="resetPage">查询</el-button>
-                        <el-button @click="resetParams">重置</el-button>
-                    </div>
+                    <el-button type="primary" @click="resetPage">查询</el-button>
+                    <el-button @click="resetParams">重置</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
 
-        <el-card class="m-t-15" shadow="never" v-loading="pager.loading">
+        <el-card class="!border-none mt-4" shadow="never" v-loading="pager.loading">
             <div>
-                <el-table class="m-t-20" :data="pager.lists">
-                    <el-table-column label="记录ID" prop="id"></el-table-column>
-                    <el-table-column label="操作" prop="action"></el-table-column>
-                    <el-table-column label="管理员" prop="admin_name"></el-table-column>
-                    <el-table-column label="管理员ID" prop="admin_id"></el-table-column>
-                    <el-table-column label="访问链接" prop="url"></el-table-column>
-                    <el-table-column label="访问方式" prop="type"></el-table-column>
-                    <el-table-column label="访问参数" prop="params"></el-table-column>
-                    <el-table-column label="来源IP" prop="ip"></el-table-column>
-                    <el-table-column label="日志时间" prop="create_time"></el-table-column>
+                <el-table :data="pager.lists" size="large">
+                    <el-table-column label="记录ID" prop="id" />
+                    <el-table-column label="操作" prop="action" />
+                    <el-table-column label="管理员" prop="admin_name" />
+                    <el-table-column label="管理员ID" prop="admin_id" />
+                    <el-table-column label="访问链接" prop="url" />
+                    <el-table-column label="访问方式" prop="type" />
+                    <el-table-column label="访问参数" prop="params" />
+                    <el-table-column label="来源IP" prop="ip" />
+                    <el-table-column label="日志时间" prop="create_time" />
                 </el-table>
             </div>
-            <div class="flex row-right">
-                <pagination
-                    v-model="pager"
-                    @change="requestApi"
-                    layout="total, prev, pager, next, jumper"
-                />
+            <div class="flex mt-4 justify-end">
+                <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
     </div>
 </template>
 
 <script setup lang="ts">
-import {
-    apiSystemLogLists
-} from '@/api/setting'
-import { onMounted, reactive, ref } from 'vue'
-import Pagination from '@/components/pagination/index.vue'
-import Popup from '@/components/Popup/index.vue'
-import { usePages } from '@/core/hooks/pages'
-import DataPicker from '@/components/data-picker/index.vue'
+import { systemLogLists } from '@/api/setting/system'
+import { usePaging } from '@/hooks/paging'
 
 interface formDataObj {
     admin_name?: string // 管理员
@@ -87,50 +75,50 @@ interface formDataObj {
 }
 
 // 查询表单
-let formData = ref<formDataObj>({
+const formData = ref<formDataObj>({
     admin_name: '',
     url: '',
     ip: '',
     type: '',
     start_time: '',
-    end_time: '',
+    end_time: ''
 })
 
 // 访问方式
 const visitType = ref<Array<any>>([
     {
         label: '全部',
-        value: '',
+        value: ''
     },
     {
         label: 'get',
-        value: 'get',
+        value: 'get'
     },
     {
         label: 'post',
-        value: 'post',
+        value: 'post'
     },
     {
         label: 'put',
-        value: 'put',
+        value: 'put'
     },
     {
         label: 'delete',
-        value: 'delete',
+        value: 'delete'
     },
     {
         label: 'option',
-        value: 'option',
-    },
+        value: 'option'
+    }
 ])
 
-const { pager, requestApi, resetParams, resetPage } = usePages({
-    callback: apiSystemLogLists,
-    params: formData.value,
+const { pager, getLists, resetParams, resetPage } = usePaging({
+    fetchFun: systemLogLists,
+    params: formData.value
 })
 
 onMounted(() => {
-    requestApi()
+    getLists()
 })
 </script>
 

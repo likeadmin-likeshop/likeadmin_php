@@ -2,15 +2,13 @@
     <div class="del-wrap">
         <slot></slot>
         <div v-if="showClose" class="icon-close" @click.stop="handleClose">
-            <el-icon :size="12"><close-bold /></el-icon>
+            <icon :size="12" name="el-icon-CloseBold" />
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
 export default defineComponent({
-    components: {},
     props: {
         showClose: {
             type: Boolean,

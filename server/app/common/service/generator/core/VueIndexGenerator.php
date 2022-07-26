@@ -156,7 +156,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
         if (!empty($content)) {
             $content = substr($content, 0, -1);
         }
-        return $this->setBlankSpace($content, '                        ');
+        return $this->setBlankSpace($content, '                    ');
     }
 
 
@@ -174,14 +174,14 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             if (!$column['is_query'] || $column['is_pk']) {
                 continue;
             }
-            $content .= $column['column_name'] . ":''," . PHP_EOL;
+            $content .= $column['column_name'] . ": ''," . PHP_EOL;
             if ($column['query_type'] == 'between' && $column['view_type'] == 'datetime') {
                 $queryDate = true;
             }
         }
         if ($queryDate) {
-            $content .= "start_time:''," . PHP_EOL;
-            $content .= "end_time:''," . PHP_EOL;
+            $content .= "start_time: ''," . PHP_EOL;
+            $content .= "end_time: ''," . PHP_EOL;
         }
         $content = substr($content, 0, -2);
         return $this->setBlankSpace($content, '    ');
@@ -205,7 +205,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             if (in_array($column['dict_type'], $isExist)) {
                 continue;
             }
-            $content .= $column['dict_type'] . ':' . "[]," . PHP_EOL;
+            $content .= $column['dict_type'] . ': ' . "[]," . PHP_EOL;
             $isExist[] = $column['dict_type'];
         }
         if (!empty($content)) {
@@ -244,11 +244,11 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             if (!file_exists($templatePath)) {
                 continue;
             }
-            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . ',' . PHP_EOL;
+            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . '' . PHP_EOL;
 
             $isExist[] = $column['dict_type'];
         }
-        return substr($content, 0, -2);
+        return substr($content, 0, -1);
     }
 
 

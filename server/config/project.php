@@ -1,7 +1,7 @@
 <?php
 return [
     // 系统版本号
-    'version' => '1.1.4',
+    'version' => '1.1.5',
 
     // 官网
     'website' => [
@@ -36,6 +36,8 @@ return [
     // 各种默认图片
     'default_image' => [
         'admin_avatar' => 'resource/image/adminapi/default/avatar.png',
+        'qq_group' => 'resource/image/adminapi/default/qq_group.png', // qq群
+        'customer_service' => 'resource/image/adminapi/default/customer_service.png', // 客服
     ],
 
     // 上唇文件限制

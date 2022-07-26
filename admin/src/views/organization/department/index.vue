@@ -1,156 +1,158 @@
 <template>
-	<el-card shadow="never">
-		<el-form class="ls-form" :model="formData" label-width="80px" inline>
-			<el-form-item label="部门名称">
-				<el-input v-model="formData.name" class="ls-input" />
-			</el-form-item>
-			<el-form-item label="部门状态：">
-				<el-select v-model="formData.status" placeholder="全部">
-					<el-option v-for="item in statusList" :key="item.val" :label="item.name" :value="item.val"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item>
-				<div class="m-l-20">
-					<el-button type="primary" @click="getLists">查询</el-button>
-					<el-button @click="reGetLists">重置</el-button>
-				</div>
-			</el-form-item>
-		</el-form>
-	</el-card>
-	<el-card v-loading="loading" class="m-t-15" shadow="never">
-		<router-link v-perms="['dept.dept/add']" to="/organization/department/edit">
-			<el-button type="primary">新增部门</el-button>
-		</router-link>
-		<el-button type style="margin-left: 16px;" @click="openOrFold()">全部展开/折叠</el-button>
-		<div class="m-t-15">
-			<el-table :data="lists" row-key="id" :expand-row-keys="openIdArr">
-				<el-table-column label="部门名称" prop="name" min-width="100"></el-table-column>
-				<el-table-column label="部门状态" prop="status_desc" min-width="100">
-					<template #default="{ row }">
-						<el-tag class="ml-2" :type="row.status ? '' : 'danger'">{{ row.status_desc }}</el-tag>
-					</template>
-				</el-table-column>
-				<el-table-column label="排序" prop="sort" min-width="100"></el-table-column>
-				<el-table-column label="添加时间" prop="create_time" min-width="100"></el-table-column>
-				<el-table-column label="操作" width="100" fixed="right">
-					<template #default="{ row }">
-						<router-link
-							v-perms="['dept.dept/edit']"
-							class="m-r-10"
-							:to="{
-								path: '/organization/department/edit',
-								query: {
-									id: row.id
-								}
-							}"
-						>
-							<el-button type="text">编辑</el-button>
-						</router-link>
-						<popup
-							v-perms="['dept.dept/delete']"
-							class="m-r-10 inline"
-							@confirm="handleDelete(row.id)"
-							v-show="row.pid"
-						>
-							<template #trigger>
-								<el-button type="text">删除</el-button>
-							</template>
-						</popup>
-					</template>
-				</el-table-column>
-			</el-table>
-		</div>
-	</el-card>
+    <div class="menu-lists">
+        <el-card class="!border-none" shadow="never">
+            <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
+                <el-form-item label="部门名称" prop="name">
+                    <el-input v-model="queryParams.name" />
+                </el-form-item>
+                <el-form-item label="部门状态" prop="status">
+                    <el-select v-model="queryParams.status">
+                        <el-option label="全部" value />
+                        <el-option label="正常" value="1" />
+                        <el-option label="停用" value="0" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="getLists">查询</el-button>
+                    <el-button @click="resetParams">重置</el-button>
+                </el-form-item>
+            </el-form>
+        </el-card>
+        <el-card class="!border-none mt-4" shadow="never">
+            <div>
+                <el-button v-perms="['dept.dept/add']" type="primary" @click="handleAdd()">
+                    <template #icon>
+                        <icon name="el-icon-Plus" />
+                    </template>
+                    新增
+                </el-button>
+                <el-button @click="handleExpand">
+                    <template #icon>
+                        <icon name="el-icon-Sort" />
+                    </template>
+                    展开/折叠
+                </el-button>
+            </div>
+            <el-table
+                ref="tableRef"
+                class="mt-4"
+                size="large"
+                v-loading="loading"
+                :data="lists"
+                row-key="id"
+                :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+            >
+                <el-table-column label="部门名称" prop="name" min-width="150" />
+                <el-table-column label="部门状态" prop="status" min-width="100">
+                    <template #default="{ row }">
+                        <el-tag class="ml-2" :type="row.status ? '' : 'danger'">{{
+                            row.status_desc
+                        }}</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column label="排序" prop="sort" min-width="100" />
+                <el-table-column label="更新时间" prop="update_time" min-width="180" />
+                <el-table-column label="操作" width="180" fixed="right">
+                    <template #default="{ row }">
+                        <el-button
+                            v-perms="['dept.dept/add']"
+                            type="primary"
+                            link
+                            @click="handleAdd(row.id)"
+                        >
+                            新增
+                        </el-button>
+                        <el-button
+                            v-perms="['dept.dept/edit']"
+                            type="primary"
+                            link
+                            @click="handleEdit(row)"
+                        >
+                            编辑
+                        </el-button>
+                        <el-button
+                            v-if="row.pid !== 0"
+                            v-perms="['dept.dept/delete']"
+                            type="danger"
+                            link
+                            @click="handleDelete(row.id)"
+                        >
+                            删除
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-card>
+        <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
+    </div>
 </template>
-
 <script lang="ts" setup>
-import {
-	defineComponent,
-	onMounted,
-	reactive,
-	Ref,
-	ref
-} from 'vue'
-import Popup from '@/components/popup/index.vue'
-import {
-	apiDeptLists,
-	apiDeptDelete
-} from '@/api/organization'
-import {
-	flatten
-} from '@/utils/util'
-
-// 表单数据
-const formData = reactive({
-	name: '',
-	status: ''
+import type { ElTable, FormInstance } from 'element-plus'
+import EditPopup from './edit.vue'
+import { deptDelete, deptLists } from '@/api/org/department'
+const tableRef = shallowRef<InstanceType<typeof ElTable>>()
+const editRef = shallowRef<InstanceType<typeof EditPopup>>()
+const formRef = shallowRef<FormInstance>()
+let isExpand = false
+const loading = ref(false)
+const lists = ref<any[]>([])
+const queryParams = reactive({
+    status: '',
+    name: ''
 })
-
-// 展开列表数组
-let openIdArr = ref<Array<Number>>([])
-
-// 列表数据
-let lists = ref<Array<any>>([])
-
-// 加载动画
-let loading = ref<Boolean>(false)
-
-// 状态列表
-const statusList = [{
-	name: '正常',
-	val: '1',
-},
-{
-	name: '停用',
-	val: '0',
-},
-]
-
-// 重置列表
-const reGetLists = () => {
-	formData.name = ''
-	formData.status = ''
-	getLists()
-}
-
-// 获取列表数据
+const showEdit = ref(false)
 const getLists = async () => {
-	loading.value = true
-	lists.value = await apiDeptLists({
-		...formData,
-	})
-	loading.value = false
+    loading.value = true
+    lists.value = await deptLists(queryParams)
+    loading.value = false
 }
 
-// 删除 
-const handleDelete = (id: number) => {
-	apiDeptDelete({
-		id
-	}).then(() => {
-		getLists()
-	})
+const resetParams = () => {
+    formRef.value?.resetFields()
+    getLists()
 }
 
-// 展开/折叠列表
-const openOrFold = () => {
-	// console.log('触发')
-	if (openIdArr.value.length) {
-		openIdArr.value = []
-	} else {
-		let allArr = flatten(lists.value, [], 'children')
-		openIdArr.value = allArr.map(item => item.id + '')
-	}
+const handleAdd = async (id?: number) => {
+    showEdit.value = true
+    await nextTick()
+    if (id) {
+        editRef.value?.setFormData({
+            pid: id
+        })
+    }
+    editRef.value?.open('add')
+}
+
+const handleEdit = async (data: any) => {
+    showEdit.value = true
+    await nextTick()
+    editRef.value?.open('edit')
+    editRef.value?.setFormData(data)
+}
+
+const handleDelete = async (id: number) => {
+    await deptDelete({ id })
+    getLists()
+}
+
+const handleExpand = () => {
+    isExpand = !isExpand
+    toggleExpand(lists.value, isExpand)
+}
+
+const toggleExpand = (children: any[], unfold = true) => {
+    for (const key in children) {
+        tableRef.value?.toggleRowExpansion(children[key], unfold)
+        if (children[key].children) {
+            toggleExpand(children[key].children!, unfold)
+        }
+    }
 }
 
 onMounted(async () => {
-	await getLists()
-
-	openOrFold()
+    await getLists()
+    nextTick(() => {
+        handleExpand()
+    })
 })
 </script>
-
-<style lang="scss" scoped>
-.ls-form {
-	margin-bottom: -16px;
-}
-</style>

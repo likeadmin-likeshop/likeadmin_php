@@ -26,7 +26,7 @@
         >
             <div class="file-list">
                 <template v-for="(item, index) in fileList" :key="index">
-                    <div class="m-b-20">
+                    <div class="mb-5">
                         <div>{{ item.name }}</div>
                         <div class="flex-1">
                             <el-progress :percentage="parseInt(item.percentage)"></el-progress>
@@ -39,10 +39,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref, ref } from 'vue'
+import { computed, defineComponent, ref, shallowRef } from 'vue'
 import { ElMessage, ElUpload } from 'element-plus'
-import { useStore } from '@/store'
-import { version } from '@/config/app'
+import useUserStore from '@/stores/modules/user'
+import config from '@/config'
 export default defineComponent({
     components: {},
     props: {
@@ -74,15 +74,15 @@ export default defineComponent({
     },
     emits: ['change', 'error'],
     setup(props, { emit }) {
-        const store = useStore()
-        const uploadRefs: Ref<typeof ElUpload | null> = ref(null)
+        const userStore = useUserStore()
+        const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
         const action = ref(`${import.meta.env.VITE_APP_BASE_URL}/adminapi/upload/${props.type}`)
         const headers = computed(() => ({
-            token: store.getters.token,
-            version: version
+            token: userStore.token,
+            version: config.version
         }))
         const visible = ref(false)
-        const fileList: Ref<any[]> = ref([])
+        const fileList = ref<any[]>([])
 
         const handleProgress = (event: any, file: any, fileLists: any[]) => {
             visible.value = true
@@ -90,16 +90,16 @@ export default defineComponent({
         }
 
         const handleSuccess = (event: any, file: any, fileLists: any[]) => {
-            const allSuccess = fileLists.every(item => item.status == 'success')
+            const allSuccess = fileLists.every((item) => item.status == 'success')
             if (allSuccess) {
                 uploadRefs.value?.clearFiles()
                 visible.value = false
                 emit('change')
             }
         }
-        const handleError = (event: any, file: any, fileLists: any[]) => {
+        const handleError = (event: any, file: any) => {
             ElMessage.error(`${file.name}文件上传失败`)
-            uploadRefs.value?.abort()
+            uploadRefs.value?.abort(file)
             visible.value = false
             emit('change')
             emit('error')
@@ -108,7 +108,6 @@ export default defineComponent({
             ElMessage.error('超出上传上限，请重新上传')
         }
         const handleClose = () => {
-            uploadRefs.value?.abort()
             uploadRefs.value?.clearFiles()
             visible.value = false
         }

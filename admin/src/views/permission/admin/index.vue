@@ -1,15 +1,16 @@
 <template>
     <div class="admin">
-        <el-card shadow="never">
-            <el-form class="ls-form" :model="formData" label-width="80px" inline>
-                <el-form-item label="账号：">
+        <el-card class="!border-none" shadow="never">
+            <el-form class="mb-[-16px]" :model="formData" label-width="80px" inline>
+                <el-form-item label="账号">
                     <el-input v-model="formData.account" class="ls-input" />
                 </el-form-item>
-                <el-form-item label="名称：">
+                <el-form-item label="名称">
                     <el-input v-model="formData.name" class="ls-input" />
                 </el-form-item>
-                <el-form-item label="角色：">
-                    <el-select v-model="formData.role_id" placeholder="全部">
+                <el-form-item label="角色">
+                    <el-select v-model="formData.role_id">
+                        <el-option label="全部" value=""></el-option>
                         <el-option
                             v-for="(item, index) in roleList"
                             :key="index"
@@ -19,19 +20,20 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <div class="m-l-20">
-                        <el-button type="primary" @click="resetPage">查询</el-button>
-                        <el-button @click="resetParams">重置</el-button>
-                    </div>
+                    <el-button type="primary" @click="resetPage">查询</el-button>
+                    <el-button @click="resetParams">重置</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
-        <el-card v-loading="pager.loading" class="m-t-15" shadow="never">
-            <router-link v-perms="['auth.admin/add']" to="/permission/admin/edit">
-                <el-button type="primary">新增管理员</el-button>
-            </router-link>
-            <div class="m-t-15">
-                <el-table :data="pager.lists">
+        <el-card v-loading="pager.loading" class="mt-4 !border-none" shadow="never">
+            <el-button v-perms="['auth.admin/add']" type="primary" @click="handleAdd">
+                <template #icon>
+                    <icon name="el-icon-Plus" />
+                </template>
+                新增管理员
+            </el-button>
+            <div class="mt-4">
+                <el-table :data="pager.lists" size="large">
                     <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
                     <el-table-column label="头像" min-width="100">
                         <template #default="{ row }">
@@ -40,11 +42,31 @@
                     </el-table-column>
                     <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
                     <el-table-column label="名称" prop="name" min-width="100"></el-table-column>
-                    <el-table-column label="角色" prop="role_name" min-width="100"></el-table-column>
-                    <el-table-column label="部门" prop="dept_name" min-width="100"></el-table-column>
-                    <el-table-column label="创建时间" prop="create_time" min-width="150"></el-table-column>
-                    <el-table-column label="最近登录时间" prop="login_time" min-width="150"></el-table-column>
-                    <el-table-column label="最近登录IP" prop="login_ip" min-width="100"></el-table-column>
+                    <el-table-column
+                        label="角色"
+                        prop="role_name"
+                        min-width="100"
+                    ></el-table-column>
+                    <el-table-column
+                        label="部门"
+                        prop="dept_name"
+                        min-width="100"
+                    ></el-table-column>
+                    <el-table-column
+                        label="创建时间"
+                        prop="create_time"
+                        min-width="150"
+                    ></el-table-column>
+                    <el-table-column
+                        label="最近登录时间"
+                        prop="login_time"
+                        min-width="150"
+                    ></el-table-column>
+                    <el-table-column
+                        label="最近登录IP"
+                        prop="login_ip"
+                        min-width="120"
+                    ></el-table-column>
                     <el-table-column label="状态" min-width="100" v-perms="['auth.admin/edit']">
                         <template #default="{ row }">
                             <el-switch
@@ -57,112 +79,98 @@
                     </el-table-column>
                     <el-table-column label="操作" width="150" fixed="right">
                         <template #default="{ row }">
-                            <router-link
+                            <el-button
                                 v-perms="['auth.admin/edit']"
-                                class="m-r-10"
-                                :to="{
-                                    path: '/permission/admin/edit',
-                                    query: {
-                                        id: row.id
-                                    }
-                                }"
+                                type="primary"
+                                link
+                                @click="handleEdit(row)"
                             >
-                                <el-button type="text">编辑</el-button>
-                            </router-link>
-                            <popup
+                                编辑
+                            </el-button>
+                            <el-button
                                 v-perms="['auth.admin/delete']"
-                                class="m-r-10 inline"
-                                @confirm="handleDelete(row.id)"
-                                v-if="row.root != 1"
+                                type="danger"
+                                link
+                                @click="handleDelete(row.id)"
                             >
-                                <template #trigger>
-                                    <el-button type="text">删除</el-button>
-                                </template>
-                            </popup>
+                                删除
+                            </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-            <div class="flex row-right">
+            <div class="flex mt-4 justify-end">
                 <pagination
                     v-model="pager"
                     layout="total, prev, pager, next, jumper"
-                    @change="requestApi"
+                    @change="getLists"
                 />
             </div>
         </el-card>
+        <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
-import Pagination from '@/components/pagination/index.vue'
-import Popup from '@/components/popup/index.vue'
-import { apiAdminEdit, apiAdminLists, apiAdminDelete, apiRoleLists } from '@/api/auth'
-import { usePages } from '@/core/hooks/pages'
-export default defineComponent({
-    components: {
-        Pagination,
-        Popup
-    },
-    setup() {
-        // 表单数据
-        const formData = reactive({
-            account: '',
-            name: '',
-            role_id: ''
-        })
-        const roleList: Ref<any[]> = ref([])
-        const { pager, requestApi, resetParams, resetPage } = usePages({
-            callback: apiAdminLists,
-            params: formData
-        })
-        const changeStatus = (data: any) => {
-            apiAdminEdit({
-                id: data.id,
-                account: data.account,
-                name: data.name,
-                role_id: data.role_id,
-                disable: data.disable,
-                multipoint_login: data.multipoint_login
-            }).finally(() => {
-                requestApi()
-            })
-        }
+<script lang="ts" setup>
+import { adminEdit, adminLists, adminDelete } from '@/api/perms/admin'
+import { roleLists } from '@/api/perms/role'
+import { usePaging } from '@/hooks/paging'
+import feedback from '@/utils/feedback'
+import EditPopup from './edit.vue'
+const editRef = shallowRef<InstanceType<typeof EditPopup>>()
+// 表单数据
+const formData = reactive({
+    account: '',
+    name: '',
+    role_id: ''
+})
+const roleList = ref<any[]>([])
+const showEdit = ref(false)
+const { pager, getLists, resetParams, resetPage } = usePaging({
+    fetchFun: adminLists,
+    params: formData
+})
 
-        const handleDelete = (id: number) => {
-            apiAdminDelete({ id }).then(() => {
-                requestApi()
-            })
-        }
+const changeStatus = (data: any) => {
+    adminEdit({
+        id: data.id,
+        account: data.account,
+        name: data.name,
+        role_id: data.role_id,
+        disable: data.disable,
+        multipoint_login: data.multipoint_login
+    }).finally(() => {
+        getLists()
+    })
+}
+const handleAdd = async () => {
+    showEdit.value = true
+    await nextTick()
+    editRef.value?.open('add')
+}
 
-        const getRoleList = () => {
-            apiRoleLists({
-                page_type: 0
-            }).then((res: any) => {
-                roleList.value = res.lists
-            })
-        }
-        onMounted(() => {
-            requestApi()
-            getRoleList()
-        })
-        return {
-            formData,
-            roleList,
-            pager,
-            requestApi,
-            resetParams,
-            resetPage,
-            changeStatus,
-            handleDelete
-        }
-    }
+const handleEdit = async (data: any) => {
+    showEdit.value = true
+    await nextTick()
+    editRef.value?.open('edit')
+    editRef.value?.setFormData(data)
+}
+
+const handleDelete = async (id: number) => {
+    await feedback.confirm('确认要删除？')
+    await adminDelete({ id })
+    getLists()
+}
+
+const getRoleList = () => {
+    roleLists({
+        page_type: 0
+    }).then((res: any) => {
+        roleList.value = res.lists
+    })
+}
+onMounted(() => {
+    getLists()
+    getRoleList()
 })
 </script>
-
-<style lang="scss" scoped>
-.ls-form {
-    margin-bottom: -16px;
-}
-</style>
