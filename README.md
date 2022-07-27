@@ -1,3 +1,4 @@
+
  <h1 align="center">likeadmin通用管理后台</h1>
 <h4 align="center">📈快速开发前后端解决方案</h4> 
 <p align="center">
@@ -7,41 +8,38 @@
 </div>
  <br>
 
-## 👨‍💻‍ 简介
-<a href="https://gitee.com/likeshop_gitee">likeshop开源团队</a>基于以往开源产品的经验，希望能够为开源社区做出更多的贡献，推出永久免费开源的likeadmin通用前后端分离管理后台系统。遵循MIT开源许可协议，您可以免费使用，甚至允许把你基于likeadmin开发的软件应用开源、发布、销售。
+## 👨‍💻‍简介
+<a href="https://gitee.com/likeshop_gitee">likeshop开源团队</a>基于以往开源产品的经验，希望能够为开源社区做出更多的贡献，推出永久免费开源的likeadmin通用前后端分离管理后台系统。遵循Apache2开源许可协议，您可以免费使用，甚至允许把你基于likeadmin开发的软件应用开源、发布、销售。
 <br>
-### 🏀 联系我们
-likeadmin官网：https://www.likeadmin.cn/
-
-likeadmin交流群QQ：694893346
-##  🧐 进一步了解
-### 🧰 场景介绍
+##  🧐进一步了解
+### 🧰场景介绍
 1.likeadmin已经搭建好前后端分离的底层，包含程序安装、登录、登出、工作台、菜单权限控制、角色、管理员、网站设置、图库管理等基础功能，无需重复造轮子。<br>
 2.可视化系统程序安装界面，可自定义安装数据，开发者可快速扩展发行自己的软件产品。<br>
 3.likeadmin定位为通用的软件系统管理后台，方便开发者快速开发软件系统，文档清晰、代码易懂、简单易用。<br>
 4.未来将持续集成通用的微信/支付宝支付，阿里云/腾讯云短信，阿里云/腾讯云OSS等通用模块。
-### 🐙 后端架构方面
+### 🐙后端架构方面
 1.服务端使用PHP8.0开发，性能有突破性的提升。<br>
 2.使用最新ThinkPHP6框架，目前国内最流行的PHP框架，高性能、简单易用、文档齐全、支持composer快速安装组件、支持Redis、支持PSR多种规范等。
-### 🐹 前端架构方面
+### 🐹前端架构方面
 1.使用最流性的前后端分离方案typescript、vue3、vite开发，保持了代码的简洁、一致和规范。<br>
 2.后台界面使用element-plus UI框架，简单精美的后台界面，丰富的组件库，方便快速开发，满足各种后台交互。
-### 🖥️ 界面预览
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=4f96e011b36b8d17fbbffb9b9f1df086)
-<br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=cea8c82a354e1f6a3e7ce31a4c0a3416)
-<br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=f4c6d8e840cbb232343f045966768709)
-<br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=5d8b0d28156afd871e40fa365dba3efd)
-<br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=9c638f518302b90813746b50e429052d)
+### 🛠️ 代码生成器
+一键生成前后端业务代码，大大提示开发效率。
+### 🖥️界面预览
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=4f96e011b36b8d17fbbffb9b9f1df086)<br>
+
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=204877788e70c5892e9a7fbfd1bfd908)<br>
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=ac949614558e58de07ddc5facb08cb77)<br>
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=aabf73d48cf4cd21eb272feee51206aa)<br>
+![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=4ccd1fa46c94ef4c98098b7c8cb82afc)<br>
+
+
 ### 👀体验后台
 **地址：https://demo.likeadmin.cn/admin
 账号：admin 密码：123456**
 <br>
 
-## 📄 文档
+## 📄文档
 ### ⚙️项目部署
 PHP入口文件为项目根目录下：likeadmin/server/public/index.php
 #### web软件设置
@@ -50,7 +48,7 @@ Nginx配置
 server {
     listen 80;
     server_name  demo.likeadmin.cn;
-    access_log /logs/demo.likeadmin.cnt_access_nginx.log;
+    access_log /logs/demo.likeadmin.cn_access_nginx.log;
     error_log /logs/demo.likeadmin.cn_error_nginx.log;
     client_max_body_size 5M;
     location / {
@@ -96,7 +94,7 @@ server {
 ```
 #### 安装与使用
 访问以上部署域名，安装提示安装。默认已经编译好管理后台，安装完访问"域名/admin"（例：demo.likeadmin.cn）即可。
-### 📁 目录结构
+### 📁目录结构
 ```shell
 ├─server  //服务端根目录（管理后台、接口）
 │  ├─application  //应用目录
@@ -110,4 +108,4 @@ server {
 ├─admin  //管理后台前端源码
 ```
 ### 🪐接口文档
-[点击这里进入更多更详细文档。](https://www.likeadmin.cn "点击这里进入更多更详细文档。")
+[点击这里进入更多更详细文档。](http://doc.likeadmin.cn/php "点击这里进入更多更详细文档。")
