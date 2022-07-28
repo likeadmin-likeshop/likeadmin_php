@@ -24,7 +24,7 @@
             :modal="false"
             :before-close="handleClose"
         >
-            <div class="file-list">
+            <div class="file-list p-4">
                 <template v-for="(item, index) in fileList" :key="index">
                     <div class="mb-5">
                         <div>{{ item.name }}</div>
@@ -76,7 +76,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const userStore = useUserStore()
         const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
-        const action = ref(`${import.meta.env.VITE_APP_BASE_URL}/adminapi/upload/${props.type}`)
+        const action = ref(`${config.baseUrl}/upload/${props.type}`)
         const headers = computed(() => ({
             token: userStore.token,
             version: config.version

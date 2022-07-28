@@ -3,11 +3,14 @@
     --el-font-weight-primary: 400;
     --el-menu-item-height: 46px;
     --el-menu-sub-item-height: var(--el-menu-item-height);
+    --el-menu-icon-width: 18px;
     --aside-width: 200px;
     --header-height: 60px;
     --color-white: #ffffff;
     --table-header-bg-color: #f8f8f8;
     --el-font-size-extra-large: 18px;
+    --el-menu-base-level-padding: 16px;
+    --el-menu-level-padding: 26px;
     --el-font-size-large: 16px;
     --el-font-size-medium: 15px;
     --el-font-size-base: 14px;

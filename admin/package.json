@@ -4,9 +4,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",
-    "build-only": "vite build",
+    "build": "vite build",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
@@ -52,6 +51,7 @@
     "unplugin-vue-components": "^0.19.9",
     "vite": "^3.0.0",
     "vite-plugin-style-import": "^2.0.0",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^0.38.1"
   }
 }

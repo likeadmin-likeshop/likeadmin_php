@@ -24,7 +24,7 @@ use app\common\validate\BaseValidate;
 class WebSettingValidate extends BaseValidate
 {
     protected $rule = [
-        'name' => 'require|max:12',
+        'name' => 'require|max:30',
         'web_favicon' => 'require',
         'web_logo' => 'require',
         'login_image' => 'require',
