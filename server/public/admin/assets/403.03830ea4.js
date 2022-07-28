@@ -1,0 +1,1 @@
+import u from"./error.e481b09c.js";import{d as e,j as o,k as r,m as t}from"./index.b6a20072.js";const s={class:"error404"},p=e({__name:"403",setup(a){return(c,n)=>(o(),r("div",s,[t(u,{code:"403",title:"\u60A8\u7684\u8D26\u53F7\u6743\u9650\u4E0D\u8DB3\uFF0C\u8BF7\u8054\u7CFB\u7BA1\u7406\u5458\u6DFB\u52A0\u6743\u9650\uFF01","show-btn":!1})]))}});export{p as default};

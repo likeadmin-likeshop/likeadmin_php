@@ -1,1 +1,0 @@
-import{d as t,_ as o,j as s,k as _,l as n,W as c}from"./index.7262943b.js";const a=t({}),r={class:"footer-btns"},d={class:"footer-btns__content"};function p(e,i,l,f,u,m){return s(),_("div",r,[n("div",d,[c(e.$slots,"default",{},void 0,!0)])])}const $=o(a,[["render",p],["__scopeId","data-v-6625f820"]]);export{$ as _};

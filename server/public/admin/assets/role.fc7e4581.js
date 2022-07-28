@@ -1,0 +1,1 @@
+import{bE as e}from"./index.b6a20072.js";function o(t){return e.get("/auth.role/lists",t)}function s(t){return e.post("/auth.role/add",t)}function u(t){return e.post("/auth.role/edit",t)}function n(t){return e.post("/auth.role/delete",t)}export{u as a,s as b,n as c,o as r};
