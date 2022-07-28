@@ -8,7 +8,7 @@
                 ref="formRef"
                 class="ls-form"
                 :model="formData"
-                label-width="120px"
+                label-width="100px"
                 :rules="rules"
             >
                 <el-tabs v-model="activeName">
@@ -48,7 +48,7 @@
                     <el-tab-pane label="字段管理" name="field">
                         <el-table :data="formData.table_column">
                             <el-table-column label="字段列名" prop="column_name" />
-                            <el-table-column label="字段描述" prop="column_comment">
+                            <el-table-column label="字段描述" prop="column_comment" min-width="120">
                                 <template v-slot="{ row }">
                                     <el-input v-model="row.column_comment"></el-input>
                                 </template>
@@ -113,7 +113,7 @@
                                     </el-select>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="显示类型">
+                            <el-table-column label="显示类型" min-width="120">
                                 <template v-slot="{ row }">
                                     <el-select v-model="row.view_type">
                                         <el-option label="文本框" value="input" />
@@ -127,7 +127,7 @@
                                     </el-select>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="字典类型">
+                            <el-table-column label="字典类型" min-width="120">
                                 <template v-slot="{ row }">
                                     <el-select v-model="row.dict_type" placeholder="字典类型">
                                         <el-option
@@ -164,25 +164,31 @@
                             </div>
                         </el-form-item>
                         <el-form-item label="类目录">
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input v-model="formData.class_dir"></el-input>
                                 </div>
                                 <div class="form-tips">
-                                    生成文件所在目录名,不填则在模块对应文件夹内生成。
-                                    <br />例：填写test，则控制器xxxControlle文件生成在app/模块名/controller/test文件夹下。
-                                    <br />不填时，xxxController生成在app/模块名/controller文件夹下。
+                                    <div>生成文件所在目录名,不填则在模块对应文件夹内生成。</div>
+                                    <div>
+                                        例：填写test，则控制器xxxControlle文件生成在app/模块名/controller/test文件夹下。
+                                    </div>
+                                    <div>
+                                        不填时，xxxController生成在app/模块名/controller文件夹下。
+                                    </div>
                                 </div>
                             </div>
                         </el-form-item>
                         <el-form-item label="类描述">
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input v-model="formData.class_comment"></el-input>
                                 </div>
                                 <div class="form-tips">
-                                    生成文件描述。
-                                    <br />例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
+                                    <div>生成文件描述。</div>
+                                    <div>
+                                        例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
+                                    </div>
                                 </div>
                             </div>
                         </el-form-item>

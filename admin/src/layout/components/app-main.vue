@@ -14,6 +14,7 @@
 import useAppStore from '@/stores/modules/app'
 const appStore = useAppStore()
 const isRouteShow = computed(() => appStore.isRouteShow)
+const isMobile = computed(() => appStore.isMobile)
 </script>
 
 <style></style>

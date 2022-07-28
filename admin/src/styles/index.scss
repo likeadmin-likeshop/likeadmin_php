@@ -18,6 +18,11 @@
         clear: both;
         visibility: hidden;
     }
+    .ls-card {
+        padding: 20px;
+        border-radius: var(--el-card-border-radius);
+        background-color: var(--el-fill-color-blank);
+    }
 }
 @import 'element.scss';
 @import 'dark.css';

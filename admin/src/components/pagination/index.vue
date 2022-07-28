@@ -23,7 +23,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
     modelValue: () => ({}),
     pageSizes: () => [15, 20, 30, 40],
-    layout: 'total, sizes, prev, pager, next, jumper'
+    layout: 'total, prev, pager, next'
 })
 
 const emit = defineEmits<{

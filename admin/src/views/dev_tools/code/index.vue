@@ -1,7 +1,7 @@
 <template>
-    <div class="code-generation">
-        <el-card class="!border-none" shadow="never">
-            <el-form class="ls-form mb-[-16px]" :model="formData" label-width="80px" inline>
+    <div class="code-generation flex flex-col" style="height: 567px">
+        <div class="ls-card">
+            <el-form class="mb-[-16px]" :model="formData" label-width="80px" inline>
                 <el-form-item label="表名称">
                     <el-input v-model="formData.table_name" />
                 </el-form-item>
@@ -13,91 +13,124 @@
                     <el-button @click="resetParams">重置</el-button>
                 </el-form-item>
             </el-form>
-        </el-card>
-        <el-card class="mt-4 !border-none" v-loading="pager.loading" shadow="never">
-            <data-table
-                v-perms="['tools.generator/selectTable']"
-                class="inline-block mr-[10px]"
-                @success="getLists"
-            >
-                <el-button type="primary">
+        </div>
+        <div class="ls-card mt-4 flex-1 flex flex-col min-h-0" v-loading="pager.loading">
+            <div class="flex">
+                <data-table
+                    v-perms="['tools.generator/selectTable']"
+                    class="inline-block mr-[10px]"
+                    @success="getLists"
+                >
+                    <el-button type="primary">
+                        <template #icon>
+                            <icon name="el-icon-Plus" />
+                        </template>
+                        导入数据表
+                    </el-button>
+                </data-table>
+                <el-button
+                    v-perms="['tools.generator/delete']"
+                    :disabled="!selectData.length"
+                    @click="handleDelete(selectData)"
+                    type="danger"
+                >
                     <template #icon>
-                        <icon name="el-icon-Plus" />
+                        <icon name="el-icon-Delete" />
                     </template>
-                    导入数据表
+                    删除
                 </el-button>
-            </data-table>
-            <el-button
-                v-perms="['tools.generator/delete']"
-                :disabled="!selectData.length"
-                @click="handleDelete(selectData)"
-                type="danger"
-            >
-                <template #icon>
-                    <icon name="el-icon-Delete" />
-                </template>
-                删除
-            </el-button>
-            <el-button
-                v-perms="['tools.generator/generate']"
-                :disabled="!selectData.length"
-                @click="handleGenerate(selectData)"
-            >
-                生成代码
-            </el-button>
-
-            <div class="mt-4">
+                <el-button
+                    v-perms="['tools.generator/generate']"
+                    :disabled="!selectData.length"
+                    @click="handleGenerate(selectData)"
+                >
+                    生成代码
+                </el-button>
+            </div>
+            <div class="mt-4 flex-1 min-h-0">
                 <el-table
                     :data="pager.lists"
                     size="large"
+                    height="100%"
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="55" />
-                    <el-table-column label="表名称" prop="table_name" />
-                    <el-table-column label="表描述" prop="table_comment" />
-                    <el-table-column label="创建时间" prop="create_time" />
-                    <el-table-column label="更新时间" prop="update_time" />
-                    <el-table-column label="操作" width="280" fixed="right">
+                    <el-table-column label="表名称" prop="table_name" min-width="180" />
+                    <el-table-column label="表描述" prop="table_comment" min-width="180" />
+                    <el-table-column label="创建时间" prop="create_time" min-width="180" />
+                    <el-table-column label="更新时间" prop="update_time" min-width="180" />
+                    <el-table-column label="操作" width="120" fixed="right">
                         <template #default="{ row }">
-                            <el-button
-                                v-perms="['tools.generator/preview']"
-                                type="primary"
-                                link
-                                @click="handlePreview(row.id)"
-                            >
-                                预览
-                            </el-button>
-                            <el-button
-                                v-perms="['tools.generator/generate']"
-                                type="primary"
-                                link
-                                @click="handleGenerate(row.id)"
-                            >
-                                代码生成
-                            </el-button>
-                            <el-button v-perms="['tools.generator/edit']" type="primary" link>
-                                <router-link
-                                    :to="{
-                                        path: '/dev_tools/code/edit',
-                                        query: {
-                                            id: row.id
-                                        }
-                                    }"
+                            <div class="flex items-center">
+                                <el-button
+                                    v-perms="['tools.generator/preview']"
+                                    type="primary"
+                                    link
+                                    @click="handlePreview(row.id)"
                                 >
-                                    编辑
-                                </router-link>
-                            </el-button>
-                            <el-button
-                                v-perms="['tools.generator/syncColumn']"
-                                type="primary"
-                                link
-                                @click="handleSync(row.id)"
-                            >
-                                同步
-                            </el-button>
-                            <el-button type="danger" link @click="handleDelete(row.id)"
-                                >删除</el-button
-                            >
+                                    预览
+                                </el-button>
+                                <el-dropdown class="ml-1">
+                                    <el-button type="primary" link>
+                                        更多
+                                        <icon name="el-icon-ArrowDown" />
+                                    </el-button>
+                                    <span class="flex items-center">
+                                        <span class="ml-3 mr-1">更多</span>
+                                    </span>
+
+                                    <template #dropdown>
+                                        <el-dropdown-menu>
+                                            <router-link
+                                                v-perms="['tools.generator/edit']"
+                                                :to="{
+                                                    path: '/dev_tools/code/edit',
+                                                    query: {
+                                                        id: row.id
+                                                    }
+                                                }"
+                                            >
+                                                <el-dropdown-item>
+                                                    <el-button type="primary" link>
+                                                        编辑
+                                                    </el-button>
+                                                </el-dropdown-item>
+                                            </router-link>
+                                            <div
+                                                v-perms="['tools.generator/generate']"
+                                                @click="handleGenerate(row.id)"
+                                            >
+                                                <el-dropdown-item>
+                                                    <el-button type="primary" link>
+                                                        代码生成
+                                                    </el-button>
+                                                </el-dropdown-item>
+                                            </div>
+
+                                            <el-dropdown-item
+                                                v-perms="['tools.generator/syncColumn']"
+                                            >
+                                                <el-button
+                                                    type="primary"
+                                                    link
+                                                    @click="handleSync(row.id)"
+                                                >
+                                                    同步
+                                                </el-button>
+                                            </el-dropdown-item>
+                                            <el-dropdown-item v-perms="['tools.generator/delete']">
+                                                <el-button
+                                                    type="danger"
+                                                    link
+                                                    @click="handleDelete(row.id)"
+                                                >
+                                                    删除
+                                                </el-button>
+                                            </el-dropdown-item>
+                                        </el-dropdown-menu>
+                                    </template>
+                                </el-dropdown>
+                            </div>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -105,7 +138,7 @@
             <div class="flex justify-end mt-4">
                 <pagination v-model="pager" @change="getLists" />
             </div>
-        </el-card>
+        </div>
         <code-preview
             v-if="previewState.show"
             v-model="previewState.show"
