@@ -1,7 +1,8 @@
 <script lang="ts">
-import { createVNode, type CSSProperties } from 'vue'
-import { addUnit } from '@/utils/util'
+import { createVNode } from 'vue'
 import { ElIcon } from 'element-plus'
+import { EL_ICON_PREFIX, LOCAL_ICON_PREFIX } from './index'
+import svgIcon from './svg-icon.vue'
 export default defineComponent({
     name: 'Icon',
     props: {
@@ -19,30 +20,29 @@ export default defineComponent({
         }
     },
     setup(props) {
-        const styles = computed<CSSProperties>(() => {
-            return {
-                fontSize: addUnit(props.size),
-                color: props.color
-            }
-        })
-        if (props.name.indexOf('el-icon-') === 0) {
+        if (props.name.indexOf(EL_ICON_PREFIX) === 0) {
             // el-icon
             return () =>
                 createVNode(
                     ElIcon,
                     {
-                        color: props.color,
-                        size: props.size
+                        size: props.size,
+                        color: props.color
                     },
-                    () => [createVNode(resolveComponent(props.name.slice(8)))]
+                    () => [createVNode(resolveComponent(props.name.replace(EL_ICON_PREFIX, '')))]
                 )
         }
-        // 本地icon
-        return () =>
-            createVNode('i', {
-                class: [props.name, 'local-icon'],
-                style: styles.value
-            })
+        if (props.name.indexOf(LOCAL_ICON_PREFIX) === 0) {
+            // 本地icon
+            return () =>
+                h(
+                    'i',
+                    {
+                        class: ['local-icon']
+                    },
+                    createVNode(svgIcon, { ...props })
+                )
+        }
     }
 })
 </script>

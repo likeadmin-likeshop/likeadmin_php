@@ -61,5 +61,3 @@ echarts.use([
     LabelLayout,
     UniversalTransition
 ])
-
-export default echarts

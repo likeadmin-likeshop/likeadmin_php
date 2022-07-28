@@ -6,7 +6,23 @@
                 @mouseout.stop="state.mouseoverSelect = false"
             >
                 <div>
-                    <div class="mb-3">请选择图标</div>
+                    <div class="flex justify-between">
+                        <div class="mb-3">请选择图标</div>
+                        <div>
+                            <span
+                                v-for="(item, index) in iconTabsMap"
+                                :key="index"
+                                class="cursor-pointer text-sm ml-2"
+                                :class="{
+                                    'text-primary': index == tabIndex
+                                }"
+                                @click="tabIndex = index"
+                            >
+                                {{ item.name }}
+                            </span>
+                        </div>
+                    </div>
+
                     <div class="h-72">
                         <el-scrollbar>
                             <div class="flex flex-wrap">
@@ -50,7 +66,7 @@
 import { computed, nextTick, onMounted, reactive, shallowRef, watch } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { ElInput } from 'element-plus'
-import { getElementPlusIconNames } from '@/install/plugins/element'
+import { getElementPlusIconNames, getLocalIconNames } from './index'
 interface Props {
     modelValue: string
     disabled?: boolean
@@ -65,7 +81,18 @@ const emits = defineEmits<{
     (e: 'change', value: string): void
 }>()
 
-const iconNames = getElementPlusIconNames()
+const tabIndex = ref(0)
+const iconTabsMap = [
+    {
+        name: 'element图标',
+        icons: getElementPlusIconNames()
+    },
+    {
+        name: '本地图标',
+        icons: getLocalIconNames()
+    }
+]
+
 const inputRef = shallowRef<InstanceType<typeof ElInput>>()
 
 const state = reactive({
@@ -101,6 +128,7 @@ const handleClear = () => {
 
 //根据输入框内容塞选
 const iconNamesFliter = computed(() => {
+    const iconNames = iconTabsMap[tabIndex.value]?.icons ?? []
     if (!state.inputValue) {
         return iconNames
     }

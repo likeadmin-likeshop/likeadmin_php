@@ -3,8 +3,8 @@
         <div class="flex-1 flex items-center">
             <icon
                 class="mr-4 cursor-pointer"
-                :name="`el-icon-${isCollapse ? 'Fold' : 'Expand'}`"
-                :size="20"
+                :name="`local-icon-${isCollapse ? 'close' : 'open'}`"
+                :size="22"
                 @click="toggleSidebar"
             />
             <icon

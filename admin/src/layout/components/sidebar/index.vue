@@ -5,11 +5,11 @@
         :class="`theme-${sideTheme}`"
     >
         <div class="logo">
-            <image-contain width="33" height="33" :src="config.web_logo" />
+            <image-contain width="34" height="34" :src="config.web_logo" />
             <transition name="slide-fade" mode="out-in" :duration="300">
                 <div
                     v-show="!isCollapse"
-                    class="ml-12 truncate logo-title text-xl"
+                    class="ml-11 truncate logo-title text-xl"
                     :class="{ 'text-white': sideTheme == 'dark' }"
                 >
                     {{ config.web_name }}
@@ -101,9 +101,9 @@ const menuProps = computed(() => {
     }
     .logo {
         height: var(--header-height);
-        @apply flex items-center p-4 relative;
+        @apply flex items-center p-2 relative;
         .logo-title {
-            width: 60%;
+            width: 70%;
             position: absolute;
         }
     }
