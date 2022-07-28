@@ -115,7 +115,7 @@
                             }"
                             @click="listShowType = 'table'"
                         >
-                            <icon name="el-icon-Fold" :size="18" />
+                            <icon name="local-icon-list-2" :size="18" />
                         </div>
                     </el-tooltip>
                     <el-tooltip content="平铺视图" placement="top">
@@ -141,7 +141,7 @@
                     当页全选
                 </el-checkbox>
             </div>
-            <div class="material-center__content flex flex-col flex-1 mb-1">
+            <div class="material-center__content flex flex-col flex-1 mb-1 min-h-0">
                 <ul v-show="listShowType == 'normal'" class="file-list flex flex-wrap mt-4">
                     <li
                         class="file-item-wrap"
@@ -183,7 +183,7 @@
                     v-show="listShowType == 'table'"
                     :data="pager.lists"
                     width="100%"
-                    height="100%"
+                    height="calc(100vh - 350px)"
                     size="large"
                     @row-click="selectFile"
                 >
@@ -228,7 +228,7 @@
                     暂无数据~
                 </div>
             </div>
-            <div class="material-center__footer flex justify-between items-center">
+            <div class="material-center__footer flex justify-between items-center mt-3">
                 <div class="flex">
                     <template v-if="mode == 'page'">
                         <span class="mr-3">
@@ -453,9 +453,6 @@ defineExpose({
         padding: 16px 16px 5px;
         min-width: 0;
         min-height: 0;
-        .material-center__content {
-            min-height: 0;
-        }
         .list-icon {
             border-radius: 3px;
             display: flex;

@@ -144,6 +144,7 @@ onMounted(() => {
     @apply min-h-screen bg-no-repeat bg-center bg-cover;
     .login-card {
         min-width: 800px;
+        width: 800px;
         height: 400px;
     }
 }

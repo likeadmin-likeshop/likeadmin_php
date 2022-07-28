@@ -14,7 +14,7 @@
                         <el-input
                             v-model="formData.name"
                             placeholder="请输入网站名称"
-                            maxlength="12"
+                            maxlength="30"
                             show-word-limit
                         ></el-input>
                     </div>

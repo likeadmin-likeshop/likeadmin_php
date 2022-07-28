@@ -6,7 +6,7 @@ import NProgress from 'nprogress'
 import configs from '@/config'
 
 const config = {
-    baseURL: `${import.meta.env.VITE_APP_BASE_URL}/adminapi`,
+    baseURL: configs.baseUrl,
     headers: {
         'content-type': 'application/json',
         version: configs.version
