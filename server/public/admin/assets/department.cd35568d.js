@@ -1,0 +1,1 @@
+import{bE as e}from"./index.b6a20072.js";function p(t){return e.get("dept.dept/lists",t)}function s(t){return e.post("/dept.dept/add",t)}function n(t){return e.post("/dept.dept/edit",t)}function r(t){return e.post("/dept.dept/delete",t)}export{n as a,s as b,r as c,p as d};

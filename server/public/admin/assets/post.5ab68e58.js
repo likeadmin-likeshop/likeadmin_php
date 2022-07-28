@@ -1,0 +1,1 @@
+import{bE as s}from"./index.b6a20072.js";function o(t){return s.get("dept.jobs/lists",t)}function n(t){return s.post("/dept.jobs/add",t)}function r(t){return s.post("/dept.jobs/edit",t)}function d(t){return s.post("/dept.jobs/delete",t)}export{n as a,d as b,o as c,r as j};
