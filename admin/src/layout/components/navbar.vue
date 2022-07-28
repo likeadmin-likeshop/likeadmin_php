@@ -3,7 +3,7 @@
         <div class="flex-1 flex items-center">
             <icon
                 class="mr-4 cursor-pointer"
-                :name="`local-icon-${isCollapse ? 'close' : 'open'}`"
+                :name="`local-icon-${isCollapsed ? 'close' : 'open'}`"
                 :size="22"
                 @click="toggleSidebar"
             />
@@ -13,7 +13,7 @@
                 :size="20"
                 @click="refreshView"
             />
-            <div>
+            <div v-if="!isMobile">
                 <breadcrumb />
             </div>
         </div>
@@ -48,7 +48,8 @@ const router = useRouter()
 const appStore = useAppStore()
 const userStore = useUserStore()
 const settingStore = useSettingStore()
-const isCollapse = computed(() => appStore.sidebar.opened)
+const isCollapsed = computed(() => appStore.isCollapsed)
+const isMobile = computed(() => appStore.isMobile)
 
 const userInfo = computed(() => userStore.userInfo)
 // 折叠展开菜单
@@ -72,7 +73,7 @@ const handleCommand = (command: string) => {
 
 const openSetting = () => {
     settingStore.setSetting({
-        key: 'show',
+        key: 'showDrawer',
         value: true
     })
 }

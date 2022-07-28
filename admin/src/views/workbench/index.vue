@@ -1,7 +1,7 @@
 <template>
     <div class="workbench">
-        <div class="flex workbench-header">
-            <el-card class="flex-[1.5] !border-none" shadow="never">
+        <div class="md:flex">
+            <el-card class="!border-none mb-4 md:mr-4" shadow="never">
                 <template #header>
                     <span class="card-title">版本信息</span>
                 </template>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </el-card>
-            <el-card class="flex-[3] ml-4 !border-none" shadow="never">
+            <el-card class="!border-none mb-4 flex-1" shadow="never">
                 <template #header>
                     <div>
                         <span class="card-title">今日数据</span>
@@ -73,7 +73,7 @@
                 </div>
             </el-card>
         </div>
-        <div class="mt-4 function">
+        <div class="function mb-4">
             <el-card class="flex-1 !border-none" shadow="never">
                 <template #header>
                     <span>常用功能</span>
@@ -81,10 +81,10 @@
                 <div class="flex flex-wrap">
                     <div
                         v-for="item in workbenchData.menu"
-                        class="flex-1 max-w-[120px]"
+                        class="2xl:w-1/12 xl:w-[10%] md:w-1/6 w-1/4"
                         :key="item"
                     >
-                        <router-link :to="item.url" class="flex flex-col items-center mt-3">
+                        <router-link :to="item.url" class="flex flex-col items-center mb-3">
                             <image-contain width="30px" height="30px" :src="item?.image" />
                             <div class="mt-2">{{ item.name }}</div>
                         </router-link>
@@ -92,20 +92,20 @@
                 </div>
             </el-card>
         </div>
-        <div class="flex mt-4">
-            <el-card class="flex-[3] !border-none mr-4" shadow="never">
+        <div class="md:flex">
+            <el-card class="flex-1 !border-none md:mr-4 mb-4" shadow="never">
                 <template #header>
                     <span>访问量趋势图</span>
                 </template>
                 <div>
                     <v-charts
-                        style="height: 400px"
+                        style="height: 350px"
                         :option="workbenchData.visitorOption"
                         :autoresize="true"
                     />
                 </div>
             </el-card>
-            <el-card class="flex-[1.2] !border-none" shadow="never">
+            <el-card class="!border-none mb-4" shadow="never">
                 <template #header>
                     <span>服务支持</span>
                 </template>

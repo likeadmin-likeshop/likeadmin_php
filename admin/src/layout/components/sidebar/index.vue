@@ -8,7 +8,7 @@
             <image-contain width="34" height="34" :src="config.web_logo" />
             <transition name="slide-fade" mode="out-in" :duration="300">
                 <div
-                    v-show="!isCollapse"
+                    v-show="!isCollapsed"
                     class="ml-11 truncate logo-title text-xl"
                     :class="{ 'text-white': sideTheme == 'dark' }"
                 >
@@ -21,7 +21,7 @@
                 <el-menu
                     v-bind="menuProps"
                     :default-active="activeMenu"
-                    :collapse="isCollapse"
+                    :collapse="isCollapsed"
                     mode="vertical"
                 >
                     <menu-item
@@ -48,7 +48,13 @@ const activeMenu = computed<string>(() => (route.meta?.activeMenu as string) ?? 
 const userStore = useUserStore()
 const sidebar = computed(() => userStore.routes)
 const appStore = useAppStore()
-const isCollapse = computed(() => !appStore.sidebar.opened)
+const isCollapsed = computed(() => {
+    if (appStore.isMobile) {
+        return false
+    } else {
+        return appStore.isCollapsed
+    }
+})
 const config = computed(() => appStore.config)
 const settingStore = useSettingStore()
 const sideTheme = computed(() => settingStore.sideTheme)

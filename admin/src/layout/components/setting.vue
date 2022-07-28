@@ -4,7 +4,7 @@
             v-model="showSetting"
             append-to-body
             direction="rtl"
-            size="270px"
+            size="250px"
             title="主题设置"
         >
             <div class="setting-item mb-5">
@@ -81,11 +81,11 @@ const sideTheme = computed({
 })
 const showSetting = computed({
     get() {
-        return settingStore.show
+        return settingStore.showDrawer
     },
     set(value) {
         settingStore.setSetting({
-            key: 'show',
+            key: 'showDrawer',
             value
         })
     }

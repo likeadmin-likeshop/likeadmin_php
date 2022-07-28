@@ -10,7 +10,7 @@ export const useSettingStore = defineStore({
     id: 'setting',
     state: () => {
         const state = {
-            show: false,
+            showDrawer: false,
             ...defaultSetting
         }
         isObject(storageSetting) && Object.assign(state, storageSetting)
@@ -25,7 +25,7 @@ export const useSettingStore = defineStore({
                 this[key] = value
             }
             const settings: any = Object.assign({}, this.$state)
-            delete settings.show
+            delete settings.showDrawer
             cache.set(ECacheKey.SETTING, settings)
         },
         // 设置主题色

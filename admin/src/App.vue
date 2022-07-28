@@ -31,10 +31,12 @@ const { width } = useWindowSize()
 watch(
     width,
     useThrottleFn((value) => {
-        if (value > 1180) {
-            appStore.toggleSidebar(true)
+        if (value > 992) {
+            // appStore.toggleSidebar(false)
+            appStore.setMobile(false)
         } else {
-            appStore.toggleSidebar(false)
+            appStore.setMobile(true)
+            // appStore.toggleSidebar(true)
         }
     })
 )
