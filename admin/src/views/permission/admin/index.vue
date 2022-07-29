@@ -1,7 +1,7 @@
 <template>
     <div class="admin">
         <el-card class="!border-none" shadow="never">
-            <el-form class="mb-[-16px]" :model="formData" label-width="80px" inline>
+            <el-form class="mb-[-16px]" :model="formData" inline>
                 <el-form-item label="账号">
                     <el-input v-model="formData.account" class="ls-input" />
                 </el-form-item>
@@ -55,12 +55,12 @@
                     <el-table-column
                         label="创建时间"
                         prop="create_time"
-                        min-width="150"
+                        min-width="180"
                     ></el-table-column>
                     <el-table-column
                         label="最近登录时间"
                         prop="login_time"
-                        min-width="150"
+                        min-width="180"
                     ></el-table-column>
                     <el-table-column
                         label="最近登录IP"
@@ -77,7 +77,7 @@
                             />
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" width="150" fixed="right">
+                    <el-table-column label="操作" width="120" fixed="right">
                         <template #default="{ row }">
                             <el-button
                                 v-perms="['auth.admin/edit']"
@@ -100,11 +100,7 @@
                 </el-table>
             </div>
             <div class="flex mt-4 justify-end">
-                <pagination
-                    v-model="pager"
-                    layout="total, prev, pager, next, jumper"
-                    @change="getLists"
-                />
+                <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
@@ -157,7 +153,7 @@ const handleEdit = async (data: any) => {
 }
 
 const handleDelete = async (id: number) => {
-    await feedback.confirm('确认要删除？')
+    await feedback.confirm('确定要删除？')
     await adminDelete({ id })
     getLists()
 }

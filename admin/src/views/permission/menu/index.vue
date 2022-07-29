@@ -62,7 +62,7 @@
                     prop="update_time"
                     min-width="180"
                 ></el-table-column>
-                <el-table-column label="操作" width="180" fixed="right">
+                <el-table-column label="操作" width="160" fixed="right">
                     <template #default="{ row }">
                         <el-button
                             v-perms="['auth.menu/add']"
@@ -101,6 +101,7 @@ import type { ElTable } from 'element-plus'
 import { usePaging } from '@/hooks/paging'
 import { EMenuType } from '@/config/enums'
 import EditPopup from './edit.vue'
+import feedback from '@/utils/feedback'
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 let isExpand = false
@@ -131,6 +132,7 @@ const handleEdit = async (data: any) => {
 }
 
 const handleDelete = async (id: number) => {
+    await feedback.confirm('确定要删除？')
     await menuDelete({ id })
     getLists()
 }

@@ -65,7 +65,7 @@ export function useCate(type: number) {
 
     // 删除分组
     const handleDeleteCate = async (id: number) => {
-        await feedback.confirm('确认要删除？')
+        await feedback.confirm('确定要删除？')
         await fileCateDelete({ id })
         getCateLists()
     }

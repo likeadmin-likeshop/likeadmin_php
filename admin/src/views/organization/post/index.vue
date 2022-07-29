@@ -34,7 +34,7 @@
                 <el-table-column label="岗位编码" prop="code" min-width="100" />
                 <el-table-column label="岗位名称" prop="name" min-width="100" />
                 <el-table-column label="排序" prop="sort" min-width="100" />
-                <el-table-column label="添加时间" prop="create_time" min-width="100" />
+                <el-table-column label="添加时间" prop="create_time" min-width="180" />
                 <el-table-column label="状态" prop="status" min-width="100">
                     <template #default="{ row }">
                         <el-tag class="ml-2" :type="row.status ? '' : 'danger'">{{
@@ -42,7 +42,7 @@
                         }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" width="180" fixed="right">
+                <el-table-column label="操作" width="120" fixed="right">
                     <template #default="{ row }">
                         <el-button
                             v-perms="['dept.jobs/edit']"
@@ -63,6 +63,9 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <div class="flex justify-end mt-4">
+                <pagination v-model="pager" @change="getLists" />
+            </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>

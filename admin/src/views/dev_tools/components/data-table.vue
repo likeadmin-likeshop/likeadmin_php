@@ -31,17 +31,13 @@
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="55" />
-                    <el-table-column label="表名称" prop="name" min-width="100" />
-                    <el-table-column label="表描述" prop="comment" min-width="100" />
-                    <el-table-column label="创建时间" prop="create_time" min-width="100" />
+                    <el-table-column label="表名称" prop="name" min-width="150" />
+                    <el-table-column label="表描述" prop="comment" min-width="160" />
+                    <el-table-column label="创建时间" prop="create_time" min-width="180" />
                 </el-table>
             </div>
             <div class="flex justify-end mt-4">
-                <pagination
-                    v-model="pager"
-                    layout="total, prev, pager, next, jumper"
-                    @change="getLists"
-                />
+                <pagination v-model="pager" @change="getLists" />
             </div>
         </popup>
     </div>

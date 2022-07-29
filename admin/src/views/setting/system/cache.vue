@@ -12,9 +12,9 @@
 
         <el-card class="!border-none mt-4" shadow="never">
             <el-table :data="cacheDate" size="large">
-                <el-table-column label="管理内容" prop="content"></el-table-column>
-                <el-table-column label="内容说明" prop="desc"></el-table-column>
-                <el-table-column label="操作" width="150" fixed="right">
+                <el-table-column label="管理内容" prop="content" min-width="130"></el-table-column>
+                <el-table-column label="内容说明" prop="desc" min-width="180"></el-table-column>
+                <el-table-column label="操作" width="130" fixed="right">
                     <template #default>
                         <el-button type="primary" link @click="handleClean">清除系统缓存</el-button>
                     </template>

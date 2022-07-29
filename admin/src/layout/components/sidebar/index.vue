@@ -23,6 +23,7 @@
                     :default-active="activeMenu"
                     :collapse="isCollapsed"
                     mode="vertical"
+                    @select="handleSelect"
                 >
                     <menu-item
                         v-for="route in sidebar"
@@ -68,6 +69,12 @@ const menuProps = computed(() => {
         'active-text-color': sideTheme.value == 'dark' ? 'var(--el-color-white)' : ''
     }
 })
+
+const handleSelect = () => {
+    if (appStore.isMobile) {
+        appStore.toggleSidebar(true)
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -114,6 +121,7 @@ const menuProps = computed(() => {
         }
     }
     .slide-fade-enter-active {
+        opacity: 0;
         transition: all 0.3s ease-out;
     }
 

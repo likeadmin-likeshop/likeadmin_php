@@ -53,7 +53,7 @@ export default defineComponent({
         confirmButtonText: {
             // 确认按钮内容
             type: [String, Boolean],
-            default: '确认'
+            default: '确定'
         },
         cancelButtonText: {
             // 取消按钮内容

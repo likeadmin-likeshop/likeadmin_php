@@ -7,7 +7,7 @@
                 class="ls-form"
                 :model="formData"
                 :rules="rules"
-                label-width="150px"
+                label-width="100px"
             >
                 <el-form-item label="头像：" prop="avatar">
                     <material-picker v-model="formData.avatar" :limit="1" />
@@ -59,8 +59,7 @@
                 </el-form-item>
             </el-form>
         </el-card>
-
-        <footer-btns>
+        <footer-btns v-perms="['setting.web.web_setting/setAgreement']">
             <el-button type="primary" @click="handleSubmit">保存</el-button>
         </footer-btns>
     </div>

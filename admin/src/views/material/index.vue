@@ -38,8 +38,9 @@ const activeTab = ref('image')
 
 <style lang="scss" scoped>
 .material-index {
+    min-width: 900px;
     :deep(.el-tabs) {
-        min-height: calc(100vh - 140px);
+        height: calc(100vh - 140px);
         display: flex;
         flex-direction: column;
         .el-tabs__header {

@@ -4,14 +4,14 @@
             ref="popupRef"
             :title="popupTitle"
             :async="true"
-            width="700px"
+            width="600px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
             <div class="h-[400px]">
                 <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
+                    <el-form ref="formRef" :model="formData" label-width="100px" :rules="formRules">
                         <el-form-item label="父级菜单" prop="pid">
                             <el-tree-select
                                 class="w-80"
@@ -56,8 +56,8 @@
                             label="路由路径"
                             prop="paths"
                         >
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input
                                         v-model="formData.paths"
                                         placeholder="请输入路由路径"
@@ -73,8 +73,8 @@
                             label="组件路径"
                             prop="component"
                         >
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input
                                         v-model="formData.component"
                                         placeholder="请输入组件路径"
@@ -90,8 +90,8 @@
                             label="权限字符"
                             prop="perms"
                         >
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input
                                         v-model="formData.perms"
                                         placeholder="请输入权限字符"
@@ -107,8 +107,8 @@
                             label="路由参数"
                             prop="params"
                         >
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input
                                         v-model="formData.params"
                                         placeholder="请输入路由参数"

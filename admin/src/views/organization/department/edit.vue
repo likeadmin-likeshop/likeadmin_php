@@ -4,14 +4,14 @@
             ref="popupRef"
             :title="popupTitle"
             :async="true"
-            width="700px"
+            width="600px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
             <div class="h-[400px]">
                 <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
+                    <el-form ref="formRef" :model="formData" label-width="100px" :rules="formRules">
                         <el-form-item label="上级部门" prop="pid" v-if="formData.pid !== 0">
                             <el-tree-select
                                 class="w-80"

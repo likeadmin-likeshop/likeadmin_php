@@ -1,12 +1,14 @@
 <template>
     <div class="login flex flex-col">
         <div class="flex-1 flex items-center justify-center">
-            <div class="login-card bg-body flex rounded-md">
-                <div class="flex-1 h-full">
+            <div class="login-card flex rounded-md">
+                <div class="flex-1 h-full hidden md:inline-block">
                     <image-contain :src="config.login_image" :width="400" height="100%" />
                 </div>
-                <div class="login-form flex flex-col flex-1 mx-10 mt-12">
-                    <div class="text-center text-3xl font-medium mb-10">{{ config.web_name }}</div>
+                <div
+                    class="login-form bg-body flex flex-col px-10 pt-10 md:w-[400px] w-11/12 flex-none mx-auto"
+                >
+                    <div class="text-center text-3xl font-medium mb-8">{{ config.web_name }}</div>
                     <el-form
                         ref="formRef"
                         :model="formData"
@@ -143,8 +145,6 @@ onMounted(() => {
     background-image: url('./images/login_bg.png');
     @apply min-h-screen bg-no-repeat bg-center bg-cover;
     .login-card {
-        min-width: 800px;
-        width: 800px;
         height: 400px;
     }
 }

@@ -62,17 +62,17 @@
                     >
                         <el-table-column type="selection" width="55" />
                         <el-table-column label="ID" prop="id" />
-                        <el-table-column label="数据名称" prop="name" />
-                        <el-table-column label="数据值" prop="value" />
+                        <el-table-column label="数据名称" prop="name" min-width="120" />
+                        <el-table-column label="数据值" prop="value" min-width="120" />
                         <el-table-column label="状态">
                             <template v-slot="{ row }">
                                 <el-tag v-if="row.status == 1">正常</el-tag>
                                 <el-tag v-else type="danger">停用</el-tag>
                             </template>
                         </el-table-column>
-                        <el-table-column label="备注" prop="remark" />
+                        <el-table-column label="备注" prop="remark" min-width="120" />
                         <el-table-column label="排序" prop="sort" />
-                        <el-table-column label="操作" width="200">
+                        <el-table-column label="操作" width="120" fixed="right">
                             <template #default="{ row }">
                                 <el-button
                                     v-perms="['setting.dict.dict_data/edit']"
@@ -152,7 +152,7 @@ const handleEdit = async (data: any) => {
 }
 
 const handleDelete = async (id: any[] | number) => {
-    await feedback.confirm('确认要删除？')
+    await feedback.confirm('确定要删除？')
     await dictDataDelete({ id })
     getLists()
 }

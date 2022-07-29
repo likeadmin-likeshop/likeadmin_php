@@ -12,13 +12,18 @@
             <div class="mt-4" v-loading="pager.loading">
                 <div>
                     <el-table :data="pager.lists">
-                        <el-table-column prop="id" label="ID"></el-table-column>
-                        <el-table-column prop="name" label="名称"></el-table-column>
-                        <el-table-column prop="desc" label="备注"></el-table-column>
-                        <el-table-column prop="sort" label="排序"></el-table-column>
-                        <el-table-column prop="num" label="管理员人数"></el-table-column>
-                        <el-table-column prop="create_time" label="创建时间"></el-table-column>
-                        <el-table-column label="操作">
+                        <el-table-column prop="id" label="ID" min-width="100" />
+                        <el-table-column prop="name" label="名称" min-width="150" />
+                        <el-table-column
+                            prop="desc"
+                            label="备注"
+                            min-width="150"
+                            show-overflow-tooltip
+                        />
+                        <el-table-column prop="sort" label="排序" min-width="100" />
+                        <el-table-column prop="num" label="管理员人数" min-width="100" />
+                        <el-table-column prop="create_time" label="创建时间" min-width="180" />
+                        <el-table-column label="操作" width="120" fixed="right">
                             <template #default="{ row }">
                                 <el-button
                                     link
@@ -74,7 +79,7 @@ const handleEdit = async (data: any) => {
 
 // 删除角色
 const handleDelete = async (id: number) => {
-    await feedback.confirm('确认要删除？')
+    await feedback.confirm('确定要删除？')
     await roleDelete({ id })
     getLists()
 }

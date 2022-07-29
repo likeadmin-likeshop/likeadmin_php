@@ -4,14 +4,14 @@
             ref="popupRef"
             title="设置存储"
             :async="true"
-            width="700px"
+            width="600px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
             <div class="h-[400px]">
                 <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="180px" :rules="formRules">
+                    <el-form ref="formRef" :model="formData" label-width="150px" :rules="formRules">
                         <el-form-item label="存储方式" prop="engine">
                             <div>
                                 <el-radio model-value>{{ getStorageInfo?.name }} </el-radio>
@@ -44,8 +44,8 @@
                                 </div>
                             </el-form-item>
                             <el-form-item label="空间域名（Domain）" prop="domain">
-                                <div>
-                                    <div class="w-80">
+                                <div class="w-80">
+                                    <div>
                                         <el-input
                                             v-model="formData.domain"
                                             placeholder="请输入空间域名"

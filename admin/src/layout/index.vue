@@ -2,10 +2,9 @@
     <div class="app-container flex h-screen w-full">
         <div class="app-aside">
             <el-drawer
-                v-show="isMobile"
-                v-model="isCollapsed"
+                v-model="showMenuDrawer"
                 direction="ltr"
-                size="200px"
+                :size="drawderSize"
                 title="主题设置"
                 :with-header="false"
             >
@@ -33,16 +32,22 @@ import Sidebar from './components/sidebar/index.vue'
 import Navbar from './components/navbar.vue'
 import Setting from './components/setting.vue'
 import useAppStore from '@/stores/modules/app'
+import useSettingStore from '@/stores/modules/setting'
 
 const appStore = useAppStore()
+const settingStore = useSettingStore()
 const isMobile = computed(() => appStore.isMobile)
-const isCollapsed = computed({
+const showMenuDrawer = computed({
     get() {
-        return appStore.isCollapsed
+        return !appStore.isCollapsed && isMobile.value
     },
     set(value) {
-        appStore.toggleSidebar(value)
+        appStore.toggleSidebar(!value)
     }
+})
+
+const drawderSize = computed(() => {
+    return `${settingStore.sideWidth + 1}px`
 })
 </script>
 <style lang="scss" scoped>

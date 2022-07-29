@@ -1,7 +1,7 @@
 <template>
-    <div class="code-generation flex flex-col" style="height: 567px">
-        <div class="ls-card">
-            <el-form class="mb-[-16px]" :model="formData" label-width="80px" inline>
+    <div class="code-generation">
+        <el-card class="!border-none" shadow="never">
+            <el-form class="mb-[-16px]" :model="formData" inline>
                 <el-form-item label="表名称">
                     <el-input v-model="formData.table_name" />
                 </el-form-item>
@@ -13,8 +13,8 @@
                     <el-button @click="resetParams">重置</el-button>
                 </el-form-item>
             </el-form>
-        </div>
-        <div class="ls-card mt-4 flex-1 flex flex-col min-h-0" v-loading="pager.loading">
+        </el-card>
+        <el-card class="!border-none mt-4" shadow="never" v-loading="pager.loading">
             <div class="flex">
                 <data-table
                     v-perms="['tools.generator/selectTable']"
@@ -47,11 +47,10 @@
                     生成代码
                 </el-button>
             </div>
-            <div class="mt-4 flex-1 min-h-0">
+            <div class="mt-4">
                 <el-table
                     :data="pager.lists"
                     size="large"
-                    height="100%"
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="55" />
@@ -73,11 +72,8 @@
                                 <el-dropdown class="ml-1">
                                     <el-button type="primary" link>
                                         更多
-                                        <icon name="el-icon-ArrowDown" />
+                                        <icon name="el-icon-ArrowDown" :size="14" />
                                     </el-button>
-                                    <span class="flex items-center">
-                                        <span class="ml-3 mr-1">更多</span>
-                                    </span>
 
                                     <template #dropdown>
                                         <el-dropdown-menu>
@@ -138,7 +134,7 @@
             <div class="flex justify-end mt-4">
                 <pagination v-model="pager" @change="getLists" />
             </div>
-        </div>
+        </el-card>
         <code-preview
             v-if="previewState.show"
             v-model="previewState.show"
@@ -188,7 +184,7 @@ const handleSync = async (id: number) => {
 }
 
 const handleDelete = async (id: number | any[]) => {
-    await feedback.confirm('确认要删除？')
+    await feedback.confirm('确定要删除？')
     await generateDelete({ id })
     getLists()
 }

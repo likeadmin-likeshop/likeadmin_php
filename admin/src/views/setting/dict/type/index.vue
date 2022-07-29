@@ -54,8 +54,8 @@
                     >
                         <el-table-column type="selection" width="55" />
                         <el-table-column label="ID" prop="id" />
-                        <el-table-column label="字典名称" prop="name" />
-                        <el-table-column label="字典类型" prop="type" />
+                        <el-table-column label="字典名称" prop="name" min-width="120" />
+                        <el-table-column label="字典类型" prop="type" min-width="120" />
                         <el-table-column label="状态">
                             <template v-slot="{ row }">
                                 <el-tag v-if="row.status == 1">正常</el-tag>
@@ -63,8 +63,8 @@
                             </template>
                         </el-table-column>
                         <el-table-column label="备注" prop="remark" />
-                        <el-table-column label="创建时间" prop="create_time" />
-                        <el-table-column label="操作" width="200">
+                        <el-table-column label="创建时间" prop="create_time" min-width="180" />
+                        <el-table-column label="操作" width="190" fixed="right">
                             <template #default="{ row }">
                                 <el-button
                                     v-perms="['setting.dict.dict_type/edit']"
@@ -149,7 +149,7 @@ const handleEdit = async (data: any) => {
 
 // 删除角色
 const handleDelete = async (id: any[] | number) => {
-    await feedback.confirm('确认要删除？')
+    await feedback.confirm('确定要删除？')
     await dictTypeDelete({ id })
     getLists()
 }

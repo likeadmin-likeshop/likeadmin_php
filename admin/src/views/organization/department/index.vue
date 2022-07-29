@@ -42,7 +42,12 @@
                 row-key="id"
                 :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
             >
-                <el-table-column label="部门名称" prop="name" min-width="150" />
+                <el-table-column
+                    label="部门名称"
+                    prop="name"
+                    min-width="150"
+                    show-overflow-tooltip
+                />
                 <el-table-column label="部门状态" prop="status" min-width="100">
                     <template #default="{ row }">
                         <el-tag class="ml-2" :type="row.status ? '' : 'danger'">{{
@@ -52,7 +57,7 @@
                 </el-table-column>
                 <el-table-column label="排序" prop="sort" min-width="100" />
                 <el-table-column label="更新时间" prop="update_time" min-width="180" />
-                <el-table-column label="操作" width="180" fixed="right">
+                <el-table-column label="操作" width="160" fixed="right">
                     <template #default="{ row }">
                         <el-button
                             v-perms="['dept.dept/add']"
