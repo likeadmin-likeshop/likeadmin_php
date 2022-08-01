@@ -176,13 +176,10 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
         foreach ($query as $queryName) {
             $columnValue = '';
             foreach ($this->tableColumn as $column) {
-                if (empty($column['query_type'])
-                    || $column['is_pk']
-                    || in_array($column['column_name'], $this->defaultColumn())
-                ) {
+                if (empty($column['query_type']) || $column['is_pk']) {
                     continue;
                 }
-                if ($queryName == $column['query_type'] && $queryName != 'between') {
+                if ($queryName == $column['query_type'] && $queryName != 'between' && $column['is_query']) {
                     $columnValue .= "'" . $column['column_name'] . "', ";
                 }
             }
