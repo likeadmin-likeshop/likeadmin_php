@@ -100,11 +100,11 @@
                                             </router-link>
                                             <div
                                                 v-perms="['tools.generator/generate']"
-                                                @click="handleGenerate(row.id)"
+                                                @click="handleGenerate([row])"
                                             >
                                                 <el-dropdown-item>
                                                     <el-button type="primary" link>
-                                                        代码生成
+                                                        生成代码
                                                     </el-button>
                                                 </el-dropdown-item>
                                             </div>
@@ -161,6 +161,7 @@ import { usePaging } from '@/hooks/paging'
 import DataTable from '../components/data-table.vue'
 import CodePreview from '../components/code-preview.vue'
 import feedback from '@/utils/feedback'
+import { isProdMode } from '@/utils/env'
 
 const formData = reactive({
     table_name: '',
@@ -179,13 +180,12 @@ const { pager, getLists, resetParams, resetPage } = usePaging({
 })
 
 const selectData = ref<any[]>([])
-
 const handleSelectionChange = (val: any[]) => {
-    selectData.value = val.map(({ id }) => id)
+    selectData.value = val
 }
 
 const handleSync = async (id: number) => {
-    await feedback.confirm('确认要同步表结构？')
+    await feedback.confirm('确定要同步表结构？')
     await syncColumn({ id })
 }
 
@@ -201,7 +201,15 @@ const handlePreview = async (id: number) => {
     previewState.show = true
 }
 
-const handleGenerate = async (id: number | number[]) => {
+const hasGenerateTypeInModule = (data: any[]) => {
+    return data.some((item) => item.generate_type == 1)
+}
+
+const handleGenerate = async (selectData: any[]) => {
+    if (isProdMode() && hasGenerateTypeInModule(selectData)) {
+        return feedback.msgError('生成方式为生成到模块，请在前端开发模式下使用，详细参考文档')
+    }
+    const id = selectData.map(({ id }) => id)
     const data: any = await generateCode({ id })
     if (data.file) {
         window.open(data.file, '_blank')
