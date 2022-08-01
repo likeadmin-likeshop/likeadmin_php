@@ -90,3 +90,11 @@
         }
     }
 }
+@media (max-width: 768px) {
+    .el-pagination > .el-pagination__jump {
+        display: none !important;
+    }
+    .el-pagination > .el-pagination__sizes {
+        display: none !important;
+    }
+}

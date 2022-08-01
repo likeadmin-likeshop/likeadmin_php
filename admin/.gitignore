@@ -14,8 +14,10 @@ dist-ssr
 coverage
 *.local
 
+# unplugin-auto-import
 auto-imports.d.ts
 components.d.ts
+.eslintrc-auto-import.json
 
 /cypress/videos/
 /cypress/screenshots/
@@ -27,3 +29,8 @@ components.d.ts
 *.njsproj
 *.sln
 *.sw?
+
+# lock
+
+package-lock.json
+yarn.lock

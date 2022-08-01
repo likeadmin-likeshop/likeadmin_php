@@ -18,6 +18,12 @@
             </div>
         </div>
         <div class="flex items-center">
+            <icon
+                class="mr-4 cursor-pointer"
+                :size="16"
+                name="el-icon-FullScreen"
+                @click="toggleFullscreen"
+            />
             <el-dropdown @command="handleCommand">
                 <div class="flex items-center">
                     <el-avatar :size="34" :src="userInfo.avatar" />
@@ -34,7 +40,12 @@
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
-            <icon class="ml-4 cursor-pointer" name="el-icon-Setting" @click="openSetting" />
+            <icon
+                class="ml-4 cursor-pointer"
+                :size="16"
+                name="el-icon-Setting"
+                @click="openSetting"
+            />
         </div>
     </div>
 </template>
@@ -44,7 +55,9 @@ import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import useSettingStore from '@/stores/modules/setting'
 import feedback from '@/utils/feedback'
+import { useFullscreen } from '@vueuse/core'
 
+const { toggle: toggleFullscreen } = useFullscreen()
 const router = useRouter()
 const appStore = useAppStore()
 const userStore = useUserStore()

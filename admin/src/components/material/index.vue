@@ -445,8 +445,7 @@ defineExpose({
 .material {
     @apply h-full min-h-0 flex flex-1;
     &__left {
-        @apply border-r border-br flex flex-col;
-        width: 200px;
+        @apply border-r border-br flex flex-col w-[200px];
         :deep(.el-tree-node__content) {
             height: 36px;
         }
