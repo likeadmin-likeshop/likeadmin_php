@@ -8,12 +8,7 @@
                     </template>
                     新增
                 </el-button>
-                <el-button @click="handleExpand">
-                    <template #icon>
-                        <icon name="el-icon-Sort" />
-                    </template>
-                    展开/折叠
-                </el-button>
+                <el-button @click="handleExpand"> 展开/折叠 </el-button>
             </div>
             <el-table
                 ref="tableRef"

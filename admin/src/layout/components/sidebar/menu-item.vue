@@ -2,7 +2,12 @@
     <template v-if="!route.meta?.hidden">
         <app-link v-if="!hasShowChild" :to="`${routePath}?${queryStr}`">
             <el-menu-item :index="routePath">
-                <icon class="menu-item-icon" v-if="routeMeta?.icon" :name="routeMeta?.icon" />
+                <icon
+                    class="menu-item-icon"
+                    :size="16"
+                    v-if="routeMeta?.icon"
+                    :name="routeMeta?.icon"
+                />
                 <template #title>
                     <span>{{ routeMeta?.title }}</span>
                 </template>
@@ -10,7 +15,12 @@
         </app-link>
         <el-sub-menu v-else :index="routePath" :popper-class="popperClass">
             <template #title>
-                <icon class="menu-item-icon" v-if="routeMeta?.icon" :name="routeMeta?.icon" />
+                <icon
+                    class="menu-item-icon"
+                    :size="16"
+                    v-if="routeMeta?.icon"
+                    :name="routeMeta?.icon"
+                />
                 <span>{{ routeMeta?.title }}</span>
             </template>
             <menu-item

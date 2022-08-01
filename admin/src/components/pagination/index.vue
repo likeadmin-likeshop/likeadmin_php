@@ -2,6 +2,7 @@
     <div class="pagination">
         <el-pagination
             v-bind="props"
+            :pager-count="5"
             v-model:currentPage="pager.page"
             v-model:pageSize="pager.size"
             :page-sizes="pageSizes"
@@ -23,7 +24,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
     modelValue: () => ({}),
     pageSizes: () => [15, 20, 30, 40],
-    layout: 'total, prev, pager, next'
+    layout: 'total, sizes, prev, pager, next, jumper'
 })
 
 const emit = defineEmits<{

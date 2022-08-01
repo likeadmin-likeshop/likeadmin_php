@@ -11,12 +11,18 @@
             <template #trigger>
                 <slot></slot>
             </template>
-            <el-form class="ls-form" :model="formData" inline>
+            <el-form
+                class="ls-form"
+                :model="formData"
+                inline
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="表名称">
-                    <el-input v-model="formData.name" />
+                    <el-input class="w-56" v-model="formData.name" />
                 </el-form-item>
                 <el-form-item label="表描述">
-                    <el-input v-model="formData.comment" />
+                    <el-input class="w-56" v-model="formData.comment" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>

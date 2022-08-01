@@ -1,12 +1,18 @@
 <template>
     <div class="code-generation">
         <el-card class="!border-none" shadow="never">
-            <el-form class="mb-[-16px]" :model="formData" inline>
+            <el-form
+                class="mb-[-16px]"
+                :model="formData"
+                inline
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="表名称">
-                    <el-input v-model="formData.table_name" />
+                    <el-input class="w-56" v-model="formData.table_name" />
                 </el-form-item>
                 <el-form-item label="表描述">
-                    <el-input v-model="formData.table_comment" />
+                    <el-input class="w-56" v-model="formData.table_comment" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>

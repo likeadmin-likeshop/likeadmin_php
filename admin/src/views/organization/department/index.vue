@@ -1,12 +1,19 @@
 <template>
     <div class="menu-lists">
         <el-card class="!border-none" shadow="never">
-            <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
+            <el-form
+                ref="formRef"
+                class="mb-[-16px]"
+                :model="queryParams"
+                :inline="true"
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="部门名称" prop="name">
-                    <el-input v-model="queryParams.name" />
+                    <el-input class="w-56" v-model="queryParams.name" />
                 </el-form-item>
                 <el-form-item label="部门状态" prop="status">
-                    <el-select v-model="queryParams.status">
+                    <el-select class="w-56" v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" value="1" />
                         <el-option label="停用" value="0" />
@@ -26,12 +33,7 @@
                     </template>
                     新增
                 </el-button>
-                <el-button @click="handleExpand">
-                    <template #icon>
-                        <icon name="el-icon-Sort" />
-                    </template>
-                    展开/折叠
-                </el-button>
+                <el-button @click="handleExpand"> 展开/折叠 </el-button>
             </div>
             <el-table
                 ref="tableRef"

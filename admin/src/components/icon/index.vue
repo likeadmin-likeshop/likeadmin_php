@@ -12,7 +12,7 @@ export default defineComponent({
         },
         size: {
             type: [String, Number],
-            default: '16px'
+            default: '14px'
         },
         color: {
             type: String,

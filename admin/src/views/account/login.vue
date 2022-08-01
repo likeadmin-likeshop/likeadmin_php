@@ -9,13 +9,7 @@
                     class="login-form bg-body flex flex-col px-10 pt-10 md:w-[400px] w-11/12 flex-none mx-auto"
                 >
                     <div class="text-center text-3xl font-medium mb-8">{{ config.web_name }}</div>
-                    <el-form
-                        ref="formRef"
-                        :model="formData"
-                        size="large"
-                        status-icon
-                        :rules="rules"
-                    >
+                    <el-form ref="formRef" :model="formData" size="large" :rules="rules">
                         <el-form-item prop="account">
                             <el-input
                                 v-model="formData.account"

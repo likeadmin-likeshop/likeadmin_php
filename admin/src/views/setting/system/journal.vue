@@ -2,7 +2,13 @@
 <template>
     <div class="journal">
         <el-card class="!border-none" shadow="never">
-            <el-form class="ls-form" :model="formData" inline>
+            <el-form
+                class="ls-form"
+                :model="formData"
+                inline
+                label-width="80px"
+                label-position="left"
+            >
                 <el-form-item label="管理员">
                     <el-input placeholder="请输入" v-model="formData.admin_name" />
                 </el-form-item>

@@ -202,6 +202,7 @@
                                 :props="{
                                     label: 'name'
                                 }"
+                                default-expand-all
                                 placeholder="请选择父级菜单"
                                 check-strictly
                             />

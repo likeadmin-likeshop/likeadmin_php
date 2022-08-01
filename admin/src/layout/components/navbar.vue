@@ -43,6 +43,7 @@
 import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import useSettingStore from '@/stores/modules/setting'
+import feedback from '@/utils/feedback'
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -61,9 +62,10 @@ const refreshView = () => {
     appStore.refreshView()
 }
 
-const handleCommand = (command: string) => {
+const handleCommand = async (command: string) => {
     switch (command) {
         case 'logout':
+            await feedback.confirm('确定退出登录吗？')
             userStore.logout().then(() => {
                 router.push('/login')
                 userStore.resetLoginInfo()

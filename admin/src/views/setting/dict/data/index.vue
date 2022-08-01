@@ -2,9 +2,16 @@
     <div class="dict-type">
         <el-card class="!border-none" shadow="never">
             <el-page-header class="mb-4" content="数据管理" @back="$router.back()" />
-            <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
+            <el-form
+                ref="formRef"
+                class="mb-[-16px]"
+                :model="queryParams"
+                inline
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="字典名称">
-                    <el-select v-model="queryParams.type_id" @change="getLists">
+                    <el-select class="w-56" v-model="queryParams.type_id" @change="getLists">
                         <el-option
                             v-for="item in options.dict_type"
                             :label="item.name"
@@ -14,10 +21,10 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="数据名称">
-                    <el-input v-model="queryParams.name" />
+                    <el-input class="w-56" v-model="queryParams.name" />
                 </el-form-item>
                 <el-form-item label="状态">
-                    <el-select v-model="queryParams.status">
+                    <el-select class="w-56" v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />

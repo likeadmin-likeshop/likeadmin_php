@@ -83,4 +83,10 @@
     .el-message-box {
         --el-messagebox-width: 350px;
     }
+    .el-date-editor {
+        --el-date-editor-width: 235px;
+        .el-range-input {
+            font-size: var(--el-font-size-small);
+        }
+    }
 }
