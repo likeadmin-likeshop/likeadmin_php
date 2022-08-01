@@ -4,7 +4,7 @@
 <p align="center">
 <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.0-8892bf"></a> <a href="https://www.tslang.cn/"><img src="https://img.shields.io/badge/TypeScript-3.1-294e80"></a> <a href="#"><img src="https://img.shields.io/badge/ThinkPHP-6.0-6fb737"></a> <a href="#"><img src="https://img.shields.io/badge/Vue.js-3.2-4eb883"></a> <a href="#"><img src="https://img.shields.io/badge/vite-2.0.0-ffc018"></a> <a href="#"><img src="https://img.shields.io/badge/Element Plus-1.2.0-409eff"></a>
 <div align="center">
-  <img  width="80%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=ec03b247df6727a2538a76334e5603f0" />
+  <img  width="80%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=72c2e0bab13d47c8d62c00e4bd1f8c3b" />
 </div>
  <br>
 
