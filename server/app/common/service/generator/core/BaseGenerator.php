@@ -389,4 +389,17 @@ abstract class BaseGenerator
         return $this->tableData['generate_type'] == 0;
     }
 
+
+    /**
+     * @notes 默认列
+     * @return string[]
+     * @author 段誉
+     * @date 2022/8/1 14:28
+     */
+    public function defaultColumn()
+    {
+        return ['create_time', 'update_time', 'delete_time'];
+    }
+
+
 }
