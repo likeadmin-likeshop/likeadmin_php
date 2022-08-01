@@ -10,11 +10,11 @@
                 label-position="left"
             >
                 <el-form-item label="管理员">
-                    <el-input placeholder="请输入" v-model="formData.admin_name" />
+                    <el-input class="w-56" placeholder="请输入" v-model="formData.admin_name" />
                 </el-form-item>
 
                 <el-form-item label="访问方式">
-                    <el-select v-model="formData.type" placeholder="请选择">
+                    <el-select class="w-56" v-model="formData.type" placeholder="请选择">
                         <el-option
                             v-for="(item, index) in visitType"
                             :key="index"
@@ -25,7 +25,7 @@
                 </el-form-item>
 
                 <el-form-item label="来源IP">
-                    <el-input placeholder="请输入" v-model="formData.ip" />
+                    <el-input class="w-56" placeholder="请输入" v-model="formData.ip" />
                 </el-form-item>
 
                 <el-form-item label="访问时间">
@@ -36,7 +36,7 @@
                 </el-form-item>
 
                 <el-form-item label="访问链接">
-                    <el-input placeholder="请输入" v-model="formData.url" />
+                    <el-input class="w-56" placeholder="请输入" v-model="formData.url" />
                 </el-form-item>
 
                 <el-form-item>
