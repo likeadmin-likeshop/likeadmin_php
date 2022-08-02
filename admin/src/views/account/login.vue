@@ -58,7 +58,7 @@ import type { InputInstance, FormInstance } from 'element-plus'
 import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import cache from '@/utils/cache'
-import { ECacheKey } from '@/config/enums'
+import { ACCOUNT_KEY } from '@/enums/cacheEnums.js'
 const passwordRef = shallowRef<InputInstance>()
 const formRef = shallowRef<FormInstance>()
 const appStore = useAppStore()
@@ -103,7 +103,7 @@ const handleLogin = () => {
         }
         loginLoading.value = true
         // 记住账号，缓存
-        cache.set(ECacheKey.ACCOUNT, {
+        cache.set(ACCOUNT_KEY, {
             remember: remAccount.value,
             account: formData.account
         })
@@ -126,7 +126,7 @@ const handleLogin = () => {
 }
 
 onMounted(() => {
-    const value = cache.get(ECacheKey.ACCOUNT)
+    const value = cache.get(ACCOUNT_KEY)
     if (value?.remember) {
         remAccount.value = value.remember
         formData.account = value.account

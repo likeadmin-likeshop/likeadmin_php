@@ -10,10 +10,9 @@ interface Options {
 }
 
 export function usePaging(options: Options) {
-    let paramsInit: Record<any, any> = {}
     const { page = 1, size = 15, fetchFun, params = {}, firstLoading = false } = options
     // 记录分页初始参数
-    paramsInit = Object.assign({}, toRaw(params))
+    const paramsInit: Record<any, any> = Object.assign({}, toRaw(params))
     // 分页数据
     const pager = reactive({
         page,

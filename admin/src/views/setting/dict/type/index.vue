@@ -119,7 +119,7 @@
 
 <script lang="ts" setup>
 import { dictTypeDelete, dictTypeLists } from '@/api/setting/dict'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()

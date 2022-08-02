@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { systemLogLists } from '@/api/setting/system'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 
 interface formDataObj {
     admin_name?: string // 管理员

@@ -56,7 +56,7 @@
 
 <script lang="ts" setup>
 import { roleLists, roleDelete } from '@/api/perms/role'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()

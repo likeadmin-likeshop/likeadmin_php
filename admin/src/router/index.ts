@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouterView, type RouteRecordRaw } from 'vue-router'
-import { EMenuType } from '@/config/enums'
+import { MenuEnum } from '@/enums/appEnums'
 import { isExternal } from '@/utils/validate'
-import Layout from '@/layout/index.vue'
+import Layout from '@/layout/default/index.vue'
 import { constantRoutes, INDEX_ROUTE_NAME } from './routes'
 import useUserStore from '@/stores/modules/user'
 
@@ -36,13 +36,13 @@ export function createRouteRecord(route: any, firstRoute: boolean): RouteRecordR
         }
     }
     switch (route.type) {
-        case EMenuType.CATALOGUE:
+        case MenuEnum.CATALOGUE:
             routeRecord.component = firstRoute ? Layout : RouterView
             if (!route.children) {
                 routeRecord.component = RouterView
             }
             break
-        case EMenuType.MENU:
+        case MenuEnum.MENU:
             routeRecord.component = loadRouteView(route.component)
             break
     }
@@ -68,7 +68,7 @@ export function loadRouteView(component: string) {
 // 找到第一个有效的路由
 export function findFirstValidRoute(routes: RouteRecordRaw[]): string | undefined {
     for (const route of routes) {
-        if (route.meta?.type == EMenuType.MENU && !route.meta?.hidden && !isExternal(route.path)) {
+        if (route.meta?.type == MenuEnum.MENU && !route.meta?.hidden && !isExternal(route.path)) {
             return route.name as string
         }
         if (route.children) {

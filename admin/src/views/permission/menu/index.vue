@@ -27,9 +27,9 @@
                 />
                 <el-table-column label="类型" prop="type" min-width="80">
                     <template #default="{ row }">
-                        <div v-if="row.type == EMenuType.CATALOGUE">目录</div>
-                        <div v-else-if="row.type == EMenuType.MENU">菜单</div>
-                        <div v-else-if="row.type == EMenuType.BUTTON">按钮</div>
+                        <div v-if="row.type == MenuEnum.CATALOGUE">目录</div>
+                        <div v-else-if="row.type == MenuEnum.MENU">菜单</div>
+                        <div v-else-if="row.type == MenuEnum.BUTTON">按钮</div>
                     </template>
                 </el-table-column>
                 <el-table-column label="图标" prop="icon" min-width="80">
@@ -93,8 +93,8 @@
 <script lang="ts" setup>
 import { menuDelete, menuLists } from '@/api/perms/menu'
 import type { ElTable } from 'element-plus'
-import { usePaging } from '@/hooks/paging'
-import { EMenuType } from '@/config/enums'
+import { usePaging } from '@/hooks/usePaging'
+import { MenuEnum } from '@/enums/appEnums'
 import EditPopup from './edit.vue'
 import feedback from '@/utils/feedback'
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()

@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import cache from '@/utils/cache'
 import type { RouteRecordRaw } from 'vue-router'
-import { ECacheKey } from '@/config/enums'
 import { getUserInfo, login, logout } from '@/api/user'
 import { filterAsyncRoutes, resetRouter } from '@/router'
-export interface IState {
+import { TOKEN_KEY } from '@/enums/cacheEnums'
+export interface UserState {
     token: string
     userInfo: Record<string, any>
     routes: RouteRecordRaw[]
@@ -13,8 +13,8 @@ export interface IState {
 
 const useUserStore = defineStore({
     id: 'user',
-    state: (): IState => ({
-        token: cache.get(ECacheKey.TOKEN) || '',
+    state: (): UserState => ({
+        token: cache.get(TOKEN_KEY) || '',
         // 用户信息
         userInfo: {},
         // 路由
@@ -28,7 +28,7 @@ const useUserStore = defineStore({
             this.token = ''
             this.userInfo = {}
             this.perms = []
-            cache.remove(ECacheKey.TOKEN)
+            cache.remove(TOKEN_KEY)
             resetRouter()
         },
         login(playload: any) {
@@ -40,7 +40,7 @@ const useUserStore = defineStore({
                 })
                     .then((data) => {
                         this.token = data.token
-                        cache.set(ECacheKey.TOKEN, data.token)
+                        cache.set(TOKEN_KEY, data.token)
                         resolve(data)
                     })
                     .catch((error) => {

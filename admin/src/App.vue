@@ -33,13 +33,13 @@ watch(
     useThrottleFn((value) => {
         if (value > 768) {
             appStore.setMobile(false)
-            appStore.toggleSidebar(false)
+            appStore.toggleCollapsed(false)
         } else {
             appStore.setMobile(true)
-            appStore.toggleSidebar(true)
+            appStore.toggleCollapsed(true)
         }
         if (value < 992) {
-            appStore.toggleSidebar(true)
+            appStore.toggleCollapsed(true)
         }
     }),
     {

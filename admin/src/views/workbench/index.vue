@@ -117,7 +117,12 @@
                                 'border-b border-br': index == 0
                             }"
                         >
-                            <el-image class="w-[120px] h-[120px] flex-none" :src="item.image" />
+                            <ImageContain
+                                :width="120"
+                                :height="120"
+                                class="flex-none"
+                                :src="item.image"
+                            />
                             <div class="ml-2">
                                 <div>{{ item.title }}</div>
                                 <div class="text-tx-regular text-xs mt-4">{{ item.desc }}</div>

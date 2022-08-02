@@ -8,7 +8,7 @@ import {
     fileMove,
     fileRename
 } from '@/api/file'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import { ElMessage, ElTree, type CheckboxValueType } from 'element-plus'
 import { shallowRef, type Ref } from 'vue'

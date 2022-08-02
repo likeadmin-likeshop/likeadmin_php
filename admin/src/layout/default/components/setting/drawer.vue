@@ -1,5 +1,5 @@
 <template>
-    <div class="setting">
+    <div class="setting-drawer">
         <el-drawer
             v-model="showSetting"
             append-to-body

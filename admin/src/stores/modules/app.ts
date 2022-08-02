@@ -1,17 +1,15 @@
 import { getConfig } from '@/api/app'
-import cache from '@/utils/cache'
 import { defineStore } from 'pinia'
-import { ECacheKey } from '@/config/enums'
-interface ISate {
+interface AppSate {
     config: Record<string, any>
     isMobile: boolean
     isCollapsed: boolean
     isRouteShow: boolean
 }
 
-export const useAppStore = defineStore({
+const useAppStore = defineStore({
     id: 'app',
-    state: (): ISate => {
+    state: (): AppSate => {
         return {
             config: {},
             isMobile: true,
@@ -35,13 +33,8 @@ export const useAppStore = defineStore({
         setMobile(value: boolean) {
             this.isMobile = value
         },
-        toggleSidebar(toggle?: boolean) {
+        toggleCollapsed(toggle?: boolean) {
             this.isCollapsed = toggle ?? !this.isCollapsed
-            if (this.isCollapsed) {
-                cache.set(ECacheKey.SIDEBAR_STATUS, 1)
-            } else {
-                cache.set(ECacheKey.SIDEBAR_STATUS, 0)
-            }
         },
         refreshView() {
             this.isRouteShow = false

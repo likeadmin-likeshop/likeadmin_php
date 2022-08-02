@@ -52,7 +52,7 @@
 <script lang="ts" setup>
 import Popup from '@/components/popup/index.vue'
 import Pagination from '@/components/pagination/index.vue'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import { dataTable, selectTable } from '@/api/tools/code'
 import feedback from '@/utils/feedback'
 

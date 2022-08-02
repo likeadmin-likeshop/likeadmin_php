@@ -13,7 +13,7 @@
  */
 
 import type { RouteRecordRaw } from 'vue-router'
-import Layout from '@/layout/index.vue'
+import Layout from '@/layout/default/index.vue'
 
 export const INDEX_ROUTE_NAME = Symbol()
 

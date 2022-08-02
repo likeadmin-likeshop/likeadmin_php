@@ -57,7 +57,7 @@
                                 </div>
                             </el-form-item>
                             <el-form-item
-                                v-if="formData.engine == EStorageType.QCLOUD"
+                                v-if="formData.engine == StorageEnum.QCLOUD"
                                 label="REGION"
                                 prop="region"
                             >
@@ -85,8 +85,14 @@
 import { storageSetup } from '@/api/setting/storage'
 import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
-import { EStorageType } from '@/config/enums'
 import { storageDetail } from '@/api/setting/storage'
+enum StorageEnum {
+    LOCAL = 'local', // 本地
+    QINIU = 'qiniu', // 七牛云
+    ALIYUN = 'aliyun', // 阿里云OSS
+    QCLOUD = 'qcloud' // 腾讯云OSS
+}
+
 const emit = defineEmits(['success'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
@@ -103,22 +109,22 @@ const formData = reactive({
 const storageArr = [
     {
         name: '本地存储',
-        type: EStorageType.LOCAL,
+        type: StorageEnum.LOCAL,
         tips: '本地存储方式不需要配置其他参数'
     },
     {
         name: '七牛云存储',
-        type: EStorageType.QINIU,
+        type: StorageEnum.QINIU,
         tips: '切换七牛云存储后，素材库需要重新上传至七牛云'
     },
     {
         name: '阿里云OSS',
-        type: EStorageType.ALIYUN,
+        type: StorageEnum.ALIYUN,
         tips: '切换阿里云OSS后，素材库需要重新上传至阿里云OSS'
     },
     {
         name: '腾讯云OSS',
-        type: EStorageType.QCLOUD,
+        type: StorageEnum.QCLOUD,
         tips: '切换腾讯云OSS后，素材库需要重新上传至腾讯云OSS'
     }
 ]
