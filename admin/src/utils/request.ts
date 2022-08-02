@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress'
 import configs from '@/config'
+import { PageEnum } from '@/enums/pageEnum'
 
 const config = {
     baseURL: configs.baseUrl,
@@ -36,7 +37,7 @@ const eventResponse = {
     redirect: () => {
         const userStore = useUserStore()
         userStore.logout().then(() => {
-            router.push('/login')
+            router.push(PageEnum.LOGIN)
             userStore.resetLoginInfo()
         })
         return Promise.reject()

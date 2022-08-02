@@ -8,14 +8,15 @@ import 'nprogress/nprogress.css'
 import { isExternal } from './utils/validate'
 import useUserStore from './stores/modules/user'
 import { indexRoute, INDEX_ROUTE_NAME } from './router/routes'
+import { PageEnum } from './enums/pageEnum'
 
 // NProgress配置
 NProgress.configure({ showSpinner: false })
 
-const loginPath = '/login'
+const loginPath = PageEnum.LOGIN
 const defaultPath = '/'
 // 免登录白名单
-const whiteList = ['/login', '/403']
+const whiteList: string[] = [PageEnum.LOGIN, PageEnum.ERROR_403]
 
 router.beforeEach(async (to, from, next) => {
     console.log(to)

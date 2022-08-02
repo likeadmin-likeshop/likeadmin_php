@@ -40,7 +40,7 @@ const activeTab = ref('image')
 .material-index {
     min-width: 700px;
     :deep(.el-tabs) {
-        height: calc(100vh - 140px);
+        height: calc(100vh - 180px);
         display: flex;
         flex-direction: column;
         .el-tabs__header {
