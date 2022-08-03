@@ -2,7 +2,7 @@
     <el-image :style="styles" v-bind="props">
         <template #error>
             <div class="flex items-center justify-center h-full w-full text-tx-secondary">
-                <icon name="el-icon-Picture" :size="30" />
+                <icon name="el-icon-Picture" :size="24" />
             </div>
         </template>
     </el-image>
@@ -22,15 +22,18 @@ const props = defineProps({
         type: [String, Number],
         default: 'auto'
     },
+    radius: {
+        type: [String, Number],
+        default: 0
+    },
     ...imageProps
 })
 
-const { width, height } = toRefs(props)
-
 const styles = computed<CSSProperties>(() => {
     return {
-        width: addUnit(width.value),
-        height: addUnit(height.value)
+        width: addUnit(props.width),
+        height: addUnit(props.height),
+        borderRadius: addUnit(props.radius)
     }
 })
 </script>

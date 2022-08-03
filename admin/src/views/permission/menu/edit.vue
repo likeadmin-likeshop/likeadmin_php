@@ -4,14 +4,14 @@
             ref="popupRef"
             :title="popupTitle"
             :async="true"
-            width="700px"
+            width="600px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
             <div class="h-[400px]">
                 <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
+                    <el-form ref="formRef" :model="formData" label-width="100px" :rules="formRules">
                         <el-form-item label="父级菜单" prop="pid">
                             <el-tree-select
                                 class="w-80"
@@ -29,9 +29,9 @@
                         </el-form-item>
                         <el-form-item label="菜单类型" prop="type" required>
                             <el-radio-group v-model="formData.type">
-                                <el-radio :label="EMenuType.CATALOGUE">目录</el-radio>
-                                <el-radio :label="EMenuType.MENU">菜单</el-radio>
-                                <el-radio :label="EMenuType.BUTTON">按钮</el-radio>
+                                <el-radio :label="MenuEnum.CATALOGUE">目录</el-radio>
+                                <el-radio :label="MenuEnum.MENU">菜单</el-radio>
+                                <el-radio :label="MenuEnum.BUTTON">按钮</el-radio>
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="菜单名称" prop="name">
@@ -40,7 +40,7 @@
                             </div>
                         </el-form-item>
                         <el-form-item
-                            v-if="formData.type != EMenuType.BUTTON"
+                            v-if="formData.type != MenuEnum.BUTTON"
                             label="菜单图标"
                             prop="icon"
                         >
@@ -52,12 +52,12 @@
                             <el-input-number v-model="formData.sort" />
                         </el-form-item>
                         <el-form-item
-                            v-if="formData.type != EMenuType.BUTTON"
+                            v-if="formData.type != MenuEnum.BUTTON"
                             label="路由路径"
                             prop="paths"
                         >
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input
                                         v-model="formData.paths"
                                         placeholder="请输入路由路径"
@@ -69,12 +69,12 @@
                             </div>
                         </el-form-item>
                         <el-form-item
-                            v-if="formData.type == EMenuType.MENU"
+                            v-if="formData.type == MenuEnum.MENU"
                             label="组件路径"
                             prop="component"
                         >
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input
                                         v-model="formData.component"
                                         placeholder="请输入组件路径"
@@ -86,12 +86,12 @@
                             </div>
                         </el-form-item>
                         <el-form-item
-                            v-if="formData.type != EMenuType.CATALOGUE"
+                            v-if="formData.type != MenuEnum.CATALOGUE"
                             label="权限字符"
                             prop="perms"
                         >
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input
                                         v-model="formData.perms"
                                         placeholder="请输入权限字符"
@@ -103,12 +103,12 @@
                             </div>
                         </el-form-item>
                         <el-form-item
-                            v-if="formData.type == EMenuType.MENU"
+                            v-if="formData.type == MenuEnum.MENU"
                             label="路由参数"
                             prop="params"
                         >
-                            <div>
-                                <div class="w-80">
+                            <div class="w-80">
+                                <div>
                                     <el-input
                                         v-model="formData.params"
                                         placeholder="请输入路由参数"
@@ -120,7 +120,7 @@
                                 </div>
                             </div>
                         </el-form-item>
-                        <!-- <el-form-item v-if="formData.type == EMenuType.MENU" label="是否缓存" prop="is_cache" required>
+                        <!-- <el-form-item v-if="formData.type == MenuEnum.MENU" label="是否缓存" prop="is_cache" required>
               <div>
                 <el-radio-group v-model="formData.is_cache">
                   <el-radio :label="1">缓存</el-radio>
@@ -130,7 +130,7 @@
               </div>
             </el-form-item>-->
                         <el-form-item
-                            v-if="formData.type != EMenuType.BUTTON"
+                            v-if="formData.type != MenuEnum.BUTTON"
                             label="是否显示"
                             prop="is_show"
                             required
@@ -146,7 +146,7 @@
                             </div>
                         </el-form-item>
                         <el-form-item
-                            v-if="formData.type != EMenuType.BUTTON"
+                            v-if="formData.type != MenuEnum.BUTTON"
                             label="菜单状态"
                             prop="is_disable"
                             required
@@ -170,7 +170,7 @@
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
 import { menuLists, menuEdit, menuAdd } from '@/api/perms/menu'
-import { EMenuType } from '@/config/enums'
+import { MenuEnum } from '@/enums/appEnums'
 import Popup from '@/components/popup/index.vue'
 
 const emit = defineEmits(['success', 'close'])
@@ -186,7 +186,7 @@ const formData = reactive({
     //父级id
     pid: 0,
     //类型
-    type: EMenuType.CATALOGUE,
+    type: MenuEnum.CATALOGUE,
     //图标
     icon: '',
     //名称

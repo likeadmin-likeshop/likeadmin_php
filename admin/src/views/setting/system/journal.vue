@@ -2,13 +2,19 @@
 <template>
     <div class="journal">
         <el-card class="!border-none" shadow="never">
-            <el-form class="ls-form" :model="formData" inline>
+            <el-form
+                class="ls-form"
+                :model="formData"
+                inline
+                label-width="80px"
+                label-position="left"
+            >
                 <el-form-item label="管理员">
-                    <el-input placeholder="请输入" v-model="formData.admin_name" />
+                    <el-input class="w-56" placeholder="请输入" v-model="formData.admin_name" />
                 </el-form-item>
 
                 <el-form-item label="访问方式">
-                    <el-select v-model="formData.type" placeholder="请选择">
+                    <el-select class="w-56" v-model="formData.type" placeholder="请选择">
                         <el-option
                             v-for="(item, index) in visitType"
                             :key="index"
@@ -19,7 +25,7 @@
                 </el-form-item>
 
                 <el-form-item label="来源IP">
-                    <el-input placeholder="请输入" v-model="formData.ip" />
+                    <el-input class="w-56" placeholder="请输入" v-model="formData.ip" />
                 </el-form-item>
 
                 <el-form-item label="访问时间">
@@ -30,7 +36,7 @@
                 </el-form-item>
 
                 <el-form-item label="访问链接">
-                    <el-input placeholder="请输入" v-model="formData.url" />
+                    <el-input class="w-56" placeholder="请输入" v-model="formData.url" />
                 </el-form-item>
 
                 <el-form-item>
@@ -44,14 +50,14 @@
             <div>
                 <el-table :data="pager.lists" size="large">
                     <el-table-column label="记录ID" prop="id" />
-                    <el-table-column label="操作" prop="action" />
-                    <el-table-column label="管理员" prop="admin_name" />
-                    <el-table-column label="管理员ID" prop="admin_id" />
-                    <el-table-column label="访问链接" prop="url" />
+                    <el-table-column label="操作" prop="action" min-width="120" />
+                    <el-table-column label="管理员" prop="admin_name" min-width="120" />
+                    <el-table-column label="管理员ID" prop="admin_id" min-width="120" />
+                    <el-table-column label="访问链接" prop="url" min-width="160" />
                     <el-table-column label="访问方式" prop="type" />
-                    <el-table-column label="访问参数" prop="params" />
-                    <el-table-column label="来源IP" prop="ip" />
-                    <el-table-column label="日志时间" prop="create_time" />
+                    <el-table-column label="访问参数" prop="params" min-width="160" />
+                    <el-table-column label="来源IP" prop="ip" min-width="160" />
+                    <el-table-column label="日志时间" prop="create_time" min-width="180" />
                 </el-table>
             </div>
             <div class="flex mt-4 justify-end">
@@ -63,7 +69,7 @@
 
 <script setup lang="ts">
 import { systemLogLists } from '@/api/setting/system'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 
 interface formDataObj {
     admin_name?: string // 管理员

@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import cache from '@/utils/cache'
 import type { RouteRecordRaw } from 'vue-router'
-import { ECacheKey } from '@/config/enums'
 import { getUserInfo, login, logout } from '@/api/user'
-import { filterAsyncRoutes, resetRouter } from '@/router'
-export interface IState {
+import router, { filterAsyncRoutes } from '@/router'
+import { TOKEN_KEY } from '@/enums/cacheEnums'
+import { PageEnum } from '@/enums/pageEnum'
+import { clearAuthInfo, getToken } from '@/utils/auth'
+export interface UserState {
     token: string
     userInfo: Record<string, any>
     routes: RouteRecordRaw[]
@@ -13,8 +15,8 @@ export interface IState {
 
 const useUserStore = defineStore({
     id: 'user',
-    state: (): IState => ({
-        token: cache.get(ECacheKey.TOKEN) || '',
+    state: (): UserState => ({
+        token: getToken() || '',
         // 用户信息
         userInfo: {},
         // 路由
@@ -24,12 +26,10 @@ const useUserStore = defineStore({
     }),
     getters: {},
     actions: {
-        resetLoginInfo() {
+        resetState() {
             this.token = ''
             this.userInfo = {}
             this.perms = []
-            cache.remove(ECacheKey.TOKEN)
-            resetRouter()
         },
         login(playload: any) {
             const { account, password } = playload
@@ -40,7 +40,7 @@ const useUserStore = defineStore({
                 })
                     .then((data) => {
                         this.token = data.token
-                        cache.set(ECacheKey.TOKEN, data.token)
+                        cache.set(TOKEN_KEY, data.token)
                         resolve(data)
                     })
                     .catch((error) => {
@@ -52,6 +52,8 @@ const useUserStore = defineStore({
             return new Promise((resolve, reject) => {
                 logout()
                     .then((data) => {
+                        router.push(PageEnum.LOGIN)
+                        clearAuthInfo()
                         resolve(data)
                     })
                     .catch((error) => {

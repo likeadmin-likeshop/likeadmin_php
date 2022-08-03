@@ -1,15 +1,21 @@
 <template>
     <div class="admin">
         <el-card class="!border-none" shadow="never">
-            <el-form class="mb-[-16px]" :model="formData" label-width="80px" inline>
+            <el-form
+                class="mb-[-16px]"
+                :model="formData"
+                inline
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="账号">
-                    <el-input v-model="formData.account" class="ls-input" />
+                    <el-input v-model="formData.account" class="w-56" />
                 </el-form-item>
                 <el-form-item label="名称">
-                    <el-input v-model="formData.name" class="ls-input" />
+                    <el-input v-model="formData.name" class="w-56" />
                 </el-form-item>
                 <el-form-item label="角色">
-                    <el-select v-model="formData.role_id">
+                    <el-select class="w-56" v-model="formData.role_id">
                         <el-option label="全部" value=""></el-option>
                         <el-option
                             v-for="(item, index) in roleList"
@@ -55,12 +61,12 @@
                     <el-table-column
                         label="创建时间"
                         prop="create_time"
-                        min-width="150"
+                        min-width="180"
                     ></el-table-column>
                     <el-table-column
                         label="最近登录时间"
                         prop="login_time"
-                        min-width="150"
+                        min-width="180"
                     ></el-table-column>
                     <el-table-column
                         label="最近登录IP"
@@ -77,7 +83,7 @@
                             />
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" width="150" fixed="right">
+                    <el-table-column label="操作" width="120" fixed="right">
                         <template #default="{ row }">
                             <el-button
                                 v-perms="['auth.admin/edit']"
@@ -100,11 +106,7 @@
                 </el-table>
             </div>
             <div class="flex mt-4 justify-end">
-                <pagination
-                    v-model="pager"
-                    layout="total, prev, pager, next, jumper"
-                    @change="getLists"
-                />
+                <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
@@ -114,7 +116,7 @@
 <script lang="ts" setup>
 import { adminEdit, adminLists, adminDelete } from '@/api/perms/admin'
 import { roleLists } from '@/api/perms/role'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
@@ -157,7 +159,7 @@ const handleEdit = async (data: any) => {
 }
 
 const handleDelete = async (id: number) => {
-    await feedback.confirm('确认要删除？')
+    await feedback.confirm('确定要删除？')
     await adminDelete({ id })
     getLists()
 }

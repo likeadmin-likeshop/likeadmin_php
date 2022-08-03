@@ -8,12 +8,7 @@
                     </template>
                     新增
                 </el-button>
-                <el-button @click="handleExpand">
-                    <template #icon>
-                        <icon name="el-icon-Sort" />
-                    </template>
-                    展开/折叠
-                </el-button>
+                <el-button @click="handleExpand"> 展开/折叠 </el-button>
             </div>
             <el-table
                 ref="tableRef"
@@ -32,9 +27,9 @@
                 />
                 <el-table-column label="类型" prop="type" min-width="80">
                     <template #default="{ row }">
-                        <div v-if="row.type == EMenuType.CATALOGUE">目录</div>
-                        <div v-else-if="row.type == EMenuType.MENU">菜单</div>
-                        <div v-else-if="row.type == EMenuType.BUTTON">按钮</div>
+                        <div v-if="row.type == MenuEnum.CATALOGUE">目录</div>
+                        <div v-else-if="row.type == MenuEnum.MENU">菜单</div>
+                        <div v-else-if="row.type == MenuEnum.BUTTON">按钮</div>
                     </template>
                 </el-table-column>
                 <el-table-column label="图标" prop="icon" min-width="80">
@@ -62,7 +57,7 @@
                     prop="update_time"
                     min-width="180"
                 ></el-table-column>
-                <el-table-column label="操作" width="180" fixed="right">
+                <el-table-column label="操作" width="160" fixed="right">
                     <template #default="{ row }">
                         <el-button
                             v-perms="['auth.menu/add']"
@@ -98,9 +93,10 @@
 <script lang="ts" setup>
 import { menuDelete, menuLists } from '@/api/perms/menu'
 import type { ElTable } from 'element-plus'
-import { usePaging } from '@/hooks/paging'
-import { EMenuType } from '@/config/enums'
+import { usePaging } from '@/hooks/usePaging'
+import { MenuEnum } from '@/enums/appEnums'
 import EditPopup from './edit.vue'
+import feedback from '@/utils/feedback'
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 let isExpand = false
@@ -131,6 +127,7 @@ const handleEdit = async (data: any) => {
 }
 
 const handleDelete = async (id: number) => {
+    await feedback.confirm('确定要删除？')
     await menuDelete({ id })
     getLists()
 }

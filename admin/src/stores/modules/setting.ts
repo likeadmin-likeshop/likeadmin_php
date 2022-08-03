@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
 import defaultSetting from '@/config/setting'
 import cache from '@/utils/cache'
-import { ECacheKey } from '@/config/enums'
 import { isObject } from '@vue/shared'
 import { setTheme } from '@/utils/theme'
-const storageSetting = cache.get(ECacheKey.SETTING)
+import { SETTING_KEY } from '@/enums/cacheEnums'
+const storageSetting = cache.get(SETTING_KEY)
 
 export const useSettingStore = defineStore({
     id: 'setting',
     state: () => {
         const state = {
-            show: false,
+            showDrawer: false,
             ...defaultSetting
         }
         isObject(storageSetting) && Object.assign(state, storageSetting)
@@ -25,8 +25,8 @@ export const useSettingStore = defineStore({
                 this[key] = value
             }
             const settings: any = Object.assign({}, this.$state)
-            delete settings.show
-            cache.set(ECacheKey.SETTING, settings)
+            delete settings.showDrawer
+            cache.set(SETTING_KEY, settings)
         },
         // 设置主题色
         setTheme(isDark: boolean) {
@@ -47,7 +47,7 @@ export const useSettingStore = defineStore({
                 //@ts-ignore
                 this[key] = defaultSetting[key]
             }
-            cache.remove(ECacheKey.SETTING)
+            cache.remove(SETTING_KEY)
         }
     }
 })

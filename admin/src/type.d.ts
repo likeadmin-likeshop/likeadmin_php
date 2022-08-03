@@ -5,6 +5,8 @@ declare module 'vue-router' {
         title?: string
         icon?: string
         hidden?: boolean
+        activeMenu?: string
+        hideTab?: boolean
     }
 }
 

@@ -23,7 +23,7 @@
                         </div>
                     </div>
 
-                    <div class="h-72">
+                    <div class="h-[280px]">
                         <el-scrollbar>
                             <div class="flex flex-wrap">
                                 <div v-for="item in iconNamesFliter" :key="item" class="m-1">

@@ -1,6 +1,6 @@
 <template>
-    <div class="flex">
-        <el-card class="!border-none flex-1" shadow="never">
+    <div class="xl:flex">
+        <el-card class="!border-none flex-1 xl:mr-4 mb-4" shadow="never">
             <template #header>
                 <span class="font-medium">服务协议</span>
             </template>
@@ -12,7 +12,7 @@
 
             <editor class="mb-10" v-model="formData.service_content" height="600"></editor>
         </el-card>
-        <el-card class="!border-none flex-1 ml-4" shadow="never">
+        <el-card class="!border-none flex-1 mb-4" shadow="never">
             <template #header>
                 <span class="font-medium">隐私协议</span>
             </template>

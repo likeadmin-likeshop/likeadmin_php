@@ -59,15 +59,17 @@
                     </div>
                 </div>
             </template>
-            <div class="material-wrap">
-                <material
-                    ref="materialRef"
-                    :type="type"
-                    :file-size="fileSize"
-                    :limit="meterialLimit"
-                    @change="selectChange"
-                />
-            </div>
+            <el-scrollbar>
+                <div class="material-wrap">
+                    <material
+                        ref="materialRef"
+                        :type="type"
+                        :file-size="fileSize"
+                        :limit="meterialLimit"
+                        @change="selectChange"
+                    />
+                </div>
+            </el-scrollbar>
         </popup>
         <preview v-model="showPreview" :url="previewUrl" :type="type" />
     </div>
@@ -273,7 +275,8 @@ export default defineComponent({
     }
 }
 .material-wrap {
-    height: 560px;
+    min-width: 720px;
+    height: 430px;
     @apply border-t border-b border-br;
 }
 </style>

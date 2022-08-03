@@ -2,9 +2,16 @@
     <div class="dict-type">
         <el-card class="!border-none" shadow="never">
             <el-page-header class="mb-4" content="数据管理" @back="$router.back()" />
-            <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
+            <el-form
+                ref="formRef"
+                class="mb-[-16px]"
+                :model="queryParams"
+                inline
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="字典名称">
-                    <el-select v-model="queryParams.type_id" @change="getLists">
+                    <el-select class="w-56" v-model="queryParams.type_id" @change="getLists">
                         <el-option
                             v-for="item in options.dict_type"
                             :label="item.name"
@@ -14,10 +21,10 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="数据名称">
-                    <el-input v-model="queryParams.name" />
+                    <el-input class="w-56" v-model="queryParams.name" />
                 </el-form-item>
                 <el-form-item label="状态">
-                    <el-select v-model="queryParams.status">
+                    <el-select class="w-56" v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />
@@ -62,17 +69,17 @@
                     >
                         <el-table-column type="selection" width="55" />
                         <el-table-column label="ID" prop="id" />
-                        <el-table-column label="数据名称" prop="name" />
-                        <el-table-column label="数据值" prop="value" />
+                        <el-table-column label="数据名称" prop="name" min-width="120" />
+                        <el-table-column label="数据值" prop="value" min-width="120" />
                         <el-table-column label="状态">
                             <template v-slot="{ row }">
                                 <el-tag v-if="row.status == 1">正常</el-tag>
                                 <el-tag v-else type="danger">停用</el-tag>
                             </template>
                         </el-table-column>
-                        <el-table-column label="备注" prop="remark" />
+                        <el-table-column label="备注" prop="remark" min-width="120" />
                         <el-table-column label="排序" prop="sort" />
-                        <el-table-column label="操作" width="200">
+                        <el-table-column label="操作" width="120" fixed="right">
                             <template #default="{ row }">
                                 <el-button
                                     v-perms="['setting.dict.dict_data/edit']"
@@ -105,7 +112,7 @@
 
 <script lang="ts" setup>
 import { dictDataDelete, dictDataLists, dictTypeLists } from '@/api/setting/dict'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const { query } = useRoute()
@@ -152,7 +159,7 @@ const handleEdit = async (data: any) => {
 }
 
 const handleDelete = async (id: any[] | number) => {
-    await feedback.confirm('确认要删除？')
+    await feedback.confirm('确定要删除？')
     await dictDataDelete({ id })
     getLists()
 }

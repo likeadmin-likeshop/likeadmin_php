@@ -93,7 +93,7 @@
                     </popup>
                 </div>
                 <el-input
-                    class="w-72"
+                    class="w-60"
                     placeholder="请输入名称"
                     v-model="fileParams.name"
                     @keyup.enter="refresh"
@@ -106,7 +106,7 @@
                         </el-button>
                     </template>
                 </el-input>
-                <div class="flex items-center ml-3">
+                <div class="flex items-center ml-2">
                     <el-tooltip content="列表视图" placement="top">
                         <div
                             class="list-icon"
@@ -142,48 +142,51 @@
                 </el-checkbox>
             </div>
             <div class="material-center__content flex flex-col flex-1 mb-1 min-h-0">
-                <ul v-show="listShowType == 'normal'" class="file-list flex flex-wrap mt-4">
-                    <li
-                        class="file-item-wrap"
-                        v-for="item in pager.lists"
-                        :key="item.id"
-                        :style="{ width: fileSize }"
-                    >
-                        <del-wrap @close="batchFileDelete([item.id])">
-                            <file-item
-                                :uri="item.uri"
-                                :file-size="fileSize"
-                                :type="type"
-                                @click="selectFile(item)"
-                            >
-                                <div class="item-selected" v-if="isSelect(item.id)">
-                                    <icon :size="24" name="el-icon-Check" color="#fff" />
-                                </div>
-                            </file-item>
-                        </del-wrap>
+                <el-scrollbar v-show="listShowType == 'normal'">
+                    <ul class="file-list flex flex-wrap mt-4">
+                        <li
+                            class="file-item-wrap"
+                            v-for="item in pager.lists"
+                            :key="item.id"
+                            :style="{ width: fileSize }"
+                        >
+                            <del-wrap @close="batchFileDelete([item.id])">
+                                <file-item
+                                    :uri="item.uri"
+                                    :file-size="fileSize"
+                                    :type="type"
+                                    @click="selectFile(item)"
+                                >
+                                    <div class="item-selected" v-if="isSelect(item.id)">
+                                        <icon :size="24" name="el-icon-Check" color="#fff" />
+                                    </div>
+                                </file-item>
+                            </del-wrap>
 
-                        <overflow-tooltip class="mt-1" :content="item.name" />
-                        <div class="operation-btns flex items-center">
-                            <el-button
-                                type="primary"
-                                link
-                                @click="handleFileRename(item.name, item.id)"
-                            >
-                                重命名
-                            </el-button>
-                            <el-button type="primary" link @click="handlePreview(item.uri)">
-                                查看
-                            </el-button>
-                        </div>
-                    </li>
-                </ul>
+                            <overflow-tooltip class="mt-1" :content="item.name" />
+                            <div class="operation-btns flex items-center">
+                                <el-button
+                                    type="primary"
+                                    link
+                                    @click="handleFileRename(item.name, item.id)"
+                                >
+                                    重命名
+                                </el-button>
+                                <el-button type="primary" link @click="handlePreview(item.uri)">
+                                    查看
+                                </el-button>
+                            </div>
+                        </li>
+                    </ul>
+                </el-scrollbar>
+
                 <el-table
                     ref="tableRef"
                     class="mt-4"
                     v-show="listShowType == 'table'"
                     :data="pager.lists"
                     width="100%"
-                    height="calc(100vh - 350px)"
+                    height="100%"
                     size="large"
                     @row-click="selectFile"
                 >
@@ -228,7 +231,7 @@
                     暂无数据~
                 </div>
             </div>
-            <div class="material-center__footer flex justify-between items-center mt-3">
+            <div class="material-center__footer flex justify-between items-center mt-2">
                 <div class="flex">
                     <template v-if="mode == 'page'">
                         <span class="mr-3">
@@ -442,17 +445,16 @@ defineExpose({
 .material {
     @apply h-full min-h-0 flex flex-1;
     &__left {
-        @apply border-r border-br flex flex-col;
-        width: 200px;
+        @apply border-r border-br flex flex-col w-[200px];
         :deep(.el-tree-node__content) {
             height: 36px;
         }
     }
     &__center {
         flex: 1;
-        padding: 16px 16px 5px;
         min-width: 0;
         min-height: 0;
+        padding: 16px 16px 0;
         .list-icon {
             border-radius: 3px;
             display: flex;

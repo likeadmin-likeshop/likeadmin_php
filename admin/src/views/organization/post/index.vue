@@ -1,15 +1,22 @@
 <template>
     <div class="menu-lists">
         <el-card class="!border-none" shadow="never">
-            <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
+            <el-form
+                ref="formRef"
+                class="mb-[-16px]"
+                :model="queryParams"
+                :inline="true"
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="岗位编码">
-                    <el-input v-model="queryParams.code" />
+                    <el-input class="w-56" v-model="queryParams.code" />
                 </el-form-item>
                 <el-form-item label="岗位名称">
-                    <el-input v-model="queryParams.name" />
+                    <el-input class="w-56" v-model="queryParams.name" />
                 </el-form-item>
                 <el-form-item label="岗位状态">
-                    <el-select v-model="queryParams.status">
+                    <el-select class="w-56" v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />
@@ -34,7 +41,7 @@
                 <el-table-column label="岗位编码" prop="code" min-width="100" />
                 <el-table-column label="岗位名称" prop="name" min-width="100" />
                 <el-table-column label="排序" prop="sort" min-width="100" />
-                <el-table-column label="添加时间" prop="create_time" min-width="100" />
+                <el-table-column label="添加时间" prop="create_time" min-width="180" />
                 <el-table-column label="状态" prop="status" min-width="100">
                     <template #default="{ row }">
                         <el-tag class="ml-2" :type="row.status ? '' : 'danger'">{{
@@ -42,7 +49,7 @@
                         }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" width="180" fixed="right">
+                <el-table-column label="操作" width="120" fixed="right">
                     <template #default="{ row }">
                         <el-button
                             v-perms="['dept.jobs/edit']"
@@ -63,13 +70,16 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <div class="flex justify-end mt-4">
+                <pagination v-model="pager" @change="getLists" />
+            </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
 <script lang="ts" setup>
 import { jobsDelete, jobsLists } from '@/api/org/post'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const showEdit = ref(false)

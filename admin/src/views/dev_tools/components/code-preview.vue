@@ -1,6 +1,6 @@
 <template>
     <div class="code-preview">
-        <el-dialog v-model="show" width="1000px" title="代码预览">
+        <el-dialog v-model="show" width="900px" title="代码预览">
             <el-tabs v-model="activeTab">
                 <el-tab-pane
                     v-for="(item, index) in code"
@@ -8,7 +8,7 @@
                     :name="`index${index}`"
                     :key="index"
                 >
-                    <div class="flex" style="height: 60vh">
+                    <div class="flex" style="height: 50vh">
                         <el-scrollbar class="flex-1">
                             <highlightjs autodetect :code="item.content" />
                         </el-scrollbar>

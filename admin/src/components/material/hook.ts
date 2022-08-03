@@ -8,7 +8,7 @@ import {
     fileMove,
     fileRename
 } from '@/api/file'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import { ElMessage, ElTree, type CheckboxValueType } from 'element-plus'
 import { shallowRef, type Ref } from 'vue'
@@ -65,7 +65,7 @@ export function useCate(type: number) {
 
     // 删除分组
     const handleDeleteCate = async (id: number) => {
-        await feedback.confirm('确认要删除？')
+        await feedback.confirm('确定要删除？')
         await fileCateDelete({ id })
         getCateLists()
     }

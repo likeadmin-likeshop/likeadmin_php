@@ -2,6 +2,7 @@
     <div class="pagination">
         <el-pagination
             v-bind="props"
+            :pager-count="5"
             v-model:currentPage="pager.page"
             v-model:pageSize="pager.size"
             :page-sizes="pageSizes"

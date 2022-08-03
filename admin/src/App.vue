@@ -31,12 +31,20 @@ const { width } = useWindowSize()
 watch(
     width,
     useThrottleFn((value) => {
-        if (value > 1180) {
-            appStore.toggleSidebar(true)
+        if (value > 768) {
+            appStore.setMobile(false)
+            appStore.toggleCollapsed(false)
         } else {
-            appStore.toggleSidebar(false)
+            appStore.setMobile(true)
+            appStore.toggleCollapsed(true)
         }
-    })
+        if (value < 992) {
+            appStore.toggleCollapsed(true)
+        }
+    }),
+    {
+        immediate: true
+    }
 )
 </script>
 

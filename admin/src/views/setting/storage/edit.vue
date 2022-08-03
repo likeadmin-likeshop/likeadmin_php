@@ -4,14 +4,14 @@
             ref="popupRef"
             title="设置存储"
             :async="true"
-            width="700px"
+            width="600px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
             <div class="h-[400px]">
                 <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="180px" :rules="formRules">
+                    <el-form ref="formRef" :model="formData" label-width="150px" :rules="formRules">
                         <el-form-item label="存储方式" prop="engine">
                             <div>
                                 <el-radio model-value>{{ getStorageInfo?.name }} </el-radio>
@@ -44,8 +44,8 @@
                                 </div>
                             </el-form-item>
                             <el-form-item label="空间域名（Domain）" prop="domain">
-                                <div>
-                                    <div class="w-80">
+                                <div class="w-80">
+                                    <div>
                                         <el-input
                                             v-model="formData.domain"
                                             placeholder="请输入空间域名"
@@ -57,7 +57,7 @@
                                 </div>
                             </el-form-item>
                             <el-form-item
-                                v-if="formData.engine == EStorageType.QCLOUD"
+                                v-if="formData.engine == StorageEnum.QCLOUD"
                                 label="REGION"
                                 prop="region"
                             >
@@ -85,8 +85,14 @@
 import { storageSetup } from '@/api/setting/storage'
 import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
-import { EStorageType } from '@/config/enums'
 import { storageDetail } from '@/api/setting/storage'
+enum StorageEnum {
+    LOCAL = 'local', // 本地
+    QINIU = 'qiniu', // 七牛云
+    ALIYUN = 'aliyun', // 阿里云OSS
+    QCLOUD = 'qcloud' // 腾讯云OSS
+}
+
 const emit = defineEmits(['success'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
@@ -103,22 +109,22 @@ const formData = reactive({
 const storageArr = [
     {
         name: '本地存储',
-        type: EStorageType.LOCAL,
+        type: StorageEnum.LOCAL,
         tips: '本地存储方式不需要配置其他参数'
     },
     {
         name: '七牛云存储',
-        type: EStorageType.QINIU,
+        type: StorageEnum.QINIU,
         tips: '切换七牛云存储后，素材库需要重新上传至七牛云'
     },
     {
         name: '阿里云OSS',
-        type: EStorageType.ALIYUN,
+        type: StorageEnum.ALIYUN,
         tips: '切换阿里云OSS后，素材库需要重新上传至阿里云OSS'
     },
     {
         name: '腾讯云OSS',
-        type: EStorageType.QCLOUD,
+        type: StorageEnum.QCLOUD,
         tips: '切换腾讯云OSS后，素材库需要重新上传至腾讯云OSS'
     }
 ]

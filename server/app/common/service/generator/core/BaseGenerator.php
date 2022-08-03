@@ -389,4 +389,7 @@ abstract class BaseGenerator
         return $this->tableData['generate_type'] == 0;
     }
 
+    
+
+
 }

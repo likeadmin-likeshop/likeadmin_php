@@ -1,15 +1,22 @@
 <template>
     <div class="dict-type">
         <el-card class="!border-none" shadow="never">
-            <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
+            <el-form
+                ref="formRef"
+                class="mb-[-16px]"
+                :model="queryParams"
+                inline
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="字典名称">
-                    <el-input v-model="queryParams.name" />
+                    <el-input class="w-56" v-model="queryParams.name" />
                 </el-form-item>
                 <el-form-item label="字典类型">
-                    <el-input v-model="queryParams.type" />
+                    <el-input class="w-56" v-model="queryParams.type" />
                 </el-form-item>
                 <el-form-item label="状态">
-                    <el-select v-model="queryParams.status">
+                    <el-select class="w-56" v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />
@@ -54,8 +61,8 @@
                     >
                         <el-table-column type="selection" width="55" />
                         <el-table-column label="ID" prop="id" />
-                        <el-table-column label="字典名称" prop="name" />
-                        <el-table-column label="字典类型" prop="type" />
+                        <el-table-column label="字典名称" prop="name" min-width="120" />
+                        <el-table-column label="字典类型" prop="type" min-width="120" />
                         <el-table-column label="状态">
                             <template v-slot="{ row }">
                                 <el-tag v-if="row.status == 1">正常</el-tag>
@@ -63,8 +70,8 @@
                             </template>
                         </el-table-column>
                         <el-table-column label="备注" prop="remark" />
-                        <el-table-column label="创建时间" prop="create_time" />
-                        <el-table-column label="操作" width="200">
+                        <el-table-column label="创建时间" prop="create_time" min-width="180" />
+                        <el-table-column label="操作" width="190" fixed="right">
                             <template #default="{ row }">
                                 <el-button
                                     v-perms="['setting.dict.dict_type/edit']"
@@ -112,7 +119,7 @@
 
 <script lang="ts" setup>
 import { dictTypeDelete, dictTypeLists } from '@/api/setting/dict'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
@@ -149,7 +156,7 @@ const handleEdit = async (data: any) => {
 
 // 删除角色
 const handleDelete = async (id: any[] | number) => {
-    await feedback.confirm('确认要删除？')
+    await feedback.confirm('确定要删除？')
     await dictTypeDelete({ id })
     getLists()
 }

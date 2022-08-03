@@ -4,7 +4,7 @@
             ref="popupRef"
             :title="popupTitle"
             :async="true"
-            width="700px"
+            width="600px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
@@ -16,7 +16,7 @@
                         ref="formRef"
                         :rules="rules"
                         :model="formData"
-                        label-width="120px"
+                        label-width="100px"
                     >
                         <el-form-item label="字典名称" prop="name">
                             <div class="w-80">

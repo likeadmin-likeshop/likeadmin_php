@@ -11,12 +11,18 @@
             <template #trigger>
                 <slot></slot>
             </template>
-            <el-form class="ls-form" :model="formData" inline>
+            <el-form
+                class="ls-form"
+                :model="formData"
+                inline
+                label-position="left"
+                label-width="80px"
+            >
                 <el-form-item label="表名称">
-                    <el-input v-model="formData.name" />
+                    <el-input class="w-56" v-model="formData.name" />
                 </el-form-item>
                 <el-form-item label="表描述">
-                    <el-input v-model="formData.comment" />
+                    <el-input class="w-56" v-model="formData.comment" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
@@ -31,17 +37,13 @@
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="55" />
-                    <el-table-column label="表名称" prop="name" min-width="100" />
-                    <el-table-column label="表描述" prop="comment" min-width="100" />
-                    <el-table-column label="创建时间" prop="create_time" min-width="100" />
+                    <el-table-column label="表名称" prop="name" min-width="150" />
+                    <el-table-column label="表描述" prop="comment" min-width="160" />
+                    <el-table-column label="创建时间" prop="create_time" min-width="180" />
                 </el-table>
             </div>
             <div class="flex justify-end mt-4">
-                <pagination
-                    v-model="pager"
-                    layout="total, prev, pager, next, jumper"
-                    @change="getLists"
-                />
+                <pagination v-model="pager" @change="getLists" />
             </div>
         </popup>
     </div>
@@ -50,7 +52,7 @@
 <script lang="ts" setup>
 import Popup from '@/components/popup/index.vue'
 import Pagination from '@/components/pagination/index.vue'
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import { dataTable, selectTable } from '@/api/tools/code'
 import feedback from '@/utils/feedback'
 
