@@ -77,7 +77,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     }
 ]
 
-export const indexRoute: RouteRecordRaw = {
+export const INDEX_ROUTE: RouteRecordRaw = {
     path: PageEnum.INDEX,
     component: Layout,
     name: INDEX_ROUTE_NAME

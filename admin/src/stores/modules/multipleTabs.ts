@@ -3,7 +3,6 @@ import { isExternal } from '@/utils/validate'
 import type {
     LocationQuery,
     RouteLocationNormalized,
-    RouteLocationRaw,
     RouteParamsRaw,
     Router,
     RouteRecordName
@@ -22,10 +21,11 @@ interface TabsSate {
     cacheTabList: Set<string>
     tabList: TabItem[]
     tasMap: Record<string, TabItem>
+    indexRouteName: RouteRecordName
 }
 
-const hasTab = (name: RouteRecordName, tabList: TabItem[]) => {
-    return tabList.findIndex((item) => item.name == name) !== -1
+const hasTab = (path: string, tabList: TabItem[]) => {
+    return tabList.findIndex((item) => item.path == path) !== -1
 }
 
 const isCannotAddRoute = (route: RouteLocationNormalized) => {
@@ -56,7 +56,8 @@ const useTabsStore = defineStore({
     state: (): TabsSate => ({
         cacheTabList: new Set(),
         tabList: [],
-        tasMap: {}
+        tasMap: {},
+        indexRouteName: ''
     }),
     getters: {
         getTabList(): TabItem[] {
@@ -64,10 +65,19 @@ const useTabsStore = defineStore({
         }
     },
     actions: {
+        setRouteName(name: RouteRecordName) {
+            this.indexRouteName = name
+        },
+        resetState() {
+            this.cacheTabList = new Set()
+            this.tabList = []
+            this.tasMap = {}
+            this.indexRouteName = ''
+        },
         addTab(route: RouteLocationNormalized) {
             const { name, path, query, meta, params } = route
             if (isCannotAddRoute(route)) return
-            if (hasTab(name!, this.tabList)) return
+            if (hasTab(path!, this.tabList)) return
 
             const tabItem = {
                 name: name!,
@@ -80,28 +90,39 @@ const useTabsStore = defineStore({
             this.tabList.push(tabItem)
         },
         removeTab(path: string, router: Router) {
-            const { currentRoute, replace } = router
+            const { currentRoute, push } = router
             const index = findTabsIndex(path, this.tabList)
             // 移除tab
-            index !== -1 && this.tabList.splice(index, 1)
-
+            if (this.tabList.length > 1) {
+                index !== -1 && this.tabList.splice(index, 1)
+            }
             if (path !== currentRoute.value.path) {
                 return
             }
             // 删除选中的tab
             let toTab: TabItem | null = null
-            let toRoute: RouteLocationRaw | null = null
+
             if (index === 0) {
-                if (this.tabList.length === 0) {
-                    toRoute = PageEnum.INDEX
-                } else {
-                    toTab = this.tabList[index + 1]
-                }
+                toTab = this.tabList[index]
             } else {
                 toTab = this.tabList[index - 1]
             }
-            toRoute = toTab ? getRouteParams(toTab) : toRoute
-            replace(toRoute!)
+
+            const toRoute = getRouteParams(toTab)
+            push(toRoute)
+        },
+        removeOtherTab(path: string) {
+            this.tabList = this.tabList.filter((item) => item.path == path)
+        },
+        removeAllTab(router: Router) {
+            const { push, currentRoute } = router
+            const { path, name } = unref(currentRoute)
+            if (name == this.indexRouteName) {
+                this.removeOtherTab(path)
+                return
+            }
+            this.tabList = []
+            push(PageEnum.INDEX)
         }
     }
 })

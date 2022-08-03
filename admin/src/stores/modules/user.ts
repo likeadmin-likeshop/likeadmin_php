@@ -2,8 +2,10 @@ import { defineStore } from 'pinia'
 import cache from '@/utils/cache'
 import type { RouteRecordRaw } from 'vue-router'
 import { getUserInfo, login, logout } from '@/api/user'
-import { filterAsyncRoutes, resetRouter } from '@/router'
+import router, { filterAsyncRoutes } from '@/router'
 import { TOKEN_KEY } from '@/enums/cacheEnums'
+import { PageEnum } from '@/enums/pageEnum'
+import { clearAuthInfo, getToken } from '@/utils/auth'
 export interface UserState {
     token: string
     userInfo: Record<string, any>
@@ -14,7 +16,7 @@ export interface UserState {
 const useUserStore = defineStore({
     id: 'user',
     state: (): UserState => ({
-        token: cache.get(TOKEN_KEY) || '',
+        token: getToken() || '',
         // 用户信息
         userInfo: {},
         // 路由
@@ -24,12 +26,10 @@ const useUserStore = defineStore({
     }),
     getters: {},
     actions: {
-        resetLoginInfo() {
+        resetState() {
             this.token = ''
             this.userInfo = {}
             this.perms = []
-            cache.remove(TOKEN_KEY)
-            resetRouter()
         },
         login(playload: any) {
             const { account, password } = playload
@@ -52,6 +52,8 @@ const useUserStore = defineStore({
             return new Promise((resolve, reject) => {
                 logout()
                     .then((data) => {
+                        router.push(PageEnum.LOGIN)
+                        clearAuthInfo()
                         resolve(data)
                     })
                     .catch((error) => {

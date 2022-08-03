@@ -59,6 +59,7 @@ import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import cache from '@/utils/cache'
 import { ACCOUNT_KEY } from '@/enums/cacheEnums.js'
+import { PageEnum } from '@/enums/pageEnum.js'
 const passwordRef = shallowRef<InputInstance>()
 const formRef = shallowRef<FormInstance>()
 const appStore = useAppStore()
@@ -113,8 +114,8 @@ const handleLogin = () => {
                 const {
                     query: { redirect }
                 } = route
-                const path = typeof redirect === 'string' ? redirect : '/'
-                router.replace(path)
+                const path = typeof redirect === 'string' ? redirect : PageEnum.INDEX
+                router.push(path)
             })
             .catch((err) => {
                 console.log(err)

@@ -7,22 +7,24 @@ import router, { findFirstValidRoute } from './router'
 import 'nprogress/nprogress.css'
 import { isExternal } from './utils/validate'
 import useUserStore from './stores/modules/user'
-import { indexRoute, INDEX_ROUTE_NAME } from './router/routes'
+import { INDEX_ROUTE, INDEX_ROUTE_NAME } from './router/routes'
 import { PageEnum } from './enums/pageEnum'
+import useTabsStore from './stores/modules/multipleTabs'
+import { clearAuthInfo } from './utils/auth'
 
 // NProgress配置
 NProgress.configure({ showSpinner: false })
 
 const loginPath = PageEnum.LOGIN
-const defaultPath = '/'
+const defaultPath = PageEnum.INDEX
 // 免登录白名单
 const whiteList: string[] = [PageEnum.LOGIN, PageEnum.ERROR_403]
-
 router.beforeEach(async (to, from, next) => {
     console.log(to)
     // 开始 Progress Bar
     NProgress.start()
     const userStore = useUserStore()
+    const tabsStore = useTabsStore()
     if (userStore.token) {
         // 获取用户信息
         const hasGetUserInfo = Object.keys(userStore.userInfo).length !== 0
@@ -36,10 +38,19 @@ router.beforeEach(async (to, from, next) => {
             try {
                 await userStore.getUserInfo()
                 const routes = userStore.routes
+                // 没有菜单跳转到403页面
+                if (!routes.length) {
+                    await userStore.logout()
+                    next(PageEnum.ERROR_403)
+                    return
+                }
                 // 找到第一个有效路由
-                indexRoute.redirect = { name: findFirstValidRoute(routes) }
+                const routeName = findFirstValidRoute(routes)
+                tabsStore.setRouteName(routeName!)
+                INDEX_ROUTE.redirect = { name: routeName }
+
                 // 动态添加index路由
-                router.addRoute(indexRoute)
+                router.addRoute(INDEX_ROUTE)
                 routes.forEach((route: any) => {
                     // https 则不插入
                     if (isExternal(route.path)) {
@@ -54,7 +65,7 @@ router.beforeEach(async (to, from, next) => {
                 })
                 next({ ...to, replace: true })
             } catch (err) {
-                userStore.resetLoginInfo()
+                clearAuthInfo()
                 next({ path: loginPath, query: { redirect: to.fullPath } })
             }
         }

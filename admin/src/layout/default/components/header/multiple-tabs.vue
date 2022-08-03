@@ -3,7 +3,7 @@
         <div class="flex-1 min-w-0">
             <el-tabs
                 :model-value="currentTab"
-                closable
+                :closable="tabsState.length > 1"
                 @tab-change="handleChange"
                 @tab-remove="handleRemove"
             >
@@ -12,15 +12,15 @@
                 </template>
             </el-tabs>
         </div>
-        <el-dropdown>
+        <el-dropdown @command="handleCommand">
             <span class="flex items-center px-3">
                 <icon :size="16" name="el-icon-arrow-down" />
             </span>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item>关闭当前</el-dropdown-item>
-                    <el-dropdown-item>关闭其他</el-dropdown-item>
-                    <el-dropdown-item>关闭全部</el-dropdown-item>
+                    <el-dropdown-item command="closeCurrent"> 关闭当前 </el-dropdown-item>
+                    <el-dropdown-item command="closeOther"> 关闭其他 </el-dropdown-item>
+                    <el-dropdown-item command="closeAll"> 关闭全部 </el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -52,11 +52,25 @@ const handleChange = (path: any) => {
 const handleRemove = (path: any) => {
     tabsStore.removeTab(path, router)
 }
+const handleCommand = (command: any) => {
+    switch (command) {
+        case 'closeCurrent':
+            handleRemove(route.path)
+            break
+        case 'closeOther':
+            tabsStore.removeOtherTab(route.path)
+            break
+        case 'closeAll':
+            tabsStore.removeAllTab(router)
+            break
+    }
+}
 </script>
 <style lang="scss" scoped>
 .app-tabs {
     @apply border-t border-br;
     :deep(.el-tabs) {
+        height: 40px;
         .el-tabs {
             &__header {
                 margin-bottom: 0;

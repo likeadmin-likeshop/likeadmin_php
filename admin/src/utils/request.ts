@@ -1,10 +1,8 @@
-import router from '@/router'
 import useUserStore from '@/stores/modules/user'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress'
 import configs from '@/config'
-import { PageEnum } from '@/enums/pageEnum'
 
 const config = {
     baseURL: configs.baseUrl,
@@ -36,10 +34,7 @@ const eventResponse = {
     // 重定向
     redirect: () => {
         const userStore = useUserStore()
-        userStore.logout().then(() => {
-            router.push(PageEnum.LOGIN)
-            userStore.resetLoginInfo()
-        })
+        userStore.logout()
         return Promise.reject()
     },
     // 打开新的页面
