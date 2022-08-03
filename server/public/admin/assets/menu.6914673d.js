@@ -1,1 +1,0 @@
-import{r as e}from"./index.3da0cb60.js";function n(t){return e.get("/auth.menu/lists",t)}function r(t){return e.post("/auth.menu/add",t)}function s(t){return e.post("/auth.menu/edit",t)}function a(t){return e.post("/auth.menu/delete",t)}export{s as a,r as b,a as c,n as m};

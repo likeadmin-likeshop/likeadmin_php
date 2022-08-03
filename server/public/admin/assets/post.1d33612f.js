@@ -1,0 +1,1 @@
+import{r as s}from"./index.fb421b84.js";function o(t){return s.get("dept.jobs/lists",t)}function r(t){return s.post("/dept.jobs/add",t)}function n(t){return s.post("/dept.jobs/edit",t)}function d(t){return s.post("/dept.jobs/delete",t)}export{r as a,d as b,o as c,n as j};
