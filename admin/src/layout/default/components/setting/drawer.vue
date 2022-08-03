@@ -28,11 +28,7 @@
             <div class="setting-item mb-5 flex justify-between items-center">
                 <span class="text-tx-secondary">主题颜色</span>
                 <div>
-                    <el-color-picker
-                        v-model="theme"
-                        :predefine="predefineColors"
-                        @change="themeChange"
-                    />
+                    <el-color-picker v-model="theme" :predefine="predefineColors" />
                 </div>
             </div>
             <div class="setting-item mb-5 flex justify-between items-center">
@@ -95,10 +91,12 @@ const theme = computed({
         return settingStore.theme
     },
     set(value) {
+        console.log(value)
         settingStore.setSetting({
             key: 'theme',
             value
         })
+        themeChange()
     }
 })
 

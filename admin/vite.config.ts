@@ -11,7 +11,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/admin/',
+    // base: '/admin/',
     server: {
         host: '0.0.0.0'
     },

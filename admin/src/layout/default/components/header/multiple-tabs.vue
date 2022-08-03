@@ -37,7 +37,7 @@ const { route } = useWatchRoute((route) => {
 })
 
 const currentTab = computed(() => {
-    return route.meta?.activeMenu ?? route.path
+    return route.path
 })
 
 const tabsState = computed(() => {

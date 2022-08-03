@@ -129,7 +129,18 @@
                             </el-table-column>
                             <el-table-column label="字典类型" min-width="120">
                                 <template v-slot="{ row }">
-                                    <el-select v-model="row.dict_type" placeholder="字典类型">
+                                    <el-select
+                                        v-model="row.dict_type"
+                                        clearable
+                                        :disabled="
+                                            !(
+                                                row.view_type == 'select' ||
+                                                row.view_type == 'radio' ||
+                                                row.view_type == 'checkbox'
+                                            )
+                                        "
+                                        placeholder="字典类型"
+                                    >
                                         <el-option
                                             v-for="(item, index) in dictData"
                                             :key="index"
@@ -299,6 +310,7 @@ const getDetails = async () => {
         }
     )
 }
+
 const getDict = async () => {
     const data: any = await dictTypeLists({
         page_type: 0

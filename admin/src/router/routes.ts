@@ -54,7 +54,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/dev_tools/code/edit.vue'),
                 meta: {
                     title: '编辑数据表',
-                    hideTab: true,
                     activeMenu: '/dev_tools/code'
                 }
             }
@@ -69,7 +68,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/setting/dict/data/index.vue'),
                 meta: {
                     title: '数据管理',
-                    hideTab: true,
                     activeMenu: '/setting/dict'
                 }
             }

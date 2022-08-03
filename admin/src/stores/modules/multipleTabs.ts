@@ -24,8 +24,8 @@ interface TabsSate {
     indexRouteName: RouteRecordName
 }
 
-const hasTab = (path: string, tabList: TabItem[]) => {
-    return tabList.findIndex((item) => item.path == path) !== -1
+const getHasTabIndex = (path: string, tabList: TabItem[]) => {
+    return tabList.findIndex((item) => item.path == path)
 }
 
 const isCannotAddRoute = (route: RouteLocationNormalized) => {
@@ -77,7 +77,7 @@ const useTabsStore = defineStore({
         addTab(route: RouteLocationNormalized) {
             const { name, path, query, meta, params } = route
             if (isCannotAddRoute(route)) return
-            if (hasTab(path!, this.tabList)) return
+            const hasTabIndex = getHasTabIndex(path!, this.tabList)
 
             const tabItem = {
                 name: name!,
@@ -87,6 +87,10 @@ const useTabsStore = defineStore({
                 params
             }
             this.tasMap[path] = tabItem
+            if (hasTabIndex != -1) {
+                this.tabList.splice(hasTabIndex, 1, tabItem)
+                return
+            }
             this.tabList.push(tabItem)
         },
         removeTab(path: string, router: Router) {
