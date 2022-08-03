@@ -20,7 +20,6 @@ const defaultPath = PageEnum.INDEX
 // 免登录白名单
 const whiteList: string[] = [PageEnum.LOGIN, PageEnum.ERROR_403]
 router.beforeEach(async (to, from, next) => {
-    console.log(to)
     // 开始 Progress Bar
     NProgress.start()
     const userStore = useUserStore()

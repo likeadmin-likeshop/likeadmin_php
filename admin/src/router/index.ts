@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory, RouterView, type RouteRecordRaw } from 'vue-router'
 import { MenuEnum } from '@/enums/appEnums'
 import { isExternal } from '@/utils/validate'
-import Layout from '@/layout/default/index.vue'
-import { constantRoutes, INDEX_ROUTE_NAME } from './routes'
+import { constantRoutes, INDEX_ROUTE_NAME, LAYOUT } from './routes'
 import useUserStore from '@/stores/modules/user'
 
 // 匹配views里面所有的.vue文件，动态引入
@@ -37,7 +36,7 @@ export function createRouteRecord(route: any, firstRoute: boolean): RouteRecordR
     }
     switch (route.type) {
         case MenuEnum.CATALOGUE:
-            routeRecord.component = firstRoute ? Layout : RouterView
+            routeRecord.component = firstRoute ? LAYOUT : RouterView
             if (!route.children) {
                 routeRecord.component = RouterView
             }

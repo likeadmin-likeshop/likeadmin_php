@@ -58,8 +58,8 @@ import type { InputInstance, FormInstance } from 'element-plus'
 import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import cache from '@/utils/cache'
-import { ACCOUNT_KEY } from '@/enums/cacheEnums.js'
-import { PageEnum } from '@/enums/pageEnum.js'
+import { ACCOUNT_KEY } from '@/enums/cacheEnums'
+import { PageEnum } from '@/enums/pageEnum'
 const passwordRef = shallowRef<InputInstance>()
 const formRef = shallowRef<FormInstance>()
 const appStore = useAppStore()
