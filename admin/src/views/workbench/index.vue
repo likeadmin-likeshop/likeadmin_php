@@ -188,7 +188,6 @@ const workbenchData: any = reactive({
 const getData = () => {
     getWorkbench()
         .then((res: any) => {
-            console.log('res', res)
             workbenchData.version = res.version
             workbenchData.today = res.today
             workbenchData.menu = res.menu

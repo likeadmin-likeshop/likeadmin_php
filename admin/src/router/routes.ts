@@ -14,8 +14,9 @@
  */
 
 import type { RouteRecordRaw } from 'vue-router'
-import Layout from '@/layout/default/index.vue'
 import { PageEnum } from '@/enums/pageEnum'
+
+export const LAYOUT = () => import('@/layout/default/index.vue')
 
 export const INDEX_ROUTE_NAME = Symbol()
 
@@ -34,7 +35,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/user',
-        component: Layout,
+        component: LAYOUT,
         children: [
             {
                 path: 'setting',
@@ -47,7 +48,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/dev_tools',
-        component: Layout,
+        component: LAYOUT,
         children: [
             {
                 path: 'code/edit',
@@ -61,7 +62,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/setting',
-        component: Layout,
+        component: LAYOUT,
         children: [
             {
                 path: 'dict/data',
@@ -77,6 +78,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 
 export const INDEX_ROUTE: RouteRecordRaw = {
     path: PageEnum.INDEX,
-    component: Layout,
+    component: LAYOUT,
     name: INDEX_ROUTE_NAME
 }
