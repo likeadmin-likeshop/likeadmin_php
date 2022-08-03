@@ -8,7 +8,6 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -35,13 +34,22 @@ export default defineConfig({
         }),
         createSvgIconsPlugin({
             // 配置路劲在你的src里的svg存放文件
-            iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+            iconDirs: [fileURLToPath(new URL('./src/assets/icons', import.meta.url))],
             symbolId: 'local-icon-[dir]-[name]'
         })
     ],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))
+        }
+    },
+    build: {
+        rollupOptions: {
+            manualChunks(id) {
+                if (id.includes('node_modules')) {
+                    return id.toString().split('node_modules/')[1].split('/')[0].toString()
+                }
+            }
         }
     }
 })
