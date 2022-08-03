@@ -199,7 +199,7 @@ class WorkbenchLogic extends BaseLogic
             ],
             [
                 'image' => FileService::getFileUrl(config('project.default_image.customer_service')),
-                'title' => '扫码进入QQ交流群',
+                'title' => '添加企业客服微信',
                 'desc' => '想了解更多请添加客服',
             ]
         ];
