@@ -4,48 +4,34 @@
             ref="popupRef"
             :title="popupTitle"
             :async="true"
-            width="600px"
+            width="550px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
-            <div class="h-[400px]">
-                <el-scrollbar>
-                    <el-form
-                        class="ls-form"
-                        ref="formRef"
-                        :rules="rules"
-                        :model="formData"
-                        label-width="100px"
-                    >
-                        <el-form-item label="字典名称" prop="name">
-                            <div class="w-80">
-                                <el-input v-model="formData.name" placeholder="请输入字典名称" />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="字典类型" prop="type">
-                            <div class="w-80">
-                                <el-input v-model="formData.type" placeholder="请输入字典类型" />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="状态" required prop="status">
-                            <el-radio-group v-model="formData.status">
-                                <el-radio :label="1">正常</el-radio>
-                                <el-radio :label="0">停用</el-radio>
-                            </el-radio-group>
-                        </el-form-item>
-                        <el-form-item label="备注" prop="remark">
-                            <el-input
-                                class="w-80"
-                                v-model="formData.remark"
-                                type="textarea"
-                                rows="4"
-                                clearable
-                            />
-                        </el-form-item>
-                    </el-form>
-                </el-scrollbar>
-            </div>
+            <el-form
+                class="ls-form"
+                ref="formRef"
+                :rules="rules"
+                :model="formData"
+                label-width="84px"
+            >
+                <el-form-item label="字典名称" prop="name">
+                    <el-input v-model="formData.name" placeholder="请输入字典名称" />
+                </el-form-item>
+                <el-form-item label="字典类型" prop="type">
+                    <el-input v-model="formData.type" placeholder="请输入字典类型" />
+                </el-form-item>
+                <el-form-item label="字典状态" required prop="status">
+                    <el-radio-group v-model="formData.status">
+                        <el-radio :label="1">正常</el-radio>
+                        <el-radio :label="0">停用</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="备注" prop="remark">
+                    <el-input v-model="formData.remark" type="textarea" rows="4" clearable />
+                </el-form-item>
+            </el-form>
         </popup>
     </div>
 </template>

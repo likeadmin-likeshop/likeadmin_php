@@ -5,8 +5,6 @@
                 class="mb-[-16px]"
                 :model="queryParams"
                 inline
-                label-position="left"
-                label-width="80px"
             >
 {SEARCH_VIEW}
                 <el-form-item>

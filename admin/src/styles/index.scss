@@ -24,11 +24,11 @@
         background-color: var(--el-fill-color-blank);
     }
 }
-@import 'element.scss';
-@import 'dark.css';
-@import 'var.css';
 
 /* NProgress */
 #nprogress .bar {
     @apply bg-primary #{!important};
 }
+@import 'element.scss';
+@import 'dark.css';
+@import 'var.css';

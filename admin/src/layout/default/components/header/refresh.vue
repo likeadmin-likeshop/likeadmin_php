@@ -1,6 +1,6 @@
 <template>
-    <div class="refresh flex">
-        <icon class="cursor-pointer" name="el-icon-RefreshRight" :size="20" @click="refreshView" />
+    <div class="refresh cursor-pointer h-full flex items-center" @click="refreshView">
+        <icon name="el-icon-RefreshRight" :size="18" />
     </div>
 </template>
 

@@ -1,14 +1,7 @@
 <template>
     <div class="menu-lists">
         <el-card class="!border-none" shadow="never">
-            <el-form
-                ref="formRef"
-                class="mb-[-16px]"
-                :model="queryParams"
-                :inline="true"
-                label-position="left"
-                label-width="80px"
-            >
+            <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
                 <el-form-item label="岗位编码">
                     <el-input class="w-56" v-model="queryParams.code" />
                 </el-form-item>

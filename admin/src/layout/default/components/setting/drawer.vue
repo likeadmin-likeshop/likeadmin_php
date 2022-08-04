@@ -11,7 +11,7 @@
                 <span class="text-tx-secondary">风格设置</span>
                 <div class="flex mt-4 cursor-pointer">
                     <div
-                        class="mr-4 flex relative"
+                        class="mr-4 flex relative text-primary"
                         v-for="item in sideThemeList"
                         :key="item.type"
                         @click="sideTheme = item.type"
@@ -19,7 +19,7 @@
                         <img :src="item.image" width="52" height="36" />
                         <icon
                             v-if="sideTheme == item.type"
-                            class="icon-select text-primary"
+                            class="icon-select"
                             name="el-icon-Select"
                         />
                     </div>
@@ -91,7 +91,6 @@ const theme = computed({
         return settingStore.theme
     },
     set(value) {
-        console.log(value)
         settingStore.setSetting({
             key: 'theme',
             value

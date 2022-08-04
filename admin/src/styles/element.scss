@@ -88,6 +88,21 @@
             font-size: var(--el-font-size-small);
         }
     }
+    .el-button--primary {
+        --el-button-hover-link-text-color: var(--el-color-primary-light-3);
+    }
+    .el-button--success {
+        --el-button-hover-link-text-color: var(--el-color-success-light-3);
+    }
+    .el-button--info {
+        --el-button-hover-link-text-color: var(--el-color-info-light-3);
+    }
+    .el-button--warning {
+        --el-button-hover-link-text-color: var(--el-color-warning-light-3);
+    }
+    .el-button--danger {
+        --el-button-hover-link-text-color: var(--el-color-danger-light-3);
+    }
 }
 @media (max-width: 768px) {
     .el-pagination > .el-pagination__jump {

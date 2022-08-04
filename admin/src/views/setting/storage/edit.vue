@@ -4,80 +4,67 @@
             ref="popupRef"
             title="设置存储"
             :async="true"
-            width="600px"
+            width="550px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
-            <div class="h-[400px]">
-                <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="150px" :rules="formRules">
-                        <el-form-item label="存储方式" prop="engine">
-                            <div>
-                                <el-radio model-value>{{ getStorageInfo?.name }} </el-radio>
-                                <div class="form-tips">{{ getStorageInfo?.tips }}</div>
-                            </div>
-                        </el-form-item>
-                        <div v-if="formData.engine !== 'local'">
-                            <el-form-item label=" 存储空间名称(Bucket)" prop="bucket">
-                                <div class="w-80">
-                                    <el-input
-                                        v-model="formData.bucket"
-                                        placeholder="请输入存储空间名称(Bucket)"
-                                    />
-                                </div>
-                            </el-form-item>
-                            <el-form-item label="ACCESS_KEY（AK）" prop="access_key">
-                                <div class="w-80">
-                                    <el-input
-                                        v-model="formData.access_key"
-                                        placeholder="请输入ACCESS_KEY"
-                                    />
-                                </div>
-                            </el-form-item>
-                            <el-form-item label="SECRET_KEY（SK）" prop="secret_key">
-                                <div class="w-80">
-                                    <el-input
-                                        v-model="formData.secret_key"
-                                        placeholder="请输入SECRET_KEY"
-                                    />
-                                </div>
-                            </el-form-item>
-                            <el-form-item label="空间域名（Domain）" prop="domain">
-                                <div class="w-80">
-                                    <div>
-                                        <el-input
-                                            v-model="formData.domain"
-                                            placeholder="请输入空间域名"
-                                        />
-                                    </div>
-                                    <div class="form-tips">
-                                        请补全http://或https://，例如https://static.cloud.com
-                                    </div>
-                                </div>
-                            </el-form-item>
-                            <el-form-item
-                                v-if="formData.engine == StorageEnum.QCLOUD"
-                                label="REGION"
-                                prop="region"
-                            >
-                                <div class="w-80">
-                                    <el-input
-                                        v-model="formData.region"
-                                        placeholder="请输入region"
-                                    />
-                                </div>
-                            </el-form-item>
+            <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
+                <el-form-item label="存储方式" prop="engine">
+                    <div>
+                        <el-radio model-value>{{ getStorageInfo?.name }} </el-radio>
+                        <div class="form-tips">{{ getStorageInfo?.tips }}</div>
+                    </div>
+                </el-form-item>
+                <div v-if="formData.engine !== 'local'">
+                    <el-form-item label=" 存储空间名称" prop="bucket">
+                        <div class="flex-1">
+                            <el-input
+                                v-model="formData.bucket"
+                                placeholder="请输入存储空间名称(Bucket)"
+                            />
                         </div>
-                        <el-form-item label="状态" prop="status">
-                            <el-radio-group v-model="formData.status">
-                                <el-radio :label="0">停用</el-radio>
-                                <el-radio :label="1">启用</el-radio>
-                            </el-radio-group>
-                        </el-form-item>
-                    </el-form>
-                </el-scrollbar>
-            </div>
+                    </el-form-item>
+                    <el-form-item label="ACCESS_KEY" prop="access_key">
+                        <el-input
+                            v-model="formData.access_key"
+                            placeholder="请输入ACCESS_KEY(AK)"
+                        />
+                    </el-form-item>
+                    <el-form-item label="SECRET_KEY" prop="secret_key">
+                        <el-input
+                            v-model="formData.secret_key"
+                            placeholder="请输入SECRET_KEY(SK)"
+                        />
+                    </el-form-item>
+                    <el-form-item label="空间域名" prop="domain">
+                        <div class="flex-1">
+                            <div>
+                                <el-input
+                                    v-model="formData.domain"
+                                    placeholder="请输入空间域名(Domain)"
+                                />
+                            </div>
+                            <div class="form-tips">
+                                请补全http://或https://，例如https://static.cloud.com
+                            </div>
+                        </div>
+                    </el-form-item>
+                    <el-form-item
+                        v-if="formData.engine == StorageEnum.QCLOUD"
+                        label="REGION"
+                        prop="region"
+                    >
+                        <el-input v-model="formData.region" placeholder="请输入region" />
+                    </el-form-item>
+                </div>
+                <el-form-item label="状态" prop="status">
+                    <el-radio-group v-model="formData.status">
+                        <el-radio :label="0">停用</el-radio>
+                        <el-radio :label="1">启用</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+            </el-form>
         </popup>
     </div>
 </template>

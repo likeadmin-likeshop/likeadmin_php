@@ -9,11 +9,11 @@ const lightConfig = {
 }
 
 const darkConfig = {
-    'light-3': 'shade(30%)',
-    'light-5': 'shade(50%)',
-    'light-7': 'shade(70%)',
-    'light-8': 'shade(75%)',
-    'light-9': 'shade(80%)',
+    'light-3': 'shade(20%)',
+    'light-5': 'shade(30%)',
+    'light-7': 'shade(50%)',
+    'light-8': 'shade(60%)',
+    'light-9': 'shade(70%)',
     'dark-2': 'tint(20%)'
 }
 

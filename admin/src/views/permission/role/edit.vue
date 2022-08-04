@@ -9,61 +9,50 @@
             @confirm="handleSubmit"
             @close="handleClose"
         >
-            <div class="h-[400px]" v-loading="loading">
-                <el-scrollbar>
-                    <el-form
-                        class="ls-form"
-                        ref="formRef"
-                        :rules="rules"
-                        :model="formData"
-                        label-width="80px"
-                    >
-                        <el-form-item label="名称" prop="name">
-                            <div class="w-80">
-                                <el-input
-                                    class="ls-input"
-                                    v-model="formData.name"
-                                    placeholder="请输入名称"
-                                />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="备注" prop="desc">
-                            <div class="w-80">
-                                <el-input
-                                    v-model="formData.desc"
-                                    type="textarea"
-                                    :rows="4"
-                                    placeholder="请输入备注"
-                                />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="排序" prop="sort">
-                            <el-input-number v-model="formData.sort" />
-                        </el-form-item>
-                        <el-form-item label="权限" prop="menu_id">
-                            <div>
-                                <el-checkbox label="展开/折叠" @change="handleExpand" />
-                                <el-checkbox label="全选/不全选" @change="handleSelectAll" />
-                                <el-checkbox v-model="checkStrictly" label="父子联动" />
-                                <div>
-                                    <el-tree
-                                        ref="treeRef"
-                                        :data="menuTree"
-                                        :props="{
-                                            label: 'name',
-                                            children: 'children'
-                                        }"
-                                        :check-strictly="!checkStrictly"
-                                        node-key="id"
-                                        :default-expand-all="isExpand"
-                                        show-checkbox
-                                    />
-                                </div>
-                            </div>
-                        </el-form-item>
-                    </el-form>
-                </el-scrollbar>
-            </div>
+            <el-form
+                class="ls-form"
+                ref="formRef"
+                :rules="rules"
+                :model="formData"
+                label-width="60px"
+            >
+                <el-form-item label="名称" prop="name">
+                    <el-input class="ls-input" v-model="formData.name" placeholder="请输入名称" />
+                </el-form-item>
+
+                <el-form-item label="权限" prop="menu_id">
+                    <div>
+                        <el-checkbox label="展开/折叠" @change="handleExpand" />
+                        <el-checkbox label="全选/不全选" @change="handleSelectAll" />
+                        <el-checkbox v-model="checkStrictly" label="父子联动" />
+                        <div>
+                            <el-tree
+                                ref="treeRef"
+                                :data="menuTree"
+                                :props="{
+                                    label: 'name',
+                                    children: 'children'
+                                }"
+                                :check-strictly="!checkStrictly"
+                                node-key="id"
+                                :default-expand-all="isExpand"
+                                show-checkbox
+                            />
+                        </div>
+                    </div>
+                </el-form-item>
+                <el-form-item label="备注" prop="desc">
+                    <el-input
+                        v-model="formData.desc"
+                        type="textarea"
+                        :rows="4"
+                        placeholder="请输入备注"
+                    />
+                </el-form-item>
+                <el-form-item label="排序" prop="sort">
+                    <el-input-number v-model="formData.sort" />
+                </el-form-item>
+            </el-form>
         </popup>
     </div>
 </template>
@@ -78,7 +67,6 @@ const treeRef = shallowRef<InstanceType<typeof ElTree>>()
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const mode = ref('add')
-const loading = ref(false)
 const isExpand = ref(false)
 const checkStrictly = ref(true)
 const menuArray = ref<any[]>([])
