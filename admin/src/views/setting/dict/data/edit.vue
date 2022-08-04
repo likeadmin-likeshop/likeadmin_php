@@ -30,7 +30,10 @@
                     <el-input v-model="formData.value" placeholder="请输入数据值" />
                 </el-form-item>
                 <el-form-item label="排序" prop="sort">
-                    <el-input-number v-model="formData.sort" />
+                    <div>
+                        <el-input-number v-model="formData.sort" />
+                        <div class="form-tips">数值越大越排前</div>
+                    </div>
                 </el-form-item>
                 <el-form-item label="状态" required prop="status">
                     <el-radio-group v-model="formData.status">

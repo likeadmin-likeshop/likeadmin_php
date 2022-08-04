@@ -1,5 +1,5 @@
 <template>
-    <div class="refresh cursor-pointer h-full flex items-center" @click="refreshView">
+    <div class="refresh cursor-pointer h-full flex items-center px-2" @click="refreshView">
         <icon name="el-icon-RefreshRight" :size="18" />
     </div>
 </template>

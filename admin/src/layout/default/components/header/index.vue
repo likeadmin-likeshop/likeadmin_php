@@ -47,7 +47,7 @@ const isMobile = computed(() => appStore.isMobile)
     height: var(--navbar-height);
     @apply flex px-2 bg-body;
     .navbar-item {
-        @apply h-full  flex justify-center items-center px-2 hover:bg-page;
+        @apply h-full  flex justify-center items-center  hover:bg-page;
     }
 }
 </style>

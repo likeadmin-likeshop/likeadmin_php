@@ -1,5 +1,5 @@
 <template>
-    <div class="full-screen h-full cursor-pointer flex items-center" @click="toggleFullscreen">
+    <div class="full-screen h-full cursor-pointer flex items-center px-2" @click="toggleFullscreen">
         <icon :size="16" :name="`local-icon-${isFullscreen ? 'fullscreen-exit' : 'fullscreen'}`" />
     </div>
 </template>

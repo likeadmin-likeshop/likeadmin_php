@@ -23,7 +23,7 @@
                         <el-table-column prop="sort" label="排序" min-width="100" />
                         <el-table-column prop="num" label="管理员人数" min-width="100" />
                         <el-table-column prop="create_time" label="创建时间" min-width="180" />
-                        <el-table-column label="操作" width="120" fixed="right">
+                        <el-table-column label="操作" width="180" fixed="right">
                             <template #default="{ row }">
                                 <el-button
                                     link
@@ -32,6 +32,14 @@
                                     @click="handleEdit(row)"
                                 >
                                     编辑
+                                </el-button>
+                                <el-button
+                                    link
+                                    type="primary"
+                                    v-perms="['auth.role/edit']"
+                                    @click="handleAuth(row)"
+                                >
+                                    分配权限
                                 </el-button>
                                 <el-button
                                     v-perms="['auth.role/delete']"
@@ -51,6 +59,7 @@
             </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
+        <auth-popup v-if="showAuth" ref="authRef" @success="getLists" @close="showAuth = false" />
     </div>
 </template>
 
@@ -59,8 +68,11 @@ import { roleLists, roleDelete } from '@/api/perms/role'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
+import AuthPopup from './auth.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
+const authRef = shallowRef<InstanceType<typeof AuthPopup>>()
 const showEdit = ref(false)
+const showAuth = ref(false)
 const { pager, getLists } = usePaging({
     fetchFun: roleLists
 })
@@ -75,6 +87,13 @@ const handleEdit = async (data: any) => {
     await nextTick()
     editRef.value?.open('edit')
     editRef.value?.setFormData(data)
+}
+
+const handleAuth = async (data: any) => {
+    showAuth.value = true
+    await nextTick()
+    authRef.value?.open()
+    authRef.value?.setFormData(data)
 }
 
 // 删除角色

@@ -24,6 +24,9 @@
                 flex: 1;
                 padding: 15px 20px;
             }
+            .el-dialog__header {
+                font-size: var(--el-font-size-large);
+            }
         }
     }
 

@@ -84,8 +84,8 @@
                         class="md:w-[12.5%] w-1/4 flex flex-col items-center"
                         :key="item"
                     >
-                        <router-link :to="item.url" class="mb-3">
-                            <image-contain width="30px" height="30px" :src="item?.image" />
+                        <router-link :to="item.url" class="mb-3 flex flex-col items-center">
+                            <image-contain width="40px" height="40px" :src="item?.image" />
                             <div class="mt-2">{{ item.name }}</div>
                         </router-link>
                     </div>

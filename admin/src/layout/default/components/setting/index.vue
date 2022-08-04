@@ -1,6 +1,6 @@
 <template>
-    <div class="setting flex">
-        <icon class="cursor-pointer" :size="16" name="el-icon-Setting" @click="openSetting" />
+    <div class="setting flex cursor-pointer h-full items-center px-2" @click="openSetting">
+        <icon :size="16" name="el-icon-Setting" />
         <layout-setting />
     </div>
 </template>
