@@ -14,7 +14,7 @@ const cache = {
         try {
             window.localStorage.setItem(key, data)
         } catch (e) {
-            return false
+            return null
         }
     },
     get(key: string) {
@@ -22,16 +22,16 @@ const cache = {
         try {
             const data = window.localStorage.getItem(key)
             if (!data) {
-                return false
+                return null
             }
             const { value, expire } = JSON.parse(data)
             if (expire && expire < this.time()) {
                 window.localStorage.removeItem(key)
-                return false
+                return null
             }
             return value
         } catch (e) {
-            return false
+            return null
         }
     },
     //获取当前时间
