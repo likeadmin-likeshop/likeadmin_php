@@ -13,12 +13,19 @@
             :mode="mode"
             @onCreated="handleCreated"
         />
+        <material-picker
+            ref="materialPickerRef"
+            :limit="-1"
+            hidden-upload
+            @change="imageSelectChange"
+        />
     </div>
 </template>
 <script setup lang="ts">
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { Editor as WEditor, Toolbar } from '@wangeditor/editor-for-vue'
 import type { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import MaterialPicker from '@/components/material/picker.vue'
 import { addUnit } from '@/utils/util'
 import type { CSSProperties } from 'vue'
 
@@ -47,15 +54,19 @@ const emit = defineEmits<{
 
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
+const materialPickerRef = shallowRef<InstanceType<typeof MaterialPicker>>()
+
+let insertImageFn: any
 
 const editorConfig: Partial<IEditorConfig> = {
     MENU_CONF: {
-        // uploadImage: {
-        //   customBrowseAndUpload(res: any, insertFn: InsertFnType) {
-        //     console.log(res)
-        //     // insertFn(url, alt, href)
-        //   }
-        // }
+        uploadImage: {
+            customBrowseAndUpload(insertFn: any) {
+                console.log(insertFn)
+                materialPickerRef.value?.showPopup(-1)
+                insertImageFn = insertFn
+            }
+        }
     }
 }
 
@@ -71,6 +82,12 @@ const valueHtml = computed({
         emit('update:modelValue', value)
     }
 })
+
+const imageSelectChange = (image: string[]) => {
+    image.forEach((url) => {
+        insertImageFn(url)
+    })
+}
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {

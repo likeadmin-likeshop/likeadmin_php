@@ -4,50 +4,36 @@
             ref="popupRef"
             :title="popupTitle"
             :async="true"
-            width="700px"
+            width="550px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
-            <div class="h-[400px]">
-                <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
-                        <el-form-item label="岗位名称" prop="name">
-                            <div class="w-80">
-                                <el-input v-model="formData.name" placeholder="请输入岗位名称" />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="岗位编码" prop="code">
-                            <div class="w-80">
-                                <el-input v-model="formData.code" placeholder="请输入岗位编码" />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="排序" prop="sort">
-                            <div>
-                                <el-input-number v-model="formData.sort" />
-                                <div class="form-tips">默认为0， 数值越大越排前</div>
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="备注" prop="remark">
-                            <div class="w-80">
-                                <el-input
-                                    v-model="formData.remark"
-                                    placeholder="请输入备注"
-                                    type="textarea"
-                                    :autosize="{ minRows: 4, maxRows: 6 }"
-                                />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="岗位状态">
-                            <el-switch
-                                v-model="formData.status"
-                                :active-value="1"
-                                :inactive-value="0"
-                            />
-                        </el-form-item>
-                    </el-form>
-                </el-scrollbar>
-            </div>
+            <el-form ref="formRef" :model="formData" label-width="84px" :rules="formRules">
+                <el-form-item label="岗位名称" prop="name">
+                    <el-input v-model="formData.name" placeholder="请输入岗位名称" />
+                </el-form-item>
+                <el-form-item label="岗位编码" prop="code">
+                    <el-input v-model="formData.code" placeholder="请输入岗位编码" />
+                </el-form-item>
+                <el-form-item label="排序" prop="sort">
+                    <div>
+                        <el-input-number v-model="formData.sort" />
+                        <div class="form-tips">默认为0， 数值越大越排前</div>
+                    </div>
+                </el-form-item>
+                <el-form-item label="备注" prop="remark">
+                    <el-input
+                        v-model="formData.remark"
+                        placeholder="请输入备注"
+                        type="textarea"
+                        :autosize="{ minRows: 4, maxRows: 6 }"
+                    />
+                </el-form-item>
+                <el-form-item label="岗位状态" required>
+                    <el-switch v-model="formData.status" :active-value="1" :inactive-value="0" />
+                </el-form-item>
+            </el-form>
         </popup>
     </div>
 </template>

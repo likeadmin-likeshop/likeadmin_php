@@ -72,6 +72,10 @@ const themeClass = computed(() => `theme-${props.theme}`)
                     @apply bg-primary-light-9 border-r-2 border-primary;
                 }
             }
+            .el-menu-item:hover,
+            .el-sub-menu__title:hover {
+                color: var(--el-color-primary);
+            }
         }
     }
     .el-menu {

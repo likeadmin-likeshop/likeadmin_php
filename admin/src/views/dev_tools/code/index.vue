@@ -1,13 +1,7 @@
 <template>
     <div class="code-generation">
         <el-card class="!border-none" shadow="never">
-            <el-form
-                class="mb-[-16px]"
-                :model="formData"
-                inline
-                label-position="left"
-                label-width="80px"
-            >
+            <el-form class="mb-[-16px]" :model="formData" inline>
                 <el-form-item label="表名称">
                     <el-input class="w-56" v-model="formData.table_name" />
                 </el-form-item>

@@ -185,7 +185,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $content = substr($content, 0, -1);
         }
 
-        $content = $this->setBlankSpace($content, '                        ');
+        $content = $this->setBlankSpace($content, '                ');
         return $content;
     }
 

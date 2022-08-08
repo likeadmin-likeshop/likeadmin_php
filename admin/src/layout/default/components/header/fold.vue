@@ -1,11 +1,6 @@
 <template>
-    <div class="fold flex">
-        <icon
-            class="cursor-pointer"
-            :name="`local-icon-${isCollapsed ? 'close' : 'open'}`"
-            :size="22"
-            @click="toggleCollapsed"
-        />
+    <div class="fold h-full cursor-pointer flex items-center px-2" @click="toggleCollapsed">
+        <icon :name="`local-icon-${isCollapsed ? 'close' : 'open'}`" :size="20" />
     </div>
 </template>
 

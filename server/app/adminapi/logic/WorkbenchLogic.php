@@ -62,42 +62,42 @@ class WorkbenchLogic extends BaseLogic
         return [
             [
                 'name' => '管理员',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'image' => FileService::getFileUrl(config('project.default_image.menu_admin')),
                 'url' => '/permission/admin'
             ],
             [
                 'name' => '角色管理',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'image' => FileService::getFileUrl(config('project.default_image.menu_role')),
                 'url' => '/permission/role'
             ],
             [
                 'name' => '部门管理',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'image' => FileService::getFileUrl(config('project.default_image.menu_dept')),
                 'url' => '/organization/department'
             ],
             [
                 'name' => '字典管理',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'image' => FileService::getFileUrl(config('project.default_image.menu_dict')),
                 'url' => '/setting/dict'
             ],
             [
                 'name' => '代码生成器',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'image' => FileService::getFileUrl(config('project.default_image.menu_generator')),
                 'url' => '/dev_tools/code'
             ],
             [
                 'name' => '素材中心',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'image' => FileService::getFileUrl(config('project.default_image.menu_file')),
                 'url' => '/material/index'
             ],
             [
                 'name' => '菜单权限',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'image' => FileService::getFileUrl(config('project.default_image.menu_auth')),
                 'url' => '/permission/menu'
             ],
             [
                 'name' => '网站信息',
-                'image' => FileService::getFileUrl(config('project.default_image.admin_avatar')),
+                'image' => FileService::getFileUrl(config('project.default_image.menu_web')),
                 'url' => '/setting/website/information'
             ],
         ];

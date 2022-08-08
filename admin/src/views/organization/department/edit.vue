@@ -4,64 +4,47 @@
             ref="popupRef"
             :title="popupTitle"
             :async="true"
-            width="600px"
+            width="550px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
-            <div class="h-[400px]">
-                <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="100px" :rules="formRules">
-                        <el-form-item label="上级部门" prop="pid" v-if="formData.pid !== 0">
-                            <el-tree-select
-                                class="w-80"
-                                v-model="formData.pid"
-                                :data="leaderList"
-                                clearable
-                                node-key="id"
-                                :props="{
-                                    value: 'id',
-                                    label: 'name'
-                                }"
-                                check-strictly
-                                :default-expand-all="true"
-                                placeholder="请选择上级部门"
-                            />
-                        </el-form-item>
-                        <el-form-item label="部门名称" prop="name">
-                            <div class="w-80">
-                                <el-input v-model="formData.name" placeholder="请输入部门名称" />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="负责人" prop="leader">
-                            <div class="w-80">
-                                <el-input
-                                    v-model="formData.leader"
-                                    placeholder="请输入负责人姓名"
-                                />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="联系电话" prop="mobile">
-                            <div class="w-80">
-                                <el-input v-model="formData.mobile" placeholder="请输入联系电话" />
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="排序" prop="sort">
-                            <div>
-                                <el-input-number v-model="formData.sort" />
-                                <div class="form-tips">默认为0， 数值越大越排前</div>
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="部门状态">
-                            <el-switch
-                                v-model="formData.status"
-                                :active-value="1"
-                                :inactive-value="0"
-                            />
-                        </el-form-item>
-                    </el-form>
-                </el-scrollbar>
-            </div>
+            <el-form ref="formRef" :model="formData" label-width="84px" :rules="formRules">
+                <el-form-item label="上级部门" prop="pid" v-if="formData.pid !== 0">
+                    <el-tree-select
+                        class="flex-1"
+                        v-model="formData.pid"
+                        :data="leaderList"
+                        clearable
+                        node-key="id"
+                        :props="{
+                            value: 'id',
+                            label: 'name'
+                        }"
+                        check-strictly
+                        :default-expand-all="true"
+                        placeholder="请选择上级部门"
+                    />
+                </el-form-item>
+                <el-form-item label="部门名称" prop="name">
+                    <el-input v-model="formData.name" placeholder="请输入部门名称" />
+                </el-form-item>
+                <el-form-item label="负责人" prop="leader">
+                    <el-input v-model="formData.leader" placeholder="请输入负责人姓名" />
+                </el-form-item>
+                <el-form-item label="联系电话" prop="mobile">
+                    <el-input v-model="formData.mobile" placeholder="请输入联系电话" />
+                </el-form-item>
+                <el-form-item label="排序" prop="sort">
+                    <div>
+                        <el-input-number v-model="formData.sort" />
+                        <div class="form-tips">默认为0， 数值越大越排前</div>
+                    </div>
+                </el-form-item>
+                <el-form-item label="部门状态">
+                    <el-switch v-model="formData.status" :active-value="1" :inactive-value="0" />
+                </el-form-item>
+            </el-form>
         </popup>
     </div>
 </template>

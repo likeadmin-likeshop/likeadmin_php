@@ -1,14 +1,7 @@
 <template>
     <div class="dict-type">
         <el-card class="!border-none" shadow="never">
-            <el-form
-                ref="formRef"
-                class="mb-[-16px]"
-                :model="queryParams"
-                inline
-                label-position="left"
-                label-width="80px"
-            >
+            <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
                 <el-form-item label="字典名称">
                     <el-input class="w-56" v-model="queryParams.name" />
                 </el-form-item>

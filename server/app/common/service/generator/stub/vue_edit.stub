@@ -4,18 +4,14 @@
             ref="popupRef"
             :title="popupTitle"
             :async="true"
-            width="600px"
+            width="550px"
             :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
-            <div class="h-[400px]">
-                <el-scrollbar>
-                    <el-form ref="formRef" :model="formData" label-width="100px" :rules="formRules">
+            <el-form ref="formRef" :model="formData" label-width="90px" :rules="formRules">
 {FORM_VIEW}
-                    </el-form>
-                </el-scrollbar>
-            </div>
+            </el-form>
         </popup>
     </div>
 </template>

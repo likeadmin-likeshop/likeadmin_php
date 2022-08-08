@@ -8,6 +8,7 @@
                     :name="item.type"
                     :index="item.type"
                     :key="item.type"
+                    lazy
                 >
                     <material
                         :type="item.type"

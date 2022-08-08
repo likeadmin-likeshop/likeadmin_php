@@ -1,7 +1,7 @@
 <?php
 return [
     // 系统版本号
-    'version' => '1.1.6',
+    'version' => '1.2.1',
 
     // 官网
     'website' => [
@@ -38,6 +38,14 @@ return [
         'admin_avatar' => 'resource/image/adminapi/default/avatar.png',
         'qq_group' => 'resource/image/adminapi/default/qq_group.png', // qq群
         'customer_service' => 'resource/image/adminapi/default/customer_service.png', // 客服
+        'menu_admin' => 'resource/image/adminapi/default/menu_admin.png',// 首页快捷菜单-管理员
+        'menu_role' => 'resource/image/adminapi/default/menu_role.png', // 首页快捷菜单-角色
+        'menu_dept' => 'resource/image/adminapi/default/menu_dept.png',// 首页快捷菜单-部门
+        'menu_dict' => 'resource/image/adminapi/default/menu_dict.png',// 首页快捷菜单-字典
+        'menu_generator' => 'resource/image/adminapi/default/menu_generator.png',// 首页快捷菜单-代码生成器
+        'menu_auth' => 'resource/image/adminapi/default/menu_auth.png',// 首页快捷菜单-菜单权限
+        'menu_web' => 'resource/image/adminapi/default/menu_web.png',// 首页快捷菜单-网站信息
+        'menu_file' => 'resource/image/adminapi/default/menu_file.png',// 首页快捷菜单-素材中心
     ],
 
     // 上唇文件限制

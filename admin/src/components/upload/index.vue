@@ -40,9 +40,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, shallowRef } from 'vue'
-import { ElMessage, ElUpload } from 'element-plus'
 import useUserStore from '@/stores/modules/user'
 import config from '@/config'
+import feedback from '@/utils/feedback'
+import type { ElUpload } from 'element-plus'
 export default defineComponent({
     components: {},
     props: {
@@ -76,7 +77,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const userStore = useUserStore()
         const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
-        const action = ref(`${config.baseUrl}/upload/${props.type}`)
+        const action = ref(`${config.baseUrl}${config.urlPrefix}/upload/${props.type}`)
         const headers = computed(() => ({
             token: userStore.token,
             version: config.version
@@ -89,23 +90,26 @@ export default defineComponent({
             fileList.value = fileLists
         }
 
-        const handleSuccess = (event: any, file: any, fileLists: any[]) => {
+        const handleSuccess = (response: any, file: any, fileLists: any[]) => {
             const allSuccess = fileLists.every((item) => item.status == 'success')
             if (allSuccess) {
                 uploadRefs.value?.clearFiles()
                 visible.value = false
-                emit('change')
+            }
+            emit('change')
+            if (response.code == 0 && response.show && response.msg) {
+                feedback.msgError(response.msg)
             }
         }
         const handleError = (event: any, file: any) => {
-            ElMessage.error(`${file.name}文件上传失败`)
+            feedback.msgError(`${file.name}文件上传失败`)
             uploadRefs.value?.abort(file)
             visible.value = false
             emit('change')
             emit('error')
         }
         const handleExceed = () => {
-            ElMessage.error('超出上传上限，请重新上传')
+            feedback.msgError('超出上传上限，请重新上传')
         }
         const handleClose = () => {
             uploadRefs.value?.clearFiles()

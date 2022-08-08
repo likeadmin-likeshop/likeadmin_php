@@ -87,7 +87,6 @@ export function objectToQuery(params: Record<string, any>): string {
         }
     }
     return query.slice(0, -1)
-    return ''
 }
 
 /**

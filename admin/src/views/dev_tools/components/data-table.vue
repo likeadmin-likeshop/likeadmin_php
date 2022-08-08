@@ -11,13 +11,7 @@
             <template #trigger>
                 <slot></slot>
             </template>
-            <el-form
-                class="ls-form"
-                :model="formData"
-                inline
-                label-position="left"
-                label-width="80px"
-            >
+            <el-form class="ls-form" :model="formData" inline>
                 <el-form-item label="表名称">
                     <el-input class="w-56" v-model="formData.name" />
                 </el-form-item>

@@ -81,11 +81,11 @@
                 <div class="flex flex-wrap">
                     <div
                         v-for="item in workbenchData.menu"
-                        class="2xl:w-1/12 xl:w-[10%] md:w-1/6 w-1/4"
+                        class="md:w-[12.5%] w-1/4 flex flex-col items-center"
                         :key="item"
                     >
-                        <router-link :to="item.url" class="flex flex-col items-center mb-3">
-                            <image-contain width="30px" height="30px" :src="item?.image" />
+                        <router-link :to="item.url" class="mb-3 flex flex-col items-center">
+                            <image-contain width="40px" height="40px" :src="item?.image" />
                             <div class="mt-2">{{ item.name }}</div>
                         </router-link>
                     </div>
@@ -117,7 +117,7 @@
                                 'border-b border-br': index == 0
                             }"
                         >
-                            <ImageContain
+                            <image-contain
                                 :width="120"
                                 :height="120"
                                 class="flex-none"

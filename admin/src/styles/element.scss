@@ -24,6 +24,9 @@
                 flex: 1;
                 padding: 15px 20px;
             }
+            .el-dialog__header {
+                font-size: var(--el-font-size-large);
+            }
         }
     }
 
@@ -67,6 +70,10 @@
                         @apply bg-primary-light-9 border-primary border-r-2;
                     }
                 }
+                .el-menu-item:hover,
+                .el-sub-menu__title:hover {
+                    color: var(--el-color-primary);
+                }
             }
         }
         &.theme-dark {
@@ -79,6 +86,7 @@
             }
         }
     }
+
     .el-message-box {
         --el-messagebox-width: 350px;
     }
@@ -87,6 +95,21 @@
         .el-range-input {
             font-size: var(--el-font-size-small);
         }
+    }
+    .el-button--primary {
+        --el-button-hover-link-text-color: var(--el-color-primary-light-3);
+    }
+    .el-button--success {
+        --el-button-hover-link-text-color: var(--el-color-success-light-3);
+    }
+    .el-button--info {
+        --el-button-hover-link-text-color: var(--el-color-info-light-3);
+    }
+    .el-button--warning {
+        --el-button-hover-link-text-color: var(--el-color-warning-light-3);
+    }
+    .el-button--danger {
+        --el-button-hover-link-text-color: var(--el-color-danger-light-3);
     }
 }
 @media (max-width: 768px) {

@@ -1,20 +1,14 @@
 <template>
     <div class="admin">
         <el-card class="!border-none" shadow="never">
-            <el-form
-                class="mb-[-16px]"
-                :model="formData"
-                inline
-                label-position="left"
-                label-width="80px"
-            >
-                <el-form-item label="账号">
+            <el-form class="mb-[-16px]" :model="formData" inline>
+                <el-form-item label="管理员账号">
                     <el-input v-model="formData.account" class="w-56" />
                 </el-form-item>
-                <el-form-item label="名称">
+                <el-form-item label="管理员名称">
                     <el-input v-model="formData.name" class="w-56" />
                 </el-form-item>
-                <el-form-item label="角色">
+                <el-form-item label="管理员角色">
                     <el-select class="w-56" v-model="formData.role_id">
                         <el-option label="全部" value=""></el-option>
                         <el-option
@@ -94,6 +88,7 @@
                                 编辑
                             </el-button>
                             <el-button
+                                v-if="row.root != 1"
                                 v-perms="['auth.admin/delete']"
                                 type="danger"
                                 link

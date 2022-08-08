@@ -38,28 +38,26 @@
                     <div class="mb-5">
                         <el-checkbox v-model="remAccount" label="记住账号"></el-checkbox>
                     </div>
-                    <el-button
-                        type="primary"
-                        size="large"
-                        :loading="loginLoading"
-                        @click="handleLogin"
-                    >
+                    <el-button type="primary" size="large" :loading="isLock" @click="lockLogin">
                         登录
                     </el-button>
                 </div>
             </div>
         </div>
+        <layout-footer />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, onMounted, reactive, ref, shallowRef } from 'vue'
 import type { InputInstance, FormInstance } from 'element-plus'
+import LayoutFooter from '@/layout/components/footer.vue'
 import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import cache from '@/utils/cache'
 import { ACCOUNT_KEY } from '@/enums/cacheEnums'
 import { PageEnum } from '@/enums/pageEnum'
+import { useLockFn } from '@/hooks/useLockFn'
 const passwordRef = shallowRef<InputInstance>()
 const formRef = shallowRef<FormInstance>()
 const appStore = useAppStore()
@@ -67,7 +65,6 @@ const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
 const remAccount = ref(false)
-const loginLoading = ref(false)
 const config = computed(() => appStore.config)
 const formData = reactive({
     account: '',
@@ -97,34 +94,21 @@ const handleEnter = () => {
     handleLogin()
 }
 // 登录处理
-const handleLogin = () => {
-    formRef.value?.validate((valid: boolean) => {
-        if (!valid) {
-            return
-        }
-        loginLoading.value = true
-        // 记住账号，缓存
-        cache.set(ACCOUNT_KEY, {
-            remember: remAccount.value,
-            account: formData.account
-        })
-        userStore
-            .login(formData)
-            .then(() => {
-                const {
-                    query: { redirect }
-                } = route
-                const path = typeof redirect === 'string' ? redirect : PageEnum.INDEX
-                router.push(path)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-            .finally(() => {
-                loginLoading.value = false
-            })
+const handleLogin = async () => {
+    await formRef.value?.validate()
+    // 记住账号，缓存
+    cache.set(ACCOUNT_KEY, {
+        remember: remAccount.value,
+        account: formData.account
     })
+    await userStore.login(formData)
+    const {
+        query: { redirect }
+    } = route
+    const path = typeof redirect === 'string' ? redirect : PageEnum.INDEX
+    router.push(path)
 }
+const { isLock, lockFn: lockLogin } = useLockFn(handleLogin)
 
 onMounted(() => {
     const value = cache.get(ACCOUNT_KEY)

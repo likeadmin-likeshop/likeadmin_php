@@ -1,19 +1,31 @@
 <template>
-    <div class="header">
+    <header class="header">
         <div class="navbar">
-            <div class="flex-1 flex items-center">
-                <fold class="mr-4" />
-                <refresh class="mr-4" />
-                <breadcrumb class="mr-4" v-if="!isMobile" />
+            <div class="flex-1 flex">
+                <div class="navbar-item">
+                    <fold />
+                </div>
+                <div class="navbar-item">
+                    <refresh />
+                </div>
+                <div class="flex items-center px-2" v-if="!isMobile">
+                    <breadcrumb />
+                </div>
             </div>
-            <div class="flex items-center">
-                <full-screen class="mr-4" v-if="!isMobile" />
-                <user-drop-down class="mr-4" />
-                <setting />
+            <div class="flex">
+                <div class="navbar-item" v-if="!isMobile">
+                    <full-screen />
+                </div>
+                <div class="navbar-item">
+                    <user-drop-down />
+                </div>
+                <div class="navbar-item">
+                    <setting />
+                </div>
             </div>
         </div>
         <multiple-tabs />
-    </div>
+    </header>
 </template>
 
 <script setup lang="ts">
@@ -33,6 +45,9 @@ const isMobile = computed(() => appStore.isMobile)
 <style lang="scss">
 .navbar {
     height: var(--navbar-height);
-    @apply flex items-center pl-4 pr-4 bg-body;
+    @apply flex px-2 bg-body;
+    .navbar-item {
+        @apply h-full  flex justify-center items-center  hover:bg-page;
+    }
 }
 </style>

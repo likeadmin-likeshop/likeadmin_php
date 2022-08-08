@@ -1,5 +1,5 @@
 <template>
-    <div class="app-tabs pl-3 flex">
+    <div class="app-tabs pl-4 flex">
         <div class="flex-1 min-w-0">
             <el-tabs
                 :model-value="currentTab"
