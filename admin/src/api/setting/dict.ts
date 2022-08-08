@@ -27,7 +27,12 @@ export function dictTypeDetail(params: any) {
 
 // 字典数据列表
 export function dictDataLists(params: any) {
-    return request.get({ url: '/setting.dict.dict_data/lists', params })
+    return request.get(
+        { url: '/setting.dict.dict_data/lists', params },
+        {
+            ignoreCancelToken: true
+        }
+    )
 }
 
 // 添加字典数据

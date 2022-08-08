@@ -42,7 +42,6 @@ export class Axios {
         } = this.config.axiosHooks
         this.axiosInstance.interceptors.request.use(
             (config) => {
-                console.log(config.url, 'request')
                 this.addCancelToken(config as AxiosConfig)
                 if (isFunction(requestInterceptorsHook)) {
                     config = requestInterceptorsHook(config)
@@ -58,7 +57,6 @@ export class Axios {
         )
         this.axiosInstance.interceptors.response.use(
             (response: AxiosResponse<RequestData>) => {
-                console.log(response.config.url, 'response')
                 this.removeCancelToken(response.config as AxiosConfig)
                 if (isFunction(responseInterceptorsHook)) {
                     response = responseInterceptorsHook(response)
@@ -66,17 +64,15 @@ export class Axios {
                 return response
             },
             (err: AxiosError) => {
-                console.log(err)
-                if (
-                    err.code == AxiosError.ERR_BAD_RESPONSE ||
-                    err.code == AxiosError.ERR_BAD_REQUEST
-                ) {
+                if (err.code !== AxiosError.ERR_CANCELED) {
                     this.removeCancelToken(err.config as AxiosConfig)
 
                     if (isFunction(responseInterceptorsCatchHook)) {
                         responseInterceptorsCatchHook(err)
                     }
-                    this.retryRequest(err)
+                    setTimeout(() => {
+                        this.retryRequest(err)
+                    }, 200)
                 }
                 return Promise.reject(err)
             }
