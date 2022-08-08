@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts" setup>
-import { usePaging } from '@/hooks/paging'
+import { usePaging } from '@/hooks/usePaging'
 import { dictDataLists } from '@/api/setting/dict'
 import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'
 import { timeFormat } from '@/utils/util'
