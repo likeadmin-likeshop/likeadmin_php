@@ -45,15 +45,7 @@ class ConfigLogic
             'login_image' => FileService::getFileUrl(ConfigService::get('website', 'login_image')),
 
             // 版权信息
-            'copyright_info' => ConfigService::get('copyright', 'info'),
-            // icp备案号
-            'icp_number' => ConfigService::get('copyright', 'icp_number'),
-            // icp备案号链接
-            'icp_link' => ConfigService::get('copyright', 'icp_link'),
-            // 公安备案号
-            'public_number' => ConfigService::get('copyright', 'public_number'),
-            // 公安备案号链接
-            'public_link' => ConfigService::get('copyright', 'public_link'),
+            'copyright_config' => ConfigService::get('copyright', 'config', []),
         ];
         return $config;
     }
