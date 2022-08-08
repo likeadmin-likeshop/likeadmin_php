@@ -19,6 +19,7 @@ use app\common\logic\BaseLogic;
 use app\common\service\ConfigService;
 use app\common\service\FileService;
 
+
 /**
  * 网站设置
  * Class WebSettingLogic
@@ -71,30 +72,29 @@ class WebSettingLogic extends BaseLogic
      */
     public static function getCopyright() : array
     {
-        $config = [
-            'info' => ConfigService::get('copyright', 'info'),
-            'icp_number' => ConfigService::get('copyright', 'icp_number'),
-            'icp_link' => ConfigService::get('copyright', 'icp_link'),
-            'public_number' => ConfigService::get('copyright', 'public_number'),
-            'public_link' => ConfigService::get('copyright', 'public_link'),
-        ];
-        return $config;
+        return ConfigService::get('copyright', 'config', []);
     }
 
 
     /**
-     * @notes 设置版本备案
+     * @notes 设置版权备案
      * @param array $params
+     * @return bool
      * @author 段誉
-     * @date 2021/12/28 16:09
+     * @date 2022/8/8 16:33
      */
     public static function setCopyright(array $params)
     {
-        ConfigService::set('copyright', 'info', $params['info'] ?? '');
-        ConfigService::set('copyright', 'icp_number', $params['icp_number'] ?? '');
-        ConfigService::set('copyright', 'icp_link', $params['icp_link'] ?? '');
-        ConfigService::set('copyright', 'public_number', $params['public_number'] ?? '');
-        ConfigService::set('copyright', 'public_link', $params['public_link'] ?? '');
+        try {
+            if (!is_array($params['config'])) {
+                throw new \Exception('参数异常');
+            }
+            ConfigService::set('copyright', 'config', $params['config'] ?? []);
+            return true;
+        } catch (\Exception $e) {
+            self::$error = $e->getMessage();
+            return false;
+        }
     }
 
 

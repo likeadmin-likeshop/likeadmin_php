@@ -76,7 +76,10 @@ class WebSettingController extends BaseAdminController
     public function setCopyright()
     {
         $params = $this->request->post();
-        WebSettingLogic::setCopyright($params);
+        $result = WebSettingLogic::setCopyright($params);
+        if (false === $result) {
+            return $this->fail(WebSettingLogic::getError() ?: '操作失败');
+        }
         return $this->success('设置成功', [], 1, 1);
     }
 
