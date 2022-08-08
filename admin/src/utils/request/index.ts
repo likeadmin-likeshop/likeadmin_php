@@ -20,7 +20,7 @@ const axiosHooks: AxiosHooks = {
             const token = getToken()
             headers.token = token
         }
-        // POST请求下可以将无data，则将params视为data
+        // POST请求下如果无data，则将params视为data
         if (
             config.method?.toUpperCase() === RequestMethodsEnum.POST &&
             !Reflect.has(config, 'data')
@@ -44,6 +44,7 @@ const axiosHooks: AxiosHooks = {
         if (isReturnDefaultResponse) {
             return response
         }
+        // 是否需要对数据进行处理
         if (!isTransformResponse) {
             return response.data
         }

@@ -6,6 +6,7 @@ import useUserStore from '@/stores/modules/user'
 
 // 匹配views里面所有的.vue文件，动态引入
 const modules = import.meta.glob('/src/views/**/*.vue')
+console.log(modules)
 
 // 过滤路由所需要的数据
 export function filterAsyncRoutes(routes: any[], firstRoute = true) {

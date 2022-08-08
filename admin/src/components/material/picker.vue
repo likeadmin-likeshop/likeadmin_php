@@ -2,7 +2,7 @@
     <div class="material-select">
         <popup
             ref="popupRef"
-            width="950px"
+            width="830px"
             custom-class="body-padding"
             :title="`选择${tipsText}`"
             @confirm="handleConfirm"
@@ -155,7 +155,7 @@ export default defineComponent({
             if (!isAdd.value) {
                 return 1
             }
-            if (!limit.value) return null
+            if (limit.value == -1) return null
             return limit.value - fileList.value.length
         })
         const handleConfirm = () => {
@@ -185,6 +185,7 @@ export default defineComponent({
             const valueImg = limit.value != 1 ? fileList.value : fileList.value[0] || ''
             emit('update:modelValue', valueImg)
             emit('change', valueImg)
+            handleClose()
         }
 
         const deleteImg = (index: number) => {
