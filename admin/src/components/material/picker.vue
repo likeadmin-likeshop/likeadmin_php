@@ -207,7 +207,6 @@ export default defineComponent({
         watch(
             modelValue,
             (val: any[] | string) => {
-                console.log(val)
                 fileList.value = Array.isArray(val) ? val : val == '' ? [] : [val]
             },
             {
