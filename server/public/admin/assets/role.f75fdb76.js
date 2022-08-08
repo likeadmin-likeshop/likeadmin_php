@@ -1,1 +1,0 @@
-import{r as e}from"./index.24e396f7.js";function o(t){return e.get("/auth.role/lists",t)}function s(t){return e.post("/auth.role/add",t)}function u(t){return e.post("/auth.role/edit",t)}function n(t){return e.post("/auth.role/delete",t)}export{u as a,s as b,n as c,o as r};
