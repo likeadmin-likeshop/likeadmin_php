@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar h-full">
+    <aside class="sidebar h-full">
         <el-drawer
             v-model="showMenuDrawer"
             direction="ltr"
@@ -10,7 +10,7 @@
             <side />
         </el-drawer>
         <side v-show="!isMobile" />
-    </div>
+    </aside>
 </template>
 
 <script setup lang="ts">

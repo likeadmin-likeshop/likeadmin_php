@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <header class="header">
         <div class="navbar">
             <div class="flex-1 flex">
                 <div class="navbar-item">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <multiple-tabs />
-    </div>
+    </header>
 </template>
 
 <script setup lang="ts">

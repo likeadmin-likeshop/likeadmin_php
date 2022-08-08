@@ -44,12 +44,14 @@
                 </div>
             </div>
         </div>
+        <layout-footer />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, onMounted, reactive, ref, shallowRef } from 'vue'
 import type { InputInstance, FormInstance } from 'element-plus'
+import LayoutFooter from '@/layout/components/footer.vue'
 import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import cache from '@/utils/cache'
