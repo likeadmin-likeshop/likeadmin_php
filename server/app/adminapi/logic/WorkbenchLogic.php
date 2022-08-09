@@ -119,7 +119,7 @@ class WorkbenchLogic extends BaseLogic
             'based' => 'vue3.x、ElementUI、MySQL',
             'channel' => [
                 'website' => 'https://www.likeadmin.cn',
-                'gitee' => 'https://gitee.com/likeshop_gitee/likeadmin',
+                'gitee' => 'https://gitee.com/likeadmin/likeadmin_php',
             ]
         ];
     }
