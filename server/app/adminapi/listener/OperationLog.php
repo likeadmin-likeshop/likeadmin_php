@@ -53,7 +53,7 @@ class OperationLog
         }
         //过滤密钥参数
         if(isset($params['app_secret'])){
-
+            $params['app_secret'] = "******";
         }
 
         //导出数据操作进行记录
