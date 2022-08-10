@@ -26,6 +26,11 @@ class OperationLog
             return;
         }
 
+        //不记录日志操作
+        if (strtolower(str_replace('.', '\\', $request->controller())) === 'setting\system\log') {
+            return;
+        }
+
         //获取操作注解
         $notes = '';
         try {
@@ -41,9 +46,14 @@ class OperationLog
         }
 
         $params = $request->param();
+
         //过滤密码参数
         if (isset($params['password'])) {
             $params['password'] = "******";
+        }
+        //过滤密钥参数
+        if(isset($params['app_secret'])){
+
         }
 
         //导出数据操作进行记录
