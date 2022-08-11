@@ -101,7 +101,10 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getPermsNameContent()
     {
-        return $this->classDir . '.' . Str::lower($this->getTableName());
+        if (!empty($this->classDir)) {
+            return $this->classDir . '.' . Str::lower($this->getTableName());
+        }
+        return Str::lower($this->getTableName());
     }
 
 
