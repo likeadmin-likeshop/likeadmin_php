@@ -454,9 +454,9 @@ class installModel
         $result = $this->dbh->query($sql)->fetch();
         $result = (array)$result;
 
-        if ($version >= 5.7) {
-            if ((strpos($result['@@global.sql_mode'],'NO_AUTO_CREATE_USER') !==false)
-                && (strpos($result['@@global.sql_mode'],'NO_ENGINE_SUBSTITUTION') !==false)) {
+        if ($version >= 5.7 && $version < 8.0) {
+            if ((strpos($result['@@global.sql_mode'],'NO_AUTO_CREATE_USER') !== false)
+                && (strpos($result['@@global.sql_mode'],'NO_ENGINE_SUBSTITUTION') !== false)) {
                 return true;
             }
             return false;
