@@ -53,7 +53,7 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
             $this->getMenuTableNameContent(),
             $this->getMenuPidContent(),
             $this->getListsNameContent(),
-            $this->getLowerTableName(),
+            $this->getPermsNameContent(),
             $this->getLowerTableName(),
             $this->getLowerTableName(),
             time(),
@@ -90,6 +90,18 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
     public function getMenuPidContent()
     {
         return $this->tableData['menu']['pid'] ?? 0;
+    }
+
+
+    /**
+     * @notes 路由权限内容
+     * @return string
+     * @author 段誉
+     * @date 2022/8/11 17:18
+     */
+    public function getPermsNameContent()
+    {
+        return $this->classDir . '.' . Str::lower($this->getTableName());
     }
 
 
