@@ -70,11 +70,6 @@ class AdminLogic extends BaseLogic
     {
         Db::startTrans();
         try {
-            // admin账号不允许被禁用
-            if ($params['account'] == 'admin' && $params['disable'] == YesNoEnum::YES) {
-                throw new \Exception("超级管理员不允许被禁用");
-            }
-
             // 基础信息
             $data = [
                 'id' => $params['id'],
