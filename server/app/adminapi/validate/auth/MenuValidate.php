@@ -134,6 +134,9 @@ class MenuValidate extends BaseValidate
      */
     protected function checkUniqueName($value, $rule, $data)
     {
+        if ($data['type'] != 'M') {
+            return true;
+        }
         $where[] = ['type', '=', $data['type']];
         $where[] = ['name', '=', $data['name']];
 
