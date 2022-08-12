@@ -9,5 +9,3 @@ declare module 'vue-router' {
         hideTab?: boolean
     }
 }
-
-declare module 'vue3-video-play'

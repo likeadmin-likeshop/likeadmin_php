@@ -6,7 +6,7 @@
                     <template #icon>
                         <icon name="el-icon-Plus" />
                     </template>
-                    新增角色
+                    新增
                 </el-button>
             </div>
             <div class="mt-4" v-loading="pager.loading">

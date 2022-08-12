@@ -62,6 +62,7 @@ const popupTitle = computed(() => {
 })
 const { query } = useRoute()
 const formData = reactive({
+    id: '',
     type_value: '',
     name: '',
     value: '',

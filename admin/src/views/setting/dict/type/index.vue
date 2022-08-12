@@ -31,7 +31,7 @@
                     <template #icon>
                         <icon name="el-icon-Plus" />
                     </template>
-                    新增字典类型
+                    新增
                 </el-button>
                 <el-button
                     v-perms="['setting.dict.dict_type/delete']"

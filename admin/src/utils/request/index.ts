@@ -2,16 +2,19 @@ import { merge } from 'lodash'
 import configs from '@/config'
 import { Axios } from './axios'
 import { ContentTypeEnum, RequestCodeEnum, RequestMethodsEnum } from '@/enums/requestEnums'
-import type { AxiosConfig, AxiosHooks } from './type'
-import { getToken } from '../auth'
+import type { AxiosHooks } from './type'
+import { clearAuthInfo, getToken } from '../auth'
 import feedback from '../feedback'
-import useUserStore from '@/stores/modules/user'
 import NProgress from 'nprogress'
+import { AxiosError, type AxiosRequestConfig } from 'axios'
+import router from '@/router'
+import { PageEnum } from '@/enums/pageEnum'
+
 // 处理axios的钩子函数
 const axiosHooks: AxiosHooks = {
     requestInterceptorsHook(config) {
         NProgress.start()
-        const { withToken } = (config as AxiosConfig).requestOptions
+        const { withToken, isParamsToData } = config.requestOptions
         const params = config.params || {}
         const headers = config.headers || {}
 
@@ -22,8 +25,9 @@ const axiosHooks: AxiosHooks = {
         }
         // POST请求下如果无data，则将params视为data
         if (
-            config.method?.toUpperCase() === RequestMethodsEnum.POST &&
-            !Reflect.has(config, 'data')
+            isParamsToData &&
+            !Reflect.has(config, 'data') &&
+            config.method?.toUpperCase() === RequestMethodsEnum.POST
         ) {
             config.data = params
             config.params = {}
@@ -32,13 +36,12 @@ const axiosHooks: AxiosHooks = {
         return config
     },
     requestInterceptorsCatchHook(err) {
+        NProgress.done()
         return err
     },
-    responseInterceptorsHook(response) {
+    async responseInterceptorsHook(response) {
         NProgress.done()
-        const userStore = useUserStore()
-        const { isTransformResponse, isReturnDefaultResponse } = (response.config as AxiosConfig)
-            .requestOptions
+        const { isTransformResponse, isReturnDefaultResponse } = response.config.requestOptions
 
         //返回默认响应，当需要获取响应头及其他数据时可使用
         if (isReturnDefaultResponse) {
@@ -61,7 +64,8 @@ const axiosHooks: AxiosHooks = {
                 }
                 return Promise.reject(data)
             case RequestCodeEnum.LOGIN_FAILURE:
-                userStore.logout()
+                clearAuthInfo()
+                router.push(PageEnum.LOGIN)
                 return Promise.reject()
             case RequestCodeEnum.OPEN_NEW_PAGE:
                 window.location.href = data.url
@@ -72,13 +76,15 @@ const axiosHooks: AxiosHooks = {
     },
     responseInterceptorsCatchHook(error) {
         NProgress.done()
-        error.message && feedback.msgError(error.message)
+        if (error.code !== AxiosError.ERR_CANCELED) {
+            error.message && feedback.msgError(error.message)
+        }
         return Promise.reject(error)
     }
 }
 
-const defaultOptions: AxiosConfig = {
-    timeout: 10 * 1000,
+const defaultOptions: AxiosRequestConfig = {
+    timeout: configs.timeout,
     // 基础接口地址
     baseURL: configs.baseUrl,
     headers: { 'Content-Type': ContentTypeEnum.JSON, version: configs.version },
@@ -87,6 +93,8 @@ const defaultOptions: AxiosConfig = {
     axiosHooks: axiosHooks,
     // 每个接口可以单独配置
     requestOptions: {
+        // 是否将params视为data参数，仅限post请求
+        isParamsToData: true,
         //是否返回默认的响应
         isReturnDefaultResponse: false,
         // 需要对返回数据进行处理
@@ -97,14 +105,14 @@ const defaultOptions: AxiosConfig = {
         ignoreCancelToken: false,
         // 是否携带token
         withToken: true,
-        // 开启重新请求机制
+        // 开启请求超时重新发起请求请求机制
         isOpenRetry: true,
         // 重新请求次数
         retryCount: 2
     }
 }
 
-function createAxios(opt?: Partial<AxiosConfig>) {
+function createAxios(opt?: Partial<AxiosRequestConfig>) {
     return new Axios(
         // 深度合并
         merge(defaultOptions, opt || {})

@@ -51,7 +51,7 @@
                         placeholder="请选择上级部门"
                     />
                 </el-form-item>
-                <el-form-item label="归属部门" prop="dept_id">
+                <el-form-item label="岗位" prop="jobs_id">
                     <el-select class="flex-1" v-model="formData.jobs_id" placeholder="请选择岗位">
                         <el-option
                             v-for="(item, index) in options.jobs"

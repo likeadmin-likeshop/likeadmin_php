@@ -30,7 +30,7 @@
                 <template #icon>
                     <icon name="el-icon-Plus" />
                 </template>
-                新增管理员
+                新增
             </el-button>
             <div class="mt-4">
                 <el-table :data="pager.lists" size="large">
@@ -70,6 +70,7 @@
                     <el-table-column label="状态" min-width="100" v-perms="['auth.admin/edit']">
                         <template #default="{ row }">
                             <el-switch
+                                v-if="row.root != 1"
                                 v-model="row.disable"
                                 :active-value="0"
                                 :inactive-value="1"

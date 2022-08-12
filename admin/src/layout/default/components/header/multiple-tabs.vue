@@ -1,5 +1,5 @@
 <template>
-    <div class="app-tabs pl-4 flex">
+    <div class="multiple-tabs pl-4 flex bg-body">
         <div class="flex-1 min-w-0">
             <el-tabs
                 :model-value="currentTab"
@@ -67,7 +67,7 @@ const handleCommand = (command: any) => {
 }
 </script>
 <style lang="scss" scoped>
-.app-tabs {
+.multiple-tabs {
     @apply border-t border-br;
     :deep(.el-tabs) {
         height: 40px;

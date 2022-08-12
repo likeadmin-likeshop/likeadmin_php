@@ -45,7 +45,7 @@
                             </div>
                         </el-form-item>
                     </el-tab-pane>
-                    <el-tab-pane label="字段管理" name="field">
+                    <el-tab-pane label="字段管理" name="column">
                         <el-table :data="formData.table_column">
                             <el-table-column label="字段列名" prop="column_name" />
                             <el-table-column label="字段描述" prop="column_comment" min-width="120">
@@ -146,6 +146,7 @@
                                             :key="index"
                                             :label="item.name"
                                             :value="item.type"
+                                            :disabled="!item.status"
                                         />
                                     </el-select>
                                 </template>
@@ -255,7 +256,7 @@ import feedback from '@/utils/feedback'
 import { menuLists } from '@/api/perms/menu'
 const route = useRoute()
 const router = useRouter()
-const activeName = ref('base')
+const activeName = ref('column')
 const formData = reactive({
     id: '',
     table_name: '',
