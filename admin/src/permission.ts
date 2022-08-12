@@ -37,14 +37,14 @@ router.beforeEach(async (to, from, next) => {
             try {
                 await userStore.getUserInfo()
                 const routes = userStore.routes
-                // 没有菜单跳转到403页面
-                if (!routes.length) {
+                // 找到第一个有效路由
+                const routeName = findFirstValidRoute(routes)
+                // 没有有效路由跳转到403页面
+                if (!routeName) {
                     await userStore.logout()
                     next(PageEnum.ERROR_403)
                     return
                 }
-                // 找到第一个有效路由
-                const routeName = findFirstValidRoute(routes)
                 tabsStore.setRouteName(routeName!)
                 INDEX_ROUTE.redirect = { name: routeName }
 

@@ -79,6 +79,9 @@ const queryStr = computed<string>(() => {
 .el-sub-menu__title {
     .menu-item-icon {
         margin-right: 8px;
+        width: var(--el-menu-icon-width);
+        text-align: center;
+        vertical-align: middle;
     }
 }
 </style>
