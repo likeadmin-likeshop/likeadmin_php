@@ -48,7 +48,7 @@ return [
         'menu_file' => 'resource/image/adminapi/default/menu_file.png',// 首页快捷菜单-素材中心
     ],
 
-    // 上唇文件限制
+    // 上传文件限制
     'allow_upload' => [
         'jpg', 'png', 'gif', 'jpeg', 'ico', 'bmp',
         'wmv','avi','mpg','mpeg','3gp','mov','mp4',
