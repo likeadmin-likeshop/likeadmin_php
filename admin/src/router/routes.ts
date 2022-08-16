@@ -17,7 +17,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { PageEnum } from '@/enums/pageEnum'
 import Layout from '@/layout/default/index.vue'
 
-export const LAYOUT = Layout
+export const LAYOUT = () => Promise.resolve(Layout)
 
 export const INDEX_ROUTE_NAME = Symbol()
 
