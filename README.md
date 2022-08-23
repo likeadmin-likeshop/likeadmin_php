@@ -37,5 +37,5 @@
 ![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=194ab31919cd4dd619e6c453d7a44304)<br>
 ![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=f6770e2a8069d7b6ea3d83b91204b9d6)<br>
 <br>
-### 🪐快发文档
+### 🪐开发文档
 [点击这里进入开发文档。](https://doc.likeadmin.cn/php "点击这里进入更多更详细文档。")
