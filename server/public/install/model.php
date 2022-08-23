@@ -323,11 +323,11 @@ class installModel
         $version = $this->getMysqlVersion();
 
         /* check mysql sql_model */
-        if(!$this->checkSqlMode($version)) {
-            $return->result = 'fail';
-            $return->error = '请在mysql配置文件修改sql-mode添加NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
-            return $return;
-        }
+//        if(!$this->checkSqlMode($version)) {
+//            $return->result = 'fail';
+//            $return->error = '请在mysql配置文件修改sql-mode添加NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+//            return $return;
+//        }
 
         /* If database no exits, try create it. */
         if ( !$this->dbExists()) {
