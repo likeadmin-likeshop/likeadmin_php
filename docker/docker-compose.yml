@@ -1,0 +1,80 @@
+version: '3'
+
+networks:
+  likeadmin:
+    driver: bridge
+
+services:
+
+  nginx:
+    container_name: likeadmin-nginx
+    image: nginx:1.23.1
+    restart: always
+    depends_on:
+      - "php"
+    volumes:
+      - ../server:/likeadmin_php/server
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - ./log/nginx/logs:/logs
+    networks:
+      - likeadmin
+    ports:
+      - "80:80"
+
+
+
+
+  php:
+    container_name: likeadmin-php
+    image: likeshop/php:8.0.22-fpm
+    restart: always
+    working_dir: /likeadmin_php/server
+    volumes:
+      - ../server:/likeadmin_php/server
+    networks:
+      - likeadmin
+    ports:
+      - "9000:9000"
+    #user: "1000:1000"
+
+
+
+  mysql:
+    container_name: likeadmin-mysql
+    image: mysql:5.7.29 #X86架构
+    #image: amd64/mysql:5.7.29 #arm架构
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./data/mysql5.7.29/lib:/var/lib/mysql
+      - ./config/mysql/mysqld.cnf:/etc/mysql/my.cnf
+    networks:
+      - likeadmin
+    ports:
+      - "3306:3306"
+
+
+  redis:
+    container_name: likeadmin-redis
+    image: redis:7.0.4
+    restart: always
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - likeadmin
+    ports:
+      - "6379:6379"
+
+  node:
+    container_name: likeadmin-node
+    image: node:14.18.1
+    restart: always
+    volumes:
+      - ../admin:/likeadmin_php/admin
+    networks:
+      - likeadmin
+    tty: true
+    working_dir: /likeadmin_php/admin
+    ports:
+      - "5173:5173"
