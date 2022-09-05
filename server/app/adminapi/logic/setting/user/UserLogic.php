@@ -13,7 +13,7 @@
 // +----------------------------------------------------------------------
 namespace app\adminapi\logic\setting\user;
 
-use app\common\{service\ConfigService, service\FileService};
+use app\common\service\{ConfigService, FileService};
 
 /**
  * 设置-用户设置逻辑层
@@ -63,28 +63,21 @@ class UserLogic
     public function getRegisterConfig(): array
     {
         $config = [
-            //注册方式
-            'register_way' => ConfigService::get('config', 'register_way', config('project.login.register_way')),
-            //登录方式
+            // 登录方式
             'login_way' => ConfigService::get('config', 'login_way', config('project.login.login_way')),
-            //手机号码注册需验证码
-            'is_mobile_register_code' => ConfigService::get('config', 'is_mobile_register_code', config('project.login.is_mobile_register_code')),
-            //注册强制绑定手机
+            // 注册强制绑定手机
             'coerce_mobile' => ConfigService::get('config', 'coerce_mobile', config('project.login.coerce_mobile')),
-            //公众号微信授权登录
-            'h5_wechat_auth' => ConfigService::get('config', 'h5_wechat_auth', config('project.login.h5_wechat_auth')),
-            //公众号自动微信授权登录
-            'h5_auto_wechat_auth' => ConfigService::get('config', 'h5_auto_wechat_auth', config('project.login.h5_auto_wechat_auth')),
-            //小程序微信授权登录
-            'mnp_wechat_auth' => ConfigService::get('config', 'mnp_wechat_auth', config('project.login.mnp_wechat_auth')),
-            //小程序自动微信授权登录
-            'mnp_auto_wechat_auth' => ConfigService::get('config', 'mnp_auto_wechat_auth', config('project.login.mnp_auto_wechat_auth')),
-            //APP微信授权登录
-            'app_wechat_auth' => ConfigService::get('config', 'app_wechat_auth', config('project.login.app_wechat_auth')),
+            // 政策协议
+            'login_agreement' => ConfigService::get('config', 'login_agreement', config('project.login.login_agreement')),
+            // 第三方登录 开关
+            'third_auth' => ConfigService::get('config', 'third_auth', config('project.login.third_auth')),
+            // 微信授权登录
+            'wechat_auth' => ConfigService::get('config', 'wechat_auth', config('project.login.wechat_auth')),
+            // qq授权登录
+            'qq_auth' => ConfigService::get('config', 'wechat_auth', config('project.login.qq_auth')),
         ];
         return $config;
     }
-
 
 
     /**
@@ -96,24 +89,18 @@ class UserLogic
      */
     public static function setRegisterConfig(array $params): bool
     {
-        //注册方式:1-手机号注册
-        ConfigService::set('config', 'register_way', $params['register_way']);
-        //登录方式：1-账号密码登录；2-手机短信验证码登录
+        // 登录方式：1-账号密码登录；2-手机短信验证码登录
         ConfigService::set('config', 'login_way', $params['login_way']);
-        //手机号码注册需验证码
-        ConfigService::set('config', 'is_mobile_register_code', $params['is_mobile_register_code']);
-        //注册强制绑定手机
+        // 注册强制绑定手机
         ConfigService::set('config', 'coerce_mobile', $params['coerce_mobile']);
-        //公众号微信授权登录
-        ConfigService::set('config', 'h5_wechat_auth', $params['h5_wechat_auth']);
-        //公众号自动微信授权登录
-        ConfigService::set('config', 'h5_auto_wechat_auth', $params['h5_auto_wechat_auth']);
-        //小程序微信授权登录
-        ConfigService::set('config', 'mnp_wechat_auth', $params['mnp_wechat_auth']);
-        //小程序自动微信授权登录
-        ConfigService::set('config', 'mnp_auto_wechat_auth', $params['mnp_auto_wechat_auth']);
-        //APP微信授权登录
-        ConfigService::set('config', 'app_wechat_auth', $params['app_wechat_auth']);
+        // 政策协议
+        ConfigService::set('config', 'login_agreement', $params['login_agreement']);
+        // 第三方授权登录
+        ConfigService::set('config', 'third_auth', $params['third_auth']);
+        // 微信授权登录
+        ConfigService::set('config', 'wechat_auth', $params['wechat_auth']);
+        // qq登录
+        ConfigService::set('config', 'qq_auth', $params['qq_auth']);
         return true;
     }
 
