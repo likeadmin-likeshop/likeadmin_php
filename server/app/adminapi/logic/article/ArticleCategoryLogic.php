@@ -54,7 +54,7 @@ class ArticleCategoryLogic extends BaseLogic
         ArticleCategory::create([
             'name' => $params['name'],
             'is_show' => $params['is_show'],
-            'sort' => $params['sort']
+            'sort' => $params['sort'] ?? 0
         ]);
     }
 
@@ -73,7 +73,7 @@ class ArticleCategoryLogic extends BaseLogic
                 'id' => $params['id'],
                 'name' => $params['name'],
                 'is_show' => $params['is_show'],
-                'sort' => $params['sort']
+                'sort' => $params['sort'] ?? 0
             ]);
             return true;
         } catch (\Exception $e) {
