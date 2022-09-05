@@ -20,7 +20,7 @@ use app\common\validate\BaseValidate;
  * Class HFiveSettingValidate
  * @package app\adminapi\validate\settings\h5
  */
-class H5SettingValidate extends BaseValidate
+class WebPageSettingValidate extends BaseValidate
 {
     protected $rule = [
         'status' => 'require|in:0,1'

@@ -21,7 +21,7 @@ use app\common\service\ConfigService;
  * Class HFiveSettingLogic
  * @package app\adminapi\logic\settings\h5
  */
-class H5SettingLogic extends BaseLogic
+class WebPageSettingLogic extends BaseLogic
 {
     /**
      * @notes 获取H5设置
@@ -32,7 +32,12 @@ class H5SettingLogic extends BaseLogic
     public static function getConfig()
     {
         $config = [
-            'status' => ConfigService::get('h5', 'status'),
+            // 渠道状态 0-关闭 1-开启
+            'status' => ConfigService::get('web_page', 'status', 1),
+            // 关闭后渠道后访问页面 0-空页面 1-自定义链接
+            'page_status' => ConfigService::get('web_page', 'page_status', 0),
+            // 自定义链接
+            'page_url' => ConfigService::get('web_page', 'page_url', ''),
             'url' => request()->domain() . '/mobile'
         ];
         return $config;
@@ -47,6 +52,8 @@ class H5SettingLogic extends BaseLogic
      */
     public static function setConfig($params)
     {
-        ConfigService::set('h5', 'status', $params['status']);
+        ConfigService::set('web_page', 'status', $params['status']);
+        ConfigService::set('web_page', 'page_status', $params['page_status']);
+        ConfigService::set('web_page', 'page_url', $params['page_url']);
     }
 }

@@ -15,15 +15,15 @@
 namespace app\adminapi\controller\channel;
 
 use app\adminapi\controller\BaseAdminController;
-use app\adminapi\logic\channel\H5SettingLogic;
-use app\adminapi\validate\channel\H5SettingValidate;
+use app\adminapi\logic\channel\WebPageSettingLogic;
+use app\adminapi\validate\channel\WebPageSettingValidate;
 
 /**
  * H5设置控制器
  * Class HFiveSettingController
  * @package app\adminapi\controller\settings\h5
  */
-class H5SettingController extends BaseAdminController
+class WebPageSettingController extends BaseAdminController
 {
 
     /**
@@ -34,7 +34,7 @@ class H5SettingController extends BaseAdminController
      */
     public function getConfig()
     {
-        $result = H5SettingLogic::getConfig();
+        $result = WebPageSettingLogic::getConfig();
         return $this->data($result);
     }
 
@@ -47,8 +47,8 @@ class H5SettingController extends BaseAdminController
      */
     public function setConfig()
     {
-        $params = (new H5SettingValidate())->post()->goCheck();
-        H5SettingLogic::setConfig($params);
+        $params = (new WebPageSettingValidate())->post()->goCheck();
+        WebPageSettingLogic::setConfig($params);
         return $this->success('操作成功', [], 1, 1);
     }
 }
