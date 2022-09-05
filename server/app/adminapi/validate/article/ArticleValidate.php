@@ -27,17 +27,17 @@ class ArticleValidate extends BaseValidate
     protected $rule = [
         'id' => 'require|checkArticle',
         'title' => 'require|length:1,255',
-        'image' => 'require',
+//        'image' => 'require',
         'cid' => 'require',
         'is_show' => 'require|in:0,1',
     ];
 
     protected $message = [
         'id.require' => '资讯id不能为空',
-        'title.require' => '资讯不能为空',
-        'title.length' => '资讯长度须在1-255位字符',
-        'image.require' => '封面图必须存在',
-        'cid.require' => '所属分类必须存在',
+        'title.require' => '标题不能为空',
+        'title.length' => '标题长度须在1-255位字符',
+//        'image.require' => '封面图必须存在',
+        'cid.require' => '所属栏目必须存在',
     ];
 
     /**
