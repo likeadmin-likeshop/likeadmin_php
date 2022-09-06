@@ -1,6 +1,6 @@
 <!-- 个人资料 -->
 <template>
-    <div class="user-setting">
+    <div class="user-setting ">
         <el-card class="!border-none" shadow="never">
             <el-form
                 ref="formRef"
@@ -59,7 +59,7 @@
                 </el-form-item>
             </el-form>
         </el-card>
-        <footer-btns v-perms="['setting.web.web_setting/setAgreement']">
+        <footer-btns>
             <el-button type="primary" @click="handleSubmit">保存</el-button>
         </footer-btns>
     </div>

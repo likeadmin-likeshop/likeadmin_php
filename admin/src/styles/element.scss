@@ -96,6 +96,7 @@
             font-size: var(--el-font-size-small);
         }
     }
+   
     .el-button--primary {
         --el-button-hover-link-text-color: var(--el-color-primary-light-3);
     }
@@ -119,4 +120,9 @@
     .el-pagination > .el-pagination__sizes {
         display: none !important;
     }
+}
+
+// 防止被tailwindcss默认样式覆盖
+.el-button {
+    background-color: var(--el-button-bg-color, var(--el-color-white));
 }

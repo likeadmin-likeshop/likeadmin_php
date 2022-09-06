@@ -22,7 +22,7 @@
             :close-on-click-modal="false"
             width="500px"
             :modal="false"
-            :before-close="handleClose"
+            @close="handleClose"
         >
             <div class="file-list p-4">
                 <template v-for="(item, index) in fileList" :key="index">
@@ -95,6 +95,8 @@ export default defineComponent({
             if (allSuccess) {
                 uploadRefs.value?.clearFiles()
                 visible.value = false
+
+            console.log(fileLists)
             }
             emit('change')
             if (response.code == 0 && response.show && response.msg) {
@@ -113,6 +115,7 @@ export default defineComponent({
         }
         const handleClose = () => {
             uploadRefs.value?.clearFiles()
+            console.log(uploadRefs.value)
             visible.value = false
         }
         return {

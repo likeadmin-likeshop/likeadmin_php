@@ -84,11 +84,12 @@ const axiosHooks: AxiosHooks = {
 }
 
 const defaultOptions: AxiosRequestConfig = {
+    //接口超时时间
     timeout: configs.timeout,
     // 基础接口地址
     baseURL: configs.baseUrl,
+    //请求头
     headers: { 'Content-Type': ContentTypeEnum.JSON, version: configs.version },
-
     // 处理 axios的钩子函数
     axiosHooks: axiosHooks,
     // 每个接口可以单独配置
