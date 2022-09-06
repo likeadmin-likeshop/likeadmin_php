@@ -53,6 +53,7 @@ class NoticeSettingLists extends BaseAdminDataLists implements ListsSearchInterf
             ->append(['sms_status_desc','type_desc'])
             ->where($this->searchWhere)
             ->select()
+            ->hidden(['sms_notice'])
             ->toArray();
 
         return $lists;
