@@ -11,41 +11,26 @@
 // +----------------------------------------------------------------------
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
-
 namespace app\common\model\decorate;
 
 
 use app\common\model\BaseModel;
-use app\common\service\FileService;
+use think\model\concern\SoftDelete;
 
-class Navigation extends BaseModel
+
+/**
+ * 装修配置模型
+ * Class DecorateThemeConfig
+ * @package app\common\model\decorate
+ */
+class DecorateConfig extends BaseModel
 {
-    protected $name = 'dev_navigation';
+    use SoftDelete;
+
+    protected $deleteTime = 'delete_time';
+    //json转数组
+    protected $json = ['content'];
+    protected $jsonAssoc = true;
 
 
-    /**
-     * @notes 选中图标
-     * @param $value
-     * @param $data
-     * @return string
-     * @author ljj
-     * @date 2022/2/23 10:26 上午
-     */
-    public function getSelectedIconAttr($value,$data)
-    {
-        return $value ? FileService::getFileUrl($value) : '';
-    }
-
-    /**
-     * @notes 未选中图标
-     * @param $value
-     * @param $data
-     * @return string
-     * @author ljj
-     * @date 2022/2/23 10:26 上午
-     */
-    public function getUnSelectedIconAttr($value,$data)
-    {
-        return $value ? FileService::getFileUrl($value) : '';
-    }
 }
