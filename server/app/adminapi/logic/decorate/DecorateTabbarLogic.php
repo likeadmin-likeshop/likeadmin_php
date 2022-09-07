@@ -53,20 +53,18 @@ class DecorateTabbarLogic extends BaseLogic
      */
     public static function save($params): bool
     {
-        $model = new DecorateTabbar();
-        // 删除旧配置数据
-        $model->where('id', '>', 0)->delete();
-
-        // 保存数据
-        $tabbars = $params['list'] ?? [];
-
-        dd($tabbars);
-        $model->saveAll($tabbars);
-
-        if (!empty($params['style'])) {
-            ConfigService::set('tabbar', 'style', $params['style']);
-        }
-        return true;
+        // TODO
+//        $model = new DecorateTabbar();
+//        // 删除旧配置数据
+//        $model->where('id', '>', 0)->delete();
+//
+//        // 保存数据
+//        $tabbars = $params['list'] ?? [];
+//        $model->saveAll($tabbars);
+//        if (!empty($params['style'])) {
+//            ConfigService::set('tabbar', 'style', $params['style']);
+//        }
+//        return true;
     }
 
 }

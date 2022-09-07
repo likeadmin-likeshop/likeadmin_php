@@ -28,7 +28,6 @@ class UserTerminalEnum
     const PC         = 4;//电脑PC
     const IOS        = 5;//苹果app
     const ANDROID    = 6;//安卓app
-    const TOUTIAO    = 7;//字节小程序(头条)
 
 
     const ALL_TERMINAL = [
@@ -38,7 +37,6 @@ class UserTerminalEnum
         self::PC,
         self::IOS,
         self::ANDROID,
-        self::TOUTIAO,
     ];
 
     /**
@@ -57,7 +55,6 @@ class UserTerminalEnum
             self::PC            => '电脑PC',
             self::IOS           => '苹果APP',
             self::ANDROID       => '安卓APP',
-            self::TOUTIAO       => '字节小程序',
         ];
         if(true === $from){
             return $desc;

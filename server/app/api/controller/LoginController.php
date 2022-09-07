@@ -64,7 +64,7 @@ class LoginController extends BaseApiController
     {
         $params = (new LoginValidate())->post()->goCheck('account');
         $result = (new LoginLogic())->login($params);
-        if ($result === false) {
+        if (false === $result) {
             return $this->fail(LoginLogic::getError());
         }
         return $this->data($result);
@@ -146,14 +146,12 @@ class LoginController extends BaseApiController
      */
     public function silentLogin()
     {
-
         $params = (new WechatLoginValidate())->post()->goCheck('silent');
         $res = (new LoginLogic)->silentLogin($params);
         if (false === $res) {
             return $this->fail(LoginLogic::getError());
         }
         return $this->success('', $res);
-
     }
 
 
@@ -167,23 +165,6 @@ class LoginController extends BaseApiController
     {
         $params = (new WechatLoginValidate())->post()->goCheck('auth');
         $res = (new LoginLogic)->authLogin($params);
-        if (false === $res) {
-            return $this->fail(LoginLogic::getError());
-        }
-        return $this->success('', $res);
-    }
-
-
-    /**
-     * @notes uniApp微信登录
-     * @return \think\response\Json
-     * @author cjhao
-     * @date 2021/9/2 11:52
-     */
-    public function uninAppLogin()
-    {
-        $params = (new WechatLoginValidate())->post()->goCheck('uninapp');
-        $res = (new LoginLogic)->uninAppLogin($params);
         if (false === $res) {
             return $this->fail(LoginLogic::getError());
         }
