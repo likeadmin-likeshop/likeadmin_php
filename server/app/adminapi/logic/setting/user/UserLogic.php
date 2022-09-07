@@ -34,7 +34,7 @@ class UserLogic
         $defaultAvatar = FileService::getFileUrl(config('project.default_image.user_avatar'));
         $config = [
             //默认头像
-            'default_avatar' => ConfigService::get('config', 'default_avatar', $defaultAvatar),
+            'default_avatar' => ConfigService::get('default_image', 'user_avatar', $defaultAvatar),
         ];
         return $config;
     }
@@ -49,7 +49,7 @@ class UserLogic
      */
     public function setConfig(array $params): bool
     {
-        ConfigService::set('config', 'default_avatar', $params['default_avatar']);
+        ConfigService::set('default_image', 'user_avatar', $params['default_avatar']);
         return true;
     }
 
@@ -64,17 +64,17 @@ class UserLogic
     {
         $config = [
             // 登录方式
-            'login_way' => ConfigService::get('config', 'login_way', config('project.login.login_way')),
+            'login_way' => ConfigService::get('login', 'login_way', config('project.login.login_way')),
             // 注册强制绑定手机
-            'coerce_mobile' => ConfigService::get('config', 'coerce_mobile', config('project.login.coerce_mobile')),
+            'coerce_mobile' => ConfigService::get('login', 'coerce_mobile', config('project.login.coerce_mobile')),
             // 政策协议
-            'login_agreement' => ConfigService::get('config', 'login_agreement', config('project.login.login_agreement')),
+            'login_agreement' => ConfigService::get('login', 'login_agreement', config('project.login.login_agreement')),
             // 第三方登录 开关
-            'third_auth' => ConfigService::get('config', 'third_auth', config('project.login.third_auth')),
+            'third_auth' => ConfigService::get('login', 'third_auth', config('project.login.third_auth')),
             // 微信授权登录
-            'wechat_auth' => ConfigService::get('config', 'wechat_auth', config('project.login.wechat_auth')),
+            'wechat_auth' => ConfigService::get('login', 'wechat_auth', config('project.login.wechat_auth')),
             // qq授权登录
-            'qq_auth' => ConfigService::get('config', 'wechat_auth', config('project.login.qq_auth')),
+            'qq_auth' => ConfigService::get('login', 'qq_auth', config('project.login.qq_auth')),
         ];
         return $config;
     }
@@ -90,17 +90,17 @@ class UserLogic
     public static function setRegisterConfig(array $params): bool
     {
         // 登录方式：1-账号密码登录；2-手机短信验证码登录
-        ConfigService::set('config', 'login_way', $params['login_way']);
+        ConfigService::set('login', 'login_way', $params['login_way']);
         // 注册强制绑定手机
-        ConfigService::set('config', 'coerce_mobile', $params['coerce_mobile']);
+        ConfigService::set('login', 'coerce_mobile', $params['coerce_mobile']);
         // 政策协议
-        ConfigService::set('config', 'login_agreement', $params['login_agreement']);
+        ConfigService::set('login', 'login_agreement', $params['login_agreement']);
         // 第三方授权登录
-        ConfigService::set('config', 'third_auth', $params['third_auth']);
+        ConfigService::set('login', 'third_auth', $params['third_auth']);
         // 微信授权登录
-        ConfigService::set('config', 'wechat_auth', $params['wechat_auth']);
+        ConfigService::set('login', 'wechat_auth', $params['wechat_auth']);
         // qq登录
-        ConfigService::set('config', 'qq_auth', $params['qq_auth']);
+        ConfigService::set('login', 'qq_auth', $params['qq_auth']);
         return true;
     }
 
