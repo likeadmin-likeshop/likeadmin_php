@@ -14,47 +14,58 @@
 namespace app\adminapi\logic\decorate;
 
 use app\common\logic\BaseLogic;
-use app\common\model\decorate\DecorateConfig;
+use app\common\model\decorate\DecorateTabbar;
+use app\common\service\ConfigService;
 
 
 /**
- * 装修配置
- * Class DecorateConfigLogic
- * @package app\adminapi\logic\theme
+ * 装修配置-底部导航
+ * Class DecorateTabbarLogic
+ * @package app\adminapi\logic\decorate
  */
-class DecorateConfigLogic extends BaseLogic
+class DecorateTabbarLogic extends BaseLogic
 {
 
     /**
-     * @notes 获取装修配置
-     * @param $type
+     * @notes 获取底部导航详情
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      * @author 段誉
-     * @date 2022/9/6 9:56
+     * @date 2022/9/7 16:58
      */
-    public static function getContent($type): array
+    public static function detail(): array
     {
-        $decorate = DecorateConfig::where(['type' => $type])->field('id,content')->find()->toArray();
-        return $decorate['content'] ?? [];
+        $list = DecorateTabbar::select()->toArray();
+        $style = ConfigService::get('tabbar', 'style', '{}');
+        return ['style' => $style, 'list' => $list];
     }
 
 
     /**
-     * @notes 设置装修配置
-     * @param array $params
+     * @notes 底部导航保存
+     * @param $params
      * @return bool
+     * @throws \Exception
      * @author 段誉
-     * @date 2022/9/6 9:55
+     * @date 2022/9/7 17:19
      */
-    public static function setContent(array $params): bool
+    public static function save($params): bool
     {
-        $decorate = DecorateConfig::where(['type' => $params['type']])->findOrEmpty();
-        $decorate->type = $params['type'];
-        $decorate->content = $params['content'];
-        $decorate->save();
+        $model = new DecorateTabbar();
+        // 删除旧配置数据
+        $model->where('id', '>', 0)->delete();
+
+        // 保存数据
+        $tabbars = $params['list'] ?? [];
+
+        dd($tabbars);
+        $model->saveAll($tabbars);
+
+        if (!empty($params['style'])) {
+            ConfigService::set('tabbar', 'style', $params['style']);
+        }
         return true;
     }
 

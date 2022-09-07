@@ -11,34 +11,18 @@
 // +----------------------------------------------------------------------
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
-namespace app\adminapi\controller\decorate;
+namespace app\common\model\decorate;
 
 
-use app\adminapi\controller\BaseAdminController;
-use app\adminapi\logic\decorate\DecoratePageLogic;
+use app\common\model\BaseModel;
 
 
 /**
- * 装修页面
- * Class DecoratePageController
- * @package app\adminapi\controller\decorate
+ * 装修配置-底部导航
+ * Class DecorateTabbar
+ * @package app\common\model\decorate
  */
-class DecoratePageController extends BaseAdminController
+class DecorateTabbar extends BaseModel
 {
-
-
-    /**
-     * @notes 获取页面链接信息
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/9/6 14:30
-     */
-    public function getPageLink()
-    {
-        $type = $this->request->get('type', 'shop');
-        $page = DecoratePageLogic::getPageLink($type);
-        return $this->success('操作成功', $page);
-    }
-
 
 }

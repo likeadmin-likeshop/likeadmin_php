@@ -15,22 +15,14 @@ namespace app\common\model\decorate;
 
 
 use app\common\model\BaseModel;
-use think\model\concern\SoftDelete;
 
 
 /**
- * 装修配置模型
- * Class DecorateThemeConfig
+ * 装修配置-页面
+ * Class DecorateTabbar
  * @package app\common\model\decorate
  */
-class DecorateConfig extends BaseModel
+class DecoratePage extends BaseModel
 {
-    use SoftDelete;
-
-    protected $deleteTime = 'delete_time';
-    //json转数组
-    protected $json = ['content'];
-    protected $jsonAssoc = true;
-
 
 }

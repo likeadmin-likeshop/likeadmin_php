@@ -15,43 +15,42 @@ namespace app\adminapi\controller\decorate;
 
 
 use app\adminapi\controller\BaseAdminController;
-use app\adminapi\logic\decorate\DecorateConfigLogic;
+use app\adminapi\logic\decorate\DecorateTabbarLogic;
 
 /**
- * 装修配置
- * Class DecorateConfigController
- * @package app\adminapi\controller\theme
+ * 装修-底部导航
+ * Class DecorateTabbarController
+ * @package app\adminapi\controller\decorate
  */
-class DecorateConfigController extends BaseAdminController
+class TabbarController extends BaseAdminController
 {
 
     /**
-     * @notes 获取装修配置
+     * @notes 底部导航详情
      * @return \think\response\Json
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      * @author 段誉
-     * @date 2022/9/6 9:57
+     * @date 2022/9/7 16:39
      */
-    public function getContent()
+    public function detail()
     {
-        $type = $this->request->get('type', 1);
-        $data = DecorateConfigLogic::getContent($type);
+        $data = DecorateTabbarLogic::detail();
         return $this->success('', $data);
     }
 
 
     /**
-     * @notes 设置装修配置
+     * @notes 底部导航保存
      * @return \think\response\Json
      * @author 段誉
      * @date 2022/9/6 9:58
      */
-    public function setContent()
+    public function save()
     {
         $params = $this->request->post();
-        DecorateConfigLogic::setContent($params);
+        DecorateTabbarLogic::save($params);
         return $this->success('操作成功', [], 1, 1);
     }
 
