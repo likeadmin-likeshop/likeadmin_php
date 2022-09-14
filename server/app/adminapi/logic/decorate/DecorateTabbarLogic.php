@@ -16,6 +16,7 @@ namespace app\adminapi\logic\decorate;
 use app\common\logic\BaseLogic;
 use app\common\model\decorate\DecorateTabbar;
 use app\common\service\ConfigService;
+use app\common\service\FileService;
 
 
 /**
@@ -53,18 +54,27 @@ class DecorateTabbarLogic extends BaseLogic
      */
     public static function save($params): bool
     {
-        // TODO
-//        $model = new DecorateTabbar();
-//        // 删除旧配置数据
-//        $model->where('id', '>', 0)->delete();
-//
-//        // 保存数据
-//        $tabbars = $params['list'] ?? [];
-//        $model->saveAll($tabbars);
-//        if (!empty($params['style'])) {
-//            ConfigService::set('tabbar', 'style', $params['style']);
-//        }
-//        return true;
+        $model = new DecorateTabbar();
+        // 删除旧配置数据
+        $model->where('id', '>', 0)->delete();
+
+        // 保存数据
+        $tabbars = $params['list'] ?? [];
+        $data = [];
+        foreach ($tabbars as $item) {
+            $data[] = [
+                'name' => $item['name'],
+                'selected' => FileService::setFileUrl($item['selected']),
+                'unselected' => FileService::setFileUrl($item['unselected']),
+                'link' => $item['link'],
+            ];
+        }
+        $model->saveAll($data);
+
+        if (!empty($params['style'])) {
+            ConfigService::set('tabbar', 'style', $params['style']);
+        }
+        return true;
     }
 
 }
