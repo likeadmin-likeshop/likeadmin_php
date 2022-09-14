@@ -64,14 +64,12 @@ export class Axios {
                 return response
             },
             (err: AxiosError) => {
-                let cancelUrl = err.config?.url
                 if (isFunction(responseInterceptorsCatchHook)) {
                     responseInterceptorsCatchHook(err)
                 }
-                if (err.code == AxiosError.ERR_CANCELED) {
-                    cancelUrl = err.message
+                if (err.code != AxiosError.ERR_CANCELED) {
+                    this.removeCancelToken(err.config?.url!)
                 }
-                this.removeCancelToken(cancelUrl!)
                 if (err.code == AxiosError.ECONNABORTED) {
                     setTimeout(() => {
                         console.log(err)
