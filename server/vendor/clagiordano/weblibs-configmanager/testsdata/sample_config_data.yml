@@ -1,0 +1,8 @@
+app: name
+db:
+  host: localhost
+  user: sample_user
+  pass: sample_pass
+  port: 3306
+other:
+  multi: { deep: { nested: config_value } }
