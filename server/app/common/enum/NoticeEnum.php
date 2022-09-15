@@ -100,6 +100,29 @@ class NoticeEnum
 
 
     /**
+     * @notes 更具标记获取场景
+     * @param $tag
+     * @return int|string
+     * @author 段誉
+     * @date 2022/9/15 15:08
+     */
+    public static function getSceneByTag($tag)
+    {
+        $scene = [
+            // 手机验证码登录
+            'YZMDL' => self::LOGIN_CAPTCHA,
+            // 绑定手机号验证码
+            'BDSJHM' => self::BIND_MOBILE_CAPTCHA,
+            // 变更手机号验证码
+            'BGSJHM' => self::CHANGE_MOBILE_CAPTCHA,
+            // 找回登录密码
+            'ZHDLMM' => self::FIND_LOGIN_PASSWORD_CAPTCHA,
+        ];
+        return $scene[$tag] ?? '';
+    }
+
+
+    /**
      * @notes 获取场景变量
      * @param $sceneId
      * @param false $flag
