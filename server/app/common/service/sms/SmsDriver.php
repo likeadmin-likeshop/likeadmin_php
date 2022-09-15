@@ -29,11 +29,11 @@
 // +----------------------------------------------------------------------
 namespace app\common\service\sms;
 
-use app\common\enum\NoticeEnum;
-use app\common\enum\SmsEnum;
+use app\common\enum\notice\NoticeEnum;
+use app\common\enum\notice\SmsEnum;
 use app\common\enum\YesNoEnum;
 use app\common\model\Notice;
-use app\common\model\sms\SmsLog;
+use app\common\model\notice\SmsLog;
 use app\common\service\ConfigService;
 
 /**

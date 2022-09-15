@@ -16,7 +16,7 @@ namespace app\common\model\notice;
 
 
 use app\common\enum\DefaultEnum;
-use app\common\enum\NoticeEnum;
+use app\common\enum\notice\NoticeEnum;
 use app\common\model\BaseModel;
 
 class NoticeSetting extends BaseModel

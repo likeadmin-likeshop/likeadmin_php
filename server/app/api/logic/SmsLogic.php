@@ -14,7 +14,7 @@
 
 namespace app\api\logic;
 
-use app\common\enum\NoticeEnum;
+use app\common\enum\notice\NoticeEnum;
 use app\common\logic\BaseLogic;
 
 
@@ -34,6 +34,7 @@ class SmsLogic extends BaseLogic
             if (empty($scene)) {
                 throw new \Exception('场景值异常');
             }
+
             $result = event('Notice',  [
                 'scene_id' => $scene,
                 'params' => [
@@ -41,7 +42,7 @@ class SmsLogic extends BaseLogic
                     'code' => mt_rand(1000, 9999),
                 ]
             ]);
-            dd($result);
+
             return $result[0];
 
         } catch (\Exception $e) {

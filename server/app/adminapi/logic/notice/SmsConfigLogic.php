@@ -14,7 +14,7 @@
 
 namespace app\adminapi\logic\notice;
 
-use app\common\enum\SmsEnum;
+use app\common\enum\notice\SmsEnum;
 use app\common\logic\BaseLogic;
 use app\common\service\ConfigService;
 

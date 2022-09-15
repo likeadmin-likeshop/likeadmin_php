@@ -14,7 +14,7 @@
 
 namespace app\api\controller;
 
-use app\common\enum\NoticeEnum;
+use app\common\enum\notice\NoticeEnum;
 use app\api\{
     validate\LoginAccountValidate,
     validate\RegisterValidate,
@@ -72,24 +72,6 @@ class LoginController extends BaseApiController
         return $this->data($result);
     }
 
-    // 手机验证码登录
-    public function captcha()
-    {
-        $params = (new LoginAccountValidate())->post()->goCheck('captcha');
-        $code = mt_rand(1000, 9999);
-        $result = event('Notice', [
-            'scene_id' => NoticeEnum::LOGIN_CAPTCHA,
-            'params' => [
-                'mobile' => $params['mobile'],
-                'code' => $code,
-            ]
-        ]);
-        if ($result[0] === true) {
-            return $this->success('发送成功');
-        }
-
-        return $this->fail($result[0], [], 0, 1);
-    }
 
     /**
      * @notes 退出登录
@@ -106,7 +88,6 @@ class LoginController extends BaseApiController
         (new LoginLogic())->logout($this->userInfo);
         return $this->success();
     }
-
 
 
 

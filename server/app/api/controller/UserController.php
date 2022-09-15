@@ -13,7 +13,7 @@
 // +----------------------------------------------------------------------
 namespace app\api\controller;
 
-use app\common\enum\NoticeEnum;
+use app\common\enum\notice\NoticeEnum;
 use app\api\logic\UserLogic;
 
 /**

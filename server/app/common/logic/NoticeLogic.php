@@ -14,7 +14,7 @@
 
 namespace app\common\logic;
 
-use app\common\enum\NoticeEnum;
+use app\common\enum\notice\NoticeEnum;
 use app\common\enum\YesNoEnum;
 use app\common\model\notice\NoticeRecord;
 use app\common\model\notice\NoticeSetting;

@@ -14,7 +14,7 @@
 
 namespace app\adminapi\logic\notice;
 
-use app\common\enum\NoticeEnum;
+use app\common\enum\notice\NoticeEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\notice\NoticeSetting;
 
