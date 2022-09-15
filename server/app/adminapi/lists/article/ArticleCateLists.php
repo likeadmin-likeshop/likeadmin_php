@@ -73,6 +73,7 @@ class ArticleCateLists extends BaseAdminDataLists implements ListsSearchInterfac
             ->append(['is_show_desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->order($this->sortOrder)
+            ->append(['article_count'])
             ->select()
             ->toArray();
 

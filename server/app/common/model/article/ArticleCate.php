@@ -30,16 +30,33 @@ class ArticleCate extends BaseModel
 
 
     /**
-     * @notes  获取状态
+     * @notes 状态描述
      * @param $value
      * @param $data
      * @return string
-     * @author heshihu
-     * @date 2022/2/21 17:56
+     * @author 段誉
+     * @date 2022/9/15 11:25
      */
     public function getIsShowDescAttr($value, $data)
     {
         return $data['is_show'] ? '启用' : '停用';
     }
+
+
+    /**
+     * @notes 文章数量
+     * @param $value
+     * @param $data
+     * @return int
+     * @author 段誉
+     * @date 2022/9/15 11:32
+     */
+    public function getArticleCountAttr($value, $data)
+    {
+        return Article::where(['cid' => $data['id']])->count('id');
+    }
+
+
+
 
 }

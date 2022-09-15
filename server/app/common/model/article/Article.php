@@ -41,4 +41,17 @@ class Article extends BaseModel
         return ArticleCate::where('id', $data['cid'])->value('name');
     }
 
+    /**
+     * @notes 浏览量
+     * @param $value
+     * @param $data
+     * @return mixed
+     * @author 段誉
+     * @date 2022/9/15 11:33
+     */
+    public function getClickAttr($value, $data)
+    {
+        return $data['click_actual'] + $data['click_virtual'];
+    }
+
 }
