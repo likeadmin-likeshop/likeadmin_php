@@ -18,7 +18,7 @@ use app\adminapi\lists\BaseAdminDataLists;
 use app\common\lists\ListsExtendInterface;
 use app\common\lists\ListsSearchInterface;
 use app\common\lists\ListsSortInterface;
-use app\common\model\auth\Admin;
+use app\common\model\auth\SystemAdmin;
 use app\common\model\auth\SystemRole;
 use app\common\model\dept\Dept;
 
@@ -117,7 +117,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
             'login_time', 'login_ip', 'multipoint_login', 'avatar', 'dept_id'
         ];
 
-        $adminLists = Admin::with(['dept'])->field($field)
+        $adminLists = SystemAdmin::with(['dept'])->field($field)
             ->where($this->searchWhere)
             ->append(['disable_desc'])
             ->limit($this->limitOffset, $this->limitLength)
@@ -148,7 +148,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
      */
     public function count(): int
     {
-        return Admin::where($this->searchWhere)->count();
+        return SystemAdmin::where($this->searchWhere)->count();
     }
 
     public function extend()

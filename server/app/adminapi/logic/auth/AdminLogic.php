@@ -17,8 +17,8 @@ namespace app\adminapi\logic\auth;
 use app\common\cache\AdminAuthCache;
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
-use app\common\model\auth\Admin;
-use app\common\model\auth\AdminSession;
+use app\common\model\auth\SystemAdmin;
+use app\common\model\auth\SystemAdminSession;
 use app\common\cache\AdminTokenCache;
 use app\common\service\FileService;
 use think\facade\Config;
@@ -44,7 +44,7 @@ class AdminLogic extends BaseLogic
         $password = create_password($params['password'], $passwordSalt);
         $avatar = !empty($params['avatar']) ? FileService::setFileUrl($params['avatar']) : config('project.default_image.admin_avatar');
 
-        Admin::create([
+        SystemAdmin::create([
             'name' => $params['name'],
             'account' => $params['account'],
             'avatar' => $avatar,
@@ -92,15 +92,15 @@ class AdminLogic extends BaseLogic
             }
 
             // 禁用或更换角色后.设置token过期
-            $role_id = Admin::where('id', $params['id'])->value('role_id');
+            $role_id = SystemAdmin::where('id', $params['id'])->value('role_id');
             if ($params['disable'] == 1 || $role_id != $params['role_id']) {
-                $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
+                $tokenArr = SystemAdminSession::where('admin_id', $params['id'])->select()->toArray();
                 foreach ($tokenArr as $token) {
                     self::expireToken($token['token']);
                 }
             }
 
-            Admin::update($data);
+            SystemAdmin::update($data);
             (new AdminAuthCache($params['id']))->clearAuthCache();
 
             Db::commit();
@@ -124,14 +124,14 @@ class AdminLogic extends BaseLogic
     {
         Db::startTrans();
         try {
-            $admin = Admin::findOrEmpty($params['id']);
+            $admin = SystemAdmin::findOrEmpty($params['id']);
             if ($admin->root == YesNoEnum::YES) {
                 throw new \Exception("超级管理员不允许被删除");
             }
-            Admin::destroy($params['id']);
+            SystemAdmin::destroy($params['id']);
 
             //设置token过期
-            $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
+            $tokenArr = SystemAdminSession::where('admin_id', $params['id'])->select()->toArray();
             foreach ($tokenArr as $token) {
                 self::expireToken($token['token']);
             }
@@ -159,7 +159,7 @@ class AdminLogic extends BaseLogic
      */
     public static function expireToken($token) : bool
     {
-        $adminSession = AdminSession::where('token', '=', $token)
+        $adminSession = SystemAdminSession::where('token', '=', $token)
             ->with('admin')
             ->find();
 
@@ -185,7 +185,7 @@ class AdminLogic extends BaseLogic
      */
     public static function detail($params, $action = 'detail') : array
     {
-        $admin = Admin::field([
+        $admin = SystemAdmin::field([
             'account', 'name', 'role_id', 'disable', 'root',
             'multipoint_login', 'avatar', 'dept_id', 'jobs_id'
         ])->findOrEmpty($params['id'])->toArray();
@@ -207,7 +207,7 @@ class AdminLogic extends BaseLogic
     /**
      * @notes 编辑超级管理员
      * @param $params
-     * @return Admin
+     * @return SystemAdmin
      * @author 段誉
      * @date 2022/4/8 17:54
      */
@@ -224,7 +224,7 @@ class AdminLogic extends BaseLogic
             $data['password'] = create_password($params['password'], $passwordSalt);
         }
 
-        return Admin::update($data);
+        return SystemAdmin::update($data);
     }
 
 }

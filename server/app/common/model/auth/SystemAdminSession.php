@@ -16,7 +16,7 @@ namespace app\common\model\auth;
 
 use app\common\model\BaseModel;
 
-class AdminSession extends BaseModel
+class SystemAdminSession extends BaseModel
 {
     /**
      * @notes 关联管理员表

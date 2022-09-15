@@ -16,7 +16,7 @@ namespace app\adminapi\logic\auth;
 
 
 use app\common\logic\BaseLogic;
-use app\common\model\auth\Admin;
+use app\common\model\auth\SystemAdmin;
 use app\common\model\auth\SystemMenu;
 use app\common\model\auth\SystemRoleMenu;
 
@@ -42,7 +42,7 @@ class MenuLogic extends BaseLogic
      */
     public static function getMenuByAdminId($adminId)
     {
-        $admin = Admin::findOrEmpty($adminId);
+        $admin = SystemAdmin::findOrEmpty($adminId);
 
         $where = [];
         $where[] = ['type', 'in', ['M', 'C']];

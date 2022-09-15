@@ -15,7 +15,7 @@
 namespace app\adminapi\validate\auth;
 
 use app\common\validate\BaseValidate;
-use app\common\model\auth\Admin;
+use app\common\model\auth\SystemAdmin;
 
 /**
  * 管理员验证
@@ -26,8 +26,8 @@ class AdminValidate extends BaseValidate
 {
     protected $rule = [
         'id' => 'require|checkAdmin',
-        'account' => 'require|length:1,32|unique:'.Admin::class,
-        'name' => 'require|length:1,16|unique:'.Admin::class,
+        'account' => 'require|length:1,32|unique:'.SystemAdmin::class,
+        'name' => 'require|length:1,16|unique:'.SystemAdmin::class,
         'password' => 'require|length:6,32|edit',
         'password_confirm' => 'requireWith:password|confirm',
         'role_id' => 'require',
@@ -135,7 +135,7 @@ class AdminValidate extends BaseValidate
      */
     public function checkAdmin($value)
     {
-        $admin = Admin::findOrEmpty($value);
+        $admin = SystemAdmin::findOrEmpty($value);
         if ($admin->isEmpty()) {
             return '管理员不存在';
         }
@@ -154,7 +154,7 @@ class AdminValidate extends BaseValidate
      */
     public function checkAbleDisable($value, $rule, $data)
     {
-        $admin = Admin::findOrEmpty($data['id']);
+        $admin = SystemAdmin::findOrEmpty($data['id']);
         if ($admin->isEmpty()) {
             return '管理员不存在';
         }
