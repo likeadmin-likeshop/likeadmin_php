@@ -110,7 +110,6 @@ class UserTokenService
         $userSession->save();
 
         return (new  UserTokenCache())->deleteUserInfo($token);
-
     }
 
 }

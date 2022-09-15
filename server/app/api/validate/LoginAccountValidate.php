@@ -21,19 +21,25 @@ use app\common\enum\YesNoEnum;
 use app\common\service\ConfigService;
 use app\common\service\sms\SmsDriver;
 use app\common\validate\BaseValidate;
+use app\common\model\user\User;
 use think\facade\Config;
 
-class LoginValidate extends BaseValidate
+/**
+ * 登录校验
+ * Class LoginValidate
+ * @package app\api\validate
+ */
+class LoginAccountValidate extends BaseValidate
 {
 
     protected $rule = [
         'terminal' => 'require|in:' . UserTerminalEnum::WECHAT_MMP . ',' . UserTerminalEnum::WECHAT_OA . ','
-            . UserTerminalEnum::H5 . ',' . UserTerminalEnum::PC . ','
-            . UserTerminalEnum::IOS . ',' . UserTerminalEnum::ANDROID,
+            . UserTerminalEnum::H5 . ',' . UserTerminalEnum::PC . ',' . UserTerminalEnum::IOS .
+            ',' . UserTerminalEnum::ANDROID,
         'scene' => 'require|in:' . LoginEnum::ACCOUNT_PASSWORD . ',' . LoginEnum::MOBILE_CAPTCHA . '|checkConfig',
         'account' => 'require',
-        'mobile' => 'require|mobile'
     ];
+
 
     protected $message = [
         'terminal.require' => '终端参数缺失',
@@ -42,67 +48,77 @@ class LoginValidate extends BaseValidate
         'scene.in' => '场景值错误',
         'account.require' => '请输入账号',
         'password.require' => '请输入密码',
-        'mobile.require' => '请输入手机号',
-        'mobile.mobile' => '无效的手机号',
     ];
 
-    /**
-     * @notes 账号密码/手机号密码/手机号验证码登录场景
-     * @return LoginValidate
-     * @author Tab
-     * @date 2021/8/25 15:53
-     */
-    public function sceneAccount()
-    {
-        return $this->remove('mobile', 'require|mobile');
-    }
 
     /**
-     * @notes 发送登录验证码
-     * @return LoginValidate
-     * @author Tab
-     * @date 2021/8/25 15:48
+     * @notes 登录场景相关校验
+     * @param $scene
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2022/9/15 14:37
      */
-    public function sceneCaptcha()
+    public function checkConfig($scene, $rule, $data)
     {
-        return $this->only(['mobile']);
+        $config = ConfigService::get('login', 'login_way', []);
+        if (!in_array($scene, $config)) {
+            return '不支持的登录方式';
+        }
+
+        // 账号密码登录
+        if (LoginEnum::ACCOUNT_PASSWORD == $scene) {
+            if (!isset($data['password'])) {
+                return '请输入密码';
+            }
+            return $this->checkPassword($data['password'], [], $data);
+        }
+
+        // 手机验证码登录
+        if (LoginEnum::MOBILE_CAPTCHA == $scene) {
+            if (!isset($data['code'])) {
+                return '请输入手机验证码';
+            }
+            return $this->checkCode($data['code'], [], $data);
+        }
+
+        return true;
     }
 
+
     /**
-     * @notes 密码验证
+     * @notes 登录密码校验
      * @param $password
      * @param $other
      * @param $data
      * @return bool|string
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author 令狐冲
-     * @date 2021/7/2 14:00
+     * @author 段誉
+     * @date 2022/9/15 14:39
      */
     public function checkPassword($password, $other, $data)
     {
-        //后台账号安全机制，连续输错后锁定，防止账号密码暴力破解
+        //账号安全机制，连续输错后锁定，防止账号密码暴力破解
         $userAccountSafeCache = new UserAccountSafeCache();
         if (!$userAccountSafeCache->isSafe()) {
             return '密码连续' . $userAccountSafeCache->count . '次输入错误，请' . $userAccountSafeCache->minute . '分钟后重试';
         }
 
         $where = [];
-        if ($data['scene'] == LoginEnum::ACCOUNT_PASSWORD || $data['scene'] == LoginEnum::MOBILE_CAPTCHA) {
+        if ($data['scene'] == LoginEnum::ACCOUNT_PASSWORD) {
             // 手机号密码登录
-            $where = ['mobile' => $data['account']];
+            $where = ['account|mobile' => $data['account']];
         }
 
         $userInfo = User::where($where)
-            ->field(['password,disable'])
-            ->find();
+            ->field(['password,is_disable'])
+            ->findOrEmpty();
 
-        if (empty($userInfo)) {
+        if ($userInfo->isEmpty()) {
             return '用户不存在';
         }
 
-        if ($userInfo['disable'] === YesNoEnum::YES) {
+        if ($userInfo['is_disable'] === YesNoEnum::YES) {
             return '用户已禁用';
         }
 
@@ -122,39 +138,6 @@ class LoginValidate extends BaseValidate
         return true;
     }
 
-
-    /**
-     * @notes 校验登录设置
-     * @param $scene
-     * @param $rule
-     * @param $data
-     * @return bool|string
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author 段誉
-     * @date 2022/9/7 16:21\
-     */
-    public function checkConfig($scene, $rule, $data)
-    {
-        $config = ConfigService::get('login', 'login_way', []);
-        if (!in_array($scene, $config)) {
-            return '不支持的登录方式';
-        }
-        if ($scene == LoginEnum::ACCOUNT_PASSWORD && !isset($data['password'])) {
-            return '请输入密码';
-        }
-        if (($scene == LoginEnum::ACCOUNT_PASSWORD)) {
-            return $this->checkPassword($data['password'], [], $data);
-        }
-        if ($scene == LoginEnum::MOBILE_CAPTCHA && !isset($data['code'])) {
-            return '请输入手机验证码';
-        }
-        if ($scene == LoginEnum::MOBILE_CAPTCHA) {
-            return $this->checkCode($data['code'], [], $data);
-        }
-        return true;
-    }
 
     /**
      * @notes 校验验证码

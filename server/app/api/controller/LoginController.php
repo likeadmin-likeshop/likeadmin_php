@@ -15,11 +15,9 @@
 namespace app\api\controller;
 
 use app\common\enum\NoticeEnum;
-use app\api\{logic\RegisterLogic,
-    validate\LoginValidate,
-    validate\OaLogicValidate,
+use app\api\{
+    validate\LoginAccountValidate,
     validate\RegisterValidate,
-    validate\WechatLoginValidate,
     logic\LoginLogic
 };
 
@@ -31,7 +29,11 @@ use app\api\{logic\RegisterLogic,
 class LoginController extends BaseApiController
 {
 
-    public array $notNeedLogin = ['register', 'account', 'logout', 'codeUrl', 'oaLogin', 'silentLogin', 'authLogin', 'config', 'captcha', 'uninAppLogin'];
+    public array $notNeedLogin = [
+        'register', 'account', 'logout', 'codeUrl',
+        'oaLogin', 'silentLogin', 'authLogin', 'config',
+        'captcha', 'uninAppLogin'
+    ];
 
 
     /**
@@ -62,7 +64,7 @@ class LoginController extends BaseApiController
      */
     public function account()
     {
-        $params = (new LoginValidate())->post()->goCheck('account');
+        $params = (new LoginAccountValidate())->post()->goCheck();
         $result = (new LoginLogic())->login($params);
         if (false === $result) {
             return $this->fail(LoginLogic::getError());
@@ -70,14 +72,10 @@ class LoginController extends BaseApiController
         return $this->data($result);
     }
 
-    /**
-     * @notes 发送验证码-登录
-     * @author Tab
-     * @date 2021/8/25 15:47
-     */
+    // 手机验证码登录
     public function captcha()
     {
-        $params = (new LoginValidate())->post()->goCheck('captcha');
+        $params = (new LoginAccountValidate())->post()->goCheck('captcha');
         $code = mt_rand(1000, 9999);
         $result = event('Notice', [
             'scene_id' => NoticeEnum::LOGIN_CAPTCHA,
@@ -108,6 +106,9 @@ class LoginController extends BaseApiController
         (new LoginLogic())->logout($this->userInfo);
         return $this->success();
     }
+
+
+
 
     /**
      * @notes 获取微信请求code的链接

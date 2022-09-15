@@ -18,7 +18,6 @@ namespace app\common\model\user;
 
 use app\common\enum\user\UserEnum;
 use app\common\model\BaseModel;
-use app\common\service\ConfigService;
 use app\common\service\FileService;
 use think\model\concern\SoftDelete;
 
