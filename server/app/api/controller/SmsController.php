@@ -30,7 +30,12 @@ class SmsController extends BaseApiController
     public array $notNeedLogin = ['sendCode'];
 
 
-    // 发送短信验证码
+    /**
+     * @notes 发送短信验证码
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/15 16:17
+     */
     public function sendCode()
     {
         $params = (new SendSmsValidate())->post()->goCheck();

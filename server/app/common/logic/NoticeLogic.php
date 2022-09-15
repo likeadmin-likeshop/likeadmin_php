@@ -47,7 +47,8 @@ class NoticeLogic extends BaseLogic
             // 合并额外参数
             $params = self::mergeParams($params);
             $res = false;
-            self::setError('通知功能未开启');
+            self::setError('发送通知失败');
+
             // 短信通知
             if (isset($noticeSetting['sms_notice']['status']) && $noticeSetting['sms_notice']['status'] == YesNoEnum::YES) {
                 $res = (new SmsMessageService())->send($params);

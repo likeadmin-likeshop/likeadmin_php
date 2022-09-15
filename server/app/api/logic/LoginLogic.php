@@ -16,7 +16,7 @@ namespace app\api\logic;
 
 use app\common\logic\BaseLogic;
 use app\api\service\{UserTokenService, WechatUserService};
-use app\common\enum\{LoginEnum, UserTerminalEnum};
+use app\common\enum\{LoginEnum, user\UserTerminalEnum};
 use app\common\service\{ConfigService, FileService, wechat\WeChatService};
 use app\common\model\user\{User, UserAuth};
 use think\facade\{Db, Config};
@@ -47,7 +47,7 @@ class LoginLogic extends BaseLogic
             User::create([
                 'sn' => $userSn,
                 'avatar' => $avatar,
-                'nickname' => '用户'. $userSn,
+                'nickname' => '用户' . $userSn,
                 'account' => $params['account'],
                 'password' => $password,
                 'channel' => $params['channel'],
@@ -163,10 +163,11 @@ class LoginLogic extends BaseLogic
      * @author cjhao
      * @date 2021/7/31 14:28
      */
-    public function codeUrl(string $url)
+    public static function codeUrl(string $url)
     {
         return WeChatService::getCodeUrl($url);
     }
+
 
     /**
      * @notes 公众号登录
@@ -176,7 +177,7 @@ class LoginLogic extends BaseLogic
      * @author cjhao
      * @date 2021/8/2 17:54
      */
-    public function oaLogin(array $params)
+    public static function oaLogin(array $params)
     {
         Db::startTrans();
         try {
@@ -184,8 +185,9 @@ class LoginLogic extends BaseLogic
             $response = WeChatService::getOaResByCode($params);
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_OA);
             $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
+
             // 更新登录信息
-            $this->updateLoginInfo($userInfo['id']);
+            self::updateLoginInfo($userInfo['id']);
 
             Db::commit();
             return $userInfo;
@@ -205,16 +207,17 @@ class LoginLogic extends BaseLogic
      * @author cjhao
      * @date 2021/8/2 17:00
      */
-    public function silentLogin(array $params)
+    public static function silentLogin(array $params)
     {
         try {
             //通过code获取微信 openid
             $response = WeChatService::getMnpResByCode($params);
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_MMP);
             $userInfo = $userServer->getResopnseByUserInfo('silent')->getUserInfo();
+
             if (!empty($userInfo)) {
                 // 更新登录信息
-                $this->updateLoginInfo($userInfo['id']);
+                self::updateLoginInfo($userInfo['id']);
             }
 
             return $userInfo;
@@ -232,7 +235,7 @@ class LoginLogic extends BaseLogic
      * @author cjhao
      * @date 2021/7/30 19:00
      */
-    public function authLogin(array $params)
+    public static function authLogin(array $params)
     {
         Db::startTrans();
         try {
@@ -242,8 +245,9 @@ class LoginLogic extends BaseLogic
             $response['nickname'] = $params['nickname'];
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_MMP);
             $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
+
             // 更新登录信息
-            $this->updateLoginInfo($userInfo['id']);
+            self::updateLoginInfo($userInfo['id']);
 
             Db::commit();
             return $userInfo;
@@ -262,7 +266,7 @@ class LoginLogic extends BaseLogic
      * @author Tab
      * @date 2021/12/7 14:12
      */
-    public function updateLoginInfo($userId)
+    public static function updateLoginInfo($userId)
     {
         $user = User::findOrEmpty($userId);
         if ($user->isEmpty()) {
@@ -283,7 +287,7 @@ class LoginLogic extends BaseLogic
      * @author cjhao
      * @date 2022/5/17 15:47
      */
-    public function mnpAuthLogin(array $params)
+    public static function mnpAuthLogin(array $params)
     {
         try {
             //通过code获取微信openid
@@ -291,7 +295,8 @@ class LoginLogic extends BaseLogic
             $response['user_id'] = $params['user_id'];
             $response['terminal'] = UserTerminalEnum::WECHAT_MMP;
 
-            return $this->createAuth($response);
+            return self::createAuth($response);
+
         } catch (\Exception  $e) {
             self::$error = $e->getMessage();
             return false;
@@ -311,7 +316,7 @@ class LoginLogic extends BaseLogic
      * @author cjhao
      * @date 2022/5/17 16:20
      */
-    public function oaAuthLogin(array $params)
+    public static function oaAuthLogin(array $params)
     {
         try {
             //通过code获取微信openid
@@ -319,7 +324,7 @@ class LoginLogic extends BaseLogic
             $response['user_id'] = $params['user_id'];
             $response['terminal'] = UserTerminalEnum::WECHAT_OA;
 
-            return $this->createAuth($response);
+            return self::createAuth($response);
 
         } catch (\Exception  $e) {
             self::$error = $e->getMessage();
@@ -338,15 +343,8 @@ class LoginLogic extends BaseLogic
      * @author cjhao
      * @date 2022/5/17 16:18
      */
-    public function createAuth($response)
+    public static function createAuth($response)
     {
-        //验证该微信是否授权过,用户open_id或者ounion_id，防止生成两个账号
-//        $isAuth = UserAuth::where('openid','=',$response['openid'])
-//            ->whereOr(function ($query) use($response) {
-//                if(isset($response['unionid']) && !empty($response['unionid'])){
-//                    $query->where('unionid', $response['unionid']);
-//                }
-//            })->find();
         //先检查openid是否有记录
         $isAuth = UserAuth::where('openid', '=', $response['openid'])->findOrEmpty();
         if (!$isAuth->isEmpty()) {

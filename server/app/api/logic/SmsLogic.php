@@ -26,7 +26,13 @@ use app\common\logic\BaseLogic;
 class SmsLogic extends BaseLogic
 {
 
-    // 发送验证码
+    /**
+     * @notes 发送验证码
+     * @param $params
+     * @return false|mixed
+     * @author 段誉
+     * @date 2022/9/15 16:17
+     */
     public static function sendCode($params)
     {
         try {

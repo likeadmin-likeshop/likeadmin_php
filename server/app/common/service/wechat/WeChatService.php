@@ -49,6 +49,7 @@ class WeChatService extends BaseLogic
         if (!isset($response['openid']) || empty($response['openid'])) {
             throw new Exception('获取openID失败');
         }
+
         return $response;
     }
 
@@ -67,11 +68,14 @@ class WeChatService extends BaseLogic
         $config = WeChatConfigService::getMnpConfig();
         $app = Factory::miniProgram($config);
         $response = $app->auth->session($post['code']);
+
         if (!isset($response['openid']) || empty($response['openid'])) {
             throw new Exception('获取openID失败');
         }
+
         return $response;
     }
+
 
     /**
      * @notes 公众号跳转url
@@ -84,10 +88,10 @@ class WeChatService extends BaseLogic
     {
         $config = WeChatConfigService::getOaConfig();
         $app = Factory::officialAccount($config);
-        $response = $app->oauth
+
+        return $app->oauth
             ->scopes(['snsapi_userinfo'])
             ->redirect($url);
-        return $response;
     }
 
 }

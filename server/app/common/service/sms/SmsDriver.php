@@ -74,8 +74,8 @@ class SmsDriver
     /**
      * @notes 初始化
      * @return bool
-     * @author Tab
-     * @date 2021/8/19 14:43
+     * @author 段誉
+     * @date 2022/9/15 16:29
      */
     public function initialize()
     {
@@ -107,24 +107,26 @@ class SmsDriver
         }
     }
 
+
     /**
      * @notes 获取错误信息
-     * @return mixed
-     * @author Tab
-     * @date 2021/8/19 14:42
+     * @return null
+     * @author 段誉
+     * @date 2022/9/15 16:29
      */
     public function getError()
     {
         return $this->error;
     }
 
+
     /**
      * @notes 发送短信
      * @param $mobile
      * @param $data
      * @return false
-     * @author Tab
-     * @date 2021/8/19 16:51
+     * @author 段誉
+     * @date 2022/9/15 16:29
      */
     public function send($mobile, $data)
     {
@@ -147,12 +149,13 @@ class SmsDriver
         }
     }
 
+
     /**
      * @notes 发送频率限制
      * @param $mobile
      * @throws \Exception
-     * @author Tab
-     * @date 2021/8/20 10:31
+     * @author 段誉
+     * @date 2022/9/15 16:29
      */
     public function sendLimit($mobile)
     {
@@ -169,13 +172,14 @@ class SmsDriver
         }
     }
 
+
     /**
      * @notes 校验手机验证码
      * @param $mobile
      * @param $code
      * @return bool
-     * @author Tab
-     * @date 2021/8/20 10:47
+     * @author 段誉
+     * @date 2022/9/15 16:29
      */
     public function verify($mobile, $code)
     {

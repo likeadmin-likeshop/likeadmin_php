@@ -14,12 +14,8 @@
 
 namespace app\api\controller;
 
-use app\common\enum\notice\NoticeEnum;
-use app\api\{
-    validate\LoginAccountValidate,
-    validate\RegisterValidate,
-    logic\LoginLogic
-};
+use app\api\validate\{LoginAccountValidate, RegisterValidate, WechatLoginValidate};
+use app\api\logic\LoginLogic;
 
 /**
  * 登录注册
@@ -90,17 +86,17 @@ class LoginController extends BaseApiController
     }
 
 
-
     /**
      * @notes 获取微信请求code的链接
      * @return \think\response\Json
-     * @author cjhao
-     * @date 2021/7/31 14:17
+     * @author 段誉
+     * @date 2022/9/15 18:27
      */
     public function codeUrl()
     {
         $url = $this->request->get('url');
-        return $this->success('获取成功', ['url' => (new LoginLogic)->codeUrl($url)], 1);
+        $result = ['url' => LoginLogic::codeUrl($url)];
+        return $this->success('获取成功', ['url' => $result]);
     }
 
 

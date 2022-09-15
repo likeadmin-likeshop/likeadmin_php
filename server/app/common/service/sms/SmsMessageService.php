@@ -79,13 +79,14 @@ class SmsMessageService
         }
     }
 
+
     /**
-     * @notes 格式化消息(替换内容中的变量占位符)
+     * @notes 格式化消息内容
      * @param $noticeSetting
      * @param $params
-     * @return array|string|string[]
-     * @author Tab
-     * @date 2021/8/19 10:55
+     * @return array|mixed|string|string[]
+     * @author 段誉
+     * @date 2022/9/15 16:24
      */
     public function contentFormat($noticeSetting, $params)
     {
@@ -97,13 +98,14 @@ class SmsMessageService
         return $content;
     }
 
+
     /**
      * @notes 添加短信记录
      * @param $params
      * @param $content
      * @return SmsLog|\think\Model
-     * @author Tab
-     * @date 2021/8/19 11:11
+     * @author 段誉
+     * @date 2022/9/15 16:24
      */
     public function addSmsLog($params, $content)
     {
@@ -118,13 +120,14 @@ class SmsMessageService
         return SmsLog::create($data);
     }
 
+
     /**
-     * @notes 腾讯云参数处理
+     * @notes 处理腾讯云短信参数
      * @param $noticeSetting
      * @param $params
-     * @return mixed
-     * @author Tab
-     * @date 2021/8/19 15:55
+     * @return array|mixed
+     * @author 段誉
+     * @date 2022/9/15 16:25
      */
     public function setSmsParams($noticeSetting, $params)
     {
@@ -173,14 +176,13 @@ class SmsMessageService
     }
 
 
-
     /**
      * @notes 更新短信记录
      * @param $id
      * @param $status
      * @param $result
-     * @author Tab
-     * @date 2021/8/19 16:07
+     * @author 段誉
+     * @date 2022/9/15 16:25
      */
     public function updateSmsLog($id, $status, $result)
     {
