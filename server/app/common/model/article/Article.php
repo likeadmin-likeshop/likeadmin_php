@@ -38,7 +38,7 @@ class Article extends BaseModel
      */
     public function getCateNameAttr($value, $data)
     {
-        return ArticleCategory::where('id', $data['cid'])->value('name');
+        return ArticleCate::where('id', $data['cid'])->value('name');
     }
 
 }

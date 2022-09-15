@@ -15,18 +15,18 @@
 namespace app\adminapi\validate\article;
 
 use app\common\validate\BaseValidate;
-use app\common\model\article\ArticleCategory;
+use app\common\model\article\ArticleCate;
 use app\common\model\article\Article;
 
 /**
  * 资讯分类管理验证
- * Class ArticleCategoryValidate
+ * Class ArticleCateValidate
  * @package app\adminapi\validate\article
  */
-class ArticleCategoryValidate extends BaseValidate
+class ArticleCateValidate extends BaseValidate
 {
     protected $rule = [
-        'id' => 'require|checkArticleCategory',
+        'id' => 'require|checkArticleCate',
         'name' => 'require|length:1,90',
         'is_show' => 'require|in:0,1',
         'sort' => 'egt:0',
@@ -41,19 +41,19 @@ class ArticleCategoryValidate extends BaseValidate
 
     /**
      * @notes  添加场景
-     * @return ArticleCategoryValidate
+     * @return ArticleCateValidate
      * @author heshihu
      * @date 2022/2/10 15:11
      */
     public function sceneAdd()
     {
         return $this->remove(['id'])
-            ->remove('id', 'require|checkArticleCategory');
+            ->remove('id', 'require|checkArticleCate');
     }
 
     /**
      * @notes  详情场景
-     * @return ArticleCategoryValidate
+     * @return ArticleCateValidate
      * @author heshihu
      * @date 2022/2/21 17:55
      */
@@ -64,7 +64,7 @@ class ArticleCategoryValidate extends BaseValidate
 
     /**
      * @notes  更改状态场景
-     * @return ArticleCategoryValidate
+     * @return ArticleCateValidate
      * @author heshihu
      * @date 2022/2/21 18:02
      */
@@ -79,7 +79,7 @@ class ArticleCategoryValidate extends BaseValidate
 
     /**
      * @notes  获取所有资讯分类场景
-     * @return ArticleCategoryValidate
+     * @return ArticleCateValidate
      * @author heshihu
      * @date 2022/2/15 10:05
      */
@@ -91,14 +91,14 @@ class ArticleCategoryValidate extends BaseValidate
 
     /**
      * @notes  删除场景
-     * @return ArticleCategoryValidate
+     * @return ArticleCateValidate
      * @author heshihu
      * @date 2022/2/21 17:52
      */
     public function sceneDelete()
     {
         return $this->only(['id'])
-            ->append('id', 'checkDeleteArticleCategory');
+            ->append('id', 'checkDeleteArticleCate');
     }
 
     /**
@@ -108,9 +108,9 @@ class ArticleCategoryValidate extends BaseValidate
      * @author heshihu
      * @date 2022/2/10 15:10
      */
-    public function checkArticleCategory($value)
+    public function checkArticleCate($value)
     {
-        $article_category = ArticleCategory::findOrEmpty($value);
+        $article_category = ArticleCate::findOrEmpty($value);
         if ($article_category->isEmpty()) {
             return '资讯分类不存在';
         }
@@ -124,7 +124,7 @@ class ArticleCategoryValidate extends BaseValidate
      * @author heshihu
      * @date 2022/2/22 14:45
      */
-    public function checkDeleteArticleCategory($value)
+    public function checkDeleteArticleCate($value)
     {
         $article = Article::where('cid', $value)->findOrEmpty();
         if (!$article->isEmpty()) {

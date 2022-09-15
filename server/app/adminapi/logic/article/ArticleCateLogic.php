@@ -15,14 +15,14 @@
 namespace app\adminapi\logic\article;
 
 use app\common\logic\BaseLogic;
-use app\common\model\article\ArticleCategory;
+use app\common\model\article\ArticleCate;
 
 /**
  * 资讯分类管理逻辑
- * Class ArticleCategoryLogic
+ * Class ArticleCateLogic
  * @package app\adminapi\logic\article
  */
-class ArticleCategoryLogic extends BaseLogic
+class ArticleCateLogic extends BaseLogic
 {
 
     /**
@@ -34,9 +34,9 @@ class ArticleCategoryLogic extends BaseLogic
      * @author heshihu
      * @date 2022/2/15 9:45
      */
-    public static function selectArticleCategory() : array
+    public static function selectArticleCate() : array
     {
-        return ArticleCategory::where('is_show', 1)
+        return ArticleCate::where('is_show', 1)
             ->field('id,name')
             ->order('id desc, sort asc')
             ->select()
@@ -51,7 +51,7 @@ class ArticleCategoryLogic extends BaseLogic
      */
     public static function add(array $params)
     {
-        ArticleCategory::create([
+        ArticleCate::create([
             'name' => $params['name'],
             'is_show' => $params['is_show'],
             'sort' => $params['sort'] ?? 0
@@ -69,7 +69,7 @@ class ArticleCategoryLogic extends BaseLogic
     public static function edit(array $params) : bool
     {
         try {
-            ArticleCategory::update([
+            ArticleCate::update([
                 'id' => $params['id'],
                 'name' => $params['name'],
                 'is_show' => $params['is_show'],
@@ -91,7 +91,7 @@ class ArticleCategoryLogic extends BaseLogic
      */
     public static function delete(array $params)
     {
-        ArticleCategory::destroy($params['id']);
+        ArticleCate::destroy($params['id']);
     }
 
     /**
@@ -103,7 +103,7 @@ class ArticleCategoryLogic extends BaseLogic
      */
     public static function detail($params) : array
     {
-        return ArticleCategory::findOrEmpty($params['id'])->toArray();
+        return ArticleCate::findOrEmpty($params['id'])->toArray();
     }
 
     /**
@@ -115,7 +115,7 @@ class ArticleCategoryLogic extends BaseLogic
      */
     public static function updateStatus(array $params)
     {
-        ArticleCategory::update([
+        ArticleCate::update([
             'id' => $params['id'],
             'is_show' => $params['is_show']
         ]);

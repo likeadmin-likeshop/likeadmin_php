@@ -15,16 +15,16 @@
 namespace app\adminapi\controller\article;
 
 use app\adminapi\controller\BaseAdminController;
-use app\adminapi\lists\article\ArticleCategoryLists;
-use app\adminapi\logic\article\ArticleCategoryLogic;
-use app\adminapi\validate\article\ArticleCategoryValidate;
+use app\adminapi\lists\article\ArticleCateLists;
+use app\adminapi\logic\article\ArticleCateLogic;
+use app\adminapi\validate\article\ArticleCateValidate;
 
 /**
  * 资讯分类管理控制器
- * Class ArticleCategoryController
+ * Class ArticleCateController
  * @package app\adminapi\controller\article
  */
-class ArticleCategoryController extends BaseAdminController
+class ArticleCateController extends BaseAdminController
 {
 
     /**
@@ -35,7 +35,7 @@ class ArticleCategoryController extends BaseAdminController
      */
     public function lists()
     {
-        return $this->dataLists(new ArticleCategoryLists());
+        return $this->dataLists(new ArticleCateLists());
     }
 
 
@@ -45,9 +45,9 @@ class ArticleCategoryController extends BaseAdminController
      * @author heshihu
      * @date 2022/2/21 18:12
      */
-    public function selectArticleCategory()
+    public function selectArticleCate()
     {
-        return $this->data(ArticleCategoryLogic::selectArticleCategory());
+        return $this->data(ArticleCateLogic::selectArticleCate());
     }
 
 
@@ -59,8 +59,8 @@ class ArticleCategoryController extends BaseAdminController
      */
     public function add()
     {
-        $params = (new ArticleCategoryValidate())->post()->goCheck('add');
-        ArticleCategoryLogic::add($params);
+        $params = (new ArticleCateValidate())->post()->goCheck('add');
+        ArticleCateLogic::add($params);
         return $this->success('添加成功', [], 1, 1);
     }
 
@@ -73,12 +73,12 @@ class ArticleCategoryController extends BaseAdminController
      */
     public function edit()
     {
-        $params = (new ArticleCategoryValidate())->post()->goCheck('edit');
-        $result = ArticleCategoryLogic::edit($params);
+        $params = (new ArticleCateValidate())->post()->goCheck('edit');
+        $result = ArticleCateLogic::edit($params);
         if (true === $result) {
             return $this->success('编辑成功', [], 1, 1);
         }
-        return $this->fail(ArticleCategoryLogic::getError());
+        return $this->fail(ArticleCateLogic::getError());
     }
 
 
@@ -90,8 +90,8 @@ class ArticleCategoryController extends BaseAdminController
      */
     public function delete()
     {
-        $params = (new ArticleCategoryValidate())->post()->goCheck('delete');
-        ArticleCategoryLogic::delete($params);
+        $params = (new ArticleCateValidate())->post()->goCheck('delete');
+        ArticleCateLogic::delete($params);
         return $this->success('删除成功', [], 1, 1);
     }
 
@@ -104,8 +104,8 @@ class ArticleCategoryController extends BaseAdminController
      */
     public function detail()
     {
-        $params = (new ArticleCategoryValidate())->goCheck('detail');
-        $result = ArticleCategoryLogic::detail($params);
+        $params = (new ArticleCateValidate())->goCheck('detail');
+        $result = ArticleCateLogic::detail($params);
         return $this->data($result);
     }
 
@@ -118,12 +118,12 @@ class ArticleCategoryController extends BaseAdminController
      */
     public function updateStatus()
     {
-        $params = (new ArticleCategoryValidate())->post()->goCheck('status');
-        $result = ArticleCategoryLogic::updateStatus($params);
+        $params = (new ArticleCateValidate())->post()->goCheck('status');
+        $result = ArticleCateLogic::updateStatus($params);
         if (true === $result) {
             return $this->success('修改成功', [], 1, 1);
         }
-        return $this->fail(ArticleCategoryLogic::getError());
+        return $this->fail(ArticleCateLogic::getError());
     }
 
 

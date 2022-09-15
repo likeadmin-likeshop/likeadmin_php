@@ -19,10 +19,10 @@ use think\model\concern\SoftDelete;
 
 /**
  * 资讯分类管理模型
- * Class ArticleCategory
+ * Class ArticleCate
  * @package app\common\model\article;
  */
-class ArticleCategory extends BaseModel
+class ArticleCate extends BaseModel
 {
     use SoftDelete;
 

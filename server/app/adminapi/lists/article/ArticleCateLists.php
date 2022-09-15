@@ -17,14 +17,14 @@ namespace app\adminapi\lists\article;
 use app\adminapi\lists\BaseAdminDataLists;
 use app\common\lists\ListsSearchInterface;
 use app\common\lists\ListsSortInterface;
-use app\common\model\article\ArticleCategory;
+use app\common\model\article\ArticleCate;
 
 /**
  * 资讯分类列表
- * Class ArticleCategoryLists
+ * Class ArticleCateLists
  * @package app\adminapi\lists\article
  */
-class ArticleCategoryLists extends BaseAdminDataLists implements ListsSearchInterface, ListsSortInterface
+class ArticleCateLists extends BaseAdminDataLists implements ListsSearchInterface, ListsSortInterface
 {
 
 
@@ -69,14 +69,14 @@ class ArticleCategoryLists extends BaseAdminDataLists implements ListsSearchInte
      */
     public function lists(): array
     {
-        $ArticleCategoryLists = ArticleCategory::where($this->searchWhere)
+        $ArticleCateLists = ArticleCate::where($this->searchWhere)
             ->append(['is_show_desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->order($this->sortOrder)
             ->select()
             ->toArray();
 
-        return $ArticleCategoryLists;
+        return $ArticleCateLists;
     }
 
     /**
@@ -87,7 +87,7 @@ class ArticleCategoryLists extends BaseAdminDataLists implements ListsSearchInte
      */
     public function count(): int
     {
-        return ArticleCategory::where($this->searchWhere)->count();
+        return ArticleCate::where($this->searchWhere)->count();
     }
 
     public function extend()
