@@ -14,8 +14,8 @@
 namespace app\adminapi\logic\decorate;
 
 
-use app\common\enum\DecoratePageEnum;
 use app\common\logic\BaseLogic;
+use app\common\model\decorate\DecoratePage;
 
 
 /**
@@ -26,24 +26,40 @@ use app\common\logic\BaseLogic;
 class DecoratePageLogic extends BaseLogic
 {
 
+
     /**
-     * @notes 获取装修页面链接
-     * @param string $type
+     * @notes 获取详情
+     * @param $id
      * @return array
      * @author 段誉
-     * @date 2022/9/6 14:29
+     * @date 2022/9/14 18:41
      */
-    public static function getPageLink(string $type): array
+    public static function getDetail($id)
     {
-        $pageList = DecoratePageEnum::CLIENT_PAGE;
-        $list = [];
-        foreach ($pageList as $page) {
-            if ($type === $page['type']) {
-                $list[] = $page;
-            }
-        }
-        return $list;
+        return DecoratePage::findOrEmpty($id)->toArray();
     }
+
+
+    /**
+     * @notes 保存装修配置
+     * @param $params
+     * @return bool
+     * @author 段誉
+     * @date 2022/9/15 9:37
+     */
+    public static function save($params)
+    {
+        $pageData = DecoratePage::where(['id' => $params['id']])->findOrEmpty();
+        if ($pageData->isEmpty()) {
+            self::$error = '信息不存在';
+            return false;
+        }
+
+        $pageData->page_data = $params['page_data'];
+        $pageData->save();
+        return true;
+    }
+
 
 
 }

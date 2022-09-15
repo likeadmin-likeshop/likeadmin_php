@@ -16,6 +16,7 @@ namespace app\adminapi\controller\decorate;
 
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\logic\decorate\DecoratePageLogic;
+use app\adminapi\validate\decorate\DecoratePageValidate;
 
 
 /**
@@ -26,18 +27,34 @@ use app\adminapi\logic\decorate\DecoratePageLogic;
 class PageController extends BaseAdminController
 {
 
-
     /**
-     * @notes 获取页面链接信息
+     * @notes 获取装修修页面详情
      * @return \think\response\Json
      * @author 段誉
-     * @date 2022/9/6 14:30
+     * @date 2022/9/14 18:43
      */
-    public function getPageLink()
+    public function detail()
     {
-        $type = $this->request->get('type', 'shop');
-        $page = DecoratePageLogic::getPageLink($type);
-        return $this->success('操作成功', $page);
+        $id = $this->request->get('id/d');
+        $result = DecoratePageLogic::getDetail($id);
+        return $this->success('获取成功', $result);
+    }
+
+
+    /**
+     * @notes 保存装修配置
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/15 9:57
+     */
+    public function save()
+    {
+        $params = (new DecoratePageValidate())->post()->goCheck();
+        $result = DecoratePageLogic::save($params);
+        if (false === $result) {
+            return $this->fail(DecoratePageLogic::getError());
+        }
+        return $this->success('操作成功');
     }
 
 
