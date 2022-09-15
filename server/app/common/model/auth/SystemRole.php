@@ -22,7 +22,7 @@ use think\model\concern\SoftDelete;
  * Class Role
  * @package app\common\model
  */
-class Role extends BaseModel
+class SystemRole extends BaseModel
 {
     use SoftDelete;
 

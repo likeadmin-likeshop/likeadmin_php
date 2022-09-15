@@ -16,7 +16,7 @@ namespace app\adminapi\validate\auth;
 
 
 use app\common\validate\BaseValidate;
-use app\common\model\auth\{Role, Admin};
+use app\common\model\auth\{SystemRole, Admin};
 
 /**
  * 角色验证器
@@ -27,7 +27,7 @@ class RoleValidate extends BaseValidate
 {
     protected $rule = [
         'id' => 'require|checkRole',
-        'name' => 'require|max:64|unique:' . Role::class . ',name',
+        'name' => 'require|max:64|unique:' . SystemRole::class . ',name',
         'menu_id' => 'array',
     ];
 
@@ -88,7 +88,7 @@ class RoleValidate extends BaseValidate
      */
     public function checkRole($value, $rule, $data)
     {
-        if (!Role::find($value)) {
+        if (!SystemRole::find($value)) {
             return '角色不存在';
         }
         return true;

@@ -16,7 +16,7 @@ namespace app\adminapi\lists\auth;
 
 use app\adminapi\lists\BaseAdminDataLists;
 use app\common\model\auth\Admin;
-use app\common\model\auth\Role;
+use app\common\model\auth\SystemRole;
 
 /**
  * 角色列表
@@ -62,7 +62,7 @@ class RoleLists extends BaseAdminDataLists
      */
     public function lists(): array
     {
-        $lists = Role::with(['role_menu_index'])
+        $lists = SystemRole::with(['role_menu_index'])
             ->field('id,name,desc,sort,create_time')
             ->limit($this->limitOffset, $this->limitLength)
             ->order('id', 'desc')
@@ -90,6 +90,6 @@ class RoleLists extends BaseAdminDataLists
      */
     public function count(): int
     {
-        return Role::count();
+        return SystemRole::count();
     }
 }

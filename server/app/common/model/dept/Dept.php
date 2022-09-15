@@ -30,6 +30,7 @@ class Dept extends BaseModel
 
     protected $deleteTime = 'delete_time';
 
+    protected $name = 'system_dept';
 
     /**
      * @notes 状态描述
