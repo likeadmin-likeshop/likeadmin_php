@@ -317,14 +317,16 @@ class GeneratorLogic extends BaseLogic
             if ($value['notnull'] && !$value['primary'] && !in_array($value['name'], $defaultColumn)) {
                 $required = 1;
             }
+
             $columnData = [
                 'table_id' => $tableId,
                 'column_name' => $value['name'],
                 'column_comment' => $value['comment'],
-                'column_type' => getDbFieldType($value['type']),
+                'column_type' => self::getDbFieldType($value['type']),
                 'is_required' => $required,
                 'is_pk' => $value['primary'] ? 1 : 0,
             ];
+
             if (!in_array($value['name'], $defaultColumn)) {
                 $columnData['is_insert'] = 1;
                 $columnData['is_update'] = 1;
@@ -333,6 +335,7 @@ class GeneratorLogic extends BaseLogic
             }
             $insertColumn[] = $columnData;
         }
+
         (new GenerateColumn())->saveAll($insertColumn);
     }
 
@@ -351,14 +354,45 @@ class GeneratorLogic extends BaseLogic
             self::$error = '请重新生成代码';
             return false;
         }
+
         $path = root_path() . 'runtime/generate/' . $fileName;
         if (!file_exists($path)) {
             self::$error = '下载失败';
             return false;
         }
+
         cache('curd_file_name' . $fileName, null);
         return $path;
     }
 
+
+    /**
+     * @notes 获取数据表字段类型
+     * @param string $type
+     * @return string
+     * @author 段誉
+     * @date 2022/6/15 10:11
+     */
+    public static function getDbFieldType(string $type): string
+    {
+        if (0 === strpos($type, 'set') || 0 === strpos($type, 'enum')) {
+            $result = 'string';
+        } elseif (preg_match('/(double|float|decimal|real|numeric)/is', $type)) {
+            $result = 'float';
+        } elseif (preg_match('/(int|serial|bit)/is', $type)) {
+            $result = 'int';
+        } elseif (preg_match('/bool/is', $type)) {
+            $result = 'bool';
+        } elseif (0 === strpos($type, 'timestamp')) {
+            $result = 'timestamp';
+        } elseif (0 === strpos($type, 'datetime')) {
+            $result = 'datetime';
+        } elseif (0 === strpos($type, 'date')) {
+            $result = 'date';
+        } else {
+            $result = 'string';
+        }
+        return $result;
+    }
 
 }

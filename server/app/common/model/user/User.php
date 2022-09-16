@@ -116,4 +116,29 @@ class User extends BaseModel
     }
 
 
+    /**
+     * @notes 生成用户编码
+     * @param string $prefix
+     * @param int $length
+     * @return string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/9/16 10:33
+     */
+    public static function createUserSn($prefix = '', $length = 8)
+    {
+        $rand_str = '';
+        for ($i = 0; $i < $length; $i++) {
+            $rand_str .= mt_rand(0, 9);
+        }
+        $sn = $prefix . $rand_str;
+        if (User::where(['sn' => $sn])->find()) {
+            return self::createUserSn($prefix, $length);
+        }
+        return $sn;
+    }
+
+
 }

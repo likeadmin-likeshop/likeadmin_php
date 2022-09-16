@@ -39,7 +39,7 @@ class LoginLogic extends BaseLogic
     public static function register(array $params)
     {
         try {
-            $userSn = self::createUserSn();
+            $userSn = User::createUserSn();
             $passwordSalt = Config::get('project.unique_identification');
             $password = create_password($params['password'], $passwordSalt);
             $avatar = ConfigService::get('default_image', 'user_avatar');
@@ -58,31 +58,6 @@ class LoginLogic extends BaseLogic
             self::setError($e->getMessage());
             return false;
         }
-    }
-
-
-    /**
-     * @notes 生成用户编号
-     * @param string $prefix
-     * @param int $length
-     * @return string
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author 段誉
-     * @date 2022/9/7 15:34
-     */
-    public static function createUserSn($prefix = '', $length = 8)
-    {
-        $rand_str = '';
-        for ($i = 0; $i < $length; $i++) {
-            $rand_str .= mt_rand(0, 9);
-        }
-        $sn = $prefix . $rand_str;
-        if (User::where(['sn' => $sn])->find()) {
-            return self::createUserSn($prefix, $length);
-        }
-        return $sn;
     }
 
 
@@ -243,6 +218,7 @@ class LoginLogic extends BaseLogic
             $response = WeChatService::getMnpResByCode($params);
             $response['headimgurl'] = $params['headimgurl'];
             $response['nickname'] = $params['nickname'];
+
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_MMP);
             $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
 
@@ -303,6 +279,7 @@ class LoginLogic extends BaseLogic
         }
     }
 
+
     /**
      * @notes 公众号端绑定微信
      * @param array $params
@@ -331,6 +308,7 @@ class LoginLogic extends BaseLogic
             return false;
         }
     }
+
 
     /**
      * @notes 生成一条授权记录

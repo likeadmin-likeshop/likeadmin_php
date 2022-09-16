@@ -14,19 +14,21 @@
 
 namespace app\api\service;
 
-use app\common\logic\UserLogic;
+
 use app\common\model\user\{User, UserAuth};
-use app\common\enum\UserTerminalEnum;
+use app\common\enum\user\UserTerminalEnum;
 use app\common\service\{ConfigService, storage\Driver as StorageDriver};
 use think\Exception;
 
+
 /**
  * 用户功能类（主要微信登录后创建和更新用户）
- * Class UserService
- * @package app\shopapi\service
+ * Class WechatUserService
+ * @package app\api\service
  */
 class WechatUserService
 {
+
     protected int $terminal = UserTerminalEnum::WECHAT_MMP;
     protected array $response = [];
     protected ?string $code = null;
@@ -42,6 +44,7 @@ class WechatUserService
         $this->terminal = $terminal;
         $this->setParams($response);
     }
+
 
     /**
      * @notes 设置微信返回的用户信息
@@ -66,14 +69,15 @@ class WechatUserService
      */
     public function getResopnseByUserInfo($source = ''): self
     {
-        $user = User::hasWhere('userAuth', ['openid' => $this->openid], 'id,sn,nickname,avatar,mobile,disable')
+        $field = 'id,sn,nickname,avatar,mobile,is_disable';
+        $user = User::hasWhere('userAuth', ['openid' => $this->openid], $field)
             ->findOrEmpty();
         /*
          * 用户没有该端记录，且微信返回了unionid，则用unionid找该用户
          * 如果是小程序的静默登录，只按open_id找用户信息，如果没有用户信息，返回空，前端重新调用授权登录接口。
          */
         if ($user->isEmpty() && $this->unionid && 'silent' != $source) {
-            $user = User::hasWhere('userAuth', ['unionid' => $this->unionid], 'id,sn,nickname,avatar,mobile,disable')
+            $user = User::hasWhere('userAuth', ['unionid' => $this->unionid], $field)
                 ->findOrEmpty();
         }
 
@@ -83,7 +87,7 @@ class WechatUserService
 
 
     /**
-     * @notes
+     * @notes 获取用户信息
      * @param bool $isCheck 是否验证账号是否可用
      * @return array
      * @throws Exception
@@ -103,14 +107,14 @@ class WechatUserService
 
 
     /**
-     * @notes 验证账号是否可用
-     * @return bool|string
-     * @author cjhao
-     * @date 2021/8/2 15:07
+     * @notes 校验账号
+     * @throws Exception
+     * @author 段誉
+     * @date 2022/9/16 10:14
      */
     private function checkAccount()
     {
-        if ($this->user->disable) {
+        if ($this->user->is_disable) {
             throw new Exception('您的账号异常，请联系客服。');
         }
     }
@@ -119,47 +123,34 @@ class WechatUserService
     /**
      * @notes 创建用户
      * @throws Exception
-     * @author cjhao
-     * @date 2021/8/2 16:26
+     * @author 段誉
+     * @date 2022/9/16 10:06
      */
     private function createUser(): void
     {
-        // 获取存储引擎
-        $config = [
-            'default' => ConfigService::get('storage', 'default', 'local'),
-            'engine' => ConfigService::get('storage')
-        ];
         //设置头像
         if (empty($this->headimgurl)) {
-            //默认头像
-            $avatar = ConfigService::get('config', 'default_avatar', '');
-
+            // 默认头像
+            $avatar = ConfigService::get('config', 'default_avatar');
         } else {
-            if ($config['default'] == 'local') {
-                $file_name = md5($this->openid . time()) . '.jpeg';
-                $avatar = download_file($this->headimgurl, 'uploads/user/avatar/', $file_name);
-            } else {
-                $avatar = 'uploads/user/avatar/' . md5($this->openid . time()) . '.jpeg';
-                $StorageDriver = new StorageDriver($config);
-                if (!$StorageDriver->fetch($this->headimgurl, $avatar)) {
-                    throw new Exception('头像保存失败:' . $StorageDriver->getError());
-                }
-            }
-
+            // 微信获取到的头像信息
+            $avatar = $this->getAvatarByWechat();
         }
 
+        $userSn = User::createUserSn();
+        $this->user->sn = $userSn;
+        $this->user->account = 'u' . $userSn;
         $this->user->nickname = $this->nickname;
-        $this->user->sn = create_user_sn();
         $this->user->avatar = $avatar;
-        $this->user->code = generate_code();
-        $this->user->register_source = $this->terminal;
+        $this->user->channel = $this->terminal;
 
         if (empty($this->nickname)) {
             $this->user->nickname = '用户' . $this->user->sn;
         }
 
         $this->user->save();
-        (new UserAuth)->save([
+
+        UserAuth::create([
             'user_id' => $this->user->id,
             'openid' => $this->openid,
             'unionid' => $this->unionid,
@@ -167,39 +158,26 @@ class WechatUserService
         ]);
     }
 
+
     /**
-     * 更新用户信息（如果该端没授权信息，会重新写入一条该端的授权信息）
-     * @param $response
-     * @param $client
-     * @param $user_id
-     * @return array|\PDOStatement|string|\think\Model|null
+     * @notes 更新用户信息
+     * @throws Exception
+     * @author 段誉
+     * @date 2022/9/16 10:06
+     * @remark 该端没授权信息,重新写入一条该端的授权信息
      */
     private function updateUser(): void
     {
-        //无头像需要更新头像
+        // 无头像需要更新头像
         if (empty($this->user->avatar)) {
-            // 获取存储引擎
-            $config = [
-                'default' => ConfigService::get('storage', 'default', 'local'),
-                'engine' => ConfigService::get('storage_engine')
-            ];
-
-            if ($config['default'] == 'local') {
-                $file_name = md5($this->openid . time()) . '.jpeg';
-                $avatar = download_file($this->headimgurl, 'uploads/user/avatar/', $file_name);
-            } else {
-                $avatar = 'uploads/user/avatar/' . md5($this->openid . time()) . '.jpeg';
-                $StorageDriver = new StorageDriver($config);
-                if (!$StorageDriver->fetch($this->headimgurl, $avatar)) {
-                    throw new Exception('头像保存失败:' . $StorageDriver->getError());
-                }
-            }
-            $this->user->avatar = $avatar;
+            $this->user->avatar = $this->getAvatarByWechat();
+            $this->user->save();
         }
-        $this->user->save();
 
-        $userAuth = UserAuth::where(['user_id' => $this->user->id, 'openid' => $this->openid])->findOrEmpty();
-        //无该端信息，新增一条
+        $userAuth = UserAuth::where(['user_id' => $this->user->id, 'openid' => $this->openid])
+            ->findOrEmpty();
+
+        // 无该端授权信息，新增一条
         if ($userAuth->isEmpty()) {
             $userAuth->user_id = $this->user->id;
             $userAuth->openid = $this->openid;
@@ -209,6 +187,7 @@ class WechatUserService
         }
     }
 
+
     /**
      * @notes 获取token
      * @throws \think\db\exception\DataNotFoundException
@@ -217,7 +196,7 @@ class WechatUserService
      * @author cjhao
      * @date 2021/8/2 16:45
      */
-    private function getToken()
+    private function getToken(): void
     {
         $user = UserTokenService::setToken($this->user->id, $this->terminal);
         $this->user->token = $user['token'];
@@ -241,4 +220,36 @@ class WechatUserService
         }
         return $this;
     }
+
+
+    /**
+     * @notes 处理从微信获取到的头像信息
+     * @return string
+     * @throws Exception
+     * @author 段誉
+     * @date 2022/9/16 9:50
+     */
+    public function getAvatarByWechat(): string
+    {
+        // 存储引擎
+        $config = [
+            'default' => ConfigService::get('storage', 'default', 'local'),
+            'engine' => ConfigService::get('storage')
+        ];
+        if ($config['default'] == 'local') {
+            // 本地存储
+            $file_name = md5($this->openid . time()) . '.jpeg';
+            $avatar = download_file($this->headimgurl, 'uploads/user/avatar/', $file_name);
+        } else {
+            // 第三方存储
+            $avatar = 'uploads/user/avatar/' . md5($this->openid . time()) . '.jpeg';
+            $StorageDriver = new StorageDriver($config);
+            if (!$StorageDriver->fetch($this->headimgurl, $avatar)) {
+                throw new Exception('头像保存失败:' . $StorageDriver->getError());
+            }
+        }
+        return $avatar;
+    }
+
+
 }

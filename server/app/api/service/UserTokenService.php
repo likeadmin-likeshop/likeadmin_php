@@ -21,17 +21,17 @@ use think\facade\Config;
 
 class UserTokenService
 {
+
     /**
      * @notes 设置或更新用户token
      * @param $userId
      * @param $terminal
-     * @param int $multipointLogin
      * @return array|false|mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 令狐冲
-     * @date 2021/7/13 23:07
+     * @author 段誉
+     * @date 2022/9/16 10:10
      */
     public static function setToken($userId, $terminal)
     {
@@ -44,7 +44,6 @@ class UserTokenService
 
         //token处理
         if ($userSession) {
-
             //清空缓存
             $userTokenCache->deleteUserInfo($userSession->token);
             //重新获取token
@@ -60,10 +59,11 @@ class UserTokenService
                 'token' => create_token($userId),
                 'expire_time' => $expireTime
             ]);
-
         }
+
         return $userTokenCache->setUserInfo($userSession->token);
     }
+
 
     /**
      * @notes 延长token过期时间
@@ -72,8 +72,8 @@ class UserTokenService
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 令狐冲
-     * @date 2021/7/5 14:25
+     * @author 段誉
+     * @date 2022/9/16 10:10
      */
     public static function overtimeToken($token)
     {
@@ -83,8 +83,10 @@ class UserTokenService
         $adminSession->expire_time = $time + Config::get('project.user_token.expire_duration');
         $adminSession->update_time = $time;
         $adminSession->save();
+
         return (new UserTokenCache())->setUserInfo($adminSession->token);
     }
+
 
     /**
      * @notes 设置token为过期
@@ -93,8 +95,8 @@ class UserTokenService
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 令狐冲
-     * @date 2021/7/5 14:31
+     * @author 段誉
+     * @date 2022/9/16 10:10
      */
     public static function expireToken($token)
     {
