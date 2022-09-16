@@ -68,7 +68,7 @@ class LoginLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/6 19:26
      */
-    public function login($params)
+    public static function login($params)
     {
         try {
             // 账号/手机号 密码登录
@@ -116,10 +116,10 @@ class LoginLogic extends BaseLogic
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 令狐冲
-     * @date 2021/7/5 14:34
+     * @author 段誉
+     * @date 2022/9/16 17:56
      */
-    public function logout($userInfo)
+    public static function logout($userInfo)
     {
         //token不存在，不注销
         if (!isset($userInfo['token'])) {
@@ -340,4 +340,5 @@ class LoginLogic extends BaseLogic
         ]);
         return true;
     }
+
 }

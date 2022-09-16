@@ -58,7 +58,7 @@ class LoginController extends BaseApiController
     public function account()
     {
         $params = (new LoginAccountValidate())->post()->goCheck();
-        $result = (new LoginLogic())->login($params);
+        $result = LoginLogic::login($params);
         if (false === $result) {
             return $this->fail(LoginLogic::getError());
         }
@@ -77,7 +77,7 @@ class LoginController extends BaseApiController
      */
     public function logout()
     {
-        (new LoginLogic())->logout($this->userInfo);
+        LoginLogic::logout($this->userInfo);
         return $this->success();
     }
 
@@ -105,7 +105,7 @@ class LoginController extends BaseApiController
     public function oaLogin()
     {
         $params = (new WechatLoginValidate())->post()->goCheck('oa');
-        $res = (new LoginLogic)->oaLogin($params);
+        $res = LoginLogic::oaLogin($params);
         if (false === $res) {
             return $this->fail(LoginLogic::getError());
         }
@@ -123,7 +123,7 @@ class LoginController extends BaseApiController
     public function silentLogin()
     {
         $params = (new WechatLoginValidate())->post()->goCheck('silent');
-        $res = (new LoginLogic)->silentLogin($params);
+        $res = LoginLogic::silentLogin($params);
         if (false === $res) {
             return $this->fail(LoginLogic::getError());
         }
@@ -140,7 +140,7 @@ class LoginController extends BaseApiController
     public function authLogin()
     {
         $params = (new WechatLoginValidate())->post()->goCheck('auth');
-        $res = (new LoginLogic)->authLogin($params);
+        $res = LoginLogic::authLogin($params);
         if (false === $res) {
             return $this->fail(LoginLogic::getError());
         }
@@ -158,7 +158,7 @@ class LoginController extends BaseApiController
     {
         $params = (new WechatLoginValidate())->post()->goCheck("wechatAuth");
         $params['user_id'] = $this->userId;
-        $result = (new LoginLogic())->mnpAuthLogin($params);
+        $result = LoginLogic::mnpAuthLogin($params);
         if ($result === false) {
             return $this->fail(LoginLogic::getError());
         }
@@ -180,10 +180,16 @@ class LoginController extends BaseApiController
     {
         $params = (new WechatLoginValidate())->post()->goCheck("wechatAuth");
         $params['user_id'] = $this->userId;
-        $result = (new LoginLogic())->oaAuthLogin($params);
+        $result = LoginLogic::oaAuthLogin($params);
         if ($result === false) {
             return $this->fail(LoginLogic::getError());
         }
         return $this->success('绑定成功', [], 1, 1);
     }
+
+
+
+
+
+
 }

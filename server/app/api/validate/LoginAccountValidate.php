@@ -25,7 +25,7 @@ use app\common\model\user\User;
 use think\facade\Config;
 
 /**
- * 登录校验
+ * 账号密码登录校验
  * Class LoginValidate
  * @package app\api\validate
  */
