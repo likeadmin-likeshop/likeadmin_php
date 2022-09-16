@@ -36,29 +36,51 @@ class WechatLoginValidate extends BaseValidate
         'terminal.require' => '终端参数缺少',
     ];
 
+
+    /**
+     * @notes 小程序-静默登录场景
+     * @return WechatLoginValidate
+     * @author 段誉
+     * @date 2022/9/16 10:58
+     */
     public function sceneSilent()
     {
         return $this->only(['code']);
     }
 
+    /**
+     * @notes 公众号登录场景
+     * @return WechatLoginValidate
+     * @author 段誉
+     * @date 2022/9/16 10:57
+     */
     public function sceneOa()
     {
         return $this->only(['code']);
     }
 
+
+    /**
+     * @notes 小程序-授权登录场景
+     * @return WechatLoginValidate
+     * @author 段誉
+     * @date 2022/9/16 11:15
+     */
     public function sceneAuth()
     {
         return $this->only(['code', 'nickname', 'headimgurl']);
     }
 
+
+    /**
+     * @notes
+     * @return WechatLoginValidate
+     * @author 段誉
+     * @date 2022/9/16 11:15
+     */
     public function sceneWechatAuth()
     {
         return $this->only(['code']);
-    }
-
-    public function sceneUninapp()
-    {
-        return $this->only(['openid', 'access_token', 'terminal']);
     }
 
 

@@ -114,9 +114,11 @@ class LoginController extends BaseApiController
 
 
     /**
-     * @notes 静默登录
-     * @author cjhao
-     * @date 2021/7/31 14:41
+     * @notes 小程序-静默登录
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/16 10:58
+     * @remark 校验是否已有用户信息,有则登录成功,无则前端让用户确认授权,调用authLogin进行登录。
      */
     public function silentLogin()
     {
@@ -130,7 +132,7 @@ class LoginController extends BaseApiController
 
 
     /**
-     * @notes 登录接口
+     * @notes 小程序-登录接口
      * @return \think\response\Json
      * @author cjhao
      * @date 2021/7/30 17:47
@@ -152,7 +154,7 @@ class LoginController extends BaseApiController
      * @author cjhao
      * @date 2022/5/17 15:56
      */
-    public function mnpAuthLogin()
+    public function mnpAuthBind()
     {
         $params = (new WechatLoginValidate())->post()->goCheck("wechatAuth");
         $params['user_id'] = $this->userId;
@@ -174,7 +176,7 @@ class LoginController extends BaseApiController
      * @author cjhao
      * @date 2022/5/18 9:11
      */
-    public function oaAuthLogin()
+    public function oaAuthBind()
     {
         $params = (new WechatLoginValidate())->post()->goCheck("wechatAuth");
         $params['user_id'] = $this->userId;
