@@ -34,19 +34,19 @@ class OfficialAccountSettingLogic extends BaseLogic
     public function getConfig()
     {
         $domainName = $_SERVER['SERVER_NAME'];
-        $qrCode = ConfigService::get('official_account_settings', 'qr_code', '');
+        $qrCode = ConfigService::get('oa_setting', 'qr_code', '');
         $qrCode = empty($qrCode) ? $qrCode : FileService::getFileUrl($qrCode);
         $config = [
-            'name'              => ConfigService::get('official_account_settings', 'name', ''),
-            'original_id'       => ConfigService::get('official_account_settings', 'original_id', ''),
+            'name'              => ConfigService::get('oa_setting', 'name', ''),
+            'original_id'       => ConfigService::get('oa_setting', 'original_id', ''),
             'qr_code'           => $qrCode,
-            'app_id'            => ConfigService::get('official_account_settings', 'app_id', ''),
-            'app_secret'        => ConfigService::get('official_account_settings', 'app_secret', ''),
+            'app_id'            => ConfigService::get('oa_setting', 'app_id', ''),
+            'app_secret'        => ConfigService::get('oa_setting', 'app_secret', ''),
             // url()方法返回Url实例，通过与空字符串连接触发该实例的__toString()方法以得到路由地址
             'url'               => url('adminapi/wechat.official_account_reply/index', [],'',true).'',
-            'token'             => ConfigService::get('official_account_settings', 'token'),
-            'encoding_aes_key'  => ConfigService::get('official_account_settings', 'encoding_aes_key', ''),
-            'encryption_type'   => ConfigService::get('official_account_settings', 'encryption_type'),
+            'token'             => ConfigService::get('oa_setting', 'token'),
+            'encoding_aes_key'  => ConfigService::get('oa_setting', 'encoding_aes_key', ''),
+            'encryption_type'   => ConfigService::get('oa_setting', 'encryption_type'),
             'business_domain'   => $domainName,
             'js_secure_domain'  => $domainName,
             'web_auth_domain'   => $domainName,
@@ -64,13 +64,13 @@ class OfficialAccountSettingLogic extends BaseLogic
     {
         $qrCode = isset($params['qr_code']) ? FileService::setFileUrl($params['qr_code']) : '';
 
-        ConfigService::set('official_account_settings','name', $params['name'] ?? '');
-        ConfigService::set('official_account_settings','original_id', $params['original_id'] ?? '');
-        ConfigService::set('official_account_settings','qr_code', $qrCode);
-        ConfigService::set('official_account_settings','app_id',$params['app_id']);
-        ConfigService::set('official_account_settings','app_secret',$params['app_secret']);
-        ConfigService::set('official_account_settings','token',$params['token'] ?? '');
-        ConfigService::set('official_account_settings','encoding_aes_key',$params['encoding_aes_key'] ?? '');
-        ConfigService::set('official_account_settings','encryption_type',$params['encryption_type']);
+        ConfigService::set('oa_setting','name', $params['name'] ?? '');
+        ConfigService::set('oa_setting','original_id', $params['original_id'] ?? '');
+        ConfigService::set('oa_setting','qr_code', $qrCode);
+        ConfigService::set('oa_setting','app_id',$params['app_id']);
+        ConfigService::set('oa_setting','app_secret',$params['app_secret']);
+        ConfigService::set('oa_setting','token',$params['token'] ?? '');
+        ConfigService::set('oa_setting','encoding_aes_key',$params['encoding_aes_key'] ?? '');
+        ConfigService::set('oa_setting','encryption_type',$params['encryption_type']);
     }
 }

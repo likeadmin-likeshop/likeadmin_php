@@ -34,14 +34,14 @@ class MnpSettingsLogic extends BaseLogic
     public function getConfig()
     {
         $domainName = $_SERVER['SERVER_NAME'];
-        $qrCode = ConfigService::get('mnp_settings', 'qr_code', '');
+        $qrCode = ConfigService::get('mnp_setting', 'qr_code', '');
         $qrCode = empty($qrCode) ? $qrCode : FileService::getFileUrl($qrCode);
         $config = [
-            'name'                  => ConfigService::get('mnp_settings', 'name', ''),
-            'original_id'           => ConfigService::get('mnp_settings', 'original_id', ''),
+            'name'                  => ConfigService::get('mnp_setting', 'name', ''),
+            'original_id'           => ConfigService::get('mnp_setting', 'original_id', ''),
             'qr_code'               => $qrCode,
-            'app_id'                => ConfigService::get('mnp_settings', 'app_id', ''),
-            'app_secret'            => ConfigService::get('mnp_settings', 'app_secret', ''),
+            'app_id'                => ConfigService::get('mnp_setting', 'app_id', ''),
+            'app_secret'            => ConfigService::get('mnp_setting', 'app_secret', ''),
             'request_domain'        => 'https://'.$domainName,
             'socket_domain'         => 'wss://'.$domainName,
             'upload_file_domain'     => 'https://'.$domainName,
@@ -63,10 +63,10 @@ class MnpSettingsLogic extends BaseLogic
     {
         $qrCode = isset($params['qr_code']) ? FileService::setFileUrl($params['qr_code']) : '';
 
-        ConfigService::set('mnp_settings','name', $params['name'] ?? '');
-        ConfigService::set('mnp_settings','original_id',$params['original_id'] ?? '');
-        ConfigService::set('mnp_settings','qr_code',$qrCode);
-        ConfigService::set('mnp_settings','app_id',$params['app_id']);
-        ConfigService::set('mnp_settings','app_secret',$params['app_secret']);
+        ConfigService::set('mnp_setting','name', $params['name'] ?? '');
+        ConfigService::set('mnp_setting','original_id',$params['original_id'] ?? '');
+        ConfigService::set('mnp_setting','qr_code',$qrCode);
+        ConfigService::set('mnp_setting','app_id',$params['app_id']);
+        ConfigService::set('mnp_setting','app_secret',$params['app_secret']);
     }
 }

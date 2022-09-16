@@ -31,10 +31,10 @@ class WeChatConfigService
     public static function getMnpConfig()
     {
         $config = [
-            'app_id' => ConfigService::get('mini_program', 'app_id', ''),
-            'secret' => ConfigService::get('mini_program', 'app_secret', ''),
-            'mch_id' => ConfigService::get('mini_program', 'mch_id'),
-            'key' => ConfigService::get('mini_program', 'key'),
+            'app_id' => ConfigService::get('mnp_setting', 'app_id'),
+            'secret' => ConfigService::get('mnp_setting', 'app_secret'),
+            'mch_id' => ConfigService::get('mnp_setting', 'mch_id'),
+            'key' => ConfigService::get('mnp_setting', 'key'),
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
@@ -54,11 +54,11 @@ class WeChatConfigService
     public static function getOaConfig()
     {
         $config = [
-            'app_id' => ConfigService::get('official_account', 'app_id', ''),
-            'secret' => ConfigService::get('official_account', 'app_secret', ''),
+            'app_id' => ConfigService::get('official_account', 'app_id'),
+            'secret' => ConfigService::get('official_account', 'app_secret'),
             'mch_id' => ConfigService::get('official_account', 'mch_id'),
             'key' => ConfigService::get('official_account', 'key'),
-            'token' => ConfigService::get('official_account', 'token', ''),
+            'token' => ConfigService::get('official_account', 'token'),
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
