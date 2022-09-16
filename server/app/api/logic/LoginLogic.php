@@ -248,6 +248,7 @@ class LoginLogic extends BaseLogic
         if ($user->isEmpty()) {
             throw new \Exception('用户不存在');
         }
+
         $time = time();
         $user->login_time = $time;
         $user->login_ip = request()->ip();
@@ -284,14 +285,9 @@ class LoginLogic extends BaseLogic
      * @notes 公众号端绑定微信
      * @param array $params
      * @return bool
-     * @throws AuthorizeFailedException
-     * @throws Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author cjhao
-     * @date 2022/5/17 16:20
+     * @author 段誉
+     * @date 2022/9/16 10:43
      */
     public static function oaAuthLogin(array $params)
     {
@@ -311,15 +307,12 @@ class LoginLogic extends BaseLogic
 
 
     /**
-     * @notes 生成一条授权记录
+     * @notes 生成授权记录
      * @param $response
      * @return bool
-     * @throws Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author cjhao
-     * @date 2022/5/17 16:18
+     * @throws \Exception
+     * @author 段誉
+     * @date 2022/9/16 10:43
      */
     public static function createAuth($response)
     {

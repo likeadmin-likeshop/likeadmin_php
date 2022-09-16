@@ -51,12 +51,9 @@ class LoginController extends BaseApiController
 
     /**
      * @notes 账号密码/手机号密码/手机号验证码登录
-     * @date 2021/6/30 17:01
      * @return \think\response\Json
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author 令狐冲
+     * @author 段誉
+     * @date 2022/9/16 10:42
      */
     public function account()
     {
@@ -75,12 +72,11 @@ class LoginController extends BaseApiController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 令狐冲
-     * @date 2021/7/8 00:36
+     * @author 段誉
+     * @date 2022/9/16 10:42
      */
     public function logout()
     {
-        //退出登录情况特殊，只有成功的情况，也不需要token验证
         (new LoginLogic())->logout($this->userInfo);
         return $this->success();
     }
@@ -96,7 +92,7 @@ class LoginController extends BaseApiController
     {
         $url = $this->request->get('url');
         $result = ['url' => LoginLogic::codeUrl($url)];
-        return $this->success('获取成功', ['url' => $result]);
+        return $this->success('获取成功', $result);
     }
 
 
