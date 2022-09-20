@@ -28,13 +28,13 @@ class UploadService
      * @notes 上传图片
      * @param $cid
      * @param int $user_id
-     * @param string $save_dir
+     * @param string $saveDir
      * @return array
      * @throws Exception
      * @author 段誉
      * @date 2021/12/29 16:30
      */
-    public static function image($cid, int $user_id = 0, string $save_dir = 'uploads/images')
+    public static function image($cid, int $sourceId = 0, int $source = FileEnum::SOURCE_ADMIN, string $saveDir = 'uploads/images')
     {
         try {
             $config = [
@@ -45,7 +45,7 @@ class UploadService
             // 2、执行文件上传
             $StorageDriver = new StorageDriver($config);
             $StorageDriver->setUploadFile('file');
-            if (!$StorageDriver->upload($save_dir)) {
+            if (!$StorageDriver->upload($saveDir)) {
                 throw new Exception($StorageDriver->getError());
             }
 
@@ -64,8 +64,9 @@ class UploadService
                 'cid'         => $cid,
                 'type'        => FileEnum::IMAGE_TYPE,
                 'name'        => $fileInfo['name'],
-                'uri'         => $save_dir . '/' . str_replace("\\","/", $fileName),
-                'user_id'     => $user_id,
+                'uri'         => $saveDir . '/' . str_replace("\\","/", $fileName),
+                'source'      => $source,
+                'source_id'   => $sourceId,
                 'create_time' => time(),
             ]);
 
@@ -89,13 +90,13 @@ class UploadService
      * @notes 视频上传
      * @param $cid
      * @param int $user_id
-     * @param string $save_dir
+     * @param string $saveDir
      * @return array
      * @throws Exception
      * @author 段誉
      * @date 2021/12/29 16:32
      */
-    public static function video($cid, int $user_id = 0, string $save_dir = 'uploads/video')
+    public static function video($cid, int $sourceId = 0, int $source = FileEnum::SOURCE_ADMIN, string $saveDir = 'uploads/video')
     {
         try {
             $config = [
@@ -106,7 +107,7 @@ class UploadService
             // 2、执行文件上传
             $StorageDriver = new StorageDriver($config);
             $StorageDriver->setUploadFile('file');
-            if (!$StorageDriver->upload($save_dir)) {
+            if (!$StorageDriver->upload($saveDir)) {
                 throw new Exception($StorageDriver->getError());
             }
 
@@ -125,8 +126,9 @@ class UploadService
                 'cid'         => $cid,
                 'type'        => FileEnum::VIDEO_TYPE,
                 'name'        => $fileInfo['name'],
-                'uri'         => $save_dir . '/' . str_replace("\\","/", $fileName),
-                'user_id'     => $user_id,
+                'uri'         => $saveDir . '/' . str_replace("\\","/", $fileName),
+                'source'      => $source,
+                'source_id'   => $sourceId,
                 'create_time' => time(),
             ]);
 

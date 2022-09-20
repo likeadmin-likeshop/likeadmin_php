@@ -12,19 +12,37 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\common\enum;
+namespace app\api\controller;
+
+use app\common\enum\FileEnum;
+use app\common\service\UploadService;
+use Exception;
+use think\response\Json;
 
 
-class FileEnum
+/** 上传文件
+ * Class UploadController
+ * @package app\api\controller
+ */
+class UploadController extends BaseApiController
 {
-    // 图片类型
-    const IMAGE_TYPE = 10;  // 图片类型
-    const VIDEO_TYPE = 20;  // 视频类型
-    const FILE_TYPE = 30;  // 文件类型
+
+    /**
+     * @notes 上传图片
+     * @return Json
+     * @author 段誉
+     * @date 2022/9/20 18:11
+     */
+    public function image()
+    {
+        try {
+            $result = UploadService::image(0, $this->userId,FileEnum::SOURCE_USER);
+            return $this->success('上传成功', $result);
+        } catch (Exception $e) {
+            return $this->fail($e->getMessage());
+        }
+    }
 
 
-    // 图片来源
-    const SOURCE_ADMIN = 0;  // 后台
-    const SOURCE_USER = 1;   // 用户
 
 }
