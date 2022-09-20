@@ -14,7 +14,7 @@
                     <el-tree-select
                         class="flex-1"
                         v-model="formData.pid"
-                        :data="leaderList"
+                        :data="optionsData.dept"
                         clearable
                         node-key="id"
                         :props="{
@@ -50,12 +50,12 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import { deptLists, deptEdit, deptAdd } from '@/api/org/department'
+import { deptLists, deptEdit, deptAdd, deptDetail } from '@/api/org/department'
 import Popup from '@/components/popup/index.vue'
+import { useDictOptions } from '@/hooks/useDictOptions'
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
-const leaderList = ref<any[]>([])
 const mode = ref('add')
 const popupTitle = computed(() => {
     return mode.value == 'edit' ? '编辑部门' : '新增部门'
@@ -70,6 +70,19 @@ const formData = reactive({
     status: 1
 })
 
+const checkMobile = (rule: any, value: any, callback: any) => {
+    if (!value) {
+        return callback()
+    } else {
+        const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+        console.log(reg.test(value))
+        if (reg.test(value)) {
+            callback()
+        } else {
+            return callback(new Error('请输入正确的手机号'))
+        }
+    }
+}
 const formRules = {
     pid: [
         {
@@ -84,13 +97,22 @@ const formRules = {
             message: '请输入部门名称',
             trigger: ['blur']
         }
+    ],
+    mobile: [
+        {
+            validator: checkMobile,
+            trigger: ['blur']
+        }
     ]
 }
 
-const getOptions = async () => {
-    const data: any = await deptLists()
-    leaderList.value = data
-}
+const { optionsData } = useDictOptions<{
+    dept: any[]
+}>({
+    dept: {
+        api: deptLists
+    }
+})
 
 const handleSubmit = async () => {
     await formRef.value?.validate()
@@ -113,14 +135,20 @@ const setFormData = (data: Record<any, any>) => {
     }
 }
 
+const getDetail = async (row: Record<string, any>) => {
+    const data = await deptDetail({
+        id: row.id
+    })
+    setFormData(data)
+}
+
 const handleClose = () => {
     emit('close')
 }
 
-getOptions()
-
 defineExpose({
     open,
-    setFormData
+    setFormData,
+    getDetail
 })
 </script>
