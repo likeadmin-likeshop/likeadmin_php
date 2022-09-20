@@ -13,7 +13,6 @@
 // +----------------------------------------------------------------------
 namespace app\api\validate;
 
-
 use app\common\validate\BaseValidate;
 
 /**

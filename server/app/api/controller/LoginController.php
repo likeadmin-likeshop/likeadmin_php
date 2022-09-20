@@ -27,8 +27,7 @@ class LoginController extends BaseApiController
 
     public array $notNeedLogin = [
         'register', 'account', 'logout', 'codeUrl',
-        'oaLogin', 'silentLogin', 'authLogin', 'config',
-        'captcha', 'uninAppLogin'
+        'oaLogin', 'silentLogin', 'authLogin'
     ];
 
 

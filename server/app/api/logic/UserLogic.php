@@ -11,8 +11,8 @@
 // +----------------------------------------------------------------------
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
-namespace app\api\logic;
 
+namespace app\api\logic;
 
 use app\common\{enum\user\UserTerminalEnum,
     logic\BaseLogic,
