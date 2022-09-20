@@ -54,4 +54,16 @@ class PasswordValidate extends BaseValidate
         return $this->only(['mobile', 'code', 'password', 'password_confirm']);
     }
 
+
+    /**
+     * @notes 修改密码场景
+     * @return PasswordValidate
+     * @author 段誉
+     * @date 2022/9/20 19:14
+     */
+    public function sceneChangePassword()
+    {
+        return $this->only(['password', 'password_confirm']);
+    }
+
 }

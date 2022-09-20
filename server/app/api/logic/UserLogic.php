@@ -55,7 +55,7 @@ class UserLogic extends BaseLogic
 
 
     /**
-     * @notes 充值登录密码
+     * @notes 重置登录密码
      * @param $params
      * @return bool
      * @author 段誉
@@ -86,5 +86,46 @@ class UserLogic extends BaseLogic
         }
     }
 
+
+    /**
+     * @notes 修稿密码
+     * @param $params
+     * @param $userId
+     * @return bool
+     * @author 段誉
+     * @date 2022/9/20 19:13
+     */
+    public static function changePassword($params, $userId)
+    {
+        try {
+            $user = User::findOrEmpty($userId);
+            if ($user->isEmpty()) {
+                throw new \Exception('用户不存在');
+            }
+
+            // 密码盐
+            $passwordSalt = Config::get('project.unique_identification');
+
+            if (!empty($user['password'])) {
+                if (empty($params['old_password'])) {
+                    throw new \Exception('请填写旧密码');
+                }
+                $oldPassword = create_password($params['old_password'], $passwordSalt);
+                if ($oldPassword != $user['password']) {
+                    throw new \Exception('原密码不正确');
+                }
+            }
+
+            // 保存密码
+            $password = create_password($params['password'], $passwordSalt);
+            $user->password = $password;
+            $user->save();
+
+            return true;
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
+        }
+    }
 
 }

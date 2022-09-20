@@ -60,5 +60,19 @@ class UserController extends BaseApiController
     }
 
 
-
+    /**
+     * @notes 修改密码
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/20 19:16
+     */
+    public function changePassword()
+    {
+        $params = (new PasswordValidate())->post()->goCheck('changePassword');
+        $result = UserLogic::changePassword($params, $this->userId);
+        if (true === $result) {
+            return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail(UserLogic::getError());
+    }
 }
