@@ -3,10 +3,20 @@
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
                 <el-form-item label="岗位编码">
-                    <el-input class="w-56" v-model="queryParams.code" />
+                    <el-input
+                        class="w-56"
+                        v-model="queryParams.code"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="岗位名称">
-                    <el-input class="w-56" v-model="queryParams.name" />
+                    <el-input
+                        class="w-56"
+                        v-model="queryParams.name"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="岗位状态">
                     <el-select class="w-56" v-model="queryParams.status">
