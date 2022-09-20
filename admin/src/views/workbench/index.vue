@@ -135,7 +135,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="workbench">
 import { getWorkbench } from '@/api/app'
 import vCharts from 'vue-echarts'
 // 表单数据
