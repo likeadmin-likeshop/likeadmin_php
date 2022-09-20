@@ -34,12 +34,13 @@
                 <el-table-column label="岗位编码" prop="code" min-width="100" />
                 <el-table-column label="岗位名称" prop="name" min-width="100" />
                 <el-table-column label="排序" prop="sort" min-width="100" />
+                <el-table-column label="备注" prop="remark" min-width="100" show-overflow-tooltip />
                 <el-table-column label="添加时间" prop="create_time" min-width="180" />
                 <el-table-column label="状态" prop="status" min-width="100">
                     <template #default="{ row }">
-                        <el-tag class="ml-2" :type="row.status ? '' : 'danger'">{{
-                            row.status_desc
-                        }}</el-tag>
+                        <el-tag class="ml-2" :type="row.status ? '' : 'danger'">
+                            {{ row.status_desc }}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column label="操作" width="120" fixed="right">
@@ -70,9 +71,10 @@
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="post">
 import { jobsDelete, jobsLists } from '@/api/org/post'
 import { usePaging } from '@/hooks/usePaging'
+import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const showEdit = ref(false)
@@ -97,10 +99,11 @@ const handleEdit = async (data: any) => {
     showEdit.value = true
     await nextTick()
     editRef.value?.open('edit')
-    editRef.value?.setFormData(data)
+    editRef.value?.getDetail(data)
 }
 
 const handleDelete = async (id: number) => {
+    await feedback.confirm('确定要删除？')
     await jobsDelete({ id })
     getLists()
 }
