@@ -96,7 +96,7 @@
             font-size: var(--el-font-size-small);
         }
     }
-   
+
     .el-button--primary {
         --el-button-hover-link-text-color: var(--el-color-primary-light-3);
     }
@@ -112,6 +112,12 @@
     .el-button--danger {
         --el-button-hover-link-text-color: var(--el-color-danger-light-3);
     }
+    .el-image__error {
+        font-size: 12px;
+    }
+    .el-tabs__nav-wrap::after {
+        height: 1px;
+    }
 }
 @media (max-width: 768px) {
     .el-pagination > .el-pagination__jump {
@@ -122,7 +128,18 @@
     }
 }
 
-// 防止被tailwindcss默认样式覆盖
 .el-button {
+    // 防止被tailwindcss默认样式覆盖
     background-color: var(--el-button-bg-color, var(--el-color-white));
+
+    //覆盖el-button的点击样式
+    &:focus {
+        border-color: var(--el-button-border-color);
+        background-color: var(--el-button-bg-color);
+    }
+    &:hover {
+        color: var(--el-button-hover-text-color);
+        border-color: var(--el-button-hover-border-color);
+        background-color: var(--el-button-hover-bg-color);
+    }
 }

@@ -4,6 +4,7 @@
         <side-menu
             :routes="routes"
             :isCollapsed="isCollapsed"
+            :width="settingStore.sideWidth"
             :config="menuProp"
             :theme="sideTheme"
             @select="handleSelect"
@@ -34,7 +35,11 @@ const userStore = useUserStore()
 const routes = computed(() => userStore.routes)
 
 const sideStyle = computed(() => {
-    return sideTheme.value == 'dark' ? `--side-dark-color:${settingStore.sideDarkColor}` : ''
+    return sideTheme.value == 'dark'
+        ? {
+              '--side-dark-color': settingStore.sideDarkColor
+          }
+        : ''
 })
 const menuProp = computed(() => {
     return {

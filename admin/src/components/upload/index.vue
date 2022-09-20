@@ -44,6 +44,7 @@ import useUserStore from '@/stores/modules/user'
 import config from '@/config'
 import feedback from '@/utils/feedback'
 import type { ElUpload } from 'element-plus'
+import { RequestCodeEnum } from '@/enums/requestEnums'
 export default defineComponent({
     components: {},
     props: {
@@ -77,7 +78,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const userStore = useUserStore()
         const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
-        const action = ref(`${config.baseUrl}${config.urlPrefix}/upload/${props.type}`)
+        const action = ref(`${config.baseUrl}${config.urlPrefix}/common/upload/${props.type}`)
         const headers = computed(() => ({
             token: userStore.token,
             version: config.version
@@ -87,7 +88,7 @@ export default defineComponent({
 
         const handleProgress = (event: any, file: any, fileLists: any[]) => {
             visible.value = true
-            fileList.value = fileLists
+            fileList.value = toRaw(fileLists)
         }
 
         const handleSuccess = (response: any, file: any, fileLists: any[]) => {
@@ -95,11 +96,9 @@ export default defineComponent({
             if (allSuccess) {
                 uploadRefs.value?.clearFiles()
                 visible.value = false
-
-            console.log(fileLists)
+                emit('change')
             }
-            emit('change')
-            if (response.code == 0 && response.show && response.msg) {
+            if (response.code == RequestCodeEnum.FAILED && response.msg) {
                 feedback.msgError(response.msg)
             }
         }
@@ -115,7 +114,6 @@ export default defineComponent({
         }
         const handleClose = () => {
             uploadRefs.value?.clearFiles()
-            console.log(uploadRefs.value)
             visible.value = false
         }
         return {

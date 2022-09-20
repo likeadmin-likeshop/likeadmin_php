@@ -39,7 +39,7 @@ const props = withDefaults(
     }>(),
     {
         modelValue: '',
-        mode: 'simple',
+        mode: 'default',
         height: '100%',
         width: 'auto',
         toolbarConfig: () => ({
@@ -100,3 +100,34 @@ const handleCreated = (editor: any) => {
     editorRef.value = editor // 记录 editor 实例，重要！
 }
 </script>
+
+<style lang="scss">
+.w-e-text-container [data-slate-editor] ul {
+    list-style: disc;
+}
+.w-e-text-container [data-slate-editor] ol {
+    list-style: decimal;
+}
+h1 {
+    font-size: 2em;
+}
+h2 {
+    font-size: 1.5em;
+}
+h3 {
+    font-size: 1.17em;
+}
+h4 {
+    font-size: 1em;
+}
+h5 {
+    font-size: 0.83em;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: bold;
+}
+</style>

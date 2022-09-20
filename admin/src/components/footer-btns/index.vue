@@ -1,21 +1,24 @@
 <template>
     <div class="footer-btns">
-        <div class="footer-btns__content">
+        <div class="footer-btns__content" :style="fixed ? 'position: fixed' : ''">
             <slot></slot>
         </div>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({})
+<script lang="ts" setup>
+defineProps({
+    fixed: {
+        type: Boolean,
+        default: true
+    }
+})
 </script>
 
 <style scoped lang="scss">
 .footer-btns {
     height: 60px;
     &__content {
-        position: fixed;
         bottom: 0;
         height: 60px;
         right: 0;

@@ -11,6 +11,7 @@ import { INDEX_ROUTE, INDEX_ROUTE_NAME } from './router/routes'
 import { PageEnum } from './enums/pageEnum'
 import useTabsStore from './stores/modules/multipleTabs'
 import { clearAuthInfo } from './utils/auth'
+import config from './config'
 
 // NProgress配置
 NProgress.configure({ showSpinner: false })
@@ -22,6 +23,7 @@ const whiteList: string[] = [PageEnum.LOGIN, PageEnum.ERROR_403]
 router.beforeEach(async (to, from, next) => {
     // 开始 Progress Bar
     NProgress.start()
+    document.title = to.meta.title ?? config.title
     const userStore = useUserStore()
     const tabsStore = useTabsStore()
     if (userStore.token) {
@@ -77,6 +79,5 @@ router.beforeEach(async (to, from, next) => {
 })
 
 router.afterEach(() => {
-    // console.log(router.getRoutes())
     NProgress.done()
 })

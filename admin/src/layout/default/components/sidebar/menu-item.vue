@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import { getNormalPath, objectToQuery } from '@/utils/util'
 import { isExternal } from '@/utils/validate'
-import type { RouteMeta, RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 interface Props {
     route: RouteRecordRaw
     routePath: string
@@ -52,7 +52,7 @@ const hasShowChild = computed(() => {
 })
 
 const routeMeta = computed(() => {
-    return props.route.meta as RouteMeta
+    return props.route.meta
 })
 
 const resolvePath = (path: string) => {

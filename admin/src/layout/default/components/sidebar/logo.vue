@@ -1,6 +1,6 @@
 <template>
     <div class="logo">
-        <ImageContain :width="szie" :height="szie" :src="config.web_logo" />
+        <image-contain :width="szie" :height="szie" :src="config.web_logo" />
         <transition name="title-width">
             <div
                 v-show="showTitle"
@@ -8,7 +8,13 @@
                 :class="{ 'text-white': theme == ThemeEnum.DARK }"
                 :style="{ left: `${szie + 16}px` }"
             >
-                {{ title || config.web_name }}
+                <overflow-tooltip
+                    :content="title || config.web_name"
+                    :teleported="true"
+                    placement="bottom"
+                    overflo-type="unset"
+                >
+                </overflow-tooltip>
             </div>
         </transition>
     </div>

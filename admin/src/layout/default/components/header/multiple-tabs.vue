@@ -1,14 +1,14 @@
 <template>
-    <div class="multiple-tabs pl-4 flex bg-body ">
+    <div class="app-tabs pl-4 flex bg-body">
         <div class="flex-1 min-w-0">
             <el-tabs
                 :model-value="currentTab"
-                :closable="tabsState.length > 1"
+                :closable="tabsLists.length > 1"
                 @tab-change="handleChange"
-                @tab-remove="handleRemove"
+                @tab-remove="removeTab($event)"
             >
-                <template v-for="item in tabsState" :key="item.path">
-                    <el-tab-pane :label="item.title" :name="item.path"></el-tab-pane>
+                <template v-for="item in tabsLists" :key="item.fullPath">
+                    <el-tab-pane :label="item.title" :name="item.fullPath"></el-tab-pane>
                 </template>
             </el-tabs>
         </div>
@@ -28,46 +28,37 @@
 </template>
 
 <script setup lang="ts">
+import useMultipleTabs from '@/hooks/useMultipleTabs'
 import { useWatchRoute } from '@/hooks/useWatchRoute'
 import useTabsStore, { getRouteParams } from '@/stores/modules/multipleTabs'
 const router = useRouter()
 const tabsStore = useTabsStore()
-const { route } = useWatchRoute((route) => {
-    tabsStore.addTab(route)
+const { removeOtherTab, addTab, removeAllTab, removeTab, tabsLists, currentTab } = useMultipleTabs()
+useWatchRoute(() => {
+    addTab()
 })
 
-const currentTab = computed(() => {
-    return route.path
-})
-
-const tabsState = computed(() => {
-    return tabsStore.getTabList
-})
-
-const handleChange = (path: any) => {
-    const tabItem = tabsStore.tasMap[path]
+const handleChange = (fullPath: any) => {
+    const tabItem = tabsStore.tasMap[fullPath]
     router.push(getRouteParams(tabItem))
 }
 
-const handleRemove = (path: any) => {
-    tabsStore.removeTab(path, router)
-}
 const handleCommand = (command: any) => {
     switch (command) {
         case 'closeCurrent':
-            handleRemove(route.path)
+            removeTab()
             break
         case 'closeOther':
-            tabsStore.removeOtherTab(route.path)
+            removeOtherTab()
             break
         case 'closeAll':
-            tabsStore.removeAllTab(router)
+            removeAllTab()
             break
     }
 }
 </script>
 <style lang="scss" scoped>
-.multiple-tabs {
+.app-tabs {
     @apply border-t border-br;
     :deep(.el-tabs) {
         height: 40px;
