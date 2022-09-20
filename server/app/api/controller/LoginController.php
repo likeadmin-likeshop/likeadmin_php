@@ -98,8 +98,9 @@ class LoginController extends BaseApiController
     /**
      * @notes 公众号登录
      * @return \think\response\Json
-     * @author cjhao
-     * @date 2021/7/31 14:27
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @author 段誉
+     * @date 2022/9/20 19:48
      */
     public function oaLogin()
     {
@@ -133,8 +134,8 @@ class LoginController extends BaseApiController
     /**
      * @notes 小程序-登录接口
      * @return \think\response\Json
-     * @author cjhao
-     * @date 2021/7/30 17:47
+     * @author 段誉
+     * @date 2022/9/20 19:48
      */
     public function authLogin()
     {
@@ -150,8 +151,8 @@ class LoginController extends BaseApiController
     /**
      * @notes 小程序绑定微信
      * @return \think\response\Json
-     * @author cjhao
-     * @date 2022/5/17 15:56
+     * @author 段誉
+     * @date 2022/9/20 19:48
      */
     public function mnpAuthBind()
     {
@@ -165,15 +166,13 @@ class LoginController extends BaseApiController
     }
 
 
+
     /**
      * @notes 公众号绑定微信
      * @return \think\response\Json
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author cjhao
-     * @date 2022/5/18 9:11
+     * @author 段誉
+     * @date 2022/9/20 19:48
      */
     public function oaAuthBind()
     {

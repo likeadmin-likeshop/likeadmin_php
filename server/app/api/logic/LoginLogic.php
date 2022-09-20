@@ -133,10 +133,10 @@ class LoginLogic extends BaseLogic
 
     /**
      * @notes 获取微信请求code的链接
-     * @param $url
+     * @param string $url
      * @return string
-     * @author cjhao
-     * @date 2021/7/31 14:28
+     * @author 段誉
+     * @date 2022/9/20 19:47
      */
     public static function codeUrl(string $url)
     {
@@ -146,11 +146,11 @@ class LoginLogic extends BaseLogic
 
     /**
      * @notes 公众号登录
-     * @param $params
-     * @return array|bool
+     * @param array $params
+     * @return array|false
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @author cjhao
-     * @date 2021/8/2 17:54
+     * @author 段誉
+     * @date 2022/9/20 19:47
      */
     public static function oaLogin(array $params)
     {
@@ -177,10 +177,10 @@ class LoginLogic extends BaseLogic
 
     /**
      * @notes 小程序-静默登录
-     * @param $post
-     * @return array|bool
-     * @author cjhao
-     * @date 2021/8/2 17:00
+     * @param array $params
+     * @return array|false
+     * @author 段誉
+     * @date 2022/9/20 19:47
      */
     public static function silentLogin(array $params)
     {
@@ -205,10 +205,10 @@ class LoginLogic extends BaseLogic
 
     /**
      * @notes 小程序-授权登录
-     * @param $params
-     * @return array|bool
-     * @author cjhao
-     * @date 2021/7/30 19:00
+     * @param array $params
+     * @return array|false
+     * @author 段誉
+     * @date 2022/9/20 19:47\
      */
     public static function authLogin(array $params)
     {
@@ -239,8 +239,8 @@ class LoginLogic extends BaseLogic
      * @notes 更新登录信息
      * @param $userId
      * @throws \Exception
-     * @author Tab
-     * @date 2021/12/7 14:12
+     * @author 段誉
+     * @date 2022/9/20 19:46
      */
     public static function updateLoginInfo($userId)
     {
@@ -261,8 +261,8 @@ class LoginLogic extends BaseLogic
      * @notes 小程序端绑定微信
      * @param array $params
      * @return bool
-     * @author cjhao
-     * @date 2022/5/17 15:47
+     * @author 段誉
+     * @date 2022/9/20 19:46
      */
     public static function mnpAuthLogin(array $params)
     {

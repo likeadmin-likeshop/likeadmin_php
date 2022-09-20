@@ -28,7 +28,7 @@ class UserController extends BaseApiController
 
 
     /**
-     * @notes 个人中心
+     * @notes 获取个人中心
      * @return \think\response\Json
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -36,11 +36,25 @@ class UserController extends BaseApiController
      * @author 段誉
      * @date 2022/9/16 18:19
      */
-    public function centre()
+    public function center()
     {
-        $data = UserLogic::centre($this->userInfo);
+        $data = UserLogic::center($this->userId);
         return $this->success('', $data);
     }
+
+
+    /**
+     * @notes 获取个人信息
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/20 19:46
+     */
+    public function info()
+    {
+        $result = UserLogic::info($this->userId);
+        return $this->data($result);
+    }
+
 
 
     /**

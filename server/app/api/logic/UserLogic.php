@@ -40,17 +40,49 @@ class UserLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/16 18:04
      */
-    public static function centre(array $userInfo): array
+    public static function center(int $userId): array
     {
-        $user = User::field('id,sn,sex,account,nickname,avatar,mobile,create_time')
-            ->find($userInfo['user_id']);
+        $user = User::where(['id' => $userId])
+            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time')
+            ->findOrEmpty()->toArray();
+        return $user;
+    }
 
+
+    /**
+     * @notes 个人信息
+     * @param $userId
+     * @return array
+     * @author 段誉
+     * @date 2022/9/20 19:45
+     */
+    public static function info($userId)
+    {
+        $user = User::where(['id' => $userId])
+            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time')
+            ->findOrEmpty()->toArray();
+        $user['has_password'] = empty($user['password']);
+        $user['has_auth'] = self::hasWechatAuth($userId);
+        $user['version'] = config('project.version');
+        return $user;
+    }
+
+
+    /**
+     * @notes 是否有微信授权信息
+     * @param $userId
+     * @return bool
+     * @author 段誉
+     * @date 2022/9/20 19:36
+     */
+    public static function hasWechatAuth($userId)
+    {
         //是否有微信授权登录
-        if (in_array($userInfo['terminal'], [UserTerminalEnum::WECHAT_MMP, UserTerminalEnum::WECHAT_OA])) {
-            $auth = UserAuth::where(['user_id' => $userInfo['user_id'], 'terminal' => $userInfo['terminal']])->find();
-            $user->is_auth = $auth ? 1 : 0;
-        }
-        return $user->toArray();
+        $terminal = [UserTerminalEnum::WECHAT_MMP, UserTerminalEnum::WECHAT_OA];
+        $auth = UserAuth::where(['user_id' => $userId])
+            ->whereIn('terminal', $terminal)
+            ->findOrEmpty();
+        return !$auth->isEmpty();
     }
 
 
