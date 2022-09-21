@@ -238,7 +238,7 @@
                             </el-link>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="createTime" label="上传时间" min-width="100" />
+                    <el-table-column prop="create_time" label="上传时间" min-width="100" />
                     <el-table-column label="操作" width="150" fixed="right">
                         <template #default="{ row }">
                             <div class="inline-block" v-perms="['common:album:albumRename']">
@@ -497,6 +497,11 @@ defineExpose({
         @apply border-r border-br flex flex-col w-[200px];
         :deep(.el-tree-node__content) {
             height: 36px;
+            .el-tree-node__label {
+                display: flex;
+                flex: 1;
+                min-width: 0;
+            }
         }
     }
     &__center {

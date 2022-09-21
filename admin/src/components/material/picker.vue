@@ -172,7 +172,7 @@ export default defineComponent({
         })
         const handleConfirm = () => {
             const selectUri = select.value.map((item) =>
-                props.excludeDomain ? item.path : item.uri
+                props.excludeDomain ? item.url : item.uri
             )
             if (!isAdd.value) {
                 fileList.value.splice(currentIndex.value, 1, selectUri.shift())
