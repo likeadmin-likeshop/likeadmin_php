@@ -19,3 +19,8 @@ export function adminEdit(params: any) {
 export function adminDelete(params: any) {
     return request.post({ url: '/auth.admin/delete', params })
 }
+
+// 管理员详情
+export function adminDetail(params: any) {
+    return request.get({ url: '/auth.admin/detail', params })
+}

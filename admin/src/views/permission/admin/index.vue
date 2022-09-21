@@ -3,20 +3,30 @@
         <el-card class="!border-none" shadow="never">
             <el-form class="mb-[-16px]" :model="formData" inline>
                 <el-form-item label="管理员账号">
-                    <el-input v-model="formData.account" class="w-56" />
+                    <el-input
+                        v-model="formData.account"
+                        class="w-56"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="管理员名称">
-                    <el-input v-model="formData.name" class="w-56" />
+                    <el-input
+                        v-model="formData.name"
+                        class="w-56"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="管理员角色">
                     <el-select class="w-56" v-model="formData.role_id">
-                        <el-option label="全部" value=""></el-option>
+                        <el-option label="全部" value="" />
                         <el-option
-                            v-for="(item, index) in roleList"
+                            v-for="(item, index) in optionsData.role"
                             :key="index"
                             :label="item.name"
                             :value="item.id"
-                        ></el-option>
+                        />
                     </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -34,39 +44,19 @@
             </el-button>
             <div class="mt-4">
                 <el-table :data="pager.lists" size="large">
-                    <el-table-column label="ID" prop="id" min-width="60"></el-table-column>
+                    <el-table-column label="ID" prop="id" min-width="60" />>
                     <el-table-column label="头像" min-width="100">
                         <template #default="{ row }">
                             <el-avatar :size="50" :src="row.avatar"></el-avatar>
                         </template>
                     </el-table-column>
-                    <el-table-column label="账号" prop="account" min-width="100"></el-table-column>
-                    <el-table-column label="名称" prop="name" min-width="100"></el-table-column>
-                    <el-table-column
-                        label="角色"
-                        prop="role_name"
-                        min-width="100"
-                    ></el-table-column>
-                    <el-table-column
-                        label="部门"
-                        prop="dept_name"
-                        min-width="100"
-                    ></el-table-column>
-                    <el-table-column
-                        label="创建时间"
-                        prop="create_time"
-                        min-width="180"
-                    ></el-table-column>
-                    <el-table-column
-                        label="最近登录时间"
-                        prop="login_time"
-                        min-width="180"
-                    ></el-table-column>
-                    <el-table-column
-                        label="最近登录IP"
-                        prop="login_ip"
-                        min-width="120"
-                    ></el-table-column>
+                    <el-table-column label="账号" prop="account" min-width="100" />
+                    <el-table-column label="名称" prop="name" min-width="100" />
+                    <el-table-column label="角色" prop="role_name" min-width="100" />
+                    <el-table-column label="部门" prop="dept_name" min-width="100" />
+                    <el-table-column label="创建时间" prop="create_time" min-width="180" />
+                    <el-table-column label="最近登录时间" prop="login_time" min-width="180" />
+                    <el-table-column label="最近登录IP" prop="login_ip" min-width="120" />
                     <el-table-column label="状态" min-width="100" v-perms="['auth.admin/edit']">
                         <template #default="{ row }">
                             <el-switch
@@ -112,6 +102,7 @@
 <script lang="ts" setup>
 import { adminEdit, adminLists, adminDelete } from '@/api/perms/admin'
 import { roleLists } from '@/api/perms/role'
+import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
@@ -122,7 +113,6 @@ const formData = reactive({
     name: '',
     role_id: ''
 })
-const roleList = ref<any[]>([])
 const showEdit = ref(false)
 const { pager, getLists, resetParams, resetPage } = usePaging({
     fetchFun: adminLists,
@@ -160,15 +150,19 @@ const handleDelete = async (id: number) => {
     getLists()
 }
 
-const getRoleList = () => {
-    roleLists({
-        page_type: 0
-    }).then((res: any) => {
-        roleList.value = res.lists
-    })
-}
+const { optionsData } = useDictOptions<{
+    role: any[]
+}>({
+    role: {
+        api: roleLists,
+        params: { page_type: 0 },
+        transformData(data) {
+            return data.lists
+        }
+    }
+})
+
 onMounted(() => {
     getLists()
-    getRoleList()
 })
 </script>
