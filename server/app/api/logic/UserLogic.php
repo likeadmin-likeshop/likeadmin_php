@@ -14,11 +14,13 @@
 
 namespace app\api\logic;
 
+use EasyWeChat\Factory;
 use app\common\{enum\user\UserTerminalEnum,
     logic\BaseLogic,
     model\user\User,
     model\user\UserAuth,
-    service\sms\SmsDriver
+    service\sms\SmsDriver,
+    service\wechat\WeChatConfigService
 };
 use think\facade\Config;
 
@@ -65,6 +67,28 @@ class UserLogic extends BaseLogic
         $user['has_auth'] = self::hasWechatAuth($userId);
         $user['version'] = config('project.version');
         return $user;
+    }
+
+
+    /**
+     * @notes 设置用户信息
+     * @param int $userId
+     * @param array $params
+     * @return User|false
+     * @author 段誉
+     * @date 2022/9/21 16:53
+     */
+    public static function setInfo(int $userId, array $params)
+    {
+        try {
+            return User::update([
+                'id' => $userId,
+                $params['field'] => $params['value']]
+            );
+        } catch (\Exception $e) {
+            self::$error = $e->getMessage();
+            return false;
+        }
     }
 
 
@@ -152,6 +176,49 @@ class UserLogic extends BaseLogic
             $password = create_password($params['password'], $passwordSalt);
             $user->password = $password;
             $user->save();
+
+            return true;
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
+        }
+    }
+
+
+    /**
+     * @notes 获取小程序手机号
+     * @param $params
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @author 段誉
+     * @date 2022/9/21 16:46
+     */
+    public static function getMobileByMnp($params)
+    {
+        try {
+            $getMnpConfig = WeChatConfigService::getMnpConfig();
+            $app = Factory::miniProgram($getMnpConfig);
+            $response = $app->phone_number->getUserPhoneNumber($params['code']);
+
+            $phoneNumber = $response['phone_info']['purePhoneNumber'] ?? '';
+            if (empty($phoneNumber)) {
+                throw new \Exception('获取手机号码失败');
+            }
+
+            $user = User::where([
+                ['mobile', '=', $phoneNumber],
+                ['id', '<>', $params['user_id']]
+            ])->findOrEmpty();
+
+            if (!$user->isEmpty()) {
+                throw new \Exception('手机号已被其他账号绑定');
+            }
+
+            // 绑定手机号
+            User::update([
+                'id' => $params['user_id'],
+                'mobile' => $phoneNumber
+            ]);
 
             return true;
         } catch (\Exception $e) {

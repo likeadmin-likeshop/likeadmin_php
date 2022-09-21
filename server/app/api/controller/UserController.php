@@ -16,6 +16,8 @@ namespace app\api\controller;
 
 use app\api\logic\UserLogic;
 use app\api\validate\PasswordValidate;
+use app\api\validate\SetUserInfoValidate;
+use app\api\validate\UserValidate;
 
 /**
  * 用户控制器
@@ -56,7 +58,6 @@ class UserController extends BaseApiController
     }
 
 
-
     /**
      * @notes 重置密码
      * @return \think\response\Json
@@ -89,4 +90,40 @@ class UserController extends BaseApiController
         }
         return $this->fail(UserLogic::getError());
     }
+
+
+    /**
+     * @notes 获取小程序手机号
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/21 16:46
+     */
+    public function getMobileByMnp()
+    {
+        $params = (new UserValidate())->post()->goCheck('getMobileByMnp');
+        $params['user_id'] = $this->userId;
+        $result = UserLogic::getMobileByMnp($params);
+        if ($result === false) {
+            return $this->fail(UserLogic::getError());
+        }
+        return $this->success('绑定成功', [], 1, 1);
+    }
+
+
+    /**
+     * @notes 编辑用户信息
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/21 17:01
+     */
+    public function setInfo()
+    {
+        $params = (new SetUserInfoValidate())->post()->goCheck(null, ['id' => $this->userId]);
+        $result = UserLogic::setInfo($this->userId, $params);
+        if (false === $result) {
+            return $this->fail(UserLogic::getError());
+        }
+        return $this->success('操作成功', []);
+    }
+
 }
