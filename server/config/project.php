@@ -62,7 +62,7 @@ return [
         // 注册强制绑定手机 0-关闭 1-开启
         'coerce_mobile' => 0,
         // 第三方授权登录 0-关闭 1-开启
-        'third_auth' => 1,
+        'third_auth' => 0,
         // 微信授权登录 0-关闭 1-开启
         'wechat_auth' => 1,
         // qq授权登录 0-关闭 1-开启

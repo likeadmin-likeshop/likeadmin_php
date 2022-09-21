@@ -28,7 +28,7 @@ class IndexController extends BaseApiController
 {
 
 
-    public array $notNeedLogin = ['index', 'policy'];
+    public array $notNeedLogin = ['index', 'config', 'policy', 'decorate'];
 
 
     /**
@@ -42,7 +42,23 @@ class IndexController extends BaseApiController
      */
     public function index()
     {
-        $result = IndexLogic::index();
+        $result = IndexLogic::getIndexData();
+        return $this->data($result);
+    }
+
+
+    /**
+     * @notes 全局配置
+     * @return Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/9/21 19:41
+     */
+    public function config()
+    {
+        $result = IndexLogic::getConfigData();
         return $this->data($result);
     }
 
