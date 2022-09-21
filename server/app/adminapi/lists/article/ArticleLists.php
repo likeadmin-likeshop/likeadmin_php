@@ -37,7 +37,7 @@ class ArticleLists extends BaseAdminDataLists implements ListsSearchInterface, L
     {
         return [
             '%like%' => ['title'],
-            '=' => ['cid']
+            '=' => ['cid', 'is_show']
         ];
     }
 
