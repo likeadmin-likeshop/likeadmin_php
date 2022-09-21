@@ -90,7 +90,7 @@
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="menu">
 import { menuDelete, menuLists } from '@/api/perms/menu'
 import type { ElTable } from 'element-plus'
 import { usePaging } from '@/hooks/usePaging'

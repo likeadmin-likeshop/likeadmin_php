@@ -5,7 +5,6 @@
             :title="popupTitle"
             :async="true"
             width="550px"
-            :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >

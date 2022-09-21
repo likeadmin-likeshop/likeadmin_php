@@ -99,7 +99,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="admin">
 import { adminEdit, adminLists, adminDelete } from '@/api/perms/admin'
 import { roleLists } from '@/api/perms/role'
 import { useDictOptions } from '@/hooks/useDictOptions'

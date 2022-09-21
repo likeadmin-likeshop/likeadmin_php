@@ -63,7 +63,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="role">
 import { roleLists, roleDelete } from '@/api/perms/role'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
