@@ -49,7 +49,7 @@ class SetUserInfoValidate extends BaseValidate
     protected function checkField($value, $rule, $data)
     {
         $allowField = [
-            'nickname', 'account', 'sex', 'avatar', 'real_name', 'mobile',
+            'nickname', 'account', 'sex', 'avatar', 'real_name',
         ];
 
         if (!in_array($value, $allowField)) {
@@ -66,20 +66,7 @@ class SetUserInfoValidate extends BaseValidate
             }
         }
 
-        if ($value != 'mobile') {
-            return true;
-        }
-
-        $user = User::where([
-            ['mobile', '=', $data['value']],
-            ['id', '<>', $data['id']]
-        ])->findOrEmpty();
-
-        if ($user->isEmpty()) {
-            return true;
-        }
-
-        return '该手机号已被绑定';
+        return true;
     }
 
 

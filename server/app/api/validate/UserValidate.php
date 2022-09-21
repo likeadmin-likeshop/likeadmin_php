@@ -46,4 +46,16 @@ class UserValidate extends BaseValidate
     }
 
 
+    /**
+     * @notes 绑定/变更 手机号
+     * @return UserValidate
+     * @author 段誉
+     * @date 2022/9/21 17:37
+     */
+    public function sceneBindMobile()
+    {
+        return $this->only(['mobile', 'code']);
+    }
+
+
 }

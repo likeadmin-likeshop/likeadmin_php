@@ -16,6 +16,7 @@ namespace app\api\validate;
 
 use app\common\cache\UserAccountSafeCache;
 use app\common\enum\LoginEnum;
+use app\common\enum\notice\NoticeEnum;
 use app\common\enum\user\UserTerminalEnum;
 use app\common\enum\YesNoEnum;
 use app\common\service\ConfigService;
@@ -151,7 +152,7 @@ class LoginAccountValidate extends BaseValidate
     public function checkCode($code, $rule, $data)
     {
         $smsDriver = new SmsDriver();
-        $result = $smsDriver->verify($data['account'], $code);
+        $result = $smsDriver->verify($data['account'], $code, NoticeEnum::LOGIN_CAPTCHA);
         if ($result) {
             return true;
         }

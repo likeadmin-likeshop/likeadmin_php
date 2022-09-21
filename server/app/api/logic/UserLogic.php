@@ -15,7 +15,8 @@
 namespace app\api\logic;
 
 use EasyWeChat\Factory;
-use app\common\{enum\user\UserTerminalEnum,
+use app\common\{enum\notice\NoticeEnum,
+    enum\user\UserTerminalEnum,
     logic\BaseLogic,
     model\user\User,
     model\user\UserAuth,
@@ -58,7 +59,7 @@ class UserLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/20 19:45
      */
-    public static function info($userId)
+    public static function info(int $userId)
     {
         $user = User::where(['id' => $userId])
             ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time')
@@ -82,8 +83,8 @@ class UserLogic extends BaseLogic
     {
         try {
             return User::update([
-                'id' => $userId,
-                $params['field'] => $params['value']]
+                    'id' => $userId,
+                    $params['field'] => $params['value']]
             );
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
@@ -99,7 +100,7 @@ class UserLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/20 19:36
      */
-    public static function hasWechatAuth($userId)
+    public static function hasWechatAuth(int $userId)
     {
         //是否有微信授权登录
         $terminal = [UserTerminalEnum::WECHAT_MMP, UserTerminalEnum::WECHAT_OA];
@@ -117,12 +118,12 @@ class UserLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/16 18:06
      */
-    public static function resetPassword($params)
+    public static function resetPassword(array $params)
     {
         try {
             // 校验验证码
             $smsDriver = new SmsDriver();
-            if (!$smsDriver->verify($params['mobile'], $params['code'])) {
+            if (!$smsDriver->verify($params['mobile'], $params['code'], NoticeEnum::FIND_LOGIN_PASSWORD_CAPTCHA)) {
                 throw new \Exception('验证码错误');
             }
 
@@ -151,7 +152,7 @@ class UserLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/20 19:13
      */
-    public static function changePassword($params, $userId)
+    public static function changePassword(array $params, int $userId)
     {
         try {
             $user = User::findOrEmpty($userId);
@@ -193,7 +194,7 @@ class UserLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/21 16:46
      */
-    public static function getMobileByMnp($params)
+    public static function getMobileByMnp(array $params)
     {
         try {
             $getMnpConfig = WeChatConfigService::getMnpConfig();
@@ -218,6 +219,55 @@ class UserLogic extends BaseLogic
             User::update([
                 'id' => $params['user_id'],
                 'mobile' => $phoneNumber
+            ]);
+
+            return true;
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
+        }
+    }
+
+
+    /**
+     * @notes 绑定手机号
+     * @param $params
+     * @return bool
+     * @author 段誉
+     * @date 2022/9/21 17:28
+     */
+    public static function bindMobile(array $params)
+    {
+        try {
+            // 变更手机号场景
+            $sceneId = NoticeEnum::CHANGE_MOBILE_CAPTCHA;
+            $where = [
+                ['id', '=', $params['user_id']],
+                ['mobile', '=', $params['mobile']]
+            ];
+
+            // 绑定手机号场景
+            if ($params['type'] == 'bind') {
+                $sceneId = NoticeEnum::BIND_MOBILE_CAPTCHA;
+                $where = [
+                    ['mobile', '=', $params['mobile']]
+                ];
+            }
+
+            // 校验短信
+            $checkSmsCode = (new SmsDriver())->verify($params['mobile'], $params['code'], $sceneId);
+            if (!$checkSmsCode) {
+                throw new \Exception('验证码错误');
+            }
+
+            $user = User::where($where)->findOrEmpty();
+            if (!$user->isEmpty()) {
+                throw new \Exception('该手机号已被使用');
+            }
+
+            User::update([
+                'id' => $params['user_id'],
+                'mobile' => $params['mobile'],
             ]);
 
             return true;

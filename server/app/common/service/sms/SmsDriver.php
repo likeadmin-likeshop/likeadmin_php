@@ -181,27 +181,36 @@ class SmsDriver
      * @author 段誉
      * @date 2022/9/15 16:29
      */
-    public function verify($mobile, $code)
+    public function verify($mobile, $code, $sceneId = 0)
     {
-        $smsLog = SmsLog::where([
+        $where = [
             ['mobile', '=', $mobile],
             ['send_status', '=', SmsEnum::SEND_SUCCESS],
             ['scene_id', 'in', NoticeEnum::SMS_SCENE],
             ['is_verify', '=', YesNoEnum::NO],
-        ])
+        ];
+
+        if (!empty($sceneId)) {
+            $where[] = ['scene_id', '=', $sceneId];
+        }
+
+        $smsLog = SmsLog::where($where)
             ->order('send_time', 'desc')
             ->findOrEmpty();
+
         // 没有验证码 或 最新验证码已校验 或 已过期(有效期：5分钟)
         if($smsLog->isEmpty() || $smsLog->is_verify || ($smsLog->send_time < time() - 5 * 60) ) {
             return false;
         }
+
+        // 更新校验状态
         if($smsLog->code == $code) {
-            // 更新校验状态
             $smsLog->check_num = $smsLog->check_num + 1;
             $smsLog->is_verify = YesNoEnum::YES;
             $smsLog->save();
             return true;
         }
+
         // 更新验证次数
         $smsLog->check_num = $smsLog->check_num + 1;
         $smsLog->save();

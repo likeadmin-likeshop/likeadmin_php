@@ -126,4 +126,22 @@ class UserController extends BaseApiController
         return $this->success('操作成功', []);
     }
 
+
+    /**
+     * @notes 绑定/变更 手机号
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/21 17:29
+     */
+    public function bindMobile()
+    {
+        $params = (new UserValidate())->post()->goCheck('bindMobile');
+        $params['user_id'] = $this->userId;
+        $result = UserLogic::bindMobile($params);
+        if($result) {
+            return $this->success('绑定成功', [], 1, 1);
+        }
+        return $this->fail(UserLogic::getError());
+    }
+
 }
