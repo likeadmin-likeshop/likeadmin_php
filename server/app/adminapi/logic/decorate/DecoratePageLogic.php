@@ -54,9 +54,11 @@ class DecoratePageLogic extends BaseLogic
             self::$error = '信息不存在';
             return false;
         }
-
-        $pageData->page_data = $params['page_data'];
-        $pageData->save();
+        DecoratePage::update([
+            'id' => $params['id'],
+            'type' => $params['type'],
+            'data' => $params['data'],
+        ]);
         return true;
     }
 

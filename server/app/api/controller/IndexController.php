@@ -30,6 +30,15 @@ class IndexController extends BaseApiController
 
     public array $notNeedLogin = ['policy'];
 
+
+
+    public function index()
+    {
+
+    }
+
+
+
     /**
      * @notes 政策协议
      * @return Json
@@ -43,6 +52,19 @@ class IndexController extends BaseApiController
         return $this->data($result);
     }
 
+
+    /**
+     * @notes 装修信息
+     * @return Json
+     * @author 段誉
+     * @date 2022/9/21 18:37
+     */
+    public function decorate()
+    {
+        $id = $this->request->get('id/d');
+        $result = IndexLogic::getDecorate($id);
+        return $this->data($result);
+    }
 
 
 }

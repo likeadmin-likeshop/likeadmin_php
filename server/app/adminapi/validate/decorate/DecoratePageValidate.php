@@ -26,15 +26,15 @@ class DecoratePageValidate extends BaseValidate
 
     protected $rule = [
         'id' => 'require',
-        'page_type' => 'require',
-        'page_data' => 'require',
+        'type' => 'require',
+        'data' => 'require',
     ];
 
 
     protected $message = [
         'id.require' => '参数缺失',
-        'page_type.require' => '装修类型参数缺失',
-        'page_data.require' => '装修信息参数缺失',
+        'type.require' => '装修类型参数缺失',
+        'data.require' => '装修信息参数缺失',
     ];
 
 }

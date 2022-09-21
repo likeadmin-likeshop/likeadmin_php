@@ -16,6 +16,7 @@ namespace app\api\logic;
 
 
 use app\common\logic\BaseLogic;
+use app\common\model\decorate\DecoratePage;
 use app\common\service\ConfigService;
 
 
@@ -40,6 +41,20 @@ class IndexLogic extends BaseLogic
             'title' => ConfigService::get('agreement', $type . '_title', ''),
             'content' => ConfigService::get('agreement', $type . '_content', ''),
         ];
+    }
+
+
+    /**
+     * @notes 装修信息
+     * @param $id
+     * @return array
+     * @author 段誉
+     * @date 2022/9/21 18:37
+     */
+    public static function getDecorate($id)
+    {
+        return DecoratePage::field(['type', 'name', 'data'])
+            ->findOrEmpty($id)->toArray();
     }
 
 }
