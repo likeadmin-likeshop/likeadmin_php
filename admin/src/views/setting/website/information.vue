@@ -46,7 +46,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="webInformation">
 import { getWebsite, setWebsite } from '@/api/setting/website'
 import type { FormInstance } from 'element-plus'
 const formRef = ref<FormInstance>()
