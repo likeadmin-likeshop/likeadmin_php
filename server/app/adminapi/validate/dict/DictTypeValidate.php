@@ -32,6 +32,7 @@ class DictTypeValidate extends BaseValidate
         'name' => 'require|length:1,255',
         'type' => 'require|unique:' . DictType::class,
         'status' => 'require|in:0,1',
+        'remark' => 'max:200',
     ];
 
 
