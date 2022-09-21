@@ -18,6 +18,7 @@
                                 <el-input
                                     v-model="formData.table_name"
                                     placeholder="请输入表名称"
+                                    clearable
                                 />
                             </div>
                         </el-form-item>
@@ -26,21 +27,25 @@
                                 <el-input
                                     v-model="formData.table_comment"
                                     placeholder="请输入表描述"
+                                    clearable
                                 />
                             </div>
                         </el-form-item>
                         <el-form-item label="作者">
                             <div class="w-80">
-                                <el-input v-model="formData.author" />
+                                <el-input v-model="formData.author" clearable />
                             </div>
                         </el-form-item>
                         <el-form-item label="备注">
                             <div class="w-80">
                                 <el-input
                                     v-model="formData.remark"
-                                    class="el-input"
+                                    class="w-full"
                                     type="textarea"
-                                    :rows="4"
+                                    :autosize="{ minRows: 4, maxRows: 4 }"
+                                    maxlength="200"
+                                    show-word-limit
+                                    clearable
                                 />
                             </div>
                         </el-form-item>
@@ -50,7 +55,7 @@
                             <el-table-column label="字段列名" prop="column_name" />
                             <el-table-column label="字段描述" prop="column_comment" min-width="120">
                                 <template v-slot="{ row }">
-                                    <el-input v-model="row.column_comment"></el-input>
+                                    <el-input v-model="row.column_comment" clearable />
                                 </template>
                             </el-table-column>
                             <el-table-column label="物理类型" prop="column_type" />
@@ -60,7 +65,7 @@
                                         v-model="row.is_required"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="插入" width="80">
@@ -69,7 +74,7 @@
                                         v-model="row.is_insert"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="编辑" width="80">
@@ -78,7 +83,7 @@
                                         v-model="row.is_update"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="列表" width="80">
@@ -87,7 +92,7 @@
                                         v-model="row.is_lists"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="查询" width="80">
@@ -96,7 +101,7 @@
                                         v-model="row.is_query"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="查询方式">
@@ -171,6 +176,7 @@
                                 <el-input
                                     v-model="formData.module_name"
                                     placeholder="请输入模块名"
+                                    clearable
                                 />
                                 <div class="form-tips">生成文件所在模块</div>
                             </div>
@@ -178,7 +184,7 @@
                         <el-form-item label="类目录">
                             <div class="w-80">
                                 <div>
-                                    <el-input v-model="formData.class_dir"></el-input>
+                                    <el-input v-model="formData.class_dir" clearable />
                                 </div>
                                 <div class="form-tips">
                                     <div>生成文件所在目录名,不填则在模块对应文件夹内生成。</div>
@@ -194,7 +200,7 @@
                         <el-form-item label="类描述">
                             <div class="w-80">
                                 <div>
-                                    <el-input v-model="formData.class_comment"></el-input>
+                                    <el-input v-model="formData.class_comment" clearable />
                                 </div>
                                 <div class="form-tips">
                                     <div>生成文件描述。</div>
@@ -224,7 +230,8 @@
                                 <el-input
                                     v-model="formData.menu.name"
                                     placeholder="请输入菜单名称"
-                                ></el-input>
+                                    clearable
+                                />
                             </div>
                         </el-form-item>
                         <el-form-item label="菜单构建" prop="menu.type" required>
@@ -248,7 +255,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="tableEdit">
 import { generateEdit, tableDetail } from '@/api/tools/code'
 import { dictTypeLists } from '@/api/setting/dict'
 import type { FormInstance } from 'element-plus'

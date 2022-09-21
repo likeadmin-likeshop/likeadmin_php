@@ -3,10 +3,20 @@
         <el-card class="!border-none" shadow="never">
             <el-form class="mb-[-16px]" :model="formData" inline>
                 <el-form-item label="表名称">
-                    <el-input class="w-56" v-model="formData.table_name" />
+                    <el-input
+                        class="w-56"
+                        v-model="formData.table_name"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="表描述">
-                    <el-input class="w-56" v-model="formData.table_comment" />
+                    <el-input
+                        class="w-56"
+                        v-model="formData.table_comment"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
@@ -74,15 +84,15 @@
                                     <router-link
                                         v-perms="['tools.generator/edit']"
                                         :to="{
-                                            path: '/dev_tools/code/edit',
+                                            path: getRoutePath('tools.generator/edit'),
                                             query: {
                                                 id: row.id
                                             }
                                         }"
                                     >
                                         编辑
-                                    </router-link></el-button
-                                >
+                                    </router-link>
+                                </el-button>
                                 <el-dropdown
                                     class="ml-2"
                                     @command="handleCommand($event, row)"
@@ -138,7 +148,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="codeGenerate">
 import {
     generateTable,
     syncColumn,
@@ -151,6 +161,7 @@ import DataTable from '../components/data-table.vue'
 import CodePreview from '../components/code-preview.vue'
 import feedback from '@/utils/feedback'
 import { isProdMode } from '@/utils/env'
+import { getRoutePath } from '@/router'
 
 const formData = reactive({
     table_name: '',
