@@ -52,10 +52,12 @@
                     prop="component"
                 >
                     <div class="flex-1">
-                        <el-input
+                        <el-autocomplete
+                            class="w-full"
                             v-model="formData.component"
-                            placeholder="请输入组件路径"
+                            :fetch-suggestions="querySearch"
                             clearable
+                            placeholder="请输入组件路径"
                         />
                         <div class="form-tips">
                             访问的组件路径，如：`user/setting`，默认在`views`目录下
@@ -165,6 +167,7 @@ import { menuLists, menuEdit, menuAdd, menuDetail } from '@/api/perms/menu'
 import { MenuEnum } from '@/enums/appEnums'
 import Popup from '@/components/popup/index.vue'
 import { arrayToTree, treeToArray } from '@/utils/util'
+import { getModulesKey } from '@/router'
 
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
@@ -174,6 +177,15 @@ const popupTitle = computed(() => {
     return mode.value == 'edit' ? '编辑菜单' : '新增菜单'
 })
 
+const componentsOptions = ref(getModulesKey())
+const querySearch = (queryString: string, cb: any) => {
+    const results = queryString
+        ? componentsOptions.value.filter((item) =>
+              item.toLowerCase().includes(queryString.toLowerCase())
+          )
+        : componentsOptions.value
+    cb(results.map((item) => ({ value: item })))
+}
 const formData = reactive({
     id: '',
     //父级id
