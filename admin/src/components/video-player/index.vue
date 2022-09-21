@@ -37,7 +37,7 @@ const options = reactive({
     mirror: false, //镜像画面
     ligthOff: false, //关灯模式
     volume: 0.3, //默认音量大小
-    control: false, //是否显示控制器
+    control: true, //是否显示控制器
     title: '', //视频名称
     poster: '', //封面
     ...props
