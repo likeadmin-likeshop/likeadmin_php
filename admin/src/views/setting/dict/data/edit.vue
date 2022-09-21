@@ -5,7 +5,6 @@
             :title="popupTitle"
             :async="true"
             width="550px"
-            :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
@@ -24,14 +23,14 @@
                     />
                 </el-form-item>
                 <el-form-item label="数据名称" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入数据名称" />
+                    <el-input v-model="formData.name" placeholder="请输入数据名称" clearable />
                 </el-form-item>
                 <el-form-item label="数据值" prop="value">
-                    <el-input v-model="formData.value" placeholder="请输入数据值" />
+                    <el-input v-model="formData.value" placeholder="请输入数据值" clearable />
                 </el-form-item>
                 <el-form-item label="排序" prop="sort">
                     <div>
-                        <el-input-number v-model="formData.sort" />
+                        <el-input-number v-model="formData.sort" :min="0" />
                         <div class="form-tips">数值越大越排前</div>
                     </div>
                 </el-form-item>
@@ -42,7 +41,14 @@
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="备注" prop="remark">
-                    <el-input v-model="formData.remark" type="textarea" rows="4" clearable />
+                    <el-input
+                        v-model="formData.remark"
+                        type="textarea"
+                        :autosize="{ minRows: 4, maxRows: 6 }"
+                        clearable
+                        maxlength="200"
+                        show-word-limit
+                    />
                 </el-form-item>
             </el-form>
         </popup>
@@ -60,7 +66,6 @@ const mode = ref('add')
 const popupTitle = computed(() => {
     return mode.value == 'edit' ? '编辑字典数据' : '新增字典数据'
 })
-const { query } = useRoute()
 const formData = reactive({
     id: '',
     type_value: '',
@@ -69,7 +74,7 @@ const formData = reactive({
     sort: 0,
     status: 1,
     remark: '',
-    type_id: query.id
+    type_id: 0
 })
 
 const rules = {

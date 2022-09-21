@@ -5,7 +5,6 @@
             :title="popupTitle"
             :async="true"
             width="550px"
-            :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
@@ -17,10 +16,10 @@
                 label-width="84px"
             >
                 <el-form-item label="字典名称" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入字典名称" />
+                    <el-input v-model="formData.name" placeholder="请输入字典名称" clearable />
                 </el-form-item>
                 <el-form-item label="字典类型" prop="type">
-                    <el-input v-model="formData.type" placeholder="请输入字典类型" />
+                    <el-input v-model="formData.type" placeholder="请输入字典类型" clearable />
                 </el-form-item>
                 <el-form-item label="字典状态" required prop="status">
                     <el-radio-group v-model="formData.status">
@@ -29,7 +28,14 @@
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="备注" prop="remark">
-                    <el-input v-model="formData.remark" type="textarea" rows="4" clearable />
+                    <el-input
+                        v-model="formData.remark"
+                        type="textarea"
+                        :autosize="{ minRows: 4, maxRows: 6 }"
+                        clearable
+                        maxlength="200"
+                        show-word-limit
+                    />
                 </el-form-item>
             </el-form>
         </popup>

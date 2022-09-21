@@ -6,7 +6,7 @@
                 <el-form-item label="字典名称">
                     <el-select class="w-56" v-model="queryParams.type_id" @change="getLists">
                         <el-option
-                            v-for="item in options.dict_type"
+                            v-for="item in optionsData.dictType"
                             :label="item.name"
                             :value="item.id"
                             :key="item.id"
@@ -14,7 +14,12 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="数据名称">
-                    <el-input class="w-56" v-model="queryParams.name" />
+                    <el-input
+                        class="w-56"
+                        v-model="queryParams.name"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="数据状态">
                     <el-select class="w-56" v-model="queryParams.status">
@@ -70,7 +75,12 @@
                                 <el-tag v-else type="danger">停用</el-tag>
                             </template>
                         </el-table-column>
-                        <el-table-column label="备注" prop="remark" min-width="120" />
+                        <el-table-column
+                            label="备注"
+                            prop="remark"
+                            min-width="120"
+                            show-tooltip-when-overflow
+                        />
                         <el-table-column label="排序" prop="sort" />
                         <el-table-column label="操作" width="120" fixed="right">
                             <template #default="{ row }">
@@ -103,8 +113,9 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="dictData">
 import { dictDataDelete, dictDataLists, dictTypeLists } from '@/api/setting/dict'
+import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
@@ -117,10 +128,6 @@ const queryParams = reactive({
     type_id: Number(query.id),
     name: '',
     status: ''
-})
-
-const options = reactive({
-    dict_type: [] as any[]
 })
 
 const { pager, getLists, resetPage, resetParams } = usePaging({
@@ -137,9 +144,10 @@ const handleSelectionChange = (val: any[]) => {
 const handleAdd = async () => {
     showEdit.value = true
     await nextTick()
-    const type = options.dict_type.find((item) => item.id == queryParams.type_id)
+    const type = optionsData.dictType.find((item) => item.id == queryParams.type_id)
     editRef.value?.setFormData({
-        type_value: type?.type
+        type_value: type?.type,
+        type_id: type.id
     })
     editRef.value?.open('add')
 }
@@ -157,10 +165,17 @@ const handleDelete = async (id: any[] | number) => {
     getLists()
 }
 
-const getOptions = async () => {
-    const data: any = await dictTypeLists({ page_type: 0 })
-    options.dict_type = data.lists
-}
-getOptions()
+const { optionsData } = useDictOptions<{
+    dictType: any[]
+}>({
+    dictType: {
+        api: dictTypeLists,
+        params: { page_type: 0 },
+        transformData(data) {
+            return data.lists
+        }
+    }
+})
+
 getLists()
 </script>
