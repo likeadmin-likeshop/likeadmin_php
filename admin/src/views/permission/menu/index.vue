@@ -123,7 +123,7 @@ const handleEdit = async (data: any) => {
     showEdit.value = true
     await nextTick()
     editRef.value?.open('edit')
-    editRef.value?.setFormData(data)
+    editRef.value?.getDetail(data)
 }
 
 const handleDelete = async (id: number) => {

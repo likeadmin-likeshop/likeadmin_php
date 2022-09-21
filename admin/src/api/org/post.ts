@@ -19,3 +19,8 @@ export function jobsEdit(params: any) {
 export function jobsDelete(params: any) {
     return request.post({ url: '/dept.jobs/delete', params })
 }
+
+// 岗位详情
+export function jobsDetail(params: any) {
+    return request.get({ url: '/dept.jobs/detail', params })
+}
