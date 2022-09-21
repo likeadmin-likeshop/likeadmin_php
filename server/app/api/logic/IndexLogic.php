@@ -16,6 +16,7 @@ namespace app\api\logic;
 
 
 use app\common\logic\BaseLogic;
+use app\common\model\article\Article;
 use app\common\model\decorate\DecoratePage;
 use app\common\service\ConfigService;
 
@@ -27,6 +28,40 @@ use app\common\service\ConfigService;
  */
 class IndexLogic extends BaseLogic
 {
+
+    /**
+     * @notes 首页数据
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/9/21 19:15
+     */
+    public static function index()
+    {
+        // 装修配置
+        $decoratePage = DecoratePage::findOrEmpty(1);
+
+        // 首页文章
+        $field = [
+            'id', 'title', 'desc', 'abstract', 'image',
+            'author', 'click_actual', 'click_virtual', 'create_time'
+        ];
+
+        $article = Article::field($field)
+            ->where(['is_show' => 1])
+            ->order(['id' => 'desc'])
+            ->limit(20)->append(['click'])
+            ->hidden(['click_actual', 'click_virtual'])
+            ->select()->toArray();
+
+        return [
+            'page' => $decoratePage,
+            'article' => $article
+        ];
+    }
+
 
     /**
      * @notes 获取政策协议

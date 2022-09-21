@@ -28,15 +28,23 @@ class IndexController extends BaseApiController
 {
 
 
-    public array $notNeedLogin = ['policy'];
+    public array $notNeedLogin = ['index', 'policy'];
 
 
-
+    /**
+     * @notes 首页数据
+     * @return Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/9/21 19:15
+     */
     public function index()
     {
-
+        $result = IndexLogic::index();
+        return $this->data($result);
     }
-
 
 
     /**
