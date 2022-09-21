@@ -25,6 +25,7 @@ export function useCate(type: number) {
     // 获取分组列表
     const getCateLists = async () => {
         const data = await fileCateLists({
+            page_type: 0,
             type
         })
         const item: any[] = [
@@ -37,7 +38,7 @@ export function useCate(type: number) {
                 id: 0
             }
         ]
-        cateLists.value = data
+        cateLists.value = data.lists
         cateLists.value.unshift(...item)
         setTimeout(() => {
             treeRef.value?.setCurrentKey(cateId.value)
