@@ -72,11 +72,13 @@ class OfficialAccountMenuLogic extends BaseLogic
                 throw new \Exception('请输入一级菜单名称');
             }
 
-            if (false == $item['has_menu'] && (empty($item['type']) || !in_array($item['type'], OfficialAccountEnum::MENU_TYPE))) {
-                throw new \Exception('一级菜单未选择菜单类型或菜单类型错误');
-            }
-
             if (false == $item['has_menu']) {
+                if (empty($item['type'])) {
+                    throw new \Exception('一级菜单未选择菜单类型');
+                }
+                if (!in_array($item['type'], OfficialAccountEnum::MENU_TYPE)) {
+                    throw new \Exception('一级菜单类型错误');
+                }
                 self::checkType($item);
             }
 
@@ -183,19 +185,21 @@ class OfficialAccountMenuLogic extends BaseLogic
                 throw new \Exception('请先配置好微信公众号');
             }
 
-            $config = [
+            $app = Factory::officialAccount([
                 'app_id' => $officialAccountSetting['app_id'],
                 'secret' => $officialAccountSetting['app_secret'],
                 'response_type' => 'array',
-            ];
-            $app = Factory::officialAccount($config);
+            ]);
+
             $result = $app->menu->create($params);
             if ($result['errcode'] == 0) {
                 ConfigService::set('official_account', 'menu', $params);
                 return true;
             }
+
             self::setError('保存发布菜单失败' . json_encode($result));
             return false;
+
         } catch (\Exception $e) {
             self::setError($e->getMessage());
             return false;
@@ -211,6 +215,14 @@ class OfficialAccountMenuLogic extends BaseLogic
      */
     public static function detail()
     {
-        return ConfigService::get('official_account', 'menu', []);
+        $data = ConfigService::get('official_account', 'menu', []);
+
+        if (!empty($data)) {
+            foreach ($data as &$item) {
+                $item['has_menu'] = !empty($item['has_menu']);
+            }
+        }
+
+        return $data;
     }
 }
