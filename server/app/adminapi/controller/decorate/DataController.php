@@ -13,49 +13,35 @@
 // +----------------------------------------------------------------------
 namespace app\adminapi\controller\decorate;
 
-
 use app\adminapi\controller\BaseAdminController;
-use app\adminapi\logic\decorate\DecoratePageLogic;
-use app\adminapi\validate\decorate\DecoratePageValidate;
+use app\adminapi\logic\decorate\DecorateDataLogic;
 
 
 /**
- * 装修页面
- * Class DecoratePageController
+ * 装修-数据
+ * Class DataController
  * @package app\adminapi\controller\decorate
  */
-class PageController extends BaseAdminController
+class DataController extends BaseAdminController
 {
 
+
     /**
-     * @notes 获取装修修页面详情
+     * @notes 文章列表
      * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
      * @author 段誉
-     * @date 2022/9/14 18:43
+     * @date 2022/9/22 16:50
      */
-    public function detail()
+    public function article()
     {
-        $id = $this->request->get('id/d');
-        $result = DecoratePageLogic::getDetail($id);
+        $limit = $this->request->get('limit/d', 10);
+        $result = DecorateDataLogic::getArticleLists($limit);
         return $this->success('获取成功', $result);
     }
 
-
-    /**
-     * @notes 保存装修配置
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/9/15 9:57
-     */
-    public function save()
-    {
-        $params = (new DecoratePageValidate())->post()->goCheck();
-        $result = DecoratePageLogic::save($params);
-        if (false === $result) {
-            return $this->fail(DecoratePageLogic::getError());
-        }
-        return $this->success('操作成功', [], 1, 1);
-    }
 
 
 }

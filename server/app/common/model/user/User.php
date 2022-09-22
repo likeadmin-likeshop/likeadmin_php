@@ -33,7 +33,26 @@ class User extends BaseModel
     protected $deleteTime = 'delete_time';
 
 
-    //用户信息搜索
+    /**
+     * @notes 关联用户授权模型
+     * @return \think\model\relation\HasOne
+     * @author 段誉
+     * @date 2022/9/22 16:03
+     */
+    public function userAuth()
+    {
+        return $this->hasOne(UserAuth::class, 'user_id');
+    }
+
+
+    /**
+     * @notes 搜索器-用户信息
+     * @param $query
+     * @param $value
+     * @param $data
+     * @author 段誉
+     * @date 2022/9/22 16:12
+     */
     public function searchKeywordAttr($query, $value, $data)
     {
         if ($value) {
@@ -42,7 +61,14 @@ class User extends BaseModel
     }
 
 
-    //注册来源
+    /**
+     * @notes 搜索器-注册来源
+     * @param $query
+     * @param $value
+     * @param $data
+     * @author 段誉
+     * @date 2022/9/22 16:13
+     */
     public function searchSourceAttr($query, $value, $data)
     {
         if ($value) {
@@ -51,34 +77,35 @@ class User extends BaseModel
     }
 
 
-    //注册时间筛选
-    public function searchCreateStartTimeAttr($query, $value, $data)
+    /**
+     * @notes 搜索器-注册时间
+     * @param $query
+     * @param $value
+     * @param $data
+     * @author 段誉
+     * @date 2022/9/22 16:13
+     */
+    public function searchCreateTimeStartAttr($query, $value, $data)
     {
         if ($value) {
             $query->where('create_time', '>=', $value);
         }
     }
 
-    //注册时间筛选
-    public function searchCreateEndTimeAttr($query, $value, $data)
+
+    /**
+     * @notes 搜索器-注册时间
+     * @param $query
+     * @param $value
+     * @param $data
+     * @author 段誉
+     * @date 2022/9/22 16:13
+     */
+    public function searchCreateTimeEndAttr($query, $value, $data)
     {
         if ($value) {
             $query->where('create_time', '<=', $value);
         }
-    }
-
-    //禁用状态搜索
-    public function searchDisableAttr($query, $value, $data)
-    {
-        if (in_array($value, [0, 1])) {
-            $query->where('disable', '=', $value);
-        }
-    }
-
-    //关联用户授权模型
-    public function userAuth()
-    {
-        return $this->hasOne(UserAuth::class, 'user_id');
     }
 
 
@@ -92,13 +119,6 @@ class User extends BaseModel
     public function getAvatarAttr($value)
     {
         return trim($value) ? FileService::getFileUrl($value) : '';
-    }
-
-
-    //最后登录时间格式化
-    public function getLoginTimeAttr($value)
-    {
-        return $value ? date('Y-m-d H:i:s', $value) : '';
     }
 
 
