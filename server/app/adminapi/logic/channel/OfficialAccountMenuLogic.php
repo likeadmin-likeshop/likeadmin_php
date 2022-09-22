@@ -36,8 +36,8 @@ class OfficialAccountMenuLogic extends BaseLogic
     public static function save($params)
     {
         try {
-            self::checkMenu($params['menu']);
-            ConfigService::set('official_account', 'menu', $params['menu']);
+            self::checkMenu($params);
+            ConfigService::set('official_account', 'menu', $params);
             return true;
         } catch (\Exception $e) {
             OfficialAccountMenuLogic::setError($e->getMessage());
@@ -55,6 +55,10 @@ class OfficialAccountMenuLogic extends BaseLogic
      */
     public static function checkMenu($menu)
     {
+        if (empty($menu) || !is_array($menu)) {
+            throw new \Exception('请设置正确格式菜单');
+        }
+
         if (count($menu) > 3) {
             throw new \Exception('一级菜单超出限制(最多3个)');
         }
@@ -172,7 +176,7 @@ class OfficialAccountMenuLogic extends BaseLogic
     public static function saveAndPublish($params)
     {
         try {
-            self::checkMenu($params['menu']);
+            self::checkMenu($params);
 
             $officialAccountSetting = (new OfficialAccountSettingLogic())->getConfig();
             if (empty($officialAccountSetting['app_id']) || empty($officialAccountSetting['app_secret'])) {
@@ -185,9 +189,9 @@ class OfficialAccountMenuLogic extends BaseLogic
                 'response_type' => 'array',
             ];
             $app = Factory::officialAccount($config);
-            $result = $app->menu->create($params['menu']);
+            $result = $app->menu->create($params);
             if ($result['errcode'] == 0) {
-                ConfigService::set('official_account', 'menu', $params['menu']);
+                ConfigService::set('official_account', 'menu', $params);
                 return true;
             }
             self::setError('保存发布菜单失败' . json_encode($result));
