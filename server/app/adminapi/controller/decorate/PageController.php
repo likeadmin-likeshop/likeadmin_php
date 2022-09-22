@@ -54,7 +54,7 @@ class PageController extends BaseAdminController
         if (false === $result) {
             return $this->fail(DecoratePageLogic::getError());
         }
-        return $this->success('操作成功');
+        return $this->success('操作成功', [], 1, 1);
     }
 
 
