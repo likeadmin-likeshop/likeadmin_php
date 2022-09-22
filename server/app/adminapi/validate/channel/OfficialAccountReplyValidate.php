@@ -34,7 +34,7 @@ class OfficialAccountReplyValidate extends BaseValidate
         'matching_type' => 'requireIf:reply_type,2|in:1,2',
         'sort' => 'requireIf:reply_type,2',
         'reply_num' => 'requireIf:reply_type,2|in:1',
-        'new_sort' => 'require|integer|gt:0',
+        'new_sort' => 'require|integer|egt:0',
     ];
 
     protected $message = [
@@ -51,14 +51,14 @@ class OfficialAccountReplyValidate extends BaseValidate
         'matching_type.in' => '匹配类型状态值错误',
         'sort.requireIf' => '请输入排序值',
         'sort.integer' => '排序值须为整型',
-        'sort.gt' => '排序值须大于0',
+        'sort.egt' => '排序值须大于或等于0',
         'reply_num.requireIf' => '请选择回复数量',
         'reply_num.in' => '回复数量状态值错误',
         'id.require' => '参数缺失',
         'id.integer' => '参数格式错误',
         'new_sort.require' => '请输入新排序值',
         'new_sort.integer' => '新排序值须为整型',
-        'new_sort.gt' => '新排序值须大于0',
+        'new_sort.egt' => '新排序值须大于或等于0',
     ];
 
     protected $scene = [
