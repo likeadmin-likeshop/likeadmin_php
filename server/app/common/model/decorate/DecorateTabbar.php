@@ -24,5 +24,9 @@ use app\common\model\BaseModel;
  */
 class DecorateTabbar extends BaseModel
 {
+    // 设置json类型字段
+    protected $json = ['link'];
 
+    // 设置JSON数据返回数组
+    protected $jsonAssoc = true;
 }
