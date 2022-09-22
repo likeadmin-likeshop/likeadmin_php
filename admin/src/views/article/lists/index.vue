@@ -37,9 +37,9 @@
         <el-card class="!border-none mt-4" shadow="never">
             <div>
                 <router-link
-                    v-perms="['article.article/add']"
+                    v-perms="['article.article/add', 'article.article/add:edit']"
                     :to="{
-                        path: getRoutePath('article.article/edit')
+                        path: getRoutePath('article.article/add:edit')
                     }"
                 >
                     <el-button type="primary" class="mb-4">
@@ -89,10 +89,14 @@
                 <el-table-column label="发布时间" prop="create_time" min-width="120" />
                 <el-table-column label="操作" width="120" fixed="right">
                     <template #default="{ row }">
-                        <el-button v-perms="['article.article/edit']" type="primary" link>
+                        <el-button
+                            v-perms="['article.article/edit', 'article.article/add:edit']"
+                            type="primary"
+                            link
+                        >
                             <router-link
                                 :to="{
-                                    path: getRoutePath('article.article/edit'),
+                                    path: getRoutePath('article.article/add:edit'),
                                     query: {
                                         id: row.id
                                     }

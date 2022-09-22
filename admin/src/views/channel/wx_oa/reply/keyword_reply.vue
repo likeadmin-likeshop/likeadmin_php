@@ -51,6 +51,9 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <div class="flex justify-end mt-4">
+                <pagination v-model="pager" @change="getLists" />
+            </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>

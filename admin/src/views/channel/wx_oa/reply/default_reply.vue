@@ -17,7 +17,7 @@
                     新增
                 </el-button>
             </div>
-            <el-table size="large" :data="pager.lists">
+            <el-table size="large" :data="pager.lists" v-loading="pager.loading">
                 <el-table-column label="规则名称" prop="name" min-width="120" />
                 <el-table-column label="回复类型" min-width="120">
                     <template #default="{ row }">
@@ -45,6 +45,9 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <div class="flex justify-end mt-4">
+                <pagination v-model="pager" @change="getLists" />
+            </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>

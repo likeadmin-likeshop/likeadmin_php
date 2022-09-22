@@ -24,7 +24,7 @@
                             至少添加2个导航，最多添加5个导航
                         </span>
                     </div>
-                    <el-form label-width="70px">
+                    <el-form class="mt-4" label-width="70px">
                         <el-tabs model-value="content">
                             <el-tab-pane label="导航图片" name="content">
                                 <div class="mb-[18px]">
@@ -188,7 +188,7 @@ const onMove = (e: any) => {
 
 const getData = async () => {
     const data = await getDecorateTabbar()
-    tabbar.list = data.list.map((item: any) => ({ ...item, link: JSON.parse(item.link) }))
+    tabbar.list = data.list
     tabbar.style = data.style
 }
 const setData = async () => {

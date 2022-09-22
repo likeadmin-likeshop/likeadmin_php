@@ -29,7 +29,6 @@
 import type { FormInstance } from 'element-plus'
 import { articleCateEdit, articleCateAdd, articleCateDetail } from '@/api/article'
 import Popup from '@/components/popup/index.vue'
-import feedback from '@/utils/feedback'
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()

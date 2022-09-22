@@ -113,7 +113,6 @@
 
 <script lang="ts" setup name="articleListsEdit">
 import type { FormInstance } from 'element-plus'
-import feedback from '@/utils/feedback'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { articleCateAll, articleDetail, articleEdit, articleAdd } from '@/api/article'
 import useMultipleTabs from '@/hooks/useMultipleTabs'
