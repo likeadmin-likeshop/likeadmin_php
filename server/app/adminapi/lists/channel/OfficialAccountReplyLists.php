@@ -51,14 +51,12 @@ class OfficialAccountReplyLists extends BaseAdminDataLists implements ListsSearc
      */
     public function lists(): array
     {
-        $field = 'id,name,keyword,matching_type,content_type,status,sort';
+        $field = 'id,name,keyword,matching_type,content,content_type,status,sort';
         $field .= ',matching_type as matching_type_desc,content_type as content_type_desc,status as status_desc';
-
-        $this->sortOrder = ['sort' => 'desc', 'id' => 'desc'];
 
         $lists = OfficialAccountReply::field($field)
             ->where($this->searchWhere)
-            ->order($this->sortOrder)
+            ->order(['sort' => 'desc', 'id' => 'desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->select()
             ->toArray();
