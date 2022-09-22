@@ -54,9 +54,14 @@ class ArticleLists extends BaseApiDataLists implements ListsSearchInterface
      */
     public function lists(): array
     {
+        $where[] = ['is_show', '=', 1];
+        if (!empty($this->params['keyword'])) {
+            $where[] = ['title', 'like', '%' . $this->params['keyword'] . '%'];
+        }
+
         $field = 'id,title,desc,image,click_virtual,click_actual,create_time';
         $result = Article::field($field)
-            ->where(['is_show' => 1])
+            ->where($where)
             ->where($this->searchWhere)
             ->order(['sort' => 'desc', 'id' => 'desc'])
             ->append(['click'])
