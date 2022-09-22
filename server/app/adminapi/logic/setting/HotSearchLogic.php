@@ -49,6 +49,8 @@ class HotSearchLogic extends BaseLogic
                 }
                 return $value;
             }, $config['data']);
+            $sort = array_column($config['data'], 'sort');
+            array_multisort($sort, SORT_DESC, $config['data']);
         }
 
         return $config;
@@ -76,7 +78,7 @@ class HotSearchLogic extends BaseLogic
                         $value['sort'] = '0';
                     }
                     return $value;
-                },$params['data']);
+                }, $params['data']);
             }
 
             $status = empty($params['status']) ? 0 : $params['status'];
@@ -90,7 +92,6 @@ class HotSearchLogic extends BaseLogic
             return false;
         }
     }
-
 
 
 }
