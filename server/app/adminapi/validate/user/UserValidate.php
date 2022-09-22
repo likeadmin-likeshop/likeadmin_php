@@ -26,15 +26,15 @@ class UserValidate extends BaseValidate
 {
 
     protected $rule = [
-        'id'   => 'require|checkUser',
-        'field'     => 'require|checkField',
-        'value'     => 'require',
+        'id' => 'require|checkUser',
+        'field' => 'require|checkField',
+        'value' => 'require',
     ];
 
     protected $message = [
-        'id.require'   => '请选择用户',
-        'field.require'     => '请选择操作',
-        'value.require'     => '请输入内容',
+        'id.require' => '请选择用户',
+        'field.require' => '请选择操作',
+        'value.require' => '请输入内容',
     ];
 
 
@@ -51,6 +51,31 @@ class UserValidate extends BaseValidate
 
 
     /**
+     * @notes 用户信息校验
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/9/22 17:03
+     */
+    public function checkUser($value, $rule, $data)
+    {
+        $userIds = is_array($value) ? $value : [$value];
+
+        foreach ($userIds as $item) {
+            if (!User::find($item)) {
+                return '用户不存在！';
+            }
+        }
+        return true;
+    }
+
+
+    /**
      * @notes 校验是否可更新信息
      * @param $value
      * @param $rule
@@ -61,13 +86,25 @@ class UserValidate extends BaseValidate
      */
     public function checkField($value, $rule, $data)
     {
-        $allowField = ['account', 'sex', 'mobile','real_name'];
+        $allowField = ['account', 'sex', 'mobile', 'real_name'];
 
         if (!in_array($value, $allowField)) {
             return '用户信息不允许更新';
         }
 
         switch ($value) {
+            case 'account':
+                //验证手机号码是否存在
+                $account = User::where([
+                    ['id', '<>', $data['id']],
+                    ['account', '=', $data['value']]
+                ])->findOrEmpty();
+
+                if (!$account->isEmpty()) {
+                    return '账号已被使用';
+                }
+                break;
+
             case 'mobile':
                 if (false == $this->validate($data['value'], 'mobile', $data)) {
                     return '手机号码格式错误';
@@ -82,7 +119,6 @@ class UserValidate extends BaseValidate
                 if (!$mobile->isEmpty()) {
                     return '手机号码已存在';
                 }
-
                 break;
         }
         return true;

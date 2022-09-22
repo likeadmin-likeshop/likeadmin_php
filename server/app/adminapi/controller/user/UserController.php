@@ -62,7 +62,7 @@ class UserController extends BaseAdminController
     {
         $params = (new UserValidate())->post()->goCheck('setInfo');
         UserLogic::setUserInfo($params);
-        return $this->success('更新成功', [], 1, 1);
+        return $this->success('操作成功', [], 1, 1);
     }
 
 }

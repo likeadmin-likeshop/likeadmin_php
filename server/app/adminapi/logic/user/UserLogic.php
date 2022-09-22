@@ -34,12 +34,17 @@ class UserLogic extends BaseLogic
      */
     public static function detail(int $userId): array
     {
-        $user = User::where(['id' => $userId])
-            ->field('id,sn,nickname,avatar,real_name,sex,mobile,create_time,login_time,channel')
-            ->findOrEmpty()->toArray();
+        $field = [
+            'id', 'sn', 'account', 'nickname', 'avatar', 'real_name',
+            'sex', 'mobile', 'create_time', 'login_time', 'channel'
+        ];
+
+        $user = User::where(['id' => $userId])->field($field)
+            ->findOrEmpty();
 
         $user['channel'] = UserTerminalEnum::getTermInalDesc($user['channel']);
-        return $user;
+        $user->sex = $user->getData('sex');
+        return $user->toArray();
     }
 
 
