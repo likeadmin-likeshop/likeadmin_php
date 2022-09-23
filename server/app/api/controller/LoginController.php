@@ -25,10 +25,7 @@ use app\api\logic\LoginLogic;
 class LoginController extends BaseApiController
 {
 
-    public array $notNeedLogin = [
-        'register', 'account', 'logout', 'codeUrl',
-        'oaLogin', 'silentLogin', 'authLogin'
-    ];
+    public array $notNeedLogin = ['register', 'account', 'logout', 'codeUrl', 'oaLogin',  'mnpLogin'];
 
 
     /**
