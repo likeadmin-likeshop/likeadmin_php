@@ -73,9 +73,9 @@ class WechatUserService
         $openid = $this->openid;
         $unionid = $this->unionid;
 
-        $user = (new UserAuth())->alias('au')
+        $user = User::alias('u')
             ->field('u.id,u.sn,u.nickname,u.avatar,u.mobile,u.is_disable')
-            ->join('user u', 'au.user_id = u.id')
+            ->join('user_auth au', 'au.user_id = u.id')
             ->where(function ($query) use ($openid, $unionid) {
                 $query->whereOr(['au.openid' => $openid]);
                 if (isset($unionid) && $unionid) {
@@ -83,6 +83,7 @@ class WechatUserService
                 }
             })
             ->findOrEmpty();
+
         $this->user = $user;
         return $this;
     }
