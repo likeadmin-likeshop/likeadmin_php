@@ -40,7 +40,7 @@ class HotSearchLogic extends BaseLogic
             // 功能状态 0-关闭 1-开启
             'status' => ConfigService::get('hot_search', 'status', 0),
             // 热门搜索数据
-            'data' => HotSearch::field(['name', 'sort'])->select()->toArray(),
+            'data' => HotSearch::field(['name', 'sort'])->order(['sort' => 'desc', 'id' =>'desc'])->select()->toArray(),
         ];
     }
 
