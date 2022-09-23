@@ -60,6 +60,7 @@
                 <el-table-column label="操作" width="160" fixed="right">
                     <template #default="{ row }">
                         <el-button
+                            v-if="row.type !== MenuEnum.BUTTON"
                             v-perms="['auth.menu/add']"
                             type="primary"
                             link

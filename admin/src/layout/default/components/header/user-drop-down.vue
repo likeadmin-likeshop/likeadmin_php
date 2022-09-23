@@ -2,7 +2,7 @@
     <el-dropdown class="px-2" @command="handleCommand">
         <div class="flex items-center">
             <el-avatar :size="34" :src="userInfo.avatar" />
-            <div class="ml-3 mr-1">{{ userInfo.nickname }}</div>
+            <div class="ml-3 mr-1">{{ userInfo.name }}</div>
             <icon name="el-icon-ArrowDown" />
         </div>
 

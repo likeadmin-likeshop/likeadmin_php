@@ -89,10 +89,7 @@
                                                         />
                                                     </el-form-item>
                                                     <el-form-item label="链接地址">
-                                                        <link-picker
-                                                            v-model="element.link"
-                                                            :disabled="index == 0"
-                                                        />
+                                                        <link-picker v-model="element.link" />
                                                     </el-form-item>
                                                 </div>
                                             </del-wrap>
@@ -194,7 +191,6 @@ const getData = async () => {
 const setData = async () => {
     await setDecorateTabbar(toRaw(tabbar))
     getData()
-    feedback.msgSuccess('保存成功')
 }
 getData()
 </script>

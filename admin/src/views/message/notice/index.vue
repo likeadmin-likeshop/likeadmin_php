@@ -23,7 +23,7 @@
                 <el-table-column label="通知类型" prop="type_desc" min-width="160" />
                 <el-table-column label="短信通知" min-width="80">
                     <template #default="{ row }">
-                        <el-tag v-if="row.smsStatus == 1">开启</el-tag>
+                        <el-tag v-if="row.sms_notice?.status == 1">开启</el-tag>
                         <el-tag type="danger" v-else>关闭</el-tag>
                     </template>
                 </el-table-column>
