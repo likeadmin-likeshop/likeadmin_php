@@ -78,12 +78,11 @@ class WechatUserService
             ->join('user u', 'au.user_id = u.id')
             ->where(function ($query) use ($openid, $unionid) {
                 $query->whereOr(['au.openid' => $openid]);
-                if (isset($response['unionid']) && $unionid) {
+                if (isset($unionid) && $unionid) {
                     $query->whereOr(['au.unionid' => $unionid]);
                 }
             })
             ->findOrEmpty();
-
         $this->user = $user;
         return $this;
     }
