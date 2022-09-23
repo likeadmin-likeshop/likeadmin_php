@@ -49,8 +49,6 @@ class HotSearchLogic extends BaseLogic
                 }
                 return $value;
             }, $config['data']);
-            $sort = array_column($config['data'], 'sort');
-            array_multisort($sort, SORT_DESC, $config['data']);
         }
 
         return $config;
