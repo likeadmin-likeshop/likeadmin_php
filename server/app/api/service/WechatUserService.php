@@ -75,8 +75,7 @@ class WechatUserService
 
         $user = (new UserAuth())->alias('au')
             ->field('u.id,u.sn,u.nickname,u.avatar,u.mobile,u.is_disable')
-            ->join('user u', 'au.user_id=u.id')
-            ->where(['u.del' => 0])
+            ->join('user u', 'au.user_id = u.id')
             ->where(function ($query) use ($openid, $unionid) {
                 $query->whereOr(['au.openid' => $openid]);
                 if (isset($response['unionid']) && $unionid) {
