@@ -69,10 +69,10 @@ class User extends BaseModel
      * @author 段誉
      * @date 2022/9/22 16:13
      */
-    public function searchSourceAttr($query, $value, $data)
+    public function searchChannelAttr($query, $value, $data)
     {
         if ($value) {
-            $query->where('register_source', '=', $value);
+            $query->where('channel', '=', $value);
         }
     }
 
