@@ -83,7 +83,7 @@ class NoticeLogic extends BaseLogic
         $noticeSetting['oa_notice']['is_show'] = in_array(NoticeEnum::OA, explode(',', $noticeSetting['support']));
         $noticeSetting['mnp_notice']['is_show'] = in_array(NoticeEnum::MNP, explode(',', $noticeSetting['support']));
         $noticeSetting['default'] = '';
-
+        $noticeSetting['type'] = NoticeEnum::getTypeDesc($noticeSetting['type']);
         return $noticeSetting;
     }
 
