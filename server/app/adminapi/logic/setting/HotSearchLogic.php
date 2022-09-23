@@ -15,6 +15,7 @@
 namespace app\adminapi\logic\setting;
 
 use app\common\logic\BaseLogic;
+use app\common\model\HotSearch;
 use app\common\service\ConfigService;
 use app\common\service\FileService;
 
@@ -35,23 +36,12 @@ class HotSearchLogic extends BaseLogic
      */
     public static function getConfig()
     {
-        $config = [
+        return [
             // 功能状态 0-关闭 1-开启
-            'status' => ConfigService::get('hot_search', 'status', 1),
+            'status' => ConfigService::get('hot_search', 'status', 0),
             // 热门搜索数据
-            'data' => ConfigService::get('hot_search', 'data', []),
+            'data' => HotSearch::field(['name', 'sort'])->select()->toArray(),
         ];
-
-        if (!empty($config['data'])) {
-            $config['data'] = array_map(function ($value) {
-                if (isset($value['sort'])) {
-                    $value['sort'] = intval($value['sort']);
-                }
-                return $value;
-            }, $config['data']);
-        }
-
-        return $config;
     }
 
 
@@ -65,24 +55,14 @@ class HotSearchLogic extends BaseLogic
     public static function setConfig($params)
     {
         try {
-            if (empty($params['data'])) {
-                $data = [];
-            } else {
-                $data = array_map(function ($value) {
-                    if (empty($value['keyword'])) {
-                        throw new \Exception('请填写完整关键词');
-                    }
-                    if (empty($value['sort'])) {
-                        $value['sort'] = '0';
-                    }
-                    return $value;
-                }, $params['data']);
+            if (!empty($params['data'])) {
+                $model = (new HotSearch());
+                $model->where('id', '>', 0)->delete();
+                $model->saveAll($params['data']);
             }
 
             $status = empty($params['status']) ? 0 : $params['status'];
-
             ConfigService::set('hot_search', 'status', $status);
-            ConfigService::set('hot_search', 'data', $data);
 
             return true;
         } catch (\Exception $e) {
