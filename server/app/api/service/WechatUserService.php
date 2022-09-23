@@ -131,7 +131,8 @@ class WechatUserService
         //设置头像
         if (empty($this->headimgurl)) {
             // 默认头像
-            $avatar = ConfigService::get('config', 'default_avatar');
+            $defaultAvatar = config('project.default_image.user_avatar');
+            $avatar = ConfigService::get('default_image', 'user_avatar', $defaultAvatar);
         } else {
             // 微信获取到的头像信息
             $avatar = $this->getAvatarByWechat();

@@ -49,7 +49,8 @@ class UserLogic
      */
     public function setConfig(array $params): bool
     {
-        ConfigService::set('default_image', 'user_avatar', $params['default_avatar']);
+        $avatar = FileService::setFileUrl($params['default_avatar']);
+        ConfigService::set('default_image', 'user_avatar', $avatar);
         return true;
     }
 
