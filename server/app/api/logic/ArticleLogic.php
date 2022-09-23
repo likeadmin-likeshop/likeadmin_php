@@ -17,6 +17,7 @@ namespace app\api\logic;
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
+use app\common\model\article\ArticleCate;
 use app\common\model\article\ArticleCollect;
 
 
@@ -101,6 +102,24 @@ class ArticleLogic extends BaseLogic
             'article_id' => $articleId,
             'status' => YesNoEnum::YES
         ]);
+    }
+
+
+    /**
+     * @notes 文章分类
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/9/23 14:11
+     */
+    public static function cate()
+    {
+        return ArticleCate::field('id,name')
+            ->where('is_show', '=', 1)
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()->toArray();
     }
 
 }

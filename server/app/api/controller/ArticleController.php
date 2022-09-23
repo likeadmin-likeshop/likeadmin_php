@@ -15,7 +15,6 @@
 namespace app\api\controller;
 
 
-use app\api\lists\article\ArticleCateLists;
 use app\api\lists\article\ArticleCollectLists;
 use app\api\lists\article\ArticleLists;
 use app\api\logic\ArticleLogic;
@@ -51,7 +50,7 @@ class ArticleController extends BaseApiController
      */
     public function cate()
     {
-        return $this->dataLists(new ArticleCateLists());
+        return $this->data(ArticleLogic::cate());
     }
 
 
