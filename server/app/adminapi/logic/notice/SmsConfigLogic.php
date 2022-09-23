@@ -103,7 +103,9 @@ class SmsConfigLogic extends BaseLogic
                 ];
                 break;
         }
-        return ConfigService::get('sms', $params['type'], $default);
+        $result = ConfigService::get('sms', $params['type'], $default);
+        $result['status'] = intval($result['status'] ?? 0);
+        return $result;
     }
 
 
