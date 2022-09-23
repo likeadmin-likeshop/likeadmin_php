@@ -34,8 +34,8 @@ class SmsConfigLogic extends BaseLogic
     public static function getConfig()
     {
         $config = [
-            'ali' => ConfigService::get('sms', 'ali', ['name' => '阿里云短信', 'status' => 1]),
-            'tencent' => ConfigService::get('sms', 'tencent', ['name' => '腾讯云短信', 'status' => 0]),
+            ConfigService::get('sms', 'ali', ['name' => '阿里云短信', 'status' => 1]),
+            ConfigService::get('sms', 'tencent', ['name' => '腾讯云短信', 'status' => 0]),
         ];
         return $config;
     }
