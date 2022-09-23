@@ -17,7 +17,7 @@ namespace app\adminapi\validate;
 
 
 use app\common\enum\AdminTerminalEnum;
-use app\common\model\auth\SystemAdmin;
+use app\common\model\auth\Admin;
 use app\common\cache\AdminAccountSafeCache;
 use app\common\service\ConfigService;
 use app\common\validate\BaseValidate;
@@ -72,7 +72,7 @@ class LoginValidate extends BaseValidate
             return '密码连续' . $adminAccountSafeCache->count . '次输入错误，请' . $adminAccountSafeCache->minute . '分钟后重试';
         }
 
-        $adminInfo = SystemAdmin::where('account', '=', $data['account'])
+        $adminInfo = Admin::where('account', '=', $data['account'])
             ->field(['password,disable'])
             ->findOrEmpty();
 

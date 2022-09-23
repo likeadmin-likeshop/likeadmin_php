@@ -16,7 +16,7 @@
 namespace app\adminapi\service;
 
 use app\common\cache\AdminTokenCache;
-use app\common\model\auth\SystemAdminSession;
+use app\common\model\auth\AdminSession;
 use think\facade\Config;
 
 /**
@@ -41,7 +41,7 @@ class AdminTokenService
     public static function setToken($adminId, $terminal, $multipointLogin = 1)
     {
         $time = time();
-        $adminSession = SystemAdminSession::where([['admin_id', '=', $adminId], ['terminal', '=', $terminal]])->find();
+        $adminSession = AdminSession::where([['admin_id', '=', $adminId], ['terminal', '=', $terminal]])->find();
 
         //获取token延长过期的时间
         $expireTime = $time + Config::get('project.admin_token.expire_duration');
@@ -61,7 +61,7 @@ class AdminTokenService
             $adminSession->save();
         } else {
             //找不到在该终端的token记录，创建token记录
-            $adminSession = SystemAdminSession::create([
+            $adminSession = AdminSession::create([
                 'admin_id' => $adminId,
                 'terminal' => $terminal,
                 'token' => create_token($adminId),
@@ -85,7 +85,7 @@ class AdminTokenService
     public static function overtimeToken($token)
     {
         $time = time();
-        $adminSession = SystemAdminSession::where('token', '=', $token)->findOrEmpty();
+        $adminSession = AdminSession::where('token', '=', $token)->findOrEmpty();
         if ($adminSession->isEmpty()) {
             return false;
         }
@@ -108,7 +108,7 @@ class AdminTokenService
      */
     public static function expireToken($token)
     {
-        $adminSession = SystemAdminSession::where('token', '=', $token)
+        $adminSession = AdminSession::where('token', '=', $token)
             ->with('admin')
             ->findOrEmpty();
 

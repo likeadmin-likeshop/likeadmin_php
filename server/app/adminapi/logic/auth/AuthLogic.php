@@ -14,7 +14,7 @@
 
 namespace app\adminapi\logic\auth;
 
-use app\common\model\auth\SystemAdmin;
+use app\common\model\auth\Admin;
 use app\common\model\auth\SystemMenu;
 use app\common\model\auth\SystemRoleMenu;
 
@@ -90,7 +90,7 @@ class AuthLogic
      */
     public static function getAuthByAdminId(int $adminId): array
     {
-        $admin = SystemAdmin::with(['role_menu'])
+        $admin = Admin::with(['role_menu'])
             ->where(['id' => $adminId])
             ->findOrEmpty()->toArray();
 

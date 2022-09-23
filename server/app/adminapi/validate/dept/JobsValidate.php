@@ -15,7 +15,7 @@
 namespace app\adminapi\validate\dept;
 
 
-use app\common\model\auth\SystemAdmin;
+use app\common\model\auth\Admin;
 use app\common\model\dept\Jobs;
 use app\common\validate\BaseValidate;
 
@@ -116,7 +116,7 @@ class JobsValidate extends BaseValidate
      */
     public function checkAbleDetele($value)
     {
-        $check = SystemAdmin::where(['jobs_id' => $value])->findOrEmpty();
+        $check = Admin::where(['jobs_id' => $value])->findOrEmpty();
         if (!$check->isEmpty()) {
             return '已关联管理员，暂不可删除';
         }

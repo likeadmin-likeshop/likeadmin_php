@@ -15,7 +15,7 @@
 namespace app\adminapi\lists\auth;
 
 use app\adminapi\lists\BaseAdminDataLists;
-use app\common\model\auth\SystemAdmin;
+use app\common\model\auth\Admin;
 use app\common\model\auth\SystemRole;
 
 /**
@@ -69,7 +69,7 @@ class RoleLists extends BaseAdminDataLists
             ->select()
             ->toArray();
 
-        $roleCountList = SystemAdmin::group('role_id')->column('count(id)', 'role_id');
+        $roleCountList = Admin::group('role_id')->column('count(id)', 'role_id');
 
         foreach ($lists as $key => $role) {
             //使用角色的人数

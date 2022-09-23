@@ -20,7 +20,7 @@ use app\common\model\dept\Dept;
 use think\model\concern\SoftDelete;
 use app\common\service\FileService;
 
-class SystemAdmin extends BaseModel
+class Admin extends BaseModel
 {
     use SoftDelete;
 

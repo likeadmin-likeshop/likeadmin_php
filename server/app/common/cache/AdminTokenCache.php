@@ -16,8 +16,8 @@
 namespace app\common\cache;
 
 
-use app\common\model\auth\SystemAdmin;
-use app\common\model\auth\SystemAdminSession;
+use app\common\model\auth\Admin;
+use app\common\model\auth\AdminSession;
 
 /**
  * 管理员token缓存
@@ -65,12 +65,12 @@ class AdminTokenCache extends BaseCache
      */
     public function setAdminInfo($token)
     {
-        $adminSession = SystemAdminSession::where([['token', '=', $token], ['expire_time', '>', time()]])
+        $adminSession = AdminSession::where([['token', '=', $token], ['expire_time', '>', time()]])
             ->find();
         if (empty($adminSession)) {
             return [];
         }
-        $admin = SystemAdmin::where('id', '=', $adminSession->admin_id)
+        $admin = Admin::where('id', '=', $adminSession->admin_id)
             ->with('role')
             ->find();
 

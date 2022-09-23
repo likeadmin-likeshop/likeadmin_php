@@ -16,7 +16,7 @@ namespace app\adminapi\validate\auth;
 
 
 use app\common\validate\BaseValidate;
-use app\common\model\auth\{SystemRole, SystemAdmin};
+use app\common\model\auth\{SystemRole, Admin};
 
 /**
  * 角色验证器
@@ -110,7 +110,7 @@ class RoleValidate extends BaseValidate
      */
     public function checkAdmin($value, $rule, $data)
     {
-        if (SystemAdmin::where(['role_id' => $value])->find()) {
+        if (Admin::where(['role_id' => $value])->find()) {
             return '有管理员在使用该角色，不允许删除';
         }
         return true;

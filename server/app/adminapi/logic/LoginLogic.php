@@ -15,7 +15,7 @@
 namespace app\adminapi\logic;
 
 use app\common\logic\BaseLogic;
-use app\common\model\auth\SystemAdmin;
+use app\common\model\auth\Admin;
 use app\adminapi\service\AdminTokenService;
 use app\common\service\FileService;
 use think\facade\Config;
@@ -40,7 +40,7 @@ class LoginLogic extends BaseLogic
     public function login($params)
     {
         $time = time();
-        $admin = SystemAdmin::where('account', '=', $params['account'])->find();
+        $admin = Admin::where('account', '=', $params['account'])->find();
 
         //用户表登录信息更新
         $admin->login_time = $time;

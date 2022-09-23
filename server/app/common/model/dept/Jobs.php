@@ -29,8 +29,6 @@ class Jobs extends BaseModel
 
     protected $deleteTime = 'delete_time';
 
-    protected $name = 'system_jobs';
-
     /**
      * @notes 状态描述
      * @param $value

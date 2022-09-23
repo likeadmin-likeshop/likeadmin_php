@@ -16,7 +16,7 @@ namespace app\common\model\auth;
 
 use app\common\model\BaseModel;
 
-class SystemAdminSession extends BaseModel
+class AdminSession extends BaseModel
 {
     /**
      * @notes 关联管理员表
@@ -26,7 +26,7 @@ class SystemAdminSession extends BaseModel
      */
     public function admin()
     {
-        return $this->hasOne(SystemAdmin::class, 'id', 'admin_id')
+        return $this->hasOne(Admin::class, 'id', 'admin_id')
             ->field('id,multipoint_login');
     }
 }
