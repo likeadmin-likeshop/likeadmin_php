@@ -107,7 +107,7 @@ class IndexLogic extends BaseLogic
     public static function getConfigData()
     {
         // 底部导航
-        $tabbar = DecorateTabbar::order(['id' => 'desc'])->select();
+        $tabbar = DecorateTabbar::getTabbarLists();
         // 导航颜色
         $style = ConfigService::get('tabbar', 'style', '{}');
         // 登录配置
