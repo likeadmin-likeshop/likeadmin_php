@@ -208,17 +208,14 @@ class LoginLogic extends BaseLogic
      * @param array $params
      * @return array|false
      * @author 段誉
-     * @date 2022/9/20 19:47\
+     * @date 2022/9/20 19:47
      */
-    public static function authLogin(array $params)
+    public static function mnpLogin(array $params)
     {
         Db::startTrans();
         try {
             //通过code获取微信 openid
             $response = WeChatService::getMnpResByCode($params);
-            $response['headimgurl'] = $params['headimgurl'];
-            $response['nickname'] = $params['nickname'];
-
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_MMP);
             $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
 

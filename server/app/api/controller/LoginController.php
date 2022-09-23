@@ -114,33 +114,15 @@ class LoginController extends BaseApiController
 
 
     /**
-     * @notes 小程序-静默登录
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/9/16 10:58
-     * @remark 校验是否已有用户信息,有则登录成功,无则前端让用户确认授权,调用authLogin进行登录。
-     */
-    public function silentLogin()
-    {
-        $params = (new WechatLoginValidate())->post()->goCheck('silent');
-        $res = LoginLogic::silentLogin($params);
-        if (false === $res) {
-            return $this->fail(LoginLogic::getError());
-        }
-        return $this->success('', $res);
-    }
-
-
-    /**
      * @notes 小程序-登录接口
      * @return \think\response\Json
      * @author 段誉
      * @date 2022/9/20 19:48
      */
-    public function authLogin()
+    public function mnpLogin()
     {
-        $params = (new WechatLoginValidate())->post()->goCheck('auth');
-        $res = LoginLogic::authLogin($params);
+        $params = (new WechatLoginValidate())->post()->goCheck('mnpLogin');
+        $res = LoginLogic::mnpLogin($params);
         if (false === $res) {
             return $this->fail(LoginLogic::getError());
         }

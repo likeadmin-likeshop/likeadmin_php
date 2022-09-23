@@ -63,23 +63,27 @@ class WechatUserService
 
 
     /**
-     * @notes 根据微信opendid或unionid获取用户信息
-     * @author cjhao
-     * @date 2021/8/2 11:06
+     * @notes 根据opendid或unionid获取系统用户信息
+     * @return $this
+     * @author 段誉
+     * @date 2022/9/23 16:09
      */
-    public function getResopnseByUserInfo($source = ''): self
+    public function getResopnseByUserInfo(): self
     {
-        $field = 'id,sn,nickname,avatar,mobile,is_disable';
-        $user = User::hasWhere('userAuth', ['openid' => $this->openid], $field)
+        $openid = $this->openid;
+        $unionid = $this->unionid;
+
+        $user = (new UserAuth())->alias('au')
+            ->field('u.id,u.sn,u.nickname,u.avatar,u.mobile,u.is_disable')
+            ->join('user u', 'au.user_id=u.id')
+            ->where(['u.del' => 0])
+            ->where(function ($query) use ($openid, $unionid) {
+                $query->whereOr(['au.openid' => $openid]);
+                if (isset($response['unionid']) && $unionid) {
+                    $query->whereOr(['au.unionid' => $unionid]);
+                }
+            })
             ->findOrEmpty();
-        /*
-         * 用户没有该端记录，且微信返回了unionid，则用unionid找该用户
-         * 如果是小程序的静默登录，只按open_id找用户信息，如果没有用户信息，返回空，前端重新调用授权登录接口。
-         */
-        if ($user->isEmpty() && $this->unionid && 'silent' != $source) {
-            $user = User::hasWhere('userAuth', ['unionid' => $this->unionid], $field)
-                ->findOrEmpty();
-        }
 
         $this->user = $user;
         return $this;
@@ -141,7 +145,7 @@ class WechatUserService
         $userSn = User::createUserSn();
         $this->user->sn = $userSn;
         $this->user->account = 'u' . $userSn;
-        $this->user->nickname = $this->nickname;
+        $this->user->nickname = "用户" . $userSn;
         $this->user->avatar = $avatar;
         $this->user->channel = $this->terminal;
 

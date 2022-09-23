@@ -38,17 +38,6 @@ class WechatLoginValidate extends BaseValidate
 
 
     /**
-     * @notes 小程序-静默登录场景
-     * @return WechatLoginValidate
-     * @author 段誉
-     * @date 2022/9/16 10:58
-     */
-    public function sceneSilent()
-    {
-        return $this->only(['code']);
-    }
-
-    /**
      * @notes 公众号登录场景
      * @return WechatLoginValidate
      * @author 段誉
@@ -66,9 +55,9 @@ class WechatLoginValidate extends BaseValidate
      * @author 段誉
      * @date 2022/9/16 11:15
      */
-    public function sceneAuth()
+    public function sceneMnpLogin()
     {
-        return $this->only(['code', 'nickname', 'headimgurl']);
+        return $this->only(['code']);
     }
 
 
