@@ -137,6 +137,18 @@ class User extends BaseModel
 
 
     /**
+     * @notes 登录时间
+     * @param $value
+     * @return string
+     * @author 段誉
+     * @date 2022/9/23 18:15
+     */
+    public function getLoginTimeAttr($value)
+    {
+        return $value ? date('Y-m-d H:i:s', $value) : '';
+    }
+
+    /**
      * @notes 生成用户编码
      * @param string $prefix
      * @param int $length
