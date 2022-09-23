@@ -124,23 +124,28 @@ class NoticeLogic extends BaseLogic
      */
     public static function checkSet($params)
     {
-        if (!isset($params['id'])) {
-            throw new \Exception('参数缺失');
-        }
-        $noticeSetting = NoticeSetting::findOrEmpty($params['id']);
+        $noticeSetting = NoticeSetting::findOrEmpty($params['id'] ?? 0);
+
         if ($noticeSetting->isEmpty()) {
             throw new \Exception('通知配置不存在');
         }
+
         if (!isset($params['template']) || !is_array($params['template']) || count($params['template']) == 0) {
             throw new \Exception('模板配置不存在或格式错误');
         }
+
+        // 通知类型
+        $noticeType = ['system', 'sms', 'oa', 'mnp'];
+
         foreach ($params['template'] as $item) {
             if (!is_array($item)) {
                 throw new \Exception('模板项格式错误');
             }
-            if (!isset($item['type']) || !in_array($item['type'], ['system', 'sms', 'oa', 'mnp'])) {
+
+            if (!isset($item['type']) || !in_array($item['type'], $noticeType)) {
                 throw new \Exception('模板项缺少模板类型或模板类型有误');
             }
+
             switch ($item['type']) {
                 case "system";
                     self::checkSystem($item);
