@@ -1,0 +1,5 @@
+/*  #ifdef  H5  */
+@tailwind base;
+/*  #endif  */
+
+@tailwind utilities;
