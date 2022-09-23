@@ -35,7 +35,7 @@ class NoticeLogic extends BaseLogic
      */
     public static function detail($params)
     {
-        $field = 'id,scene_id,scene_name,scene_desc,system_notice,sms_notice,oa_notice,mnp_notice,support';
+        $field = 'id,type,scene_id,scene_name,scene_desc,system_notice,sms_notice,oa_notice,mnp_notice,support';
         $noticeSetting = NoticeSetting::field($field)->findOrEmpty($params['id'])->toArray();
         if (empty($noticeSetting)) {
             return [];
