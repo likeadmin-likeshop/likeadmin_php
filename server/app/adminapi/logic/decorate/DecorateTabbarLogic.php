@@ -40,6 +40,16 @@ class DecorateTabbarLogic extends BaseLogic
     {
         $list = DecorateTabbar::select()->toArray();
         $style = ConfigService::get('tabbar', 'style', (object)[]);
+        if (!empty($list)) {
+            foreach ($list as &$item) {
+                if (!empty($item['selected'])) {
+                    $item['selected'] = FileService::getFileUrl($item['selected']);
+                }
+                if (!empty($item['unselected'])) {
+                    $item['unselected'] = FileService::getFileUrl($item['unselected']);
+                }
+            }
+        }
         return ['style' => $style, 'list' => $list];
     }
 
