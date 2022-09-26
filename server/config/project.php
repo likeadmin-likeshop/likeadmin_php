@@ -49,12 +49,12 @@ return [
         'menu_file' => 'resource/image/adminapi/default/menu_file.png',// 首页快捷菜单-素材中心
     ],
 
-    // 文件上传限制(图片)
+    // 文件上传限制 (图片)
     'file_image' => [
-        'jpg', 'png', 'gif', 'jpeg',
+        'jpg', 'png', 'gif', 'jpeg', 'webp'
     ],
 
-    // 文件上传限制(视频)
+    // 文件上传限制 (视频)
     'file_video' => [
         'wmv', 'avi', 'mpg', 'mpeg', '3gp', 'mov', 'mp4', 'flv', 'f4v', 'rmvb', 'mkv'
     ],
