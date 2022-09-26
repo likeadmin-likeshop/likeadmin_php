@@ -2,7 +2,7 @@ import HttpRequest from './http'
 import { merge } from 'lodash-es'
 import { HttpRequestOptions, RequestHooks } from './type'
 import { getToken } from '../auth'
-import { RequestCodeEnum } from '@/enums/requestEnums'
+import { RequestCodeEnum, RequestMethodsEnum } from '@/enums/requestEnums'
 import { useUserStore } from '@/stores/user'
 
 const requestHooks: RequestHooks = {
@@ -26,6 +26,7 @@ const requestHooks: RequestHooks = {
             })
             throw new Error('请先登录')
         }
+
         return options
     },
     responseInterceptorsHook(response, config) {
@@ -61,6 +62,12 @@ const requestHooks: RequestHooks = {
             default:
                 return data
         }
+    },
+    responseInterceptorsCatchHook(options) {
+        if (options.method?.toUpperCase() == RequestMethodsEnum.POST) {
+            uni.$u.toast('请求失败，请重试')
+        }
+        return Promise.reject()
     }
 }
 
@@ -80,6 +87,8 @@ const defaultOptions: HttpRequestOptions = {
     // 是否携带token
     withToken: true,
     isAuth: false,
+    retryCount: 2,
+    retryTimeout: 1000,
     requestHooks: requestHooks
 }
 

@@ -228,7 +228,7 @@ const changeLoginWay = (way: LoginWayEnum) => {
 }
 
 const includeLoginWay = (way: LoginWayEnum) => {
-    return appStore.getLoginConfig.login_way.includes(String(way))
+    return appStore.getLoginConfig.login_way?.includes(String(way))
 }
 
 const inWxAuth = computed(() => {
@@ -287,7 +287,6 @@ const loginHandle = async (data: any) => {
             }
         })
     } else if (cache.get(BACK_URL)) {
-        console.log(BACK_URL, cache.get(BACK_URL))
         uni.redirectTo({ url: cache.get(BACK_URL) })
     } else {
         uni.reLaunch({
@@ -319,7 +318,6 @@ const wxLogin = async () => {
         uni.hideLoading()
         uni.$u.toast(error)
     }
-    loginHandle(data)
     // #endif
     // #ifdef H5
     if (isWeixin.value) {

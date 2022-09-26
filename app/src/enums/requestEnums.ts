@@ -15,3 +15,8 @@ export enum RequestCodeEnum {
     FAILED = 0, // 失败
     TOKEN_INVALID = -1 // TOKEN参数无效
 }
+
+export enum RequestErrMsgEnum {
+    ABORT = 'request:fail abort',
+    TIMEOUT = 'request:fail timeout'
+}
