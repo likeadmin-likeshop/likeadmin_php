@@ -30,7 +30,7 @@ class FileValidate extends BaseValidate
         'ids'  => 'require|array',
         'type' => 'require|in:10,20,30',
         'pid'  => 'require|number',
-        'name' => 'require'
+        'name' => 'require|max:20'
     ];
 
     protected $message = [
@@ -39,7 +39,8 @@ class FileValidate extends BaseValidate
         'ids.require'  => '缺少ids参数',
         'type.require' => '缺少type参数',
         'pid.require'  => '缺少pid参数',
-        'name.require' => '缺少name参数',
+        'name.require' => '请填写分组名称',
+        'name.max' => '分组名称长度须为20字符内',
     ];
 
 
