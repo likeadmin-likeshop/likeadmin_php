@@ -92,10 +92,17 @@ trait ListsSearchTrait
                     }
                     $where[] = [$whereFields, 'between', [$this->start, $this->end]];
                     break;
+                case 'find_in_set': // find_in_set查询
+                    foreach ($whereFields as $whereField) {
+                        $paramsName = substr_symbol_behind($whereField);
+                        if (!isset($this->params[$paramsName]) || $this->params[$paramsName] == '') {
+                            continue;
+                        }
+                        $where[] = [$whereField, 'find in set', $this->params[$paramsName]];
+                    }
+                    break;
             }
         }
         return $where;
     }
-
-
 }

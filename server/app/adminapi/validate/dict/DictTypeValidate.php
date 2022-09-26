@@ -43,6 +43,7 @@ class DictTypeValidate extends BaseValidate
         'type.require' => '请填写字典类型',
         'type.unique' => '字典类型已存在',
         'status.require' => '请选择状态',
+        'remark.max' => '备注长度不能超过200',
     ];
 
 
