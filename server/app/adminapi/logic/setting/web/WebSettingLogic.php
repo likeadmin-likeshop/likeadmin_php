@@ -111,11 +111,14 @@ class WebSettingLogic extends BaseLogic
      */
     public static function setAgreement(array $params)
     {
+        $serviceContent = clear_file_domain($params['service_content'] ?? '');
+        $privacyContent = clear_file_domain($params['privacy_content'] ?? '');
         ConfigService::set('agreement', 'service_title', $params['service_title'] ?? '');
-        ConfigService::set('agreement', 'service_content', $params['service_content'] ?? '');
+        ConfigService::set('agreement', 'service_content', $serviceContent);
         ConfigService::set('agreement', 'privacy_title', $params['privacy_title'] ?? '');
-        ConfigService::set('agreement', 'privacy_content', $params['privacy_content'] ?? '');
+        ConfigService::set('agreement', 'privacy_content', $privacyContent);
     }
+
 
     /**
      * @notes 获取政策协议
@@ -131,6 +134,10 @@ class WebSettingLogic extends BaseLogic
             'privacy_title' => ConfigService::get('agreement', 'privacy_title'),
             'privacy_content' => ConfigService::get('agreement', 'privacy_content'),
         ];
+
+        $config['service_content'] = set_file_domain($config['service_content']);
+        $config['privacy_content'] = set_file_domain($config['privacy_content']);
+
         return $config;
     }
 }

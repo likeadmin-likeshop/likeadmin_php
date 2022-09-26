@@ -1,5 +1,6 @@
 <?php
 // 应用公共文件
+use app\common\service\FileService;
 
 /**
  * @notes 生成密码加密密钥
@@ -179,4 +180,33 @@ function download_file($url, $saveDir, $fileName)
         return '';
     }
     return $fileSrc;
+}
+
+
+/**
+ * @notes 去除内容图片域名
+ * @param $content
+ * @return array|string|string[]
+ * @author 段誉
+ * @date 2022/9/26 10:43
+ */
+function clear_file_domain($content)
+{
+    $fileUrl = FileService::getFileUrl();
+    return str_replace($fileUrl, '/', $content);
+}
+
+
+/**
+ * @notes 设置内容图片域名
+ * @param $content
+ * @return array|string|string[]|null
+ * @author 段誉
+ * @date 2022/9/26 10:43
+ */
+function set_file_domain($content)
+{
+    $preg = '/(<img .*?src=")[^https|^http](.*?)(".*?>)/is';
+    $fileUrl = FileService::getFileUrl();
+    return preg_replace($preg, "\${1}$fileUrl\${2}\${3}", $content);
 }
