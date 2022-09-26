@@ -49,8 +49,8 @@ return [
         'menu_file' => 'resource/image/adminapi/default/menu_file.png',// 首页快捷菜单-素材中心
     ],
 
-    // 文件上传限制(音频)
-    'file_audio' => [
+    // 文件上传限制(图片)
+    'file_image' => [
         'jpg', 'png', 'gif', 'jpeg',
     ],
 

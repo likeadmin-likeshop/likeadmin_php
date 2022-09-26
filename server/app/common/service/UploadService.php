@@ -49,7 +49,7 @@ class UploadService
             $fileInfo = $StorageDriver->getFileInfo();
 
             // 校验上传文件后缀
-            if (!in_array($fileInfo['ext'], config('project.file_audio'))) {
+            if (!in_array($fileInfo['ext'], config('project.file_image'))) {
                 throw new Exception("上传图片不允许上传". $fileInfo['ext'] . "文件");
             }
 
