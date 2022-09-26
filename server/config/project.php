@@ -49,10 +49,14 @@ return [
         'menu_file' => 'resource/image/adminapi/default/menu_file.png',// 首页快捷菜单-素材中心
     ],
 
-    // 上传文件限制
-    'allow_upload' => [
-        'jpg', 'png', 'gif', 'jpeg', 'ico', 'bmp', 'wmv', 'avi', 'mpg',
-        'mpeg', '3gp', 'mov', 'mp4', 'flv', 'f4v', 'rmvb', 'mkv'
+    // 文件上传限制(音频)
+    'file_audio' => [
+        'jpg', 'png', 'gif', 'jpeg',
+    ],
+
+    // 文件上传限制(视频)
+    'file_video' => [
+        'wmv', 'avi', 'mpg', 'mpeg', '3gp', 'mov', 'mp4', 'flv', 'f4v', 'rmvb', 'mkv'
     ],
 
     // 登录设置
