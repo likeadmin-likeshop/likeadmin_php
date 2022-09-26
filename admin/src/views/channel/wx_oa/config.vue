@@ -37,18 +37,14 @@
             <el-card class="!border-none mt-4" shadow="never">
                 <div class="font-medium mb-7">公众号开发者信息</div>
                 <el-form-item label="AppID" prop="app_id">
-                    <el-input
-                        class="max-w-80"
-                        v-model="formData.app_id"
-                        placeholder="请输入AppID"
-                    />
+                    <div class="w-80">
+                        <el-input v-model="formData.app_id" placeholder="请输入AppID" />
+                    </div>
                 </el-form-item>
                 <el-form-item label="AppSecret" prop="app_secret">
-                    <el-input
-                        class="max-w-80"
-                        v-model="formData.app_secret"
-                        placeholder="请输入AppSecret"
-                    />
+                    <div class="w-80">
+                        <el-input v-model="formData.app_secret" placeholder="请输入AppSecret" />
+                    </div>
                 </el-form-item>
                 <el-form-item>
                     <div class="form-tips">
@@ -73,12 +69,8 @@
                 </el-form-item>
                 <el-form-item label="Token" prop="Token">
                     <div class="flex-1 min-w-0">
-                        <div>
-                            <el-input
-                                class="max-w-80"
-                                v-model="formData.token"
-                                placeholder="请输入Token"
-                            />
+                        <div class="w-80">
+                            <el-input v-model="formData.token" placeholder="请输入Token" />
                         </div>
                         <div class="form-tips">
                             登录微信公众平台，点击开发>基本配置>服务器配置，设置令牌Token。不填默认为“likeshop”
@@ -87,11 +79,12 @@
                 </el-form-item>
                 <el-form-item label="EncodingAESKey" prop="encoding_aes_key">
                     <div class="flex-1 min-w-0">
-                        <el-input
-                            class="max-w-80"
-                            v-model="formData.encoding_aes_key"
-                            placeholder="请输入EncodingAESKey"
-                        />
+                        <div class="w-80">
+                            <el-input
+                                v-model="formData.encoding_aes_key"
+                                placeholder="请输入EncodingAESKey"
+                            />
+                        </div>
                         <div class="form-tips">
                             消息加密密钥由43位字符组成，字符范围为A-Z,a-z,0-9
                         </div>
