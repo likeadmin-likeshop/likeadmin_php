@@ -1,1 +1,0 @@
-import{d as o,o as t,c as s,a as n,H as _}from"./@vue.230e89ba.js";import{d as a}from"./index.9e3f3340.js";const c=o({});const d={class:"footer-btns"},r={class:"footer-btns__content"};function p(e,f,i,l,u,m){return t(),s("div",d,[n("div",r,[_(e.$slots,"default",{},void 0,!0)])])}const b=a(c,[["render",p],["__scopeId","data-v-bf6ad1f3"]]);export{b as _};
