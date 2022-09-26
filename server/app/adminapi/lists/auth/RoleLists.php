@@ -65,7 +65,7 @@ class RoleLists extends BaseAdminDataLists
         $lists = SystemRole::with(['role_menu_index'])
             ->field('id,name,desc,sort,create_time')
             ->limit($this->limitOffset, $this->limitLength)
-            ->order('id', 'desc')
+            ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();
 
