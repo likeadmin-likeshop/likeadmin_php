@@ -6,16 +6,18 @@
             :width="width"
             trigger="contextmenu"
             class="popover-input"
-            :teleported="false"
+            :teleported="teleported"
+            :persistent="false"
+            popper-class="!p-0"
         >
-            <div class="flex">
+            <div class="flex p-3" @click.stop="">
                 <div class="popover-input__input mr-[10px] flex-1">
                     <el-select
                         class="flex-1"
-                        size="small"
+                        :size="size"
                         v-if="type == 'select'"
                         v-model="inputValue"
-                        :teleported="false"
+                        :teleported="teleported"
                     >
                         <el-option
                             v-for="item in options"
@@ -27,14 +29,17 @@
                     <el-input
                         v-else
                         v-model.trim="inputValue"
+                        :maxlength="limit"
+                        :show-word-limit="showLimit"
                         :type="type"
-                        size="small"
+                        :size="size"
+                        clearable
                         :placeholder="placeholder"
                     />
                 </div>
                 <div class="popover-input__btns flex-none">
-                    <el-button link @click="visible = false">取消</el-button>
-                    <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
+                    <el-button link @click="close">取消</el-button>
+                    <el-button type="primary" :size="size" @click="handleConfirm">确定</el-button>
                 </div>
             </div>
             <template #reference>
@@ -60,7 +65,7 @@ const props = defineProps({
     },
     width: {
         type: [Number, String],
-        default: 250
+        default: '250px'
     },
     placeholder: String,
     disabled: {
@@ -70,6 +75,22 @@ const props = defineProps({
     options: {
         type: Array as PropType<any[]>,
         default: () => []
+    },
+    size: {
+        type: String as PropType<'default' | 'small' | 'large'>,
+        default: 'small'
+    },
+    limit: {
+        type: Number,
+        default: 200
+    },
+    showLimit: {
+        type: Boolean,
+        default: false
+    },
+    teleported: {
+        type: Boolean,
+        default: false
     }
 })
 const emit = defineEmits(['confirm'])
@@ -99,7 +120,8 @@ watch(
         immediate: true
     }
 )
-useEventListener(document.body, 'click', () => {
+
+useEventListener(document.documentElement, 'click', () => {
     if (inPopover.value) return
     close()
 })

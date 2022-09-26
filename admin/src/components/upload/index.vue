@@ -110,7 +110,7 @@ export default defineComponent({
             emit('error')
         }
         const handleExceed = () => {
-            feedback.msgError('超出上传上限，请重新上传')
+            feedback.msgError(`超出上传上限${props.limit}，请重新上传`)
         }
         const handleClose = () => {
             uploadRefs.value?.clearFiles()
