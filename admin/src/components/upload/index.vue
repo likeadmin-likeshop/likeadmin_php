@@ -12,6 +12,7 @@
             :on-success="handleSuccess"
             :on-exceed="handleExceed"
             :on-error="handleError"
+            :accept="getAccept"
         >
             <slot></slot>
         </el-upload>
@@ -116,12 +117,24 @@ export default defineComponent({
             uploadRefs.value?.clearFiles()
             visible.value = false
         }
+
+        const getAccept = computed(() => {
+            switch (props.type) {
+                case 'image':
+                    return 'image/*'
+                case 'video':
+                    return 'video/*'
+                default:
+                    return '*'
+            }
+        })
         return {
             uploadRefs,
             action,
             headers,
             visible,
             fileList,
+            getAccept,
             handleProgress,
             handleSuccess,
             handleError,

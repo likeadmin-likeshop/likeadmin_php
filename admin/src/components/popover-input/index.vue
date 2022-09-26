@@ -65,7 +65,7 @@ const props = defineProps({
     },
     width: {
         type: [Number, String],
-        default: '250px'
+        default: '300px'
     },
     placeholder: String,
     disabled: {
@@ -78,7 +78,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<'default' | 'small' | 'large'>,
-        default: 'small'
+        default: 'default'
     },
     limit: {
         type: Number,
