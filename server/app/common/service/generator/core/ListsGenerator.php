@@ -173,13 +173,16 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
         $query = array_unique($columnQuery);
 
         $conditon = '';
+
+        $specQueryHandle = ['between', 'like'];
+
         foreach ($query as $queryName) {
             $columnValue = '';
             foreach ($this->tableColumn as $column) {
                 if (empty($column['query_type']) || $column['is_pk']) {
                     continue;
                 }
-                if ($queryName == $column['query_type'] && $queryName != 'between' && $column['is_query']) {
+                if ($queryName == $column['query_type'] && $column['is_query'] && !in_array($queryName, $specQueryHandle)) {
                     $columnValue .= "'" . $column['column_name'] . "', ";
                 }
             }
@@ -189,15 +192,20 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             }
         }
 
-        // 另外处理between情况
+        // 另外处理between,like 等查询条件
         foreach ($this->tableColumn as $item) {
-            if ($item['query_type'] != 'between') {
+            // like
+            if ($item['query_type'] == 'like') {
+                $conditon .= "'%like%' => " . "['" . $item['column_name'] . "']," . PHP_EOL;
                 continue;
             }
-            if ($item['view_type'] == 'datetime') {
-                $conditon .= "'between_time' => " . "'" . $item['column_name'] . "'," . PHP_EOL;
-            } else {
-                $conditon .= "'between' => " . "'" . $item['column_name'] . "'," . PHP_EOL;
+            // between
+            if ($item['query_type'] == 'between') {
+                if ($item['view_type'] == 'datetime') {
+                    $conditon .= "'between_time' => " . "'" . $item['column_name'] . "'," . PHP_EOL;
+                } else {
+                    $conditon .= "'between' => " . "'" . $item['column_name'] . "'," . PHP_EOL;
+                }
             }
         }
 
