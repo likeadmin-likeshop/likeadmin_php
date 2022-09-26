@@ -5,7 +5,7 @@
                 <el-form-item label="管理员账号">
                     <el-input
                         v-model="formData.account"
-                        class="w-56"
+                        class="w-[280px]"
                         clearable
                         @keyup.enter="resetPage"
                     />
@@ -13,13 +13,13 @@
                 <el-form-item label="管理员名称">
                     <el-input
                         v-model="formData.name"
-                        class="w-56"
+                        class="w-[280px]"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
                 <el-form-item label="管理员角色">
-                    <el-select class="w-56" v-model="formData.role_id">
+                    <el-select class="w-[280px]" v-model="formData.role_id">
                         <el-option label="全部" value="" />
                         <el-option
                             v-for="(item, index) in optionsData.role"

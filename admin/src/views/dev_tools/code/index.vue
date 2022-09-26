@@ -4,7 +4,7 @@
             <el-form class="mb-[-16px]" :model="formData" inline>
                 <el-form-item label="表名称">
                     <el-input
-                        class="w-56"
+                        class="w-[280px]"
                         v-model="formData.table_name"
                         clearable
                         @keyup.enter="resetPage"
@@ -12,7 +12,7 @@
                 </el-form-item>
                 <el-form-item label="表描述">
                     <el-input
-                        class="w-56"
+                        class="w-[280px]"
                         v-model="formData.table_comment"
                         clearable
                         @keyup.enter="resetPage"

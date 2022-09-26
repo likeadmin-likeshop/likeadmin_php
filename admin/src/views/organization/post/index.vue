@@ -4,7 +4,7 @@
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
                 <el-form-item label="岗位编码">
                     <el-input
-                        class="w-56"
+                        class="w-[280px]"
                         v-model="queryParams.code"
                         clearable
                         @keyup.enter="resetPage"
@@ -12,14 +12,14 @@
                 </el-form-item>
                 <el-form-item label="岗位名称">
                     <el-input
-                        class="w-56"
+                        class="w-[280px]"
                         v-model="queryParams.name"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
                 <el-form-item label="岗位状态">
-                    <el-select class="w-56" v-model="queryParams.status">
+                    <el-select class="w-[280px]" v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />

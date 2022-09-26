@@ -4,7 +4,7 @@
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
                 <el-form-item label="用户信息">
                     <el-input
-                        class="w-56"
+                        class="w-[280px]"
                         v-model="queryParams.keyword"
                         placeholder="用户编号/昵称/手机号码"
                         clearable
@@ -18,7 +18,7 @@
                     />
                 </el-form-item>
                 <el-form-item label="注册来源">
-                    <el-select class="w-56" v-model="queryParams.channel">
+                    <el-select class="w-[280px]" v-model="queryParams.channel">
                         <el-option
                             v-for="(item, key) in ClientMap"
                             :key="key"
