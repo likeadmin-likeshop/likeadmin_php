@@ -102,7 +102,7 @@ export class Axios {
     retryRequest(error: AxiosError) {
         const config = error.config
         const { retryCount, isOpenRetry } = config.requestOptions
-        if (!isOpenRetry && config.method?.toUpperCase() == RequestMethodsEnum.POST) {
+        if (!isOpenRetry || config.method?.toUpperCase() == RequestMethodsEnum.POST) {
             return Promise.reject(error)
         }
         config.retryCount = config.retryCount ?? 0

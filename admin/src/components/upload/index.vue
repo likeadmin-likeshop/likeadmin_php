@@ -78,7 +78,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const userStore = useUserStore()
         const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
-        const action = ref(`${config.baseUrl}${config.urlPrefix}/common/upload/${props.type}`)
+        const action = ref(`${config.baseUrl}${config.urlPrefix}/upload/${props.type}`)
         const headers = computed(() => ({
             token: userStore.token,
             version: config.version
@@ -98,7 +98,7 @@ export default defineComponent({
                 visible.value = false
                 emit('change')
             }
-            if (response.code == RequestCodeEnum.FAILED && response.msg) {
+            if (response.code == RequestCodeEnum.FAIL && response.msg) {
                 feedback.msgError(response.msg)
             }
         }
