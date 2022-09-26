@@ -1,1 +1,0 @@
-import{r as s}from"./index.9e3f3340.js";function o(t){return s.get({url:"/dept.jobs/lists",params:t})}function r(t){return s.post({url:"/dept.jobs/add",params:t})}function u(t){return s.post({url:"/dept.jobs/edit",params:t})}function n(t){return s.post({url:"/dept.jobs/delete",params:t})}export{r as a,n as b,o as c,u as j};
