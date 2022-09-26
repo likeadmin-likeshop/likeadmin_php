@@ -45,18 +45,25 @@ class UploadService
             // 2、执行文件上传
             $StorageDriver = new StorageDriver($config);
             $StorageDriver->setUploadFile('file');
+            $fileName = $StorageDriver->getFileName();
+            $fileInfo = $StorageDriver->getFileInfo();
+
+            // 校验上传文件后缀
+            if (!in_array($fileInfo['ext'], config('project.file_audio'))) {
+                throw new Exception("上传图片不允许上传". $fileInfo['ext'] . "文件");
+            }
+
+            // 上传文件
+            $saveDir = $saveDir . '/' .  date('Ymd');
             if (!$StorageDriver->upload($saveDir)) {
                 throw new Exception($StorageDriver->getError());
             }
 
-            $fileName = $StorageDriver->getFileName();
-            $fileInfo = $StorageDriver->getFileInfo();
-
             // 3、处理文件名称
             if (strlen($fileInfo['name']) > 128) {
-                $file_name = substr($fileInfo['name'], 0, 123);
-                $file_end = substr($fileInfo['name'], strlen($fileInfo['name'])-5, strlen($fileInfo['name']));
-                $fileInfo['name'] = $file_name.$file_end;
+                $name = substr($fileInfo['name'], 0, 123);
+                $nameEnd = substr($fileInfo['name'], strlen($fileInfo['name'])-5, strlen($fileInfo['name']));
+                $fileInfo['name'] = $name . $nameEnd;
             }
 
             // 4、写入数据库中
@@ -107,18 +114,25 @@ class UploadService
             // 2、执行文件上传
             $StorageDriver = new StorageDriver($config);
             $StorageDriver->setUploadFile('file');
+            $fileName = $StorageDriver->getFileName();
+            $fileInfo = $StorageDriver->getFileInfo();
+
+            // 校验上传文件后缀
+            if (!in_array($fileInfo['ext'], config('project.file_video'))) {
+                throw new Exception("上传视频不允许上传". $fileInfo['ext'] . "文件");
+            }
+
+            // 上传文件
+            $saveDir = $saveDir . '/' .  date('Ymd');
             if (!$StorageDriver->upload($saveDir)) {
                 throw new Exception($StorageDriver->getError());
             }
 
-            $fileName = $StorageDriver->getFileName();
-            $fileInfo = $StorageDriver->getFileInfo();
-
             // 3、处理文件名称
             if (strlen($fileInfo['name']) > 128) {
-                $file_name = substr($fileInfo['name'], 0, 123);
-                $file_end = substr($fileInfo['name'], strlen($fileInfo['name'])-5, strlen($fileInfo['name']));
-                $fileInfo['name'] = $file_name.$file_end;
+                $name = substr($fileInfo['name'], 0, 123);
+                $nameEnd = substr($fileInfo['name'], strlen($fileInfo['name'])-5, strlen($fileInfo['name']));
+                $fileInfo['name'] = $name . $nameEnd;
             }
 
             // 4、写入数据库中
