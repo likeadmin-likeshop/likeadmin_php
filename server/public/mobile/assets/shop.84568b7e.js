@@ -1,1 +1,0 @@
-import{C as t}from"./index.d3d2c677.js";function e(){return t.get({url:"/index/index"})}function r(e){return t.get({url:"/index/decorate",data:e})}function n(){return t.get({url:"/search/hotLists"})}export{r as a,n as b,e as g};
