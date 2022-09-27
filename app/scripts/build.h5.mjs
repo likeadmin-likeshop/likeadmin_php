@@ -4,7 +4,7 @@ import fsExtra from 'fs-extra'
 const { existsSync, remove, copy } = fsExtra
 const cwd = process.cwd()
 //打包发布路径，谨慎改动
-const releaseRelativePath = '../h5'
+const releaseRelativePath = '../server/public/mobile'
 const distPath = path.resolve(cwd, 'dist/build/h5')
 const releasePath = path.resolve(cwd, releaseRelativePath)
 
