@@ -15,6 +15,7 @@
 namespace app\adminapi\lists\file;
 
 use app\adminapi\lists\BaseAdminDataLists;
+use app\common\enum\FileEnum;
 use app\common\lists\ListsSearchInterface;
 use app\common\model\file\File;
 use app\common\service\FileService;
@@ -56,6 +57,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
         $lists = (new File())->field(['id,cid,type,name,uri,create_time'])
             ->order('id', 'desc')
             ->where($this->searchWhere)
+            ->where('source', FileEnum::SOURCE_ADMIN)
             ->limit($this->limitOffset, $this->limitLength)
             ->select()
             ->toArray();
@@ -77,6 +79,8 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
      */
     public function count(): int
     {
-        return (new File())->where($this->searchWhere)->count();
+        return (new File())->where($this->searchWhere)
+            ->where('source', FileEnum::SOURCE_ADMIN)
+            ->count();
     }
 }
