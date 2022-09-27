@@ -17,10 +17,10 @@ const requestHooks: RequestHooks = {
         }
         const token = getToken()
         // 添加token
-        if (withToken && token) {
+        if (withToken && !options.header.token) {
             options.header.token = token
         }
-        if (isAuth && !token) {
+        if (isAuth && !options.header.token) {
             uni.navigateTo({
                 url: '/pages/login/login'
             })

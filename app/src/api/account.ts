@@ -17,7 +17,7 @@ export function getWxCodeUrl() {
 }
 
 export function OALogin(data: Record<string, any>) {
-    return request.get({ url: '/login/oaLogin', data })
+    return request.post({ url: '/login/oaLogin', data })
 }
 
 export function mnpLogin(data: Record<string, any>) {

@@ -367,6 +367,7 @@ onLoad(async (options) => {
         uni.showLoading({
             title: '请稍后...'
         })
+        //用于清空code
 
         try {
             const data = await wechatOa.authLogin(code)
