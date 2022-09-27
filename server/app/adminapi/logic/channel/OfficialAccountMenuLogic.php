@@ -37,7 +37,7 @@ class OfficialAccountMenuLogic extends BaseLogic
     {
         try {
             self::checkMenu($params);
-            ConfigService::set('official_account', 'menu', $params);
+            ConfigService::set('oa_setting', 'menu', $params);
             return true;
         } catch (\Exception $e) {
             OfficialAccountMenuLogic::setError($e->getMessage());
@@ -193,7 +193,7 @@ class OfficialAccountMenuLogic extends BaseLogic
 
             $result = $app->menu->create($params);
             if ($result['errcode'] == 0) {
-                ConfigService::set('official_account', 'menu', $params);
+                ConfigService::set('oa_setting', 'menu', $params);
                 return true;
             }
 
@@ -215,7 +215,7 @@ class OfficialAccountMenuLogic extends BaseLogic
      */
     public static function detail()
     {
-        $data = ConfigService::get('official_account', 'menu', []);
+        $data = ConfigService::get('oa_setting', 'menu', []);
 
         if (!empty($data)) {
             foreach ($data as &$item) {
