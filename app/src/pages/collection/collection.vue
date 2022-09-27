@@ -39,7 +39,7 @@ const collectData: any = ref([])
 
 const queryList = async (pageNo, pageSize) => {
     const { lists } = await getCollect()
-    lists.forEach((item) => {
+    lists.forEach((item: any) => {
         item.show = false
     })
     collectData.value = lists
