@@ -54,11 +54,11 @@ class WeChatConfigService
     public static function getOaConfig()
     {
         $config = [
-            'app_id' => ConfigService::get('official_account', 'app_id'),
-            'secret' => ConfigService::get('official_account', 'app_secret'),
-            'mch_id' => ConfigService::get('official_account', 'mch_id'),
-            'key' => ConfigService::get('official_account', 'key'),
-            'token' => ConfigService::get('official_account', 'token'),
+            'app_id' => ConfigService::get('oa_setting', 'app_id'),
+            'secret' => ConfigService::get('oa_setting', 'app_secret'),
+            'mch_id' => ConfigService::get('oa_setting', 'mch_id'),
+            'key' => ConfigService::get('oa_setting', 'key'),
+            'token' => ConfigService::get('oa_setting', 'token'),
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
