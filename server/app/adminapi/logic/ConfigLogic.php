@@ -14,6 +14,13 @@
 
 namespace app\adminapi\logic;
 
+use app\common\enum\YesNoEnum;
+use app\common\model\article\ArticleCate;
+use app\common\model\auth\SystemRole;
+use app\common\model\dept\Dept;
+use app\common\model\dept\Jobs;
+use app\common\model\dict\DictData;
+use app\common\model\dict\DictType;
 use app\common\service\{FileService, ConfigService};
 
 /**
@@ -50,5 +57,78 @@ class ConfigLogic
         return $config;
     }
 
+
+    /**
+     * @notes 根据类型获取字典类型
+     * @param $type
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/9/27 19:09
+     */
+    public static function getDictByType($type)
+    {
+        $lists = DictData::whereIn('type_value', $type)->select()->toArray();
+        if (empty($lists)) {
+            return [];
+        }
+        $result = [];
+        foreach ($type as $item) {
+            foreach ($lists as $dict) {
+                if ($dict['type_value'] == $item) {
+                    $result[$item][] = $dict;
+                }
+            }
+        }
+        return $result;
+    }
+
+
+    /**
+     * @notes 根据类型获取下拉框数据
+     * @param $type
+     * @return array
+     * @author 段誉
+     * @date 2022/9/27 19:32
+     */
+    public static function getSelectDataByType($type)
+    {
+        $allowData = [
+            'dept' => Dept::class,
+            'jobs' => Jobs::class,
+            'role' => SystemRole::class,
+            'dict_type' => DictType::class,
+            'article_cate' => ArticleCate::class
+        ];
+        if (!in_array($type, array_keys($allowData))) {
+            return [];
+        }
+
+        $where = [];
+        $order = [];
+        switch ($type) {
+            case 'dept':
+            case 'jobs':
+                $where[] = ['status', '=', YesNoEnum::YES];
+                $order['sort'] = 'desc';
+                break;
+            case 'role':
+                $order['sort'] = 'desc';
+                break;
+            case 'dict_type':
+                $where[] = ['status', '=', YesNoEnum::YES];
+                break;
+            case 'article_cate':
+                $where[] = ['is_show', '=', YesNoEnum::YES];
+                $order['sort'] = 'desc';
+                break;
+        }
+
+        $order['id'] = 'desc';
+        $model = $allowData[$type];
+        return app($model)->where($where)->order($order)->select()->toArray();
+    }
 
 }
