@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-card class="!border-none" shadow="never">
-            <el-alert type="warning" title="温馨提示：H5商城设置" :closable="false" show-icon />
+            <el-alert type="warning" title="温馨提示：H5设置" :closable="false" show-icon />
         </el-card>
         <el-card class="!border-none mt-4" shadow="never">
             <el-form ref="formRef" :model="formData" label-width="120px">

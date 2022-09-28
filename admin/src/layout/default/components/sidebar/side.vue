@@ -3,8 +3,9 @@
         <side-logo :show-title="!isCollapsed" :theme="sideTheme" />
         <side-menu
             :routes="routes"
-            :isCollapsed="isCollapsed"
+            :is-collapsed="isCollapsed"
             :width="settingStore.sideWidth"
+            :unique-opened="settingStore.menuAutoStow"
             :config="menuProp"
             :theme="sideTheme"
             @select="handleSelect"

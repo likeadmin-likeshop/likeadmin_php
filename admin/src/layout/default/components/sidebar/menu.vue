@@ -10,7 +10,7 @@
                 :default-active="activeMenu"
                 :collapse="isCollapsed"
                 mode="vertical"
-                :unique-opened="false"
+                :unique-opened="uniqueOpened"
                 @select="$emit('select')"
             >
                 <menu-item
@@ -36,6 +36,10 @@ const props = defineProps({
     },
     config: {
         type: Object
+    },
+    uniqueOpened: {
+        type: Boolean,
+        default: false
     },
     isCollapsed: {
         type: Boolean,

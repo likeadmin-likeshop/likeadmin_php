@@ -1,4 +1,5 @@
 const defaultSetting = {
+    menuAutoStow: false, //菜单自动收起
     sideWidth: 200, //侧边栏宽度
     sideTheme: 'light', //侧边栏主题
     sideDarkColor: '#1d2124', //侧边栏深色主题颜色
