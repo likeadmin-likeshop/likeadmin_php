@@ -17,6 +17,7 @@ namespace app\adminapi\logic;
 use app\adminapi\logic\dept\DeptLogic;
 use app\common\enum\YesNoEnum;
 use app\common\model\article\ArticleCate;
+use app\common\model\auth\SystemMenu;
 use app\common\model\auth\SystemRole;
 use app\common\model\dept\Dept;
 use app\common\model\dept\Jobs;
@@ -108,7 +109,8 @@ class ConfigLogic
             'jobs' => Jobs::class,
             'role' => SystemRole::class,
             'dict_type' => DictType::class,
-            'article_cate' => ArticleCate::class
+            'article_cate' => ArticleCate::class,
+            'menu' => SystemMenu::class,
         ];
         if (!in_array($type, array_keys($allowData))) {
             return [];
@@ -132,6 +134,8 @@ class ConfigLogic
                 $where[] = ['is_show', '=', YesNoEnum::YES];
                 $order['sort'] = 'desc';
                 break;
+            case 'menu':
+                $order['sort'] = 'desc';
         }
 
         $order['id'] = 'desc';
@@ -141,6 +145,10 @@ class ConfigLogic
         if ($type == 'dept' && !empty($result)) {
             $pid = min(array_column($result, 'pid'));
             $result = DeptLogic::getTree($result, $pid);
+        }
+
+        if ($type == 'menu' && !empty($result)) {
+            $result = linear_to_tree($result, 'children');
         }
 
         return $result;
