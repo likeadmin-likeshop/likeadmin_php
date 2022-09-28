@@ -22,7 +22,6 @@ export class AxiosCancel {
             const cancel = cancelerMap.get(url)
             cancel && cancel(url)
             cancelerMap.delete(url)
-            console.log(cancelerMap)
         }
     }
 }
