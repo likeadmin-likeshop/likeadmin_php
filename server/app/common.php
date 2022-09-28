@@ -204,7 +204,7 @@ function clear_file_domain($content)
  * @author 段誉
  * @date 2022/9/26 10:43
  */
-function set_file_domain($content)
+function get_file_domain($content)
 {
     $preg = '/(<img .*?src=")[^https|^http](.*?)(".*?>)/is';
     $fileUrl = FileService::getFileUrl();

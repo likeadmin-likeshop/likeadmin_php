@@ -135,8 +135,8 @@ class WebSettingLogic extends BaseLogic
             'privacy_content' => ConfigService::get('agreement', 'privacy_content'),
         ];
 
-        $config['service_content'] = set_file_domain($config['service_content']);
-        $config['privacy_content'] = set_file_domain($config['privacy_content']);
+        $config['service_content'] = get_file_domain($config['service_content']);
+        $config['privacy_content'] = get_file_domain($config['privacy_content']);
 
         return $config;
     }

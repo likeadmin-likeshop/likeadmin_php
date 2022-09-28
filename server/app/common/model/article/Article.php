@@ -54,4 +54,32 @@ class Article extends BaseModel
         return $data['click_actual'] + $data['click_virtual'];
     }
 
+
+    /**
+     * @notes 设置图片域名
+     * @param $value
+     * @param $data
+     * @return array|string|string[]|null
+     * @author 段誉
+     * @date 2022/9/28 10:17
+     */
+    public function getContentAttr($value, $data)
+    {
+        return get_file_domain($value);
+    }
+
+
+    /**
+     * @notes 清除图片域名
+     * @param $value
+     * @param $data
+     * @return array|string|string[]
+     * @author 段誉
+     * @date 2022/9/28 10:17
+     */
+    public function setContentAttr($value, $data)
+    {
+        return clear_file_domain($value);
+    }
+
 }
