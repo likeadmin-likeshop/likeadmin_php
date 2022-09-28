@@ -90,7 +90,7 @@ const props = defineProps({
     },
     teleported: {
         type: Boolean,
-        default: false
+        default: true
     }
 })
 const emit = defineEmits(['confirm'])
