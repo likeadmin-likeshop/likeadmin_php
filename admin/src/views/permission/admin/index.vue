@@ -101,7 +101,6 @@
 
 <script lang="ts" setup name="admin">
 import { adminEdit, adminLists, adminDelete } from '@/api/perms/admin'
-import { roleLists } from '@/api/perms/role'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
@@ -153,13 +152,7 @@ const handleDelete = async (id: number) => {
 const { optionsData } = useDictOptions<{
     role: any[]
 }>({
-    role: {
-        api: roleLists,
-        params: { page_type: 0 },
-        transformData(data) {
-            return data.lists
-        }
-    }
+    role: {}
 })
 
 onMounted(() => {

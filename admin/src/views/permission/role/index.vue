@@ -11,7 +11,7 @@
             </div>
             <div class="mt-4" v-loading="pager.loading">
                 <div>
-                    <el-table :data="pager.lists">
+                    <el-table :data="pager.lists" size="large">
                         <el-table-column prop="id" label="ID" min-width="100" />
                         <el-table-column prop="name" label="名称" min-width="150" />
                         <el-table-column
@@ -23,7 +23,7 @@
                         <el-table-column prop="sort" label="排序" min-width="100" />
                         <el-table-column prop="num" label="管理员人数" min-width="100" />
                         <el-table-column prop="create_time" label="创建时间" min-width="180" />
-                        <el-table-column label="操作" width="180" fixed="right">
+                        <el-table-column label="操作" width="200" fixed="right">
                             <template #default="{ row }">
                                 <el-button
                                     link

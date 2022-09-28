@@ -6,7 +6,7 @@
                 <el-form-item label="字典名称">
                     <el-select class="w-[280px]" v-model="queryParams.type_id" @change="getLists">
                         <el-option
-                            v-for="item in optionsData.dictType"
+                            v-for="item in optionsData.dict_type"
                             :label="item.name"
                             :value="item.id"
                             :key="item.id"
@@ -114,7 +114,7 @@
 </template>
 
 <script lang="ts" setup name="dictData">
-import { dictDataDelete, dictDataLists, dictTypeLists } from '@/api/setting/dict'
+import { dictDataDelete, dictDataLists } from '@/api/setting/dict'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
@@ -144,7 +144,7 @@ const handleSelectionChange = (val: any[]) => {
 const handleAdd = async () => {
     showEdit.value = true
     await nextTick()
-    const type = optionsData.dictType.find((item) => item.id == queryParams.type_id)
+    const type = optionsData.dict_type.find((item) => item.id == queryParams.type_id)
     editRef.value?.setFormData({
         type_value: type?.type,
         type_id: type.id
@@ -166,15 +166,9 @@ const handleDelete = async (id: any[] | number) => {
 }
 
 const { optionsData } = useDictOptions<{
-    dictType: any[]
+    dict_type: any[]
 }>({
-    dictType: {
-        api: dictTypeLists,
-        params: { page_type: 0 },
-        transformData(data) {
-            return data.lists
-        }
-    }
+    dict_type: {}
 })
 
 getLists()

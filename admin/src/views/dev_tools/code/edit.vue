@@ -147,7 +147,7 @@
                                         placeholder="字典类型"
                                     >
                                         <el-option
-                                            v-for="(item, index) in dictData"
+                                            v-for="(item, index) in optionsData.dict_type"
                                             :key="index"
                                             :label="item.name"
                                             :value="item.type"
@@ -214,7 +214,7 @@
                             <el-tree-select
                                 class="w-80"
                                 v-model="formData.menu.pid"
-                                :data="menuOptions"
+                                :data="optionsData.menu"
                                 clearable
                                 node-key="id"
                                 :props="{
@@ -257,10 +257,9 @@
 
 <script lang="ts" setup name="tableEdit">
 import { generateEdit, tableDetail } from '@/api/tools/code'
-import { dictTypeLists } from '@/api/setting/dict'
 import type { FormInstance } from 'element-plus'
 import feedback from '@/utils/feedback'
-import { menuLists } from '@/api/perms/menu'
+import { useDictOptions } from '@/hooks/useDictOptions'
 const route = useRoute()
 const router = useRouter()
 const activeName = ref('column')
@@ -284,8 +283,6 @@ const formData = reactive({
 })
 
 const formRef = shallowRef<FormInstance>()
-const dictData = ref<any[]>([])
-const menuOptions = ref<any[]>([])
 const rules = reactive({
     table_name: [{ required: true, message: '请输入表名称', trigger: 'blur' }],
     table_comment: [{ required: true, message: '请输入表描述', trigger: 'blur' }],
@@ -319,27 +316,32 @@ const getDetails = async () => {
     )
 }
 
-const getDict = async () => {
-    const data: any = await dictTypeLists({
-        page_type: 0
-    })
-    dictData.value = data.lists
-}
-
-const getMenu = async () => {
-    const data: any = await menuLists({ page_type: 0 })
-    const menu = { id: 0, name: '顶级', children: [] }
-    menu.children = data.lists
-    menuOptions.value.push(menu)
-}
+const { optionsData } = useDictOptions<{
+    dict_type: any[]
+    menu: any[]
+}>({
+    dict_type: {},
+    menu: {
+        transformData(data) {
+            const menu = { id: 0, name: '顶级', children: [] }
+            menu.children = data
+            return [menu]
+        }
+    }
+})
 
 const onSubmit = async () => {
-    await formRef.value?.validate()
-    await generateEdit(formData)
-    router.back()
+    try {
+        await formRef.value?.validate()
+        await generateEdit(formData)
+        router.back()
+    } catch (error: any) {
+        for (const err in error) {
+            const isInRules = Object.keys(rules).includes(err)
+            isInRules && feedback.msgError(error[err][0]?.message)
+        }
+    }
 }
 
 getDetails()
-getDict()
-getMenu()
 </script>

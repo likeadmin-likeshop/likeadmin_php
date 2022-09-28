@@ -12,7 +12,7 @@ export function getWorkbench() {
 
 //下拉数据
 export function getSelectData(params: any) {
-    return request.get({ url: '/config/selectData', params })
+    return request.get({ url: '/config/selectData', params }, { ignoreCancelToken: true })
 }
 
 //字典数据

@@ -36,7 +36,7 @@
                 </el-form-item>
                 <el-form-item label="排序" prop="sort">
                     <div>
-                        <el-input-number v-model="formData.sort" />
+                        <el-input-number v-model="formData.sort" :min="0" />
                         <div class="form-tips">默认为0， 数值越大越排前</div>
                     </div>
                 </el-form-item>
@@ -49,7 +49,7 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import { deptLists, deptEdit, deptAdd, deptDetail } from '@/api/org/department'
+import { deptEdit, deptAdd, deptDetail } from '@/api/org/department'
 import Popup from '@/components/popup/index.vue'
 import { useDictOptions } from '@/hooks/useDictOptions'
 const emit = defineEmits(['success', 'close'])
@@ -108,9 +108,7 @@ const formRules = {
 const { optionsData } = useDictOptions<{
     dept: any[]
 }>({
-    dept: {
-        api: deptLists
-    }
+    dept: {}
 })
 
 const handleSubmit = async () => {
