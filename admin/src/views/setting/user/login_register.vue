@@ -104,7 +104,6 @@
 <script lang="ts" setup name="loginRegister">
 import type { LoginSetup } from '@/api/setting/user'
 import { getLogin, setLogin } from '@/api/setting/user'
-import feedback from '@/utils/feedback'
 import type { FormInstance, FormRules } from 'element-plus'
 const formRef = ref<FormInstance>()
 

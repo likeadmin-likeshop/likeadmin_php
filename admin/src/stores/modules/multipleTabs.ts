@@ -84,7 +84,6 @@ const useTabsStore = defineStore({
             if (componentName && this.cacheTabList.has(componentName)) {
                 this.cacheTabList.delete(componentName)
             }
-            console.log(this.cacheTabList)
         },
         clearCache() {
             this.cacheTabList.clear()
@@ -111,6 +110,7 @@ const useTabsStore = defineStore({
             }
             this.tasMap[fullPath] = tabItem
             if (meta?.keepAlive) {
+                console.log(componentName)
                 this.addCache(componentName)
             }
             if (hasTabIndex != -1) {

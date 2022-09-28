@@ -1,6 +1,6 @@
 <!-- 个人资料 -->
 <template>
-    <div class="user-setting ">
+    <div class="user-setting">
         <el-card class="!border-none" shadow="never">
             <el-form
                 ref="formRef"
@@ -65,7 +65,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="userSetting">
 import { setUserInfo } from '@/api/user'
 import useUserStore from '@/stores/modules/user'
 import feedback from '@/utils/feedback'
