@@ -148,6 +148,7 @@ class IndexLogic extends BaseLogic
             'login' => $loginConfig,
             'website' => $website,
             'webPage' => $webPage,
+            'version'=> config('project.version')
         ];
     }
 
