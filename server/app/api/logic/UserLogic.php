@@ -64,7 +64,7 @@ class UserLogic extends BaseLogic
         $user = User::where(['id' => $userId])
             ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time')
             ->findOrEmpty()->toArray();
-        $user['has_password'] = empty($user['password']);
+        $user['has_password'] = !empty($user['password']);
         $user['has_auth'] = self::hasWechatAuth($userId);
         $user['version'] = config('project.version');
         return $user;
