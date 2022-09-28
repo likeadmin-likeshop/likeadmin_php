@@ -70,10 +70,17 @@ class ConfigLogic
      */
     public static function getDictByType($type)
     {
+        if (!is_string($type)) {
+            return [];
+        }
+        
+        $type = explode(',', $type);
         $lists = DictData::whereIn('type_value', $type)->select()->toArray();
+
         if (empty($lists)) {
             return [];
         }
+
         $result = [];
         foreach ($type as $item) {
             foreach ($lists as $dict) {
