@@ -114,8 +114,8 @@
 </template>
 
 <script lang="ts" setup name="dictData">
-import { dictDataDelete, dictDataLists } from '@/api/setting/dict'
-import { useDictOptions } from '@/hooks/useDictOptions'
+import { dictDataDelete, dictDataLists, dictTypeLists } from '@/api/setting/dict'
+
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
@@ -128,6 +128,12 @@ const queryParams = reactive({
     type_id: Number(query.id),
     name: '',
     status: ''
+})
+
+const optionsData = reactive<{
+    dict_type: any[]
+}>({
+    dict_type: []
 })
 
 const { pager, getLists, resetPage, resetParams } = usePaging({
@@ -165,11 +171,11 @@ const handleDelete = async (id: any[] | number) => {
     getLists()
 }
 
-const { optionsData } = useDictOptions<{
-    dict_type: any[]
-}>({
-    dict_type: {}
-})
+const getDictType = async () => {
+    const data = await dictTypeLists({ page_type: 0 })
+    optionsData.dict_type = data.lists
+}
 
 getLists()
+getDictType()
 </script>

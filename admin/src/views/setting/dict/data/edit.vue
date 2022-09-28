@@ -81,14 +81,14 @@ const rules = {
     name: [
         {
             required: true,
-            message: '请输入字典名称',
+            message: '请输入数据名称',
             trigger: ['blur']
         }
     ],
     value: [
         {
             required: true,
-            message: '请输入字典类型',
+            message: '请输入数据值',
             trigger: ['blur']
         }
     ]
