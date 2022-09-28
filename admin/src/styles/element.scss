@@ -118,6 +118,11 @@
     .el-tabs__nav-wrap::after {
         height: 1px;
     }
+    .el-page-header {
+        &__breadcrumb {
+            margin-bottom: 0;
+        }
+    }
 }
 @media (max-width: 768px) {
     .el-pagination > .el-pagination__jump {

@@ -214,6 +214,7 @@ export default defineComponent({
 
         const handleClose = () => {
             nextTick(() => {
+                if (props.hiddenUpload) fileList.value = []
                 materialRef.value?.clearSelect()
             })
         }
