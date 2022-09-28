@@ -34,7 +34,7 @@
                                 clearable
                             >
                                 <el-option
-                                    v-for="item in optionsData.articleCate"
+                                    v-for="item in optionsData.article_cate"
                                     :key="item.id"
                                     :label="item.name"
                                     :value="item.id"
@@ -87,7 +87,7 @@
                         </el-form-item>
                         <el-form-item label="初始浏览量" prop="click_virtual">
                             <div>
-                                <el-input-number v-model="formData.click_virtual" />
+                                <el-input-number v-model="formData.click_virtual" :min="0" />
                             </div>
                         </el-form-item>
                         <el-form-item label="文章状态" required prop="is_show">
@@ -98,7 +98,7 @@
                         </el-form-item>
                     </div>
                     <div class="xl:ml-20">
-                        <el-form-item label="文章内容" required prop="content">
+                        <el-form-item label="文章内容" prop="content">
                             <editor v-model="formData.content" :height="667" :width="375" />
                         </el-form-item>
                     </div>
@@ -114,7 +114,7 @@
 <script lang="ts" setup name="articleListsEdit">
 import type { FormInstance } from 'element-plus'
 import { useDictOptions } from '@/hooks/useDictOptions'
-import { articleCateAll, articleDetail, articleEdit, articleAdd } from '@/api/article'
+import { articleDetail, articleEdit, articleAdd } from '@/api/article'
 import useMultipleTabs from '@/hooks/useMultipleTabs'
 
 const route = useRoute()
@@ -151,11 +151,9 @@ const getDetails = async () => {
 }
 
 const { optionsData } = useDictOptions<{
-    articleCate: any[]
+    article_cate: any[]
 }>({
-    articleCate: {
-        api: articleCateAll
-    }
+    article_cate: {}
 })
 
 const handleSave = async () => {

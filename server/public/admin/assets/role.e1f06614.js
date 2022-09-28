@@ -1,1 +1,0 @@
-import{r as t}from"./index.e6252abf.js";function o(r){return t.get({url:"/auth.role/lists",params:r})}function u(r){return t.post({url:"/auth.role/add",params:r})}function l(r){return t.post({url:"/auth.role/edit",params:r})}function s(r){return t.post({url:"/auth.role/delete",params:r})}export{l as a,u as b,s as c,o as r};

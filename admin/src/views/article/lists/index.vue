@@ -14,7 +14,7 @@
                     <el-select class="w-[280px]" v-model="queryParams.cid">
                         <el-option label="全部" value />
                         <el-option
-                            v-for="item in optionsData.articleCate"
+                            v-for="item in optionsData.article_cate"
                             :key="item.id"
                             :label="item.name"
                             :value="item.id"
@@ -123,7 +123,7 @@
     </div>
 </template>
 <script lang="ts" setup name="articleLists">
-import { articleLists, articleDelete, articleStatus, articleCateAll } from '@/api/article'
+import { articleLists, articleDelete, articleStatus } from '@/api/article'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
 import { getRoutePath } from '@/router'
@@ -140,11 +140,9 @@ const { pager, getLists, resetPage, resetParams } = usePaging({
 })
 
 const { optionsData } = useDictOptions<{
-    articleCate: any[]
+    article_cate: any[]
 }>({
-    articleCate: {
-        api: articleCateAll
-    }
+    article_cate: {}
 })
 
 const changeStatus = async (is_show: any, id: number) => {

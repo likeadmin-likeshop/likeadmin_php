@@ -34,7 +34,7 @@
                     />
                 </el-form-item>
                 <el-form-item label="排序" prop="sort">
-                    <el-input-number v-model="formData.sort" />
+                    <el-input-number v-model="formData.sort" :min="0" />
                 </el-form-item>
             </el-form>
         </popup>

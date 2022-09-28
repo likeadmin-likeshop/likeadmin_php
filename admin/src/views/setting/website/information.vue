@@ -60,9 +60,11 @@
 
 <script lang="ts" setup name="webInformation">
 import { getWebsite, setWebsite } from '@/api/setting/website'
+import useAppStore from '@/stores/modules/app'
 import type { FormInstance } from 'element-plus'
 const formRef = ref<FormInstance>()
 
+const appStore = useAppStore()
 // 表单数据
 const formData = reactive({
     name: '', // 网站名称
@@ -132,6 +134,7 @@ const getData = async () => {
 const handleSubmit = async () => {
     await formRef.value?.validate()
     await setWebsite(formData)
+    appStore.getConfig()
     getData()
 }
 
