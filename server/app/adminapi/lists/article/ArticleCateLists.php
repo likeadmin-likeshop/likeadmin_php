@@ -58,7 +58,7 @@ class ArticleCateLists extends BaseAdminDataLists implements ListsSearchInterfac
      */
     public function setDefaultOrder(): array
     {
-        return ['id' => 'desc'];
+        return ['sort' => 'desc','id' => 'desc'];
     }
 
     /**
