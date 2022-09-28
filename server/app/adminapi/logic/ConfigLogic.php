@@ -14,6 +14,7 @@
 
 namespace app\adminapi\logic;
 
+use app\adminapi\logic\dept\DeptLogic;
 use app\common\enum\YesNoEnum;
 use app\common\model\article\ArticleCate;
 use app\common\model\auth\SystemRole;
@@ -135,7 +136,14 @@ class ConfigLogic
 
         $order['id'] = 'desc';
         $model = $allowData[$type];
-        return app($model)->where($where)->order($order)->select()->toArray();
+        $result = app($model)->where($where)->order($order)->select()->toArray();
+
+        if ($type == 'dept' && !empty($result)) {
+            $pid = min(array_column($result, 'pid'));
+            $result = DeptLogic::getTree($result, $pid);
+        }
+
+        return $result;
     }
 
 }
