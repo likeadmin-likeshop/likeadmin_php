@@ -57,7 +57,7 @@
                 <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
-        <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
+        <edit-popup v-if="showEdit" ref="editRef" :dict-data="dictData" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
 
@@ -119,6 +119,5 @@ const handleDelete = async ({PK}: number | any[]) => {
 }
 
 getLists()
-getDictData()
 </script>
 

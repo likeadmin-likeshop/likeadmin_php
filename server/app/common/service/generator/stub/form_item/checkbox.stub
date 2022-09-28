@@ -4,6 +4,8 @@
             v-for="(item, index) in dictData.{DICT_TYPE}"
             :key="index" 
             :label="item.value"
-        >{{ item.name }}</el-checkbox>
+        >
+            {{ item.name }}
+        </el-checkbox>
     </el-checkbox-group>
 </el-form-item>

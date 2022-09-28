@@ -4,6 +4,8 @@
             v-for="(item, index) in dictData.{DICT_TYPE}"
             :key="index" 
             :label="item.value"
-        >{{ item.name }}</el-radio>
+        >
+            {{ item.name }}
+        </el-radio>
     </el-radio-group>
 </el-form-item>
