@@ -15,6 +15,7 @@
 namespace app\adminapi\logic\setting\dict;
 
 use app\common\logic\BaseLogic;
+use app\common\model\dict\DictData;
 use app\common\model\dict\DictType;
 
 
@@ -52,13 +53,16 @@ class DictTypeLogic extends BaseLogic
      */
     public static function edit(array $params)
     {
-        return DictType::update([
+         DictType::update([
             'id' => $params['id'],
             'name' => $params['name'],
             'type' => $params['type'],
             'status' => $params['status'],
             'remark' => $params['remark'] ?? '',
         ]);
+
+         DictData::where(['type_id' => $params['id']])
+             ->update(['type_value' => $params['type']]);
     }
 
 
