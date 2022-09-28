@@ -43,9 +43,7 @@ const props = withDefaults(
         mode: 'default',
         height: '100%',
         width: 'auto',
-        toolbarConfig: () => ({
-            excludeKeys: ['fullScreen']
-        })
+        toolbarConfig: () => ({})
     }
 )
 
