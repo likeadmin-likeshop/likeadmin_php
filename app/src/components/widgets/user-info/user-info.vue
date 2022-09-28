@@ -52,7 +52,7 @@ const navigateTo = (url: string) => {
 
 <style lang="scss" scoped>
 .user-info {
-    background: url(/static/images/user/my_topbg.png);
+    background: url(../../../static/images/user/my_topbg.png);
     height: 230rpx;
     background-position: bottom;
     background-size: 100% auto;
