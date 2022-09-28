@@ -128,7 +128,7 @@ class IndexLogic extends BaseLogic
         // 网址信息
         $website = [
             'shop_name' => ConfigService::get('website', 'shop_name'),
-            'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo', '')),
+            'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo')),
         ];
         // H5配置
         $webPage = [

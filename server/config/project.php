@@ -10,6 +10,8 @@ return [
         'login_image' => 'resource/image/adminapi/default/login_image.png',
         'web_logo' => 'resource/image/adminapi/default/web_logo.jpg', // 网站logo
         'web_favicon' => 'resource/image/adminapi/default/web_favicon.ico', // 网站图标
+        'shop_name' => 'likeadmin', // 商城名称
+        'shop_logo' => 'resource/image/adminapi/default/shop_logo.png', // 商城图标
     ],
 
     // 唯一标识，密码盐、路径加密等

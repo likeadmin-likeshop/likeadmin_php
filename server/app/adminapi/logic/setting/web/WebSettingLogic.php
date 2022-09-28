@@ -42,7 +42,7 @@ class WebSettingLogic extends BaseLogic
             'web_logo' => FileService::getFileUrl(ConfigService::get('website', 'web_logo')),
             'login_image' => FileService::getFileUrl(ConfigService::get('website', 'login_image')),
             'shop_name' => ConfigService::get('website', 'shop_name'),
-            'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo', '')),
+            'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo')),
         ];
     }
 
