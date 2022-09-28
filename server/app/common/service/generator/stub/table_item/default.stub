@@ -1,1 +1,1 @@
-<el-table-column label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}" />
+<el-table-column label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}" show-overflow-tooltip />

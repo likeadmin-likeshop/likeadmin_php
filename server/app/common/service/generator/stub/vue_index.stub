@@ -63,7 +63,7 @@
 
 <script lang="ts" setup>
 import { usePaging } from '@/hooks/usePaging'
-import { dictDataLists } from '@/api/setting/dict'
+import { useDictData } from '@/hooks/useDictOptions'
 import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'
 import { timeFormat } from '@/utils/util'
 import feedback from '@/utils/feedback'
