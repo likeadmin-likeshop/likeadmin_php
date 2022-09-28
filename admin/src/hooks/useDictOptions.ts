@@ -1,4 +1,4 @@
-import { dictDataLists } from '@/api/setting/dict'
+import { getSelectData, getDictData } from '@/api/app'
 import { reactive, toRaw } from 'vue'
 
 interface Options {
@@ -52,18 +52,18 @@ export function useDictOptions<T = any>(options: Options) {
 //     dict: dictData
 // })
 
-export function useDictData<T = any>(dict: string[]) {
-    const options: Options = {}
-    for (const type of dict) {
-        options[type] = {
-            api: dictDataLists,
-            params: {
-                dictType: type
-            }
-        }
+export function useDictData<T = any>(dict: string) {
+    const dictData: any = reactive({})
+    const refresh = async () => {
+        const data = await getDictData({
+            type: dict
+        })
+        Object.assign(dictData, data)
     }
-    const { optionsData } = useDictOptions<T>(options)
+    refresh()
+
     return {
-        dictData: optionsData
+        dictData: dictData as T,
+        refresh
     }
 }
