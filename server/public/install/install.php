@@ -36,7 +36,7 @@ $post = [
     'admin_user' => $_POST['admin_user'] ?? '',
     'admin_password' => $_POST['admin_password'] ?? '',
     'admin_confirm_password' => $_POST['admin_confirm_password'] ?? '',
-    'prefix' => $_POST['prefix'] ?? 'ls_',
+    'prefix' => $_POST['prefix'] ?? 'la_',
     'import_test_data' => $_POST['import_test_data'] ?? 'off',
     'clear_db' => $_POST['clear_db'] ?? 'off',
 ];
