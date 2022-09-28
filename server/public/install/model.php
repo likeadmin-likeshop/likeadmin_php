@@ -509,8 +509,8 @@ class installModel
             /* Skip sql that is note. */
             if (strpos($table, '--') === 0) continue;
 
-            $table = str_replace('`ls_', $this->name . '.`ls_', $table);
-            $table = str_replace('`ls_', '`' . $this->prefix, $table);
+            $table = str_replace('`la_', $this->name . '.`la_', $table);
+            $table = str_replace('`la_', '`' . $this->prefix, $table);
 
             if (strpos($table, 'CREATE') !== false) {
                 $tableName = explode('`', $table)[1];
@@ -574,8 +574,8 @@ class installModel
             $table = trim($table);
             if (empty($table)) continue;
 
-            $table = str_replace('`ls_', $this->name . '.`ls_', $table);
-            $table = str_replace('`ls_', '`' .$this->prefix, $table);
+            $table = str_replace('`la_', $this->name . '.`la_', $table);
+            $table = str_replace('`la_', '`' .$this->prefix, $table);
             if ( !$this->dbh->query($table)) return false;
         }
 
@@ -741,7 +741,7 @@ class installModel
 
         $password = $this->createPassword($post['admin_password'], $salt);
 
-        $sql = "INSERT INTO `ls_admin`(`id`, `root`, `name`, `avatar`, `account`, `password`, `role_id`, `dept_id`, `jobs_id`, `login_time`, `login_ip`, `multipoint_login`, `disable`, `create_time`, `update_time`, `delete_time`) VALUES (1, 1, '{$post['admin_user']}', '', '{$post['admin_user']}', '{$password}', 0, 1, 0, '{$time}', '', 1, 0, '{$time}', '{$time}', NULL);";
+        $sql = "INSERT INTO `la_admin`(`id`, `root`, `name`, `avatar`, `account`, `password`, `role_id`, `dept_id`, `jobs_id`, `login_time`, `login_ip`, `multipoint_login`, `disable`, `create_time`, `update_time`, `delete_time`) VALUES (1, 1, '{$post['admin_user']}', '', '{$post['admin_user']}', '{$password}', 0, 1, 0, '{$time}', '', 1, 0, '{$time}', '{$time}', NULL);";
 
         return $sql;
     }
