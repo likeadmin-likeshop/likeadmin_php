@@ -2,7 +2,7 @@
 <template>
     <div class="website-filing">
         <el-card shadow="never" class="!border-none">
-            <div class="mb-5">底部版权设置</div>
+            <div class="mb-5">站点底部版权备案信息设置</div>
             <el-form ref="form" class="ls-form" label-width="100px">
                 <del-wrap
                     v-for="(item, index) in formData"
@@ -11,7 +11,7 @@
                     :show-close="formData.length > 1"
                     @close="handleDelete(index)"
                 >
-                    <div class="bg-page py-4">
+                    <div class="py-4 bg-fill-lighter">
                         <el-form-item label="显示名称" prop="icp_link">
                             <div class="w-80">
                                 <div>
@@ -47,7 +47,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="webFilling">
 import { getCopyright, setCopyright } from '@/api/setting/website'
 import feedback from '@/utils/feedback'
 // 表单数据

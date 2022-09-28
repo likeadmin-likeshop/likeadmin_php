@@ -37,7 +37,7 @@ class ArticleLists extends BaseAdminDataLists implements ListsSearchInterface, L
     {
         return [
             '%like%' => ['title'],
-            '=' => ['cid']
+            '=' => ['cid', 'is_show']
         ];
     }
 
@@ -60,7 +60,7 @@ class ArticleLists extends BaseAdminDataLists implements ListsSearchInterface, L
      */
     public function setDefaultOrder(): array
     {
-        return ['create_time' => 'desc', 'id' => 'desc'];
+        return ['sort' => 'desc', 'id' => 'desc'];
     }
 
     /**
@@ -72,7 +72,7 @@ class ArticleLists extends BaseAdminDataLists implements ListsSearchInterface, L
     public function lists(): array
     {
         $ArticleLists = Article::where($this->searchWhere)
-            ->append(['cate_name'])
+            ->append(['cate_name', 'click'])
             ->limit($this->limitOffset, $this->limitLength)
             ->order($this->sortOrder)
             ->select()

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <template v-for="(item, index) in options">
-            <span v-if="values.includes(item.value)" :key="index">{{ item.name }}</span>
+        <template v-for="(item, index) in getOptions" :key="index">
+            <span>{{ index != 0 ? '、' : '' }}{{ item.name }}</span>
         </template>
     </div>
 </template>
@@ -13,9 +13,13 @@ const props = defineProps<{
 
 const values = computed(() => {
     if (props.value !== null && typeof props.value !== 'undefined') {
-        return Array.isArray(props.value) ? props.value : [String(props.value)]
+        return Array.isArray(props.value) ? props.value : String(props.value).split(',')
     } else {
         return []
     }
+})
+
+const getOptions = computed(() => {
+    return props.options.filter((item) => values.value.includes(item.value))
 })
 </script>

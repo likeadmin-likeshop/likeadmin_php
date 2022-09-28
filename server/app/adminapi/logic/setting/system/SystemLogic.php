@@ -39,11 +39,20 @@ class SystemLogic extends BaseLogic
         ];
 
         $env = [
-            ['option' => 'PHP版本', 'require' => '8.0版本以上', 'status' => (int)comparePHP('8.0.0'), 'remark' => '']
+            [   'option' => 'PHP版本',
+                'require' => '8.0版本以上',
+                'status' => (int)compare_php('8.0.0'),
+                'remark' => ''
+            ]
         ];
 
         $auth = [
-            ['dir' => '/runtime', 'require' => 'runtime目录可写', 'status' => (int)checkDirWrite('runtime'), 'remark' => ''],
+            [
+                'dir' => '/runtime',
+                'require' => 'runtime目录可写',
+                'status' => (int)check_dir_write('runtime'),
+                'remark' => ''
+            ],
         ];
 
         return [

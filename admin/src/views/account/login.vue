@@ -6,7 +6,7 @@
                     <image-contain :src="config.login_image" :width="400" height="100%" />
                 </div>
                 <div
-                    class="login-form bg-body flex flex-col px-10 pt-10 md:w-[400px] w-[375px] flex-none mx-auto"
+                    class="login-form bg-body flex flex-col justify-center px-10 py-10 md:w-[400px] w-[375px] flex-none mx-auto"
                 >
                     <div class="text-center text-3xl font-medium mb-8">{{ config.web_name }}</div>
                     <el-form ref="formRef" :model="formData" size="large" :rules="rules">

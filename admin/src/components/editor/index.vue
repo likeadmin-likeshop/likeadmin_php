@@ -15,9 +15,10 @@
         />
         <material-picker
             ref="materialPickerRef"
+            :type="fileType"
             :limit="-1"
             hidden-upload
-            @change="imageSelectChange"
+            @change="selectChange"
         />
     </div>
 </template>
@@ -39,12 +40,10 @@ const props = withDefaults(
     }>(),
     {
         modelValue: '',
-        mode: 'simple',
+        mode: 'default',
         height: '100%',
         width: 'auto',
-        toolbarConfig: () => ({
-            excludeKeys: ['fullScreen']
-        })
+        toolbarConfig: () => ({})
     }
 )
 
@@ -55,16 +54,24 @@ const emit = defineEmits<{
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
 const materialPickerRef = shallowRef<InstanceType<typeof MaterialPicker>>()
+const fileType = ref('')
 
-let insertImageFn: any
+let insertFn: any
 
 const editorConfig: Partial<IEditorConfig> = {
     MENU_CONF: {
         uploadImage: {
-            customBrowseAndUpload(insertFn: any) {
-                console.log(insertFn)
+            customBrowseAndUpload(insert: any) {
+                fileType.value = 'image'
                 materialPickerRef.value?.showPopup(-1)
-                insertImageFn = insertFn
+                insertFn = insert
+            }
+        },
+        uploadVideo: {
+            customBrowseAndUpload(insert: any) {
+                fileType.value = 'video'
+                materialPickerRef.value?.showPopup(-1)
+                insertFn = insert
             }
         }
     }
@@ -83,9 +90,9 @@ const valueHtml = computed({
     }
 })
 
-const imageSelectChange = (image: string[]) => {
-    image.forEach((url) => {
-        insertImageFn(url)
+const selectChange = (fileUrl: string[]) => {
+    fileUrl.forEach((url) => {
+        insertFn(url)
     })
 }
 
@@ -100,3 +107,37 @@ const handleCreated = (editor: any) => {
     editorRef.value = editor // 记录 editor 实例，重要！
 }
 </script>
+
+<style lang="scss">
+.w-e-full-screen-container {
+    z-index: 999999;
+}
+.w-e-text-container [data-slate-editor] ul {
+    list-style: disc;
+}
+.w-e-text-container [data-slate-editor] ol {
+    list-style: decimal;
+}
+h1 {
+    font-size: 2em;
+}
+h2 {
+    font-size: 1.5em;
+}
+h3 {
+    font-size: 1.17em;
+}
+h4 {
+    font-size: 1em;
+}
+h5 {
+    font-size: 0.83em;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: bold;
+}
+</style>

@@ -3,7 +3,9 @@
         <side-logo :show-title="!isCollapsed" :theme="sideTheme" />
         <side-menu
             :routes="routes"
-            :isCollapsed="isCollapsed"
+            :is-collapsed="isCollapsed"
+            :width="settingStore.sideWidth"
+            :unique-opened="settingStore.menuAutoStow"
             :config="menuProp"
             :theme="sideTheme"
             @select="handleSelect"
@@ -34,7 +36,11 @@ const userStore = useUserStore()
 const routes = computed(() => userStore.routes)
 
 const sideStyle = computed(() => {
-    return sideTheme.value == 'dark' ? `--side-dark-color:${settingStore.sideDarkColor}` : ''
+    return sideTheme.value == 'dark'
+        ? {
+              '--side-dark-color': settingStore.sideDarkColor
+          }
+        : ''
 })
 const menuProp = computed(() => {
     return {

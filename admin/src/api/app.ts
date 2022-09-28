@@ -9,3 +9,13 @@ export function getConfig() {
 export function getWorkbench() {
     return request.get({ url: '/workbench/index' })
 }
+
+//下拉数据
+export function getSelectData(params: any) {
+    return request.get({ url: '/config/selectData', params }, { ignoreCancelToken: true })
+}
+
+//字典数据
+export function getDictData(params: any) {
+    return request.get({ url: '/config/dict', params })
+}

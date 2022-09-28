@@ -5,7 +5,6 @@
             :title="popupTitle"
             :async="true"
             width="550px"
-            :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
@@ -16,7 +15,8 @@
                         v-model="formData.account"
                         :disabled="formData.root == 1"
                         placeholder="请输入账号"
-                    ></el-input>
+                        clearable
+                    />
                 </el-form-item>
                 <!-- 管理员头像 -->
                 <el-form-item label="头像">
@@ -30,13 +30,13 @@
 
                 <!-- 名称输入框 -->
                 <el-form-item label="名称" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入名称" />
+                    <el-input v-model="formData.name" placeholder="请输入名称" clearable />
                 </el-form-item>
                 <el-form-item label="归属部门" prop="dept_id">
                     <el-tree-select
                         class="flex-1"
                         v-model="formData.dept_id"
-                        :data="options.dept"
+                        :data="optionsData.dept"
                         clearable
                         node-key="id"
                         :props="{
@@ -51,14 +51,19 @@
                         placeholder="请选择上级部门"
                     />
                 </el-form-item>
-                <el-form-item label="归属部门" prop="dept_id">
-                    <el-select class="flex-1" v-model="formData.jobs_id" placeholder="请选择岗位">
+                <el-form-item label="岗位" prop="jobs_id">
+                    <el-select
+                        class="flex-1"
+                        v-model="formData.jobs_id"
+                        clearable
+                        placeholder="请选择岗位"
+                    >
                         <el-option
-                            v-for="(item, index) in options.jobs"
+                            v-for="(item, index) in optionsData.jobs"
                             :key="index"
                             :label="item.name"
                             :value="item.id"
-                        ></el-option>
+                        />
                     </el-select>
                 </el-form-item>
 
@@ -69,18 +74,15 @@
                         :disabled="formData.root == 1"
                         class="flex-1"
                         placeholder="请选择角色"
+                        clearable
                     >
+                        <el-option v-if="formData.root == 1" label="系统管理员" :value="0" />
                         <el-option
-                            v-if="formData.root == 1"
-                            label="系统管理员"
-                            :value="0"
-                        ></el-option>
-                        <el-option
-                            v-for="(item, index) in options.role"
+                            v-for="(item, index) in optionsData.role"
                             :key="index"
                             :label="item.name"
                             :value="item.id"
-                        ></el-option>
+                        />
                     </el-select>
                 </el-form-item>
 
@@ -89,8 +91,9 @@
                     <el-input
                         v-model="formData.password"
                         show-password
+                        clearable
                         placeholder="请输入密码"
-                    ></el-input>
+                    />
                 </el-form-item>
 
                 <!-- 确认密码输入框 -->
@@ -98,8 +101,9 @@
                     <el-input
                         v-model="formData.password_confirm"
                         show-password
+                        clearable
                         placeholder="请输入确认密码"
-                    ></el-input>
+                    />
                 </el-form-item>
 
                 <!-- 管理员状态 -->
@@ -109,11 +113,14 @@
 
                 <!-- 多处登录 -->
                 <el-form-item label="多处登录">
-                    <el-switch
-                        v-model="formData.multipoint_login"
-                        :active-value="1"
-                        :inactive-value="0"
-                    />
+                    <div>
+                        <el-switch
+                            v-model="formData.multipoint_login"
+                            :active-value="1"
+                            :inactive-value="0"
+                        />
+                        <div class="form-tips">允许多人同时在线登录</div>
+                    </div>
                 </el-form-item>
             </el-form>
         </popup>
@@ -122,10 +129,8 @@
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
-import { roleLists } from '@/api/perms/role'
-import { adminAdd, adminEdit } from '@/api/perms/admin'
-import { deptLists } from '@/api/org/department'
-import { jobsLists } from '@/api/org/post'
+import { useDictOptions } from '@/hooks/useDictOptions'
+import { adminAdd, adminDetail, adminEdit } from '@/api/perms/admin'
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
@@ -147,7 +152,13 @@ const formData = reactive({
     multipoint_login: 1,
     root: 0
 })
-
+const passwordConfirmValidator = (rule: object, value: string, callback: any) => {
+    if (formData.password) {
+        if (!value) callback(new Error('请再次输入密码'))
+        if (value !== formData.password) callback(new Error('两次输入密码不一致!'))
+    }
+    callback()
+}
 const formRules = reactive({
     account: [
         {
@@ -182,32 +193,22 @@ const formRules = reactive({
             required: true,
             message: '请输入确认密码',
             trigger: ['blur']
+        },
+        {
+            validator: passwordConfirmValidator,
+            trigger: 'blur'
         }
     ] as any[]
 })
-const options = reactive({
-    role: [] as any[],
-    dept: [] as any[],
-    jobs: [] as any[]
+const { optionsData } = useDictOptions<{
+    role: any[]
+    jobs: any[]
+    dept: any[]
+}>({
+    role: {},
+    jobs: {},
+    dept: {}
 })
-
-const getOptions = () => {
-    roleLists({
-        page_type: 0
-    }).then((data: any) => {
-        options.role = data.lists
-    })
-    deptLists({
-        page_type: 0
-    }).then((data: any) => {
-        options.dept = data
-    })
-    jobsLists({
-        page_type: 0
-    }).then((data: any) => {
-        options.jobs = data.lists
-    })
-}
 
 const handleSubmit = async () => {
     await formRef.value?.validate()
@@ -221,22 +222,30 @@ const open = (type = 'add') => {
     popupRef.value?.open()
 }
 
-const setFormData = (data: Record<any, any>) => {
+const setFormData = async (row: any) => {
+    const data = await adminDetail({
+        id: row.id
+    })
     for (const key in formData) {
         if (data[key] != null && data[key] != undefined) {
             //@ts-ignore
             formData[key] = data[key]
         }
+        Number(formData.dept_id) == 0 && (formData.dept_id = '')
+        Number(formData.jobs_id) == 0 && (formData.jobs_id = '')
     }
     formRules.password = []
-    formRules.password_confirm = []
+    formRules.password_confirm = [
+        {
+            validator: passwordConfirmValidator,
+            trigger: 'blur'
+        }
+    ]
 }
 
 const handleClose = () => {
     emit('close')
 }
-
-getOptions()
 
 defineExpose({
     open,

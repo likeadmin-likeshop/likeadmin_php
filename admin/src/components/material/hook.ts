@@ -20,13 +20,13 @@ export function useCate(type: number) {
     const cateLists = ref<any[]>([])
 
     // 选中的分组id
-    const cateId = ref('')
+    const cateId = ref<number | string>('')
 
     // 获取分组列表
     const getCateLists = async () => {
         const data = await fileCateLists({
-            type,
-            page_type: 0
+            page_type: 0,
+            type
         })
         const item: any[] = [
             {
@@ -38,13 +38,15 @@ export function useCate(type: number) {
                 id: 0
             }
         ]
-        cateLists.value = data?.lists
+        cateLists.value = data.lists
         cateLists.value.unshift(...item)
+        setTimeout(() => {
+            treeRef.value?.setCurrentKey(cateId.value)
+        }, 0)
     }
 
     // 添加分组
-    const handleAddCate = async () => {
-        const { value } = await feedback.prompt('', '添加分组')
+    const handleAddCate = async (value: string) => {
         await fileCateAdd({
             type,
             name: value,
@@ -54,8 +56,7 @@ export function useCate(type: number) {
     }
 
     // 编辑分组
-    const handleEditCate = async (name: string, id: number) => {
-        const { value } = await feedback.prompt('', '重命分组', { inputValue: name })
+    const handleEditCate = async (value: string, id: number) => {
         await fileCateEdit({
             id,
             name: value
@@ -67,6 +68,7 @@ export function useCate(type: number) {
     const handleDeleteCate = async (id: number) => {
         await feedback.confirm('确定要删除？')
         await fileCateDelete({ id })
+        cateId.value = ''
         getCateLists()
     }
 
@@ -88,7 +90,12 @@ export function useCate(type: number) {
 }
 
 // 处理文件的钩子函数
-export function useFile(cateId: Ref<string>, type: Ref<number>, limit: Ref<number>, size: number) {
+export function useFile(
+    cateId: Ref<string | number>,
+    type: Ref<number>,
+    limit: Ref<number>,
+    size: number
+) {
     const tableRef = shallowRef()
     const listShowType = ref('normal')
     const moveId = ref(0)
@@ -173,10 +180,9 @@ export function useFile(cateId: Ref<string>, type: Ref<number>, limit: Ref<numbe
     }
 
     const handleFileRename = async (name: string, id: number) => {
-        const { value } = await feedback.prompt('', '重命名', { inputValue: name })
         await fileRename({
             id,
-            name: value
+            name
         })
         getFileList()
     }

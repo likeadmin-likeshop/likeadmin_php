@@ -41,7 +41,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             '{UPPER_CAMEL_NAME}',
             '{QUERY_PARAMS}',
             '{DICT_DATA}',
-            '{DICT_DATA_API}',
+//            '{DICT_DATA_API}',
             '{PK}',
             '{API_DIR}',
             '{PERMS_ADD}',
@@ -56,7 +56,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getUpperCamelName(),
             $this->getQueryParamsContent(),
             $this->getDictDataContent(),
-            $this->getDictDataApiContent(),
+//            $this->getDictDataApiContent(),
             $this->getPkContent(),
             $this->getTableName(),
             $this->getPermsContent(),
@@ -205,13 +205,13 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             if (in_array($column['dict_type'], $isExist)) {
                 continue;
             }
-            $content .= $column['dict_type'] . ': ' . "[]," . PHP_EOL;
+            $content .= $column['dict_type'] .",";
             $isExist[] = $column['dict_type'];
         }
         if (!empty($content)) {
             $content = substr($content, 0, -1);
         }
-        return $this->setBlankSpace($content, '    ');
+        return $this->setBlankSpace($content, '');
     }
 
 

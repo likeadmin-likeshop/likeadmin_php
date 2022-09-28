@@ -1,5 +1,5 @@
 <el-table-column label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
     <template #default="{ row }">
-      <span>{{ timeFormat(row.{COLUMN_NAME}, 'yyyy-mm-dd hh:MM:ss') }}</span>
+      <span>{{ row.{COLUMN_NAME} ? timeFormat(row.{COLUMN_NAME}, 'yyyy-mm-dd hh:MM:ss') : '' }}</span>
     </template>
 </el-table-column>

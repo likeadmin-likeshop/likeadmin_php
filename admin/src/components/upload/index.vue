@@ -12,6 +12,7 @@
             :on-success="handleSuccess"
             :on-exceed="handleExceed"
             :on-error="handleError"
+            :accept="getAccept"
         >
             <slot></slot>
         </el-upload>
@@ -22,7 +23,7 @@
             :close-on-click-modal="false"
             width="500px"
             :modal="false"
-            :before-close="handleClose"
+            @close="handleClose"
         >
             <div class="file-list p-4">
                 <template v-for="(item, index) in fileList" :key="index">
@@ -44,6 +45,7 @@ import useUserStore from '@/stores/modules/user'
 import config from '@/config'
 import feedback from '@/utils/feedback'
 import type { ElUpload } from 'element-plus'
+import { RequestCodeEnum } from '@/enums/requestEnums'
 export default defineComponent({
     components: {},
     props: {
@@ -87,7 +89,7 @@ export default defineComponent({
 
         const handleProgress = (event: any, file: any, fileLists: any[]) => {
             visible.value = true
-            fileList.value = fileLists
+            fileList.value = toRaw(fileLists)
         }
 
         const handleSuccess = (response: any, file: any, fileLists: any[]) => {
@@ -95,9 +97,9 @@ export default defineComponent({
             if (allSuccess) {
                 uploadRefs.value?.clearFiles()
                 visible.value = false
+                emit('change')
             }
-            emit('change')
-            if (response.code == 0 && response.show && response.msg) {
+            if (response.code == RequestCodeEnum.FAIL && response.msg) {
                 feedback.msgError(response.msg)
             }
         }
@@ -109,18 +111,30 @@ export default defineComponent({
             emit('error')
         }
         const handleExceed = () => {
-            feedback.msgError('超出上传上限，请重新上传')
+            feedback.msgError(`超出上传上限${props.limit}，请重新上传`)
         }
         const handleClose = () => {
             uploadRefs.value?.clearFiles()
             visible.value = false
         }
+
+        const getAccept = computed(() => {
+            switch (props.type) {
+                case 'image':
+                    return '.jpj,.png,.gif,.jpeg'
+                case 'video':
+                    return '.wmv,.avi,.mpg,.mpeg,.3gp,.mov,.mp4,.flv,.rmvb,.mkv'
+                default:
+                    return '*'
+            }
+        })
         return {
             uploadRefs,
             action,
             headers,
             visible,
             fileList,
+            getAccept,
             handleProgress,
             handleSuccess,
             handleError,

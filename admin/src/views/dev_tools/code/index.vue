@@ -3,10 +3,20 @@
         <el-card class="!border-none" shadow="never">
             <el-form class="mb-[-16px]" :model="formData" inline>
                 <el-form-item label="表名称">
-                    <el-input class="w-56" v-model="formData.table_name" />
+                    <el-input
+                        class="w-[280px]"
+                        v-model="formData.table_name"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="表描述">
-                    <el-input class="w-56" v-model="formData.table_comment" />
+                    <el-input
+                        class="w-[280px]"
+                        v-model="formData.table_comment"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
@@ -58,7 +68,7 @@
                     <el-table-column label="表描述" prop="table_comment" min-width="180" />
                     <el-table-column label="创建时间" prop="create_time" min-width="180" />
                     <el-table-column label="更新时间" prop="update_time" min-width="180" />
-                    <el-table-column label="操作" width="120" fixed="right">
+                    <el-table-column label="操作" width="160" fixed="right">
                         <template #default="{ row }">
                             <div class="flex items-center">
                                 <el-button
@@ -69,7 +79,29 @@
                                 >
                                     预览
                                 </el-button>
-                                <el-dropdown class="ml-1">
+
+                                <el-button type="primary" link>
+                                    <router-link
+                                        v-perms="['tools.generator/edit']"
+                                        :to="{
+                                            path: getRoutePath('tools.generator/edit'),
+                                            query: {
+                                                id: row.id
+                                            }
+                                        }"
+                                    >
+                                        编辑
+                                    </router-link>
+                                </el-button>
+                                <el-dropdown
+                                    class="ml-2"
+                                    @command="handleCommand($event, row)"
+                                    v-perms="[
+                                        'tools.generator/generate',
+                                        'tools.generator/syncColumn',
+                                        'tools.generator/delete'
+                                    ]"
+                                >
                                     <el-button type="primary" link>
                                         更多
                                         <icon name="el-icon-ArrowDown" :size="14" />
@@ -77,52 +109,25 @@
 
                                     <template #dropdown>
                                         <el-dropdown-menu>
-                                            <router-link
-                                                v-perms="['tools.generator/edit']"
-                                                :to="{
-                                                    path: '/dev_tools/code/edit',
-                                                    query: {
-                                                        id: row.id
-                                                    }
-                                                }"
-                                            >
-                                                <el-dropdown-item>
-                                                    <el-button type="primary" link>
-                                                        编辑
-                                                    </el-button>
-                                                </el-dropdown-item>
-                                            </router-link>
-                                            <div
-                                                v-perms="['tools.generator/generate']"
-                                                @click="handleGenerate([row])"
-                                            >
-                                                <el-dropdown-item>
+                                            <div v-perms="['tools.generator/generate']">
+                                                <el-dropdown-item command="generate">
                                                     <el-button type="primary" link>
                                                         生成代码
                                                     </el-button>
                                                 </el-dropdown-item>
                                             </div>
-
-                                            <el-dropdown-item
-                                                v-perms="['tools.generator/syncColumn']"
-                                            >
-                                                <el-button
-                                                    type="primary"
-                                                    link
-                                                    @click="handleSync(row.id)"
-                                                >
-                                                    同步
-                                                </el-button>
-                                            </el-dropdown-item>
-                                            <el-dropdown-item v-perms="['tools.generator/delete']">
-                                                <el-button
-                                                    type="danger"
-                                                    link
-                                                    @click="handleDelete(row.id)"
-                                                >
-                                                    删除
-                                                </el-button>
-                                            </el-dropdown-item>
+                                            <div v-perms="['tools.generator/syncColumn']">
+                                                <el-dropdown-item command="sync">
+                                                    <el-button type="primary" link>
+                                                        同步
+                                                    </el-button>
+                                                </el-dropdown-item>
+                                            </div>
+                                            <div v-perms="['tools.generator/delete']">
+                                                <el-dropdown-item command="delete">
+                                                    <el-button type="danger" link> 删除 </el-button>
+                                                </el-dropdown-item>
+                                            </div>
                                         </el-dropdown-menu>
                                     </template>
                                 </el-dropdown>
@@ -143,7 +148,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="codeGenerate">
 import {
     generateTable,
     syncColumn,
@@ -156,6 +161,7 @@ import DataTable from '../components/data-table.vue'
 import CodePreview from '../components/code-preview.vue'
 import feedback from '@/utils/feedback'
 import { isProdMode } from '@/utils/env'
+import { getRoutePath } from '@/router'
 
 const formData = reactive({
     table_name: '',
@@ -207,6 +213,19 @@ const handleGenerate = async (selectData: any[]) => {
     const data: any = await generateCode({ id })
     if (data.file) {
         window.open(data.file, '_blank')
+    }
+}
+
+const handleCommand = (command: any, row: any) => {
+    switch (command) {
+        case 'generate':
+            handleGenerate([row])
+            break
+        case 'sync':
+            handleSync(row.id)
+            break
+        case 'delete':
+            handleDelete(row.id)
     }
 }
 

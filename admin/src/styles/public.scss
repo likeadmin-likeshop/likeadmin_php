@@ -1,0 +1,18 @@
+body {
+    @apply text-base text-tx-primary overflow-hidden min-w-[375px];
+}
+.form-tips {
+    @apply text-tx-secondary text-xs leading-6 mt-1;
+}
+
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+/* NProgress */
+#nprogress .bar {
+    @apply bg-primary #{!important};
+}

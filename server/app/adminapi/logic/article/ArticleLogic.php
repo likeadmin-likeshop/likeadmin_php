@@ -36,6 +36,11 @@ class ArticleLogic extends BaseLogic
     {
         Article::create([
             'title' => $params['title'],
+            'desc' => $params['desc'] ?? '',
+            'author' => $params['author'] ?? '', //作者
+            'sort' => $params['sort'] ?? 0, // 排序
+            'abstract' => $params['abstract'], // 文章摘要
+            'click_virtual' => $params['click_virtual'] ?? 0,
             'image' => $params['image'] ? FileService::setFileUrl($params['image']) : '',
             'cid' => $params['cid'],
             'is_show' => $params['is_show'],
@@ -57,6 +62,11 @@ class ArticleLogic extends BaseLogic
             Article::update([
                 'id' => $params['id'],
                 'title' => $params['title'],
+                'desc' => $params['desc'] ?? '', // 简介
+                'author' => $params['author'] ?? '', //作者
+                'sort' => $params['sort'] ?? 0, // 排序
+                'abstract' => $params['abstract'], // 文章摘要
+                'click_virtual' => $params['click_virtual'] ?? 0,
                 'image' => $params['image'] ? FileService::setFileUrl($params['image']) : '',
                 'cid' => $params['cid'],
                 'is_show' => $params['is_show'],

@@ -1,0 +1,1 @@
+var n=!1;function e(s,i,r){return Array.isArray(s)?(s.length=Math.max(s.length,i),s.splice(i,1,r),r):(s[i]=r,r)}function u(s,i){if(Array.isArray(s)){s.splice(i,1);return}delete s[i]}export{u as d,n as i,e as s};

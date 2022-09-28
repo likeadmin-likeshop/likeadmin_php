@@ -55,6 +55,9 @@ class CustomerServiceLogic extends BaseLogic
         $allowField = ['qr_code','wechat','phone','service_time'];
         foreach($params as $key => $value) {
             if(in_array($key, $allowField)) {
+                if ($key == 'qr_code') {
+                    $value = FileService::setFileUrl($value);
+                }
                 ConfigService::set('customer_service', $key, $value);
             }
         }

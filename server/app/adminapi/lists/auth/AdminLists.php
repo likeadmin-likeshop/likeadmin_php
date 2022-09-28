@@ -19,7 +19,7 @@ use app\common\lists\ListsExtendInterface;
 use app\common\lists\ListsSearchInterface;
 use app\common\lists\ListsSortInterface;
 use app\common\model\auth\Admin;
-use app\common\model\auth\Role;
+use app\common\model\auth\SystemRole;
 use app\common\model\dept\Dept;
 
 /**
@@ -126,7 +126,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
             ->toArray();
 
         //获取角色数组（'角色id'=>'角色名称')
-        $roleLists = Role::column('name', 'id');
+        $roleLists = SystemRole::column('name', 'id');
 
         //管理员列表增加角色名称
         foreach ($adminLists as $k => $v) {

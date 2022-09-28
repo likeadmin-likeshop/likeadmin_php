@@ -1,22 +1,23 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
-    "components.d.ts",
-    "auto-imports.d.ts"
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-
-  "references": [
-    {
-      "path": "./tsconfig.config.json"
-    }
-  ]
+    "extends": "@vue/tsconfig/tsconfig.web.json",
+    "include": [
+        "global.d.ts",
+        "src/**/*",
+        "src/**/*.vue",
+        "components.d.ts",
+        "auto-imports.d.ts",
+        "typings/**/*.d.ts"
+    ],
+    "compilerOptions": {
+        "isolatedModules": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "references": [
+        {
+            "path": "./tsconfig.config.json"
+        }
+    ]
 }

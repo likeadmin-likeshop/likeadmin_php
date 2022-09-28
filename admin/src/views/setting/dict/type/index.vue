@@ -3,13 +3,23 @@
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
                 <el-form-item label="字典名称">
-                    <el-input class="w-56" v-model="queryParams.name" />
+                    <el-input
+                        class="w-[280px]"
+                        v-model="queryParams.name"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="字典类型">
-                    <el-input class="w-56" v-model="queryParams.type" />
+                    <el-input
+                        class="w-[280px]"
+                        v-model="queryParams.type"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item label="状态">
-                    <el-select class="w-56" v-model="queryParams.status">
+                    <el-select class="w-[280px]" v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />
@@ -31,7 +41,7 @@
                     <template #icon>
                         <icon name="el-icon-Plus" />
                     </template>
-                    新增字典类型
+                    新增
                 </el-button>
                 <el-button
                     v-perms="['setting.dict.dict_type/delete']"
@@ -62,7 +72,7 @@
                                 <el-tag v-else type="danger">停用</el-tag>
                             </template>
                         </el-table-column>
-                        <el-table-column label="备注" prop="remark" />
+                        <el-table-column label="备注" prop="remark" show-tooltip-when-overflow />
                         <el-table-column label="创建时间" prop="create_time" min-width="180" />
                         <el-table-column label="操作" width="190" fixed="right">
                             <template #default="{ row }">
@@ -78,16 +88,17 @@
                                     v-perms="['setting.dict.dict_data/lists']"
                                     type="primary"
                                     link
-                                    @click="
-                                        $router.push({
-                                            path: '/setting/dict/data',
+                                >
+                                    <router-link
+                                        :to="{
+                                            path: getRoutePath('setting.dict.dict_data/lists'),
                                             query: {
                                                 id: row.id
                                             }
-                                        })
-                                    "
-                                >
-                                    数据管理
+                                        }"
+                                    >
+                                        数据管理
+                                    </router-link>
                                 </el-button>
                                 <el-button
                                     v-perms="['setting.dict.dict_type/delete']"
@@ -110,9 +121,10 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="dictType">
 import { dictTypeDelete, dictTypeLists } from '@/api/setting/dict'
 import { usePaging } from '@/hooks/usePaging'
+import { getRoutePath } from '@/router'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()

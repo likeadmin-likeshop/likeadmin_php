@@ -5,20 +5,19 @@
             :title="popupTitle"
             :async="true"
             width="550px"
-            :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
             <el-form ref="formRef" :model="formData" label-width="84px" :rules="formRules">
                 <el-form-item label="岗位名称" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入岗位名称" />
+                    <el-input v-model="formData.name" placeholder="请输入岗位名称" clearable />
                 </el-form-item>
                 <el-form-item label="岗位编码" prop="code">
-                    <el-input v-model="formData.code" placeholder="请输入岗位编码" />
+                    <el-input v-model="formData.code" placeholder="请输入岗位编码" clearable />
                 </el-form-item>
                 <el-form-item label="排序" prop="sort">
                     <div>
-                        <el-input-number v-model="formData.sort" />
+                        <el-input-number v-model="formData.sort" :min="0" />
                         <div class="form-tips">默认为0， 数值越大越排前</div>
                     </div>
                 </el-form-item>
@@ -28,9 +27,11 @@
                         placeholder="请输入备注"
                         type="textarea"
                         :autosize="{ minRows: 4, maxRows: 6 }"
+                        maxlength="200"
+                        show-word-limit
                     />
                 </el-form-item>
-                <el-form-item label="岗位状态" required>
+                <el-form-item label="岗位状态" required prop="status">
                     <el-switch v-model="formData.status" :active-value="1" :inactive-value="0" />
                 </el-form-item>
             </el-form>
@@ -39,7 +40,7 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import { jobsEdit, jobsAdd } from '@/api/org/post'
+import { jobsEdit, jobsAdd, jobsDetail } from '@/api/org/post'
 import Popup from '@/components/popup/index.vue'
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
@@ -95,12 +96,20 @@ const setFormData = (data: Record<any, any>) => {
     }
 }
 
+const getDetail = async (row: Record<string, any>) => {
+    const data = await jobsDetail({
+        id: row.id
+    })
+    setFormData(data)
+}
+
 const handleClose = () => {
     emit('close')
 }
 
 defineExpose({
     open,
-    setFormData
+    setFormData,
+    getDetail
 })
 </script>

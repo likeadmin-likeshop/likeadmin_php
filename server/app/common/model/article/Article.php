@@ -38,7 +38,48 @@ class Article extends BaseModel
      */
     public function getCateNameAttr($value, $data)
     {
-        return ArticleCategory::where('id', $data['cid'])->value('name');
+        return ArticleCate::where('id', $data['cid'])->value('name');
+    }
+
+    /**
+     * @notes 浏览量
+     * @param $value
+     * @param $data
+     * @return mixed
+     * @author 段誉
+     * @date 2022/9/15 11:33
+     */
+    public function getClickAttr($value, $data)
+    {
+        return $data['click_actual'] + $data['click_virtual'];
+    }
+
+
+    /**
+     * @notes 设置图片域名
+     * @param $value
+     * @param $data
+     * @return array|string|string[]|null
+     * @author 段誉
+     * @date 2022/9/28 10:17
+     */
+    public function getContentAttr($value, $data)
+    {
+        return get_file_domain($value);
+    }
+
+
+    /**
+     * @notes 清除图片域名
+     * @param $value
+     * @param $data
+     * @return array|string|string[]
+     * @author 段誉
+     * @date 2022/9/28 10:17
+     */
+    public function setContentAttr($value, $data)
+    {
+        return clear_file_domain($value);
     }
 
 }

@@ -31,7 +31,7 @@ class AdminValidate extends BaseValidate
         'password' => 'require|length:6,32|edit',
         'password_confirm' => 'requireWith:password|confirm',
         'role_id' => 'require',
-        'disable' => 'require|in:0,1',
+        'disable' => 'require|in:0,1|checkAbleDisable',
         'multipoint_login' => 'require|in:0,1',
     ];
 
@@ -63,7 +63,8 @@ class AdminValidate extends BaseValidate
     public function sceneAdd()
     {
         return $this->remove(['password', 'edit'])
-            ->remove('id', 'require|checkAdmin');
+            ->remove('id', 'require|checkAdmin')
+            ->remove('disable', 'checkAbleDisable');
     }
 
     /**
@@ -137,6 +138,29 @@ class AdminValidate extends BaseValidate
         $admin = Admin::findOrEmpty($value);
         if ($admin->isEmpty()) {
             return '管理员不存在';
+        }
+        return true;
+    }
+
+
+    /**
+     * @notes 禁用校验
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2022/8/11 9:59
+     */
+    public function checkAbleDisable($value, $rule, $data)
+    {
+        $admin = Admin::findOrEmpty($data['id']);
+        if ($admin->isEmpty()) {
+            return '管理员不存在';
+        }
+
+        if ($value && $admin['root']) {
+            return '超级管理员不允许被禁用';
         }
         return true;
     }

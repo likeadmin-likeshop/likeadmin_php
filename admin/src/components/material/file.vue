@@ -1,8 +1,14 @@
 <template>
     <div>
-        <div class="file-item" :style="{ height: fileSize, width: fileSize }">
+        <div class="file-item relative" :style="{ height: fileSize, width: fileSize }">
             <el-image class="image" v-if="type == 'image'" fit="contain" :src="uri"></el-image>
             <video class="video" v-else-if="type == 'video'" :src="uri"></video>
+            <div
+                v-if="type == 'video'"
+                class="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] rounded-full w-5 h-5 flex justify-center items-center bg-[rgba(0,0,0,0.3)]"
+            >
+                <icon name="el-icon-CaretRight" :size="18" color="#fff" />
+            </div>
             <slot></slot>
         </div>
     </div>

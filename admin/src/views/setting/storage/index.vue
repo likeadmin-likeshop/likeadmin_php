@@ -35,7 +35,7 @@
         <edit-popup ref="editRef" @success="getLists" />
     </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="storage">
 import { storageLists } from '@/api/setting/storage'
 import EditPopup from './edit.vue'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()

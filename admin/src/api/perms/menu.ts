@@ -19,3 +19,8 @@ export function menuEdit(params: Record<string, any>) {
 export function menuDelete(params: Record<string, any>) {
     return request.post({ url: '/auth.menu/delete', params })
 }
+
+//  菜单详情
+export function menuDetail(params: Record<string, any>) {
+    return request.get({ url: '/auth.menu/detail', params })
+}

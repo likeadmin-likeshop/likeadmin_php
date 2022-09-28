@@ -20,6 +20,11 @@ export function deptDelete(params: any) {
     return request.post({ url: '/dept.dept/delete', params })
 }
 
+// 部门详情
+export function deptDetail(params: any) {
+    return request.get({ url: '/dept.dept/detail', params })
+}
+
 // 上级部门列表
 export function leaderDept() {
     return request.get({ url: 'dept.dept/leaderDept' })

@@ -4,33 +4,51 @@
         <el-card class="!border-none" shadow="never">
             <el-form class="ls-form" :model="formData" inline>
                 <el-form-item label="管理员">
-                    <el-input class="w-56" placeholder="请输入" v-model="formData.admin_name" />
+                    <el-input
+                        class="w-[280px]"
+                        placeholder="请输入"
+                        v-model="formData.admin_name"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
 
                 <el-form-item label="访问方式">
-                    <el-select class="w-56" v-model="formData.type" placeholder="请选择">
+                    <el-select class="w-[280px]" v-model="formData.type" placeholder="请选择">
                         <el-option
                             v-for="(item, index) in visitType"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
-                        ></el-option>
+                        />
                     </el-select>
                 </el-form-item>
 
                 <el-form-item label="来源IP">
-                    <el-input class="w-56" placeholder="请输入" v-model="formData.ip" />
+                    <el-input
+                        class="w-[280px]"
+                        placeholder="请输入"
+                        v-model="formData.ip"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
 
                 <el-form-item label="访问时间">
-                    <data-picker
-                        v-model:start_time="formData.start_time"
-                        v-model:end_time="formData.end_time"
-                    ></data-picker>
+                    <daterange-picker
+                        v-model:startTime="formData.start_time"
+                        v-model:endTime="formData.end_time"
+                    />
                 </el-form-item>
 
                 <el-form-item label="访问链接">
-                    <el-input class="w-56" placeholder="请输入" v-model="formData.url" />
+                    <el-input
+                        class="w-[280px]"
+                        placeholder="请输入"
+                        v-model="formData.url"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
 
                 <el-form-item>
@@ -61,7 +79,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="journal">
 import { systemLogLists } from '@/api/setting/system'
 import { usePaging } from '@/hooks/usePaging'
 

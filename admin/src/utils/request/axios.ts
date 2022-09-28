@@ -7,13 +7,13 @@ import axios, {
 } from 'axios'
 import { isFunction, merge, cloneDeep } from 'lodash'
 import axiosCancel from './cancel'
-import type { AxiosConfig, RequestData, RequestOptions } from './type'
+import type { RequestData, RequestOptions } from './type'
 
 export class Axios {
     private axiosInstance: AxiosInstance
-    private readonly config: AxiosConfig
+    private readonly config: AxiosRequestConfig
     private readonly options: RequestOptions
-    constructor(config: AxiosConfig) {
+    constructor(config: AxiosRequestConfig) {
         this.config = config
         this.options = config.requestOptions
         this.axiosInstance = axios.create(config)
@@ -42,7 +42,7 @@ export class Axios {
         } = this.config.axiosHooks
         this.axiosInstance.interceptors.request.use(
             (config) => {
-                this.addCancelToken(config as AxiosConfig)
+                this.addCancelToken(config)
                 if (isFunction(requestInterceptorsHook)) {
                     config = requestInterceptorsHook(config)
                 }
@@ -57,22 +57,24 @@ export class Axios {
         )
         this.axiosInstance.interceptors.response.use(
             (response: AxiosResponse<RequestData>) => {
-                this.removeCancelToken(response.config as AxiosConfig)
+                this.removeCancelToken(response.config.url!)
                 if (isFunction(responseInterceptorsHook)) {
                     response = responseInterceptorsHook(response)
                 }
                 return response
             },
             (err: AxiosError) => {
-                if (err.code !== AxiosError.ERR_CANCELED) {
-                    this.removeCancelToken(err.config as AxiosConfig)
+                if (isFunction(responseInterceptorsCatchHook)) {
+                    responseInterceptorsCatchHook(err)
+                }
+                if (err.code != AxiosError.ERR_CANCELED) {
+                    this.removeCancelToken(err.config?.url!)
+                }
 
-                    if (isFunction(responseInterceptorsCatchHook)) {
-                        responseInterceptorsCatchHook(err)
-                    }
-                    setTimeout(() => {
+                if (err.code == AxiosError.ECONNABORTED || err.code == AxiosError.ERR_NETWORK) {
+                    return new Promise((resolve) => setTimeout(resolve, 500)).then(() =>
                         this.retryRequest(err)
-                    }, 200)
+                    )
                 }
                 return Promise.reject(err)
             }
@@ -82,7 +84,7 @@ export class Axios {
     /**
      * @description 添加CancelToken
      */
-    addCancelToken(config: AxiosConfig) {
+    addCancelToken(config: AxiosRequestConfig) {
         const { ignoreCancelToken } = config.requestOptions
         !ignoreCancelToken && axiosCancel.add(config)
     }
@@ -90,48 +92,57 @@ export class Axios {
     /**
      * @description 移除CancelToken
      */
-    removeCancelToken(config: AxiosConfig) {
-        const { ignoreCancelToken } = config.requestOptions
-        !ignoreCancelToken && axiosCancel.remove(config)
+    removeCancelToken(url: string) {
+        axiosCancel.remove(url)
     }
 
     /**
      * @description 重新请求
      */
     retryRequest(error: AxiosError) {
-        const config = error.config as AxiosConfig
+        const config = error.config
         const { retryCount, isOpenRetry } = config.requestOptions
-        if (!isOpenRetry && config.method?.toUpperCase() == RequestMethodsEnum.POST) {
-            return
+        if (!isOpenRetry || config.method?.toUpperCase() == RequestMethodsEnum.POST) {
+            return Promise.reject(error)
         }
         config.retryCount = config.retryCount ?? 0
 
         if (config.retryCount >= retryCount) {
-            return
+            return Promise.reject(error)
         }
         config.retryCount++
-        this.axiosInstance.request(config)
+
+        return this.axiosInstance.request(config)
     }
     /**
      * @description get请求
      */
-    get<T = any>(config: AxiosRequestConfig, options?: Partial<RequestOptions>): Promise<T> {
+    get<T = any>(
+        config: Partial<AxiosRequestConfig>,
+        options?: Partial<RequestOptions>
+    ): Promise<T> {
         return this.request({ ...config, method: RequestMethodsEnum.GET }, options)
     }
 
     /**
      * @description post请求
      */
-    post<T = any>(config: AxiosRequestConfig, options?: Partial<RequestOptions>): Promise<T> {
+    post<T = any>(
+        config: Partial<AxiosRequestConfig>,
+        options?: Partial<RequestOptions>
+    ): Promise<T> {
         return this.request({ ...config, method: RequestMethodsEnum.POST }, options)
     }
 
     /**
      * @description 请求函数
      */
-    request<T = any>(config: AxiosRequestConfig, options?: Partial<RequestOptions>): Promise<any> {
+    request<T = any>(
+        config: Partial<AxiosRequestConfig>,
+        options?: Partial<RequestOptions>
+    ): Promise<any> {
         const opt: RequestOptions = merge({}, this.options, options)
-        const axioxConfig: AxiosConfig = {
+        const axioxConfig: AxiosRequestConfig = {
             ...cloneDeep(config),
             requestOptions: opt
         }
@@ -147,7 +158,6 @@ export class Axios {
                     resolve(res)
                 })
                 .catch((err) => {
-                    console.log(err)
                     reject(err)
                 })
         })

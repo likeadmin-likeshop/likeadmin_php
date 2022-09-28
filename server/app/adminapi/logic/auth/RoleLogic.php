@@ -16,7 +16,7 @@ namespace app\adminapi\logic\auth;
 
 use app\common\{
     cache\AdminAuthCache,
-    model\auth\Role,
+    model\auth\SystemRole,
     logic\BaseLogic,
     model\auth\SystemRoleMenu
 };
@@ -44,7 +44,7 @@ class RoleLogic extends BaseLogic
         try {
             $menuId = !empty($params['menu_id']) ? $params['menu_id'] : [];
 
-            $role = Role::create([
+            $role = SystemRole::create([
                 'name' => $params['name'],
                 'desc' => $params['desc'] ?? '',
                 'sort' => $params['sort'] ?? 0,
@@ -85,7 +85,7 @@ class RoleLogic extends BaseLogic
         try {
             $menuId = !empty($params['menu_id']) ? $params['menu_id'] : [];
 
-            Role::update([
+            SystemRole::update([
                 'id' => $params['id'],
                 'name' => $params['name'],
                 'desc' => $params['desc'] ?? '',
@@ -123,7 +123,7 @@ class RoleLogic extends BaseLogic
      */
     public static function delete(int $id)
     {
-        Role::destroy(['id' => $id]);
+        SystemRole::destroy(['id' => $id]);
         (new AdminAuthCache())->deleteTag();
         return true;
     }
@@ -141,7 +141,7 @@ class RoleLogic extends BaseLogic
      */
     public static function detail(int $id): array
     {
-        $detail = Role::field('id,name,desc,sort')->find($id);
+        $detail = SystemRole::field('id,name,desc,sort')->find($id);
         $authList = $detail->roleMenuIndex()->select()->toArray();
         $menuId = array_column($authList, 'menu_id');
         $detail['menu_id'] = $menuId;

@@ -1,1 +1,0 @@
-import{r as e}from"./index.78f53bc3.js";function p(t){return e.get({url:"/dept.dept/lists",params:t})}function r(t){return e.post({url:"/dept.dept/add",params:t})}function s(t){return e.post({url:"/dept.dept/edit",params:t})}function u(t){return e.post({url:"/dept.dept/delete",params:t})}export{s as a,r as b,u as c,p as d};

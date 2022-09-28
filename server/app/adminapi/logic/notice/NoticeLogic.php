@@ -14,7 +14,7 @@
 
 namespace app\adminapi\logic\notice;
 
-use app\common\enum\NoticeEnum;
+use app\common\enum\notice\NoticeEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\notice\NoticeSetting;
 
@@ -35,7 +35,7 @@ class NoticeLogic extends BaseLogic
      */
     public static function detail($params)
     {
-        $field = 'id,scene_id,scene_name,scene_desc,system_notice,sms_notice,oa_notice,mnp_notice,support';
+        $field = 'id,type,scene_id,scene_name,scene_desc,system_notice,sms_notice,oa_notice,mnp_notice,support';
         $noticeSetting = NoticeSetting::field($field)->findOrEmpty($params['id'])->toArray();
         if (empty($noticeSetting)) {
             return [];
@@ -78,12 +78,12 @@ class NoticeLogic extends BaseLogic
             ];
         }
         $noticeSetting['mnp_notice']['tips'] = NoticeEnum::getOperationTips(NoticeEnum::MNP, $noticeSetting['scene_id']);
-        $noticeSetting['system_notice']['is_show'] = in_array(NoticeEnum::SYSTEM, explode(',', $noticeSetting['support'])) ? true : false;
-        $noticeSetting['sms_notice']['is_show'] = in_array(NoticeEnum::SMS, explode(',', $noticeSetting['support'])) ? true : false;
-        $noticeSetting['oa_notice']['is_show'] = in_array(NoticeEnum::OA, explode(',', $noticeSetting['support'])) ? true : false;
-        $noticeSetting['mnp_notice']['is_show'] = in_array(NoticeEnum::MNP, explode(',', $noticeSetting['support'])) ? true : false;
+        $noticeSetting['system_notice']['is_show'] = in_array(NoticeEnum::SYSTEM, explode(',', $noticeSetting['support']));
+        $noticeSetting['sms_notice']['is_show'] = in_array(NoticeEnum::SMS, explode(',', $noticeSetting['support']));
+        $noticeSetting['oa_notice']['is_show'] = in_array(NoticeEnum::OA, explode(',', $noticeSetting['support']));
+        $noticeSetting['mnp_notice']['is_show'] = in_array(NoticeEnum::MNP, explode(',', $noticeSetting['support']));
         $noticeSetting['default'] = '';
-
+        $noticeSetting['type'] = NoticeEnum::getTypeDesc($noticeSetting['type']);
         return $noticeSetting;
     }
 
@@ -124,23 +124,28 @@ class NoticeLogic extends BaseLogic
      */
     public static function checkSet($params)
     {
-        if (!isset($params['id'])) {
-            throw new \Exception('参数缺失');
-        }
-        $noticeSetting = NoticeSetting::findOrEmpty($params['id']);
+        $noticeSetting = NoticeSetting::findOrEmpty($params['id'] ?? 0);
+
         if ($noticeSetting->isEmpty()) {
             throw new \Exception('通知配置不存在');
         }
+
         if (!isset($params['template']) || !is_array($params['template']) || count($params['template']) == 0) {
             throw new \Exception('模板配置不存在或格式错误');
         }
+
+        // 通知类型
+        $noticeType = ['system', 'sms', 'oa', 'mnp'];
+
         foreach ($params['template'] as $item) {
             if (!is_array($item)) {
                 throw new \Exception('模板项格式错误');
             }
-            if (!isset($item['type']) || !in_array($item['type'], ['system', 'sms', 'oa', 'mnp'])) {
+
+            if (!isset($item['type']) || !in_array($item['type'], $noticeType)) {
                 throw new \Exception('模板项缺少模板类型或模板类型有误');
             }
+
             switch ($item['type']) {
                 case "system";
                     self::checkSystem($item);

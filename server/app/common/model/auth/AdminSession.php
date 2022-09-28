@@ -26,7 +26,7 @@ class AdminSession extends BaseModel
      */
     public function admin()
     {
-        return $this->hasOne('admin', 'id', 'admin_id')
+        return $this->hasOne(Admin::class, 'id', 'admin_id')
             ->field('id,multipoint_login');
     }
 }

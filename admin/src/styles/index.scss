@@ -1,34 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer base {
-    body {
-        @apply text-base text-tx-primary overflow-hidden min-w-[375px];
-    }
-    .form-tips {
-        @apply text-tx-secondary text-xs leading-6 mt-1;
-    }
-    .el-button {
-        background-color: var(--el-button-bg-color, var(--el-color-white));
-    }
-    .clearfix:after {
-        content: '';
-        display: block;
-        clear: both;
-        visibility: hidden;
-    }
-    .ls-card {
-        padding: 20px;
-        border-radius: var(--el-card-border-radius);
-        background-color: var(--el-fill-color-blank);
-    }
-}
-
-/* NProgress */
-#nprogress .bar {
-    @apply bg-primary #{!important};
-}
 @import 'element.scss';
 @import 'dark.css';
 @import 'var.css';
+@import 'tailwind.css';
+@import 'public.scss';

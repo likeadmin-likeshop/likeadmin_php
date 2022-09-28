@@ -11,6 +11,7 @@ import { PageEnum } from '@/enums/pageEnum'
 
 interface TabItem {
     name: RouteRecordName
+    fullPath: string
     path: string
     title?: string
     query?: LocationQuery
@@ -24,22 +25,27 @@ interface TabsSate {
     indexRouteName: RouteRecordName
 }
 
-const getHasTabIndex = (path: string, tabList: TabItem[]) => {
-    return tabList.findIndex((item) => item.path == path)
+const getHasTabIndex = (fullPath: string, tabList: TabItem[]) => {
+    return tabList.findIndex((item) => item.fullPath == fullPath)
 }
 
-const isCannotAddRoute = (route: RouteLocationNormalized) => {
-    const { path, meta } = route
+const isCannotAddRoute = (route: RouteLocationNormalized, router: Router) => {
+    const { path, meta, name } = route
     if (!path || isExternal(path)) return true
     if (meta?.hideTab) return true
+    if (!router.hasRoute(name!)) return true
     if (([PageEnum.LOGIN, PageEnum.ERROR_403] as string[]).includes(path)) {
         return true
     }
     return false
 }
 
-const findTabsIndex = (path: string, tabList: TabItem[]) => {
-    return tabList.findIndex((item) => item.path === path)
+const findTabsIndex = (fullPath: string, tabList: TabItem[]) => {
+    return tabList.findIndex((item) => item.fullPath === fullPath)
+}
+
+const getComponentName = (route: RouteLocationNormalized) => {
+    return route.matched.at(-1)?.components?.default?.name
 }
 
 export const getRouteParams = (tabItem: TabItem) => {
@@ -62,11 +68,25 @@ const useTabsStore = defineStore({
     getters: {
         getTabList(): TabItem[] {
             return this.tabList
+        },
+        getCacheTabList(): string[] {
+            return Array.from(this.cacheTabList)
         }
     },
     actions: {
         setRouteName(name: RouteRecordName) {
             this.indexRouteName = name
+        },
+        addCache(componentName?: string) {
+            if (componentName) this.cacheTabList.add(componentName)
+        },
+        removeCache(componentName?: string) {
+            if (componentName && this.cacheTabList.has(componentName)) {
+                this.cacheTabList.delete(componentName)
+            }
+        },
+        clearCache() {
+            this.cacheTabList.clear()
         },
         resetState() {
             this.cacheTabList = new Set()
@@ -74,33 +94,41 @@ const useTabsStore = defineStore({
             this.tasMap = {}
             this.indexRouteName = ''
         },
-        addTab(route: RouteLocationNormalized) {
-            const { name, path, query, meta, params } = route
-            if (isCannotAddRoute(route)) return
-            const hasTabIndex = getHasTabIndex(path!, this.tabList)
-
+        addTab(router: Router) {
+            const route = unref(router.currentRoute)
+            const { name, query, meta, params, fullPath, path } = route
+            if (isCannotAddRoute(route, router)) return
+            const hasTabIndex = getHasTabIndex(fullPath!, this.tabList)
+            const componentName = getComponentName(route)
             const tabItem = {
                 name: name!,
                 path,
+                fullPath,
                 title: meta?.title,
                 query,
                 params
             }
-            this.tasMap[path] = tabItem
+            this.tasMap[fullPath] = tabItem
+            if (meta?.keepAlive) {
+                console.log(componentName)
+                this.addCache(componentName)
+            }
             if (hasTabIndex != -1) {
-                this.tabList.splice(hasTabIndex, 1, tabItem)
                 return
             }
+
             this.tabList.push(tabItem)
         },
-        removeTab(path: string, router: Router) {
+        removeTab(fullPath: string, router: Router) {
             const { currentRoute, push } = router
-            const index = findTabsIndex(path, this.tabList)
+            const index = findTabsIndex(fullPath, this.tabList)
             // 移除tab
             if (this.tabList.length > 1) {
                 index !== -1 && this.tabList.splice(index, 1)
             }
-            if (path !== currentRoute.value.path) {
+            const componentName = getComponentName(currentRoute.value)
+            this.removeCache(componentName)
+            if (fullPath !== currentRoute.value.fullPath) {
                 return
             }
             // 删除选中的tab
@@ -115,17 +143,24 @@ const useTabsStore = defineStore({
             const toRoute = getRouteParams(toTab)
             push(toRoute)
         },
-        removeOtherTab(path: string) {
-            this.tabList = this.tabList.filter((item) => item.path == path)
+        removeOtherTab(route: RouteLocationNormalized) {
+            this.tabList = this.tabList.filter((item) => item.fullPath == route.fullPath)
+            const componentName = getComponentName(route)
+            this.cacheTabList.forEach((name) => {
+                if (componentName !== name) {
+                    this.removeCache(name)
+                }
+            })
         },
         removeAllTab(router: Router) {
             const { push, currentRoute } = router
-            const { path, name } = unref(currentRoute)
+            const { name } = unref(currentRoute)
             if (name == this.indexRouteName) {
-                this.removeOtherTab(path)
+                this.removeOtherTab(currentRoute.value)
                 return
             }
             this.tabList = []
+            this.clearCache()
             push(PageEnum.INDEX)
         }
     }

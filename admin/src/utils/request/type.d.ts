@@ -1,6 +1,17 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 
+import 'axios'
+declare module 'axios' {
+    // 扩展 RouteMeta
+    interface AxiosRequestConfig {
+        retryCount?: number
+        axiosHooks?: AxiosHooks
+        requestOptions: RequestOptions
+    }
+}
+
 export interface RequestOptions {
+    isParamsToData: boolean
     isReturnDefaultResponse: boolean
     isTransformResponse: boolean
     urlPrefix: string
@@ -10,19 +21,13 @@ export interface RequestOptions {
     retryCount: number
 }
 
-export interface AxiosConfig extends AxiosRequestConfig {
-    retryCount?: number
-    axiosHooks?: AxiosHooks
-    requestOptions: RequestOptions
-}
-
 export interface AxiosHooks {
     requestInterceptorsHook?: (config: AxiosRequestConfig) => AxiosRequestConfig
     requestInterceptorsCatchHook?: (error: Error) => void
     responseInterceptorsHook?: (
         response: AxiosResponse<RequestData<T>>
     ) => AxiosResponse<RequestData> | RequestData | T
-    responseInterceptorsCatchHook?: (error: Error) => void
+    responseInterceptorsCatchHook?: (error: AxiosError) => void
 }
 
 export interface RequestData<T = any> {

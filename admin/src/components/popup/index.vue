@@ -78,7 +78,7 @@ export default defineComponent({
         clickModalClose: {
             // 点击遮罩层关闭对话窗口
             type: Boolean,
-            default: true
+            default: false
         },
         center: {
             // 是否居中布局

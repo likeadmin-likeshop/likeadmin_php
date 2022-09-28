@@ -1,5 +1,6 @@
 <el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
     <el-date-picker 
+        class="flex-1 !flex"
         v-model="formData.{COLUMN_NAME}"
         clearable
         type="datetime"

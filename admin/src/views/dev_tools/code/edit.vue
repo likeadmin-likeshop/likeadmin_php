@@ -18,6 +18,7 @@
                                 <el-input
                                     v-model="formData.table_name"
                                     placeholder="请输入表名称"
+                                    clearable
                                 />
                             </div>
                         </el-form-item>
@@ -26,31 +27,35 @@
                                 <el-input
                                     v-model="formData.table_comment"
                                     placeholder="请输入表描述"
+                                    clearable
                                 />
                             </div>
                         </el-form-item>
                         <el-form-item label="作者">
                             <div class="w-80">
-                                <el-input v-model="formData.author" />
+                                <el-input v-model="formData.author" clearable />
                             </div>
                         </el-form-item>
                         <el-form-item label="备注">
                             <div class="w-80">
                                 <el-input
                                     v-model="formData.remark"
-                                    class="el-input"
+                                    class="w-full"
                                     type="textarea"
-                                    :rows="4"
+                                    :autosize="{ minRows: 4, maxRows: 4 }"
+                                    maxlength="200"
+                                    show-word-limit
+                                    clearable
                                 />
                             </div>
                         </el-form-item>
                     </el-tab-pane>
-                    <el-tab-pane label="字段管理" name="field">
+                    <el-tab-pane label="字段管理" name="column">
                         <el-table :data="formData.table_column">
                             <el-table-column label="字段列名" prop="column_name" />
                             <el-table-column label="字段描述" prop="column_comment" min-width="120">
                                 <template v-slot="{ row }">
-                                    <el-input v-model="row.column_comment"></el-input>
+                                    <el-input v-model="row.column_comment" clearable />
                                 </template>
                             </el-table-column>
                             <el-table-column label="物理类型" prop="column_type" />
@@ -60,7 +65,7 @@
                                         v-model="row.is_required"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="插入" width="80">
@@ -69,7 +74,7 @@
                                         v-model="row.is_insert"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="编辑" width="80">
@@ -78,7 +83,7 @@
                                         v-model="row.is_update"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="列表" width="80">
@@ -87,7 +92,7 @@
                                         v-model="row.is_lists"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="查询" width="80">
@@ -96,7 +101,7 @@
                                         v-model="row.is_query"
                                         :true-label="1"
                                         :false-label="0"
-                                    ></el-checkbox>
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column label="查询方式">
@@ -142,10 +147,11 @@
                                         placeholder="字典类型"
                                     >
                                         <el-option
-                                            v-for="(item, index) in dictData"
+                                            v-for="(item, index) in optionsData.dict_type"
                                             :key="index"
                                             :label="item.name"
                                             :value="item.type"
+                                            :disabled="!item.status"
                                         />
                                     </el-select>
                                 </template>
@@ -170,6 +176,7 @@
                                 <el-input
                                     v-model="formData.module_name"
                                     placeholder="请输入模块名"
+                                    clearable
                                 />
                                 <div class="form-tips">生成文件所在模块</div>
                             </div>
@@ -177,7 +184,7 @@
                         <el-form-item label="类目录">
                             <div class="w-80">
                                 <div>
-                                    <el-input v-model="formData.class_dir"></el-input>
+                                    <el-input v-model="formData.class_dir" clearable />
                                 </div>
                                 <div class="form-tips">
                                     <div>生成文件所在目录名,不填则在模块对应文件夹内生成。</div>
@@ -193,7 +200,7 @@
                         <el-form-item label="类描述">
                             <div class="w-80">
                                 <div>
-                                    <el-input v-model="formData.class_comment"></el-input>
+                                    <el-input v-model="formData.class_comment" clearable />
                                 </div>
                                 <div class="form-tips">
                                     <div>生成文件描述。</div>
@@ -207,7 +214,7 @@
                             <el-tree-select
                                 class="w-80"
                                 v-model="formData.menu.pid"
-                                :data="menuOptions"
+                                :data="optionsData.menu"
                                 clearable
                                 node-key="id"
                                 :props="{
@@ -223,7 +230,8 @@
                                 <el-input
                                     v-model="formData.menu.name"
                                     placeholder="请输入菜单名称"
-                                ></el-input>
+                                    clearable
+                                />
                             </div>
                         </el-form-item>
                         <el-form-item label="菜单构建" prop="menu.type" required>
@@ -247,15 +255,14 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="tableEdit">
 import { generateEdit, tableDetail } from '@/api/tools/code'
-import { dictTypeLists } from '@/api/setting/dict'
 import type { FormInstance } from 'element-plus'
 import feedback from '@/utils/feedback'
-import { menuLists } from '@/api/perms/menu'
+import { useDictOptions } from '@/hooks/useDictOptions'
 const route = useRoute()
 const router = useRouter()
-const activeName = ref('base')
+const activeName = ref('column')
 const formData = reactive({
     id: '',
     table_name: '',
@@ -276,8 +283,6 @@ const formData = reactive({
 })
 
 const formRef = shallowRef<FormInstance>()
-const dictData = ref<any[]>([])
-const menuOptions = ref<any[]>([])
 const rules = reactive({
     table_name: [{ required: true, message: '请输入表名称', trigger: 'blur' }],
     table_comment: [{ required: true, message: '请输入表描述', trigger: 'blur' }],
@@ -311,27 +316,32 @@ const getDetails = async () => {
     )
 }
 
-const getDict = async () => {
-    const data: any = await dictTypeLists({
-        page_type: 0
-    })
-    dictData.value = data.lists
-}
-
-const getMenu = async () => {
-    const data: any = await menuLists({ page_type: 0 })
-    const menu = { id: 0, name: '顶级', children: [] }
-    menu.children = data.lists
-    menuOptions.value.push(menu)
-}
+const { optionsData } = useDictOptions<{
+    dict_type: any[]
+    menu: any[]
+}>({
+    dict_type: {},
+    menu: {
+        transformData(data) {
+            const menu = { id: 0, name: '顶级', children: [] }
+            menu.children = data
+            return [menu]
+        }
+    }
+})
 
 const onSubmit = async () => {
-    await formRef.value?.validate()
-    await generateEdit(formData)
-    router.back()
+    try {
+        await formRef.value?.validate()
+        await generateEdit(formData)
+        router.back()
+    } catch (error: any) {
+        for (const err in error) {
+            const isInRules = Object.keys(rules).includes(err)
+            isInRules && feedback.msgError(error[err][0]?.message)
+        }
+    }
 }
 
 getDetails()
-getDict()
-getMenu()
 </script>

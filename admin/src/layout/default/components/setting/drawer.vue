@@ -38,6 +38,30 @@
                 </div>
             </div>
             <div class="setting-item mb-5 flex justify-between items-center">
+                <span class="text-tx-secondary">开启多页签栏</span>
+                <div>
+                    <el-switch
+                        v-model="openMultipleTabs"
+                        :active-value="true"
+                        :inactive-value="false"
+                    />
+                </div>
+            </div>
+            <div class="setting-item mb-5 flex justify-between items-center">
+                <span class="text-tx-secondary">菜单自动收起</span>
+                <div>
+                    <el-switch
+                        v-model="menuAutoStow"
+                        :active-value="true"
+                        :inactive-value="false"
+                    />
+                </div>
+            </div>
+            <div class="setting-item mb-5">
+                <div class="text-tx-secondary mb-4">菜单栏宽度</div>
+                <div><el-input-number v-model="sideWidth" :min="180" :max="250" /></div>
+            </div>
+            <div class="setting-item mb-5 flex justify-between items-center">
                 <el-button @click="resetTheme">重置主题</el-button>
             </div>
         </el-drawer>
@@ -51,7 +75,6 @@ import theme_light from '@/assets/images/theme_white.png'
 import theme_dark from '@/assets/images/theme_black.png'
 
 const settingStore = useSettingStore()
-
 const predefineColors = ref(['#409EFF', '#28C76F', '#EA5455', '#FF9F43', '#01CFE8', '#4A5DFF'])
 const sideThemeList = [
     {
@@ -71,6 +94,42 @@ const sideTheme = computed({
     set(value) {
         settingStore.setSetting({
             key: 'sideTheme',
+            value
+        })
+    }
+})
+
+const openMultipleTabs = computed({
+    get() {
+        return settingStore.openMultipleTabs
+    },
+    set(value) {
+        settingStore.setSetting({
+            key: 'openMultipleTabs',
+            value
+        })
+    }
+})
+
+const menuAutoStow = computed({
+    get() {
+        return settingStore.menuAutoStow
+    },
+    set(value) {
+        settingStore.setSetting({
+            key: 'menuAutoStow',
+            value
+        })
+    }
+})
+
+const sideWidth = computed({
+    get() {
+        return settingStore.sideWidth
+    },
+    set(value) {
+        settingStore.setSetting({
+            key: 'sideWidth',
             value
         })
     }

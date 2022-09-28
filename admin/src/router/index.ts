@@ -6,7 +6,11 @@ import useUserStore from '@/stores/modules/user'
 
 // 匹配views里面所有的.vue文件，动态引入
 const modules = import.meta.glob('/src/views/**/*.vue')
-console.log(modules)
+
+//
+export function getModulesKey() {
+    return Object.keys(modules).map((item) => item.replace('/src/views/', '').replace('.vue', ''))
+}
 
 // 过滤路由所需要的数据
 export function filterAsyncRoutes(routes: any[], firstRoute = true) {
@@ -32,7 +36,8 @@ export function createRouteRecord(route: any, firstRoute: boolean): RouteRecordR
             perms: route.perms,
             query: route.params,
             icon: route.icon,
-            type: route.type
+            type: route.type,
+            activeMenu: route.selected
         }
     }
     switch (route.type) {
@@ -78,6 +83,11 @@ export function findFirstValidRoute(routes: RouteRecordRaw[]): string | undefine
             }
         }
     }
+}
+//通过权限字符查询路由路径
+export function getRoutePath(perms: string) {
+    const routerObj = useRouter() || router
+    return routerObj.getRoutes().find((item) => item.meta?.perms == perms)?.path || ''
 }
 
 // 重置路由

@@ -15,6 +15,7 @@
 namespace app\adminapi\controller\channel;
 
 use app\adminapi\controller\BaseAdminController;
+use app\adminapi\lists\channel\OfficialAccountReplyLists;
 use app\adminapi\logic\channel\OfficialAccountReplyLogic;
 use app\adminapi\validate\channel\OfficialAccountReplyValidate;
 
@@ -37,7 +38,7 @@ class OfficialAccountReplyController extends BaseAdminController
      */
     public function lists()
     {
-        return $this->dataLists();
+        return $this->dataLists(new OfficialAccountReplyLists());
     }
 
 

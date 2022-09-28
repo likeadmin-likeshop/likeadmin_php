@@ -16,7 +16,6 @@ namespace app\adminapi\controller\channel;
 
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\logic\channel\OfficialAccountMenuLogic;
-use app\adminapi\validate\channel\OfficialAccountMenuValidate;
 
 /**
  * 微信公众号菜单控制器
@@ -34,7 +33,7 @@ class OfficialAccountMenuController extends BaseAdminController
      */
     public function save()
     {
-        $params = (new OfficialAccountMenuValidate())->post()->goCheck();
+        $params = $this->request->post();
         $result = OfficialAccountMenuLogic::save($params);
         if(false === $result) {
             return $this->fail(OfficialAccountMenuLogic::getError());
@@ -51,7 +50,7 @@ class OfficialAccountMenuController extends BaseAdminController
      */
     public function saveAndPublish()
     {
-        $params = (new OfficialAccountMenuValidate())->post()->goCheck();
+        $params = $this->request->post();
         $result = OfficialAccountMenuLogic::saveAndPublish($params);
         if($result) {
             return $this->success('保存并发布成功',[],1,1);

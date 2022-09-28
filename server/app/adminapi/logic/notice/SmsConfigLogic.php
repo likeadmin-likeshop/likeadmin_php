@@ -14,7 +14,7 @@
 
 namespace app\adminapi\logic\notice;
 
-use app\common\enum\SmsEnum;
+use app\common\enum\notice\SmsEnum;
 use app\common\logic\BaseLogic;
 use app\common\service\ConfigService;
 
@@ -34,8 +34,8 @@ class SmsConfigLogic extends BaseLogic
     public static function getConfig()
     {
         $config = [
-            'ali' => ConfigService::get('sms', 'ali', ['name' => '阿里云短信', 'status' => 1]),
-            'tencent' => ConfigService::get('sms', 'tencent', ['name' => '腾讯云短信', 'status' => 0]),
+            ConfigService::get('sms', 'ali', ['type' => 'ali', 'name' => '阿里云短信', 'status' => 1]),
+            ConfigService::get('sms', 'tencent', ['type' => 'tencent', 'name' => '腾讯云短信', 'status' => 0]),
         ];
         return $config;
     }
@@ -51,7 +51,6 @@ class SmsConfigLogic extends BaseLogic
     public static function setConfig($params)
     {
         $type = $params['type'];
-        unset($params['type']);
         $params['name'] = self::getNameDesc(strtoupper($type));
         ConfigService::set('sms', $type, $params);
         $default = ConfigService::get('sms', 'engine', false);
@@ -104,7 +103,9 @@ class SmsConfigLogic extends BaseLogic
                 ];
                 break;
         }
-        return ConfigService::get('sms', $params['type'], $default);
+        $result = ConfigService::get('sms', $params['type'], $default);
+        $result['status'] = intval($result['status'] ?? 0);
+        return $result;
     }
 
 

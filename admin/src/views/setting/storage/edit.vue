@@ -5,7 +5,6 @@
             title="设置存储"
             :async="true"
             width="550px"
-            :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
@@ -22,6 +21,7 @@
                             <el-input
                                 v-model="formData.bucket"
                                 placeholder="请输入存储空间名称(Bucket)"
+                                clearable
                             />
                         </div>
                     </el-form-item>
@@ -29,12 +29,14 @@
                         <el-input
                             v-model="formData.access_key"
                             placeholder="请输入ACCESS_KEY(AK)"
+                            clearable
                         />
                     </el-form-item>
                     <el-form-item label="SECRET_KEY" prop="secret_key">
                         <el-input
                             v-model="formData.secret_key"
                             placeholder="请输入SECRET_KEY(SK)"
+                            clearable
                         />
                     </el-form-item>
                     <el-form-item label="空间域名" prop="domain">
@@ -43,6 +45,7 @@
                                 <el-input
                                     v-model="formData.domain"
                                     placeholder="请输入空间域名(Domain)"
+                                    clearable
                                 />
                             </div>
                             <div class="form-tips">
@@ -55,13 +58,13 @@
                         label="REGION"
                         prop="region"
                     >
-                        <el-input v-model="formData.region" placeholder="请输入region" />
+                        <el-input v-model="formData.region" placeholder="请输入region" clearable />
                     </el-form-item>
                 </div>
                 <el-form-item label="状态" prop="status">
                     <el-radio-group v-model="formData.status">
-                        <el-radio :label="0">停用</el-radio>
-                        <el-radio :label="1">启用</el-radio>
+                        <el-radio :label="0">关闭</el-radio>
+                        <el-radio :label="1">开启</el-radio>
                     </el-radio-group>
                 </el-form-item>
             </el-form>

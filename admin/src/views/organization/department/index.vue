@@ -1,12 +1,17 @@
 <template>
-    <div class="menu-lists">
+    <div class="department">
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
                 <el-form-item label="部门名称" prop="name">
-                    <el-input class="w-56" v-model="queryParams.name" />
+                    <el-input
+                        class="w-[280px]"
+                        v-model="queryParams.name"
+                        clearable
+                        @keyup.enter="getLists"
+                    />
                 </el-form-item>
                 <el-form-item label="部门状态" prop="status">
-                    <el-select class="w-56" v-model="queryParams.status">
+                    <el-select class="w-[280px]" v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" value="1" />
                         <el-option label="停用" value="0" />
@@ -86,10 +91,11 @@
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="department">
 import type { ElTable, FormInstance } from 'element-plus'
 import EditPopup from './edit.vue'
 import { deptDelete, deptLists } from '@/api/org/department'
+import feedback from '@/utils/feedback'
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const formRef = shallowRef<FormInstance>()
@@ -127,10 +133,11 @@ const handleEdit = async (data: any) => {
     showEdit.value = true
     await nextTick()
     editRef.value?.open('edit')
-    editRef.value?.setFormData(data)
+    editRef.value?.getDetail(data)
 }
 
 const handleDelete = async (id: number) => {
+    await feedback.confirm('确定要删除？')
     await deptDelete({ id })
     getLists()
 }

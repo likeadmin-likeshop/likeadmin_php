@@ -19,3 +19,8 @@ export function api{UPPER_CAMEL_NAME}Edit(params: any) {
 export function api{UPPER_CAMEL_NAME}Delete(params: any) {
     return request.post({ url: '/{ROUTE}/delete', params })
 }
+
+// {COMMENT}详情
+export function api{UPPER_CAMEL_NAME}Detail(params: any) {
+    return request.get({ url: '/{ROUTE}/detail', params })
+}

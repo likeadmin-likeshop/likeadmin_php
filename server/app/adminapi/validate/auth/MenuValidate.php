@@ -1,27 +1,22 @@
 <?php
 // +----------------------------------------------------------------------
-// | likeshop100%开源免费商用商城系统
+// | likeadmin快速开发前后端分离管理后台（PHP版）
 // +----------------------------------------------------------------------
 // | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
 // | 开源版本可自由商用，可去除界面版权logo
-// | 商业版本务必购买商业授权，以免引起法律纠纷
-// | 禁止对系统程序代码以任何目的，任何形式的再发布
-// | gitee下载：https://gitee.com/likeshop_gitee
-// | github下载：https://github.com/likeshop-github
-// | 访问官网：https://www.likeshop.cn
-// | 访问社区：https://home.likeshop.cn
-// | 访问手册：http://doc.likeshop.cn
-// | 微信公众号：likeshop技术社区
-// | likeshop团队 版权所有 拥有最终解释权
+// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
+// | github下载：https://github.com/likeshop-github/likeadmin
+// | 访问官网：https://www.likeadmin.cn
+// | likeadmin团队 版权所有 拥有最终解释权
 // +----------------------------------------------------------------------
-// | author: likeshopTeam
+// | author: likeadminTeam
 // +----------------------------------------------------------------------
 
 namespace app\adminapi\validate\auth;
 
 
 use app\common\validate\BaseValidate;
-use app\common\model\auth\{Role,SystemMenu};
+use app\common\model\auth\{SystemRole,SystemMenu};
 
 
 /**
@@ -38,7 +33,7 @@ class MenuValidate extends BaseValidate
         'type' => 'require|in:M,C,A',
         'name' => 'require|length:1,30|checkUniqueName',
         'icon' => 'max:100',
-        'sort' => 'require|gt:0',
+        'sort' => 'require|egt:0',
         'perms' => 'max:100',
         'paths' => 'max:200',
         'component' => 'max:200',
@@ -59,7 +54,7 @@ class MenuValidate extends BaseValidate
         'name.length' => '菜单名称长度需为1~30个字符',
         'icon.max' => '图标名称不能超过100个字符',
         'sort.require' => '请填写排序',
-        'sort.gt' => '排序值需大于0',
+        'sort.egt' => '排序值需大于或等于0',
         'perms.max' => '权限字符不能超过100个字符',
         'paths.max' => '路由地址不能超过200个字符',
         'component.max' => '组件路径不能超过200个字符',
@@ -171,7 +166,7 @@ class MenuValidate extends BaseValidate
         }
 
         // 已绑定角色菜单不可以删除
-        $isBindRole = Role::hasWhere('roleMenuIndex', ['menu_id' => $value])->findOrEmpty();
+        $isBindRole = SystemRole::hasWhere('roleMenuIndex', ['menu_id' => $value])->findOrEmpty();
         if (!$isBindRole->isEmpty()) {
             return '已分配菜单不可删除';
         }

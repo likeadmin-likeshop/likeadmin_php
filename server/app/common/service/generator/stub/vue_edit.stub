@@ -5,7 +5,6 @@
             :title="popupTitle"
             :async="true"
             width="550px"
-            :clickModalClose="true"
             @confirm="handleSubmit"
             @close="handleClose"
         >
@@ -19,10 +18,15 @@
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
-import { dictDataLists } from '@/api/setting/dict'
-import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Edit } from '@/api/{API_DIR}'
+import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Edit, api{UPPER_CAMEL_NAME}Detail } from '@/api/{API_DIR}'
 import { timeFormat } from '@/utils/util'
-
+import type { PropType } from 'vue'
+defineProps({
+    dictData: {
+        type: Object as PropType<Record<string, any[]>>,
+        default: () => ({})
+    }
+})
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
@@ -39,15 +43,6 @@ const formData = reactive({
 {FORM_DATA}
 })
 
-// 字典数据
-const dictData = reactive<Record<string, any[]>>({
-{DICT_DATA}
-})
-
-// 获取字典数据
-const getDictData = () => {
-{DICT_DATA_API}
-}
 
 // 表单验证
 const formRules = reactive<any>({
@@ -56,7 +51,8 @@ const formRules = reactive<any>({
 
 
 // 获取详情
-const setFormData = (data: Record<any, any>) => {
+const setFormData = async (row: Record<any, any>) => {
+    const data = await api{UPPER_CAMEL_NAME}Detail({ {PK}: row.{PK} })
     for (const key in formData) {
         if (data[key] != null && data[key] != undefined) {
             //@ts-ignore
@@ -90,7 +86,6 @@ const handleClose = () => {
     emit('close')
 }
 
-getDictData()
 
 defineExpose({
     open,

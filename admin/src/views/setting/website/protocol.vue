@@ -10,7 +10,7 @@
                 </el-form-item>
             </el-form>
 
-            <editor class="mb-10" v-model="formData.service_content" height="600"></editor>
+            <editor class="mb-10" v-model="formData.service_content" height="500"></editor>
         </el-card>
         <el-card class="!border-none flex-1 mb-4" shadow="never">
             <template #header>
@@ -22,7 +22,7 @@
                 </el-form-item>
             </el-form>
 
-            <editor class="mb-10" v-model="formData.privacy_content" height="600"></editor>
+            <editor class="mb-10" v-model="formData.privacy_content" height="500"></editor>
         </el-card>
     </div>
     <footer-btns v-perms="['setting.web.web_setting/setAgreement']">
@@ -30,7 +30,7 @@
     </footer-btns>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" naem="webProtocol">
 import { getProtocol, setProtocol } from '@/api/setting/website'
 
 interface formDataObj {
@@ -45,9 +45,10 @@ const formData = ref<formDataObj>({
     privacy_title: '',
     privacy_content: ''
 })
-const protocolGet = async (): Promise<void> => {
-    ;(formData.value as object) = await getProtocol()
+const protocolGet = async () => {
+    formData.value = await getProtocol()
 }
+
 const handleProtocolEdit = async (): Promise<void> => {
     await setProtocol({ ...formData.value })
     protocolGet()

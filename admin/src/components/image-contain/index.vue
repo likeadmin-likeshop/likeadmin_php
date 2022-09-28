@@ -1,15 +1,9 @@
 <template>
-    <el-image :style="styles" v-bind="props">
-        <template #error>
-            <div class="flex items-center justify-center h-full w-full text-tx-secondary">
-                <icon name="el-icon-Picture" :size="24" />
-            </div>
-        </template>
-    </el-image>
+    <el-image :style="styles" v-bind="props"> </el-image>
 </template>
 
 <script lang="ts" setup>
-import { computed, toRefs } from 'vue'
+import { computed } from 'vue'
 import type { CSSProperties } from 'vue'
 import { addUnit } from '@/utils/util'
 import { imageProps } from 'element-plus'
@@ -40,8 +34,7 @@ const styles = computed<CSSProperties>(() => {
 
 <style lang="scss" scoped>
 .el-image {
-    font-size: 0;
-    @apply bg-page;
+    display: block;
     .el-image__error {
         @apply text-xs;
     }

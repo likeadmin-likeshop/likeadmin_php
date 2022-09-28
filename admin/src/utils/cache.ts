@@ -42,6 +42,9 @@ const cache = {
         key = this.getKey(key)
         window.localStorage.removeItem(key)
     },
+    clear() {
+        window.localStorage.clear()
+    },
     getKey(key: string) {
         return this.key + key
     }

@@ -34,7 +34,7 @@ class Admin extends BaseModel
      */
     public function role()
     {
-        return $this->hasOne('role', 'id', 'role_id')
+        return $this->hasOne(SystemRole::class, 'id', 'role_id')
             ->field('id,name');
     }
 

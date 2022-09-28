@@ -18,7 +18,7 @@
     --el-font-size-extra-small: 12px;
 
     --el-bg-color: var(--color-white);
-    --el-bg-color-page: #f2f3f5;
+    --el-bg-color-page: #f6f6f6;
     --el-bg-color-overlay: #ffffff;
     --el-text-color-primary: #333333;
     --el-text-color-regular: #666666;
@@ -32,7 +32,7 @@
     --el-border-color-dark: #d4d7de;
     --el-border-color-darker: #cdd0d6;
     --el-fill-color: #f0f2f5;
-    --el-fill-color-light: #f5f7fa;
+    --el-fill-color-light: #f8f8f8;
     --el-fill-color-lighter: #fafafa;
     --el-fill-color-extra-light: #fafcff;
     --el-fill-color-dark: #ebedf0;

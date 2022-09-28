@@ -1,0 +1,135 @@
+{
+    "pages": [
+        {
+            "path": "pages/index/index",
+            "style": {
+                "navigationBarTitleText": "首页"
+            }
+        },
+        {
+            "path": "pages/news/news",
+            "style": {
+                "navigationBarTitleText": "资讯"
+            }
+        },
+        {
+            "path": "pages/user/user",
+            "style": {
+                "navigationBarTitleText": "个人中心"
+            }
+        },
+        {
+            "path": "pages/login/login",
+            "style": {
+                "navigationBarTitleText": "登录"
+            }
+        },
+        {
+            "path": "pages/register/register",
+            "style": {
+                "navigationBarTitleText": "注册"
+            }
+        },
+        {
+            "path": "pages/forget_pwd/forget_pwd",
+            "style": {
+                "navigationBarTitleText": "忘记密码"
+            }
+        },
+        {
+            "path": "pages/customer_service/customer_service",
+            "style": {
+                "navigationBarTitleText": "联系客服"
+            }
+        },
+        {
+            "path": "pages/news_detail/news_detail",
+            "style": {
+                "navigationBarTitleText": "详情"
+            }
+        },
+        {
+            "path": "pages/user_set/user_set",
+            "style": {
+                "navigationBarTitleText": "个人设置"
+            },
+            "auth": true
+        },
+        {
+            "path": "pages/collection/collection",
+            "style": {
+                "navigationBarTitleText": "我的收藏"
+            },
+            "auth": true
+        },
+        {
+            "path": "pages/as_us/as_us",
+            "style": {
+                "navigationBarTitleText": "关于我们"
+            }
+        },
+        {
+            "path": "pages/agreement/agreement",
+            "style": {
+                "navigationBarTitleText": "协议"
+            }
+        },
+        {
+            "path": "pages/change_password/change_password",
+            "style": {
+                "navigationBarTitleText": "修改密码"
+            },
+            "auth": true
+        },
+        {
+            "path": "pages/user_data/user_data",
+            "style": {
+                "navigationBarTitleText": "个人资料"
+            },
+            "auth": true
+        },
+        {
+            "path": "pages/search/search",
+            "style": {
+                "navigationBarTitleText": "搜索"
+            }
+        },
+        {
+            "path": "pages/webview/webview"
+        },
+        {
+            "path": "pages/bind_mobile/bind_mobile",
+            "style": {
+                "navigationBarTitleText": "绑定手机号"
+            }
+        },
+        {
+            "path": "pages/empty/empty",
+            "style": {
+                "navigationStyle": "custom"
+            }
+        },
+        {
+            "path": "uni_modules/vk-uview-ui/components/u-avatar-cropper/u-avatar-cropper",
+            "style": {
+                "navigationBarTitleText": "头像裁剪",
+                "navigationBarBackgroundColor": "#000000"
+            }
+        }
+    ],
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "商城",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "backgroundColor": "#F8F8F8",
+        "h5": {
+            "navigationStyle": "custom"
+        }
+    },
+    "easycom": {
+        "custom": {
+            "^(?!z-paging-refresh|z-paging-load-more)z-paging(.*)": "z-paging/components/z-paging$1/z-paging$1.vue",
+            "^w-(.*)": "@/components/widgets/$1/$1.vue"
+        }
+    }
+}

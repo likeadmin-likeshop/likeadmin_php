@@ -60,6 +60,7 @@
                 <el-table-column label="操作" width="160" fixed="right">
                     <template #default="{ row }">
                         <el-button
+                            v-if="row.type !== MenuEnum.BUTTON"
                             v-perms="['auth.menu/add']"
                             type="primary"
                             link
@@ -90,7 +91,7 @@
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="menu">
 import { menuDelete, menuLists } from '@/api/perms/menu'
 import type { ElTable } from 'element-plus'
 import { usePaging } from '@/hooks/usePaging'
@@ -123,7 +124,7 @@ const handleEdit = async (data: any) => {
     showEdit.value = true
     await nextTick()
     editRef.value?.open('edit')
-    editRef.value?.setFormData(data)
+    editRef.value?.getDetail(data)
 }
 
 const handleDelete = async (id: number) => {

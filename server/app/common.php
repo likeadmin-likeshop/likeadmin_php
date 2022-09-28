@@ -1,5 +1,6 @@
 <?php
 // 应用公共文件
+use app\common\service\FileService;
 
 /**
  * @notes 生成密码加密密钥
@@ -53,7 +54,7 @@ function substr_symbol_behind($str, $symbol = '.') : string
  * @author 段誉
  * @date 2021/12/28 18:27
  */
-function comparePHP(string $version) : bool
+function compare_php(string $version) : bool
 {
     return version_compare(PHP_VERSION, $version) >= 0 ? true : false;
 }
@@ -66,7 +67,7 @@ function comparePHP(string $version) : bool
  * @author 段誉
  * @date 2021/12/28 18:27
  */
-function checkDirWrite(string $dir = '') : bool
+function check_dir_write(string $dir = '') : bool
 {
     $route = root_path() . '/' . $dir;
     return is_writable($route);
@@ -150,30 +151,62 @@ function del_target_dir($path, $delDir)
 
 
 /**
- * @notes 获取数据表字段类型
- * @param string $type
+ * @notes 下载文件
+ * @param $url
+ * @param $saveDir
+ * @param $fileName
  * @return string
  * @author 段誉
- * @date 2022/6/15 10:11
+ * @date 2022/9/16 9:53
  */
-function getDbFieldType(string $type): string
+function download_file($url, $saveDir, $fileName)
 {
-    if (0 === strpos($type, 'set') || 0 === strpos($type, 'enum')) {
-        $result = 'string';
-    } elseif (preg_match('/(double|float|decimal|real|numeric)/is', $type)) {
-        $result = 'float';
-    } elseif (preg_match('/(int|serial|bit)/is', $type)) {
-        $result = 'int';
-    } elseif (preg_match('/bool/is', $type)) {
-        $result = 'bool';
-    } elseif (0 === strpos($type, 'timestamp')) {
-        $result = 'timestamp';
-    } elseif (0 === strpos($type, 'datetime')) {
-        $result = 'datetime';
-    } elseif (0 === strpos($type, 'date')) {
-        $result = 'date';
-    } else {
-        $result = 'string';
+    if (!file_exists($saveDir)) {
+        mkdir($saveDir, 0775, true);
     }
-    return $result;
+    $fileSrc = $saveDir . $fileName;
+    file_exists($fileSrc) && unlink($fileSrc);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+    $file = curl_exec($ch);
+    curl_close($ch);
+    $resource = fopen($fileSrc, 'a');
+    fwrite($resource, $file);
+    fclose($resource);
+    if (filesize($fileSrc) == 0) {
+        unlink($fileSrc);
+        return '';
+    }
+    return $fileSrc;
+}
+
+
+/**
+ * @notes 去除内容图片域名
+ * @param $content
+ * @return array|string|string[]
+ * @author 段誉
+ * @date 2022/9/26 10:43
+ */
+function clear_file_domain($content)
+{
+    $fileUrl = FileService::getFileUrl();
+    return str_replace($fileUrl, '/', $content);
+}
+
+
+/**
+ * @notes 设置内容图片域名
+ * @param $content
+ * @return array|string|string[]|null
+ * @author 段誉
+ * @date 2022/9/26 10:43
+ */
+function get_file_domain($content)
+{
+    $preg = '/(<img .*?src=")[^https|^http](.*?)(".*?>)/is';
+    $fileUrl = FileService::getFileUrl();
+    return preg_replace($preg, "\${1}$fileUrl\${2}\${3}", $content);
 }

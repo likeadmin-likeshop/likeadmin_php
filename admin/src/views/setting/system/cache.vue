@@ -24,7 +24,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="cache">
 import { systemCacheClear } from '@/api/setting/system'
 import feedback from '@/utils/feedback'
 
