@@ -277,7 +277,7 @@ const loginHandle = async (data: any) => {
     await userStore.getUser()
     uni.$u.toast('登录成功')
     uni.hideLoading()
-    if (currentPage().length > 1) {
+    if (getCurrentPages().length > 1) {
         uni.navigateBack({
             success: () => {
                 // @ts-ignore

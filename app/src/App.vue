@@ -8,9 +8,9 @@ const { getUser } = useUserStore()
 onLaunch(async () => {
     await appStore.getConfig()
     // #ifdef H5
-    const { status, close, url } = appStore.getH5Config
+    const { status, page_status, page_url } = appStore.getH5Config
     if (status == 0) {
-        if (close == 1) return (location.href = url)
+        if (page_status == 1) return (location.href = page_url)
         uni.reLaunch({ url: '/pages/empty/empty' })
     }
     // #endif

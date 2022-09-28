@@ -20,13 +20,6 @@ const requestHooks: RequestHooks = {
         if (withToken && !options.header.token) {
             options.header.token = token
         }
-        if (isAuth && !options.header.token) {
-            uni.navigateTo({
-                url: '/pages/login/login'
-            })
-            throw new Error('请先登录')
-        }
-
         return options
     },
     responseInterceptorsHook(response, config) {
