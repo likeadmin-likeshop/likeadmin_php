@@ -111,6 +111,9 @@ const handleCreated = (editor: any) => {
 </script>
 
 <style lang="scss">
+.w-e-full-screen-container {
+    z-index: 999999;
+}
 .w-e-text-container [data-slate-editor] ul {
     list-style: disc;
 }
