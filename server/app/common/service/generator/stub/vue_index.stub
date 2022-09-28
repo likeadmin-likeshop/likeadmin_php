@@ -87,15 +87,8 @@ const handleSelectionChange = (val: any[]) => {
     selectData.value = val.map(({ {PK} }) => {PK})
 }
 
-// 字典数据
-const dictData = reactive<Record<string, any[]>>({
-{DICT_DATA}
-})
-
 // 获取字典数据
-const getDictData = () => {
-{DICT_DATA_API}
-}
+const { dictData } = useDictData('{DICT_DATA}')
 
 // 分页相关
 const { pager, getLists, resetParams, resetPage } = usePaging({
