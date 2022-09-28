@@ -60,7 +60,7 @@ class ArticleLists extends BaseAdminDataLists implements ListsSearchInterface, L
      */
     public function setDefaultOrder(): array
     {
-        return ['create_time' => 'desc', 'id' => 'desc'];
+        return ['sort' => 'desc', 'id' => 'desc'];
     }
 
     /**
