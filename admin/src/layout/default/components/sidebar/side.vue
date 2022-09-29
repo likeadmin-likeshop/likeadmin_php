@@ -5,7 +5,7 @@
             :routes="routes"
             :is-collapsed="isCollapsed"
             :width="settingStore.sideWidth"
-            :unique-opened="settingStore.menuAutoStow"
+            :unique-opened="settingStore.isUniqueOpened"
             :config="menuProp"
             :theme="sideTheme"
             @select="handleSelect"
