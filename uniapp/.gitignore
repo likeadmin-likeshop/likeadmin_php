@@ -25,4 +25,8 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-.hbuilderx
+.hbuilderx  
+
+# .env
+.env.development
+.env.production
