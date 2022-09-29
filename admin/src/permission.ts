@@ -43,7 +43,7 @@ router.beforeEach(async (to, from, next) => {
                 const routeName = findFirstValidRoute(routes)
                 // 没有有效路由跳转到403页面
                 if (!routeName) {
-                    await userStore.logout()
+                    clearAuthInfo()
                     next(PageEnum.ERROR_403)
                     return
                 }

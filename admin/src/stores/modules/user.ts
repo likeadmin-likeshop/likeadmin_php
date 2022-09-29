@@ -51,8 +51,9 @@ const useUserStore = defineStore({
         logout() {
             return new Promise((resolve, reject) => {
                 logout()
-                    .then((data) => {
-                        router.push(PageEnum.LOGIN)
+                    .then(async (data) => {
+                        this.token = ''
+                        await router.push(PageEnum.LOGIN)
                         clearAuthInfo()
                         resolve(data)
                     })
