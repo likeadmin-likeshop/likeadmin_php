@@ -9,7 +9,7 @@
                             <el-radio :label="0">关闭</el-radio>
                         </el-radio-group>
 
-                        <div class="form-tips">默认开始，关闭则前端不显示该功能</div>
+                        <div class="form-tips">默认开启，关闭则前端不显示该功能</div>
                     </div>
                 </el-form-item>
             </el-form>

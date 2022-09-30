@@ -48,10 +48,10 @@
                 </div>
             </div>
             <div class="setting-item mb-5 flex justify-between items-center">
-                <span class="text-tx-secondary">菜单自动收起</span>
+                <span class="text-tx-secondary">只展开一个一级菜单</span>
                 <div>
                     <el-switch
-                        v-model="menuAutoStow"
+                        v-model="isUniqueOpened"
                         :active-value="true"
                         :inactive-value="false"
                     />
@@ -111,13 +111,13 @@ const openMultipleTabs = computed({
     }
 })
 
-const menuAutoStow = computed({
+const isUniqueOpened = computed({
     get() {
-        return settingStore.menuAutoStow
+        return settingStore.isUniqueOpened
     },
     set(value) {
         settingStore.setSetting({
-            key: 'menuAutoStow',
+            key: 'isUniqueOpened',
             value
         })
     }

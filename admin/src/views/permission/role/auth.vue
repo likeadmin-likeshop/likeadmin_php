@@ -14,6 +14,7 @@
                 :rules="rules"
                 :model="formData"
                 label-width="60px"
+                v-loading="loading"
             >
                 <el-scrollbar class="h-[400px] sm:h-[600px]">
                     <el-form-item label="权限" prop="menu_id">
@@ -45,7 +46,7 @@
 <script lang="ts" setup>
 import type { CheckboxValueType, ElTree, FormInstance } from 'element-plus'
 import { roleEdit } from '@/api/perms/role'
-import { menuLists } from '@/api/perms/menu'
+import { getSelectData } from '@/api/app'
 import Popup from '@/components/popup/index.vue'
 import { treeToArray } from '@/utils/util'
 const emit = defineEmits(['success', 'close'])
@@ -54,6 +55,7 @@ const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const isExpand = ref(false)
 const checkStrictly = ref(true)
+const loading = ref(false)
 const menuArray = ref<any[]>([])
 const menuTree = ref<any[]>([])
 const formData = reactive({
@@ -75,14 +77,16 @@ const rules = {
 }
 
 const getOptions = () => {
-    menuLists({
-        page_type: 0
+    loading.value = true
+    getSelectData({
+        type: 'menu'
     }).then((res: any) => {
-        menuTree.value = res.lists
-        menuArray.value = treeToArray(res.lists)
+        menuTree.value = res
+        menuArray.value = treeToArray(res)
         nextTick(() => {
             setDeptAllCheckedKeys()
         })
+        loading.value = false
     })
 }
 
