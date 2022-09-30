@@ -68,7 +68,7 @@ const defaultOptions: HttpRequestOptions = {
     requestOptions: {
         timeout: 10 * 1000
     },
-    baseUrl: `${import.meta.env.VITE_APP_BASE_URL}/`,
+    baseUrl: `${import.meta.env.VITE_APP_BASE_URL || ''}/`,
     //是否返回默认的响应
     isReturnDefaultResponse: false,
     // 需要对返回数据进行处理
