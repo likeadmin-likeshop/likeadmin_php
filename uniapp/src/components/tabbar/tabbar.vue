@@ -27,8 +27,8 @@ const tabbarList = computed(() => {
 })
 
 const tabbarStyle = computed(() => ({
-    activeColor: appStore.getStyleConfig.selectedColor,
-    inactiveColor: appStore.getStyleConfig.defaultColor
+    activeColor: appStore.getStyleConfig.selected_color,
+    inactiveColor: appStore.getStyleConfig.default_color
 }))
 const handleChange = (index: number) => {
     const selectTab = tabbarList.value[index]
