@@ -8,7 +8,7 @@
                             class="tabbar-item flex flex-col justify-center items-center flex-1"
                             v-for="(item, index) in tabbar.list"
                             :key="index"
-                            :style="{ color: tabbar.style.defaultColor }"
+                            :style="{ color: tabbar.style.default_color }"
                         >
                             <img class="w-[22px] h-[22px]" :src="item.unselected" alt="" />
                             <div class="leading-3 text-[12px] mt-[4px]">{{ item.name }}</div>
@@ -107,14 +107,14 @@
                                 <el-form-item label="默认颜色">
                                     <color-picker
                                         class="max-w-[400px]"
-                                        v-model="tabbar.style.defaultColor"
+                                        v-model="tabbar.style.default_color"
                                         default-color="#999999"
                                     />
                                 </el-form-item>
                                 <el-form-item label="选中颜色">
                                     <color-picker
                                         class="max-w-[400px]"
-                                        v-model="tabbar.style.selectedColor"
+                                        v-model="tabbar.style.selected_color"
                                         default-color="#4173ff"
                                     />
                                 </el-form-item>
@@ -138,8 +138,8 @@ const max = 5
 const min = 2
 const tabbar = reactive({
     style: {
-        defaultColor: '',
-        selectedColor: ''
+        default_color: '',
+        selected_color: ''
     },
     list: [
         {

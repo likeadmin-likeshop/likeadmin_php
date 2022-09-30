@@ -66,9 +66,9 @@ return [
         // 登录方式：1-账号密码登录；2-手机短信验证码登录
         'login_way' => ['1', '2'],
         // 注册强制绑定手机 0-关闭 1-开启
-        'coerce_mobile' => 0,
+        'coerce_mobile' => 1,
         // 第三方授权登录 0-关闭 1-开启
-        'third_auth' => 0,
+        'third_auth' => 1,
         // 微信授权登录 0-关闭 1-开启
         'wechat_auth' => 1,
         // qq授权登录 0-关闭 1-开启
@@ -77,5 +77,10 @@ return [
         'login_agreement' => 1,
     ],
 
+    // 后台装修
+    'decorate' => [
+        // 底部导航栏样式设置
+        'tabbar_style' => ['default_color' => '#999999', 'selected_color' => '#4173ff'],
+    ]
 
 ];

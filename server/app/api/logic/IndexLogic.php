@@ -109,7 +109,7 @@ class IndexLogic extends BaseLogic
         // 底部导航
         $tabbar = DecorateTabbar::getTabbarLists();
         // 导航颜色
-        $style = ConfigService::get('tabbar', 'style', '{}');
+        $style = ConfigService::get('tabbar', 'style', (object)config('project.decorate.tabbar_style'));
         // 登录配置
         $loginConfig = [
             // 登录方式

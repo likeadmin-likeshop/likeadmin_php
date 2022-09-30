@@ -1,5 +1,5 @@
 const defaultSetting = {
-    menuAutoStow: false, //菜单自动收起
+    isUniqueOpened: false, //只展开一个一级菜单
     sideWidth: 200, //侧边栏宽度
     sideTheme: 'light', //侧边栏主题
     sideDarkColor: '#1d2124', //侧边栏深色主题颜色

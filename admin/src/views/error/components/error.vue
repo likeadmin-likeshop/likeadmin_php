@@ -1,8 +1,10 @@
 <template>
     <div class="error">
         <div>
-            <div class="error-code">{{ code }}</div>
-            <div class="lg lighter mt-7 mb-7">{{ title }}</div>
+            <slot name="content">
+                <div class="error-code">{{ code }}</div>
+            </slot>
+            <div class="text-lg text-tx-secondary mt-7 mb-7">{{ title }}</div>
             <el-button v-if="showBtn" type="primary" @click="router.go(-1)">
                 {{ second }} 秒后返回上一页
             </el-button>
