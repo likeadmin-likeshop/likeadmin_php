@@ -77,5 +77,10 @@ return [
         'login_agreement' => 1,
     ],
 
+    // 后台装修
+    'decorate' => [
+        // 底部导航栏样式设置
+        'tabbar_style' => ['default_color' => '#999999', 'selected_color' => '#4173ff'],
+    ]
 
 ];
