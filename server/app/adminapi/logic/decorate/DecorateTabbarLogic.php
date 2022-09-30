@@ -39,7 +39,7 @@ class DecorateTabbarLogic extends BaseLogic
     public static function detail(): array
     {
         $list = DecorateTabbar::getTabbarLists();
-        $style = ConfigService::get('tabbar', 'style', (object)config('project.decorate.tabbar_style'));
+        $style = ConfigService::get('tabbar', 'style', config('project.decorate.tabbar_style'));
         return ['style' => $style, 'list' => $list];
     }
 
