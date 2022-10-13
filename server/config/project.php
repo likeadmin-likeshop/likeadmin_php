@@ -14,6 +14,16 @@ return [
         'shop_logo' => 'resource/image/adminapi/default/shop_logo.png', // 商城图标
     ],
 
+    // 后台登录
+    'admin_login' => [
+        // 管理后台登录限制 0-不限制 1-需要限制
+        'login_restrictions' => 1,
+        // 限制密码错误次数
+        'password_error_times' => 5,
+        // 限制禁止多少分钟不能登录
+        'limit_login_time' => 30,
+    ],
+
     // 唯一标识，密码盐、路径加密等
     'unique_identification' => env('project.unique_identification', 'likeadmin'),
 
