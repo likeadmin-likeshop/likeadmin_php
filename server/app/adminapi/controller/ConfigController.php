@@ -58,7 +58,7 @@ class ConfigController extends BaseAdminController
 
 
     /**
-     * @notes 根据类型获取下拉框数据
+     * @notes 获取下拉框数据
      * @return \think\response\Json
      * @author 段誉
      * @date 2022/9/27 19:33
