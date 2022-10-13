@@ -46,7 +46,8 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             '{API_DIR}',
             '{PERMS_ADD}',
             '{PERMS_EDIT}',
-            '{PERMS_DELETE}'
+            '{PERMS_DELETE}',
+            '{SETUP_NAME}'
         ];
 
         // 等待替换的内容
@@ -62,6 +63,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getPermsContent(),
             $this->getPermsContent('edit'),
             $this->getPermsContent('delete'),
+            $this->getLowerCamelName()
         ];
         $templatePath = $this->getTemplatePath('vue_index');
 

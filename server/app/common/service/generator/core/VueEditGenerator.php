@@ -46,7 +46,8 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             '{API_DIR}',
             '{CHECKBOX_JOIN}',
             '{CHECKBOX_SPLIT}',
-            '{FORM_DATE}'
+            '{FORM_DATE}',
+            '{SETUP_NAME}'
         ];
 
         // 等待替换的内容
@@ -63,6 +64,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getCheckBoxJoinContent(),
             $this->getCheckBoxSplitContent(),
             $this->getFormDateContent(),
+            $this->getLowerCamelName()
         ];
         $templatePath = $this->getTemplatePath('vue_edit');
 
