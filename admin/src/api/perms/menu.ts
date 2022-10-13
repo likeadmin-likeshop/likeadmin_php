@@ -4,6 +4,10 @@ import request from '@/utils/request'
 export function menuLists(params: Record<string, any>) {
     return request.get({ url: '/auth.menu/lists', params })
 }
+// 菜单全部
+export function menuAll(params: Record<string, any>) {
+    return request.get({ url: '/auth.menu/all', params })
+}
 
 // 添加菜单
 export function menuAdd(params: Record<string, any>) {

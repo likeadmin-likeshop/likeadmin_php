@@ -49,7 +49,7 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import { deptEdit, deptAdd, deptDetail } from '@/api/org/department'
+import { deptEdit, deptAdd, deptDetail, deptAll } from '@/api/org/department'
 import Popup from '@/components/popup/index.vue'
 import { useDictOptions } from '@/hooks/useDictOptions'
 const emit = defineEmits(['success', 'close'])
@@ -108,7 +108,9 @@ const formRules = {
 const { optionsData } = useDictOptions<{
     dept: any[]
 }>({
-    dept: {}
+    dept: {
+        api: deptAll
+    }
 })
 
 const handleSubmit = async () => {

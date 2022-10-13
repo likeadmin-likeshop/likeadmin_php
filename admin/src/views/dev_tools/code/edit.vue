@@ -260,6 +260,8 @@ import { generateEdit, tableDetail } from '@/api/tools/code'
 import type { FormInstance } from 'element-plus'
 import feedback from '@/utils/feedback'
 import { useDictOptions } from '@/hooks/useDictOptions'
+import { dictTypeAll } from '@/api/setting/dict'
+import { menuAll } from '@/api/perms/menu'
 const route = useRoute()
 const router = useRouter()
 const activeName = ref('column')
@@ -320,8 +322,11 @@ const { optionsData } = useDictOptions<{
     dict_type: any[]
     menu: any[]
 }>({
-    dict_type: {},
+    dict_type: {
+        api: dictTypeAll
+    },
     menu: {
+        api: menuAll,
         transformData(data) {
             const menu = { id: 0, name: '顶级', children: [] }
             menu.children = data

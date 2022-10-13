@@ -5,6 +5,11 @@ export function dictTypeLists(params: any) {
     return request.get({ url: '/setting.dict.dict_type/lists', params })
 }
 
+// 字典类型列表全部
+export function dictTypeAll(params: any) {
+    return request.get({ url: '/setting.dict.dict_type/all', params })
+}
+
 // 添加字典类型
 export function dictTypeAdd(params: any) {
     return request.post({ url: '/setting.dict.dict_type/add', params })

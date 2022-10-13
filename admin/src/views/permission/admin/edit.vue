@@ -131,6 +131,9 @@ import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { adminAdd, adminDetail, adminEdit } from '@/api/perms/admin'
+import { roleAll } from '@/api/perms/role'
+import { jobsAll } from '@/api/org/post'
+import { deptAll } from '@/api/org/department'
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
@@ -205,9 +208,15 @@ const { optionsData } = useDictOptions<{
     jobs: any[]
     dept: any[]
 }>({
-    role: {},
-    jobs: {},
-    dept: {}
+    role: {
+        api: roleAll
+    },
+    jobs: {
+        api: jobsAll
+    },
+    dept: {
+        api: deptAll
+    }
 })
 
 const handleSubmit = async () => {
