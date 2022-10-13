@@ -171,7 +171,8 @@ class MenuLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        $data = SystemMenu::order(['sort' => 'desc', 'id' => 'desc'])
+        $data = SystemMenu::field('id,pid,name')
+            ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();
 
