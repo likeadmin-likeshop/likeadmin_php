@@ -14,6 +14,7 @@
 
 namespace app\adminapi\logic\setting\dict;
 
+use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\dict\DictData;
 use app\common\model\dict\DictType;
@@ -88,5 +89,23 @@ class DictTypeLogic extends BaseLogic
     public static function detail($params): array
     {
         return DictType::findOrEmpty($params['id'])->toArray();
+    }
+
+
+    /**
+     * @notes 角色数据
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:44
+     */
+    public static function getAllData()
+    {
+        return DictType::where(['status' => YesNoEnum::YES])
+            ->order(['id' => 'desc'])
+            ->select()
+            ->toArray();
     }
 }

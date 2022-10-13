@@ -27,6 +27,8 @@ use app\adminapi\validate\article\ArticleCateValidate;
 class ArticleCateController extends BaseAdminController
 {
 
+    public array $notNeedLogin = ['all'];
+
     /**
      * @notes  查看资讯分类列表
      * @return \think\response\Json
@@ -36,18 +38,6 @@ class ArticleCateController extends BaseAdminController
     public function lists()
     {
         return $this->dataLists(new ArticleCateLists());
-    }
-
-
-    /**
-     * @notes  获取所有的资讯分类
-     * @return \think\response\Json
-     * @author heshihu
-     * @date 2022/2/21 18:12
-     */
-    public function selectArticleCate()
-    {
-        return $this->data(ArticleCateLogic::selectArticleCate());
     }
 
 
@@ -124,6 +114,22 @@ class ArticleCateController extends BaseAdminController
             return $this->success('修改成功', [], 1, 1);
         }
         return $this->fail(ArticleCateLogic::getError());
+    }
+
+
+    /**
+     * @notes 获取文章分类
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:54
+     */
+    public function all()
+    {
+        $result = ArticleCateLogic::getAllData();
+        return $this->data($result);
     }
 
 

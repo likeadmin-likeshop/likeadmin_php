@@ -159,4 +159,24 @@ class MenuLogic extends BaseLogic
         ]);
     }
 
+
+    /**
+     * @notes 全部数据
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 11:03
+     */
+    public static function getAllData()
+    {
+        $data = SystemMenu::field('id,pid,name')
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+
+        return linear_to_tree($data, 'children');
+    }
+
 }
