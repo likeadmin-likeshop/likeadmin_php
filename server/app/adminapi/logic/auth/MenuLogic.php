@@ -15,6 +15,7 @@
 namespace app\adminapi\logic\auth;
 
 
+use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\auth\Admin;
 use app\common\model\auth\SystemMenu;
@@ -171,7 +172,8 @@ class MenuLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        $data = SystemMenu::field('id,pid,name')
+        $data = SystemMenu::where(['is_disable' => YesNoEnum::NO])
+            ->field('id,pid,name')
             ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();
