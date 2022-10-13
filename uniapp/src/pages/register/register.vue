@@ -35,22 +35,26 @@
                 <u-checkbox v-model="isCheckAgreement" shape="circle">
                     <view class="text-xs flex">
                         已阅读并同意
-                        <navigator
-                            @click.stop=""
-                            class="text-primary"
-                            hover-class="none"
-                            url="/pages/agreement/agreement?type=service"
-                        >
-                            《服务协议》
-                        </navigator>
-                        和<navigator
-                            @click.stop=""
-                            class="text-primary"
-                            hover-class="none"
-                            url="/pages/agreement/agreement?type=privacy"
-                        >
-                            《隐私协议》
-                        </navigator>
+                        <view @click.stop>
+                            <navigator
+                                class="text-primary"
+                                hover-class="none"
+                                url="/pages/agreement/agreement?type=service"
+                            >
+                                《服务协议》
+                            </navigator>
+                        </view>
+
+                        和
+                        <view @click.stop>
+                            <navigator
+                                class="text-primary"
+                                hover-class="none"
+                                url="/pages/agreement/agreement?type=privacy"
+                            >
+                                《隐私协议》
+                            </navigator>
+                        </view>
                     </view>
                 </u-checkbox>
             </view>
@@ -68,7 +72,7 @@ import { computed, reactive, ref } from 'vue'
 
 const isCheckAgreement = ref(false)
 const appStore = useAppStore()
-const isOpenAgreement = computed(() => appStore.getLoginConfig.openAgreement == 1)
+const isOpenAgreement = computed(() => appStore.getLoginConfig.login_agreement == 1)
 const formData = reactive({
     account: '',
     password: '',
