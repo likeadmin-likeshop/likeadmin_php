@@ -338,7 +338,7 @@ class installModel
             }
         } elseif ($this->tableExits() and $this->clearDB == false) {
             $return->result = 'fail';
-            $return->error = '数据表已经存在，您之前应该有安装过本系统，继续安装请选择清空现有数据';
+            $return->error = '数据表已存在，您之前可能已安装本系统，如需继续安装请选择新的数据库。';
             return $return;
         } elseif ($this->dbExists() and $this->clearDB == true) {
             if (!$this->dropDb($connectionInfo['name'])) {
