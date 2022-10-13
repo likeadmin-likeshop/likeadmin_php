@@ -24,7 +24,7 @@ use app\adminapi\validate\LoginValidate;
  */
 class LoginController extends BaseAdminController
 {
-    public array $notNeedLogin = ['account', 'logout'];
+    public array $notNeedLogin = ['account'];
 
     /**
      * @notes 账号登录
