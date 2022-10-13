@@ -174,10 +174,23 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $column['column_name'],
                 $column['dict_type'],
             ];
+
             $templatePath = $this->getTemplatePath('form_item/' . $column['view_type']);
             if (!file_exists($templatePath)) {
                 continue;
             }
+
+            // 单选框值处理
+            if ($column['view_type'] == 'radio') {
+                $radioItemValue = 'item.value';
+                $intFieldValue = ['tinyint', 'smallint', 'mediumint', 'int', 'integer', 'bigint'];
+                if (in_array($column['column_type'], $intFieldValue)) {
+                    $radioItemValue = 'parseInt(item.value)';
+                }
+                array_push($needReplace, '{ITEM_VALUE}');
+                array_push($waitReplace, $radioItemValue);
+            }
+
             $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . PHP_EOL;
         }
 
