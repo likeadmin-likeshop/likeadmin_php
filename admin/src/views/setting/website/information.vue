@@ -3,6 +3,7 @@
     <div class="website-information">
         <el-form ref="formRef" :rules="rules" class="ls-form" :model="formData" label-width="120px">
             <el-card shadow="never" class="!border-none">
+                <div class="text-xl font-medium mb-[20px]">后台设置</div>
                 <el-form-item label="网站名称" prop="name">
                     <div class="w-80">
                         <el-input
@@ -33,7 +34,7 @@
                 </el-form-item>
             </el-card>
             <el-card shadow="never" class="!border-none mt-4">
-                <div class="text-xl font-medium mb-[20px]">商城设置</div>
+                <div class="text-xl font-medium mb-[20px]">前台设置</div>
                 <el-form-item label="商城名称" prop="shop_name">
                     <div class="w-80">
                         <el-input
