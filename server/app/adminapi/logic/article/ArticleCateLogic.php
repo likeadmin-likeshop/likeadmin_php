@@ -14,6 +14,7 @@
 
 namespace app\adminapi\logic\article;
 
+use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\article\ArticleCate;
 
@@ -25,23 +26,6 @@ use app\common\model\article\ArticleCate;
 class ArticleCateLogic extends BaseLogic
 {
 
-    /**
-     * @notes  获取所有的资讯分类
-     * @return array
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author heshihu
-     * @date 2022/2/15 9:45
-     */
-    public static function selectArticleCate() : array
-    {
-        return ArticleCate::where('is_show', 1)
-            ->field('id,name')
-            ->order('id desc, sort asc')
-            ->select()
-            ->toArray();
-    }
 
     /**
      * @notes  添加资讯分类
@@ -121,4 +105,23 @@ class ArticleCateLogic extends BaseLogic
         ]);
         return true;
     }
+
+
+    /**
+     * @notes 文章分类数据
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:53
+     */
+    public static function getAllData()
+    {
+        return ArticleCate::where(['is_show' => YesNoEnum::YES])
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+    }
+
 }

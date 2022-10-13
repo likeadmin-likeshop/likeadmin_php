@@ -28,6 +28,8 @@ use app\adminapi\validate\dict\DictTypeValidate;
 class DictTypeController extends BaseAdminController
 {
 
+    public array $notNeedLogin = ['all'];
+
     /**
      * @notes 获取字典类型列表
      * @return \think\response\Json
@@ -92,6 +94,22 @@ class DictTypeController extends BaseAdminController
     {
         $params = (new DictTypeValidate())->goCheck('detail');
         $result = DictTypeLogic::detail($params);
+        return $this->data($result);
+    }
+
+
+    /**
+     * @notes 获取字典类型数据
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:46
+     */
+    public function all()
+    {
+        $result = DictTypeLogic::getAllData();
         return $this->data($result);
     }
 

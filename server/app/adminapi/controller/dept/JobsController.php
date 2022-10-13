@@ -28,6 +28,7 @@ use app\adminapi\validate\dept\JobsValidate;
 class JobsController extends BaseAdminController
 {
 
+    public array $notNeedLogin = ['all'];
 
     /**
      * @notes 岗位列表
@@ -96,6 +97,22 @@ class JobsController extends BaseAdminController
     {
         $params = (new JobsValidate())->goCheck('detail');
         $result = JobsLogic::detail($params);
+        return $this->data($result);
+    }
+
+
+    /**
+     * @notes 获取岗位数据
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:31
+     */
+    public function all()
+    {
+        $result = JobsLogic::getAllData();
         return $this->data($result);
     }
 

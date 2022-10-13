@@ -26,6 +26,8 @@ use app\adminapi\validate\dept\DeptValidate;
 class DeptController extends BaseAdminController
 {
 
+    public array $notNeedLogin = ['all'];
+
     /**
      * @notes 部门列表
      * @return \think\response\Json
@@ -111,6 +113,22 @@ class DeptController extends BaseAdminController
     {
         $params = (new DeptValidate())->goCheck('detail');
         $result = DeptLogic::detail($params);
+        return $this->data($result);
+    }
+
+
+    /**
+     * @notes 获取部门数据
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:28
+     */
+    public function all()
+    {
+        $result = DeptLogic::getAllData();
         return $this->data($result);
     }
 

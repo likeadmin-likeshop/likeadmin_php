@@ -14,6 +14,7 @@
 
 namespace app\adminapi\logic\dept;
 
+use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
 use app\common\model\dept\Jobs;
@@ -97,5 +98,22 @@ class JobsLogic extends BaseLogic
         return Jobs::findOrEmpty($params['id'])->toArray();
     }
 
+
+    /**
+     * @notes 岗位数据
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:30
+     */
+    public static function getAllData()
+    {
+        return Jobs::where(['status' => YesNoEnum::YES])
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+    }
 
 }

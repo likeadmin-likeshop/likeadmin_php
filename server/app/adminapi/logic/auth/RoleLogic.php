@@ -149,4 +149,21 @@ class RoleLogic extends BaseLogic
     }
 
 
+    /**
+     * @notes 角色数据
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:39
+     */
+    public static function getAllData()
+    {
+        return SystemRole::order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+    }
+
+
 }
