@@ -44,6 +44,12 @@ export const rules = reactive<FormRules>({
             required: true,
             message: '必填项不能为空',
             trigger: ['blur', 'change']
+        },
+        {
+            pattern:
+                /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/,
+            message: '请输入合法的网址链接',
+            trigger: ['blur', 'change']
         }
     ],
     appId: [
@@ -124,7 +130,6 @@ export const useMenuOa = (ref: any) => {
                 await refs[i].menuFormRef.validate()
             } catch (error) {
                 menuIndex.value = i
-                feedback.msgError(`菜单${i + 1}必填项不能为空～`)
                 return
             }
         }
@@ -139,7 +144,6 @@ export const useMenuOa = (ref: any) => {
                 await refs[i].menuFormRef.validate()
             } catch (error) {
                 menuIndex.value = i
-                feedback.msgError(`菜单${i + 1}必填项不能为空～`)
                 return
             }
         }
