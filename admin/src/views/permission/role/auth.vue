@@ -46,9 +46,9 @@
 <script lang="ts" setup>
 import type { CheckboxValueType, ElTree, FormInstance } from 'element-plus'
 import { roleEdit } from '@/api/perms/role'
-import { getSelectData } from '@/api/app'
 import Popup from '@/components/popup/index.vue'
 import { treeToArray } from '@/utils/util'
+import { menuAll } from '@/api/perms/menu'
 const emit = defineEmits(['success', 'close'])
 const treeRef = shallowRef<InstanceType<typeof ElTree>>()
 const formRef = shallowRef<FormInstance>()
@@ -78,9 +78,7 @@ const rules = {
 
 const getOptions = () => {
     loading.value = true
-    getSelectData({
-        type: 'menu'
-    }).then((res: any) => {
+    menuAll().then((res: any) => {
         menuTree.value = res
         menuArray.value = treeToArray(res)
         nextTick(() => {

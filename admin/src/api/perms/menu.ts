@@ -5,7 +5,7 @@ export function menuLists(params: Record<string, any>) {
     return request.get({ url: '/auth.menu/lists', params })
 }
 // 菜单全部
-export function menuAll(params: Record<string, any>) {
+export function menuAll(params?: Record<string, any>) {
     return request.get({ url: '/auth.menu/all', params })
 }
 
