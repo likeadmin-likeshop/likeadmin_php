@@ -61,7 +61,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="{SETUP_NAME}Lists">
 import { usePaging } from '@/hooks/usePaging'
 import { useDictData } from '@/hooks/useDictOptions'
 import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'

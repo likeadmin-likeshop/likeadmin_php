@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="{SETUP_NAME}Edit">
 import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
 import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Edit, api{UPPER_CAMEL_NAME}Detail } from '@/api/{API_DIR}'

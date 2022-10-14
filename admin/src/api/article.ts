@@ -6,7 +6,7 @@ export function articleCateLists(params?: any) {
 }
 // 文章分类列表
 export function articleCateAll(params?: any) {
-    return request.get({ url: '/article.articleCate/selectArticleCate', params })
+    return request.get({ url: '/article.articleCate/all', params })
 }
 
 // 添加文章分类

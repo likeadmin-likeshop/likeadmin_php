@@ -5,6 +5,11 @@ export function jobsLists(params: any) {
     return request.get({ url: '/dept.jobs/lists', params })
 }
 
+// 岗位列表全部
+export function jobsAll(params: any) {
+    return request.get({ url: '/dept.jobs/all', params })
+}
+
 // 添加岗位
 export function jobsAdd(params: any) {
     return request.post({ url: '/dept.jobs/add', params })

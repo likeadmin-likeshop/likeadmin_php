@@ -4,7 +4,10 @@ import request from '@/utils/request'
 export function adminLists(params: any) {
     return request.get({ url: '/auth.admin/lists', params })
 }
-
+// 管理员列表全部
+export function adminAll(params: any) {
+    return request.get({ url: '/auth.admin/a l l s', params })
+}
 // 管理员添加
 export function adminAdd(params: any) {
     return request.post({ url: '/auth.admin/add', params })

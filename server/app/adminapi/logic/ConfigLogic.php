@@ -14,7 +14,12 @@
 
 namespace app\adminapi\logic;
 
+use app\adminapi\logic\article\ArticleCateLogic;
+use app\adminapi\logic\auth\MenuLogic;
+use app\adminapi\logic\auth\RoleLogic;
 use app\adminapi\logic\dept\DeptLogic;
+use app\adminapi\logic\dept\JobsLogic;
+use app\adminapi\logic\setting\dict\DictTypeLogic;
 use app\common\enum\YesNoEnum;
 use app\common\model\article\ArticleCate;
 use app\common\model\auth\SystemMenu;
@@ -95,63 +100,5 @@ class ConfigLogic
     }
 
 
-    /**
-     * @notes 根据类型获取下拉框数据
-     * @param $type
-     * @return array
-     * @author 段誉
-     * @date 2022/9/27 19:32
-     */
-    public static function getSelectDataByType($type)
-    {
-        $allowData = [
-            'dept' => Dept::class,
-            'jobs' => Jobs::class,
-            'role' => SystemRole::class,
-            'dict_type' => DictType::class,
-            'article_cate' => ArticleCate::class,
-            'menu' => SystemMenu::class,
-        ];
-        if (!in_array($type, array_keys($allowData))) {
-            return [];
-        }
-
-        $where = [];
-        $order = [];
-        switch ($type) {
-            case 'dept':
-            case 'jobs':
-                $where[] = ['status', '=', YesNoEnum::YES];
-                $order['sort'] = 'desc';
-                break;
-            case 'role':
-                $order['sort'] = 'desc';
-                break;
-            case 'dict_type':
-                $where[] = ['status', '=', YesNoEnum::YES];
-                break;
-            case 'article_cate':
-                $where[] = ['is_show', '=', YesNoEnum::YES];
-                $order['sort'] = 'desc';
-                break;
-            case 'menu':
-                $order['sort'] = 'desc';
-        }
-
-        $order['id'] = 'desc';
-        $model = $allowData[$type];
-        $result = app($model)->where($where)->order($order)->select()->toArray();
-
-        if ($type == 'dept' && !empty($result)) {
-            $pid = min(array_column($result, 'pid'));
-            $result = DeptLogic::getTree($result, $pid);
-        }
-
-        if ($type == 'menu' && !empty($result)) {
-            $result = linear_to_tree($result, 'children');
-        }
-
-        return $result;
-    }
 
 }

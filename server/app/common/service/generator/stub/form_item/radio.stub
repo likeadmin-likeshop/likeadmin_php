@@ -2,8 +2,8 @@
     <el-radio-group v-model="formData.{COLUMN_NAME}" placeholder="请选择{COLUMN_COMMENT}">
         <el-radio 
             v-for="(item, index) in dictData.{DICT_TYPE}"
-            :key="index" 
-            :label="item.value"
+            :key="index"
+            :label="{ITEM_VALUE}"
         >
             {{ item.name }}
         </el-radio>

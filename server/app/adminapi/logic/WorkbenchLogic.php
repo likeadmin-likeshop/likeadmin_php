@@ -78,7 +78,7 @@ class WorkbenchLogic extends BaseLogic
             [
                 'name' => '字典管理',
                 'image' => FileService::getFileUrl(config('project.default_image.menu_dict')),
-                'url' => '/setting/dict'
+                'url' => '/dev_tools/dict'
             ],
             [
                 'name' => '代码生成器',

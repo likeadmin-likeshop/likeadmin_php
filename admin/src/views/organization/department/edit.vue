@@ -26,17 +26,25 @@
                     />
                 </el-form-item>
                 <el-form-item label="部门名称" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入部门名称" />
+                    <el-input
+                        v-model="formData.name"
+                        placeholder="请输入部门名称"
+                        :maxlength="100"
+                    />
                 </el-form-item>
                 <el-form-item label="负责人" prop="leader">
-                    <el-input v-model="formData.leader" placeholder="请输入负责人姓名" />
+                    <el-input
+                        v-model="formData.leader"
+                        placeholder="请输入负责人姓名"
+                        :maxlength="30"
+                    />
                 </el-form-item>
                 <el-form-item label="联系电话" prop="mobile">
                     <el-input v-model="formData.mobile" placeholder="请输入联系电话" />
                 </el-form-item>
                 <el-form-item label="排序" prop="sort">
                     <div>
-                        <el-input-number v-model="formData.sort" :min="0" />
+                        <el-input-number v-model="formData.sort" :min="0" :max="9999" />
                         <div class="form-tips">默认为0， 数值越大越排前</div>
                     </div>
                 </el-form-item>
@@ -49,7 +57,7 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import { deptEdit, deptAdd, deptDetail } from '@/api/org/department'
+import { deptEdit, deptAdd, deptDetail, deptAll } from '@/api/org/department'
 import Popup from '@/components/popup/index.vue'
 import { useDictOptions } from '@/hooks/useDictOptions'
 const emit = defineEmits(['success', 'close'])
@@ -108,7 +116,9 @@ const formRules = {
 const { optionsData } = useDictOptions<{
     dept: any[]
 }>({
-    dept: {}
+    dept: {
+        api: deptAll
+    }
 })
 
 const handleSubmit = async () => {

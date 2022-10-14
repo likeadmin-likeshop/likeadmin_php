@@ -4,7 +4,7 @@
             v-for="(item, index) in dictData.{DICT_TYPE}"
             :key="index" 
             :label="item.name"
-            :value="item.value"
+            :value="{ITEM_VALUE}"
         />
     </el-select>
 </el-form-item>

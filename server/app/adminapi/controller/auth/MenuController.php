@@ -29,6 +29,7 @@ use app\adminapi\validate\auth\MenuValidate;
 class MenuController extends BaseAdminController
 {
 
+    public array $notNeedLogin = ['all'];
 
     /**
      * @notes 获取菜单路由
@@ -121,6 +122,22 @@ class MenuController extends BaseAdminController
         $params = (new MenuValidate())->post()->goCheck('status');
         MenuLogic::updateStatus($params);
         return $this->success('操作成功', [], 1, 1);
+    }
+
+
+    /**
+     * @notes 获取菜单数据
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 11:03
+     */
+    public function all()
+    {
+        $result = MenuLogic::getAllData();
+        return $this->data($result);
     }
 
 

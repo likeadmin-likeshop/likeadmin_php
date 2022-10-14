@@ -25,7 +25,7 @@ export function deptDetail(params: any) {
     return request.get({ url: '/dept.dept/detail', params })
 }
 
-// 上级部门列表
-export function leaderDept() {
-    return request.get({ url: 'dept.dept/leaderDept' })
+// 部门列表全部
+export function deptAll() {
+    return request.get({ url: '/dept.dept/all' })
 }

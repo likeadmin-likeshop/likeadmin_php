@@ -29,6 +29,8 @@ use app\adminapi\{
 class RoleController extends BaseAdminController
 {
 
+    public array $notNeedLogin = ['all'];
+
     /**
      * @notes 查看角色列表
      * @return \think\response\Json
@@ -84,7 +86,7 @@ class RoleController extends BaseAdminController
     public function delete()
     {
         $params = (new RoleValidate())->post()->goCheck('del');
-        (new RoleLogic)->delete($params['id']);
+        RoleLogic::delete($params['id']);
         return $this->success('删除成功', [], 1, 1);
     }
 
@@ -101,9 +103,24 @@ class RoleController extends BaseAdminController
     public function detail()
     {
         $params = (new RoleValidate())->goCheck('detail');
-        $detail = (new RoleLogic)->detail($params['id']);
+        $detail = RoleLogic::detail($params['id']);
         return $this->data($detail);
     }
 
+
+    /**
+     * @notes 获取角色数据
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:39
+     */
+    public function all()
+    {
+        $result = RoleLogic::getAllData();
+        return $this->data($result);
+    }
 
 }

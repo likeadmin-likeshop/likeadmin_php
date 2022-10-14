@@ -57,10 +57,11 @@ class LoginValidate extends BaseValidate
     {
         // 登录限制
         $config = [
-            'login_restrictions' => ConfigService::get('shop', 'login_restrictions'),
-            'password_error_times' => ConfigService::get('shop', 'password_error_times'),
-            'limit_login_time' => ConfigService::get('shop', 'limit_login_time'),
+            'login_restrictions' => ConfigService::get('admin_login', 'login_restrictions'),
+            'password_error_times' => ConfigService::get('admin_login', 'password_error_times'),
+            'limit_login_time' => ConfigService::get('admin_login', 'limit_login_time'),
         ];
+
         $adminAccountSafeCache = new AdminAccountSafeCache();
         if ($config['login_restrictions'] == 1) {
             $adminAccountSafeCache->count = $config['password_error_times'];

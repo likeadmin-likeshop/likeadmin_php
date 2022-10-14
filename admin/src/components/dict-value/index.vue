@@ -6,10 +6,15 @@
     </div>
 </template>
 <script lang="ts" setup>
-const props = defineProps<{
-    options: any[]
-    value: any
-}>()
+const props = withDefaults(
+    defineProps<{
+        options: any[]
+        value: any
+    }>(),
+    {
+        options: () => []
+    }
+)
 
 const values = computed(() => {
     if (props.value !== null && typeof props.value !== 'undefined') {

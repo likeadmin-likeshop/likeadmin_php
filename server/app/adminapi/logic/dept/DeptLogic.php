@@ -14,6 +14,7 @@
 
 namespace app\adminapi\logic\dept;
 
+use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\dept\Dept;
 
@@ -176,4 +177,26 @@ class DeptLogic extends BaseLogic
     {
         return Dept::findOrEmpty($params['id'])->toArray();
     }
+
+
+    /**
+     * @notes 部门数据
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 10:19
+     */
+    public static function getAllData()
+    {
+        $data = Dept::where(['status' => YesNoEnum::YES])
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+
+        $pid = min(array_column($data, 'pid'));
+        return self::getTree($data, $pid);
+    }
+
 }

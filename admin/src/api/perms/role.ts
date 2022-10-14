@@ -4,6 +4,10 @@ import request from '@/utils/request'
 export function roleLists(params: any) {
     return request.get({ url: '/auth.role/lists', params })
 }
+// 角色列表全部
+export function roleAll(params: any) {
+    return request.get({ url: '/auth.role/all', params })
+}
 // 添加角色
 export function roleAdd(params: any) {
     return request.post({ url: '/auth.role/add', params })

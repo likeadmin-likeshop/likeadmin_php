@@ -17,7 +17,7 @@
                                 @keyup.enter="handleEnter"
                             >
                                 <template #prepend>
-                                    <icon name="el-icon-Avatar" />
+                                    <icon name="el-icon-User" />
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -99,7 +99,7 @@ const handleLogin = async () => {
     // 记住账号，缓存
     cache.set(ACCOUNT_KEY, {
         remember: remAccount.value,
-        account: formData.account
+        account: remAccount.value ? formData.account : ''
     })
     await userStore.login(formData)
     const {

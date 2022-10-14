@@ -46,7 +46,8 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             '{API_DIR}',
             '{PERMS_ADD}',
             '{PERMS_EDIT}',
-            '{PERMS_DELETE}'
+            '{PERMS_DELETE}',
+            '{SETUP_NAME}'
         ];
 
         // 等待替换的内容
@@ -62,6 +63,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getPermsContent(),
             $this->getPermsContent('edit'),
             $this->getPermsContent('delete'),
+            $this->getLowerCamelName()
         ];
         $templatePath = $this->getTemplatePath('vue_index');
 
@@ -96,7 +98,13 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $column['column_name'],
                 $column['dict_type'],
             ];
-            $templatePath = $this->getTemplatePath('search_item/' . $column['view_type']);
+
+            $searchStubType = $column['view_type'];
+            if ($column['view_type'] == 'radio') {
+                $searchStubType = 'select';
+            }
+
+            $templatePath = $this->getTemplatePath('search_item/' . $searchStubType);
             if (!file_exists($templatePath)) {
                 continue;
             }

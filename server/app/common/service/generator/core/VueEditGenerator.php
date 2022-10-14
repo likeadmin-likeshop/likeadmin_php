@@ -46,7 +46,8 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             '{API_DIR}',
             '{CHECKBOX_JOIN}',
             '{CHECKBOX_SPLIT}',
-            '{FORM_DATE}'
+            '{FORM_DATE}',
+            '{SETUP_NAME}'
         ];
 
         // 等待替换的内容
@@ -63,6 +64,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getCheckBoxJoinContent(),
             $this->getCheckBoxSplitContent(),
             $this->getFormDateContent(),
+            $this->getLowerCamelName()
         ];
         $templatePath = $this->getTemplatePath('vue_edit');
 
@@ -174,10 +176,23 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $column['column_name'],
                 $column['dict_type'],
             ];
+
             $templatePath = $this->getTemplatePath('form_item/' . $column['view_type']);
             if (!file_exists($templatePath)) {
                 continue;
             }
+
+            // 单选框值处理
+            if ($column['view_type'] == 'radio' || $column['view_type'] == 'select') {
+                $stubItemValue = 'item.value';
+                $intFieldValue = ['tinyint', 'smallint', 'mediumint', 'int', 'integer', 'bigint'];
+                if (in_array($column['column_type'], $intFieldValue)) {
+                    $stubItemValue = 'parseInt(item.value)';
+                }
+                array_push($needReplace, '{ITEM_VALUE}');
+                array_push($waitReplace, $stubItemValue);
+            }
+
             $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . PHP_EOL;
         }
 

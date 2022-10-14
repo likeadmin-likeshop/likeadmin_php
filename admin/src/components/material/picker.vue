@@ -83,6 +83,7 @@ import FileItem from './file.vue'
 import Material from './index.vue'
 import Preview from './preview.vue'
 import useAppStore from '@/stores/modules/app'
+import { useThrottleFn } from '@vueuse/core'
 export default defineComponent({
     components: {
         Popup,
@@ -170,17 +171,21 @@ export default defineComponent({
             if (limit.value == -1) return null
             return limit.value - fileList.value.length
         })
-        const handleConfirm = () => {
-            const selectUri = select.value.map((item) =>
-                props.excludeDomain ? item.url : item.uri
-            )
-            if (!isAdd.value) {
-                fileList.value.splice(currentIndex.value, 1, selectUri.shift())
-            } else {
-                fileList.value = [...fileList.value, ...selectUri]
-            }
-            handleChange()
-        }
+        const handleConfirm = useThrottleFn(
+            () => {
+                const selectUri = select.value.map((item) =>
+                    props.excludeDomain ? item.url : item.uri
+                )
+                if (!isAdd.value) {
+                    fileList.value.splice(currentIndex.value, 1, selectUri.shift())
+                } else {
+                    fileList.value = [...fileList.value, ...selectUri]
+                }
+                handleChange()
+            },
+            1000,
+            false
+        )
         const showPopup = (index: number) => {
             if (disabled.value) return
             if (index >= 0) {

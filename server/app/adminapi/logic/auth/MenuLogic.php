@@ -15,6 +15,7 @@
 namespace app\adminapi\logic\auth;
 
 
+use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\auth\Admin;
 use app\common\model\auth\SystemMenu;
@@ -157,6 +158,27 @@ class MenuLogic extends BaseLogic
             'id' => $params['id'],
             'is_disable' => $params['is_disable']
         ]);
+    }
+
+
+    /**
+     * @notes 全部数据
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/13 11:03
+     */
+    public static function getAllData()
+    {
+        $data = SystemMenu::where(['is_disable' => YesNoEnum::NO])
+            ->field('id,pid,name')
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+
+        return linear_to_tree($data, 'children');
     }
 
 }
