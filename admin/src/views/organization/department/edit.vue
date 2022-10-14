@@ -26,10 +26,18 @@
                     />
                 </el-form-item>
                 <el-form-item label="部门名称" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入部门名称" />
+                    <el-input
+                        v-model="formData.name"
+                        placeholder="请输入部门名称"
+                        :maxlength="100"
+                    />
                 </el-form-item>
                 <el-form-item label="负责人" prop="leader">
-                    <el-input v-model="formData.leader" placeholder="请输入负责人姓名" />
+                    <el-input
+                        v-model="formData.leader"
+                        placeholder="请输入负责人姓名"
+                        :maxlength="30"
+                    />
                 </el-form-item>
                 <el-form-item label="联系电话" prop="mobile">
                     <el-input v-model="formData.mobile" placeholder="请输入联系电话" />
