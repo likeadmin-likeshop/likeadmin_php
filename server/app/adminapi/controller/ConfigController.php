@@ -24,7 +24,7 @@ use app\adminapi\logic\ConfigLogic;
  */
 class ConfigController extends BaseAdminController
 {
-    public array $notNeedLogin = ['getConfig', 'dict', 'selectData'];
+    public array $notNeedLogin = ['getConfig', 'dict'];
 
 
     /**
@@ -56,19 +56,6 @@ class ConfigController extends BaseAdminController
         return $this->data($data);
     }
 
-
-    /**
-     * @notes 获取下拉框数据
-     * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/9/27 19:33
-     */
-    public function selectData()
-    {
-        $type = $this->request->get('type', '');
-        $data = ConfigLogic::getSelectDataByType($type);
-        return $this->data($data);
-    }
 
 
 }

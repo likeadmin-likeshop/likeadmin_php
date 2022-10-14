@@ -100,29 +100,5 @@ class ConfigLogic
     }
 
 
-    /**
-     * @notes 获取下拉框数据
-     * @param $type
-     * @return array
-     * @author 段誉
-     * @date 2022/9/27 19:32
-     */
-    public static function getSelectDataByType($type)
-    {
-        $allowData = [
-            'dept' => DeptLogic::getAllData(),
-            'jobs' => JobsLogic::getAllData(),
-            'role' => RoleLogic::getAllData(),
-            'dict_type' => DictTypeLogic::getAllData(),
-            'article_cate' => ArticleCateLogic::getAllData(),
-            'menu' => MenuLogic::getAllData(),
-        ];
-
-        if (!in_array($type, array_keys($allowData))) {
-            return [];
-        }
-
-        return $allowData[$type];
-    }
 
 }
