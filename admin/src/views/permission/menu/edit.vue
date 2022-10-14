@@ -153,7 +153,7 @@
                 </el-form-item>
                 <el-form-item label="菜单排序" prop="sort">
                     <div>
-                        <el-input-number v-model="formData.sort" :min="0" />
+                        <el-input-number v-model="formData.sort" :min="0" :max="9999" />
                         <div class="form-tips">数值越大越排前</div>
                     </div>
                 </el-form-item>
