@@ -34,13 +34,17 @@ class ArticleCollectLists extends BaseApiDataLists
      */
     public function lists(): array
     {
-        $field = "c.id,c.article_id,a.title,a.image,a.desc,
+        $field = "c.id,c.article_id,a.title,a.image,a.desc,a.is_show,
         a.click_virtual, a.click_actual,a.create_time";
 
         return (new Article())->alias('a')
             ->join('article_collect c', 'c.article_id = a.id')
             ->field($field)
-            ->where(['c.user_id' => $this->userId, 'c.status' => YesNoEnum::YES])
+            ->where([
+                'c.user_id' => $this->userId,
+                'c.status' => YesNoEnum::YES,
+                'a.is_show' => YesNoEnum::YES,
+            ])
             ->order(['sort' => 'desc', 'c.id' => 'desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->append(['click'])
@@ -59,7 +63,11 @@ class ArticleCollectLists extends BaseApiDataLists
     {
         return (new Article())->alias('a')
             ->join('article_collect c', 'c.article_id = a.id')
-            ->where(['c.user_id' => $this->userId, 'c.status' => YesNoEnum::YES])
+            ->where([
+                'c.user_id' => $this->userId,
+                'c.status' => YesNoEnum::YES,
+                'a.is_show' => YesNoEnum::YES,
+            ])
             ->count();
     }
 }
