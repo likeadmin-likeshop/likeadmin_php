@@ -11,6 +11,7 @@
         <el-form
             ref="formRef"
             :model="formData"
+            :rules="formRules"
             :label-width="appStore.isMobile ? '80px' : '160px'"
         >
             <el-card class="!border-none mt-4" shadow="never">
@@ -145,6 +146,7 @@
 <script lang="ts" setup name="weappConfig">
 import { getWeappConfig, setWeappConfig } from '@/api/channel/weapp'
 import useAppStore from '@/stores/modules/app'
+import type { FormInstance } from 'element-plus'
 
 const appStore = useAppStore()
 const formData = reactive({
@@ -161,7 +163,23 @@ const formData = reactive({
     udp_domain: '',
     upload_file_domain: ''
 })
-
+const formRef = shallowRef<FormInstance>()
+const formRules = {
+    app_id: [
+        {
+            required: true,
+            message: '请输入AppID',
+            trigger: ['blur', 'change']
+        }
+    ],
+    app_secret: [
+        {
+            required: true,
+            message: '请输入AppSecret',
+            trigger: ['blur', 'change']
+        }
+    ]
+}
 const getDetail = async () => {
     const data = await getWeappConfig()
     for (const key in formData) {
@@ -171,6 +189,7 @@ const getDetail = async () => {
 }
 
 const handelSave = async () => {
+    await formRef.value?.validate()
     await setWeappConfig(formData)
     getDetail()
 }

@@ -52,6 +52,15 @@
                     </div>
                 </el-form-item>
             </el-card>
+            <el-card shadow="never" class="!border-none mt-4">
+                <div class="text-xl font-medium mb-[20px]">PC端设置</div>
+                <el-form-item label="PC端LOGO" prop="pc_logo">
+                    <div>
+                        <material-picker v-model="formData.pc_logo" :limit="1" />
+                        <div class="form-tips">建议尺寸：100*100px，支持jpg，jpeg，png格式</div>
+                    </div>
+                </el-form-item>
+            </el-card>
         </el-form>
         <footer-btns v-perms="['setting.web.web_setting/setWebsite']">
             <el-button type="primary" @click="handleSubmit">保存</el-button>
@@ -73,7 +82,8 @@ const formData = reactive({
     web_logo: '', // 网站logo
     login_image: '', // 登录页广告图
     shop_name: '',
-    shop_logo: ''
+    shop_logo: '',
+    pc_logo: ''
 })
 
 // 表单验证
@@ -117,6 +127,13 @@ const rules = {
         {
             required: true,
             message: '请选择商城LOGO',
+            trigger: ['change']
+        }
+    ],
+    pc_logo: [
+        {
+            required: true,
+            message: '请选择PC端LOGO',
             trigger: ['change']
         }
     ]
