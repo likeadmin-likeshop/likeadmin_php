@@ -48,7 +48,7 @@ return [
     // 各种默认图片
     'default_image' => [
         'admin_avatar' => 'resource/image/adminapi/default/avatar.png',
-        'user_avatar' => 'resource/image/adminapi/default/avatar.png',
+        'user_avatar' => 'resource/image/adminapi/default/default_avatar.png',
         'qq_group' => 'resource/image/adminapi/default/qq_group.png', // qq群
         'customer_service' => 'resource/image/adminapi/default/customer_service.jpg', // 客服
         'menu_admin' => 'resource/image/adminapi/default/menu_admin.png',// 首页快捷菜单-管理员
