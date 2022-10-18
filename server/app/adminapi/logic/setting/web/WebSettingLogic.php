@@ -43,6 +43,7 @@ class WebSettingLogic extends BaseLogic
             'login_image' => FileService::getFileUrl(ConfigService::get('website', 'login_image')),
             'shop_name' => ConfigService::get('website', 'shop_name'),
             'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo')),
+            'pc_logo' => FileService::getFileUrl(ConfigService::get('website', 'pc_logo')),
         ];
     }
 
@@ -59,6 +60,7 @@ class WebSettingLogic extends BaseLogic
         $logo = FileService::setFileUrl($params['web_logo']);
         $login = FileService::setFileUrl($params['login_image']);
         $shopLogo = FileService::setFileUrl($params['shop_logo']);
+        $pcLogo = FileService::setFileUrl($params['pc_logo']);
 
         ConfigService::set('website', 'name', $params['name']);
         ConfigService::set('website', 'web_favicon', $favicon);
@@ -66,6 +68,7 @@ class WebSettingLogic extends BaseLogic
         ConfigService::set('website', 'login_image', $login);
         ConfigService::set('website', 'shop_name', $params['shop_name']);
         ConfigService::set('website', 'shop_logo', $shopLogo);
+        ConfigService::set('website', 'pc_logo', $pcLogo);
     }
 
 

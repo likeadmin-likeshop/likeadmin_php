@@ -12,6 +12,7 @@ return [
         'web_favicon' => 'resource/image/adminapi/default/web_favicon.ico', // 网站图标
         'shop_name' => 'likeadmin', // 商城名称
         'shop_logo' => 'resource/image/adminapi/default/shop_logo.png', // 商城图标
+        'pc_logo' => 'resource/image/adminapi/default/pc_logo.png', // pc_logo
     ],
 
     // 后台登录
