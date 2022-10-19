@@ -1,6 +1,5 @@
 import { getUserCenter } from '@/api/user'
 import { TOKEN_KEY } from '@/enums/cacheEnums'
-import cache from '@/utils/cache'
 import { defineStore } from 'pinia'
 
 interface UserSate {
@@ -10,11 +9,14 @@ interface UserSate {
 }
 export const useUserStore = defineStore({
     id: 'userStore',
-    state: (): UserSate => ({
-        userInfo: {},
-        token: cache.get(TOKEN_KEY) || null,
-        temToken: null
-    }),
+    state: (): UserSate => {
+        const TOKEN = useCookie(TOKEN_KEY)
+        return {
+            userInfo: {},
+            token: TOKEN.value || null,
+            temToken: null
+        }
+    },
     getters: {
         isLogin: (state) => !!state.token
     },
@@ -27,13 +29,15 @@ export const useUserStore = defineStore({
             this.userInfo = userInfo
         },
         login(token: string) {
+            const TOKEN = useCookie(TOKEN_KEY)
             this.token = token
-            cache.set(TOKEN_KEY, token)
+            TOKEN.value = token
         },
         logout() {
+            const TOKEN = useCookie(TOKEN_KEY)
             this.token = ''
             this.userInfo = {}
-            cache.remove(TOKEN_KEY)
+            TOKEN.value = ''
         }
     }
 })

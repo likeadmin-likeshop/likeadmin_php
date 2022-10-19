@@ -12,7 +12,8 @@ export const useAppStore = defineStore({
         getImageUrl: (state) => (url: string) =>
             url ? `${state.config.domain}${url}` : '',
         getWebsiteConfig: (state) => state.config.website || {},
-        getLoginConfig: (state) => state.config.login || {}
+        getLoginConfig: (state) => state.config.login || {},
+        getCopyrightConfig: (state) => state.config.copyright || []
     },
     actions: {
         setConfig(config: any) {

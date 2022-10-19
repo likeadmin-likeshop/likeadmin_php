@@ -5,26 +5,53 @@
                 class="flex-1 navbar"
                 :menu="menu"
                 :default-active="activeMenu"
-                background-color="var(--el-color-primary)"
-                text-color="var(--color-white)"
-                active-text-color="var(--color-white)"
                 mode="horizontal"
             />
-            <div class="cursor-pointer" @click="handleToLogin">登录/注册</div>
+            <ElDropdown v-if="userStore.isLogin">
+                <div class="flex items-center">
+                    <ElAvatar :size="25" :src="userStore.userInfo.avatar" />
+                    <div class="ml-1 text-white text-lg flex">
+                        <span class="mr-2">个人中心</span>
+                        <ElIcon><ArrowDown /></ElIcon>
+                    </div>
+                </div>
+                <template #dropdown>
+                    <ElDropdownMenu>
+                        <ElDropdownItem>个人信息</ElDropdownItem>
+                        <ElDropdownItem>我的收藏</ElDropdownItem>
+                        <ElDropdownItem>账号安全</ElDropdownItem>
+                        <ElDropdownItem>退出登录</ElDropdownItem>
+                    </ElDropdownMenu>
+                </template>
+            </ElDropdown>
+
+            <div v-else class="cursor-pointer text-lg" @click="handleToLogin">
+                登录/注册
+            </div>
         </div>
     </header>
 </template>
 <script lang="ts" setup>
+import {
+    ElAvatar,
+    ElDropdown,
+    ElDropdownMenu,
+    ElDropdownItem,
+    ElIcon
+} from 'element-plus'
+import { ArrowDown } from '@element-plus/icons-vue'
+import { useUserStore } from '@/stores/user'
 import { PopupTypeEnum, useAccount } from '../account/useAccount'
 import Menu from '../menu/index.vue'
 const route = useRoute()
 const activeMenu = computed<string>(() => route.path)
 const { menu } = useMenu()
-const { setPopupType, toggleShowPopup, showPopup } = useAccount()
+const { setPopupType, toggleShowPopup } = useAccount()
+const userStore = useUserStore()
+
 const handleToLogin = () => {
     setPopupType(PopupTypeEnum.LOGIN)
     toggleShowPopup(true)
-    console.log(showPopup.value)
 }
 </script>
 
@@ -45,6 +72,12 @@ const handleToLogin = () => {
         padding: 0 40px;
         .navbar {
             --el-menu-item-font-size: var(--el-font-size-large);
+            --el-menu-bg-color: var(--el-color-primary);
+            --el-menu-active-color: var(--color-white);
+            --el-menu-text-color: var(--color-white);
+            --el-menu-item-hover-fill: var(--el-color-primary);
+            --el-menu-hover-text-color: var(--color-white);
+            --el-menu-hover-bg-color: var(--el-color-primary);
         }
     }
 }

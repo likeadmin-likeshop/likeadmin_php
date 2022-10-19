@@ -21,6 +21,7 @@
                     <ElInput
                         v-model="formData.password"
                         type="password"
+                        show-password
                         placeholder="请输入密码"
                     />
                 </ElFormItem>
