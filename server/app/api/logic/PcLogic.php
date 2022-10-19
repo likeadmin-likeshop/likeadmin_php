@@ -19,6 +19,7 @@ use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
 use app\common\model\article\ArticleCate;
+use app\common\model\article\ArticleCollect;
 use app\common\model\decorate\DecoratePage;
 use app\common\model\decorate\DecorateTabbar;
 use app\common\service\ConfigService;
@@ -131,11 +132,15 @@ class PcLogic extends BaseLogic
             'pc_logo' => FileService::getFileUrl(ConfigService::get('website', 'pc_logo')),
         ];
 
+        // 备案信息
+        $copyright = ConfigService::get('copyright', 'config', []);
+
         return [
             'domain' => FileService::getFileUrl(),
             'login' => $loginConfig,
             'website' => $website,
-            'version' => config('project.version')
+            'version' => config('project.version'),
+            'copyright' => $copyright
         ];
     }
 
@@ -164,6 +169,34 @@ class PcLogic extends BaseLogic
             ->toArray();
 
         return $data;
+    }
+
+
+    public static function detail($articleId, $userId)
+    {
+        $article = Article::findOrEmpty($articleId);
+        if (empty($article)) {
+            return [];
+        }
+
+        // 增加点击量
+        $article->click_actual += 1;
+        $article->save();
+
+        // 关注状态
+        $collect = ArticleCollect::where([
+            'user_id' => $userId,
+            'article_id' => $articleId,
+            'status' => YesNoEnum::YES
+        ])->findOrEmpty();
+        $article['collect'] = !$collect->isEmpty();
+
+        // 最新资讯
+        $article['new'] = self::getLimitArticle('new', 8);
+
+        return $article->append(['click'])
+            ->hidden(['click_virtual', 'click_actual'])
+            ->toArray();
     }
 
 }
