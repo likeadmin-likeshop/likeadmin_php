@@ -8,8 +8,10 @@ import feedback from '@/utils/feedback'
 import { merge } from 'lodash-es'
 import { Request } from './request'
 import { getApiPrefix, getBaseUrl, getVersion } from '../env'
+import { useUserStore } from '@/stores/user'
 
 export function createRequest(opt?: Partial<FetchOptions>) {
+    const userStore = useUserStore()
     const defaultOptions: FetchOptions = {
         // 基础接口地址
         baseURL: getBaseUrl(),
@@ -24,7 +26,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
             const headers = options.headers || {}
             // 添加token
             if (withToken) {
-                const token = '1111'
+                const token = userStore.token
                 headers['token'] = token
             }
             options.headers = headers

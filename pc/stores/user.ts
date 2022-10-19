@@ -20,10 +20,11 @@ export const useUserStore = defineStore({
     },
     actions: {
         async getUser() {
-            const data = await getUserCenter({
-                token: this.token || this.temToken
-            })
+            const data = await getUserCenter()
             this.userInfo = data
+        },
+        setUser(userInfo) {
+            this.userInfo = userInfo
         },
         login(token: string) {
             this.token = token

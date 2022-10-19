@@ -5,7 +5,7 @@ export function smsSend(params: any) {
 
 // 获取配置
 export function getConfig() {
-    return $request.get({ url: '/index/config' })
+    return $request.get({ url: '/pc/config' })
 }
 
 // 获取协议

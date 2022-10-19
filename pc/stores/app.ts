@@ -9,12 +9,14 @@ export const useAppStore = defineStore({
         config: {}
     }),
     getters: {
+        getImageUrl: (state) => (url: string) =>
+            url ? `${state.config.domain}${url}` : '',
         getWebsiteConfig: (state) => state.config.website || {},
         getLoginConfig: (state) => state.config.login || {}
     },
     actions: {
-        getImageUrl(url: string) {
-            return url ? `${this.config.domain}${url}` : ''
+        setConfig(config: any) {
+            this.config = config
         }
     }
 })

@@ -23,7 +23,7 @@
                     placeholder="请输入手机号码"
                 />
             </ElFormItem>
-            <ElFormItem prop="account">
+            <ElFormItem prop="code">
                 <ElInput v-model="formData.code" placeholder="请输入验证码">
                     <template #suffix>
                         <div class="border-l border-br flex pl-2.5">
