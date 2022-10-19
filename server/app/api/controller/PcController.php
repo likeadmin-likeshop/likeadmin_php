@@ -27,7 +27,7 @@ use think\response\Json;
 class PcController extends BaseApiController
 {
     
-    public array $notNeedLogin = ['index', 'config'];
+    public array $notNeedLogin = ['index', 'config', 'infoCenter'];
 
 
     /**
@@ -61,6 +61,21 @@ class PcController extends BaseApiController
         return $this->data($result);
     }
 
+
+    /**
+     * @notes 资讯中心
+     * @return Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/19 16:55
+     */
+    public function infoCenter()
+    {
+        $result = PcLogic::getInfoCenter();
+        return $this->data($result);
+    }
 
 
 }

@@ -15,8 +15,10 @@
 namespace app\api\logic;
 
 
+use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
+use app\common\model\article\ArticleCate;
 use app\common\model\decorate\DecoratePage;
 use app\common\model\decorate\DecorateTabbar;
 use app\common\service\ConfigService;
@@ -45,11 +47,11 @@ class PcLogic extends BaseLogic
         // 装修配置
         $decoratePage = DecoratePage::findOrEmpty(1);
         // 最新资讯
-        $newArticle = self::getLimitArticle('new', 1);
+        $newArticle = self::getLimitArticle('new', 7);
         // 全部资讯
-        $allArticle = self::getLimitArticle('all', 1);
+        $allArticle = self::getLimitArticle('all', 5);
         // 热门资讯
-        $hotArticle = self::getLimitArticle('hot', 1);
+        $hotArticle = self::getLimitArticle('hot', 8);
 
         return [
             'page' => $decoratePage,
@@ -135,6 +137,33 @@ class PcLogic extends BaseLogic
             'website' => $website,
             'version' => config('project.version')
         ];
+    }
+
+
+    /**
+     * @notes 资讯中心
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2022/10/19 16:55
+     */
+    public static function getInfoCenter()
+    {
+        $data = ArticleCate::field(['id', 'name'])
+            ->with(['article' => function ($query) {
+                $query->hidden(['content', 'click_virtual', 'click_actual'])
+                    ->order(['sort' => 'desc', 'id' => 'desc'])
+                    ->append(['click'])
+                    ->limit(10);
+            }])
+            ->where(['is_show' => YesNoEnum::YES])
+            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->select()
+            ->toArray();
+
+        return $data;
     }
 
 }

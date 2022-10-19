@@ -30,6 +30,18 @@ class ArticleCate extends BaseModel
 
 
     /**
+     * @notes 关联文章
+     * @return \think\model\relation\HasMany
+     * @author 段誉
+     * @date 2022/10/19 16:59
+     */
+    public function article()
+    {
+        return $this->hasMany(Article::class, 'cid', 'id');
+    }
+
+
+    /**
      * @notes 状态描述
      * @param $value
      * @param $data
