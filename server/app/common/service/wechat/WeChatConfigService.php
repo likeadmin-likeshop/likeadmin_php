@@ -69,4 +69,24 @@ class WeChatConfigService
     }
 
 
+    /**
+     * @notes 获取微信开放平台配置
+     * @return array
+     * @author 段誉
+     * @date 2022/10/20 15:51
+     */
+    public static function getOpConfig()
+    {
+        $config = [
+            'app_id' => ConfigService::get('open_platform', 'app_id'),
+            'secret' => ConfigService::get('open_platform', 'app_secret'),
+            'response_type' => 'array',
+            'log' => [
+                'level' => 'debug',
+                'file' => '../runtime/log/wechat.log'
+            ],
+        ];
+        return $config;
+    }
+
 }

@@ -17,7 +17,11 @@ namespace app\api\logic;
 use app\common\logic\BaseLogic;
 use app\api\service\{UserTokenService, WechatUserService};
 use app\common\enum\{LoginEnum, user\UserTerminalEnum};
-use app\common\service\{ConfigService, FileService, wechat\WeChatService};
+use app\common\service\{ConfigService,
+    FileService,
+    wechat\WeChatConfigService,
+    wechat\WeChatRequestService,
+    wechat\WeChatService};
 use app\common\model\user\{User, UserAuth};
 use think\facade\{Db, Config};
 
@@ -336,6 +340,37 @@ class LoginLogic extends BaseLogic
             'terminal' => $response['terminal'],
         ]);
         return true;
+    }
+
+
+    /**
+     * @notes 获取扫码登录地址
+     * @return array|false
+     * @author 段誉
+     * @date 2022/10/20 18:23
+     */
+    public static function getScanCode()
+    {
+        try {
+            $config = WeChatConfigService::getOpConfig();
+            $appId = $config['app_id'];
+            $domain = request()->domain();
+            $url = $domain.'/pc';
+            $redirectUri = UrlEncode($url);
+
+            // 设置有效时间标记状态, 超时扫码不可登录
+            $state = MD5(time().rand(10000, 99999));
+            cache($state, $state, 600);
+
+            // 扫码地址
+            $url = WeChatRequestService::getScanCodeUrl($appId, $redirectUri, $state);
+
+            return ['url' => $url];
+
+        } catch (\Exception $e) {
+            self::$error = $e->getMessage();
+            return false;
+        }
     }
 
 }

@@ -188,7 +188,7 @@ class PcLogic extends BaseLogic
         // 文章详情
         $detail = Article::getArticleDetailArr($articleId);
 
-        // 根据来源列表查找对应列表 上一篇 下一篇
+        // 根据来源列表查找对应列表
         $nowIndex = 0;
         $lists = self::getLimitArticle($source);
         foreach ($lists as $key => $item) {
@@ -196,8 +196,9 @@ class PcLogic extends BaseLogic
                 $nowIndex = $key;
             }
         }
-
+        // 上一篇
         $detail['last'] = $lists[$nowIndex - 1] ?? [];
+        // 下一篇
         $detail['next'] = $lists[$nowIndex + 1] ?? [];
 
         // 最新资讯

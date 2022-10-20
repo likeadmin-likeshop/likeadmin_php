@@ -25,7 +25,7 @@ use app\api\logic\LoginLogic;
 class LoginController extends BaseApiController
 {
 
-    public array $notNeedLogin = ['register', 'account', 'logout', 'codeUrl', 'oaLogin',  'mnpLogin'];
+    public array $notNeedLogin = ['register', 'account', 'logout', 'codeUrl', 'oaLogin',  'mnpLogin', 'getScanCode'];
 
 
     /**
@@ -165,7 +165,20 @@ class LoginController extends BaseApiController
     }
 
 
-
+    /**
+     * @notes 获取扫码地址
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/10/20 18:25
+     */
+    public function getScanCode()
+    {
+        $result = LoginLogic::getScanCode();
+        if (false === $result) {
+            return $this->fail(LoginLogic::getError() ?? '未知错误');
+        }
+        return $this->success('', );
+    }
 
 
 
