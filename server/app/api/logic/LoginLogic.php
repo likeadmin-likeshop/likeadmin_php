@@ -14,6 +14,7 @@
 
 namespace app\api\logic;
 
+use app\common\cache\WebScanLoginCache;
 use app\common\logic\BaseLogic;
 use app\api\service\{UserTokenService, WechatUserService};
 use app\common\enum\{LoginEnum, user\UserTerminalEnum};
@@ -360,11 +361,10 @@ class LoginLogic extends BaseLogic
 
             // 设置有效时间标记状态, 超时扫码不可登录
             $state = MD5(time().rand(10000, 99999));
-            cache($state, $state, 600);
+            (new WebScanLoginCache())->setScanLoginState($state);
 
             // 扫码地址
             $url = WeChatRequestService::getScanCodeUrl($appId, $redirectUri, $state);
-
             return ['url' => $url];
 
         } catch (\Exception $e) {

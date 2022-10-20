@@ -177,7 +177,7 @@ class LoginController extends BaseApiController
         if (false === $result) {
             return $this->fail(LoginLogic::getError() ?? '未知错误');
         }
-        return $this->success('', );
+        return $this->success('', $result);
     }
 
 
