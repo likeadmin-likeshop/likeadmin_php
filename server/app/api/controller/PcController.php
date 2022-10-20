@@ -26,8 +26,8 @@ use think\response\Json;
  */
 class PcController extends BaseApiController
 {
-    
-    public array $notNeedLogin = ['index', 'config', 'infoCenter'];
+
+    public array $notNeedLogin = ['index', 'config', 'infoCenter', 'articleDetail'];
 
 
     /**
@@ -77,5 +77,19 @@ class PcController extends BaseApiController
         return $this->data($result);
     }
 
+
+    /**
+     * @notes 获取文章详情
+     * @return Json
+     * @author 段誉
+     * @date 2022/10/20 15:18
+     */
+    public function articleDetail()
+    {
+        $id = $this->request->get('id/d', 0);
+        $source = $this->request->get('source/s', 'default');
+        $result = PcLogic::getArticleDetail($this->userId, $id, $source);
+        return $this->data($result);
+    }
 
 }

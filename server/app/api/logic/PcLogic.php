@@ -71,7 +71,7 @@ class PcLogic extends BaseLogic
      * @author 段誉
      * @date 2022/10/19 9:53
      */
-    public static function getLimitArticle(string $sortType, int $limit)
+    public static function getLimitArticle(string $sortType, int $limit = 0)
     {
         $field = [
             'id', 'title', 'desc', 'abstract', 'image',
@@ -89,12 +89,15 @@ class PcLogic extends BaseLogic
 
         $article = Article::field($field)
             ->where(['is_show' => 1])
-            ->limit($limit)->append(['click'])
+            ->append(['click'])
             ->orderRaw($orderRaw)
-            ->hidden(['click_actual', 'click_virtual'])
-            ->select();
+            ->hidden(['click_actual', 'click_virtual']);
 
-        return $article;
+        if ($limit) {
+            $article->limit($limit);
+        }
+
+        return $article->select()->toArray();
     }
 
 
@@ -172,31 +175,38 @@ class PcLogic extends BaseLogic
     }
 
 
-    public static function detail($articleId, $userId)
+    /**
+     * @notes 获取文章详情
+     * @param $userId
+     * @param $articleId
+     * @param string $source
+     * @return array
+     * @author 段誉
+     * @date 2022/10/20 15:18
+     */
+    public static function getArticleDetail($userId, $articleId, $source = 'default')
     {
-        $article = Article::findOrEmpty($articleId);
-        if (empty($article)) {
-            return [];
+        // 文章详情
+        $detail = Article::getArticleDetailArr($articleId);
+
+        // 根据来源列表查找对应列表 上一篇 下一篇
+        $nowIndex = 0;
+        $lists = self::getLimitArticle($source);
+        foreach ($lists as $key => $item) {
+            if ($item['id'] == $articleId) {
+                $nowIndex = $key;
+            }
         }
 
-        // 增加点击量
-        $article->click_actual += 1;
-        $article->save();
-
-        // 关注状态
-        $collect = ArticleCollect::where([
-            'user_id' => $userId,
-            'article_id' => $articleId,
-            'status' => YesNoEnum::YES
-        ])->findOrEmpty();
-        $article['collect'] = !$collect->isEmpty();
+        $detail['last'] = $lists[$nowIndex - 1] ?? [];
+        $detail['next'] = $lists[$nowIndex + 1] ?? [];
 
         // 最新资讯
-        $article['new'] = self::getLimitArticle('new', 8);
+        $detail['new'] = self::getLimitArticle('new', 8);
+        // 关注状态
+        $detail['collect'] = ArticleCollect::isCollectArticle($userId, $articleId);
 
-        return $article->append(['click'])
-            ->hidden(['click_virtual', 'click_actual'])
-            ->toArray();
+        return $detail;
     }
 
 }
