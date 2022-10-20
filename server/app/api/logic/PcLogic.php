@@ -21,7 +21,6 @@ use app\common\model\article\Article;
 use app\common\model\article\ArticleCate;
 use app\common\model\article\ArticleCollect;
 use app\common\model\decorate\DecoratePage;
-use app\common\model\decorate\DecorateTabbar;
 use app\common\service\ConfigService;
 use app\common\service\FileService;
 
