@@ -181,7 +181,7 @@ const { pager, getLists, resetParams, resetPage } = usePaging({
 
 const selectData = ref<any[]>([])
 const handleSelectionChange = (val: any[]) => {
-    selectData.value = val
+    selectData.value = val.map(({ id }) => id)
 }
 
 const handleSync = async (id: number) => {
