@@ -15,6 +15,7 @@ namespace app\common\service\wechat;
 
 
 use app\common\logic\BaseLogic;
+use WpOrg\Requests\Requests;
 
 
 /**

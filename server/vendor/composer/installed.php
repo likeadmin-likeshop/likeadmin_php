@@ -3,7 +3,7 @@
         'name' => 'topthink/think',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '3b8c229fd0c921062b8602b409f84ef4ee24dde8',
+        'reference' => '403bb2a5166ea4bb2ad270829199a6cd018cf772',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -391,6 +391,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'rmccue/requests' => array(
+            'pretty_version' => 'v2.0.4',
+            'version' => '2.0.4.0',
+            'reference' => '62bf29e0f1080b4f0f499d30adb6a382e70e9686',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../rmccue/requests',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'symfony/cache' => array(
             'pretty_version' => 'v5.4.6',
             'version' => '5.4.6.0',
@@ -568,7 +577,7 @@
         'topthink/think' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '3b8c229fd0c921062b8602b409f84ef4ee24dde8',
+            'reference' => '403bb2a5166ea4bb2ad270829199a6cd018cf772',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
