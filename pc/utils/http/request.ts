@@ -2,7 +2,7 @@ import { FetchOptions, $fetch, $Fetch, FetchResponse } from 'ohmyfetch'
 import { merge } from 'lodash-es'
 import { isFunction } from '../validate'
 import { RequestOptions } from '@/typings/fetch'
-import { RequestMethodsEnum } from '@/enums/requestEnums'
+import { ContentTypeEnum, RequestMethodsEnum } from '@/enums/requestEnums'
 
 export class Request {
     private requestOptions: RequestOptions
@@ -34,7 +34,22 @@ export class Request {
             requestOptions
         )
     }
-
+    /**
+     * @description: 文件上传
+     */
+    uploadFile(options: FetchOptions, params: { name: string; file: any }) {
+        const formData = new FormData()
+        const customFilename = params.name || 'file'
+        formData.append(customFilename, params.file)
+        return this.request({
+            ...options,
+            method: RequestMethodsEnum.POST,
+            body: formData,
+            headers: {
+                'content-type': ContentTypeEnum.FORM_DATA
+            }
+        })
+    }
     /**
      * @description 请求函数
      */

@@ -17,7 +17,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
         baseURL: getBaseUrl(),
         //请求头
         headers: {
-            'Content-Type': ContentTypeEnum.JSON,
+            'content-type': ContentTypeEnum.JSON,
             version: getVersion()
         },
         retry: 2,
@@ -29,6 +29,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
                 const token = userStore.token
                 headers['token'] = token
             }
+            console.log(headers)
             options.headers = headers
         },
         requestOptions: {
@@ -47,7 +48,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
                 // POST请求下如果无data，则将params视为data
                 if (
                     isParamsToData &&
-                    !Reflect.has(options, 'data') &&
+                    !Reflect.has(options, 'body') &&
                     options.method?.toUpperCase() === RequestMethodsEnum.POST
                 ) {
                     options.body = params

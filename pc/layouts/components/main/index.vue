@@ -1,10 +1,6 @@
 <template>
-    <main
-        :class="{
-            ' mx-auto w-[1180px] py-4': hasSidebar
-        }"
-    >
-        <div v-if="sidebar.length" class="mr-4 bg-white">
+    <main class="mx-auto w-[1180px] py-4">
+        <div v-if="sidebar.length" class="mr-4 bg-white rounded-[8px]">
             <Menu
                 :menu="sidebar"
                 :default-active="activeMenu"
@@ -13,7 +9,7 @@
         </div>
         <div
             :class="[
-                'layout-page flex-1',
+                'layout-page flex-1 min-w-0 rounded-[8px]',
                 {
                     'bg-body': hasSidebar
                 }

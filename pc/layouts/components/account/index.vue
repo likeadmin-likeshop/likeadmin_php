@@ -1,5 +1,5 @@
 <template>
-    <div class="account">
+    <div class="account" v-if="showPopup">
         <ClientOnly>
             <ElDialog
                 v-model="showPopup"
@@ -7,10 +7,12 @@
                 :close-on-click-modal="false"
             >
                 <div class="px-5">
-                    <Login v-if="popupType == PopupTypeEnum.LOGIN" />
-                    <Register v-if="popupType == PopupTypeEnum.REGISTER" />
-                    <ForgotPwd v-if="popupType == PopupTypeEnum.FORGOT_PWD" />
-                    <BindMobile v-if="popupType == PopupTypeEnum.BIND_MOBILE" />
+                    <Login v-show="popupType == PopupTypeEnum.LOGIN" />
+                    <Register v-show="popupType == PopupTypeEnum.REGISTER" />
+                    <ForgotPwd v-show="popupType == PopupTypeEnum.FORGOT_PWD" />
+                    <BindMobile
+                        v-show="popupType == PopupTypeEnum.BIND_MOBILE"
+                    />
                 </div>
             </ElDialog>
         </ClientOnly>

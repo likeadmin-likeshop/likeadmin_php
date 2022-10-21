@@ -12,3 +12,8 @@ export function getConfig() {
 export function getPolicy(params: any) {
     return $request.get({ url: '/index/policy', params })
 }
+
+// 上传图片
+export function uploadImage(params: any) {
+    return $request.uploadFile({ url: '/upload/image' }, params)
+}

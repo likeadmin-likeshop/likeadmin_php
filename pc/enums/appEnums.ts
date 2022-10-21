@@ -19,3 +19,10 @@ export enum ScreenEnum {
     XL = 1280,
     '2XL' = 1536
 }
+
+export enum SMSEnum {
+    LOGIN = 'YZMDL',
+    BIND_MOBILE = 'BDSJHM',
+    CHANGE_MOBILE = 'BGSJHM',
+    FIND_PASSWORD = 'ZHDLMM'
+}

@@ -29,17 +29,25 @@
             <template
                 v-if="isMobileLogin && includeLoginWay(LoginWayEnum.MOBILE)"
             >
-                <ElFormItem prop="password">
+                <ElFormItem prop="account">
                     <ElInput
                         v-model="formData.account"
                         placeholder="请输入手机号"
                     />
                 </ElFormItem>
                 <ElFormItem prop="code">
-                    <ElInput
-                        v-model="formData.code"
-                        placeholder="请输入验证码"
-                    />
+                    <ElInput v-model="formData.code" placeholder="请输入验证码">
+                        <template #suffix>
+                            <div
+                                class="flex justify-center leading-5 w-[90px] pl-2.5 border-l border-br"
+                            >
+                                <VerificationCode
+                                    ref="verificationCodeRef"
+                                    @click-get="sendSms"
+                                />
+                            </div>
+                        </template>
+                    </ElInput>
                 </ElFormItem>
             </template>
             <div class="flex justify-between">
@@ -72,7 +80,7 @@
                     </span>
                 </ElDivider>
                 <div class="flex justify-center">
-                    <ElButton link>
+                    <ElButton link @click="getWxCodeLock">
                         <img
                             class="w-[60px] h-[60px]"
                             src="@/assets/images/icon/icon_wx.png"
@@ -118,9 +126,11 @@ import {
     FormRules
 } from 'element-plus'
 import { useAccount, PopupTypeEnum } from './useAccount'
-import { login } from '@/api/account'
+import { getWxCodeUrl, login } from '@/api/account'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
+import { smsSend } from '~~/api/app'
+import { SMSEnum } from '~~/enums/appEnums'
 const appStore = useAppStore()
 const userStore = useUserStore()
 const { setPopupType, toggleShowPopup } = useAccount()
@@ -134,7 +144,17 @@ const formRules: FormRules = {
     account: [
         {
             required: true,
-            message: '请输入账号/手机号',
+            validator(rule: any, value: any, callback: any) {
+                if (value === '') {
+                    callback(
+                        new Error(
+                            formData.scene == LoginWayEnum.ACCOUNT
+                                ? '请输入账号/手机号'
+                                : '请输入手机号'
+                        )
+                    )
+                }
+            },
             trigger: ['change', 'blur']
         }
     ],
@@ -170,6 +190,15 @@ const changeLoginWay = () => {
         formData.scene = LoginWayEnum.ACCOUNT
     }
 }
+const verificationCodeRef = shallowRef()
+const sendSms = async () => {
+    await formRef.value?.validateField(['account'])
+    await smsSend({
+        scene: SMSEnum.LOGIN,
+        mobile: formData.account
+    })
+    // verificationCodeRef.value?.start()
+}
 
 const handleLogin = async () => {
     await formRef.value?.validate()
@@ -179,6 +208,12 @@ const handleLogin = async () => {
     toggleShowPopup(false)
 }
 const { lockFn: handleLoginLock, isLock } = useLockFn(handleLogin)
+
+const getWxCode = async () => {
+    const { url } = await getWxCodeUrl()
+    window.location.href = url
+}
+const { lockFn: getWxCodeLock } = useLockFn(getWxCode)
 watch(
     () => appStore.getLoginConfig,
     (value) => {

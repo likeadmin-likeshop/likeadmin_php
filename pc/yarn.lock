@@ -274,6 +274,11 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
+"@chenfengyuan/vue-countdown@2":
+  version "2.1.0"
+  resolved "https://registry.npmmirror.com/@chenfengyuan/vue-countdown/-/vue-countdown-2.1.0.tgz#97d1c9ae755ef11fa28ce30af407b8c8177fc40c"
+  integrity sha512-Emk66FULb1Q31tz7sLRvQIBMW8k46EeQu2pv4DUppPUNSmpp+5bGLQLNLLfwohL3r6a4dzqB5PGSmu8P5nD4qQ==
+
 "@cloudflare/kv-asset-handler@^0.2.0":
   version "0.2.0"
   resolved "https://registry.npmmirror.com/@cloudflare/kv-asset-handler/-/kv-asset-handler-0.2.0.tgz#c9959bbd7a1c40bd7c674adae98aa8c8d0e5ca68"
@@ -782,6 +787,11 @@
   version "0.24.46"
   resolved "https://registry.npmmirror.com/@sinclair/typebox/-/typebox-0.24.46.tgz#57501b58023776dbbae9e25619146286440be34c"
   integrity sha512-ng4ut1z2MCBhK/NwDVwIQp3pAUOCs/KNaW3cBxdFB2xTDrOuo1xuNmpr/9HHFhxqIvHrs1NTH3KJg6q+JSy1Kw==
+
+"@tailwindcss/line-clamp@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.npmmirror.com/@tailwindcss/line-clamp/-/line-clamp-0.4.2.tgz#f353c5a8ab2c939c6267ac5b907f012e5ee130f9"
+  integrity sha512-HFzAQuqYCjyy/SX9sLGB1lroPzmcnWv1FHkIpmypte10hptf4oPUfucryMKovZh2u0uiS9U5Ty3GghWfEJGwVw==
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
@@ -6097,6 +6107,11 @@ vue-bundle-renderer@^0.4.3:
   integrity sha512-l4mqMiMSF3wO7h4y9hrdVA97XftD457C+sbbECpZhqjzXf0MzYhdxXJc9JbMjO7fIez1M5s5wFd1YN/d1Em7sg==
   dependencies:
     ufo "^0.8.3"
+
+vue-cropper@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmmirror.com/vue-cropper/-/vue-cropper-1.0.5.tgz#eddc55a2165d721fa795c14d5d38117315904650"
+  integrity sha512-D4XXdqWmMWRLOIV9LIh7/mkH6OBOMQDFbRjwntkxmAtxOtwpC9U5ZZ6lSXw5F5cbd4g8znDjk6MuCwIL+fZSrA==
 
 vue-demi@*:
   version "0.13.11"

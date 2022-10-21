@@ -100,13 +100,11 @@
             margin-bottom: 0;
         }
     }
-}
-@media (max-width: 768px) {
-    .el-pagination > .el-pagination__jump {
-        display: none !important;
+    .el-card {
+        --el-card-border-radius: 8px;
     }
-    .el-pagination > .el-pagination__sizes {
-        display: none !important;
+    .el-menu {
+        border-right: none;
     }
 }
 
@@ -116,6 +114,7 @@
 
     //覆盖el-button的点击样式
     &:focus {
+        color: var(--el-button-text-color);
         border-color: var(--el-button-border-color);
         background-color: var(--el-button-bg-color);
     }

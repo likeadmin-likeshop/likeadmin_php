@@ -7,6 +7,10 @@ export function login(params: any) {
         params: { ...params, terminal: getClient() }
     })
 }
+// 登录
+export function logout() {
+    return $request.post({ url: '/login/logout' })
+}
 
 //注册
 export function register(params: any) {
@@ -19,15 +23,13 @@ export function register(params: any) {
 //向微信请求code的链接
 export function getWxCodeUrl() {
     return $request.get({
-        url: '/login/codeUrl',
-        params: { url: location.href }
+        url: '/login/getScanCode',
+        params: {
+            url: location.href
+        }
     })
 }
 
 export function oALogin(params: any) {
     return $request.post({ url: '/login/oaLogin', params })
-}
-
-export function mnpLogin(params: any) {
-    return $request.post({ url: '/login/mnpLogin', params })
 }

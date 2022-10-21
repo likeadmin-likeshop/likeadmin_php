@@ -26,17 +26,26 @@
             <ElFormItem prop="password">
                 <ElInput
                     v-model="formData.password"
+                    type="password"
+                    show-password
                     placeholder="请输入6-20位数字+字母或符号组合"
                 />
             </ElFormItem>
             <ElFormItem prop="password_confirm">
                 <ElInput
                     v-model="formData.password_confirm"
+                    type="password"
+                    show-password
                     placeholder="请再次输入密码"
                 />
             </ElFormItem>
             <ElFormItem class="mt-[60px]">
-                <ElButton class="w-full" type="primary" @click="handleConfirm">
+                <ElButton
+                    class="w-full"
+                    type="primary"
+                    :loading="isLock"
+                    @click="handleConfirmLock"
+                >
                     注册
                 </ElButton>
             </ElFormItem>
@@ -52,6 +61,7 @@ import {
     FormInstance,
     FormRules
 } from 'element-plus'
+import { register } from '~~/api/account'
 import { useAccount, PopupTypeEnum } from './useAccount'
 const { setPopupType } = useAccount()
 const formRef = shallowRef<FormInstance>()
@@ -103,7 +113,12 @@ const formData = reactive({
     password_confirm: ''
 })
 
-const handleConfirm = () => {}
+const handleConfirm = async () => {
+    await formRef.value?.validate()
+    await register(formData)
+    setPopupType(PopupTypeEnum.LOGIN)
+}
+const { lockFn: handleConfirmLock, isLock } = useLockFn(handleConfirm)
 </script>
 
 <style lang="scss" scoped></style>

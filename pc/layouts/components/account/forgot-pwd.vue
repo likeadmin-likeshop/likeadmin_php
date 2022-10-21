@@ -26,8 +26,13 @@
             <ElFormItem prop="code">
                 <ElInput v-model="formData.code" placeholder="请输入验证码">
                     <template #suffix>
-                        <div class="border-l border-br flex pl-2.5">
-                            <ElButton link>获取验证码</ElButton>
+                        <div
+                            class="flex justify-center leading-5 w-[90px] pl-2.5 border-l border-br"
+                        >
+                            <VerificationCode
+                                ref="verificationCodeRef"
+                                @click-get="sendSms"
+                            />
                         </div>
                     </template>
                 </ElInput>
@@ -61,14 +66,17 @@ import {
     FormInstance,
     FormRules
 } from 'element-plus'
+import { smsSend } from '~~/api/app'
+import { SMSEnum } from '~~/enums/appEnums'
 import { useAccount, PopupTypeEnum } from './useAccount'
 const { setPopupType } = useAccount()
 const formRef = shallowRef<FormInstance>()
+const verificationCodeRef = shallowRef()
 const formRules: FormRules = {
     account: [
         {
             required: true,
-            message: '请输入创建的账号',
+            message: '请输入手机号码',
             trigger: ['change', 'blur']
         },
         {
@@ -119,6 +127,16 @@ const formData = reactive({
     code: '',
     password_confirm: ''
 })
+
+const sendSms = async () => {
+    await formRef.value?.validateField(['account'])
+    // await smsSend({
+    //     scene: SMSEnum.FIND_PASSWORD,
+    //     mobile: formData.account
+    // })
+    console.log(verificationCodeRef.value?.start)
+    verificationCodeRef.value?.start()
+}
 
 const handleConfirm = () => {}
 </script>

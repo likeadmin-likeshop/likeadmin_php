@@ -38,6 +38,8 @@ export const useUserStore = defineStore({
             this.token = ''
             this.userInfo = {}
             TOKEN.value = ''
+
+            console.log(TOKEN)
         }
     }
 })
