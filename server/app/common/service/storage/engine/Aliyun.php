@@ -90,8 +90,8 @@ class Aliyun extends Server
     {
         try {
             $ossClient = new OssClient(
-                $this->config['access_key_id'],
-                $this->config['access_key_secret'],
+                $this->config['access_key'],
+                $this->config['access_key'],
                 $this->config['domain'],
                 true
             );
