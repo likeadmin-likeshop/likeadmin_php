@@ -350,14 +350,12 @@ class LoginLogic extends BaseLogic
      * @author 段誉
      * @date 2022/10/20 18:23
      */
-    public static function getScanCode()
+    public static function getScanCode($redirectUri)
     {
         try {
             $config = WeChatConfigService::getOpConfig();
             $appId = $config['app_id'];
-            $domain = request()->domain();
-            $url = $domain.'/pc';
-            $redirectUri = UrlEncode($url);
+            $redirectUri = UrlEncode($redirectUri);
 
             // 设置有效时间标记状态, 超时扫码不可登录
             $state = MD5(time().rand(10000, 99999));
