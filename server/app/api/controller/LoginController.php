@@ -14,7 +14,7 @@
 
 namespace app\api\controller;
 
-use app\api\validate\{LoginAccountValidate, RegisterValidate, WechatLoginValidate};
+use app\api\validate\{LoginAccountValidate, RegisterValidate, WebScanLoginValidate, WechatLoginValidate};
 use app\api\logic\LoginLogic;
 
 /**
@@ -25,7 +25,7 @@ use app\api\logic\LoginLogic;
 class LoginController extends BaseApiController
 {
 
-    public array $notNeedLogin = ['register', 'account', 'logout', 'codeUrl', 'oaLogin',  'mnpLogin', 'getScanCode'];
+    public array $notNeedLogin = ['register', 'account', 'logout', 'codeUrl', 'oaLogin',  'mnpLogin', 'getScanCode', 'scanLogin'];
 
 
     /**
@@ -181,5 +181,20 @@ class LoginController extends BaseApiController
     }
 
 
+    /**
+     * @notes 网站扫码登录
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/10/21 10:28
+     */
+    public function scanLogin()
+    {
+        $params = (new WebScanLoginValidate())->post()->goCheck();
+        $result = LoginLogic::scanLogin($params);
+        if (false === $result) {
+            return $this->fail(LoginLogic::getError() ?? '登录失败');
+        }
+        return $this->success('', $result);
+    }
 
 }

@@ -16,6 +16,12 @@ namespace app\api\validate;
 
 use app\common\validate\BaseValidate;
 
+
+/**
+ * 微信登录验证
+ * Class WechatLoginValidate
+ * @package app\api\validate
+ */
 class WechatLoginValidate extends BaseValidate
 {
     protected $rule = [

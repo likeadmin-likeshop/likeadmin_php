@@ -31,11 +31,7 @@ class WebScanLoginCache extends BaseCache
      */
     public function getScanLoginState($state)
     {
-        $state = $this->get($this->prefix . $state);
-        if ($state) {
-            return $state;
-        }
-        return false;
+        return $this->get($this->prefix . $state);
     }
 
 
