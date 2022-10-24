@@ -123,7 +123,7 @@ class UserController extends BaseApiController
         if (false === $result) {
             return $this->fail(UserLogic::getError());
         }
-        return $this->success('操作成功', []);
+        return $this->success('操作成功', [], 1, 1);
     }
 
 
