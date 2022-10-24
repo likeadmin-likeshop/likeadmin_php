@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{ userStore.token }}
         <ElDropdown v-if="userStore.isLogin" @command="handleCommand">
             <div class="flex items-center">
                 <ElAvatar :size="25" :src="userStore.userInfo.avatar" />

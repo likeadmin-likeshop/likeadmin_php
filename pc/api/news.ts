@@ -21,3 +21,29 @@ export function getArticleCenter() {
 export function getArticleDetail(params) {
     return $request.get({ url: '/pc/articleDetail', params })
 }
+
+/**
+ * @description 加入收藏
+ * @param { number } id
+ * @return { Promise }
+ */
+export function addCollect(params) {
+    return $request.post({ url: '/article/addCollect', params })
+}
+
+/**
+ * @description 取消收藏
+ * @param { number } id
+ * @return { Promise }
+ */
+export function cancelCollect(params) {
+    return $request.post({ url: '/article/cancelCollect', params })
+}
+
+/**
+ * @description 获取收藏列表
+ * @return { Promise }
+ */
+export function getCollect(params) {
+    return $request.get({ url: '/article/collect', params })
+}

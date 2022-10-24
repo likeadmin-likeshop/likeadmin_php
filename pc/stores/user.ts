@@ -35,11 +35,9 @@ export const useUserStore = defineStore({
         },
         logout() {
             const TOKEN = useCookie(TOKEN_KEY)
-            this.token = ''
+            this.token = null
             this.userInfo = {}
-            TOKEN.value = ''
-
-            console.log(TOKEN)
+            TOKEN.value = null
         }
     }
 })

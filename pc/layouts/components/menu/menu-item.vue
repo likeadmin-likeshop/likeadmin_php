@@ -16,25 +16,23 @@
                 </template>
             </ElMenuItem>
         </NuxtLink>
-        <ClientOnly v-else>
-            <ElSubMenu :index="routePath" :popper-offset="12">
-                <template #title>
-                    <!-- <Icon
+        <ElSubMenu v-else :index="routePath" :popper-offset="12">
+            <template #title>
+                <!-- <Icon
                 v-if="menuItem.icon"
                 class="menu-item-icon"
                 :size="16"
                 :name="menuItem.icon"
             /> -->
-                    <span>{{ menuItem.name }}</span>
-                </template>
-                <MenuItem
-                    v-for="item in menuItem.children"
-                    :key="resolvePath(item.path)"
-                    :menu-item="item"
-                    :route-path="resolvePath(item.path)"
-                />
-            </ElSubMenu>
-        </ClientOnly>
+                <span>{{ menuItem.name }}</span>
+            </template>
+            <MenuItem
+                v-for="item in menuItem.children"
+                :key="resolvePath(item.path)"
+                :menu-item="item"
+                :route-path="resolvePath(item.path)"
+            />
+        </ElSubMenu>
     </template>
 </template>
 

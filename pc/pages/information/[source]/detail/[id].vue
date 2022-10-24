@@ -35,8 +35,14 @@
                 </div>
                 <div class="py-4" v-html="newsDetail.content"></div>
                 <div class="flex justify-center mt-[40px]">
-                    <ElButton size="large" round>
-                        <Icon name="el-icon-Star" :size="16" />
+                    <ElButton size="large" round @click="handelCollectLock">
+                        <Icon
+                            :name="`el-icon-${
+                                newsDetail.collect ? 'StarFilled' : 'Star'
+                            }`"
+                            :size="16"
+                            :color="newsDetail.collect ? '#FF2C2F' : 'inherit'"
+                        />
                         点击收藏
                     </ElButton>
                 </div>
@@ -83,9 +89,10 @@
 </template>
 <script lang="ts" setup>
 import { ElBreadcrumb, ElBreadcrumbItem, ElButton } from 'element-plus'
-import { getArticleDetail } from '~~/api/news'
+import { addCollect, cancelCollect, getArticleDetail } from '~~/api/news'
+import feedback from '~~/utils/feedback'
 const route = useRoute()
-const { data: newsDetail } = await useAsyncData(
+const { data: newsDetail, refresh } = await useAsyncData(
     () =>
         getArticleDetail({
             id: route.params.id,
@@ -105,5 +112,18 @@ const getSourceText = computed(() => {
             return '全部资讯'
     }
 })
+
+const handelCollect = async () => {
+    const id = route.params.id
+    if (newsDetail.value.collect) {
+        await cancelCollect({ id })
+        feedback.msgSuccess('已取消收藏')
+    } else {
+        await addCollect({ id })
+        feedback.msgSuccess('收藏成功')
+    }
+    refresh()
+}
+const { lockFn: handelCollectLock } = useLockFn(handelCollect)
 </script>
 <style lang="scss" scoped></style>

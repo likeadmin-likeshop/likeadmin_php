@@ -22,7 +22,7 @@
                     'mr-4': !isHorizontal
                 }"
                 :src="image"
-                fit="contain"
+                fit="cover"
                 :style="getImageStyle"
             />
             <div

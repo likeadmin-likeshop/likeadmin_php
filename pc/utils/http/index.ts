@@ -1,23 +1,23 @@
 import { FetchOptions } from 'ohmyfetch'
-import {
-    ContentTypeEnum,
-    RequestCodeEnum,
-    RequestMethodsEnum
-} from '@/enums/requestEnums'
+import { RequestCodeEnum, RequestMethodsEnum } from '@/enums/requestEnums'
 import feedback from '@/utils/feedback'
 import { merge } from 'lodash-es'
 import { Request } from './request'
 import { getApiPrefix, getBaseUrl, getVersion } from '../env'
 import { useUserStore } from '@/stores/user'
+import {
+    PopupTypeEnum,
+    useAccount
+} from '~~/layouts/components/account/useAccount'
 
 export function createRequest(opt?: Partial<FetchOptions>) {
     const userStore = useUserStore()
+    const { setPopupType, toggleShowPopup } = useAccount()
     const defaultOptions: FetchOptions = {
         // 基础接口地址
         baseURL: getBaseUrl(),
         //请求头
         headers: {
-            'content-type': ContentTypeEnum.JSON,
             version: getVersion()
         },
         retry: 2,
@@ -29,7 +29,6 @@ export function createRequest(opt?: Partial<FetchOptions>) {
                 const token = userStore.token
                 headers['token'] = token
             }
-            console.log(headers)
             options.headers = headers
         },
         requestOptions: {
@@ -80,7 +79,9 @@ export function createRequest(opt?: Partial<FetchOptions>) {
                         }
                         return Promise.reject(data)
                     case RequestCodeEnum.LOGIN_FAILURE:
-                        // responseHandler[RequestCodeEnum.LOGIN_FAILURE]
+                        userStore.logout()
+                        setPopupType(PopupTypeEnum.LOGIN)
+                        toggleShowPopup(true)
                         return Promise.reject(data)
                     default:
                         return data

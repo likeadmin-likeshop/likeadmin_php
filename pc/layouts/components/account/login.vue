@@ -50,11 +50,32 @@
                     </ElInput>
                 </ElFormItem>
             </template>
-            <div class="flex justify-between">
-                <ElButton type="primary" link @click="changeLoginWay">
-                    {{ isAccountLogin ? '手机验证码登录' : '' }}
-                    {{ isMobileLogin ? '账号密码登录' : '' }}
-                </ElButton>
+            <div class="flex">
+                <div class="flex-1">
+                    <ElButton
+                        v-if="
+                            isAccountLogin &&
+                            includeLoginWay(LoginWayEnum.MOBILE)
+                        "
+                        type="primary"
+                        link
+                        @click="changeLoginWay"
+                    >
+                        手机验证码登录
+                    </ElButton>
+                    <ElButton
+                        v-if="
+                            isMobileLogin &&
+                            includeLoginWay(LoginWayEnum.ACCOUNT)
+                        "
+                        type="primary"
+                        link
+                        @click="changeLoginWay"
+                    >
+                        账号密码登录
+                    </ElButton>
+                </div>
+
                 <ElButton
                     v-if="isAccountLogin"
                     link
@@ -68,19 +89,19 @@
                     class="w-full"
                     type="primary"
                     :loading="isLock"
-                    @click="handleLoginLock"
+                    @click="loginLock"
                 >
                     登录
                 </ElButton>
             </ElFormItem>
-            <div class="mt-[40px]">
+            <div class="mt-[40px]" v-if="isOpenOtherAuth">
                 <ElDivider>
                     <span class="text-tx-secondary font-normal">
                         第三方登录
                     </span>
                 </ElDivider>
                 <div class="flex justify-center">
-                    <ElButton link @click="getWxCodeLock">
+                    <ElButton link @click="getWxCodeLock" v-if="inWxAuth">
                         <img
                             class="w-[60px] h-[60px]"
                             src="@/assets/images/icon/icon_wx.png"
@@ -89,27 +110,39 @@
                 </div>
             </div>
             <div
-                class="mb-[-15px] mx-[-40px] mt-[30px] bg-primary-light-9 rounded-b-md px-[15px] flex justify-between"
+                class="mb-[-15px] mx-[-40px] mt-[30px] bg-primary-light-9 rounded-b-md px-[15px] flex leading-10"
             >
-                <ElCheckbox v-model="isAgreement">
-                    <span class="text-tx-secondary text-sm">
-                        已阅读并同意
-                        <NuxtLink class="text-tx-primary" target="_blank">
-                            《服务协议》
-                        </NuxtLink>
-                        和
-                        <NuxtLink class="text-tx-primary" target="_blank">
-                            《隐私政策》
-                        </NuxtLink>
-                    </span>
-                </ElCheckbox>
-                <ElButton
-                    link
-                    type="primary"
-                    @click="setPopupType(PopupTypeEnum.REGISTER)"
-                >
-                    <span class="text-sm">注册账号</span>
-                </ElButton>
+                <div class="flex-1">
+                    <ElCheckbox v-if="isOpenAgreement" v-model="isAgreement">
+                        <span class="text-tx-secondary text-sm">
+                            已阅读并同意
+                            <NuxtLink
+                                class="text-tx-primary"
+                                target="_blank"
+                                :to="`/policy/${PolicyAgreementEnum.SERVICE}`"
+                            >
+                                《服务协议》
+                            </NuxtLink>
+                            和
+                            <NuxtLink
+                                class="text-tx-primary"
+                                target="_blank"
+                                :to="`/policy/${PolicyAgreementEnum.PRIVACY}`"
+                            >
+                                《隐私政策》
+                            </NuxtLink>
+                        </span>
+                    </ElCheckbox>
+                </div>
+                <div>
+                    <ElButton
+                        link
+                        type="primary"
+                        @click="setPopupType(PopupTypeEnum.REGISTER)"
+                    >
+                        <span class="text-sm">注册账号</span>
+                    </ElButton>
+                </div>
             </div>
         </ElForm>
     </div>
@@ -130,7 +163,8 @@ import { getWxCodeUrl, login } from '@/api/account'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { smsSend } from '~~/api/app'
-import { SMSEnum } from '~~/enums/appEnums'
+import { PolicyAgreementEnum, SMSEnum } from '~~/enums/appEnums'
+import feedback from '~~/utils/feedback'
 const appStore = useAppStore()
 const userStore = useUserStore()
 const { setPopupType, toggleShowPopup } = useAccount()
@@ -153,7 +187,9 @@ const formRules: FormRules = {
                                 : '请输入手机号'
                         )
                     )
+                    return
                 }
+                callback()
             },
             trigger: ['change', 'blur']
         }
@@ -183,6 +219,18 @@ const isAccountLogin = computed(() => formData.scene == LoginWayEnum.ACCOUNT)
 const isMobileLogin = computed(() => formData.scene == LoginWayEnum.MOBILE)
 const includeLoginWay = (way: LoginWayEnum) =>
     appStore.getLoginConfig.login_way?.includes(String(way))
+
+const inWxAuth = computed(() => {
+    return appStore.getLoginConfig.wechat_auth
+})
+
+const isOpenAgreement = computed(
+    () => appStore.getLoginConfig.login_agreement == 1
+)
+const isOpenOtherAuth = computed(() => appStore.getLoginConfig.third_auth == 1)
+const isForceBindMobile = computed(
+    () => appStore.getLoginConfig.coerce_mobile == 1
+)
 const changeLoginWay = () => {
     if (formData.scene == LoginWayEnum.ACCOUNT) {
         formData.scene = LoginWayEnum.MOBILE
@@ -197,19 +245,37 @@ const sendSms = async () => {
         scene: SMSEnum.LOGIN,
         mobile: formData.account
     })
-    // verificationCodeRef.value?.start()
+
+    verificationCodeRef.value?.start()
 }
 
 const handleLogin = async () => {
     await formRef.value?.validate()
     const data = await login(formData)
+    if (isForceBindMobile && !data.mobile) {
+        userStore.temToken = data.token
+        setPopupType(PopupTypeEnum.BIND_MOBILE)
+        return
+    }
     userStore.login(data.token)
     await userStore.getUser()
     toggleShowPopup(false)
 }
 const { lockFn: handleLoginLock, isLock } = useLockFn(handleLogin)
+const agreementConfirm = async () => {
+    if (isAgreement.value) {
+        return
+    }
+    await feedback.confirm('确认已阅读并同意《服务协议》和《隐私政策》')
+    isAgreement.value = true
+}
+const loginLock = async () => {
+    await agreementConfirm()
+    await handleLoginLock()
+}
 
 const getWxCode = async () => {
+    await agreementConfirm()
     const { url } = await getWxCodeUrl()
     window.location.href = url
 }

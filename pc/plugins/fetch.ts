@@ -7,6 +7,7 @@ export default defineNuxtPlugin(() => {
 
     const $fetchOriginal = globalThis.$fetch
     const $fetch: any = (url: string, opts?: any) => {
+        opts = opts ?? {}
         opts.url = url
         return request.request(opts, opts.requestOptions)
     }

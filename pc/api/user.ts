@@ -14,7 +14,10 @@ export function userEdit(params: any) {
 
 // 绑定手机
 export function userBindMobile(params: any, headers?: any) {
-    return $request.post({ url: '/user/bindMobile', params, headers })
+    return $request.post(
+        { url: '/user/bindMobile', params, headers },
+        { withToken: !headers?.token }
+    )
 }
 
 // 微信电话
@@ -22,7 +25,7 @@ export function userMnpMobile(params: any) {
     return $request.post({ url: '/user/getMobileByMnp', params })
 }
 
-// 更改手机号
+// 更改密码
 export function userChangePwd(params: any) {
     return $request.post({ url: '/user/changePassword', params })
 }

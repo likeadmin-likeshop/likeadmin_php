@@ -6,6 +6,7 @@
                 type="primary"
                 link
                 @click="setPopupType(PopupTypeEnum.LOGIN)"
+                v-if="!userStore.isLogin"
             >
                 返回登录
             </ElButton>
@@ -17,9 +18,9 @@
             :model="formData"
             :rules="formRules"
         >
-            <ElFormItem prop="account">
+            <ElFormItem prop="mobile">
                 <ElInput
-                    v-model="formData.account"
+                    v-model="formData.mobile"
                     placeholder="请输入手机号码"
                 />
             </ElFormItem>
@@ -41,16 +42,25 @@
                 <ElInput
                     v-model="formData.password"
                     placeholder="请输入6-20位数字+字母或符号组合"
+                    type="password"
+                    show-password
                 />
             </ElFormItem>
             <ElFormItem prop="password_confirm">
                 <ElInput
                     v-model="formData.password_confirm"
                     placeholder="请再次输入密码"
+                    type="password"
+                    show-password
                 />
             </ElFormItem>
             <ElFormItem class="mt-[60px]">
-                <ElButton class="w-full" type="primary" @click="handleConfirm">
+                <ElButton
+                    class="w-full"
+                    type="primary"
+                    @click="handleConfirmLock"
+                    :loading="isLock"
+                >
                     确认
                 </ElButton>
             </ElFormItem>
@@ -67,13 +77,16 @@ import {
     FormRules
 } from 'element-plus'
 import { smsSend } from '~~/api/app'
+import { forgotPassword } from '~~/api/user'
 import { SMSEnum } from '~~/enums/appEnums'
+import { useUserStore } from '~~/stores/user'
 import { useAccount, PopupTypeEnum } from './useAccount'
+const userStore = useUserStore()
 const { setPopupType } = useAccount()
 const formRef = shallowRef<FormInstance>()
 const verificationCodeRef = shallowRef()
 const formRules: FormRules = {
-    account: [
+    mobile: [
         {
             required: true,
             message: '请输入手机号码',
@@ -122,23 +135,27 @@ const formRules: FormRules = {
     ]
 }
 const formData = reactive({
-    account: '',
+    mobile: '',
     password: '',
     code: '',
     password_confirm: ''
 })
 
 const sendSms = async () => {
-    await formRef.value?.validateField(['account'])
-    // await smsSend({
-    //     scene: SMSEnum.FIND_PASSWORD,
-    //     mobile: formData.account
-    // })
-    console.log(verificationCodeRef.value?.start)
+    await formRef.value?.validateField(['mobile'])
+    await smsSend({
+        scene: SMSEnum.FIND_PASSWORD,
+        mobile: formData.mobile
+    })
     verificationCodeRef.value?.start()
 }
 
-const handleConfirm = () => {}
+const handleConfirm = async () => {
+    await formRef.value?.validate()
+    await forgotPassword(formData)
+    setPopupType(PopupTypeEnum.LOGIN)
+}
+const { lockFn: handleConfirmLock, isLock } = useLockFn(handleConfirm)
 </script>
 
 <style lang="scss" scoped></style>

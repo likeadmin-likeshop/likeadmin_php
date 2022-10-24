@@ -10,7 +10,6 @@ export const useAccount = () => {
     const setPopupType = (type: PopupTypeEnum = PopupTypeEnum.LOGIN) => {
         popupType.value = type
     }
-
     const showPopup = useState(() => false)
     const toggleShowPopup = (toggle: boolean) => {
         showPopup.value = toggle ?? !showPopup.value

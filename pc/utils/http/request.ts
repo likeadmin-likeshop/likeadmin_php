@@ -1,8 +1,14 @@
-import { FetchOptions, $fetch, $Fetch, FetchResponse } from 'ohmyfetch'
+import {
+    FetchOptions,
+    $fetch,
+    $Fetch,
+    FetchResponse,
+    RequestOptions,
+    FileParams
+} from 'ohmyfetch'
 import { merge } from 'lodash-es'
 import { isFunction } from '../validate'
-import { RequestOptions } from '@/typings/fetch'
-import { ContentTypeEnum, RequestMethodsEnum } from '@/enums/requestEnums'
+import { RequestMethodsEnum } from '@/enums/requestEnums'
 
 export class Request {
     private requestOptions: RequestOptions
@@ -37,17 +43,27 @@ export class Request {
     /**
      * @description: 文件上传
      */
-    uploadFile(options: FetchOptions, params: { name: string; file: any }) {
+    uploadFile(options: FetchOptions, params: FileParams) {
         const formData = new FormData()
         const customFilename = params.name || 'file'
         formData.append(customFilename, params.file)
+        if (params.data) {
+            Object.keys(params.data).forEach((key) => {
+                const value = params.data![key]
+                if (Array.isArray(value)) {
+                    value.forEach((item) => {
+                        formData.append(`${key}[]`, item)
+                    })
+                    return
+                }
+
+                formData.append(key, params.data![key])
+            })
+        }
         return this.request({
             ...options,
             method: RequestMethodsEnum.POST,
-            body: formData,
-            headers: {
-                'content-type': ContentTypeEnum.FORM_DATA
-            }
+            body: formData
         })
     }
     /**

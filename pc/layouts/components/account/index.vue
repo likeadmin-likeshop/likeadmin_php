@@ -25,7 +25,12 @@ import { useAccount, PopupTypeEnum } from './useAccount'
 import Register from './register.vue'
 import ForgotPwd from './forgot-pwd.vue'
 import BindMobile from './bind-mobile.vue'
+import { useUserStore } from '~~/stores/user'
 const { popupType, showPopup } = useAccount()
+const userStore = useUserStore()
+watch(showPopup, (value) => {
+    if (!value) userStore.temToken = null
+})
 </script>
 
 <style lang="scss" scoped></style>

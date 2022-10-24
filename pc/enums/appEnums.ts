@@ -26,3 +26,8 @@ export enum SMSEnum {
     CHANGE_MOBILE = 'BGSJHM',
     FIND_PASSWORD = 'ZHDLMM'
 }
+
+export enum PolicyAgreementEnum {
+    SERVICE = 'service',
+    PRIVACY = 'privacy'
+}
