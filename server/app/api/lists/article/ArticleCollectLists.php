@@ -35,9 +35,9 @@ class ArticleCollectLists extends BaseApiDataLists
     public function lists(): array
     {
         $field = "c.id,c.article_id,a.title,a.image,a.desc,a.is_show,
-        a.click_virtual, a.click_actual,a.create_time";
+        a.click_virtual, a.click_actual,a.create_time, c.create_time as collect_time";
 
-        return (new Article())->alias('a')
+        $lists = (new Article())->alias('a')
             ->join('article_collect c', 'c.article_id = a.id')
             ->field($field)
             ->where([
@@ -50,6 +50,12 @@ class ArticleCollectLists extends BaseApiDataLists
             ->append(['click'])
             ->hidden(['click_virtual', 'click_actual'])
             ->select()->toArray();
+
+        foreach ($lists as &$item) {
+            $item['collect_time'] = date('Y-m-d H:i', $item['collect_time']);
+        }
+
+        return $lists;
     }
 
 
