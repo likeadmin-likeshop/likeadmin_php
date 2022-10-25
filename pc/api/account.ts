@@ -30,6 +30,6 @@ export function getWxCodeUrl() {
     })
 }
 
-export function oALogin(params: any) {
-    return $request.post({ url: '/login/oaLogin', params })
+export function wxLogin(params: any) {
+    return $request.post({ url: '/login/scanLogin', params })
 }

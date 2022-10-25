@@ -7,7 +7,7 @@
                     资讯中心
                 </el-breadcrumb-item>
                 <el-breadcrumb-item
-                    :to="{ path: `/information/${route.query.source}` }"
+                    :to="{ path: `/information/${route.params.source}` }"
                 >
                     {{ getSourceText }}
                 </el-breadcrumb-item>

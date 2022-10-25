@@ -13,7 +13,9 @@ export const useAppStore = defineStore({
             url ? `${state.config.domain}${url}` : '',
         getWebsiteConfig: (state) => state.config.website || {},
         getLoginConfig: (state) => state.config.login || {},
-        getCopyrightConfig: (state) => state.config.copyright || []
+        getCopyrightConfig: (state) => state.config.copyright || [],
+        getQrcodeConfig: (state) => state.config.qrcode || {},
+        getAdminUrl: (state) => state.config.admin_url
     },
     actions: {
         setConfig(config: any) {

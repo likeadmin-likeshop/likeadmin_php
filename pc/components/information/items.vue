@@ -4,7 +4,9 @@
             v-if="onlyTitle"
             class="before:w-[6px] mt-4 before:h-[6px] before:bg-primary before:block flex items-center before:rounded-[6px] before:mr-2.5 before:flex-none"
         >
-            <span class="line-clamp-1 flex-1 font-medium">{{ title }}</span>
+            <slot name="title" :title="title">
+                <span class="line-clamp-1 flex-1 font-medium">{{ title }}</span>
+            </slot>
             <span class="text-tx-secondary ml-4" v-if="showTime">
                 {{ createTime }}
             </span>
@@ -13,19 +15,24 @@
             v-else
             :class="{
                 'border-b border-br pb-4': border,
-                'flex pt-4': !isHorizontal
+                'flex pt-4 items-center': !isHorizontal
             }"
         >
-            <ElImage
-                class="flex-none"
-                :class="{
-                    'mr-4': !isHorizontal
-                }"
-                :src="image"
-                fit="cover"
-                :style="getImageStyle"
-            />
+            <div class="flex relative">
+                <ElImage
+                    v-if="image"
+                    class="flex-none"
+                    :class="{
+                        'mr-4': !isHorizontal
+                    }"
+                    :src="image"
+                    fit="cover"
+                    :style="getImageStyle"
+                />
+            </div>
+
             <div
+                class="flex-1"
                 :class="{
                     'p-2': isHorizontal
                 }"
@@ -45,7 +52,10 @@
                 >
                     {{ desc }}
                 </div>
-                <div class="mt-5 text-tx-secondary flex items-center flex-wrap">
+                <div
+                    v-if="showAuthor || showTime || showClick"
+                    class="mt-5 text-tx-secondary flex items-center flex-wrap"
+                >
                     <span v-if="showAuthor && author">
                         {{ author }}&nbsp;|&nbsp;
                     </span>
@@ -65,6 +75,9 @@
 import { ElImage, ElIcon } from 'element-plus'
 import { View } from '@element-plus/icons-vue'
 const props = defineProps({
+    index: {
+        type: Number
+    },
     id: {
         type: Number
     },
@@ -123,6 +136,10 @@ const props = defineProps({
         default: true
     },
     showTime: {
+        type: Boolean,
+        default: true
+    },
+    showSort: {
         type: Boolean,
         default: true
     }

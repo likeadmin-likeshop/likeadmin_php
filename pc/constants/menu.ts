@@ -5,15 +5,18 @@ export const NAVBAR = [
     },
     {
         name: '资讯中心',
-        path: '/information'
+        path: '/information',
+        component: 'information'
     },
     {
         name: '移动端展示',
-        path: '/mobile'
+        path: '/mobile',
+        component: 'mobile'
     },
     {
         name: '管理后台',
-        path: 'https://dddd.com'
+        path: '/admin',
+        component: 'admin'
     }
 ]
 

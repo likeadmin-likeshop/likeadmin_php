@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white render-html p-[30px] w-[1180px] mx-auto min-h-screen">
+    <div class="bg-white render-html p-[30px] w-[1200px] mx-auto min-h-screen">
         <h1 class="text-center">{{ data.title }}</h1>
         <div class="mx-auto" v-html="data.content"></div>
     </div>

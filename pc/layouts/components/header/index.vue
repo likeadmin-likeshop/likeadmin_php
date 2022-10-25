@@ -1,26 +1,19 @@
 <template>
     <header class="layout-header text-white bg-primary">
         <div class="header-contain">
-            <Logo />
-            <Menu
-                class="flex-1 navbar"
-                :menu="menu"
-                :default-active="activeMenu"
-                mode="horizontal"
-            />
-            <Search class="mr-[40px]" />
+            <Logo class="flex-none" />
+            <Navbar class="w-[600px]" />
+            <div class="flex-1"></div>
+            <Search class="mr-[40px] flex-none" />
             <User class="flex-none" />
         </div>
     </header>
 </template>
 <script lang="ts" setup>
-import Menu from '../menu/index.vue'
 import User from './user.vue'
 import Search from './search.vue'
 import Logo from './logo.vue'
-const route = useRoute()
-const activeMenu = computed<string>(() => route.path)
-const { menu } = useMenu()
+import Navbar from './navbar.vue'
 </script>
 
 <style lang="scss" scoped>
@@ -35,7 +28,7 @@ const { menu } = useMenu()
         height: 100%;
         display: flex;
         align-items: center;
-        max-width: 1180px;
+        max-width: 1200px;
         margin: 0 auto;
         .navbar {
             --el-menu-item-font-size: var(--el-font-size-large);

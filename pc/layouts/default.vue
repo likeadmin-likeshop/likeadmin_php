@@ -1,5 +1,5 @@
 <template>
-    <section class="layout-default min-w-[1180px]">
+    <section class="layout-default min-w-[1200px]">
         <LayoutHeader />
         <div class="main-contain">
             <LayoutMain class="flex-1 min-h-0 flex">

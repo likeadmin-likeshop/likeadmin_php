@@ -8,7 +8,9 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             ...envConfig
-        },
-        aa: {}
+        }
+    },
+    router: {
+        scrollBehavior: () => ({ left: 0, top: 0 })
     }
 })

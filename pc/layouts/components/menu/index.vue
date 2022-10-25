@@ -1,7 +1,9 @@
 <template>
     <ElMenu class="menu" v-bind="$props" :ellipsis="true">
         <div v-for="item in menu" :key="item.path">
-            <MenuItem :menu-item="item" :route-path="item.path" />
+            <slot name="item" :item="item">
+                <MenuItem :menu-item="item" :route-path="item.path" />
+            </slot>
         </div>
     </ElMenu>
 </template>

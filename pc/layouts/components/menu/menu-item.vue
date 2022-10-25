@@ -3,12 +3,12 @@
         <NuxtLink
             v-if="!hasShowChild"
             :to="routePath"
-            class="flex items-center"
+            class="flex items-center w-full"
             :custom="menuItem.type == 'custom'"
             :external="isExternal(routePath)"
             :target="isExternal(routePath) ? '_blank' : ''"
         >
-            <ElMenuItem :index="routePath">
+            <ElMenuItem class="w-full" :index="routePath">
                 <template #title>
                     <span>
                         {{ menuItem.name }}

@@ -3,9 +3,13 @@
         <div class="text-[#bebebe]">
             <!-- <NuxtLink> 关于我们 </NuxtLink>
             ｜ -->
-            <NuxtLink> 用户协议 </NuxtLink>
+            <NuxtLink :to="`/policy/${PolicyAgreementEnum.SERVICE}`">
+                用户协议
+            </NuxtLink>
             ｜
-            <NuxtLink> 隐私政策 </NuxtLink>
+            <NuxtLink :to="`/policy/${PolicyAgreementEnum.PRIVACY}`">
+                隐私政策
+            </NuxtLink>
             ｜
             <NuxtLink to="/user/info"> 会员中心 </NuxtLink>
         </div>
@@ -24,7 +28,7 @@
 </template>
 <script lang="ts" setup>
 import { useAppStore } from '@/stores/app'
-
+import { PolicyAgreementEnum } from '@/enums/appEnums'
 const appStore = useAppStore()
 </script>
 
