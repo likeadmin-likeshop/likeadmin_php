@@ -137,12 +137,24 @@ class PcLogic extends BaseLogic
         // 备案信息
         $copyright = ConfigService::get('copyright', 'config', []);
 
+        // 公众号二维码
+        $oaQrCode = ConfigService::get('oa_setting', 'qr_code', '');
+        $oaQrCode = empty($oaQrCode) ? $oaQrCode : FileService::getFileUrl($oaQrCode);
+        // 小程序二维码
+        $mnpQrCode = ConfigService::get('mnp_setting', 'qr_code', '');
+        $mnpQrCode = empty($mnpQrCode) ? $mnpQrCode : FileService::getFileUrl($mnpQrCode);
+
         return [
             'domain' => FileService::getFileUrl(),
             'login' => $loginConfig,
             'website' => $website,
             'version' => config('project.version'),
-            'copyright' => $copyright
+            'copyright' => $copyright,
+            'admin_url' => request()->domain() . '/admin',
+            'qrcode' => [
+                'oa' => $oaQrCode,
+                'mnp' => $mnpQrCode,
+            ]
         ];
     }
 
