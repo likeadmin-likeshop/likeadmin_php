@@ -24,6 +24,10 @@ useHead({
         }
     ]
 })
+
+onMounted(() => {
+    $fetch('/api/u')
+})
 </script>
 <template>
     <ElConfigProvider v-bind="config">

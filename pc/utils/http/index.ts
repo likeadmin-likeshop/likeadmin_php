@@ -15,7 +15,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
     const { setPopupType, toggleShowPopup } = useAccount()
     const defaultOptions: FetchOptions = {
         // 基础接口地址
-        baseURL: `${getApiUrl()}/`,
+        baseURL: getApiUrl(),
         //请求头
         headers: {
             version: getVersion()
@@ -38,6 +38,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
             withToken: true,
             isParamsToData: true,
             requestInterceptorsHook(options) {
+                console.log(options)
                 const { apiPrefix, isParamsToData } = options.requestOptions
                 // 拼接请求前缀
                 if (apiPrefix) {
