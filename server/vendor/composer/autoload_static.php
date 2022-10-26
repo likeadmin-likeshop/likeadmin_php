@@ -108,6 +108,7 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         ),
         'L' => 
         array (
+            'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\Cached\\' => 24,
             'League\\Flysystem\\' => 17,
         ),
@@ -309,6 +310,10 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+        ),
+        'League\\MimeTypeDetection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
         ),
         'League\\Flysystem\\Cached\\' => 
         array (

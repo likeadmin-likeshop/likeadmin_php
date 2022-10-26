@@ -8,12 +8,13 @@ use League\Flysystem\Plugin\PluggableTrait;
 use League\Flysystem\Util\ContentListingFormatter;
 
 /**
- * @method array getWithMetadata(string $path, array $metadata)
- * @method bool  forceCopy(string $path, string $newpath)
- * @method bool  forceRename(string $path, string $newpath)
- * @method array listFiles(string $path = '', boolean $recursive = false)
- * @method array listPaths(string $path = '', boolean $recursive = false)
- * @method array listWith(array $keys = [], $directory = '', $recursive = false)
+ * @method void        emptyDir(string $dirname)
+ * @method array|false getWithMetadata(string $path, string[] $metadata)
+ * @method bool        forceCopy(string $path, string $newpath)
+ * @method bool        forceRename(string $path, string $newpath)
+ * @method array       listFiles(string $path = '', boolean $recursive = false)
+ * @method string[]    listPaths(string $path = '', boolean $recursive = false)
+ * @method array       listWith(string[] $keys = [], $directory = '', $recursive = false)
  */
 class Filesystem implements FilesystemInterface
 {
@@ -74,7 +75,7 @@ class Filesystem implements FilesystemInterface
      */
     public function writeStream($path, $resource, array $config = [])
     {
-        if ( ! is_resource($resource)) {
+        if ( ! is_resource($resource) || get_resource_type($resource) !== 'stream') {
             throw new InvalidArgumentException(__METHOD__ . ' expects argument #2 to be a valid resource.');
         }
 
@@ -107,7 +108,7 @@ class Filesystem implements FilesystemInterface
      */
     public function putStream($path, $resource, array $config = [])
     {
-        if ( ! is_resource($resource)) {
+        if ( ! is_resource($resource) || get_resource_type($resource) !== 'stream') {
             throw new InvalidArgumentException(__METHOD__ . ' expects argument #2 to be a valid resource.');
         }
 
@@ -158,7 +159,7 @@ class Filesystem implements FilesystemInterface
      */
     public function updateStream($path, $resource, array $config = [])
     {
-        if ( ! is_resource($resource)) {
+        if ( ! is_resource($resource) || get_resource_type($resource) !== 'stream') {
             throw new InvalidArgumentException(__METHOD__ . ' expects argument #2 to be a valid resource.');
         }
 
