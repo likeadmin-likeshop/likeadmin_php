@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     css: ['@/assets/styles/index.scss'],
     modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
     app: {
-        buildAssetsDir: '/pc/_nuxt/'
+        baseURL: envConfig.baseUrl
     },
     runtimeConfig: {
         public: {
