@@ -192,6 +192,10 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             }
         }
 
+        $likeColumn = '';
+        $betweenColumn = '';
+        $betweenTimeColumn = '';
+
         // 另外处理between,like 等查询条件
         foreach ($this->tableColumn as $item) {
             if (!$item['is_query']) {
@@ -199,17 +203,32 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             }
             // like
             if ($item['query_type'] == 'like') {
-                $conditon .= "'%like%' => " . "['" . $item['column_name'] . "']," . PHP_EOL;
+                $likeColumn .= "'" . $item['column_name'] . "', ";
                 continue;
             }
             // between
             if ($item['query_type'] == 'between') {
                 if ($item['view_type'] == 'datetime') {
-                    $conditon .= "'between_time' => " . "'" . $item['column_name'] . "'," . PHP_EOL;
+                    $betweenTimeColumn .= "'" . $item['column_name'] . "', ";
                 } else {
-                    $conditon .= "'between' => " . "'" . $item['column_name'] . "'," . PHP_EOL;
+                    $betweenColumn .= "'" . $item['column_name'] . "', ";
                 }
             }
+        }
+
+        if (!empty($likeColumn)) {
+            $likeColumn = substr($likeColumn, 0, -2);
+            $conditon .= "'%like%' => " . "[" . trim($likeColumn) . "]," . PHP_EOL;
+        }
+
+        if (!empty($betweenColumn)) {
+            $betweenColumn = substr($betweenColumn, 0, -2);
+            $conditon .= "'between' => " . "[" . trim($betweenColumn) . "]," . PHP_EOL;
+        }
+
+        if (!empty($betweenTimeColumn)) {
+            $betweenTimeColumn = substr($betweenTimeColumn, 0, -2);
+            $conditon .= "'between_time' => " . "[" . trim($betweenTimeColumn) . "]," . PHP_EOL;
         }
 
         $content = substr($conditon, 0, -1);
