@@ -165,6 +165,7 @@ import { useUserStore } from '@/stores/user'
 import { smsSend } from '~~/api/app'
 import { PolicyAgreementEnum, SMSEnum } from '~~/enums/appEnums'
 import feedback from '~~/utils/feedback'
+const route = useRoute()
 const appStore = useAppStore()
 const userStore = useUserStore()
 const { setPopupType, toggleShowPopup } = useAccount()

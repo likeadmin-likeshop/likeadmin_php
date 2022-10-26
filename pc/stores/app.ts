@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { getConfig } from '~~/api/app'
 
 interface AppSate {
     config: Record<string, any>
@@ -18,7 +19,8 @@ export const useAppStore = defineStore({
         getAdminUrl: (state) => state.config.admin_url
     },
     actions: {
-        setConfig(config: any) {
+        async getConfig() {
+            const config = await getConfig()
             this.config = config
         }
     }
