@@ -19,3 +19,8 @@ Route::rule('admin/:any', function () {
 Route::rule('mobile/:any', function () {
     return view(app()->getRootPath() . 'public/mobile/index.html');
 })->pattern(['any' => '\w+']);
+
+// PC端
+Route::rule('pc/:any', function () {
+    return view(app()->getRootPath() . 'public/pc/index.html');
+})->pattern(['any' => '\w+']);
