@@ -13,7 +13,7 @@ return [
         'shop_name' => 'likeadmin', // 商城名称
         'shop_logo' => 'resource/image/adminapi/default/shop_logo.png', // 商城图标
         'pc_logo' => 'resource/image/adminapi/default/pc_logo.png', // pc_logo
-        'pc_ico' => 'resource/image/adminapi/default/pc_logo.png', // pc_ico
+        'pc_ico' => 'resource/image/adminapi/default/web_logo.jpg', // pc_ico
         'pc_title' => 'likeadmin', // PC网站标题
         'pc_desc' => 'likeadmin', // PC网站描述
         'pc_keywords' => 'likeadmin', // PC网站关键词
