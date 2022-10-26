@@ -3,7 +3,7 @@ import { RequestCodeEnum, RequestMethodsEnum } from '@/enums/requestEnums'
 import feedback from '@/utils/feedback'
 import { merge } from 'lodash-es'
 import { Request } from './request'
-import { getApiPrefix, getBaseUrl, getVersion } from '../env'
+import { getApiPrefix, getApiUrl, getVersion } from '../env'
 import { useUserStore } from '@/stores/user'
 import {
     PopupTypeEnum,
@@ -15,7 +15,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
     const { setPopupType, toggleShowPopup } = useAccount()
     const defaultOptions: FetchOptions = {
         // 基础接口地址
-        baseURL: getBaseUrl(),
+        baseURL: getApiUrl(),
         //请求头
         headers: {
             version: getVersion()

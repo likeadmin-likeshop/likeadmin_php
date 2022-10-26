@@ -5,12 +5,13 @@ const envConfig = getEnvConfig()
 export default defineNuxtConfig({
     css: ['@/assets/styles/index.scss'],
     modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
+    app: {
+        baseURL: envConfig.baseUrl
+    },
     runtimeConfig: {
         public: {
             ...envConfig
         }
     },
-    router: {
-        scrollBehavior: () => ({ left: 0, top: 0 })
-    }
+    ssr: !!envConfig.ssr
 })

@@ -4,5 +4,5 @@ node_modules
 .nitro
 .cache
 .output
-.env
+.vite
 dist

@@ -15,8 +15,8 @@ export function getVersion() {
 /**
  * @description 获取请求域名
  */
-export function getBaseUrl() {
-    return useRuntimeConfig().public.baseUrl
+export function getApiUrl() {
+    return useRuntimeConfig().public.apiUrl
 }
 
 /**
