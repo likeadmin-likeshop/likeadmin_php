@@ -43,7 +43,12 @@ class WebSettingLogic extends BaseLogic
             'login_image' => FileService::getFileUrl(ConfigService::get('website', 'login_image')),
             'shop_name' => ConfigService::get('website', 'shop_name'),
             'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo')),
+
             'pc_logo' => FileService::getFileUrl(ConfigService::get('website', 'pc_logo')),
+            'pc_title' => ConfigService::get('website', 'pc_title'),
+            'pc_ico' => FileService::getFileUrl(ConfigService::get('website', 'pc_ico')),
+            'pc_desc' => ConfigService::get('website', 'pc_desc'),
+            'pc_keywords' => ConfigService::get('website', 'pc_keywords'),
         ];
     }
 
@@ -61,6 +66,7 @@ class WebSettingLogic extends BaseLogic
         $login = FileService::setFileUrl($params['login_image']);
         $shopLogo = FileService::setFileUrl($params['shop_logo']);
         $pcLogo = FileService::setFileUrl($params['pc_logo']);
+        $pcIco = FileService::setFileUrl($params['pc_ico'] ?? '');
 
         ConfigService::set('website', 'name', $params['name']);
         ConfigService::set('website', 'web_favicon', $favicon);
@@ -69,6 +75,11 @@ class WebSettingLogic extends BaseLogic
         ConfigService::set('website', 'shop_name', $params['shop_name']);
         ConfigService::set('website', 'shop_logo', $shopLogo);
         ConfigService::set('website', 'pc_logo', $pcLogo);
+
+        ConfigService::set('website', 'pc_title', $params['pc_title']);
+        ConfigService::set('website', 'pc_ico', $pcIco);
+        ConfigService::set('website', 'pc_desc', $params['pc_desc']);
+        ConfigService::set('website', 'pc_keywords', $params['pc_keywords']);
     }
 
 
