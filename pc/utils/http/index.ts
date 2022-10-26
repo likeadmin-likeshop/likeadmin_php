@@ -15,7 +15,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
     const { setPopupType, toggleShowPopup } = useAccount()
     const defaultOptions: FetchOptions = {
         // 基础接口地址
-        baseURL: getApiUrl(),
+        baseURL: `${getApiUrl()}/`,
         //请求头
         headers: {
             version: getVersion()
