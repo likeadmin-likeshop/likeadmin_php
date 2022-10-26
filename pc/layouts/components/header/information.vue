@@ -3,7 +3,9 @@
         <el-dropdown>
             <span class="flex items-center text-white">
                 <MenuItem :menu-item="menuItem" :route-path="menuItem.path" />
-                <Icon name="el-icon-ArrowDown" />
+                <span class="ml-[-10px]">
+                    <Icon name="el-icon-ArrowDown" />
+                </span>
             </span>
             <template #dropdown>
                 <el-dropdown-menu>

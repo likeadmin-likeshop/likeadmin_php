@@ -8,10 +8,14 @@
 import { getPolicy } from '~~/api/app'
 
 const route = useRoute()
-const { data } = await useAsyncData(() =>
-    getPolicy({
-        type: route.params.type
-    })
+const { data } = await useAsyncData(
+    () =>
+        getPolicy({
+            type: route.params.type
+        }),
+    {
+        initialCache: false
+    }
 )
 
 definePageMeta({

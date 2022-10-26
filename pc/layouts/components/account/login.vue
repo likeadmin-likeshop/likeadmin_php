@@ -103,7 +103,7 @@
                 <div class="flex justify-center">
                     <ElButton link @click="getWxCodeLock" v-if="inWxAuth">
                         <img
-                            class="w-[60px] h-[60px]"
+                            class="w-[48px] h-[48px]"
                             src="@/assets/images/icon/icon_wx.png"
                         />
                     </ElButton>
@@ -165,7 +165,6 @@ import { useUserStore } from '@/stores/user'
 import { smsSend } from '~~/api/app'
 import { PolicyAgreementEnum, SMSEnum } from '~~/enums/appEnums'
 import feedback from '~~/utils/feedback'
-const route = useRoute()
 const appStore = useAppStore()
 const userStore = useUserStore()
 const { setPopupType, toggleShowPopup } = useAccount()
@@ -253,7 +252,7 @@ const sendSms = async () => {
 const handleLogin = async () => {
     await formRef.value?.validate()
     const data = await login(formData)
-    if (isForceBindMobile && !data.mobile) {
+    if (isForceBindMobile.value && !data.mobile) {
         userStore.temToken = data.token
         setPopupType(PopupTypeEnum.BIND_MOBILE)
         return
