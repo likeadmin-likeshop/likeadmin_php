@@ -55,7 +55,7 @@ class WeChatRequestService extends BaseLogic
     {
         $config = WeChatConfigService::getOpConfig();
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token';
-        $url .= '?appid=' . $config['app_id'] . '&secret=' . $config['app_secret'] . '&code=' . $code;
+        $url .= '?appid=' . $config['app_id'] . '&secret=' . $config['secret'] . '&code=' . $code;
         $url .= '&grant_type=authorization_code';
         $requests = Requests::get($url);
         return json_decode($requests->body, true);
