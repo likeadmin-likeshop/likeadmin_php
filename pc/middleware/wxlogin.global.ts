@@ -18,11 +18,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             if (isForceBindMobile && !data.mobile) {
                 userStore.temToken = data.token
                 setPopupType(PopupTypeEnum.BIND_MOBILE)
+                toggleShowPopup(true)
                 return
             }
             userStore.login(data.token)
             await userStore.getUser()
-            toggleShowPopup(false)
         }
     } catch (error) {}
 })
