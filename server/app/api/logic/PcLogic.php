@@ -132,6 +132,10 @@ class PcLogic extends BaseLogic
             'shop_name' => ConfigService::get('website', 'shop_name'),
             'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo')),
             'pc_logo' => FileService::getFileUrl(ConfigService::get('website', 'pc_logo')),
+            'pc_title' => ConfigService::get('website', 'pc_title'),
+            'pc_ico' => FileService::getFileUrl(ConfigService::get('website', 'pc_ico')),
+            'pc_desc' => ConfigService::get('website', 'pc_desc'),
+            'pc_keywords' => ConfigService::get('website', 'pc_keywords'),
         ];
 
         // 备案信息
