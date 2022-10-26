@@ -1,4 +1,3 @@
-import { execaCommand } from 'execa'
 import path from 'path'
 import fsExtra from 'fs-extra'
 const { existsSync, remove, copy } = fsExtra
@@ -9,7 +8,6 @@ const distPath = path.resolve(cwd, 'dist')
 const releasePath = path.resolve(cwd, releaseRelativePath)
 
 async function build() {
-    await execaCommand('vite build', { stdio: 'inherit', encoding: 'utf-8', cwd })
     if (existsSync(releasePath)) {
         await remove(releasePath)
     }
