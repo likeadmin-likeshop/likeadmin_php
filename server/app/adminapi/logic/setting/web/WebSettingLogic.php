@@ -78,8 +78,8 @@ class WebSettingLogic extends BaseLogic
 
         ConfigService::set('website', 'pc_title', $params['pc_title']);
         ConfigService::set('website', 'pc_ico', $pcIco);
-        ConfigService::set('website', 'pc_desc', $params['pc_desc']);
-        ConfigService::set('website', 'pc_keywords', $params['pc_keywords']);
+        ConfigService::set('website', 'pc_desc', $params['pc_desc'] ?? '');
+        ConfigService::set('website', 'pc_keywords', $params['pc_keywords'] ?? '');
     }
 
 
