@@ -11,7 +11,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const userStore = useUserStore()
     const { setPopupType, toggleShowPopup } = useAccount()
     const isForceBindMobile = appStore.getLoginConfig.coerce_mobile
-    const { code, state } = from.query
+    const { code, state } = to.query
+    delete to.query.code
+    delete to.query.state
     try {
         if (code && state) {
             const data = await wxLogin({ code, state })
@@ -23,6 +25,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             }
             userStore.login(data.token)
             await userStore.getUser()
+
+            navigateTo(to, { replace: true })
         }
-    } catch (error) {}
+    } catch (error) {
+        navigateTo(to, { replace: true })
+    }
 })
