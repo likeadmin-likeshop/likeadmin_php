@@ -118,7 +118,6 @@
                             已阅读并同意
                             <NuxtLink
                                 class="text-tx-primary"
-                                target="_blank"
                                 :to="`/policy/${PolicyAgreementEnum.SERVICE}`"
                             >
                                 《服务协议》
@@ -126,7 +125,6 @@
                             和
                             <NuxtLink
                                 class="text-tx-primary"
-                                target="_blank"
                                 :to="`/policy/${PolicyAgreementEnum.PRIVACY}`"
                             >
                                 《隐私政策》
