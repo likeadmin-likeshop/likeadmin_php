@@ -194,6 +194,9 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
 
         // 另外处理between,like 等查询条件
         foreach ($this->tableColumn as $item) {
+            if (!$item['is_query']) {
+                continue;
+            }
             // like
             if ($item['query_type'] == 'like') {
                 $conditon .= "'%like%' => " . "['" . $item['column_name'] . "']," . PHP_EOL;
