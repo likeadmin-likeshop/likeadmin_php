@@ -117,17 +117,32 @@
                         <span class="text-tx-secondary text-sm">
                             已阅读并同意
                             <NuxtLink
-                                class="text-tx-primary"
                                 :to="`/policy/${PolicyAgreementEnum.SERVICE}`"
+                                custom
+                                v-slot="{ href }"
                             >
-                                《服务协议》
+                                <a
+                                    class="text-tx-primary"
+                                    :href="href"
+                                    target="_blank"
+                                >
+                                    《服务协议》
+                                </a>
                             </NuxtLink>
                             和
                             <NuxtLink
                                 class="text-tx-primary"
                                 :to="`/policy/${PolicyAgreementEnum.PRIVACY}`"
+                                custom
+                                v-slot="{ href }"
                             >
-                                《隐私政策》
+                                <a
+                                    class="text-tx-primary"
+                                    :href="href"
+                                    target="_blank"
+                                >
+                                    《隐私政策》
+                                </a>
                             </NuxtLink>
                         </span>
                     </ElCheckbox>
