@@ -2,7 +2,7 @@
     <div class="edit-popup">
         <popup
             ref="popupRef"
-            title="设置存储"
+            title="设置短信"
             :async="true"
             width="550px"
             @confirm="handleSubmit"
