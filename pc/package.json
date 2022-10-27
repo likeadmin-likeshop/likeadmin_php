@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "scripts": {
+        "build": "nuxt build && node scripts/build.mjs",
+        "dev": "nuxt dev",
+        "start": "nuxt start",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare"
+    },
+    "devDependencies": {
+        "@nuxt/webpack-builder": "^3.0.0-rc.11",
+        "@nuxtjs/tailwindcss": "^5.3.5",
+        "@pinia/nuxt": "^0.4.3",
+        "@tailwindcss/line-clamp": "^0.4.2",
+        "@vue/eslint-config-prettier": "^7.0.0",
+        "@vue/eslint-config-typescript": "^11.0.2",
+        "eslint": "^8.25.0",
+        "eslint-plugin-nuxt": "^4.0.0",
+        "nuxt": "^3.0.0-rc.11",
+        "prettier": "^2.7.1",
+        "sass": "^1.55.0",
+        "sass-loader": "^13.1.0",
+        "typescript": "^4.8.4"
+    },
+    "dependencies": {
+        "@chenfengyuan/vue-countdown": "2",
+        "element-plus": "^2.2.18",
+        "pinia": "^2.0.23",
+        "vue-cropper": "^1.0.5"
+    }
+}

@@ -1,7 +1,7 @@
 <?php
 return [
     // 系统版本号
-    'version' => '1.3.1',
+    'version' => '1.4.0',
 
     // 官网
     'website' => [
@@ -12,6 +12,9 @@ return [
         'web_favicon' => 'resource/image/adminapi/default/web_favicon.ico', // 网站图标
         'shop_name' => 'likeadmin', // 商城名称
         'shop_logo' => 'resource/image/adminapi/default/shop_logo.png', // 商城图标
+        'pc_logo' => 'resource/image/adminapi/default/pc_logo.png', // pc_logo
+        'pc_ico' => 'resource/image/adminapi/default/web_favicon.jpg', // pc_ico
+        'pc_title' => 'likeadmin', // PC网站标题
     ],
 
     // 后台登录
@@ -48,7 +51,7 @@ return [
     // 各种默认图片
     'default_image' => [
         'admin_avatar' => 'resource/image/adminapi/default/avatar.png',
-        'user_avatar' => 'resource/image/adminapi/default/avatar.png',
+        'user_avatar' => 'resource/image/adminapi/default/default_avatar.png',
         'qq_group' => 'resource/image/adminapi/default/qq_group.png', // qq群
         'customer_service' => 'resource/image/adminapi/default/customer_service.jpg', // 客服
         'menu_admin' => 'resource/image/adminapi/default/menu_admin.png',// 首页快捷菜单-管理员

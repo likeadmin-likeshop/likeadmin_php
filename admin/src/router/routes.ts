@@ -41,6 +41,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'setting',
                 component: () => import('@/views/user/setting.vue'),
+                name: Symbol(),
                 meta: {
                     title: '个人设置'
                 }

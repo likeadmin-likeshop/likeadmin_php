@@ -1,0 +1,56 @@
+body {
+    @apply text-base text-tx-primary bg-page;
+    min-width: 1200px;
+}
+body,
+html {
+    // width: 100vw;
+}
+.form-tips {
+    @apply text-tx-secondary text-xs leading-6 mt-1;
+}
+.el-button {
+    background-color: var(--el-button-bg-color, var(--el-color-white));
+}
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.render-html {
+    ul {
+        list-style: disc;
+    }
+    ol {
+        list-style: decimal;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    h3 {
+        font-size: 1.17em;
+    }
+    h4 {
+        font-size: 1em;
+    }
+    h5 {
+        font-size: 0.83em;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-weight: bold;
+    }
+}
+
+/* NProgress */
+#nprogress .bar {
+    @apply bg-primary #{!important};
+}

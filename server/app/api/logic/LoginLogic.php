@@ -14,10 +14,15 @@
 
 namespace app\api\logic;
 
+use app\common\cache\WebScanLoginCache;
 use app\common\logic\BaseLogic;
 use app\api\service\{UserTokenService, WechatUserService};
 use app\common\enum\{LoginEnum, user\UserTerminalEnum};
-use app\common\service\{ConfigService, FileService, wechat\WeChatService};
+use app\common\service\{ConfigService,
+    FileService,
+    wechat\WeChatConfigService,
+    wechat\WeChatRequestService,
+    wechat\WeChatService};
 use app\common\model\user\{User, UserAuth};
 use think\facade\{Db, Config};
 
@@ -336,6 +341,73 @@ class LoginLogic extends BaseLogic
             'terminal' => $response['terminal'],
         ]);
         return true;
+    }
+
+
+    /**
+     * @notes 获取扫码登录地址
+     * @return array|false
+     * @author 段誉
+     * @date 2022/10/20 18:23
+     */
+    public static function getScanCode($redirectUri)
+    {
+        try {
+            $config = WeChatConfigService::getOpConfig();
+            $appId = $config['app_id'];
+            $redirectUri = UrlEncode($redirectUri);
+
+            // 设置有效时间标记状态, 超时扫码不可登录
+            $state = MD5(time().rand(10000, 99999));
+            (new WebScanLoginCache())->setScanLoginState($state);
+
+            // 扫码地址
+            $url = WeChatRequestService::getScanCodeUrl($appId, $redirectUri, $state);
+            return ['url' => $url];
+
+        } catch (\Exception $e) {
+            self::$error = $e->getMessage();
+            return false;
+        }
+    }
+
+
+    /**
+     * @notes 网站扫码登录
+     * @param $params
+     * @return array|false
+     * @author 段誉
+     * @date 2022/10/21 10:28
+     */
+    public static function scanLogin($params)
+    {
+        Db::startTrans();
+        try {
+            // 通过code 获取 access_token,openid,unionid等信息
+            $userAuth = WeChatRequestService::getUserAuthByCode($params['code']);
+
+            if (empty($userAuth['openid']) || empty($userAuth['access_token'])) {
+                throw new \Exception('获取用户授权信息失败');
+            }
+
+            // 获取微信用户信息
+            $response = WeChatRequestService::getUserInfoByAuth($userAuth['access_token'], $userAuth['openid']);
+
+            // 生成用户或更新用户信息
+            $userServer = new WechatUserService($response, UserTerminalEnum::PC);
+            $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
+
+            // 更新登录信息
+            self::updateLoginInfo($userInfo['id']);
+
+            Db::commit();
+            return $userInfo;
+
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::$error = $e->getMessage();
+            return false;
+        }
     }
 
 }

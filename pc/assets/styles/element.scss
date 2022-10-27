@@ -1,0 +1,126 @@
+@import 'element-plus/theme-chalk/index.css';
+
+:root {
+    // 弹窗居中
+    .el-overlay-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100%;
+        position: static;
+
+        .el-dialog {
+            --el-dialog-content-font-size: var(--el-font-size-base);
+            --el-dialog-margin-top: 50px;
+            max-width: calc(100vw - 30px);
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            border-radius: 5px;
+
+            &.body-padding .el-dialog__body {
+                padding: 0;
+            }
+
+            .el-dialog__body {
+                flex: 1;
+                padding: 15px 20px;
+            }
+            .el-dialog__header {
+                font-size: var(--el-font-size-large);
+            }
+        }
+    }
+
+    .el-drawer {
+        --el-drawer-padding-primary: 16px;
+        &__header {
+            margin-bottom: 0;
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--el-border-color-lighter);
+        }
+        &__title {
+            @apply text-tx-primary;
+        }
+    }
+
+    .el-table {
+        --el-table-header-text-color: var(--el-text-color-primary);
+        --el-table-header-bg-color: var(--table-header-bg-color);
+        font-size: var(--el-font-size-base);
+
+        thead {
+            th {
+                font-weight: 400;
+            }
+        }
+    }
+
+    .el-input-group__prepend {
+        background-color: var(--el-fill-color-blank);
+    }
+
+    .el-checkbox {
+        --el-checkbox-font-size: var(--el-font-size-base);
+    }
+
+    .el-message-box {
+        --el-messagebox-width: 350px;
+    }
+    .el-date-editor {
+        --el-date-editor-datetimerange-width: 380px;
+        .el-range-input {
+            font-size: var(--el-font-size-small);
+        }
+    }
+
+    .el-button--primary {
+        --el-button-hover-link-text-color: var(--el-color-primary-light-3);
+    }
+    .el-button--success {
+        --el-button-hover-link-text-color: var(--el-color-success-light-3);
+    }
+    .el-button--info {
+        --el-button-hover-link-text-color: var(--el-color-info-light-3);
+    }
+    .el-button--warning {
+        --el-button-hover-link-text-color: var(--el-color-warning-light-3);
+    }
+    .el-button--danger {
+        --el-button-hover-link-text-color: var(--el-color-danger-light-3);
+    }
+    .el-image__error {
+        font-size: 12px;
+    }
+    .el-tabs__nav-wrap::after {
+        height: 1px;
+    }
+    .el-page-header {
+        &__breadcrumb {
+            margin-bottom: 0;
+        }
+    }
+    .el-card {
+        --el-card-border-radius: 8px;
+    }
+    .el-menu {
+        border-right: none;
+    }
+}
+
+.el-button {
+    // 防止被tailwindcss默认样式覆盖
+    background-color: var(--el-button-bg-color, var(--el-color-white));
+
+    //覆盖el-button的点击样式
+    &:focus {
+        color: var(--el-button-text-color);
+        border-color: var(--el-button-border-color);
+        background-color: var(--el-button-bg-color);
+    }
+    &:hover {
+        color: var(--el-button-hover-text-color);
+        border-color: var(--el-button-hover-border-color);
+        background-color: var(--el-button-hover-bg-color);
+    }
+}

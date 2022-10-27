@@ -39,26 +39,12 @@ class ArticleLogic extends BaseLogic
      */
     public static function detail($articleId, $userId)
     {
-        $article = Article::findOrEmpty($articleId);
-        if (empty($article)) {
-            return [];
-        }
-
-        // 增加点击量
-        $article->click_actual += 1;
-        $article->save();
-
+        // 文章详情
+        $article = Article::getArticleDetailArr($articleId);
         // 关注状态
-        $collect = ArticleCollect::where([
-            'user_id' => $userId,
-            'article_id' => $articleId,
-            'status' => YesNoEnum::YES
-        ])->findOrEmpty();
-        $article['collect'] = !$collect->isEmpty();
+        $article['collect'] = ArticleCollect::isCollectArticle($userId, $articleId);
 
-        return $article->append(['click'])
-            ->hidden(['click_virtual', 'click_actual'])
-            ->toArray();
+        return $article;
     }
 
 

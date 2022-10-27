@@ -16,6 +16,7 @@ namespace app\adminapi\controller\channel;
 
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\logic\channel\OpenSettingLogic;
+use app\adminapi\validate\channel\OpenSettingValidate;
 
 /**
  * 微信开放平台
@@ -46,7 +47,7 @@ class OpenSettingController extends BaseAdminController
      */
     public function setConfig()
     {
-        $params = $this->request->post();
+        $params = (new OpenSettingValidate())->post()->goCheck();
         OpenSettingLogic::setConfig($params);
         return $this->success('操作成功', [], 1, 1);
     }

@@ -104,7 +104,7 @@ class UserLogic extends BaseLogic
     public static function hasWechatAuth(int $userId)
     {
         //是否有微信授权登录
-        $terminal = [UserTerminalEnum::WECHAT_MMP, UserTerminalEnum::WECHAT_OA];
+        $terminal = [UserTerminalEnum::WECHAT_MMP, UserTerminalEnum::WECHAT_OA,UserTerminalEnum::PC];
         $auth = UserAuth::where(['user_id' => $userId])
             ->whereIn('terminal', $terminal)
             ->findOrEmpty();

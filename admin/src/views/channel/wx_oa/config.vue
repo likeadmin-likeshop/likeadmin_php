@@ -11,6 +11,7 @@
         <el-form
             ref="formRef"
             :model="formData"
+            :rules="formRules"
             :label-width="appStore.isMobile ? '80px' : '160px'"
         >
             <el-card class="!border-none mt-4" shadow="never">
@@ -161,7 +162,7 @@
 <script lang="ts" setup name="wxOaConfig">
 import { getOaConfig, setOaConfig } from '@/api/channel/wx_oa'
 import useAppStore from '@/stores/modules/app'
-
+import type { FormInstance } from 'element-plus'
 const appStore = useAppStore()
 const formData = reactive({
     name: '',
@@ -178,6 +179,24 @@ const formData = reactive({
     web_auth_domain: ''
 })
 
+const formRef = shallowRef<FormInstance>()
+const formRules = {
+    app_id: [
+        {
+            required: true,
+            message: '请输入AppID',
+            trigger: ['blur', 'change']
+        }
+    ],
+    app_secret: [
+        {
+            required: true,
+            message: '请输入AppSecret',
+            trigger: ['blur', 'change']
+        }
+    ]
+}
+
 const getDetail = async () => {
     const data = await getOaConfig()
     for (const key in formData) {
@@ -187,6 +206,7 @@ const getDetail = async () => {
 }
 
 const handelSave = async () => {
+    await formRef.value?.validate()
     await setOaConfig(formData)
     getDetail()
 }

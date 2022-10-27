@@ -14,6 +14,7 @@
 
 namespace app\common\model\article;
 
+use app\common\enum\YesNoEnum;
 use app\common\model\BaseModel;
 use think\model\concern\SoftDelete;
 
@@ -80,6 +81,32 @@ class Article extends BaseModel
     public function setContentAttr($value, $data)
     {
         return clear_file_domain($value);
+    }
+
+
+    /**
+     * @notes 获取文章详情
+     * @param $id
+     * @return array
+     * @author 段誉
+     * @date 2022/10/20 15:23
+     */
+    public static function getArticleDetailArr(int $id)
+    {
+        $article = Article::where(['id' => $id, 'is_show' => YesNoEnum::YES])
+            ->findOrEmpty();
+
+        if ($article->isEmpty()) {
+            return [];
+        }
+
+        // 增加点击量
+        $article->click_actual += 1;
+        $article->save();
+
+        return $article->append(['click'])
+            ->hidden(['click_virtual', 'click_actual'])
+            ->toArray();
     }
 
 }

@@ -44,6 +44,22 @@ class ArticleLists extends BaseApiDataLists implements ListsSearchInterface
 
 
     /**
+     * @notes 自定查询条件
+     * @return array
+     * @author 段誉
+     * @date 2022/10/25 16:53
+     */
+    public function queryWhere()
+    {
+        $where[] = ['is_show', '=', 1];
+        if (!empty($this->params['keyword'])) {
+            $where[] = ['title', 'like', '%' . $this->params['keyword'] . '%'];
+        }
+        return $where;
+    }
+
+
+    /**
      * @notes 获取文章列表
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -54,16 +70,22 @@ class ArticleLists extends BaseApiDataLists implements ListsSearchInterface
      */
     public function lists(): array
     {
-        $where[] = ['is_show', '=', 1];
-        if (!empty($this->params['keyword'])) {
-            $where[] = ['title', 'like', '%' . $this->params['keyword'] . '%'];
+        $orderRaw = 'sort desc, id desc';
+        $sortType = $this->params['sort'] ?? 'default';
+        // 最新排序
+        if ($sortType == 'new') {
+            $orderRaw = 'id desc';
+        }
+        // 最热排序
+        if ($sortType == 'hot') {
+            $orderRaw = 'click_actual + click_virtual desc, id desc';
         }
 
-        $field = 'id,title,desc,image,click_virtual,click_actual,create_time';
+        $field = 'id,cid,title,desc,image,click_virtual,click_actual,create_time';
         $result = Article::field($field)
-            ->where($where)
+            ->where($this->queryWhere())
             ->where($this->searchWhere)
-            ->order(['sort' => 'desc', 'id' => 'desc'])
+            ->orderRaw($orderRaw)
             ->append(['click'])
             ->hidden(['click_virtual', 'click_actual'])
             ->limit($this->limitOffset, $this->limitLength)
@@ -91,6 +113,8 @@ class ArticleLists extends BaseApiDataLists implements ListsSearchInterface
      */
     public function count(): int
     {
-        return Article::where($this->searchWhere)->count();
+        return Article::where($this->searchWhere)
+            ->where($this->queryWhere())
+            ->count();
     }
 }
