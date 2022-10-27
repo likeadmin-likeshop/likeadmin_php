@@ -8,7 +8,7 @@
                     {{ header }}
                 </span>
             </div>
-            <ElButton class="button" link>
+            <ElButton class="button" link v-if="link">
                 <NuxtLink :to="link" class="flex">
                     更多
                     <ElIcon><ArrowRight /></ElIcon>

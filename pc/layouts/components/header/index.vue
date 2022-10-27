@@ -1,7 +1,7 @@
 <template>
     <header class="layout-header text-white bg-primary">
         <div class="header-contain">
-            <Logo class="flex-none" />
+            <Logo class="flex-none mr-4" />
             <Navbar class="w-[600px]" />
             <div class="flex-1"></div>
             <Search class="mr-[40px] flex-none" />

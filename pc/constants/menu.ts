@@ -5,8 +5,7 @@ export const NAVBAR = [
     },
     {
         name: '资讯中心',
-        path: '/information',
-        component: 'information'
+        path: '/information'
     },
     {
         name: '移动端展示',

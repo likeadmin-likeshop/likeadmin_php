@@ -7,9 +7,15 @@
                     资讯中心
                 </el-breadcrumb-item>
                 <el-breadcrumb-item
-                    :to="{ path: `/information/${route.params.source}` }"
+                    :to="{
+                        path: `/information/default`,
+                        query: {
+                            cid: newsDetail.cid,
+                            name: newsDetail.cate_name
+                        }
+                    }"
                 >
-                    {{ getSourceText }}
+                    {{ newsDetail.cate_name }}
                 </el-breadcrumb-item>
                 <el-breadcrumb-item>文章详情</el-breadcrumb-item>
             </el-breadcrumb>
@@ -52,7 +58,7 @@
                         <NuxtLink
                             v-if="newsDetail.last.id"
                             class="line-clamp-1 flex-1 text-primary"
-                            :to="`/information/${route.params.source}/detail/${newsDetail.last?.id}`"
+                            :to="`/information/detail/${newsDetail.last?.id}`"
                         >
                             {{ newsDetail.last?.title }}
                         </NuxtLink>
@@ -63,7 +69,7 @@
                         <NuxtLink
                             v-if="newsDetail.next.id"
                             class="line-clamp-1 flex-1 text-primary"
-                            :to="`/information/${route.params.source}/detail/${newsDetail.next?.id}`"
+                            :to="`/information/detail/${newsDetail.next?.id}`"
                         >
                             {{ newsDetail.next?.title }}
                         </NuxtLink>
@@ -73,7 +79,7 @@
             </div>
             <InformationCard
                 class="flex-1"
-                header="最新资讯"
+                header="相关资讯"
                 :data="newsDetail.new"
                 :only-title="false"
                 image-size="mini"
