@@ -16,16 +16,16 @@
                 <div class="text-center text-tx-primary">
                     <div class="text-4xl font-medium">移动端演示</div>
                     <div class="flex my-[40px] justify-around">
+                        <div v-if="oa">
+                            <img :src="oa" class="w-[180px] h-[180px]" alt="" />
+                            <div class="mt-2.5">公众号演示</div>
+                        </div>
                         <div v-if="mnp">
                             <img
                                 :src="mnp"
                                 class="w-[180px] h-[180px]"
                                 alt=""
                             />
-                            <div class="mt-2.5">公众号演示</div>
-                        </div>
-                        <div v-if="mnp">
-                            <img :src="oa" class="w-[180px] h-[180px]" alt="" />
                             <div class="mt-2.5">小程序演示</div>
                         </div>
                         <div
