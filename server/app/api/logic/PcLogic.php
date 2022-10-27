@@ -70,10 +70,10 @@ class PcLogic extends BaseLogic
      * @author 段誉
      * @date 2022/10/19 9:53
      */
-    public static function getLimitArticle(string $sortType, int $limit = 0)
+    public static function getLimitArticle(string $sortType, int $limit = 0, int $cate = 0)
     {
         $field = [
-            'id', 'title', 'desc', 'abstract', 'image',
+            'id', 'cid', 'title', 'desc', 'abstract', 'image',
             'author', 'click_actual', 'click_virtual', 'create_time'
         ];
 
@@ -86,8 +86,13 @@ class PcLogic extends BaseLogic
             $orderRaw = 'click_actual + click_virtual desc, id desc';
         }
 
+        $where[] = ['is_show', '=', YesNoEnum::YES];
+        if (!empty($cate)) {
+            $where[] = ['cid', '=', $cate];
+        }
+
         $article = Article::field($field)
-            ->where(['is_show' => 1])
+            ->where($where)
             ->append(['click'])
             ->orderRaw($orderRaw)
             ->hidden(['click_actual', 'click_virtual']);
@@ -218,9 +223,11 @@ class PcLogic extends BaseLogic
         $detail['next'] = $lists[$nowIndex + 1] ?? [];
 
         // 最新资讯
-        $detail['new'] = self::getLimitArticle('new', 8);
+        $detail['new'] = self::getLimitArticle('new', 8, $detail['cid']);
         // 关注状态
         $detail['collect'] = ArticleCollect::isCollectArticle($userId, $articleId);
+        // 分类名
+        $detail['cate_name'] = ArticleCate::where('id', $detail['cid'])->value('name');
 
         return $detail;
     }
