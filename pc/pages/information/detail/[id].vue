@@ -39,6 +39,12 @@
                         </div>
                     </div>
                 </div>
+                <div
+                    v-if="newsDetail.abstract"
+                    class="bg-page mt-4 p-3 rounded-lg"
+                >
+                    摘要：{{ newsDetail.abstract }}
+                </div>
                 <div class="py-4" v-html="newsDetail.content"></div>
                 <div class="flex justify-center mt-[40px]">
                     <ElButton size="large" round @click="handelCollectLock">
@@ -57,7 +63,7 @@
                         <span class="text-tx-regular">上一篇：</span>
                         <NuxtLink
                             v-if="newsDetail.last.id"
-                            class="line-clamp-1 flex-1 text-primary"
+                            class="flex-1 hover:underline"
                             :to="`/information/detail/${newsDetail.last?.id}`"
                         >
                             {{ newsDetail.last?.title }}
@@ -68,7 +74,7 @@
                         <span class="text-tx-regular">下一篇：</span>
                         <NuxtLink
                             v-if="newsDetail.next.id"
-                            class="line-clamp-1 flex-1 text-primary"
+                            class="flex-1 hover:underline"
                             :to="`/information/detail/${newsDetail.next?.id}`"
                         >
                             {{ newsDetail.next?.title }}

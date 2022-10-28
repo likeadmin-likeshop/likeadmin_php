@@ -14,11 +14,11 @@
                 :width="700"
             >
                 <div class="text-center text-tx-primary">
-                    <div class="text-4xl font-medium">移动端展示</div>
+                    <div class="text-4xl font-medium">移动端演示</div>
                     <div class="flex my-[40px] justify-around">
                         <div v-if="oa">
                             <img :src="oa" class="w-[180px] h-[180px]" alt="" />
-                            <div class="mt-2.5">公众号展示</div>
+                            <div class="mt-2.5">微信公众号演示</div>
                         </div>
                         <div v-if="mnp">
                             <img
@@ -26,13 +26,13 @@
                                 class="w-[180px] h-[180px]"
                                 alt=""
                             />
-                            <div class="mt-2.5">小程序展示</div>
+                            <div class="mt-2.5">微信小程序演示</div>
                         </div>
                         <div
                             v-if="!mnp && !oa"
                             class="w-[180px] h-[180px] flex items-center justify-center"
                         >
-                            暂无展示
+                            暂无演示
                         </div>
                     </div>
                 </div>

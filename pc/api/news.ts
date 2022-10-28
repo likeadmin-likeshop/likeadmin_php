@@ -1,4 +1,12 @@
 /**
+ * @description 获取文章分类
+ * @return { Promise }
+ */
+export function getArticleCate() {
+    return $request.get({ url: '/article/cate' })
+}
+
+/**
  * @description 获取文章列表
  * @return { Promise }
  */

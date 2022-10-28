@@ -1,6 +1,6 @@
 <template>
     <ClientOnly>
-        <el-dropdown>
+        <el-dropdown :max-height="200">
             <span class="flex items-center text-white">
                 <MenuItem :menu-item="menuItem" :route-path="menuItem.path" />
                 <span class="ml-[-10px]">
@@ -9,11 +9,18 @@
             </span>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <NuxtLink to="/information/hot">
-                        <el-dropdown-item> 热门资讯 </el-dropdown-item>
-                    </NuxtLink>
-                    <NuxtLink to="/information/new">
-                        <el-dropdown-item> 最新资讯 </el-dropdown-item>
+                    <NuxtLink
+                        :to="{
+                            path: '/information/default',
+                            query: {
+                                cid: item.id,
+                                name: item.name
+                            }
+                        }"
+                        v-for="item in data"
+                        :key="item.id"
+                    >
+                        <el-dropdown-item> {{ item.name }} </el-dropdown-item>
                     </NuxtLink>
                 </el-dropdown-menu>
             </template>
@@ -22,6 +29,7 @@
 </template>
 <script lang="ts" setup>
 import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
+import { getArticleCate } from '~~/api/news'
 import MenuItem from '../menu/menu-item.vue'
 defineProps({
     menuItem: {
@@ -29,6 +37,8 @@ defineProps({
         default: () => ({})
     }
 })
+
+const { data } = useAsyncData(() => getArticleCate())
 </script>
 
 <style lang="scss" scoped></style>
