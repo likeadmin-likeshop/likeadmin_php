@@ -9,7 +9,7 @@ export const NAVBAR = [
         component: 'information'
     },
     {
-        name: '移动端展示',
+        name: '移动端',
         path: '/mobile',
         component: 'mobile'
     },

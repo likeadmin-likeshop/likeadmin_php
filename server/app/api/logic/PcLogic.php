@@ -70,24 +70,34 @@ class PcLogic extends BaseLogic
      * @author 段誉
      * @date 2022/10/19 9:53
      */
-    public static function getLimitArticle(string $sortType, int $limit = 0)
+    public static function getLimitArticle(string $sortType, int $limit = 0, int $cate = 0, int $excludeId = 0)
     {
+        // 查询字段
         $field = [
-            'id', 'title', 'desc', 'abstract', 'image',
+            'id', 'cid', 'title', 'desc', 'abstract', 'image',
             'author', 'click_actual', 'click_virtual', 'create_time'
         ];
 
+        // 排序条件
         $orderRaw = 'sort desc, id desc';
         if ($sortType == 'new') {
             $orderRaw = 'id desc';
         }
-
         if ($sortType == 'hot') {
             $orderRaw = 'click_actual + click_virtual desc, id desc';
         }
 
+        // 查询条件
+        $where[] = ['is_show', '=', YesNoEnum::YES];
+        if (!empty($cate)) {
+            $where[] = ['cid', '=', $cate];
+        }
+        if (!empty($excludeId)) {
+            $where[] = ['id', '<>', $excludeId];
+        }
+
         $article = Article::field($field)
-            ->where(['is_show' => 1])
+            ->where($where)
             ->append(['click'])
             ->orderRaw($orderRaw)
             ->hidden(['click_actual', 'click_virtual']);
@@ -206,7 +216,7 @@ class PcLogic extends BaseLogic
 
         // 根据来源列表查找对应列表
         $nowIndex = 0;
-        $lists = self::getLimitArticle($source);
+        $lists = self::getLimitArticle($source, 0, $detail['cid']);
         foreach ($lists as $key => $item) {
             if ($item['id'] == $articleId) {
                 $nowIndex = $key;
@@ -218,9 +228,11 @@ class PcLogic extends BaseLogic
         $detail['next'] = $lists[$nowIndex + 1] ?? [];
 
         // 最新资讯
-        $detail['new'] = self::getLimitArticle('new', 8);
+        $detail['new'] = self::getLimitArticle('new', 8, $detail['cid'], $detail['id']);
         // 关注状态
         $detail['collect'] = ArticleCollect::isCollectArticle($userId, $articleId);
+        // 分类名
+        $detail['cate_name'] = ArticleCate::where('id', $detail['cid'])->value('name');
 
         return $detail;
     }

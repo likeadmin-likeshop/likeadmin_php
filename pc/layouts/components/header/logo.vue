@@ -1,6 +1,6 @@
 <template>
     <NuxtLink v-if="appStore.getWebsiteConfig.pc_logo" class="flex" to="/">
-        <img :src="appStore.getWebsiteConfig.pc_logo" class="h-[24px]" />
+        <img :src="appStore.getWebsiteConfig.pc_logo" class="h-[26px]" />
     </NuxtLink>
 </template>
 <script lang="ts" setup>

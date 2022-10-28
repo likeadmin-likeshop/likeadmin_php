@@ -1,5 +1,5 @@
 <template>
-    <NuxtLink :to="`/information/${source}/detail/${id}`">
+    <NuxtLink :to="`/information/detail/${id}`">
         <div
             v-if="onlyTitle"
             class="before:w-[6px] mt-4 before:h-[6px] before:bg-primary before:block flex items-center before:rounded-[6px] before:mr-2.5 before:flex-none"
