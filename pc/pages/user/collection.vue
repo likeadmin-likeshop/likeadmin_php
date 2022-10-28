@@ -8,11 +8,7 @@
                 class="cursor-pointer"
                 v-for="item in data.lists"
                 :key="item.id"
-                @click="
-                    $router.push(
-                        `/information/default/detail/${item.article_id}`
-                    )
-                "
+                @click="$router.push(`/information/detail/${item.article_id}`)"
             >
                 <div class="border-b border-br py-4 flex items-center">
                     <ElImage

@@ -6,7 +6,7 @@
                 :width="400"
                 :close-on-click-modal="false"
             >
-                <div class="px-5">
+                <div class="px-5 text-tx-primary">
                     <Login v-show="popupType == PopupTypeEnum.LOGIN" />
                     <Register v-show="popupType == PopupTypeEnum.REGISTER" />
                     <ForgotPwd v-show="popupType == PopupTypeEnum.FORGOT_PWD" />

@@ -1,12 +1,18 @@
 <template>
     <div class="min-h-full flex flex-col">
         <div class="text-4xl mb-5">
-            {{ route.query.keywords || route.query.name || getSourceText }}
+            <span v-if="route.query.keywords">
+                查找"{{ route.query.keywords }}"
+            </span>
+            <span v-else>{{ route.query.name || getSourceText }}</span>
         </div>
         <div
             class="bg-white px-5 rounded overflow-hidden"
             v-if="data.lists.length"
         >
+            <div class="pt-5 text-tx-secondary" v-if="route.query.keywords">
+                为您找到相关结果 {{ data.count }}个
+            </div>
             <InformationItems
                 v-for="item in data.lists"
                 :key="item.id"

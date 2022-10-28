@@ -57,7 +57,7 @@
                 <el-form-item label="PC端LOGO" prop="pc_logo">
                     <div>
                         <material-picker v-model="formData.pc_logo" :limit="1" />
-                        <div class="form-tips">建议尺寸：104*24px，支持jpg，jpeg，png格式</div>
+                        <div class="form-tips">建议尺寸：120*28px，支持jpg，jpeg，png格式</div>
                     </div>
                 </el-form-item>
                 <el-form-item label="网站标题" prop="pc_title">
