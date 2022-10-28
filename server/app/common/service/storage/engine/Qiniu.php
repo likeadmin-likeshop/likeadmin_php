@@ -113,7 +113,7 @@ class Qiniu extends Server
         $bucketMgr = new BucketManager($auth);
 
         try {
-            $error = $bucketMgr->delete($this->config['bucket'], $fileName);
+            list($res, $error) = $bucketMgr->delete($this->config['bucket'], $fileName);
             if ($error !== null) {
                 $this->error = $error->message();
                 return false;
