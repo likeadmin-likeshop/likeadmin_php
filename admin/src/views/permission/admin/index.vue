@@ -122,9 +122,12 @@ const { pager, getLists, resetParams, resetPage } = usePaging({
 const changeStatus = (data: any) => {
     adminEdit({
         id: data.id,
+        avatar: data.avatar
         account: data.account,
         name: data.name,
         role_id: data.role_id,
+        job_id: data.job_id,
+        dept_id: data.dept_id,
         disable: data.disable,
         multipoint_login: data.multipoint_login
     }).finally(() => {
