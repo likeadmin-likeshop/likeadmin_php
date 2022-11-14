@@ -57,9 +57,11 @@
                     />
                 </div>
             </div>
-            <div class="setting-item mb-5">
-                <div class="text-tx-secondary mb-4">菜单栏宽度</div>
-                <div><el-input-number v-model="sideWidth" :min="180" :max="250" /></div>
+            <div class="setting-item mb-5 flex justify-between items-center">
+                <div class="text-tx-secondary flex-none mr-3">菜单栏宽度</div>
+                <div>
+                    <el-input-number v-model="sideWidth" :min="180" :max="250" />
+                </div>
             </div>
             <div class="setting-item mb-5 flex justify-between items-center">
                 <el-button @click="resetTheme">重置主题</el-button>
