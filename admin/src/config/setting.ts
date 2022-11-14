@@ -1,4 +1,6 @@
 const defaultSetting = {
+    showCrumb: true, // 是否显示面包屑
+    showLogo: true, // 是否显示logo
     isUniqueOpened: false, //只展开一个一级菜单
     sideWidth: 200, //侧边栏宽度
     sideTheme: 'light', //侧边栏主题
