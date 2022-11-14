@@ -1,7 +1,12 @@
 <template>
-    <div class="banner">
-        <div class="banner-image">
-            <decoration-img width="100%" height="170px" :src="getImage" fit="contain" />
+    <div class="banner" :style="styles">
+        <div class="banner-image w-full h-full">
+            <decoration-img
+                width="100%"
+                :height="styles.height || height"
+                :src="getImage"
+                fit="contain"
+            />
         </div>
     </div>
 </template>
@@ -18,6 +23,10 @@ const props = defineProps({
     styles: {
         type: Object as PropType<OptionsType['styles']>,
         default: () => ({})
+    },
+    height: {
+        type: String,
+        default: '170px'
     }
 })
 
