@@ -1,1 +1,0 @@
-System.register(["./index-legacy.bb301f21.js"],(function(r){"use strict";var e;return{setters:[r=>{e=r.r}],execute:function(){r({a:function(r){return e.get({url:"/user.user/lists",params:r})},g:function(r){return e.get({url:"/user.user/detail",params:r})},u:function(r){return e.post({url:"/user.user/edit",params:r})}})}}}));

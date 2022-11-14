@@ -1,1 +1,0 @@
-System.register(["./@vue-legacy.6b85f8d1.js"],(function(e){"use strict";var t,s,c;return{setters:[e=>{t=e.d,s=e.o,c=e.c}],execute:function(){e("_",t({__name:"attr",props:{content:{type:Object,default:()=>({})},styles:{type:Object,default:()=>({})}},setup:e=>(e,t)=>(s(),c("div"))}))}}}));
