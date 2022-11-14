@@ -194,8 +194,8 @@ class WorkbenchLogic extends BaseLogic
         return [
             [
                 'image' => FileService::getFileUrl(config('project.default_image.qq_group')),
-                'title' => '扫码进入QQ交流群',
-                'desc' => '疑难疑点 进入QQ群',
+                'title' => '官方公众号',
+                'desc' => '关注官方公众号',
             ],
             [
                 'image' => FileService::getFileUrl(config('project.default_image.customer_service')),
