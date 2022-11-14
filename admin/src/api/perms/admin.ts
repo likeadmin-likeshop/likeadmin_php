@@ -6,7 +6,7 @@ export function adminLists(params: any) {
 }
 // 管理员列表全部
 export function adminAll(params: any) {
-    return request.get({ url: '/auth.admin/a l l s', params })
+    return request.get({ url: '/auth.admin/all', params })
 }
 // 管理员添加
 export function adminAdd(params: any) {
