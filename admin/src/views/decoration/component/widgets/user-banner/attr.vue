@@ -10,28 +10,36 @@
             <el-form-item label="图片设置">
                 <div class="flex-1">
                     <div class="form-tips">最多添加5张，建议图片尺寸：750px*200px</div>
-                    <del-wrap
-                        v-for="(item, index) in content.data"
-                        :key="index"
-                        @close="handleDelete(index)"
-                        class="max-w-[400px]"
-                    >
-                        <div class="bg-fill-light flex items-center w-full p-4 mt-4">
-                            <material-picker
-                                v-model="item.image"
-                                upload-class="bg-body"
-                                exclude-domain
-                            />
-                            <div class="ml-3 flex-1">
-                                <el-form-item label="图片名称">
-                                    <el-input v-model="item.name" placeholder="请输入名称" />
-                                </el-form-item>
-                                <el-form-item class="mt-[18px]" label="图片链接">
-                                    <link-picker v-model="item.link" />
-                                </el-form-item>
-                            </div>
-                        </div>
-                    </del-wrap>
+                    <draggable class="draggable" v-model="content.data" animation="300">
+                        <template v-slot:item="{ element: item, index }">
+                            <del-wrap
+                                :key="index"
+                                @close="handleDelete(index)"
+                                class="max-w-[400px]"
+                            >
+                                <div
+                                    class="bg-fill-light flex items-center w-full p-4 mt-4 cursor-move"
+                                >
+                                    <material-picker
+                                        v-model="item.image"
+                                        upload-class="bg-body"
+                                        exclude-domain
+                                    />
+                                    <div class="ml-3 flex-1">
+                                        <el-form-item label="图片名称">
+                                            <el-input
+                                                v-model="item.name"
+                                                placeholder="请输入名称"
+                                            />
+                                        </el-form-item>
+                                        <el-form-item class="mt-[18px]" label="图片链接">
+                                            <link-picker v-model="item.link" />
+                                        </el-form-item>
+                                    </div>
+                                </div>
+                            </del-wrap>
+                        </template>
+                    </draggable>
                 </div>
             </el-form-item>
             <el-form-item v-if="content.data?.length < limit">
@@ -44,6 +52,7 @@
 import feedback from '@/utils/feedback'
 import type { PropType } from 'vue'
 import type options from './options'
+import Draggable from 'vuedraggable'
 const limit = 5
 type OptionsType = ReturnType<typeof options>
 const props = defineProps({
