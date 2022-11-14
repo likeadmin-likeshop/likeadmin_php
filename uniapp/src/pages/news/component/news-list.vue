@@ -46,12 +46,12 @@ watch(
     { immediate: true }
 )
 
-const queryList = async (pageNo, pageSize) => {
+const queryList = async (page_no, page_size) => {
     try {
         const { lists } = await getArticleList({
             cid: props.cid,
-            pageNo,
-            pageSize
+            page_no,
+            page_size
         })
         paging.value.complete(lists)
     } catch (e) {

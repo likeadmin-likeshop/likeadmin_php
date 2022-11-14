@@ -103,12 +103,12 @@ const handleClear = async (): Promise<void> => {
     }
 }
 
-const queryList = async (pageNo: number, pageSize: number) => {
+const queryList = async (page_no: number, page_size: number) => {
     try {
         const { lists } = await getArticleList({
             keyword: keyword.value,
-            pageNo,
-            pageSize
+            page_no,
+            page_size
         })
         paging.value.complete(lists)
     } catch (e) {
