@@ -1,0 +1,1 @@
+System.register(["./index-legacy.bb301f21.js"],(function(t){"use strict";var e;return{setters:[t=>{e=t.r}],execute:function(){t({a:function(){return e.get({url:"/setting.system.system/info"})},b:function(t){return e.get({url:"/setting.system.log/lists",params:t})},s:function(){return e.post({url:"/setting.system.cache/clear"})}})}}}));
