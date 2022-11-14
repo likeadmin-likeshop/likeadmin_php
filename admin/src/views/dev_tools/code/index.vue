@@ -181,7 +181,7 @@ const { pager, getLists, resetParams, resetPage } = usePaging({
 
 const selectData = ref<any[]>([])
 const handleSelectionChange = (val: any[]) => {
-    selectData.value = val
+    selectData.value = val.map(({ id }) => id)
 }
 
 const handleSync = async (id: number) => {
@@ -209,8 +209,7 @@ const handleGenerate = async (selectData: any[]) => {
     if (isProdMode() && hasGenerateTypeInModule(selectData)) {
         return feedback.msgError('生成方式为生成到模块，请在前端开发模式下使用，详细参考文档')
     }
-    const id = selectData.map(({ id }) => id)
-    const data: any = await generateCode({ id })
+    const data: any = await generateCode({ id: selectData })
     if (data.file) {
         window.open(data.file, '_blank')
     }
@@ -219,7 +218,7 @@ const handleGenerate = async (selectData: any[]) => {
 const handleCommand = (command: any, row: any) => {
     switch (command) {
         case 'generate':
-            handleGenerate([row])
+            handleGenerate([row.id])
             break
         case 'sync':
             handleSync(row.id)
