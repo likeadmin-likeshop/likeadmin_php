@@ -39,7 +39,9 @@ export default defineConfig({
             symbolId: 'local-icon-[dir]-[name]'
         }),
         vueSetupExtend(),
-        legacyPlugin()
+        legacyPlugin({
+            targets: ['defaults', 'IE 11']
+        })
     ],
     resolve: {
         alias: {

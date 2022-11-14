@@ -1,4 +1,4 @@
-System.register(["./axios-legacy.770d9bb0.js"],(function(t){"use strict";var e;return{setters:[t=>{t.c,e=t.g}],execute:function(){var n,r={exports:{}};
+System.register(["./axios-legacy.770d9bb0.js"],(function(t){"use strict";var e;return{setters:[function(t){t.c,e=t.g}],execute:function(){var n,r={exports:{}};
 /*!
        * clipboard.js v2.0.11
        * https://clipboardjs.com/
