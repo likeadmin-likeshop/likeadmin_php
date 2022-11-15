@@ -5,7 +5,7 @@
                 <Menu v-model="activeMenu" :menus="menus" />
                 <div class="ml-4">
                     <preview-pc v-model="selectWidgetIndex" :pageData="getPageData" />
-                    <attr-setting class="flex-1 mt-4" :widget="getSelectWidget" />
+                    <attr-setting class="flex-1 mt-4" :widget="getSelectWidget" type="pc" />
                 </div>
             </div>
         </el-card>

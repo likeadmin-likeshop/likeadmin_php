@@ -11,6 +11,7 @@
                 :is="widgets[widget?.name]?.attr"
                 :content="widget?.content"
                 :styles="widget?.styles"
+                :type="type"
             />
         </keep-alive>
     </div>
@@ -23,6 +24,10 @@ const props = defineProps({
     widget: {
         type: Object as PropType<Record<string, any>>,
         default: () => ({})
+    },
+    type: {
+        type: String as PropType<'mobile' | 'pc'>,
+        default: 'mobile'
     }
 })
 </script>
