@@ -1,1 +1,0 @@
-System.register(["./index-legacy.42d35444.js"],(function(r){"use strict";var e;return{setters:[function(r){e=r.r}],execute:function(){r({a:function(r){return e.get({url:"/user.user/lists",params:r})},g:function(r){return e.get({url:"/user.user/detail",params:r})},u:function(r){return e.post({url:"/user.user/edit",params:r})}})}}}));
