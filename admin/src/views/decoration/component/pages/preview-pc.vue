@@ -55,8 +55,8 @@ const handleClick = (widget: any, index: number) => {
 
 <style lang="scss" scoped>
 .pages-preview {
-    width: 690px;
-    height: 500px;
+    width: 460px;
+    height: 360px;
     background: url(../../image/pc_index.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;

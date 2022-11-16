@@ -10,7 +10,7 @@
                 <ElCarouselItem v-for="item in getSwioperData.data" :key="item">
                     <NuxtLink :to="item.link.path" target="_blank">
                         <ElImage
-                            class="w-full h-full rounded-[8px]"
+                            class="w-full h-full rounded-[8px] bg-white overflow-hidden"
                             :src="appStore.getImageUrl(item.image)"
                             fit="contain"
                         />

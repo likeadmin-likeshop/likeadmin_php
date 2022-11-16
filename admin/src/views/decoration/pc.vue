@@ -3,10 +3,8 @@
         <el-card shadow="never" class="!border-none flex-1 flex" :body-style="{ flex: 1 }">
             <div class="flex h-full items-start">
                 <Menu v-model="activeMenu" :menus="menus" />
-                <div class="ml-4">
-                    <preview-pc v-model="selectWidgetIndex" :pageData="getPageData" />
-                    <attr-setting class="flex-1 mt-4" :widget="getSelectWidget" type="pc" />
-                </div>
+                <preview-pc class="mx-4" v-model="selectWidgetIndex" :pageData="getPageData" />
+                <attr-setting class="flex-1" :widget="getSelectWidget" type="pc" />
             </div>
         </el-card>
         <footer-btns class="mt-4" :fixed="false" v-perms="['decorate:pages:save']">
@@ -76,7 +74,7 @@ watch(
     activeMenu,
     () => {
         selectWidgetIndex.value = getPageData.value.findIndex((item) => !item.disabled)
-        // getData()
+        getData()
     },
     {
         immediate: true

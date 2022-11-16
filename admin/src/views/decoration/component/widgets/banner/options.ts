@@ -11,11 +11,5 @@ export default () => ({
             }
         ]
     },
-    styles: {
-        position: 'absolute',
-        left: '63px',
-        top: '37px',
-        width: '352px',
-        height: '160px'
-    }
+    styles: {}
 })
