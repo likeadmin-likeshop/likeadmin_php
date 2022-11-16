@@ -45,7 +45,7 @@ const menus: Record<
         id: 4,
         type: 4,
         name: '首页装修',
-        pageData: generatePageData(['banner'])
+        pageData: []
     }
 })
 
@@ -61,6 +61,7 @@ const getSelectWidget = computed(() => {
 const getData = async () => {
     const data = await getDecoratePages({ id: activeMenu.value })
     menus[String(data.id)].pageData = JSON.parse(data.data)
+    selectWidgetIndex.value = getPageData.value.findIndex((item) => !item.disabled)
 }
 
 const setData = async () => {
