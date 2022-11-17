@@ -9,6 +9,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+// import legacyPlugin from '@vitejs/plugin-legacy'
 // https://vitejs.dev/config/
 export default defineConfig({
     base: '/admin/',
@@ -38,6 +39,9 @@ export default defineConfig({
             symbolId: 'local-icon-[dir]-[name]'
         }),
         vueSetupExtend()
+        // legacyPlugin({
+        //     targets: ['defaults', 'IE 11']
+        // })
     ],
     resolve: {
         alias: {

@@ -8,7 +8,7 @@
                 <div class="navbar-item">
                     <refresh />
                 </div>
-                <div class="flex items-center px-2" v-if="!isMobile">
+                <div class="flex items-center px-2" v-if="!isMobile && settingStore.showCrumb">
                     <breadcrumb />
                 </div>
             </div>

@@ -1,0 +1,57 @@
+{
+  "name": "h3",
+  "version": "0.7.21",
+  "description": "Tiny JavaScript Server",
+  "repository": "unjs/h3",
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "cookie-es": "^0.5.0",
+    "destr": "^1.1.1",
+    "radix3": "^0.1.2",
+    "ufo": "^0.8.5"
+  },
+  "devDependencies": {
+    "0x": "^5.4.1",
+    "@nuxtjs/eslint-config-typescript": "^11.0.0",
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.7.14",
+    "@types/supertest": "^2.0.12",
+    "@vitest/coverage-c8": "^0.22.1",
+    "autocannon": "^7.9.0",
+    "changelogen": "^0.3.0",
+    "connect": "^3.7.0",
+    "eslint": "^8.23.0",
+    "express": "^4.18.1",
+    "get-port": "^6.1.2",
+    "jiti": "^1.14.0",
+    "listhen": "^0.2.15",
+    "supertest": "^6.2.4",
+    "typescript": "^4.8.2",
+    "unbuild": "^0.8.10",
+    "vitest": "^0.22.1"
+  },
+  "packageManager": "pnpm@7.9.5",
+  "scripts": {
+    "build": "unbuild",
+    "dev": "vitest",
+    "lint": "eslint --ext ts,mjs,cjs .",
+    "play": "jiti ./playground/index.ts",
+    "profile": "0x -o -D .profile -P 'autocannon -c 100 -p 10 -d 40 http://localhost:$PORT' ./playground/server.cjs",
+    "release": "pnpm test && pnpm test && pnpm build && changelogen --release && pnpm publish && git push --follow-tags",
+    "test": "pnpm lint && vitest run --coverage"
+  }
+}

@@ -1,0 +1,5 @@
+1.4.1
+
+la_decorate_page表更新 type字段描述
+la_decorate_page表增加PC装修默认数据
+la_system_menu表增加 菜单 （PC装修菜单）

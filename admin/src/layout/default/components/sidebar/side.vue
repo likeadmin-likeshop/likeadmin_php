@@ -1,6 +1,6 @@
 <template>
     <div class="side" :style="sideStyle">
-        <side-logo :show-title="!isCollapsed" :theme="sideTheme" />
+        <side-logo v-if="settingStore.showLogo" :show-title="!isCollapsed" :theme="sideTheme" />
         <side-menu
             :routes="routes"
             :is-collapsed="isCollapsed"

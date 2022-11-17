@@ -54,7 +54,7 @@ onLoad((options) => {
     }
 
     &-list {
-        height: calc(100vh - 86px);
+        height: calc(100vh - 272rpx - env(safe-area-inset-bottom));
     }
 }
 </style>

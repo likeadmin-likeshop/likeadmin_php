@@ -57,9 +57,23 @@
                     />
                 </div>
             </div>
-            <div class="setting-item mb-5">
-                <div class="text-tx-secondary mb-4">菜单栏宽度</div>
-                <div><el-input-number v-model="sideWidth" :min="180" :max="250" /></div>
+            <div class="setting-item mb-5 flex justify-between items-center">
+                <div class="text-tx-secondary flex-none mr-3">菜单栏宽度</div>
+                <div>
+                    <el-input-number v-model="sideWidth" :min="180" :max="250" />
+                </div>
+            </div>
+            <div class="setting-item mb-5 flex justify-between items-center">
+                <div class="text-tx-secondary flex-none mr-3">显示LOGO</div>
+                <div>
+                    <el-switch v-model="showLogo" :active-value="true" :inactive-value="false" />
+                </div>
+            </div>
+            <div class="setting-item mb-5 flex justify-between items-center">
+                <div class="text-tx-secondary flex-none mr-3">显示面包屑</div>
+                <div>
+                    <el-switch v-model="showCrumb" :active-value="true" :inactive-value="false" />
+                </div>
             </div>
             <div class="setting-item mb-5 flex justify-between items-center">
                 <el-button @click="resetTheme">重置主题</el-button>
@@ -155,6 +169,30 @@ const theme = computed({
             value
         })
         themeChange()
+    }
+})
+
+const showLogo = computed({
+    get() {
+        return settingStore.showLogo
+    },
+    set(value) {
+        settingStore.setSetting({
+            key: 'showLogo',
+            value
+        })
+    }
+})
+
+const showCrumb = computed({
+    get() {
+        return settingStore.showCrumb
+    },
+    set(value) {
+        settingStore.setSetting({
+            key: 'showCrumb',
+            value
+        })
     }
 })
 

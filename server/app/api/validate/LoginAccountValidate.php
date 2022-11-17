@@ -63,7 +63,7 @@ class LoginAccountValidate extends BaseValidate
      */
     public function checkConfig($scene, $rule, $data)
     {
-        $config = ConfigService::get('login', 'login_way', []);
+        $config = ConfigService::get('login', 'login_way');
         if (!in_array($scene, $config)) {
             return '不支持的登录方式';
         }

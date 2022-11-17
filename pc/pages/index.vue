@@ -8,11 +8,13 @@
                 height="340px"
             >
                 <ElCarouselItem v-for="item in getSwioperData.data" :key="item">
-                    <ElImage
-                        class="w-full h-full rounded-[8px]"
-                        :src="appStore.getImageUrl(item.image)"
-                        fit="contain"
-                    />
+                    <NuxtLink :to="item.link.path" target="_blank">
+                        <ElImage
+                            class="w-full h-full rounded-[8px] bg-white overflow-hidden"
+                            :src="appStore.getImageUrl(item.image)"
+                            fit="contain"
+                        />
+                    </NuxtLink>
                 </ElCarouselItem>
             </ElCarousel>
             <InformationCard
