@@ -38,6 +38,7 @@
                                                 v-model="item.link"
                                             />
                                             <el-input
+                                                v-if="type == 'pc'"
                                                 placeholder="请输入链接"
                                                 v-model="item.link.path"
                                             />
