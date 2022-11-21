@@ -2,11 +2,18 @@
     <!-- Main Start -->
     <!-- 头部修改头像 -->
     <view class="header bg-white pt-[30rpx]">
-        <view class="flex justify-center">
-            <image @click="uploaderAvatar" :src="userInfo?.avatar"></image>
-        </view>
-        <view class="mt-[20rpx] text-center text-muted text-xs" @click="uploaderAvatar">
-            点击修改头像
+        <view class="flex">
+            <button
+                class="flex flex-col items-center after:border-0"
+                hover-class="none"
+                open-type="chooseAvatar"
+                style="background-color: transparent"
+                @click="chooseAvatar"
+                @chooseavatar="chooseAvatar"
+            >
+                <image :src="userInfo?.avatar"></image>
+                <view class="mt-[10rpx] text-center text-muted text-xs"> 点击修改头像 </view>
+            </button>
         </view>
     </view>
 
@@ -76,20 +83,36 @@
     </view>
 
     <!-- 昵称修改组件 -->
-    <u-popup v-model="showNickName" :closeable="true" mode="center" border-radius="20">
+    <u-popup
+        v-model="showNickName"
+        :closeable="true"
+        mode="center"
+        :maskCloseAble="false"
+        border-radius="20"
+    >
         <view class="px-[50rpx] py-[40rpx] bg-white" style="width: 85vw">
-            <view class="mb-[70rpx] text-xl text-center">修改昵称</view>
-            <u-form-item borderBottom>
-                <u-input
-                    class="flex-1"
-                    v-model="newNickname"
-                    placeholder="请输入昵称"
-                    :border="false"
-                />
-            </u-form-item>
-            <view class="mt-[80rpx]">
-                <u-button @click="changeNameConfirm" type="primary" shape="circle"> 确定 </u-button>
-            </view>
+            <form @submit="changeNameConfirm">
+                <view class="mb-[70rpx] text-xl text-center">修改昵称</view>
+                <u-form-item borderBottom>
+                    <input
+                        class="nr h-[60rpx] w-full"
+                        :value="userInfo.nickname"
+                        name="nickname"
+                        type="nickname"
+                        placeholder="请输入昵称"
+                    />
+                </u-form-item>
+                <view class="mt-[80rpx]">
+                    <button
+                        class="bg-primary text-white w-full h-[80rpx] !text-lg !leading-[80rpx] rounded-full"
+                        form-type="submit"
+                        size="mini"
+                        hover-class="none"
+                    >
+                        确定
+                    </button>
+                </view>
+            </form>
         </view>
     </u-popup>
 
@@ -244,13 +267,19 @@ const setUserInfoFun = async (value: string): Promise<void> => {
 }
 
 // 上传头像
-const uploaderAvatar = () => {
+const chooseAvatar = (e: any) => {
     fieldType.value = FieldType.AVATAR
+    // #ifndef MP-WEIXIN
     uni.navigateTo({
         url: '/uni_modules/vk-uview-ui/components/u-avatar-cropper/u-avatar-cropper?destWidth=300&rectWidth=200&fileType=jpg'
     })
+    // #endif
+    // #ifdef MP-WEIXIN
+    if (e.detail.avatarUrl) {
+        uploadAvatar(e.detail.avatarUrl)
+    }
+    // #endif
 }
-
 // 显示修改用户性别弹窗
 const changeSex = () => {
     showPicker.value = true
@@ -274,12 +303,14 @@ const changeUserNameConfirm = () => {
 }
 
 // 修改用户昵称
-const changeNameConfirm = () => {
+const changeNameConfirm = async (e: any) => {
+    newNickname.value = e.detail.value.nickname
     if (newNickname.value == '') return uni.$u.toast('昵称不能为空')
     if (newNickname.value.length > 10) return uni.$u.toast('昵称长度不得超过十位数')
-    showNickName.value = false
     fieldType.value = FieldType.NICKNAME
-    setUserInfoFun(newNickname.value)
+    await setUserInfoFun(newNickname.value)
+
+    showNickName.value = false
 }
 
 // 微信小程序 绑定｜｜修改用户手机号
@@ -303,6 +334,21 @@ const goPage = (url: string) => {
     uni.navigateTo({
         url: url
     })
+}
+const uploadAvatar = (path: string) => {
+    uni.showLoading({
+        title: '正在上传中...',
+        mask: true
+    })
+    uploadFile(path)
+        .then((res) => {
+            uni.hideLoading()
+            setUserInfoFun(res.url)
+        })
+        .catch(() => {
+            uni.hideLoading()
+            uni.$u.toast('上传失败')
+        })
 }
 
 // 监听从裁剪页发布的事件，获得裁剪结果
@@ -334,7 +380,6 @@ onUnload(() => {
 <style lang="scss">
 .header {
     width: 100%;
-    height: 240rpx;
 
     image {
         width: 120rpx;
