@@ -15,6 +15,7 @@
 namespace app\adminapi\lists\auth;
 
 use app\adminapi\lists\BaseAdminDataLists;
+use app\common\lists\ListsExcelInterface;
 use app\common\lists\ListsExtendInterface;
 use app\common\lists\ListsSearchInterface;
 use app\common\lists\ListsSortInterface;
@@ -27,7 +28,7 @@ use app\common\model\dept\Dept;
  * Class AdminLists
  * @package app\adminapi\lists\auth
  */
-class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, ListsSearchInterface, ListsSortInterface
+class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, ListsSearchInterface, ListsSortInterface,ListsExcelInterface
 {
     /**
      * @notes 设置导出字段
@@ -41,9 +42,10 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
             'account' => '账号',
             'name' => '名称',
             'role_name' => '角色',
+            'dept_name' => '部门',
             'create_time' => '创建时间',
-            'login_time' => '最后登录时间',
-            'login_ip' => '最后登录IP',
+            'login_time' => '最近登录时间',
+            'login_ip' => '最近登录IP',
             'disable_desc' => '状态',
         ];
     }

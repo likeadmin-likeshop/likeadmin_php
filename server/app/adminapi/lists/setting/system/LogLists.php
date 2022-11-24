@@ -84,6 +84,7 @@ class LogLists extends BaseAdminDataLists implements ListsSearchInterface, Lists
         return [
             // '数据库字段名(支持别名) => 'Excel表字段名'
             'id' => '记录ID',
+            'action' => '操作',
             'admin_name' => '管理员',
             'admin_id' => '管理员ID',
             'url' => '访问链接',

@@ -15,6 +15,7 @@
 namespace app\adminapi\lists\dept;
 
 use app\adminapi\lists\BaseAdminDataLists;
+use app\common\lists\ListsExcelInterface;
 use app\common\lists\ListsSearchInterface;
 use app\common\model\dept\Jobs;
 
@@ -23,7 +24,7 @@ use app\common\model\dept\Jobs;
  * Class JobsLists
  * @package app\adminapi\lists\dept
  */
-class JobsLists extends BaseAdminDataLists implements ListsSearchInterface
+class JobsLists extends BaseAdminDataLists implements ListsSearchInterface,ListsExcelInterface
 {
 
     /**
@@ -69,6 +70,36 @@ class JobsLists extends BaseAdminDataLists implements ListsSearchInterface
     public function count(): int
     {
         return Jobs::where($this->searchWhere)->count();
+    }
+
+
+    /**
+     * @notes 导出文件名
+     * @return string
+     * @author 段誉
+     * @date 2022/11/24 16:17
+     */
+    public function setFileName(): string
+    {
+        return '岗位列表';
+    }
+
+
+    /**
+     * @notes 导出字段
+     * @return string[]
+     * @author 段誉
+     * @date 2022/11/24 16:17
+     */
+    public function setExcelFields(): array
+    {
+        return [
+            'code' => '岗位编码',
+            'name' => '岗位名称',
+            'remark' => '备注',
+            'status_desc' => '状态',
+            'create_time' => '添加时间',
+        ];
     }
 
 }
