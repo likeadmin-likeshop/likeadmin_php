@@ -17,7 +17,9 @@ declare(strict_types=1);
 namespace app\common\service;
 
 
+use app\common\enum\ExportEnum;
 use app\common\lists\BaseDataLists;
+use app\common\lists\ListsExcelInterface;
 use app\common\lists\ListsExtendInterface;
 use think\Response;
 use think\response\Json;
@@ -42,7 +44,6 @@ class JsonService
     }
 
 
-
     /**
      * @notes 接口操作失败，返回信息
      * @param string $msg
@@ -59,7 +60,6 @@ class JsonService
     }
 
 
-
     /**
      * @notes 接口返回数据
      * @param $data
@@ -71,7 +71,6 @@ class JsonService
     {
         return self::success('', $data, 1, 0);
     }
-
 
 
     /**
@@ -90,7 +89,6 @@ class JsonService
         $result = compact('code', 'show', 'msg', 'data');
         return json($result, $httpStatus);
     }
-
 
 
     /**
@@ -120,6 +118,17 @@ class JsonService
      */
     public static function dataLists(BaseDataLists $lists): Json
     {
+        //获取导出信息
+        if ($lists->export == ExportEnum::INFO && $lists instanceof ListsExcelInterface) {
+            return self::data($lists->excelInfo());
+        }
+
+        //获取导出文件的下载链接
+        if ($lists->export == ExportEnum::EXPORT && $lists instanceof ListsExcelInterface) {
+            $exportDownloadUrl = $lists->createExcel($lists->setExcelFields(), $lists->lists());
+            return self::success('', ['url' => $exportDownloadUrl], 2);
+        }
+
         $data = [
             'lists' => $lists->lists(),
             'count' => $lists->count(),

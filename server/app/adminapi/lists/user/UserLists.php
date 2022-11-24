@@ -15,6 +15,7 @@ namespace app\adminapi\lists\user;
 
 use app\adminapi\lists\BaseAdminDataLists;
 use app\common\enum\user\UserTerminalEnum;
+use app\common\lists\ListsExcelInterface;
 use app\common\model\user\User;
 
 
@@ -23,7 +24,7 @@ use app\common\model\user\User;
  * Class UserLists
  * @package app\adminapi\lists\user
  */
-class UserLists extends BaseAdminDataLists
+class UserLists extends BaseAdminDataLists implements ListsExcelInterface
 {
 
     /**
@@ -74,6 +75,37 @@ class UserLists extends BaseAdminDataLists
     public function count(): int
     {
         return User::withSearch($this->setSearch(), $this->params)->count();
+    }
+
+
+    /**
+     * @notes 导出文件名
+     * @return string
+     * @author 段誉
+     * @date 2022/11/24 16:17
+     */
+    public function setFileName(): string
+    {
+        return '用户列表';
+    }
+
+
+    /**
+     * @notes 导出字段
+     * @return string[]
+     * @author 段誉
+     * @date 2022/11/24 16:17
+     */
+    public function setExcelFields(): array
+    {
+        return [
+            'sn' => '用户编号',
+            'nickname' => '用户昵称',
+            'account' => '账号',
+            'mobile' => '手机号码',
+            'channel' => '注册来源',
+            'create_time' => '注册时间',
+        ];
     }
 
 }
