@@ -26,6 +26,13 @@ class Admin extends BaseModel
 
     protected $deleteTime = 'delete_time';
 
+    protected $append = [
+        'role_id',
+        'dept_id',
+        'jobs_id',
+    ];
+
+
     /**
      * @notes 关联角色模型
      * @date 2021/6/30 17:48
@@ -60,6 +67,48 @@ class Admin extends BaseModel
     public function roleMenu()
     {
         return $this->hasMany(SystemRoleMenu::class,'role_id','role_id');
+    }
+
+
+    /**
+     * @notes 关联角色id
+     * @param $value
+     * @param $data
+     * @return array
+     * @author 段誉
+     * @date 2022/11/25 15:00
+     */
+    public function getRoleIdAttr($value, $data)
+    {
+        return AdminRole::where('admin_id', $data['id'])->column('role_id');
+    }
+
+
+    /**
+     * @notes 关联部门id
+     * @param $value
+     * @param $data
+     * @return array
+     * @author 段誉
+     * @date 2022/11/25 15:00
+     */
+    public function getDeptIdAttr($value, $data)
+    {
+        return AdminDept::where('admin_id', $data['id'])->column('dept_id');
+    }
+
+
+    /**
+     * @notes 关联岗位id
+     * @param $value
+     * @param $data
+     * @return array
+     * @author 段誉
+     * @date 2022/11/25 15:01\
+     */
+    public function getJobsIdAttr($value, $data)
+    {
+        return AdminJobs::where('admin_id', $data['id'])->column('jobs_id');
     }
 
 
