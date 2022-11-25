@@ -7,7 +7,7 @@ export function systemInfo() {
 
 // 获取系统日志列表
 export function systemLogLists(params: any) {
-    return request.get({ url: '/setting.system.log/lists', params })
+    return request.get({ url: '/setting.system.log/lists', params }, { ignoreCancelToken: true })
 }
 
 // 清除系统缓存

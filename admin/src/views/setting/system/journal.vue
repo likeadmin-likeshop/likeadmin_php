@@ -54,6 +54,12 @@
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
                     <el-button @click="resetParams">重置</el-button>
+                    <export-data
+                        class="ml-2.5"
+                        :fetch-fun="systemLogLists"
+                        :params="formData"
+                        :page-size="pager.size"
+                    />
                 </el-form-item>
             </el-form>
         </el-card>

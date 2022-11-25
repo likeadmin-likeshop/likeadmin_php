@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 // 用户列表
 export function getUserList(params: any) {
-    return request.get({ url: '/user.user/lists', params })
+    return request.get({ url: '/user.user/lists', params }, { ignoreCancelToken: true })
 }
 
 // 用户详情

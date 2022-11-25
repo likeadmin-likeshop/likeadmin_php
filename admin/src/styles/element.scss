@@ -139,6 +139,7 @@
 
     //覆盖el-button的点击样式
     &:focus {
+        color: var(--el-button-text-color);
         border-color: var(--el-button-border-color);
         background-color: var(--el-button-bg-color);
     }

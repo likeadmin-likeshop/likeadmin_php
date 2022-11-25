@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 // 岗位列表
 export function jobsLists(params: any) {
-    return request.get({ url: '/dept.jobs/lists', params })
+    return request.get({ url: '/dept.jobs/lists', params }, { ignoreCancelToken: true })
 }
 
 // 岗位列表全部
