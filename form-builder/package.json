@@ -1,0 +1,45 @@
+{
+  "name": "form-build-v3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -C play dev",
+    "build:script": "pnpm -C build stub",
+    "build:all": "pnpm -C build start",
+    "lint": "eslint --ext .cjs,.js,.ts,.vue ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.14.189",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "element-plus": "^2.2.21",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-define-config": "^1.12.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.7.0",
+    "prettier": "^2.7.1",
+    "sass": "^1.56.1",
+    "typescript": "^4.8.4",
+    "vue": "^3.2.41"
+  },
+  "peerDependencies": {
+    "element-plus": "^2.2.0",
+    "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "@form-builder/assets": "workspace:^1.0.0",
+    "@form-builder/designer": "workspace:^1.0.0",
+    "@form-builder/shared": "workspace:^1.0.0",
+    "@form-builder/widgets": "workspace:^1.0.0",
+    "lodash": "^4.17.21",
+    "vuedraggable": "^4.1.0"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "sourceMap": false,
+    "target": "es2016",
+    "newLine": "LF",
+    "useDefineForClassFields": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowJs": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "preserveSymlinks": true,
+    "jsx": "preserve",
+    "lib": ["esnext", "dom"],
+    "types": ["node"],
+    "rootDir": ".",
+    "paths": {
+      "@form-builder/*": ["packages/*/src"],
+      "form-builder": ["packages/form-builder/src"],
+      "vue": ["node_modules/vue"],
+      "element-plus": ["node_modules/element-plus"]
+    }
+  },
+  "include": ["packages"],
+  "exclude": ["**/node_modules", "dist", "packages/assets"]
+}
