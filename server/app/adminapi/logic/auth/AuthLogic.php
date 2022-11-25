@@ -15,6 +15,7 @@
 namespace app\adminapi\logic\auth;
 
 use app\common\model\auth\Admin;
+use app\common\model\auth\AdminRole;
 use app\common\model\auth\SystemMenu;
 use app\common\model\auth\SystemRoleMenu;
 
@@ -90,21 +91,14 @@ class AuthLogic
      */
     public static function getAuthByAdminId(int $adminId): array
     {
-        $admin = Admin::with(['role_menu'])
-            ->where(['id' => $adminId])
-            ->findOrEmpty()->toArray();
-
-        if (empty($admin)) {
-            return [];
-        }
-
-        $menuId = array_column($admin['role_menu'], 'menu_id');
+        $roleIds = AdminRole::where('admin_id', $adminId)->column('role_id');
+        $menuId = SystemRoleMenu::whereIn('role_id', $roleIds)->column('menu_id');
 
         return SystemMenu::distinct(true)
             ->where([
                 ['is_disable', '=', 0],
                 ['perms', '<>', ''],
-                ['id', 'in', $menuId],
+                ['id', 'in', array_unique($menuId)],
             ])
             ->column('perms');
     }

@@ -34,43 +34,6 @@ class Admin extends BaseModel
 
 
     /**
-     * @notes 关联角色模型
-     * @date 2021/6/30 17:48
-     * @return \think\model\relation\HasOne
-     * @author lr
-     */
-    public function role()
-    {
-        return $this->hasOne(SystemRole::class, 'id', 'role_id')
-            ->field('id,name');
-    }
-
-
-    /**
-     * @notes 关联部门
-     * @return \think\model\relation\HasOne
-     * @author 段誉
-     * @date 2022/5/26 11:11
-     */
-    public function dept()
-    {
-        return $this->hasOne(Dept::class, 'id', 'dept_id')->bind(['dept_name' => 'name']);
-    }
-
-
-    /**
-     * @notes 角色菜单关联
-     * @return \think\model\relation\HasMany
-     * @author 段誉
-     * @date 2022/7/7 12:04
-     */
-    public function roleMenu()
-    {
-        return $this->hasMany(SystemRoleMenu::class,'role_id','role_id');
-    }
-
-
-    /**
      * @notes 关联角色id
      * @param $value
      * @param $data
@@ -149,4 +112,5 @@ class Admin extends BaseModel
     {
         return empty($value) ? FileService::getFileUrl(config('project.default_image.admin_avatar')) : FileService::getFileUrl(trim($value, '/'));
     }
+
 }
