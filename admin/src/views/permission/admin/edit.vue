@@ -38,6 +38,7 @@
                         v-model="formData.dept_id"
                         :data="optionsData.dept"
                         clearable
+                        multiple
                         node-key="id"
                         :props="{
                             value: 'id',
@@ -56,6 +57,7 @@
                         class="flex-1"
                         v-model="formData.jobs_id"
                         clearable
+                        multiple
                         placeholder="请选择岗位"
                     >
                         <el-option
@@ -73,6 +75,7 @@
                         v-model="formData.role_id"
                         :disabled="formData.root == 1"
                         class="flex-1"
+                        multiple
                         placeholder="请选择角色"
                         clearable
                     >
@@ -145,9 +148,9 @@ const formData = reactive({
     id: '',
     account: '',
     name: '',
-    dept_id: '',
-    jobs_id: '',
-    role_id: '',
+    dept_id: [],
+    jobs_id: [],
+    role_id: [],
     avatar: '',
     password: '',
     password_confirm: '',
@@ -179,6 +182,7 @@ const formRules = reactive({
     ],
     role_id: [
         {
+            type: 'array',
             required: true,
             message: '请选择角色',
             trigger: ['blur']
@@ -232,6 +236,13 @@ const open = (type = 'add') => {
 }
 
 const setFormData = async (row: any) => {
+    formRules.password = []
+    formRules.password_confirm = [
+        {
+            validator: passwordConfirmValidator,
+            trigger: 'blur'
+        }
+    ]
     const data = await adminDetail({
         id: row.id
     })
@@ -240,16 +251,9 @@ const setFormData = async (row: any) => {
             //@ts-ignore
             formData[key] = data[key]
         }
-        Number(formData.dept_id) == 0 && (formData.dept_id = '')
-        Number(formData.jobs_id) == 0 && (formData.jobs_id = '')
+        // Number(formData.dept_id) == 0 && (formData.dept_id = '')
+        // Number(formData.jobs_id) == 0 && (formData.jobs_id = '')
     }
-    formRules.password = []
-    formRules.password_confirm = [
-        {
-            validator: passwordConfirmValidator,
-            trigger: 'blur'
-        }
-    ]
 }
 
 const handleClose = () => {
