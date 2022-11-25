@@ -107,8 +107,13 @@ class AdminLogic extends BaseLogic
             }
 
             // 禁用或更换角色后.设置token过期
-            $role_id = Admin::where('id', $params['id'])->value('role_id');
-            if ($params['disable'] == 1 || $role_id != $params['role_id']) {
+            $roleId = AdminRole::where('admin_id', $params['id'])->column('role_id');
+            $editRole = false;
+            if (!empty(array_diff_assoc($roleId, $params['role_id']))) {
+                $editRole = true;
+            }
+
+            if ($params['disable'] == 1 || $editRole) {
                 $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
                 foreach ($tokenArr as $token) {
                     self::expireToken($token['token']);

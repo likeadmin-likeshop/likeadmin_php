@@ -18,6 +18,7 @@ namespace app\common\cache;
 
 use app\common\model\auth\Admin;
 use app\common\model\auth\AdminSession;
+use app\common\model\auth\SystemRole;
 
 /**
  * 管理员token缓存
@@ -71,15 +72,27 @@ class AdminTokenCache extends BaseCache
             return [];
         }
         $admin = Admin::where('id', '=', $adminSession->admin_id)
-            ->with('role')
+            ->append(['role_id'])
             ->find();
+
+        $roleName = '';
+        $roleLists = SystemRole::column('name', 'id');
+        if ($admin['root'] == 1) {
+            $roleName = '系统管理员';
+        } else {
+            foreach ($admin['role_id'] as $roleId) {
+                $roleName .= $roleLists[$roleId] ?? '';
+                $roleName .= '/';
+            }
+            $roleName = trim($roleName, '/');
+        }
 
         $adminInfo = [
             'admin_id' => $admin->id,
             'root' => $admin->root,
             'name' => $admin->name,
             'account' => $admin->account,
-            'role_name' => $admin->role['name'] ?? '',
+            'role_name' => $roleName,
             'role_id' => $admin->role_id,
             'token' => $token,
             'terminal' => $adminSession->terminal,
