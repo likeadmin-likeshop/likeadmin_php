@@ -82,10 +82,7 @@ importers:
     specifiers: {}
 
   packages/designer:
-    specifiers:
-      vuedraggable: ^4.1.0
-    dependencies:
-      vuedraggable: registry.npmmirror.com/vuedraggable/4.1.0
+    specifiers: {}
 
   packages/form-builder:
     specifiers: {}
@@ -4147,16 +4144,6 @@ packages:
       '@vue/runtime-dom': registry.npmmirror.com/@vue/runtime-dom/3.2.45
       '@vue/server-renderer': registry.npmmirror.com/@vue/server-renderer/3.2.45_vue@3.2.45
       '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.45
-
-  registry.npmmirror.com/vuedraggable/4.1.0:
-    resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuedraggable/-/vuedraggable-4.1.0.tgz}
-    name: vuedraggable
-    version: 4.1.0
-    peerDependencies:
-      vue: ^3.0.1
-    dependencies:
-      sortablejs: registry.npmmirror.com/sortablejs/1.14.0
-    dev: false
 
   registry.npmmirror.com/vuedraggable/4.1.0_vue@3.2.45:
     resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuedraggable/-/vuedraggable-4.1.0.tgz}

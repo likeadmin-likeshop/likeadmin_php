@@ -23,7 +23,7 @@ import TreeTab from './tree-tab.vue'
 
 <style lang="scss" scoped>
 .widget-panel {
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--el-border-color);
   height: 100%;
   .el-tabs {
     --el-tabs-header-height: 44px;

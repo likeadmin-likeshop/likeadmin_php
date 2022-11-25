@@ -10,7 +10,7 @@
       </el-aside>
 
       <el-main class="center-main">
-        <content-panel />
+        <content-panel :designer="designer" />
       </el-main>
 
       <el-aside width="200px">
@@ -21,9 +21,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, ref, toRefs } from 'vue'
 import { ElAside, ElContainer, ElHeader, ElMain } from 'element-plus'
 import { setupConfigData } from '../composable'
+import { Designer } from '../designer'
 import SettingPanel from './setting-panel/index.vue'
 import WidgetPanel from './widget-panel/index.vue'
 import HeaderPanel from './header-panel/index.vue'
@@ -50,8 +51,11 @@ export default defineComponent({
   },
   setup(props) {
     const { config } = toRefs(props)
+    const designer = ref(new Designer())
     setupConfigData(config)
-    return {}
+    return {
+      designer
+    }
   }
 })
 </script>
@@ -59,9 +63,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 .main-container {
   height: 100%;
+  font-size: var(--el-font-size-base);
   .content-container {
     margin: 8px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--el-border-color);
+    .center-main {
+      background-color: var(--el-bg-color-page);
+      height: 100%;
+      padding: 10px;
+    }
   }
 }
 </style>

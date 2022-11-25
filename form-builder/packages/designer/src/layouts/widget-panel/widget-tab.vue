@@ -21,8 +21,8 @@ const defaultOpen = computed(() =>
           tag="ul"
           :list="category.widgets"
           item-key="key"
-          :group="{ name: 'dragGroup', pull: 'clone', put: false }"
-          ghost-class="ghost"
+          :group="{ name: 'widgetGroup', pull: 'clone', put: false }"
+          ghost-class="widget-placeholder"
           :sort="false"
           class="widget-lists"
         >
@@ -61,7 +61,8 @@ const defaultOpen = computed(() =>
         padding: 0 10px;
         box-sizing: border-box;
         &:hover {
-          border-color: var(--color-primary);
+          color: var(--el-color-primary);
+          border-color: currentColor;
           border-style: dashed;
         }
       }
