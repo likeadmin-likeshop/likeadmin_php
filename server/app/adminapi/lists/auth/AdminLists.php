@@ -22,6 +22,7 @@ use app\common\lists\ListsSortInterface;
 use app\common\model\auth\Admin;
 use app\common\model\auth\SystemRole;
 use app\common\model\dept\Dept;
+use app\common\model\dept\Jobs;
 
 /**
  * 管理员列表
@@ -115,28 +116,53 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
     public function lists(): array
     {
         $field = [
-            'id', 'name', 'account', 'role_id', 'create_time', 'disable', 'root',
-            'login_time', 'login_ip', 'multipoint_login', 'avatar', 'dept_id'
+            'id', 'name', 'account', 'create_time', 'disable', 'root',
+            'login_time', 'login_ip', 'multipoint_login', 'avatar'
         ];
 
-        $adminLists = Admin::with(['dept'])->field($field)
+        $adminLists = Admin::field($field)
             ->where($this->searchWhere)
             ->append(['disable_desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->order($this->sortOrder)
+            ->append(['role_id', 'dept_id', 'jobs_id'])
             ->select()
             ->toArray();
 
-        //获取角色数组（'角色id'=>'角色名称')
+        // 角色数组（'角色id'=>'角色名称')
         $roleLists = SystemRole::column('name', 'id');
+        // 部门列表
+        $deptLists = Dept::column('name', 'id');
+        // 岗位列表
+        $jobsLists = Jobs::column('name', 'id');
 
         //管理员列表增加角色名称
         foreach ($adminLists as $k => $v) {
-            $adminLists[$k]['role_name'] = $roleLists[$v['role_id']] ?? '';
+            $roleName = '';
             if ($v['root'] == 1) {
-                $adminLists[$k]['role_name'] = '系统管理员';
+                $roleName = '系统管理员';
+            } else {
+                foreach ($v['role_id'] as $roleId) {
+                    $roleName .= $roleLists[$roleId] ?? '';
+                    $roleName .= '/';
+                }
             }
-            $adminLists[$k]['dept_name'] = empty($v['dept_name']) ? '-' : $v['dept_name'];
+
+            $deptName = '';
+            foreach ($v['dept_id'] as $deptId) {
+                $deptName .= $deptLists[$deptId] ?? '';
+                $deptName .= '/';
+            }
+
+            $jobsName = '';
+            foreach ($v['jobs_id'] as $jobsId) {
+                $jobsName .= $jobsLists[$jobsId] ?? '';
+                $jobsName .= '/';
+            }
+
+            $adminLists[$k]['role_name'] = trim($roleName, '/');
+            $adminLists[$k]['dept_name'] = trim($deptName, '/');
+            $adminLists[$k]['jobs_name'] = trim($jobsName, '/');
         }
 
         return $adminLists;
