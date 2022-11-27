@@ -251,8 +251,6 @@ const setFormData = async (row: any) => {
             //@ts-ignore
             formData[key] = data[key]
         }
-        // Number(formData.dept_id) == 0 && (formData.dept_id = '')
-        // Number(formData.jobs_id) == 0 && (formData.jobs_id = '')
     }
 }
 
