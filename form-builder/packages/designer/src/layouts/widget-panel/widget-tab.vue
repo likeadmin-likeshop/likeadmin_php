@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { widgetsOptions } from '@form-builder/widgets'
 import { ElCollapse, ElCollapseItem } from 'element-plus'
 import Draggable from 'vuedraggable'
+import { useDesigner } from '../../composable'
+const designer = useDesigner()
 const defaultOpen = computed(() =>
-  widgetsOptions.materials.map((item) => item.name)
+  designer.value.toolWidget.materials.map((item) => item.name)
 )
 </script>
 
@@ -12,7 +13,7 @@ const defaultOpen = computed(() =>
   <div class="widget-tab">
     <el-collapse :model-value="defaultOpen" class="widget-collapse">
       <el-collapse-item
-        v-for="category in widgetsOptions.materials"
+        v-for="category in designer.toolWidget.materials"
         :key="category.name"
         :title="category.title"
         :name="category.name"

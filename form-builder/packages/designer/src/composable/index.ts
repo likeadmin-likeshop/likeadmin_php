@@ -1,1 +1,2 @@
-export * from './configData'
+export * from './designerConfig'
+export * from './designer'

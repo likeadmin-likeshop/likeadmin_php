@@ -2,14 +2,10 @@
 import { ref } from 'vue'
 import Draggable from 'vuedraggable'
 import { ElForm, ElFormItem } from 'element-plus'
+import { useDesigner } from '../../composable'
 import type { PropType } from 'vue'
-import type { Designer } from '../../designer'
-const props = defineProps({
-  designer: {
-    type: Object as PropType<Designer>,
-    required: true
-  }
-})
+
+const designer = useDesigner()
 </script>
 
 <template>

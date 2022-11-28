@@ -10,7 +10,7 @@
       </el-aside>
 
       <el-main class="center-main">
-        <content-panel :designer="designer" />
+        <content-panel />
       </el-main>
 
       <el-aside width="200px">
@@ -21,15 +21,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from 'vue'
+import { defineComponent, toRefs } from 'vue'
 import { ElAside, ElContainer, ElHeader, ElMain } from 'element-plus'
-import { setupConfigData } from '../composable'
-import { Designer } from '../designer'
+import { setupDesigner, setupDesignerConfig } from '../composable'
 import SettingPanel from './setting-panel/index.vue'
 import WidgetPanel from './widget-panel/index.vue'
 import HeaderPanel from './header-panel/index.vue'
 import ContentPanel from './content-panel/index.vue'
-import type { ConfigData } from '../composable'
+import type { DesignerConfig } from '../composable'
 import type { PropType } from 'vue'
 export default defineComponent({
   name: 'FormBuildView',
@@ -45,17 +44,14 @@ export default defineComponent({
   },
   props: {
     config: {
-      type: Object as PropType<Partial<ConfigData>>,
+      type: Object as PropType<Partial<DesignerConfig>>,
       default: () => ({})
     }
   },
   setup(props) {
     const { config } = toRefs(props)
-    const designer = ref(new Designer())
-    setupConfigData(config)
-    return {
-      designer
-    }
+    setupDesignerConfig(config)
+    setupDesigner()
   }
 })
 </script>
