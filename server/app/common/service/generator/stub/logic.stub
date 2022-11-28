@@ -65,7 +65,7 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
     {
         Db::startTrans();
         try {
-            {UPPER_CAMEL_NAME}::update([
+            {UPPER_CAMEL_NAME}::where('{PK}', $params['{PK}'])->update([
 {UPDATE_DATA}
             ]);
 
@@ -88,7 +88,7 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
      */
     public static function delete(array $params): bool
     {
-        return {UPPER_CAMEL_NAME}::destroy($params['{PK}']);
+        return {UPPER_CAMEL_NAME}::where('{PK}', $params['{PK}'])->delete();
     }
 
 
