@@ -1,9 +1,9 @@
 <template>
     <ClientOnly>
-        <el-dropdown :max-height="200">
+        <el-dropdown :max-height="200" :disabled="!hasData">
             <span class="flex items-center text-white">
                 <MenuItem :menu-item="menuItem" :route-path="menuItem.path" />
-                <span class="ml-[-10px]">
+                <span class="ml-[-10px]" v-if="hasData">
                     <Icon name="el-icon-ArrowDown" />
                 </span>
             </span>
@@ -38,7 +38,10 @@ defineProps({
     }
 })
 
-const { data } = useAsyncData(() => getArticleCate())
+const { data } = await useAsyncData(() => getArticleCate())
+const hasData = computed(() => {
+    return data.value && data.value.length
+})
 </script>
 
 <style lang="scss" scoped></style>
