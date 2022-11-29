@@ -1,3 +1,6 @@
 :root {
-  
+
+  --header-height: 50px;
+  --main-header-height: 45px;
+  --widget-item-bg-color: #ecf5ff4d;
 }

@@ -1,8 +1,8 @@
 import type { Component, Plugin } from 'vue'
 
-export const withInstall = (
+export const withInstall = <T extends Record<string, any>>(
   component: Component,
-  extra?: Record<string, any>
+  extra?: T
 ) => {
   ;(component as Plugin).install = (app): void => {
     app.component(extra?.name ?? component.name!, component)
@@ -13,5 +13,5 @@ export const withInstall = (
       ;(component as any)[key] = value
     }
   }
-  return component as Plugin
+  return component as Plugin & T
 }

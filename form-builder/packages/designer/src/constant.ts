@@ -1,4 +1,10 @@
-export const widgetCategory = [
-  { title: '布局字段', name: 'layout' },
-  { name: 'base', title: '基础字段' }
-]
+import { logo } from '@form-builder/assets'
+import type { DesignerConfig } from './types'
+
+export const designerConfig: DesignerConfig = {
+  logo: {
+    src: logo,
+    show: true,
+    title: 'form-builder'
+  }
+}

@@ -4,6 +4,7 @@ importers:
 
   .:
     specifiers:
+      '@element-plus/icons-vue': ^2.0.10
       '@form-builder/assets': workspace:^1.0.0
       '@form-builder/designer': workspace:^1.0.0
       '@form-builder/shared': workspace:^1.0.0
@@ -34,6 +35,7 @@ importers:
       lodash: registry.npmmirror.com/lodash/4.17.21
       vuedraggable: registry.npmmirror.com/vuedraggable/4.1.0_vue@3.2.45
     devDependencies:
+      '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/2.0.10_vue@3.2.45
       '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.189
       '@types/node': registry.npmmirror.com/@types/node/18.11.9
       '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.44.0_fnsv2sbzcckq65bwfk7a5xwslu

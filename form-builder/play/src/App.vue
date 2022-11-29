@@ -17,7 +17,7 @@ export default defineComponent({
 
 <template>
   <ElConfigProvider>
-    <FormBuildView />
+    <FormDesigner />
   </ElConfigProvider>
 </template>
 

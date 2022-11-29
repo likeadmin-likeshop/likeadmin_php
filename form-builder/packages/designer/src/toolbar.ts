@@ -1,11 +1,5 @@
 import type { Component } from 'vue'
 
-// export interface WidgetsCategory {
-//   name: string
-//   title: string
-//   widgets?: Record<string, any>[]
-// }
-
 export interface TabBar {
   name: string
   title: string
@@ -15,16 +9,14 @@ export interface TabBar {
 export class Toolbar {
   tabBars: TabBar[] = []
 
-  constructor() {}
-
-  addTabBar(tabBar: TabBar) {
+  add(tabBar: TabBar) {
     const isHas = this.tabBars.find((item) => item.name === tabBar.name)
     if (isHas) {
       return tabBar
     }
     return this.tabBars.push(tabBar)
   }
-  removeTabBar(name: string | number) {
+  remove(name: string | number) {
     if (typeof name === 'number') {
       this.tabBars.splice(name, 1)
       return
@@ -35,12 +27,4 @@ export class Toolbar {
     }
     this.tabBars.splice(removeIndex, 1)
   }
-  // init() {
-  //   this.categorys.forEach((item) => {
-  //     this.addCategory(item)
-  //   })
-  //   for (const [, widget] of Object.entries(this.widgets)) {
-  //     this.addWidget((widget as any).meta)
-  //   }
-  // }
 }

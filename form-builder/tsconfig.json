@@ -9,7 +9,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "allowJs": false,
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,

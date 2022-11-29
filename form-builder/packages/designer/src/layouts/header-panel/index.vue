@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useDesignerConfig } from '../../composable'
+import { useDesigner } from '../../composable'
 import Logo from './logo.vue'
-const designerConfig = useDesignerConfig()
+const designer = useDesigner()
 </script>
 
 <template>
   <div class="header-panel">
-    <Logo :config="designerConfig.logo" />
+    <Logo :config="designer.config.logo" />
     <div class="header-menu" />
   </div>
 </template>

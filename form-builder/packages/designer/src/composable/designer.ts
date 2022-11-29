@@ -1,14 +1,14 @@
-import { inject, provide, ref } from 'vue'
-import { Designer } from '../designer'
-import type { InjectionKey, Ref } from 'vue'
+import { inject, ref } from 'vue'
+import type { Designer } from '../designer'
+import type { App, InjectionKey, Ref } from 'vue'
 
 export type DesignerRef = Ref<Designer>
 
 export const designerSymbol: InjectionKey<DesignerRef> = Symbol('designer')
 
-export const setupDesigner = (): void => {
-  const designer = ref(new Designer())
-  provide(designerSymbol, designer)
+export const setupDesigner = (designerInstance: Designer, app: App): void => {
+  const designer = ref(designerInstance)
+  app.provide(designerSymbol, designer)
 }
 
 export const useDesigner = (): DesignerRef => {

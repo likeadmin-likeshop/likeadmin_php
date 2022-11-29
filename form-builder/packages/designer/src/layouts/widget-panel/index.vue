@@ -1,20 +1,23 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { ElScrollbar, ElTabPane, ElTabs } from 'element-plus'
-import WidgetTab from './widget-tab.vue'
-import TreeTab from './tree-tab.vue'
+import { useDesigner } from '../../composable'
+const designer = useDesigner()
+const tabBars = computed(() => designer.value.toolbar.tabBars)
+const defaultActive = computed(() => tabBars.value.at(0)?.name)
 </script>
 
 <template>
   <div class="widget-panel">
-    <el-tabs active-name="component">
-      <el-tab-pane label="组件库" name="component">
+    <el-tabs v-if="tabBars.length" :model-value="defaultActive">
+      <el-tab-pane
+        v-for="tabBar in tabBars"
+        :key="tabBar.name"
+        :label="tabBar.title"
+        :name="tabBar.name"
+      >
         <el-scrollbar>
-          <widget-tab />
-        </el-scrollbar>
-      </el-tab-pane>
-      <el-tab-pane label="大纲树" name="tree">
-        <el-scrollbar>
-          <tree-tab />
+          <component :is="tabBar.component" />
         </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
@@ -26,7 +29,7 @@ import TreeTab from './tree-tab.vue'
   border-right: 1px solid var(--el-border-color);
   height: 100%;
   .el-tabs {
-    --el-tabs-header-height: 44px;
+    --el-tabs-header-height: var(--main-header-height);
     height: 100%;
     :deep() {
       .el-tabs__content {
@@ -35,7 +38,8 @@ import TreeTab from './tree-tab.vue'
       .el-tabs__header {
         margin-bottom: 0;
         .el-tabs__item {
-          padding: 0 12px;
+          margin: 0 12px;
+          padding: 0;
         }
       }
     }

@@ -21,17 +21,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent } from 'vue'
 import { ElAside, ElContainer, ElHeader, ElMain } from 'element-plus'
-import { setupDesigner, setupDesignerConfig } from '../composable'
 import SettingPanel from './setting-panel/index.vue'
 import WidgetPanel from './widget-panel/index.vue'
 import HeaderPanel from './header-panel/index.vue'
 import ContentPanel from './content-panel/index.vue'
-import type { DesignerConfig } from '../composable'
-import type { PropType } from 'vue'
 export default defineComponent({
-  name: 'FormBuildView',
+  name: 'FormDesigner',
   components: {
     ElAside,
     ElContainer,
@@ -42,17 +39,7 @@ export default defineComponent({
     WidgetPanel,
     ContentPanel
   },
-  props: {
-    config: {
-      type: Object as PropType<Partial<DesignerConfig>>,
-      default: () => ({})
-    }
-  },
-  setup(props) {
-    const { config } = toRefs(props)
-    setupDesignerConfig(config)
-    setupDesigner()
-  }
+  setup(props) {}
 })
 </script>
 
@@ -60,13 +47,17 @@ export default defineComponent({
 .main-container {
   height: 100%;
   font-size: var(--el-font-size-base);
+  .main-header {
+    --el-header-height: var(--header-height);
+  }
   .content-container {
     margin: 8px;
     border: 1px solid var(--el-border-color);
+    min-height: 0;
     .center-main {
       background-color: var(--el-bg-color-page);
       height: 100%;
-      padding: 10px;
+      padding: 0;
     }
   }
 }

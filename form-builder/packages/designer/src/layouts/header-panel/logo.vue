@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { Logo } from '../../composable'
+import type { Logo } from '../../types'
 
 const props = defineProps({
   config: {

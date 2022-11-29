@@ -2,30 +2,34 @@
 import { computed } from 'vue'
 import { ElCollapse, ElCollapseItem } from 'element-plus'
 import Draggable from 'vuedraggable'
-import { useDesigner } from '../../composable'
+import { uniqueId } from '@form-builder/shared'
+import { cloneDeep } from 'lodash'
+import { useDesigner } from '../composable'
 const designer = useDesigner()
-const defaultOpen = computed(() =>
-  designer.value.toolWidget.materials.map((item) => item.name)
-)
+const componentLists = computed(() => designer.value.material.componentLists)
+const defaultOpen = computed(() => componentLists.value.map(({ id }) => id))
+const handleCloneWidget = (widget) => {
+  return designer.value.cloneWidget(widget)
+}
 </script>
 
 <template>
-  <div class="widget-tab">
+  <div class="component-lib">
     <el-collapse :model-value="defaultOpen" class="widget-collapse">
       <el-collapse-item
-        v-for="category in designer.toolWidget.materials"
-        :key="category.name"
+        v-for="category in componentLists"
+        :key="category.id"
         :title="category.title"
-        :name="category.name"
+        :name="category.id"
       >
         <draggable
           tag="ul"
-          :list="category.widgets"
+          :list="category.children"
           item-key="key"
           :group="{ name: 'widgetGroup', pull: 'clone', put: false }"
-          ghost-class="widget-placeholder"
           :sort="false"
           class="widget-lists"
+          :clone="handleCloneWidget"
         >
           <template #item="{ element: widget }">
             <li class="widget-item">
@@ -41,11 +45,13 @@ const defaultOpen = computed(() =>
 </template>
 
 <style lang="scss" scoped>
-.widget-tab {
+.component-lib {
   .widget-collapse {
     --el-collapse-header-height: 30px;
     .widget-lists {
       padding: 0 10px 10px;
+      display: flex;
+      flex-wrap: wrap;
       .widget-item {
         font-size: 12px;
         display: block;
