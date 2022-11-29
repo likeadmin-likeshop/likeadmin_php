@@ -20,6 +20,7 @@ use app\common\lists\ListsExtendInterface;
 use app\common\lists\ListsSearchInterface;
 use app\common\lists\ListsSortInterface;
 use app\common\model\auth\Admin;
+use app\common\model\auth\AdminRole;
 use app\common\model\auth\SystemRole;
 use app\common\model\dept\Dept;
 use app\common\model\dept\Jobs;
@@ -74,7 +75,6 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
     {
         return [
             '%like%' => ['name', 'account'],
-            '=' => ['role_id']
         ];
     }
 
@@ -103,6 +103,24 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
         return ['id' => 'desc'];
     }
 
+    /**
+     * @notes 查询条件
+     * @return array
+     * @author 段誉
+     * @date 2022/11/29 11:33
+     */
+    public function queryWhere()
+    {
+        $where = [];
+        if (isset($this->params['role_id']) && $this->params['role_id'] != '') {
+            $adminIds = AdminRole::where('role_id', $this->params['role_id'])->column('admin_id');
+            if (!empty($adminIds)) {
+                $where[] = ['id', 'in', $adminIds];
+            }
+        }
+        return $where;
+    }
+
 
     /**
      * @notes 获取管理列表
@@ -122,6 +140,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
 
         $adminLists = Admin::field($field)
             ->where($this->searchWhere)
+            ->where($this->queryWhere())
             ->append(['disable_desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->order($this->sortOrder)
@@ -176,7 +195,9 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
      */
     public function count(): int
     {
-        return Admin::where($this->searchWhere)->count();
+        return Admin::where($this->searchWhere)
+            ->where($this->queryWhere())
+            ->count();
     }
 
     public function extend()
