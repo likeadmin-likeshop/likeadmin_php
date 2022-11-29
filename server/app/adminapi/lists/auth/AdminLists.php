@@ -141,10 +141,9 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
         $adminLists = Admin::field($field)
             ->where($this->searchWhere)
             ->where($this->queryWhere())
-            ->append(['disable_desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->order($this->sortOrder)
-            ->append(['role_id', 'dept_id', 'jobs_id'])
+            ->append(['role_id', 'dept_id', 'jobs_id', 'disable_desc'])
             ->select()
             ->toArray();
 
