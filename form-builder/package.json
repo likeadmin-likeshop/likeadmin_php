@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm -C play dev",
+    "build": "pnpm build:script && pnpm build:all",
     "build:script": "pnpm -C build stub",
     "build:all": "pnpm -C build start",
     "lint": "eslint --ext .cjs,.js,.ts,.vue ."

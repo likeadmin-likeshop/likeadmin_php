@@ -2,8 +2,6 @@
 import { computed } from 'vue'
 import { ElCollapse, ElCollapseItem } from 'element-plus'
 import Draggable from 'vuedraggable'
-import { uniqueId } from '@form-builder/shared'
-import { cloneDeep } from 'lodash'
 import { useDesigner } from '../composable'
 const designer = useDesigner()
 const componentLists = computed(() => designer.value.material.componentLists)

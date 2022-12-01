@@ -9,7 +9,6 @@ const props = defineProps({
   }
 })
 const designer = useDesigner()
-const copyWidget = (widget) => {}
 </script>
 
 <template>

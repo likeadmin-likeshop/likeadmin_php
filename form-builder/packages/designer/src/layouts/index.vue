@@ -6,7 +6,7 @@
 
     <el-container class="content-container">
       <el-aside width="260px">
-        <widget-panel />
+        <left-area :area="skeleton.leftArea" />
       </el-aside>
 
       <el-main class="center-main">
@@ -20,27 +20,12 @@
   </el-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import { ElAside, ElContainer, ElHeader, ElMain } from 'element-plus'
-import SettingPanel from './setting-panel/index.vue'
-import WidgetPanel from './widget-panel/index.vue'
-import HeaderPanel from './header-panel/index.vue'
-import ContentPanel from './content-panel/index.vue'
-export default defineComponent({
-  name: 'FormDesigner',
-  components: {
-    ElAside,
-    ElContainer,
-    ElHeader,
-    ElMain,
-    HeaderPanel,
-    SettingPanel,
-    WidgetPanel,
-    ContentPanel
-  },
-  setup(props) {}
-})
+import { useDesigner } from '../composable'
+import LeftArea from './left-area.vue'
+const designer = useDesigner()
+const skeleton = designer.value.skeleton
 </script>
 
 <style lang="scss" scoped>

@@ -27,6 +27,10 @@ const onDragAdd = (event) => {
     designer.value.setSelectWidget(currentWidget)
   }
 }
+
+const getWidgetName = () => {
+  return `${widget.name}-widget`
+}
 </script>
 
 <template>
@@ -55,7 +59,7 @@ const onDragAdd = (event) => {
             <template #item="{ element: widget }">
               <div class="widget-form-item">
                 <widget-wrap :widget="widget">
-                  <component :is="widget.name" :widget="widget" />
+                  <component :is="" :widget="widget" />
                 </widget-wrap>
               </div>
             </template>
