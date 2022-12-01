@@ -26,40 +26,52 @@ class Admin extends BaseModel
 
     protected $deleteTime = 'delete_time';
 
+    protected $append = [
+        'role_id',
+        'dept_id',
+        'jobs_id',
+    ];
+
+
     /**
-     * @notes 关联角色模型
-     * @date 2021/6/30 17:48
-     * @return \think\model\relation\HasOne
-     * @author lr
+     * @notes 关联角色id
+     * @param $value
+     * @param $data
+     * @return array
+     * @author 段誉
+     * @date 2022/11/25 15:00
      */
-    public function role()
+    public function getRoleIdAttr($value, $data)
     {
-        return $this->hasOne(SystemRole::class, 'id', 'role_id')
-            ->field('id,name');
+        return AdminRole::where('admin_id', $data['id'])->column('role_id');
     }
 
 
     /**
-     * @notes 关联部门
-     * @return \think\model\relation\HasOne
+     * @notes 关联部门id
+     * @param $value
+     * @param $data
+     * @return array
      * @author 段誉
-     * @date 2022/5/26 11:11
+     * @date 2022/11/25 15:00
      */
-    public function dept()
+    public function getDeptIdAttr($value, $data)
     {
-        return $this->hasOne(Dept::class, 'id', 'dept_id')->bind(['dept_name' => 'name']);
+        return AdminDept::where('admin_id', $data['id'])->column('dept_id');
     }
 
 
     /**
-     * @notes 角色菜单关联
-     * @return \think\model\relation\HasMany
+     * @notes 关联岗位id
+     * @param $value
+     * @param $data
+     * @return array
      * @author 段誉
-     * @date 2022/7/7 12:04
+     * @date 2022/11/25 15:01\
      */
-    public function roleMenu()
+    public function getJobsIdAttr($value, $data)
     {
-        return $this->hasMany(SystemRoleMenu::class,'role_id','role_id');
+        return AdminJobs::where('admin_id', $data['id'])->column('jobs_id');
     }
 
 
@@ -100,4 +112,5 @@ class Admin extends BaseModel
     {
         return empty($value) ? FileService::getFileUrl(config('project.default_image.admin_avatar')) : FileService::getFileUrl(trim($value, '/'));
     }
+
 }

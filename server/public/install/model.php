@@ -741,7 +741,10 @@ class installModel
 
         $password = $this->createPassword($post['admin_password'], $salt);
 
-        $sql = "INSERT INTO `la_admin`(`id`, `root`, `name`, `avatar`, `account`, `password`, `role_id`, `dept_id`, `jobs_id`, `login_time`, `login_ip`, `multipoint_login`, `disable`, `create_time`, `update_time`, `delete_time`) VALUES (1, 1, '{$post['admin_user']}', '', '{$post['admin_user']}', '{$password}', 0, 1, 0, '{$time}', '', 1, 0, '{$time}', '{$time}', NULL);";
+        // 超级管理员
+        $sql = "INSERT INTO `la_admin`(`id`, `root`, `name`, `avatar`, `account`, `password`, `login_time`, `login_ip`, `multipoint_login`, `disable`, `create_time`, `update_time`, `delete_time`) VALUES (1, 1, '{$post['admin_user']}', '', '{$post['admin_user']}', '{$password}','{$time}', '', 1, 0, '{$time}', '{$time}', NULL);";
+        // 超级管理员关联部门
+        $sql .= "INSERT INTO `la_admin_dept` (`admin_id`, `dept_id`) VALUES (1, 1);";
 
         return $sql;
     }

@@ -43,22 +43,22 @@ trait ListsExcelTrait
      */
     public function createExcel($excelFields, $lists)
     {
-
         $title = array_values($excelFields);
 
         $data = [];
         foreach ($lists as $row) {
             $temp = [];
             foreach ($excelFields as $key => $excelField) {
-                $temp[$key] = $row[$key];
+                $fieldData = $row[$key];
+                if (is_numeric($fieldData) && strlen($fieldData) >= 12) {
+                    $fieldData .= "\t";
+                }
+                $temp[$key] = $fieldData;
             }
             $data[] = $temp;
         }
-
-
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-
 
         //设置单元格内容
         foreach ($title as $key => $value) {
@@ -75,7 +75,6 @@ trait ListsExcelTrait
             }
             $row++;
         }
-
 
         $getHighestRowAndColumn = $sheet->getHighestRowAndColumn();
         $HighestRow = $getHighestRowAndColumn['row'];
@@ -94,7 +93,6 @@ trait ListsExcelTrait
 //        $sheet->getStyle('B2')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD);
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
 
-
         $allCope = 'A1:' . $column . $HighestRow;//整个表格范围（例：A1:D5）
         $sheet->getStyle($allCope)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
@@ -103,12 +101,14 @@ trait ListsExcelTrait
         //创建excel文件
         $exportCache = new ExportCache();
         $src = $exportCache->getSrc();
+
         if (!file_exists($src)) {
             mkdir($src, 0775, true);
         }
         $writer->save($src . $this->fileName);
         //设置本地excel缓存并返回下载地址
-        return (string)(url('index/download/export', ['file' => $exportCache->setFile($this->fileName)], true, true));
+        $vars = ['file' => $exportCache->setFile($this->fileName)];
+        return (string)(url('adminapi/download/export', $vars, true, true));
     }
 
 

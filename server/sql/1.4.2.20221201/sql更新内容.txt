@@ -1,0 +1,14 @@
+1.4.2
+
+la_admin表 删除 role_id，dept_id， jobs_id 3个字段
+
+新增表
+la_admin_dept 部门关联表
+la_admin_jobs 岗位关联表
+la_admin_role 角色关联表
+la_dev_crontab 定时任务表
+
+新增数据
+菜单表（la_system_menu）增加定时任务相关菜单
+部门关联表（la_admin_dept）增加超级管理员关联总公司的数据
+

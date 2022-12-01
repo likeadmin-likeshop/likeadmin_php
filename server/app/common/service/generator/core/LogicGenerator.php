@@ -105,9 +105,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getUpdateDataContent()
     {
-        $conditionContent = "'" . $this->getPkContent() . "' => " . '$params[' . "'" . $this->getPkContent() . "'" . '],' . PHP_EOL;
         $columnContent = '';
-
         foreach ($this->tableColumn as $column) {
             if (!$column['is_update']) {
                 continue;
@@ -120,7 +118,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
         }
 
         $columnContent = substr($columnContent, 0, -2);
-        $content = $conditionContent . $columnContent;
+        $content = $columnContent;
         return $this->setBlankSpace($content, "                ");
     }
 

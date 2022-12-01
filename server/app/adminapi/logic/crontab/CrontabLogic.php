@@ -122,7 +122,7 @@ class CrontabLogic extends BaseLogic
         try {
             $crontab = Crontab::findOrEmpty($params['id']);
             if ($crontab->isEmpty()) {
-                throw new \think\Exception('定时任务不存在');
+                throw new \Exception('定时任务不存在');
             }
             switch ($params['operate']) {
                 case 'start';

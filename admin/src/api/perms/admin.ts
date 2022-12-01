@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 // 管理员列表
 export function adminLists(params: any) {
-    return request.get({ url: '/auth.admin/lists', params })
+    return request.get({ url: '/auth.admin/lists', params }, { ignoreCancelToken: true })
 }
 // 管理员列表全部
 export function adminAll(params: any) {

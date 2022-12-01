@@ -157,7 +157,6 @@ abstract class BaseDataLists implements ListsInterface
      */
     private function initExport()
     {
-
         $this->export = $this->request->get('export', '');
 
         //不做导出操作
@@ -165,14 +164,12 @@ abstract class BaseDataLists implements ListsInterface
             return false;
         }
 
-
         //导出操作，但是没有实现导出接口
         if (!($this instanceof ListsExcelInterface)) {
             return JsonService::throw('该列表不支持导出');
         }
 
         $this->fileName = $this->request->get('file_name', '') ?: $this->setFileName();
-
 
         //不导出文件，不初始化一下参数
         if ($this->export != ExportEnum::EXPORT) {
@@ -184,7 +181,6 @@ abstract class BaseDataLists implements ListsInterface
 
         //导出文件准备
         if ($this->export == ExportEnum::EXPORT) {
-
             //指定导出范围（例：第2页到，第5页的数据）
             if ($this->pageType == 1) {
                 $this->pageStart = $this->request->get('page_start', $this->pageStart);
@@ -201,7 +197,6 @@ abstract class BaseDataLists implements ListsInterface
                 $msg = $this->pageType ? '第' . $this->pageStart . '页到第' . $this->pageEnd . '页没有数据，无法导出' : '没有数据,无法导出';
                 return JsonService::throw($msg);
             }
-
         }
     }
 

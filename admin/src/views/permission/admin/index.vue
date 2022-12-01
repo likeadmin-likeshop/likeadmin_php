@@ -32,6 +32,12 @@
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
                     <el-button @click="resetParams">重置</el-button>
+                    <export-data
+                        class="ml-2.5"
+                        :fetch-fun="adminLists"
+                        :params="formData"
+                        :page-size="pager.size"
+                    />
                 </el-form-item>
             </el-form>
         </el-card>
@@ -52,8 +58,18 @@
                     </el-table-column>
                     <el-table-column label="账号" prop="account" min-width="100" />
                     <el-table-column label="名称" prop="name" min-width="100" />
-                    <el-table-column label="角色" prop="role_name" min-width="100" />
-                    <el-table-column label="部门" prop="dept_name" min-width="100" />
+                    <el-table-column
+                        label="角色"
+                        prop="role_name"
+                        min-width="100"
+                        show-tooltip-when-overflow
+                    />
+                    <el-table-column
+                        label="部门"
+                        prop="dept_name"
+                        min-width="100"
+                        show-tooltip-when-overflow
+                    />
                     <el-table-column label="创建时间" prop="create_time" min-width="180" />
                     <el-table-column label="最近登录时间" prop="login_time" min-width="180" />
                     <el-table-column label="最近登录IP" prop="login_ip" min-width="120" />
