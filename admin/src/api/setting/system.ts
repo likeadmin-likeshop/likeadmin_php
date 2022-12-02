@@ -16,8 +16,8 @@ export function systemCacheClear() {
 }
 
 // 定时任务列表
-export function crontabLists() {
-    return request.get({ url: '/crontab.crontab/lists' })
+export function crontabLists(params: any) {
+    return request.get({ url: '/crontab.crontab/lists', params })
 }
 
 // 添加定时任务
