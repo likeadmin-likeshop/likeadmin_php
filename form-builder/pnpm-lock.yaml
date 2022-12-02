@@ -8,6 +8,8 @@ importers:
       '@form-builder/assets': workspace:^1.0.0
       '@form-builder/designer': workspace:^1.0.0
       '@form-builder/shared': workspace:^1.0.0
+      '@form-builder/skeleton': workspace:^1.0.0
+      '@form-builder/types': workspace:^1.0.0
       '@form-builder/widgets': workspace:^1.0.0
       '@types/lodash': ^4.14.189
       '@types/node': ^18.11.9
@@ -31,6 +33,8 @@ importers:
       '@form-builder/assets': link:packages/assets
       '@form-builder/designer': link:packages/designer
       '@form-builder/shared': link:packages/shared
+      '@form-builder/skeleton': link:packages/skeleton
+      '@form-builder/types': link:packages/types
       '@form-builder/widgets': link:packages/widgets
       lodash: registry.npmmirror.com/lodash/4.17.21
       vuedraggable: registry.npmmirror.com/vuedraggable/4.1.0_vue@3.2.45

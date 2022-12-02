@@ -40,6 +40,8 @@
     "@form-builder/assets": "workspace:^1.0.0",
     "@form-builder/designer": "workspace:^1.0.0",
     "@form-builder/shared": "workspace:^1.0.0",
+    "@form-builder/skeleton": "workspace:^1.0.0",
+    "@form-builder/types": "workspace:^1.0.0",
     "@form-builder/widgets": "workspace:^1.0.0",
     "lodash": "^4.17.21",
     "vuedraggable": "^4.1.0"

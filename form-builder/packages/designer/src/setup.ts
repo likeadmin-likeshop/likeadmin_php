@@ -1,33 +1,23 @@
-import * as widgets from '@form-builder/widgets'
-import Layout from './layouts/index.vue'
-import components from './components'
+/**
+ * @description 组册designer实例到vue组件
+ */
+import { inject, ref } from 'vue'
 import type { Designer } from './designer'
-import type { App } from 'vue'
+import type { App, InjectionKey, Ref } from 'vue'
 
-export function setupDefault(designer: Designer, app: App) {
-  designer.skeleton.add({
-    title: '组件库',
-    name: 'componentLib',
-    area: 'left',
-    content: 'ComponentLib'
-  })
-  // designer.toolbar.add({
-  //   title: '组件库',
-  //   name: 'componentLib',
-  //   component: 'ComponentLib'
-  // })
-  // designer.toolbar.add({
-  //   title: '大纲树',
-  //   name: 'outlineTree',
-  //   component: 'OutlineTree'
-  // })
+export type DesignerRef = Ref<Designer>
 
-  app.component('FormDesigner', Layout)
-  for (const [name, component] of Object.entries(components)) {
-    app.component(name, component)
+export const designerSymbol: InjectionKey<DesignerRef> = Symbol('designer')
+
+export const setupDesigner = (designerInstance: Designer, app: App): void => {
+  const designer = ref(designerInstance)
+  app.provide(designerSymbol, designer)
+}
+
+export const useDesigner = (): DesignerRef => {
+  const designer = inject(designerSymbol)
+  if (!designer) {
+    throw new Error('useDesigner() is called without provider.')
   }
-  for (const [, widget] of Object.entries(widgets)) {
-    designer.material.add(widget.meta)
-    app.use(widget)
-  }
+  return designer
 }

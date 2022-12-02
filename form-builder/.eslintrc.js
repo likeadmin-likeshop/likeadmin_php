@@ -127,7 +127,7 @@ module.exports = defineConfig({
       { disallowTypeAnnotations: false }
     ],
     '@typescript-eslint/ban-ts-comment': ['off', { 'ts-ignore': false }],
-
+    '@typescript-eslint/ban-types': 'off',
     // vue
     'vue/no-v-html': 'off',
     'vue/require-default-prop': 'off',
