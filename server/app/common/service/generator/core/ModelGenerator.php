@@ -51,7 +51,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             $this->getTableName()
         ];
 
-        $templatePath = $this->getTemplatePath('model');
+        $templatePath = $this->getTemplatePath('php/model');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);

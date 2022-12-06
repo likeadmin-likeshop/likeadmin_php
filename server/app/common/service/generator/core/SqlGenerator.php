@@ -60,7 +60,7 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
             time()
         ];
 
-        $templatePath = $this->getTemplatePath('sql');
+        $templatePath = $this->getTemplatePath('sql/sql');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);

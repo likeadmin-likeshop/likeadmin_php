@@ -66,7 +66,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getFormDateContent(),
             $this->getLowerCamelName()
         ];
-        $templatePath = $this->getTemplatePath('vue_edit');
+        $templatePath = $this->getTemplatePath('vue/edit');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -177,7 +177,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $column['dict_type'],
             ];
 
-            $templatePath = $this->getTemplatePath('form_item/' . $column['view_type']);
+            $templatePath = $this->getTemplatePath('vue/form_item/' . $column['view_type']);
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -257,7 +257,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $this->getUpperCamelName(),
                 $column['dict_type'],
             ];
-            $templatePath = $this->getTemplatePath('other_item/dictDataApi');
+            $templatePath = $this->getTemplatePath('vue/other_item/dictDataApi');
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -335,7 +335,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $column['column_name'],
                 $validateMsg,
             ];
-            $templatePath = $this->getTemplatePath('other_item/formValidate');
+            $templatePath = $this->getTemplatePath('vue/other_item/formValidate');
             if (!file_exists($templatePath)) {
                 continue;
             }

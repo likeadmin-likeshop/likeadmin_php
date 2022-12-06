@@ -62,7 +62,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             $this->getNoteDateContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('validate');
+        $templatePath = $this->getTemplatePath('php/validate');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);

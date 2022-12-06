@@ -61,7 +61,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
             $this->getNoteDateContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('controller');
+        $templatePath = $this->getTemplatePath('php/controller');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);

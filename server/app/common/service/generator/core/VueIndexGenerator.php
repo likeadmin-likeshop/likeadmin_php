@@ -65,7 +65,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getPermsContent('delete'),
             $this->getLowerCamelName()
         ];
-        $templatePath = $this->getTemplatePath('vue_index');
+        $templatePath = $this->getTemplatePath('vue/index');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -104,7 +104,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $searchStubType = 'select';
             }
 
-            $templatePath = $this->getTemplatePath('search_item/' . $searchStubType);
+            $templatePath = $this->getTemplatePath('vue/search_item/' . $searchStubType);
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -145,15 +145,15 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $column['dict_type'],
             ];
 
-            $templatePath = $this->getTemplatePath('table_item/default');
+            $templatePath = $this->getTemplatePath('vue/table_item/default');
             if ($column['view_type'] == 'imageSelect') {
-                $templatePath = $this->getTemplatePath('table_item/image');
+                $templatePath = $this->getTemplatePath('vue/table_item/image');
             }
             if (in_array($column['view_type'], ['select', 'radio', 'checkbox'])) {
-                $templatePath = $this->getTemplatePath('table_item/options');
+                $templatePath = $this->getTemplatePath('vue/table_item/options');
             }
             if ($column['column_type'] == 'int' && $column['view_type'] == 'datetime') {
-                $templatePath = $this->getTemplatePath('table_item/datetime');
+                $templatePath = $this->getTemplatePath('vue/table_item/datetime');
             }
             if (!file_exists($templatePath)) {
                 continue;
@@ -248,7 +248,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $this->getUpperCamelName(),
                 $column['dict_type'],
             ];
-            $templatePath = $this->getTemplatePath('other_item/dictDataApi');
+            $templatePath = $this->getTemplatePath('vue/other_item/dictDataApi');
             if (!file_exists($templatePath)) {
                 continue;
             }
