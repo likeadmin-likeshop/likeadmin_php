@@ -15,6 +15,7 @@
 namespace app\adminapi\validate\dept;
 
 use app\common\model\auth\Admin;
+use app\common\model\auth\AdminDept;
 use app\common\model\dept\Dept;
 use app\common\validate\BaseValidate;
 
@@ -127,7 +128,7 @@ class DeptValidate extends BaseValidate
             return '已关联下级部门,暂不可删除';
         }
 
-        $check = Admin::where(['dept_id' => $value])->findOrEmpty();
+        $check = AdminDept::where(['dept_id' => $value])->findOrEmpty();
         if (!$check->isEmpty()) {
             return '已关联管理员，暂不可删除';
         }
