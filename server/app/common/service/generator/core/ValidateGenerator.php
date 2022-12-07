@@ -45,7 +45,9 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             '{RULE}',
             '{NOTES}',
             '{AUTHOR}',
-            '{DATE}'
+            '{DATE}',
+            '{ADD_PARAMS}',
+            '{EDIT_PARAMS}'
         ];
 
         // 等待替换的内容
@@ -60,6 +62,8 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             $this->tableData['class_comment'],
             $this->getAuthorContent(),
             $this->getNoteDateContent(),
+            $this->getAddParamsContent(),
+            $this->getEditParamsContent(),
         ];
 
         $templatePath = $this->getTemplatePath('php/validate');
@@ -87,6 +91,55 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
         }
         $content = substr($content, 0, -2);
         return $this->setBlankSpace($content, "        ");
+    }
+
+
+    /**
+     * @notes 添加场景验证参数
+     * @return string
+     * @author 段誉
+     * @date 2022/12/7 15:26
+     */
+    public function getAddParamsContent()
+    {
+        $content = "";
+        foreach ($this->tableColumn as $column) {
+            if ($column['is_required'] == 1 && $column['column_name'] != $this->getPkContent()) {
+                $content .= "'" . $column['column_name'] . "',";
+            }
+        }
+        $content = substr($content, 0, -1);
+
+        // 若无设置添加场景校验字段时, 排除主键
+        if (!empty($content)) {
+            $content = 'return $this->only([' . $content . ']);';
+        } else {
+            $content = 'return $this->remove(' . $this->getPkContent() . ', true);';
+        }
+
+        return $this->setBlankSpace($content, "");
+    }
+
+
+    /**
+     * @notes 编辑场景验证参数
+     * @return string
+     * @author 段誉
+     * @date 2022/12/7 15:20
+     */
+    public function getEditParamsContent()
+    {
+        $content = "'" . $this->getPkContent() . "'," ;
+        foreach ($this->tableColumn as $column) {
+            if ($column['is_required'] == 1) {
+                $content .= "'" . $column['column_name'] . "',";
+            }
+        }
+        $content = substr($content, 0, -1);
+        if (!empty($content)) {
+            $content = 'return $this->only([' . $content . ']);';
+        }
+        return $this->setBlankSpace($content, "");
     }
 
 

@@ -46,7 +46,19 @@ class {UPPER_CAMEL_NAME}Validate extends BaseValidate
      */
     public function sceneAdd()
     {
-        return $this->remove('{PK}', true);
+        {ADD_PARAMS}
+    }
+
+
+    /**
+     * @notes 编辑场景
+     * @return {UPPER_CAMEL_NAME}Validate
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public function sceneEdit()
+    {
+        {EDIT_PARAMS}
     }
 
 
