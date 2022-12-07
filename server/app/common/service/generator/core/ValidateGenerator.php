@@ -114,7 +114,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
         if (!empty($content)) {
             $content = 'return $this->only([' . $content . ']);';
         } else {
-            $content = 'return $this->remove(' . $this->getPkContent() . ', true);';
+            $content = 'return $this->remove(' . "'". $this->getPkContent() . "'" . ', true);';
         }
 
         return $this->setBlankSpace($content, "");
