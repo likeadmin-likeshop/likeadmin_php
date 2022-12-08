@@ -7,4 +7,3 @@
 /runtime/*
 !/runtime/index.html
 /config/install.lock
-/app/adminapi/http/middleware/CheckDemoMiddleware.php
