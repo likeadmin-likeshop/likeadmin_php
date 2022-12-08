@@ -1,6 +1,7 @@
 <?php
 // 应用公共文件
 use app\common\service\FileService;
+use think\helper\Str;
 
 /**
  * @notes 生成密码加密密钥
@@ -209,4 +210,22 @@ function get_file_domain($content)
     $preg = '/(<img .*?src=")[^https|^http](.*?)(".*?>)/is';
     $fileUrl = FileService::getFileUrl();
     return preg_replace($preg, "\${1}$fileUrl\${2}\${3}", $content);
+}
+
+
+/**
+ * @notes uri小写
+ * @param $data
+ * @return array|string[]
+ * @author 段誉
+ * @date 2022/7/19 14:50
+ */
+function lower_uri($data)
+{
+    if (!is_array($data)) {
+        $data = [$data];
+    }
+    return array_map(function ($item) {
+        return strtolower(Str::camel($item));
+    }, $data);
 }
