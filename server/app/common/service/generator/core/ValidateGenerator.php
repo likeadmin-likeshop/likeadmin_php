@@ -47,7 +47,8 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             '{AUTHOR}',
             '{DATE}',
             '{ADD_PARAMS}',
-            '{EDIT_PARAMS}'
+            '{EDIT_PARAMS}',
+            '{FIELD}',
         ];
 
         // 等待替换的内容
@@ -64,6 +65,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             $this->getNoteDateContent(),
             $this->getAddParamsContent(),
             $this->getEditParamsContent(),
+            $this->getFiledContent(),
         ];
 
         $templatePath = $this->getTemplatePath('php/validate');
@@ -89,7 +91,7 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
                 $content .= "'" . $column['column_name'] . "' => 'require'," . PHP_EOL;
             }
         }
-        $content = substr($content, 0, -2);
+        $content = substr($content, 0, -1);
         return $this->setBlankSpace($content, "        ");
     }
 
@@ -140,6 +142,29 @@ class ValidateGenerator extends BaseGenerator implements GenerateInterface
             $content = 'return $this->only([' . $content . ']);';
         }
         return $this->setBlankSpace($content, "");
+    }
+
+
+    /**
+     * @notes 验证字段描述
+     * @return string
+     * @author 段誉
+     * @date 2022/12/9 15:09
+     */
+    public function getFiledContent()
+    {
+        $content = "'" . $this->getPkContent() . "' => '" . $this->getPkContent() . "'," . PHP_EOL;
+        foreach ($this->tableColumn as $column) {
+            if ($column['is_required'] == 1) {
+                $columnComment = $column['column_comment'];
+                if (empty($column['column_comment'])) {
+                    $columnComment = $column['column_name'];
+                }
+                $content .= "'" . $column['column_name'] . "' => '" . $columnComment . "'," . PHP_EOL;
+            }
+        }
+        $content = substr($content, 0, -1);
+        return $this->setBlankSpace($content, "        ");
     }
 
 

@@ -26,15 +26,21 @@ use app\common\validate\BaseValidate;
 class {UPPER_CAMEL_NAME}Validate extends BaseValidate
 {
 
-
-    /**
-     * @notes 设置搜索条件
-     * @return \string[][]
-     * @author {AUTHOR}
-     * @date {DATE}
-     */
+     /**
+      * 设置校验规则
+      * @var string[]
+      */
     protected $rule = [
 {RULE}
+    ];
+
+
+    /**
+     * 参数描述
+     * @var string[]
+     */
+    protected $field = [
+{FIELD}
     ];
 
 
