@@ -63,17 +63,17 @@ class EncryDemoDataMiddleware
         // 非需校验的接口 或者 未开启演示模式
         $accessUri = strtolower($request->controller() . '/' . $request->action());
         if (!in_array($accessUri, lower_uri($this->needCheck)) || !env('project.demo_env')) {
-            return $next($request);
+            return $response;
         }
 
         // 非json数据
         if (!method_exists($response, 'header') || !in_array('application/json; charset=utf-8', $response->getHeader())) {
-            return $next($request);
+            return $response;
         }
 
         $data = $response->getData();
         if (!is_array($data) || empty($data)) {
-            return $next($request);
+            return $response;
         }
 
         foreach ($data['data'] as $key => $item) {
