@@ -267,8 +267,7 @@ class GeneratorLogic extends BaseLogic
      */
     public static function getTableColumn($tableName)
     {
-        $tablePrefix = config('database.connections.mysql.prefix');
-        $tableName = str_replace($tablePrefix, '', $tableName);
+        $tableName = get_no_prefix_table_name($tableName);
         return Db::name($tableName)->getFields();
     }
 
