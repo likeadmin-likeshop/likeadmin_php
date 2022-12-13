@@ -26,7 +26,7 @@ use app\common\model\BaseModel;
 class GenerateTable extends BaseModel
 {
 
-    protected $json = ['menu', 'delete', 'tree', 'relation'];
+    protected $json = ['options'];
 
     protected $jsonAssoc = true;
 
@@ -53,4 +53,7 @@ class GenerateTable extends BaseModel
     {
         return GeneratorEnum::getTemplateTypeDesc($data['template_type']);
     }
+
+
+
 }

@@ -44,15 +44,21 @@ class GeneratorLogic extends BaseLogic
             ->toArray();
 
         // 菜单配置
-        $detail['menu']['pid'] = intval($detail['menu']['pid'] ?? 0);
-        $detail['menu']['type'] = intval($detail['menu']['type'] ?? GeneratorEnum::GEN_SELF);
-        $detail['menu']['name'] = !empty($detail['menu']['name'])
-            ? $detail['menu']['name'] : $detail['table_comment'];
-
+        $menuConfig = $detail['options']['menu'] ?? [];
         // 删除配置
-        $detail['delete']['type'] = intval($detail['delete']['type'] ?? GeneratorEnum::DELETE_TRUE);
-        $detail['delete']['name'] = !empty($detail['delete']['name'])
-            ? $detail['delete']['name'] : GeneratorEnum::DELETE_NAME;
+        $deleteConfig = $detail['options']['delete'] ?? [];
+
+        $detail['options'] = [
+            'menu' => [
+                'pid' => intval($menuConfig['pid'] ?? 0),
+                'type' => intval($menuConfig['type'] ?? GeneratorEnum::GEN_SELF),
+                'name' => !empty($menuConfig['name']) ? $menuConfig['name'] : $detail['table_comment'],
+            ],
+            'delete' => [
+                'type' => intval($deleteConfig['type'] ?? GeneratorEnum::DELETE_TRUE),
+                'name' => !empty($deleteConfig['name']) ? $deleteConfig['name'] : GeneratorEnum::DELETE_NAME,
+            ],
+        ];
 
         return $detail;
     }
@@ -99,6 +105,11 @@ class GeneratorLogic extends BaseLogic
     {
         Db::startTrans();
         try {
+            // 菜单配置
+            $menuConfig = $params['options']['menu'] ?? [];
+            // 删除配置
+            $deleteConfig = $params['options']['delete'] ?? [];
+
             // 更新主表-数据表信息
             GenerateTable::update([
                 'id' => $params['id'],
@@ -111,14 +122,18 @@ class GeneratorLogic extends BaseLogic
                 'module_name' => $params['module_name'],
                 'class_dir' => $params['class_dir'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
-                'menu' => [
-                    'pid' => $params['menu']['pid'] ?? 0,
-                    'type' => $params['menu']['type'] ?? GeneratorEnum::GEN_SELF,
-                    'name' => $params['menu']['name'] ?? $params['table_comment'],
-                ],
-                'delete' => [
-                    'type' => $params['delete']['type'] ?? GeneratorEnum::DELETE_TRUE,
-                    'name' => $params['delete']['name'] ?? GeneratorEnum::DELETE_NAME,
+                'options' => [
+                    // 菜单配置
+                    'menu' => [
+                        'pid' => $menuConfig['pid'] ?? 0,
+                        'type' => $menuConfig['type'] ?? GeneratorEnum::GEN_SELF,
+                        'name' => $menuConfig['name'] ?? $params['table_comment'],
+                    ],
+                    // 删除配置
+                    'delete' => [
+                        'type' => $deleteConfig['type'] ?? GeneratorEnum::DELETE_TRUE,
+                        'name' => $deleteConfig['name'] ?? GeneratorEnum::DELETE_NAME,
+                    ],
                 ]
             ]);
 
@@ -298,16 +313,18 @@ class GeneratorLogic extends BaseLogic
             'generate_type' => GeneratorEnum::GENERATE_TYPE_ZIP,
             'module_name' => 'adminapi',
             'admin_id' => $adminId,
-            // 菜单配置
-            'menu' => [
-                'pid' => 0, // 父级菜单id
-                'type' => GeneratorEnum::GEN_SELF, // 构建方式 0-手动添加 1-自动构建
-                'name' => $tableData['comment'], // 菜单名称
-            ],
-            // 删除配置
-            'delete' => [
-                'type' => GeneratorEnum::DELETE_TRUE, // 删除类型
-                'name' => GeneratorEnum::DELETE_NAME, // 默认删除字段名
+            'options' => [
+                // 菜单配置
+                'menu' => [
+                    'pid' => 0, // 父级菜单id
+                    'type' => GeneratorEnum::GEN_SELF, // 构建方式 0-手动添加 1-自动构建
+                    'name' => $tableData['comment'], // 菜单名称
+                ],
+                // 删除配置
+                'delete' => [
+                    'type' => GeneratorEnum::DELETE_TRUE, // 删除类型
+                    'name' => GeneratorEnum::DELETE_NAME, // 默认删除字段名
+                ],
             ]
         ]);
     }
