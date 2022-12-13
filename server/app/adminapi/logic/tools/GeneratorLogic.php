@@ -43,22 +43,7 @@ class GeneratorLogic extends BaseLogic
             ->findOrEmpty((int)$params['id'])
             ->toArray();
 
-        // 菜单配置
-        $menuConfig = $detail['options']['menu'] ?? [];
-        // 删除配置
-        $deleteConfig = $detail['options']['delete'] ?? [];
-
-        $detail['options'] = [
-            'menu' => [
-                'pid' => intval($menuConfig['pid'] ?? 0),
-                'type' => intval($menuConfig['type'] ?? GeneratorEnum::GEN_SELF),
-                'name' => !empty($menuConfig['name']) ? $menuConfig['name'] : $detail['table_comment'],
-            ],
-            'delete' => [
-                'type' => intval($deleteConfig['type'] ?? GeneratorEnum::DELETE_TRUE),
-                'name' => !empty($deleteConfig['name']) ? $deleteConfig['name'] : GeneratorEnum::DELETE_NAME,
-            ],
-        ];
+        $detail['options'] = self::getFormatConfigByOptions($detail['options'], $detail['table_comment']);
 
         return $detail;
     }
@@ -105,11 +90,6 @@ class GeneratorLogic extends BaseLogic
     {
         Db::startTrans();
         try {
-            // 菜单配置
-            $menuConfig = $params['options']['menu'] ?? [];
-            // 删除配置
-            $deleteConfig = $params['options']['delete'] ?? [];
-
             // 更新主表-数据表信息
             GenerateTable::update([
                 'id' => $params['id'],
@@ -122,19 +102,7 @@ class GeneratorLogic extends BaseLogic
                 'module_name' => $params['module_name'],
                 'class_dir' => $params['class_dir'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
-                'options' => [
-                    // 菜单配置
-                    'menu' => [
-                        'pid' => $menuConfig['pid'] ?? 0,
-                        'type' => $menuConfig['type'] ?? GeneratorEnum::GEN_SELF,
-                        'name' => $menuConfig['name'] ?? $params['table_comment'],
-                    ],
-                    // 删除配置
-                    'delete' => [
-                        'type' => $deleteConfig['type'] ?? GeneratorEnum::DELETE_TRUE,
-                        'name' => $deleteConfig['name'] ?? GeneratorEnum::DELETE_NAME,
-                    ],
-                ]
+                'options' => self::getFormatConfigByOptions($params['options'], $params['table_comment'])
             ]);
 
             // 更新从表-数据表字段信息
@@ -325,6 +293,8 @@ class GeneratorLogic extends BaseLogic
                     'type' => GeneratorEnum::DELETE_TRUE, // 删除类型
                     'name' => GeneratorEnum::DELETE_NAME, // 默认删除字段名
                 ],
+                // 关联配置
+                'relations' => []
             ]
         ]);
     }
@@ -424,6 +394,49 @@ class GeneratorLogic extends BaseLogic
             $result = 'string';
         }
         return $result;
+    }
+
+
+    /**
+     * @notes
+     * @param $options
+     * @param $tableComment
+     * @return array
+     * @author 段誉
+     * @date 2022/12/13 18:23
+     */
+    public static function getFormatConfigByOptions($options, $tableComment)
+    {
+        // 菜单配置
+        $menuConfig = $options['menu'] ?? [];
+        // 删除配置
+        $deleteConfig = $options['delete'] ?? [];
+        // 关联配置
+        $relationsConfig = $options['relations'] ?? [];
+
+        $relations = [];
+        foreach ($relationsConfig as $relation) {
+            $relations[] = [
+                'name' => $relation['name'] ?? '',
+                'table' => $relation['table'] ?? '',
+                'type' => $relation['type'] ?? GeneratorEnum::RELATION_HAS_ONE,
+                'local_key' => $relation['local_key'] ?? 'id',
+                'foreign_key' => $relation['foreign_key'] ?? 'id',
+            ];
+        }
+
+        return [
+            'menu' => [
+                'pid' => intval($menuConfig['pid'] ?? 0),
+                'type' => intval($menuConfig['type'] ?? GeneratorEnum::GEN_SELF),
+                'name' => !empty($menuConfig['name']) ? $menuConfig['name'] : $tableComment,
+            ],
+            'delete' => [
+                'type' => intval($deleteConfig['type'] ?? GeneratorEnum::DELETE_TRUE),
+                'name' => !empty($deleteConfig['name']) ? $deleteConfig['name'] : GeneratorEnum::DELETE_NAME,
+            ],
+            'relations' => $relations,
+        ];
     }
 
 }

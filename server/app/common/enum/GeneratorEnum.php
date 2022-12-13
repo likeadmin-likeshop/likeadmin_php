@@ -37,6 +37,9 @@ class GeneratorEnum
     const GEN_SELF = 0; // 手动添加
     const GEN_AUTO = 1; // 自动添加
 
+    // 关联模型类型relations
+    const RELATION_HAS_ONE = 'has_one';
+    const RELATION_HAS_MANY = 'has_many';
 
 
     /**
