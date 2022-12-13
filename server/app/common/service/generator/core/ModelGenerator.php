@@ -120,7 +120,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
     {
         $tpl = "";
         if ($this->deleteConfig['type']) {
-            $tpl = "use think\\model\\concern\\SoftDelete";
+            $tpl = "use think\\model\\concern\\SoftDelete;";
         }
         return $tpl;
     }
