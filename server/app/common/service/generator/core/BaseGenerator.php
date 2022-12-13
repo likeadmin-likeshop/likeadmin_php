@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace app\common\service\generator\core;
 
-
 use think\helper\Str;
+use app\common\enum\GeneratorEnum;
 
 
 /**
@@ -34,13 +34,11 @@ abstract class BaseGenerator
      */
     protected $templateDir;
 
-
     /**
      * 模块名
      * @var string
      */
     protected $moduleName;
-
 
     /**
      * 类目录
@@ -48,13 +46,11 @@ abstract class BaseGenerator
      */
     protected $classDir;
 
-
     /**
      * 表信息
      * @var array
      */
     protected $tableData;
-
 
     /**
      * 表字段信息
@@ -62,13 +58,11 @@ abstract class BaseGenerator
      */
     protected $tableColumn;
 
-
     /**
      * 文件内容
      * @var string
      */
     protected $content;
-
 
     /**
      * basePath
@@ -76,19 +70,29 @@ abstract class BaseGenerator
      */
     protected $basePath;
 
-
     /**
      * rootPath
      * @var string
      */
     protected $rootPath;
 
-
     /**
      * 生成的文件夹
      * @var string
      */
     protected $generatorDir;
+
+    /**
+     * 删除配置
+     * @var array
+     */
+    protected $deleteConfig;
+
+    /**
+     * 菜单配置
+     * @var array
+     */
+    protected $menuConfig;
 
 
     public function __construct()
@@ -111,12 +115,46 @@ abstract class BaseGenerator
     {
         // 设置当前表信息
         $this->setTableData($tableData);
+        // 菜单配置
+        $this->setMenuConfig();
+        // 删除配置
+        $this->setDeleteConfig();
         // 设置模块名
         $this->setModuleName($tableData['module_name']);
         // 设置类目录
         $this->setClassDir($tableData['class_dir'] ?? '');
         // 替换模板变量
         $this->replaceVariables();
+    }
+
+
+    /**
+     * @notes 菜单配置
+     * @author 段誉
+     * @date 2022/12/13 15:14
+     */
+    public function setMenuConfig()
+    {
+        $this->menuConfig = [
+            'pid' => $this->tableData['menu']['pid'] ?? 0,
+            'type' => $this->tableData['menu']['type'] ?? GeneratorEnum::DELETE_TRUE,
+            'name' => $this->tableData['menu']['name'] ?? $this->tableData['table_comment']
+        ];
+    }
+
+
+    /**
+     * @notes 删除配置
+     * @return array
+     * @author 段誉
+     * @date 2022/12/13 15:09
+     */
+    public function setDeleteConfig()
+    {
+        $this->deleteConfig = [
+            'type' => $this->tableData['delete']['type'] ?? GeneratorEnum::DELETE_TRUE,
+            'name' => $this->tableData['delete']['name'] ?? GeneratorEnum::DELETE_NAME,
+        ];
     }
 
 
@@ -385,7 +423,7 @@ abstract class BaseGenerator
      */
     public function isGenerateTypeZip()
     {
-        return $this->tableData['generate_type'] == 0;
+        return $this->tableData['generate_type'] == GeneratorEnum::GENERATE_TYPE_ZIP;
     }
 
     

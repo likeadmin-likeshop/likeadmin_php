@@ -39,7 +39,10 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             '{CLASS_COMMENT}',
             '{UPPER_CAMEL_NAME}',
             '{PACKAGE_NAME}',
-            '{TABLE_NAME}'
+            '{TABLE_NAME}',
+            '{USE}',
+            '{DELETE_USE}',
+            '{DELETE_TIME}',
         ];
 
         // 等待替换的内容
@@ -48,7 +51,10 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             $this->getClassCommentContent(),
             $this->getUpperCamelName(),
             $this->getPackageNameContent(),
-            $this->getTableName()
+            $this->getTableName(),
+            $this->getUseContent(),
+            $this->getDeleteUseContent(),
+            $this->getDeleteTimeContent(),
         ];
 
         $templatePath = $this->getTemplatePath('php/model');
@@ -101,6 +107,55 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
     public function getPackageNameContent()
     {
         return !empty($this->classDir) ? '\\' . $this->classDir : '';
+    }
+
+
+    /**
+     * @notes 引用内容
+     * @return string
+     * @author 段誉
+     * @date 2022/12/12 17:32
+     */
+    public function getUseContent()
+    {
+        $tpl = "";
+        if ($this->deleteConfig['type']) {
+            $tpl = "use think\\model\\concern\\SoftDelete";
+        }
+        return $tpl;
+    }
+
+
+    /**
+     * @notes 软删除引用
+     * @return string
+     * @author 段誉
+     * @date 2022/12/12 17:34
+     */
+    public function getDeleteUseContent()
+    {
+        $tpl = "";
+        if ($this->deleteConfig['type']) {
+            $tpl = "use SoftDelete;";
+        }
+        return $tpl;
+    }
+
+
+    /**
+     * @notes 软删除时间字段定义
+     * @return string
+     * @author 段誉
+     * @date 2022/12/12 17:38
+     */
+    public function getDeleteTimeContent()
+    {
+        $tpl = "";
+        if ($this->deleteConfig['type']) {
+            $deleteTime = $this->deleteConfig['name'];
+            $tpl = 'protected $deleteTime = ' . "'". $deleteTime ."';";
+        }
+        return $tpl;
     }
 
 

@@ -26,6 +26,18 @@ class GeneratorEnum
     const GENERATE_TYPE_ZIP = 0; // 压缩包下载
     const GENERATE_TYPE_MODULE = 1; // 生成到模块
 
+    // 删除方式
+    const DELETE_TRUE = 0; // 真实删除
+    const DELETE_SOFT = 1; // 软删除
+
+    // 删除字段名 (默认名称)
+    const DELETE_NAME = 'delete_time';
+
+    // 菜单创建类型
+    const GEN_SELF = 0; // 手动添加
+    const GEN_AUTO = 1; // 自动添加
+
+
 
     /**
      * @notes 获取模板类型描述

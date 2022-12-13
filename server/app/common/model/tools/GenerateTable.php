@@ -26,7 +26,7 @@ use app\common\model\BaseModel;
 class GenerateTable extends BaseModel
 {
 
-    protected $json = ['menu'];
+    protected $json = ['menu', 'delete', 'tree', 'relation'];
 
     protected $jsonAssoc = true;
 

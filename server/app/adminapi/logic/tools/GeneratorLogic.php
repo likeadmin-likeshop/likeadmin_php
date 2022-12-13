@@ -43,10 +43,16 @@ class GeneratorLogic extends BaseLogic
             ->findOrEmpty((int)$params['id'])
             ->toArray();
 
+        // 菜单配置
         $detail['menu']['pid'] = intval($detail['menu']['pid'] ?? 0);
-        $detail['menu']['type'] = intval($detail['menu']['type'] ?? 0);
+        $detail['menu']['type'] = intval($detail['menu']['type'] ?? GeneratorEnum::GEN_SELF);
         $detail['menu']['name'] = !empty($detail['menu']['name'])
             ? $detail['menu']['name'] : $detail['table_comment'];
+
+        // 删除配置
+        $detail['delete']['type'] = intval($detail['delete']['type'] ?? GeneratorEnum::DELETE_TRUE);
+        $detail['delete']['name'] = !empty($detail['delete']['name'])
+            ? $detail['delete']['name'] : GeneratorEnum::DELETE_NAME;
 
         return $detail;
     }
@@ -107,8 +113,12 @@ class GeneratorLogic extends BaseLogic
                 'class_comment' => $params['class_comment'] ?? '',
                 'menu' => [
                     'pid' => $params['menu']['pid'] ?? 0,
-                    'type' => $params['menu']['type'] ?? 0,
+                    'type' => $params['menu']['type'] ?? GeneratorEnum::GEN_SELF,
                     'name' => $params['menu']['name'] ?? $params['table_comment'],
+                ],
+                'delete' => [
+                    'type' => $params['delete']['type'] ?? GeneratorEnum::DELETE_TRUE,
+                    'name' => $params['delete']['name'] ?? GeneratorEnum::DELETE_NAME,
                 ]
             ]);
 
@@ -248,8 +258,7 @@ class GeneratorLogic extends BaseLogic
                 ->whereIn('id', $params['id'])
                 ->findOrEmpty()->toArray();
 
-            $generateService = app()->make(GenerateService::class);
-            return $generateService->preview($table);
+            return app()->make(GenerateService::class)->preview($table);
 
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
@@ -289,10 +298,16 @@ class GeneratorLogic extends BaseLogic
             'generate_type' => GeneratorEnum::GENERATE_TYPE_ZIP,
             'module_name' => 'adminapi',
             'admin_id' => $adminId,
+            // 菜单配置
             'menu' => [
                 'pid' => 0, // 父级菜单id
-                'type' => 0, // 构建方式 0-手动添加 1-自动构建
+                'type' => GeneratorEnum::GEN_SELF, // 构建方式 0-手动添加 1-自动构建
                 'name' => $tableData['comment'], // 菜单名称
+            ],
+            // 删除配置
+            'delete' => [
+                'type' => GeneratorEnum::DELETE_TRUE, // 删除类型
+                'name' => GeneratorEnum::DELETE_NAME, // 默认删除字段名
             ]
         ]);
     }

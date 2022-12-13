@@ -16,6 +16,7 @@
 
 
 use app\common\model\BaseModel;
+{USE}
 
 
 /**
@@ -25,7 +26,8 @@ use app\common\model\BaseModel;
  */
 class {UPPER_CAMEL_NAME} extends BaseModel
 {
-
+    {DELETE_USE}
     protected $name = '{TABLE_NAME}';
+    {DELETE_TIME}
 
 }

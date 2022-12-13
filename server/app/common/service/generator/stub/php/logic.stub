@@ -88,7 +88,8 @@ class {UPPER_CAMEL_NAME}Logic extends BaseLogic
      */
     public static function delete(array $params): bool
     {
-        return {UPPER_CAMEL_NAME}::where('{PK}', $params['{PK}'])->delete();
+        // return {UPPER_CAMEL_NAME}::where('{PK}', $params['{PK}'])->delete();
+        return {UPPER_CAMEL_NAME}::destroy($params['{PK}']);
     }
 
 
