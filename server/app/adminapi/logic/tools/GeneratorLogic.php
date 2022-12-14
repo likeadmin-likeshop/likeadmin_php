@@ -418,7 +418,7 @@ class GeneratorLogic extends BaseLogic
         foreach ($relationsConfig as $relation) {
             $relations[] = [
                 'name' => $relation['name'] ?? '',
-                'table' => $relation['table'] ?? '',
+                'model' => $relation['model'] ?? '',
                 'type' => $relation['type'] ?? GeneratorEnum::RELATION_HAS_ONE,
                 'local_key' => $relation['local_key'] ?? 'id',
                 'foreign_key' => $relation['foreign_key'] ?? 'id',
@@ -437,6 +437,54 @@ class GeneratorLogic extends BaseLogic
             ],
             'relations' => $relations,
         ];
+    }
+
+
+    /**
+     * @notes 获取所有模型
+     * @param string $module
+     * @return array
+     * @author 段誉
+     * @date 2022/12/14 11:04
+     */
+    public static function getAllModels($module = 'common')
+    {
+        if(empty($module)) {
+            return [];
+        }
+        $modulePath = base_path() . $module . '/model/';
+        if(!is_dir($modulePath)) {
+            return [];
+        }
+
+        $modulefiles = glob($modulePath . '*');
+        $targetFiles = [];
+        foreach ($modulefiles as $file) {
+            $fileBaseName = basename($file, '.php');
+            if (is_dir($file)) {
+                $file = glob($file . '/*');
+                foreach ($file as $item) {
+                    if (is_dir($item)) {
+                        continue;
+                    }
+                    $targetFiles[] = sprintf(
+                        "\\app\\" . $module . "\\model\\%s\\%s",
+                        $fileBaseName,
+                        basename($item, '.php')
+                    );
+                }
+            } else {
+                if ($fileBaseName == 'BaseModel') {
+                    continue;
+                }
+                $targetFiles[] = sprintf(
+                    "\\app\\" . $module . "\\model\\%s",
+                    basename($file, '.php')
+                );
+            }
+        }
+
+        return $targetFiles;
     }
 
 }

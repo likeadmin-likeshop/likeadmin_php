@@ -190,4 +190,17 @@ class GeneratorController extends BaseAdminController
     }
 
 
+    /**
+     * @notes 获取模型
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/12/14 11:07
+     */
+    public function getModels()
+    {
+        $result = GeneratorLogic::getAllModels();
+        return $this->success('', $result, 1, 1);
+    }
+
 }
+
