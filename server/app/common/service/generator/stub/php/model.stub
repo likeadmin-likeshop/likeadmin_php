@@ -30,4 +30,5 @@ class {UPPER_CAMEL_NAME} extends BaseModel
     protected $name = '{TABLE_NAME}';
     {DELETE_TIME}
 
+    {RELATION_MODEL}
 }

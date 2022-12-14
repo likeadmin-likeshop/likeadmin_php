@@ -43,6 +43,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             '{USE}',
             '{DELETE_USE}',
             '{DELETE_TIME}',
+            '{RELATION_MODEL}',
         ];
 
         // 等待替换的内容
@@ -55,6 +56,7 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             $this->getUseContent(),
             $this->getDeleteUseContent(),
             $this->getDeleteTimeContent(),
+            $this->getRelationModel(),
         ];
 
         $templatePath = $this->getTemplatePath('php/model');
@@ -155,6 +157,54 @@ class ModelGenerator extends BaseGenerator implements GenerateInterface
             $deleteTime = $this->deleteConfig['name'];
             $tpl = 'protected $deleteTime = ' . "'". $deleteTime ."';";
         }
+        return $tpl;
+    }
+
+
+    /**
+     * @notes 关联模型
+     * @return string
+     * @author 段誉
+     * @date 2022/12/14 14:46
+     */
+    public function getRelationModel()
+    {
+        $tpl = '';
+        if (empty($this->relationConfig)) {
+            return $tpl;
+        }
+
+        // 遍历关联配置
+        foreach ($this->relationConfig as $config) {
+            if (empty($config) || empty($config['name']) || empty($config['model'])) {
+                continue;
+            }
+
+            $needReplace = [
+                '{RELATION_NAME}',
+                '{AUTHOR}',
+                '{DATE}',
+                '{RELATION_MODEL}',
+                '{FOREIGN_KEY}',
+                '{LOCAL_KEY}',
+            ];
+
+            $waitReplace = [
+                $config['name'],
+                $this->getAuthorContent(),
+                $this->getNoteDateContent(),
+                $config['model'],
+                $config['foreign_key'],
+                $config['local_key'],
+            ];
+
+            $templatePath = $this->getTemplatePath('php/model/' . $config['type']);
+            if (!file_exists($templatePath)) {
+                continue;
+            }
+            $tpl .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . PHP_EOL;
+        }
+
         return $tpl;
     }
 

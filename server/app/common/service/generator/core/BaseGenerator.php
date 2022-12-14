@@ -104,7 +104,7 @@ abstract class BaseGenerator
      * 模型关联配置
      * @var array
      */
-    protected $relationConfig;
+    protected $relationConfig = [];
 
 
     public function __construct()
@@ -164,6 +164,18 @@ abstract class BaseGenerator
             'name' => $this->options['delete']['name'] ?? GeneratorEnum::DELETE_NAME,
         ];
     }
+
+
+    /**
+     * @notes 关联模型配置
+     * @author 段誉
+     * @date 2022/12/14 11:28
+     */
+    public function setRelationConfig()
+    {
+        $this->relationConfig = empty($this->options['relations']) ? [] : $this->options['relations'];
+    }
+
 
 
     /**
@@ -249,6 +261,8 @@ abstract class BaseGenerator
         $this->setMenuConfig();
         // 删除配置
         $this->setDeleteConfig();
+        // 关联模型配置
+        $this->setRelationConfig();
     }
 
 

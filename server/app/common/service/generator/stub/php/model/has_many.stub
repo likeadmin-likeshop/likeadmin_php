@@ -1,0 +1,11 @@
+
+    /**
+     * @notes 关联{RELATION_NAME}
+     * @return \think\model\relation\HasMany
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public function {RELATION_NAME}()
+    {
+        return $this->hasMany({RELATION_MODEL}::class, '{FOREIGN_KEY}', '{LOCAL_KEY}');
+    }
