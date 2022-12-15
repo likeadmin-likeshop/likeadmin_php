@@ -294,7 +294,9 @@ class GeneratorLogic extends BaseLogic
                     'name' => GeneratorEnum::DELETE_NAME, // 默认删除字段名
                 ],
                 // 关联配置
-                'relations' => []
+                'relations' => [],
+                // 树形crud
+                'tree' => []
             ]
         ]);
     }
@@ -413,6 +415,8 @@ class GeneratorLogic extends BaseLogic
         $deleteConfig = $options['delete'] ?? [];
         // 关联配置
         $relationsConfig = $options['relations'] ?? [];
+        // 树表crud配置
+        $treeConfig = $options['tree'] ?? [];
 
         $relations = [];
         foreach ($relationsConfig as $relation) {
@@ -436,6 +440,11 @@ class GeneratorLogic extends BaseLogic
                 'name' => !empty($deleteConfig['name']) ? $deleteConfig['name'] : GeneratorEnum::DELETE_NAME,
             ],
             'relations' => $relations,
+            'tree' => [
+                'tree_id' => intval($treeConfig['tree_id'] ?? 0),
+                'tree_pid' => intval($treeConfig['tree_pid'] ?? 0),
+                'tree_name' => intval($treeConfig['tree_name'] ?? ''),
+            ],
         ];
     }
 
