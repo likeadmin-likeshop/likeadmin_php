@@ -283,6 +283,8 @@ abstract class BaseGenerator
         $this->setDeleteConfig();
         // 关联模型配置
         $this->setRelationConfig();
+        // 设置树表配置
+        $this->setTreeConfig();
     }
 
 
