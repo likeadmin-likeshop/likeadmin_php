@@ -104,7 +104,13 @@ abstract class BaseGenerator
      * 模型关联配置
      * @var array
      */
-    protected $relationConfig = [];
+    protected $relationConfig;
+
+    /**
+     * 树表配置
+     * @var array
+     */
+    protected $treeConfig;
 
 
     public function __construct()
@@ -176,6 +182,20 @@ abstract class BaseGenerator
         $this->relationConfig = empty($this->options['relations']) ? [] : $this->options['relations'];
     }
 
+
+    /**
+     * @notes 设置树表配置
+     * @author 段誉
+     * @date 2022/12/20 14:30
+     */
+    public function setTreeConfig()
+    {
+        $this->treeConfig = [
+            'tree_id' => $this->options['tree']['tree_id'] ?? '',
+            'tree_pid' => $this->options['tree']['tree_pid'] ?? '',
+            'tree_name' => $this->options['tree']['tree_name'] ?? '',
+        ];
+    }
 
 
     /**

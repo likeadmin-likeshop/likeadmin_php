@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+use app\common\enum\GeneratorEnum;
+
 /**
  * 列表生成器
  * Class ListsGenerator
@@ -48,7 +50,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             '{FIELD_DATA}',
             '{NOTES}',
             '{AUTHOR}',
-            '{DATE}'
+            '{DATE}',
         ];
 
         // 等待替换的内容
@@ -69,6 +71,13 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
         ];
 
         $templatePath = $this->getTemplatePath('php/lists');
+        if ($this->tableData['type'] == GeneratorEnum::TEMPLATE_TYPE_TREE && !empty($this->treeConfig['tree_id'])) {
+            // 插入树表相关
+            array_push($needReplace, ['{TREE_ID}', '{TREE_PID}']);
+            array_push($waitReplace, [$this->treeConfig['tree_id'], $this->treeConfig['tree_pid']]);
+
+            $templatePath = $this->getTemplatePath('php/tree_lists');
+        }
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
