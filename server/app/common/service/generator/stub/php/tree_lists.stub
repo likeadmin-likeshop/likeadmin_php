@@ -59,7 +59,7 @@ class {UPPER_CAMEL_NAME}Lists extends {EXTENDS_LISTS} implements ListsSearchInte
             ->select()
             ->toArray();
 
-        return linear_to_tree($lists, 'children', {TREE_ID}, {TREE_PID});
+        return linear_to_tree($lists, 'children', '{TREE_ID}', '{TREE_PID}');
     }
 
 
