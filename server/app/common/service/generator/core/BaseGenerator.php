@@ -83,12 +83,6 @@ abstract class BaseGenerator
     protected $generatorDir;
 
     /**
-     * 生成配置
-     * @var array
-     */
-    protected $options;
-
-    /**
      * 删除配置
      * @var array
      */
@@ -150,9 +144,9 @@ abstract class BaseGenerator
     public function setMenuConfig()
     {
         $this->menuConfig = [
-            'pid' => $this->options['menu']['pid'] ?? 0,
-            'type' => $this->options['menu']['type'] ?? GeneratorEnum::DELETE_TRUE,
-            'name' => $this->options['menu']['name'] ?? $this->tableData['table_comment']
+            'pid' => $this->tableData['menu']['pid'] ?? 0,
+            'type' => $this->tableData['menu']['type'] ?? GeneratorEnum::DELETE_TRUE,
+            'name' => $this->tableData['menu']['name'] ?? $this->tableData['table_comment']
         ];
     }
 
@@ -166,8 +160,8 @@ abstract class BaseGenerator
     public function setDeleteConfig()
     {
         $this->deleteConfig = [
-            'type' => $this->options['delete']['type'] ?? GeneratorEnum::DELETE_TRUE,
-            'name' => $this->options['delete']['name'] ?? GeneratorEnum::DELETE_NAME,
+            'type' => $this->tableData['delete']['type'] ?? GeneratorEnum::DELETE_TRUE,
+            'name' => $this->tableData['delete']['name'] ?? GeneratorEnum::DELETE_NAME,
         ];
     }
 
@@ -179,7 +173,7 @@ abstract class BaseGenerator
      */
     public function setRelationConfig()
     {
-        $this->relationConfig = empty($this->options['relations']) ? [] : $this->options['relations'];
+        $this->relationConfig = empty($this->tableData['relations']) ? [] : $this->tableData['relations'];
     }
 
 
@@ -191,9 +185,9 @@ abstract class BaseGenerator
     public function setTreeConfig()
     {
         $this->treeConfig = [
-            'tree_id' => $this->options['tree']['tree_id'] ?? '',
-            'tree_pid' => $this->options['tree']['tree_pid'] ?? '',
-            'tree_name' => $this->options['tree']['tree_name'] ?? '',
+            'tree_id' => $this->tableData['tree']['tree_id'] ?? '',
+            'tree_pid' => $this->tableData['tree']['tree_pid'] ?? '',
+            'tree_name' => $this->tableData['tree']['tree_name'] ?? '',
         ];
     }
 
@@ -276,7 +270,6 @@ abstract class BaseGenerator
     {
         $this->tableData = !empty($tableData) ? $tableData : [];
         $this->tableColumn = $tableData['table_column'] ?? [];
-        $this->options = $tableData['options'] ?? [];
         // 菜单配置
         $this->setMenuConfig();
         // 删除配置

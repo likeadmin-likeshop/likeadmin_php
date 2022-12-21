@@ -43,8 +43,11 @@ class GeneratorLogic extends BaseLogic
             ->findOrEmpty((int)$params['id'])
             ->toArray();
 
-        $detail['options'] = self::getFormatConfigByOptions($detail['options'], $detail['table_comment']);
-
+        $options = self::formatConfigByTableData($detail);
+        $detail['menu'] = $options['menu'];
+        $detail['delete'] = $options['delete'];
+        $detail['tree'] = $options['tree'];
+        $detail['relations'] = $options['relations'];
         return $detail;
     }
 
@@ -90,6 +93,8 @@ class GeneratorLogic extends BaseLogic
     {
         Db::startTrans();
         try {
+            // 格式化配置
+            $options = self::formatConfigByTableData($params);
             // 更新主表-数据表信息
             GenerateTable::update([
                 'id' => $params['id'],
@@ -102,7 +107,10 @@ class GeneratorLogic extends BaseLogic
                 'module_name' => $params['module_name'],
                 'class_dir' => $params['class_dir'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
-                'options' => self::getFormatConfigByOptions($params['options'], $params['table_comment'])
+                'menu' => $options['menu'],
+                'delete' => $options['delete'],
+                'tree' => $options['tree'],
+                'relations' => $options['relations'],
             ]);
 
             // 更新从表-数据表字段信息
@@ -281,23 +289,21 @@ class GeneratorLogic extends BaseLogic
             'generate_type' => GeneratorEnum::GENERATE_TYPE_ZIP,
             'module_name' => 'adminapi',
             'admin_id' => $adminId,
-            'options' => [
-                // 菜单配置
-                'menu' => [
-                    'pid' => 0, // 父级菜单id
-                    'type' => GeneratorEnum::GEN_SELF, // 构建方式 0-手动添加 1-自动构建
-                    'name' => $tableData['comment'], // 菜单名称
-                ],
-                // 删除配置
-                'delete' => [
-                    'type' => GeneratorEnum::DELETE_TRUE, // 删除类型
-                    'name' => GeneratorEnum::DELETE_NAME, // 默认删除字段名
-                ],
-                // 关联配置
-                'relations' => [],
-                // 树形crud
-                'tree' => []
-            ]
+            // 菜单配置
+            'menu' => [
+                'pid' => 0, // 父级菜单id
+                'type' => GeneratorEnum::GEN_SELF, // 构建方式 0-手动添加 1-自动构建
+                'name' => $tableData['comment'], // 菜单名称
+            ],
+            // 删除配置
+            'delete' => [
+                'type' => GeneratorEnum::DELETE_TRUE, // 删除类型
+                'name' => GeneratorEnum::DELETE_NAME, // 默认删除字段名
+            ],
+            // 关联配置
+            'relations' => [],
+            // 树形crud
+            'tree' => []
         ]);
     }
 
@@ -407,7 +413,7 @@ class GeneratorLogic extends BaseLogic
      * @author 段誉
      * @date 2022/12/13 18:23
      */
-    public static function getFormatConfigByOptions($options, $tableComment)
+    public static function formatConfigByTableData($options)
     {
         // 菜单配置
         $menuConfig = $options['menu'] ?? [];
@@ -429,23 +435,23 @@ class GeneratorLogic extends BaseLogic
             ];
         }
 
-        return [
-            'menu' => [
-                'pid' => intval($menuConfig['pid'] ?? 0),
-                'type' => intval($menuConfig['type'] ?? GeneratorEnum::GEN_SELF),
-                'name' => !empty($menuConfig['name']) ? $menuConfig['name'] : $tableComment,
-            ],
-            'delete' => [
-                'type' => intval($deleteConfig['type'] ?? GeneratorEnum::DELETE_TRUE),
-                'name' => !empty($deleteConfig['name']) ? $deleteConfig['name'] : GeneratorEnum::DELETE_NAME,
-            ],
-            'relations' => $relations,
-            'tree' => [
-                'tree_id' => intval($treeConfig['tree_id'] ?? 0),
-                'tree_pid' => intval($treeConfig['tree_pid'] ?? 0),
-                'tree_name' => intval($treeConfig['tree_name'] ?? ''),
-            ],
+        $options['menu'] = [
+            'pid' => intval($menuConfig['pid'] ?? 0),
+            'type' => intval($menuConfig['type'] ?? GeneratorEnum::GEN_SELF),
+            'name' => !empty($menuConfig['name']) ? $menuConfig['name'] : $options['table_comment'],
         ];
+        $options['delete'] = [
+            'type' => intval($deleteConfig['type'] ?? GeneratorEnum::DELETE_TRUE),
+            'name' => !empty($deleteConfig['name']) ? $deleteConfig['name'] : GeneratorEnum::DELETE_NAME,
+        ];
+        $options['relations'] = $relations;
+        $options['tree'] = [
+            'tree_id' => $treeConfig['tree_id'] ?? "",
+            'tree_pid' =>$treeConfig['tree_pid'] ?? "",
+            'tree_name' => $treeConfig['tree_name'] ?? '',
+        ];
+
+        return $options;
     }
 
 
