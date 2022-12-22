@@ -68,10 +68,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
 
         $templatePath = $this->getTemplatePath('vue/index');
 
-        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE
-            && !empty($this->treeConfig['tree_id'])
-            && !empty($this->treeConfig['tree_pid'])
-        ) {
+        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE) {
             // 插入树表相关
             array_push($needReplace, '{TREE_ID}', '{TREE_PID}');
             array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_pid']);

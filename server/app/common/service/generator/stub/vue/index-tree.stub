@@ -15,7 +15,7 @@
         </el-card>
         <el-card class="!border-none" shadow="never">
             <div>
-                <el-button v-perms="['{PERMS_ADD}']" type="primary" @click="handleAdd">
+                <el-button v-perms="['{PERMS_ADD}']" type="primary" @click="handleAdd()">
                     <template #icon>
                         <icon name="el-icon-Plus" />
                     </template>
@@ -70,6 +70,7 @@
 </template>
 
 <script lang="ts" setup name="{SETUP_NAME}Lists">
+import { useDictData } from '@/hooks/useDictOptions'
 import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
