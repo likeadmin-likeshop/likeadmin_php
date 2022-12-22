@@ -31,6 +31,7 @@ const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const mode = ref('add')
+{TREE_CONST}
 
 // 弹窗标题
 const popupTitle = computed(() => {
@@ -86,6 +87,7 @@ const handleClose = () => {
     emit('close')
 }
 
+{GET_TREE_LISTS}
 
 defineExpose({
     open,

@@ -1,0 +1,13 @@
+<el-form-item label="{COLUMN_COMMENT}" prop="{COLUMN_NAME}">
+    <el-tree-select
+        class="flex-1"
+        v-model="formData.{COLUMN_NAME}"
+        :data="treeList"
+        clearable
+        node-key="{TREE_ID}"
+        :props="{ label: '{TREE_NAME}', value: '{TREE_ID}', children: 'children' }"
+        :default-expand-all="true"
+        placeholder="请选择{COLUMN_COMMENT}"
+        check-strictly
+    />
+</el-form-item>

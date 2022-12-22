@@ -102,7 +102,7 @@ function linear_to_tree($data, $sub_key_name = 'sub', $id_name = 'id', $parent_i
         if ($row[$parent_id_name] == $parent_id) {
             $temp = $row;
             $child = linear_to_tree($data, $sub_key_name, $id_name, $parent_id_name, $row[$id_name]);
-            if($child){
+            if ($child) {
                 $temp[$sub_key_name] = $child;
             }
             $tree[] = $temp;

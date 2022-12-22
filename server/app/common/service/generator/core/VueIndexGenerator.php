@@ -18,6 +18,8 @@ namespace app\common\service\generator\core;
 
 
 
+use app\common\enum\GeneratorEnum;
+
 /**
  * vue-index生成器
  * Class VueIndexGenerator
@@ -41,7 +43,6 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             '{UPPER_CAMEL_NAME}',
             '{QUERY_PARAMS}',
             '{DICT_DATA}',
-//            '{DICT_DATA_API}',
             '{PK}',
             '{API_DIR}',
             '{PERMS_ADD}',
@@ -57,7 +58,6 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getUpperCamelName(),
             $this->getQueryParamsContent(),
             $this->getDictDataContent(),
-//            $this->getDictDataApiContent(),
             $this->getPkContent(),
             $this->getTableName(),
             $this->getPermsContent(),
@@ -65,7 +65,18 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getPermsContent('delete'),
             $this->getLowerCamelName()
         ];
+
         $templatePath = $this->getTemplatePath('vue/index');
+
+        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE
+            && !empty($this->treeConfig['tree_id'])
+            && !empty($this->treeConfig['tree_pid'])
+        ) {
+            // 插入树表相关
+            array_push($needReplace, '{TREE_ID}', '{TREE_PID}');
+            array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_pid']);
+            $templatePath = $this->getTemplatePath('vue/index-tree');
+        }
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -220,43 +231,6 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $content = substr($content, 0, -1);
         }
         return $this->setBlankSpace($content, '');
-    }
-
-
-    /**
-     * @notes 获取字典数据api内容
-     * @return false|string
-     * @author 段誉
-     * @date 2022/6/23 11:58
-     */
-    public function getDictDataApiContent()
-    {
-        $content = '';
-        $isExist = [];
-        foreach ($this->tableColumn as $column) {
-            if (empty($column['dict_type']) || $column['is_pk']) {
-                continue;
-            }
-            if (in_array($column['dict_type'], $isExist)) {
-                continue;
-            }
-            $needReplace = [
-                '{UPPER_CAMEL_NAME}',
-                '{DICT_TYPE}',
-            ];
-            $waitReplace = [
-                $this->getUpperCamelName(),
-                $column['dict_type'],
-            ];
-            $templatePath = $this->getTemplatePath('vue/other_item/dictDataApi');
-            if (!file_exists($templatePath)) {
-                continue;
-            }
-            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . '' . PHP_EOL;
-
-            $isExist[] = $column['dict_type'];
-        }
-        return substr($content, 0, -1);
     }
 
 
