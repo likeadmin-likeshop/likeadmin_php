@@ -18,7 +18,7 @@
 <script lang="ts" setup name="{SETUP_NAME}Edit">
 import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
-import { api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Edit, api{UPPER_CAMEL_NAME}Detail } from '@/api/{API_DIR}'
+import {{IMPORT_LISTS} api{UPPER_CAMEL_NAME}Add, api{UPPER_CAMEL_NAME}Edit, api{UPPER_CAMEL_NAME}Detail } from '@/api/{API_DIR}'
 import { timeFormat } from '@/utils/util'
 import type { PropType } from 'vue'
 defineProps({
@@ -52,8 +52,7 @@ const formRules = reactive<any>({
 
 
 // 获取详情
-const setFormData = async (row: Record<any, any>) => {
-    const data = await api{UPPER_CAMEL_NAME}Detail({ {PK}: row.{PK} })
+const setFormData = async (data: Record<any, any>) => {
     for (const key in formData) {
         if (data[key] != null && data[key] != undefined) {
             //@ts-ignore
@@ -62,6 +61,13 @@ const setFormData = async (row: Record<any, any>) => {
     }
 {CHECKBOX_SPLIT}
 {FORM_DATE}
+}
+
+const getDetail = async (row: Record<string, any>) => {
+    const data = await api{UPPER_CAMEL_NAME}Detail({
+        {PK}: row.{PK}
+    })
+    setFormData(data)
 }
 
 
@@ -91,6 +97,7 @@ const handleClose = () => {
 
 defineExpose({
     open,
-    setFormData
+    setFormData,
+    getDetail
 })
 </script>

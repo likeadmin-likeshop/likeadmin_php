@@ -260,6 +260,13 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
                 $content .= "'" . $column['column_name'] . "', ";
                 $isExist[] = $column['column_name'];
             }
+
+            if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE
+                && !in_array($column['column_name'], $isExist)
+                && in_array($column['column_name'], [$this->treeConfig['tree_id'], $this->treeConfig['tree_pid']])
+            ) {
+                $content .= "'" . $column['column_name'] . "', ";
+            }
         }
         return substr($content, 0, -2);
     }

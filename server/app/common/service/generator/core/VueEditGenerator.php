@@ -50,6 +50,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             '{CHECKBOX_SPLIT}',
             '{FORM_DATE}',
             '{SETUP_NAME}',
+            '{IMPORT_LISTS}'
         ];
 
         // 等待替换的内容
@@ -66,7 +67,8 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getCheckBoxJoinContent(),
             $this->getCheckBoxSplitContent(),
             $this->getFormDateContent(),
-            $this->getLowerCamelName()
+            $this->getLowerCamelName(),
+            $this->getImportListsContent(),
         ];
 
         if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE) {
@@ -403,6 +405,26 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
         }
         $content = substr($content, 0, -2);
         return $content;
+    }
+
+
+    /**
+     * @notes 树表时导入列表
+     * @author 段誉
+     * @date 2022/12/23 9:56
+     */
+    public function getImportListsContent()
+    {
+        $content = "";
+        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE) {
+            $content = "api". $this->getUpperCamelName(). 'Lists,';
+        }
+
+        if (empty($content)) {
+            return $content;
+        }
+
+        return $this->setBlankSpace($content, ' ');
     }
 
 
