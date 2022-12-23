@@ -234,12 +234,15 @@
                         <el-form-item label="类描述">
                             <div class="w-80">
                                 <div>
-                                    <el-input v-model="formData.class_comment" clearable />
+                                    <el-input
+                                        v-model="formData.class_comment"
+                                        placeholder="请输入文件描述"
+                                        clearable
+                                    />
                                 </div>
                                 <div class="form-tips">
-                                    <div>生成文件描述。</div>
                                     <div>
-                                        例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
+                                        例：填写test,生成文件描述为test控制器(test逻辑/test模型)
                                     </div>
                                 </div>
                             </div>
@@ -264,15 +267,15 @@
                         <el-form-item label="类目录">
                             <div class="w-80">
                                 <div>
-                                    <el-input v-model="formData.class_dir" clearable />
+                                    <el-input
+                                        v-model="formData.class_dir"
+                                        placeholder="请输入文件所在目录"
+                                        clearable
+                                    />
                                 </div>
                                 <div class="form-tips">
-                                    <div>生成文件所在目录名,不填则在模块对应文件夹内生成。</div>
                                     <div>
-                                        例：填写test，则控制器xxxControlle文件生成在app/模块名/controller/test文件夹下。
-                                    </div>
-                                    <div>
-                                        不填时，xxxController生成在app/模块名/controller文件夹下。
+                                        例：填写test,则在app/模块名/controller/test下生成控制器
                                     </div>
                                 </div>
                             </div>
