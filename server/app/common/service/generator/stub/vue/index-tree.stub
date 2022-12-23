@@ -70,6 +70,7 @@
 </template>
 
 <script lang="ts" setup name="{SETUP_NAME}Lists">
+import { timeFormat } from '@/utils/util'
 import { useDictData } from '@/hooks/useDictOptions'
 import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'
 import feedback from '@/utils/feedback'
