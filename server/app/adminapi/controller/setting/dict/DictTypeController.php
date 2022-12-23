@@ -28,7 +28,6 @@ use app\adminapi\validate\dict\DictTypeValidate;
 class DictTypeController extends BaseAdminController
 {
 
-    public array $notNeedLogin = ['all'];
 
     /**
      * @notes 获取字典类型列表

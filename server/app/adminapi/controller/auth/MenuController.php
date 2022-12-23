@@ -29,8 +29,6 @@ use app\adminapi\validate\auth\MenuValidate;
 class MenuController extends BaseAdminController
 {
 
-    public array $notNeedLogin = ['all'];
-
     /**
      * @notes 获取菜单路由
      * @return \think\response\Json

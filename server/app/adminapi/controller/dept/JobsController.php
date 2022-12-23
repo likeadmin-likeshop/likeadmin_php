@@ -28,8 +28,6 @@ use app\adminapi\validate\dept\JobsValidate;
 class JobsController extends BaseAdminController
 {
 
-    public array $notNeedLogin = ['all'];
-
     /**
      * @notes 岗位列表
      * @return \think\response\Json

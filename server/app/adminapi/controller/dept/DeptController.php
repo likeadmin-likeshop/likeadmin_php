@@ -26,8 +26,6 @@ use app\adminapi\validate\dept\DeptValidate;
 class DeptController extends BaseAdminController
 {
 
-    public array $notNeedLogin = ['all'];
-
     /**
      * @notes 部门列表
      * @return \think\response\Json
