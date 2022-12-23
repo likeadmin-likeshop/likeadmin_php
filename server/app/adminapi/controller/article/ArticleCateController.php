@@ -27,8 +27,6 @@ use app\adminapi\validate\article\ArticleCateValidate;
 class ArticleCateController extends BaseAdminController
 {
 
-    public array $notNeedLogin = ['all'];
-
     /**
      * @notes  查看资讯分类列表
      * @return \think\response\Json

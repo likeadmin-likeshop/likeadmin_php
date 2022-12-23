@@ -29,8 +29,6 @@ use app\adminapi\{
 class RoleController extends BaseAdminController
 {
 
-    public array $notNeedLogin = ['all'];
-
     /**
      * @notes 查看角色列表
      * @return \think\response\Json
