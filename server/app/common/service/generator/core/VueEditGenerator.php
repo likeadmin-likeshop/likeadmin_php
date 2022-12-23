@@ -50,7 +50,9 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             '{CHECKBOX_SPLIT}',
             '{FORM_DATE}',
             '{SETUP_NAME}',
-            '{IMPORT_LISTS}'
+            '{IMPORT_LISTS}',
+            '{TREE_CONST}',
+            '{GET_TREE_LISTS}'
         ];
 
         // 等待替换的内容
@@ -69,12 +71,9 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getFormDateContent(),
             $this->getLowerCamelName(),
             $this->getImportListsContent(),
+            $this->getTreeConstContent(),
+            $this->getTreeListsContent(),
         ];
-
-        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE) {
-            array_push($needReplace, '{TREE_CONST}', '{GET_TREE_LISTS}');
-            array_push($waitReplace, $this->getTreeConstContent(), $this->getTreeListsContent());
-        }
 
         $templatePath = $this->getTemplatePath('vue/edit');
 
@@ -144,7 +143,11 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getTreeConstContent()
     {
-        return file_get_contents($this->getTemplatePath('vue/other_item/editTreeConst'));
+        $content = "";
+        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE) {
+            $content = file_get_contents($this->getTemplatePath('vue/other_item/editTreeConst'));
+        }
+        return $content;
     }
 
 
@@ -157,6 +160,10 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
     public function getTreeListsContent()
     {
         $content = '';
+        if ($this->tableData['template_type'] != GeneratorEnum::TEMPLATE_TYPE_TREE) {
+            return $content;
+        }
+
         $needReplace = [
             '{TREE_ID}',
             '{TREE_NAME}',
