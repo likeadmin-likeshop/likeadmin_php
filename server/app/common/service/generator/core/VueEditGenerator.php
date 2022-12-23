@@ -144,7 +144,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
     public function getTreeConstContent()
     {
         $content = "";
-        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE) {
+        if ($this->isTreeCrud()) {
             $content = file_get_contents($this->getTemplatePath('vue/other_item/editTreeConst'));
         }
         return $content;
@@ -160,7 +160,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
     public function getTreeListsContent()
     {
         $content = '';
-        if ($this->tableData['template_type'] != GeneratorEnum::TEMPLATE_TYPE_TREE) {
+        if (!$this->isTreeCrud()) {
             return $content;
         }
 
@@ -236,8 +236,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
 
             $viewType = $column['view_type'];
             // 树表，树状结构下拉框
-            if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE
-                && $column['column_name'] == $this->treeConfig['tree_pid']) {
+            if ($this->isTreeCrud() && $column['column_name'] == $this->treeConfig['tree_pid']) {
                 $viewType = 'treeSelect';
                 array_push($needReplace, '{TREE_ID}', '{TREE_NAME}');
                 array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_name']);
@@ -423,7 +422,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
     public function getImportListsContent()
     {
         $content = "";
-        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE) {
+        if ($this->isTreeCrud()) {
             $content = "api". $this->getUpperCamelName(). 'Lists,';
         }
 

@@ -71,7 +71,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
         ];
 
         $templatePath = $this->getTemplatePath('php/lists');
-        if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE) {
+        if ($this->isTreeCrud()) {
             // 插入树表相关
             array_push($needReplace, '{TREE_ID}', '{TREE_PID}');
             array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_pid']);
@@ -261,8 +261,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
                 $isExist[] = $column['column_name'];
             }
 
-            if ($this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE
-                && !in_array($column['column_name'], $isExist)
+            if ($this->isTreeCrud() && !in_array($column['column_name'], $isExist)
                 && in_array($column['column_name'], [$this->treeConfig['tree_id'], $this->treeConfig['tree_pid']])
             ) {
                 $content .= "'" . $column['column_name'] . "', ";

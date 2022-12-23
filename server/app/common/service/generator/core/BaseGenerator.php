@@ -468,7 +468,16 @@ abstract class BaseGenerator
         return $this->tableData['generate_type'] == GeneratorEnum::GENERATE_TYPE_ZIP;
     }
 
-    
 
+    /**
+     * @notes 是否为树表crud
+     * @return bool
+     * @author 段誉
+     * @date 2022/12/23 11:25
+     */
+    public function isTreeCrud()
+    {
+        return $this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE;
+    }
 
 }
