@@ -1,0 +1,8 @@
+const getLists = async () => {
+   const data: any = await api{UPPER_CAMEL_NAME}Lists()
+   const item = { {TREE_ID}: 0, {TREE_NAME}: '顶级', children: [] }
+   item.children = data.lists
+   treeList.value.push(item)
+}
+
+getLists()

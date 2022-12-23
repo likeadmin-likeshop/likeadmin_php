@@ -1,6 +1,7 @@
 <?php
 // 应用公共文件
 use app\common\service\FileService;
+use think\facade\Db;
 use think\helper\Str;
 
 /**
@@ -101,7 +102,7 @@ function linear_to_tree($data, $sub_key_name = 'sub', $id_name = 'id', $parent_i
         if ($row[$parent_id_name] == $parent_id) {
             $temp = $row;
             $child = linear_to_tree($data, $sub_key_name, $id_name, $parent_id_name, $row[$id_name]);
-            if($child){
+            if ($child) {
                 $temp[$sub_key_name] = $child;
             }
             $tree[] = $temp;
@@ -228,4 +229,23 @@ function lower_uri($data)
     return array_map(function ($item) {
         return strtolower(Str::camel($item));
     }, $data);
+}
+
+
+/**
+ * @notes 获取无前缀数据表名
+ * @param $tableName
+ * @return mixed|string
+ * @author 段誉
+ * @date 2022/12/12 15:23
+ */
+function get_no_prefix_table_name($tableName)
+{
+    $tablePrefix = config('database.connections.mysql.prefix');
+    $prefixIndex = strpos($tableName, $tablePrefix);
+    if ($prefixIndex !== 0 || $prefixIndex === false) {
+        return $tableName;
+    }
+    $tableName = substr_replace($tableName, '', 0, strlen($tablePrefix));
+    return trim($tableName);
 }

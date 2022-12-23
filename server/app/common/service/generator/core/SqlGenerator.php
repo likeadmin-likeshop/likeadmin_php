@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+use app\common\enum\GeneratorEnum;
 use think\facade\Db;
 use think\helper\Str;
 
@@ -51,8 +52,8 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
         // 等待替换的内容
         $waitReplace = [
             $this->getMenuTableNameContent(),
-            $this->getMenuPidContent(),
-            $this->getListsNameContent(),
+            $this->menuConfig['pid'],
+            $this->menuConfig['name'],
             $this->getPermsNameContent(),
             $this->getLowerTableName(),
             $this->getLowerTableName(),
@@ -60,36 +61,12 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
             time()
         ];
 
-        $templatePath = $this->getTemplatePath('sql');
+        $templatePath = $this->getTemplatePath('sql/sql');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
 
         $this->setContent($content);
-    }
-
-
-    /**
-     * @notes 描述
-     * @return mixed
-     * @author 段誉
-     * @date 2022/6/22 18:19
-     */
-    public function getListsNameContent()
-    {
-        return $this->tableData['menu']['name'] ?? $this->tableData['table_comment'];
-    }
-
-
-    /**
-     * @notes 获取上级菜单内容
-     * @return int|mixed
-     * @author 段誉
-     * @date 2022/7/8 11:39
-     */
-    public function getMenuPidContent()
-    {
-        return $this->tableData['menu']['pid'] ?? 0;
     }
 
 
@@ -129,8 +106,7 @@ class SqlGenerator extends BaseGenerator implements GenerateInterface
      */
     public function isBuildMenu()
     {
-        $menuType = $this->tableData['menu']['type'] ?? 0;
-        return $menuType == 1;
+        return $this->menuConfig['type'] == GeneratorEnum::GEN_AUTO;
     }
 
 

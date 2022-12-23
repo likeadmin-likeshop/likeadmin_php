@@ -75,7 +75,7 @@ export default defineComponent({
             default: false
         }
     },
-    emits: ['change', 'error'],
+    emits: ['change', 'error', 'success'],
     setup(props, { emit }) {
         const userStore = useUserStore()
         const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
@@ -97,7 +97,10 @@ export default defineComponent({
             if (allSuccess) {
                 uploadRefs.value?.clearFiles()
                 visible.value = false
-                emit('change')
+            }
+            emit('change', file)
+            if (response.code == RequestCodeEnum.SUCCESS) {
+                emit('success', response)
             }
             if (response.code == RequestCodeEnum.FAIL && response.msg) {
                 feedback.msgError(response.msg)
@@ -107,8 +110,8 @@ export default defineComponent({
             feedback.msgError(`${file.name}文件上传失败`)
             uploadRefs.value?.abort(file)
             visible.value = false
-            emit('change')
-            emit('error')
+            emit('change', file)
+            emit('error', file)
         }
         const handleExceed = () => {
             feedback.msgError(`超出上传上限${props.limit}，请重新上传`)

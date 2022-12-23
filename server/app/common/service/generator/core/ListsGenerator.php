@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+use app\common\enum\GeneratorEnum;
+
 /**
  * 列表生成器
  * Class ListsGenerator
@@ -48,7 +50,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             '{FIELD_DATA}',
             '{NOTES}',
             '{AUTHOR}',
-            '{DATE}'
+            '{DATE}',
         ];
 
         // 等待替换的内容
@@ -68,8 +70,15 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             $this->getNoteDateContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('lists');
+        $templatePath = $this->getTemplatePath('php/lists');
+        if ($this->isTreeCrud()) {
+            // 插入树表相关
+            array_push($needReplace, '{TREE_ID}', '{TREE_PID}');
+            array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_pid']);
 
+            $templatePath = $this->getTemplatePath('php/tree_lists');
+        }
+     
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
 
@@ -250,6 +259,12 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
             if ($column['is_lists'] && !in_array($column['column_name'], $isExist)) {
                 $content .= "'" . $column['column_name'] . "', ";
                 $isExist[] = $column['column_name'];
+            }
+
+            if ($this->isTreeCrud() && !in_array($column['column_name'], $isExist)
+                && in_array($column['column_name'], [$this->treeConfig['tree_id'], $this->treeConfig['tree_pid']])
+            ) {
+                $content .= "'" . $column['column_name'] . "', ";
             }
         }
         return substr($content, 0, -2);

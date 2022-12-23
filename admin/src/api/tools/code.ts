@@ -44,3 +44,8 @@ export function generatePreview(params: any) {
 export function generateCode(params: any) {
     return request.post({ url: '/tools.generator/generate', params })
 }
+
+//获取模型
+export function getModels() {
+    return request.get({ url: '/tools.generator/getModels' })
+}

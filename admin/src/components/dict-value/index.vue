@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-for="(item, index) in getOptions" :key="index">
-            <span>{{ index != 0 ? '、' : '' }}{{ item.name }}</span>
+            <span>{{ index != 0 ? '、' : '' }}{{ item[config.label] }}</span>
         </template>
     </div>
 </template>
@@ -10,9 +10,14 @@ const props = withDefaults(
     defineProps<{
         options: any[]
         value: any
+        config: Record<string, string>
     }>(),
     {
-        options: () => []
+        options: () => [],
+        config: () => ({
+            label: 'name',
+            value: 'value'
+        })
     }
 )
 
@@ -25,6 +30,6 @@ const values = computed(() => {
 })
 
 const getOptions = computed(() => {
-    return props.options.filter((item) => values.value.includes(item.value))
+    return props.options.filter((item) => values.value.includes(item[props.config.value]))
 })
 </script>

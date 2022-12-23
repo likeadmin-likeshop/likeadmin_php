@@ -65,7 +65,7 @@ class LogicGenerator extends BaseGenerator implements GenerateInterface
             $this->getNoteDateContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('logic');
+        $templatePath = $this->getTemplatePath('php/logic');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);

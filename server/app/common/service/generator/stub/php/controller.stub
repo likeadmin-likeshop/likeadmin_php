@@ -1,0 +1,105 @@
+<?php
+// +----------------------------------------------------------------------
+// | likeadmin快速开发前后端分离管理后台（PHP版）
+// +----------------------------------------------------------------------
+// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
+// | 开源版本可自由商用，可去除界面版权logo
+// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
+// | github下载：https://github.com/likeshop-github/likeadmin
+// | 访问官网：https://www.likeadmin.cn
+// | likeadmin团队 版权所有 拥有最终解释权
+// +----------------------------------------------------------------------
+// | author: likeadminTeam
+// +----------------------------------------------------------------------
+
+
+{NAMESPACE}
+
+
+{USE}
+
+
+/**
+ * {CLASS_COMMENT}
+ * Class {UPPER_CAMEL_NAME}Controller
+ * @package app\{MODULE_NAME}\controller{PACKAGE_NAME}
+ */
+class {UPPER_CAMEL_NAME}Controller extends {EXTENDS_CONTROLLER}
+{
+
+
+    /**
+     * @notes 获取{NOTES}列表
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public function lists()
+    {
+        return $this->dataLists(new {UPPER_CAMEL_NAME}Lists());
+    }
+
+
+    /**
+     * @notes 添加{NOTES}
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public function add()
+    {
+        $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck('add');
+        $result = {UPPER_CAMEL_NAME}Logic::add($params);
+        if (true === $result) {
+            return $this->success('添加成功', [], 1, 1);
+        }
+        return $this->fail({UPPER_CAMEL_NAME}Logic::getError());
+    }
+
+
+    /**
+     * @notes 编辑{NOTES}
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public function edit()
+    {
+        $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck('edit');
+        $result = {UPPER_CAMEL_NAME}Logic::edit($params);
+        if (true === $result) {
+            return $this->success('编辑成功', [], 1, 1);
+        }
+        return $this->fail({UPPER_CAMEL_NAME}Logic::getError());
+    }
+
+
+    /**
+     * @notes 删除{NOTES}
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public function delete()
+    {
+        $params = (new {UPPER_CAMEL_NAME}Validate())->post()->goCheck('delete');
+        {UPPER_CAMEL_NAME}Logic::delete($params);
+        return $this->success('删除成功', [], 1, 1);
+    }
+
+
+    /**
+     * @notes 获取{NOTES}详情
+     * @return \think\response\Json
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public function detail()
+    {
+        $params = (new {UPPER_CAMEL_NAME}Validate())->goCheck('detail');
+        $result = {UPPER_CAMEL_NAME}Logic::detail($params);
+        return $this->data($result);
+    }
+
+
+}

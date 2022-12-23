@@ -18,6 +18,8 @@ namespace app\common\service\generator\core;
 
 
 
+use app\common\enum\GeneratorEnum;
+
 /**
  * vue-index生成器
  * Class VueIndexGenerator
@@ -41,7 +43,6 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             '{UPPER_CAMEL_NAME}',
             '{QUERY_PARAMS}',
             '{DICT_DATA}',
-//            '{DICT_DATA_API}',
             '{PK}',
             '{API_DIR}',
             '{PERMS_ADD}',
@@ -57,7 +58,6 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getUpperCamelName(),
             $this->getQueryParamsContent(),
             $this->getDictDataContent(),
-//            $this->getDictDataApiContent(),
             $this->getPkContent(),
             $this->getTableName(),
             $this->getPermsContent(),
@@ -65,7 +65,15 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $this->getPermsContent('delete'),
             $this->getLowerCamelName()
         ];
-        $templatePath = $this->getTemplatePath('vue_index');
+
+        $templatePath = $this->getTemplatePath('vue/index');
+
+        if ($this->isTreeCrud()) {
+            // 插入树表相关
+            array_push($needReplace, '{TREE_ID}', '{TREE_PID}');
+            array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_pid']);
+            $templatePath = $this->getTemplatePath('vue/index-tree');
+        }
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -104,7 +112,7 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $searchStubType = 'select';
             }
 
-            $templatePath = $this->getTemplatePath('search_item/' . $searchStubType);
+            $templatePath = $this->getTemplatePath('vue/search_item/' . $searchStubType);
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -145,15 +153,15 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
                 $column['dict_type'],
             ];
 
-            $templatePath = $this->getTemplatePath('table_item/default');
+            $templatePath = $this->getTemplatePath('vue/table_item/default');
             if ($column['view_type'] == 'imageSelect') {
-                $templatePath = $this->getTemplatePath('table_item/image');
+                $templatePath = $this->getTemplatePath('vue/table_item/image');
             }
             if (in_array($column['view_type'], ['select', 'radio', 'checkbox'])) {
-                $templatePath = $this->getTemplatePath('table_item/options');
+                $templatePath = $this->getTemplatePath('vue/table_item/options');
             }
             if ($column['column_type'] == 'int' && $column['view_type'] == 'datetime') {
-                $templatePath = $this->getTemplatePath('table_item/datetime');
+                $templatePath = $this->getTemplatePath('vue/table_item/datetime');
             }
             if (!file_exists($templatePath)) {
                 continue;
@@ -220,43 +228,6 @@ class VueIndexGenerator extends BaseGenerator implements GenerateInterface
             $content = substr($content, 0, -1);
         }
         return $this->setBlankSpace($content, '');
-    }
-
-
-    /**
-     * @notes 获取字典数据api内容
-     * @return false|string
-     * @author 段誉
-     * @date 2022/6/23 11:58
-     */
-    public function getDictDataApiContent()
-    {
-        $content = '';
-        $isExist = [];
-        foreach ($this->tableColumn as $column) {
-            if (empty($column['dict_type']) || $column['is_pk']) {
-                continue;
-            }
-            if (in_array($column['dict_type'], $isExist)) {
-                continue;
-            }
-            $needReplace = [
-                '{UPPER_CAMEL_NAME}',
-                '{DICT_TYPE}',
-            ];
-            $waitReplace = [
-                $this->getUpperCamelName(),
-                $column['dict_type'],
-            ];
-            $templatePath = $this->getTemplatePath('other_item/dictDataApi');
-            if (!file_exists($templatePath)) {
-                continue;
-            }
-            $content .= $this->replaceFileData($needReplace, $waitReplace, $templatePath) . '' . PHP_EOL;
-
-            $isExist[] = $column['dict_type'];
-        }
-        return substr($content, 0, -1);
     }
 
 

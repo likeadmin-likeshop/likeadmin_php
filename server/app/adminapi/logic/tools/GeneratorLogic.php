@@ -43,11 +43,11 @@ class GeneratorLogic extends BaseLogic
             ->findOrEmpty((int)$params['id'])
             ->toArray();
 
-        $detail['menu']['pid'] = intval($detail['menu']['pid'] ?? 0);
-        $detail['menu']['type'] = intval($detail['menu']['type'] ?? 0);
-        $detail['menu']['name'] = !empty($detail['menu']['name'])
-            ? $detail['menu']['name'] : $detail['table_comment'];
-
+        $options = self::formatConfigByTableData($detail);
+        $detail['menu'] = $options['menu'];
+        $detail['delete'] = $options['delete'];
+        $detail['tree'] = $options['tree'];
+        $detail['relations'] = $options['relations'];
         return $detail;
     }
 
@@ -93,6 +93,8 @@ class GeneratorLogic extends BaseLogic
     {
         Db::startTrans();
         try {
+            // 格式化配置
+            $options = self::formatConfigByTableData($params);
             // 更新主表-数据表信息
             GenerateTable::update([
                 'id' => $params['id'],
@@ -105,11 +107,10 @@ class GeneratorLogic extends BaseLogic
                 'module_name' => $params['module_name'],
                 'class_dir' => $params['class_dir'] ?? '',
                 'class_comment' => $params['class_comment'] ?? '',
-                'menu' => [
-                    'pid' => $params['menu']['pid'] ?? 0,
-                    'type' => $params['menu']['type'] ?? 0,
-                    'name' => $params['menu']['name'] ?? $params['table_comment'],
-                ]
+                'menu' => $options['menu'],
+                'delete' => $options['delete'],
+                'tree' => $options['tree'],
+                'relations' => $options['relations'],
             ]);
 
             // 更新从表-数据表字段信息
@@ -248,8 +249,7 @@ class GeneratorLogic extends BaseLogic
                 ->whereIn('id', $params['id'])
                 ->findOrEmpty()->toArray();
 
-            $generateService = app()->make(GenerateService::class);
-            return $generateService->preview($table);
+            return app()->make(GenerateService::class)->preview($table);
 
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
@@ -267,8 +267,7 @@ class GeneratorLogic extends BaseLogic
      */
     public static function getTableColumn($tableName)
     {
-        $tablePrefix = config('database.connections.mysql.prefix');
-        $tableName = str_replace($tablePrefix, '', $tableName);
+        $tableName = get_no_prefix_table_name($tableName);
         return Db::name($tableName)->getFields();
     }
 
@@ -290,11 +289,21 @@ class GeneratorLogic extends BaseLogic
             'generate_type' => GeneratorEnum::GENERATE_TYPE_ZIP,
             'module_name' => 'adminapi',
             'admin_id' => $adminId,
+            // 菜单配置
             'menu' => [
                 'pid' => 0, // 父级菜单id
-                'type' => 0, // 构建方式 0-手动添加 1-自动构建
+                'type' => GeneratorEnum::GEN_SELF, // 构建方式 0-手动添加 1-自动构建
                 'name' => $tableData['comment'], // 菜单名称
-            ]
+            ],
+            // 删除配置
+            'delete' => [
+                'type' => GeneratorEnum::DELETE_TRUE, // 删除类型
+                'name' => GeneratorEnum::DELETE_NAME, // 默认删除字段名
+            ],
+            // 关联配置
+            'relations' => [],
+            // 树形crud
+            'tree' => []
         ]);
     }
 
@@ -393,6 +402,104 @@ class GeneratorLogic extends BaseLogic
             $result = 'string';
         }
         return $result;
+    }
+
+
+    /**
+     * @notes
+     * @param $options
+     * @param $tableComment
+     * @return array
+     * @author 段誉
+     * @date 2022/12/13 18:23
+     */
+    public static function formatConfigByTableData($options)
+    {
+        // 菜单配置
+        $menuConfig = $options['menu'] ?? [];
+        // 删除配置
+        $deleteConfig = $options['delete'] ?? [];
+        // 关联配置
+        $relationsConfig = $options['relations'] ?? [];
+        // 树表crud配置
+        $treeConfig = $options['tree'] ?? [];
+
+        $relations = [];
+        foreach ($relationsConfig as $relation) {
+            $relations[] = [
+                'name' => $relation['name'] ?? '',
+                'model' => $relation['model'] ?? '',
+                'type' => $relation['type'] ?? GeneratorEnum::RELATION_HAS_ONE,
+                'local_key' => $relation['local_key'] ?? 'id',
+                'foreign_key' => $relation['foreign_key'] ?? 'id',
+            ];
+        }
+
+        $options['menu'] = [
+            'pid' => intval($menuConfig['pid'] ?? 0),
+            'type' => intval($menuConfig['type'] ?? GeneratorEnum::GEN_SELF),
+            'name' => !empty($menuConfig['name']) ? $menuConfig['name'] : $options['table_comment'],
+        ];
+        $options['delete'] = [
+            'type' => intval($deleteConfig['type'] ?? GeneratorEnum::DELETE_TRUE),
+            'name' => !empty($deleteConfig['name']) ? $deleteConfig['name'] : GeneratorEnum::DELETE_NAME,
+        ];
+        $options['relations'] = $relations;
+        $options['tree'] = [
+            'tree_id' => $treeConfig['tree_id'] ?? "",
+            'tree_pid' =>$treeConfig['tree_pid'] ?? "",
+            'tree_name' => $treeConfig['tree_name'] ?? '',
+        ];
+
+        return $options;
+    }
+
+
+    /**
+     * @notes 获取所有模型
+     * @param string $module
+     * @return array
+     * @author 段誉
+     * @date 2022/12/14 11:04
+     */
+    public static function getAllModels($module = 'common')
+    {
+        if(empty($module)) {
+            return [];
+        }
+        $modulePath = base_path() . $module . '/model/';
+        if(!is_dir($modulePath)) {
+            return [];
+        }
+
+        $modulefiles = glob($modulePath . '*');
+        $targetFiles = [];
+        foreach ($modulefiles as $file) {
+            $fileBaseName = basename($file, '.php');
+            if (is_dir($file)) {
+                $file = glob($file . '/*');
+                foreach ($file as $item) {
+                    if (is_dir($item)) {
+                        continue;
+                    }
+                    $targetFiles[] = sprintf(
+                        "\\app\\" . $module . "\\model\\%s\\%s",
+                        $fileBaseName,
+                        basename($item, '.php')
+                    );
+                }
+            } else {
+                if ($fileBaseName == 'BaseModel') {
+                    continue;
+                }
+                $targetFiles[] = sprintf(
+                    "\\app\\" . $module . "\\model\\%s",
+                    basename($file, '.php')
+                );
+            }
+        }
+
+        return $targetFiles;
     }
 
 }

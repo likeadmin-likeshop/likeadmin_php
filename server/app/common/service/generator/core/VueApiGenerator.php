@@ -48,7 +48,7 @@ class VueApiGenerator extends BaseGenerator implements GenerateInterface
             $this->getRouteContent(),
         ];
 
-        $templatePath = $this->getTemplatePath('vue_api');
+        $templatePath = $this->getTemplatePath('vue/api');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);

@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+use app\common\enum\GeneratorEnum;
+
 /**
  * vue-edit生成器
  * Class VueEditGenerator
@@ -47,7 +49,10 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             '{CHECKBOX_JOIN}',
             '{CHECKBOX_SPLIT}',
             '{FORM_DATE}',
-            '{SETUP_NAME}'
+            '{SETUP_NAME}',
+            '{IMPORT_LISTS}',
+            '{TREE_CONST}',
+            '{GET_TREE_LISTS}'
         ];
 
         // 等待替换的内容
@@ -64,9 +69,13 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
             $this->getCheckBoxJoinContent(),
             $this->getCheckBoxSplitContent(),
             $this->getFormDateContent(),
-            $this->getLowerCamelName()
+            $this->getLowerCamelName(),
+            $this->getImportListsContent(),
+            $this->getTreeConstContent(),
+            $this->getTreeListsContent(),
         ];
-        $templatePath = $this->getTemplatePath('vue_edit');
+
+        $templatePath = $this->getTemplatePath('vue/edit');
 
         // 替换内容
         $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
@@ -126,6 +135,54 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
     }
 
 
+    /**
+     * @notes 树表contst
+     * @return string
+     * @author 段誉
+     * @date 2022/12/22 18:19
+     */
+    public function getTreeConstContent()
+    {
+        $content = "";
+        if ($this->isTreeCrud()) {
+            $content = file_get_contents($this->getTemplatePath('vue/other_item/editTreeConst'));
+        }
+        return $content;
+    }
+
+
+    /**
+     * @notes 获取树表列表
+     * @return string
+     * @author 段誉
+     * @date 2022/12/22 18:26
+     */
+    public function getTreeListsContent()
+    {
+        $content = '';
+        if (!$this->isTreeCrud()) {
+            return $content;
+        }
+
+        $needReplace = [
+            '{TREE_ID}',
+            '{TREE_NAME}',
+            '{UPPER_CAMEL_NAME}',
+        ];
+        $waitReplace = [
+            $this->treeConfig['tree_id'],
+            $this->treeConfig['tree_name'],
+            $this->getUpperCamelName(),
+        ];
+
+        $templatePath =  $this->getTemplatePath('vue/other_item/editTreeLists');
+        if (file_exists($templatePath)) {
+            $content = $this->replaceFileData($needReplace, $waitReplace, $templatePath);
+        }
+
+        return $content;
+    }
+
 
     /**
      * @notes 表单日期处理
@@ -177,7 +234,15 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $column['dict_type'],
             ];
 
-            $templatePath = $this->getTemplatePath('form_item/' . $column['view_type']);
+            $viewType = $column['view_type'];
+            // 树表，树状结构下拉框
+            if ($this->isTreeCrud() && $column['column_name'] == $this->treeConfig['tree_pid']) {
+                $viewType = 'treeSelect';
+                array_push($needReplace, '{TREE_ID}', '{TREE_NAME}');
+                array_push($waitReplace, $this->treeConfig['tree_id'], $this->treeConfig['tree_name']);
+            }
+
+            $templatePath = $this->getTemplatePath('vue/form_item/' . $viewType);
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -257,7 +322,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $this->getUpperCamelName(),
                 $column['dict_type'],
             ];
-            $templatePath = $this->getTemplatePath('other_item/dictDataApi');
+            $templatePath = $this->getTemplatePath('vue/other_item/dictDataApi');
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -335,7 +400,7 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
                 $column['column_name'],
                 $validateMsg,
             ];
-            $templatePath = $this->getTemplatePath('other_item/formValidate');
+            $templatePath = $this->getTemplatePath('vue/other_item/formValidate');
             if (!file_exists($templatePath)) {
                 continue;
             }
@@ -346,6 +411,26 @@ class VueEditGenerator extends BaseGenerator implements GenerateInterface
         }
         $content = substr($content, 0, -2);
         return $content;
+    }
+
+
+    /**
+     * @notes 树表时导入列表
+     * @author 段誉
+     * @date 2022/12/23 9:56
+     */
+    public function getImportListsContent()
+    {
+        $content = "";
+        if ($this->isTreeCrud()) {
+            $content = "api". $this->getUpperCamelName(). 'Lists,';
+        }
+
+        if (empty($content)) {
+            return $content;
+        }
+
+        return $this->setBlankSpace($content, ' ');
     }
 
 

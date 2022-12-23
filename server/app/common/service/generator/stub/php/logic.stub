@@ -1,0 +1,106 @@
+<?php
+// +----------------------------------------------------------------------
+// | likeadmin快速开发前后端分离管理后台（PHP版）
+// +----------------------------------------------------------------------
+// | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
+// | 开源版本可自由商用，可去除界面版权logo
+// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
+// | github下载：https://github.com/likeshop-github/likeadmin
+// | 访问官网：https://www.likeadmin.cn
+// | likeadmin团队 版权所有 拥有最终解释权
+// +----------------------------------------------------------------------
+// | author: likeadminTeam
+// +----------------------------------------------------------------------
+
+{NAMESPACE}
+
+
+{USE}
+use app\common\logic\BaseLogic;
+use think\facade\Db;
+
+
+/**
+ * {CLASS_COMMENT}
+ * Class {UPPER_CAMEL_NAME}Logic
+ * @package app\{MODULE_NAME}\logic{PACKAGE_NAME}
+ */
+class {UPPER_CAMEL_NAME}Logic extends BaseLogic
+{
+
+
+    /**
+     * @notes 添加{NOTES}
+     * @param array $params
+     * @return bool
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public static function add(array $params): bool
+    {
+        Db::startTrans();
+        try {
+            {UPPER_CAMEL_NAME}::create([
+{CREATE_DATA}
+            ]);
+
+            Db::commit();
+            return true;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::setError($e->getMessage());
+            return false;
+        }
+    }
+
+
+    /**
+     * @notes 编辑{NOTES}
+     * @param array $params
+     * @return bool
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public static function edit(array $params): bool
+    {
+        Db::startTrans();
+        try {
+            {UPPER_CAMEL_NAME}::where('{PK}', $params['{PK}'])->update([
+{UPDATE_DATA}
+            ]);
+
+            Db::commit();
+            return true;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::setError($e->getMessage());
+            return false;
+        }
+    }
+
+
+    /**
+     * @notes 删除{NOTES}
+     * @param array $params
+     * @return bool
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public static function delete(array $params): bool
+    {
+        return {UPPER_CAMEL_NAME}::destroy($params['{PK}']);
+    }
+
+
+    /**
+     * @notes 获取{NOTES}详情
+     * @param $params
+     * @return array
+     * @author {AUTHOR}
+     * @date {DATE}
+     */
+    public static function detail($params): array
+    {
+        return {UPPER_CAMEL_NAME}::findOrEmpty($params['{PK}'])->toArray();
+    }
+}

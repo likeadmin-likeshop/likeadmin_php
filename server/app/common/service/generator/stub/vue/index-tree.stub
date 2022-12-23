@@ -1,0 +1,167 @@
+<template>
+    <div>
+        <el-card class="!border-none mb-4" shadow="never">
+            <el-form
+                ref="formRef"
+                class="mb-[-16px]"
+                :model="queryParams"
+                inline
+            >
+{SEARCH_VIEW}
+                <el-form-item>
+                    <el-button type="primary" @click="getLists">查询</el-button>
+                    <el-button @click="resetParams">重置</el-button>
+                </el-form-item>
+            </el-form>
+        </el-card>
+        <el-card class="!border-none" shadow="never">
+            <div>
+                <el-button v-perms="['{PERMS_ADD}']" type="primary" @click="handleAdd()">
+                    <template #icon>
+                        <icon name="el-icon-Plus" />
+                    </template>
+                    新增
+                </el-button>
+                <el-button @click="handleExpand"> 展开/折叠 </el-button>
+            </div>
+            <div class="mt-4">
+                <el-table
+                    v-loading="loading"
+                    ref="tableRef"
+                    class="mt-4"
+                    size="large"
+                    :data="lists"
+                    row-key="{TREE_ID}"
+                    :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+                >
+{LISTS_VIEW}
+                    <el-table-column label="操作" width="160" fixed="right">
+                        <template #default="{ row }">
+                            <el-button
+                                v-perms="['{PERMS_ADD}']"
+                                type="primary"
+                                link
+                                @click="handleAdd(row.{TREE_ID})"
+                            >
+                                新增
+                            </el-button>
+                             <el-button
+                                v-perms="['{PERMS_EDIT}']"
+                                type="primary"
+                                link
+                                @click="handleEdit(row)"
+                            >
+                                编辑
+                            </el-button>
+                            <el-button
+                                v-perms="['{PERMS_DELETE}']"
+                                type="danger"
+                                link
+                                @click="handleDelete(row.{PK})"
+                            >
+                                删除
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </el-card>
+        <edit-popup v-if="showEdit" ref="editRef" :dict-data="dictData" @success="getLists" @close="showEdit = false" />
+    </div>
+</template>
+
+<script lang="ts" setup name="{SETUP_NAME}Lists">
+import { timeFormat } from '@/utils/util'
+import { useDictData } from '@/hooks/useDictOptions'
+import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'
+import feedback from '@/utils/feedback'
+import EditPopup from './edit.vue'
+import type { ElTable, FormInstance } from 'element-plus'
+
+const tableRef = shallowRef<InstanceType<typeof ElTable>>()
+const formRef = shallowRef<FormInstance>()
+const editRef = shallowRef<InstanceType<typeof EditPopup>>()
+let isExpand = false
+
+// 是否显示编辑框
+const showEdit = ref(false)
+const loading = ref(false)
+const lists = ref<any[]>([])
+
+// 查询条件
+const queryParams = reactive({
+{QUERY_PARAMS}
+})
+
+const resetParams = () => {
+    formRef.value?.resetFields()
+    getLists()
+}
+
+const getLists = async () => {
+    loading.value = true
+    try {
+        const data = await api{UPPER_CAMEL_NAME}Lists(queryParams)
+        lists.value = data.lists
+        loading.value = false
+    } catch (error) {
+        loading.value = false
+    }
+}
+
+// 选中数据
+const selectData = ref<any[]>([])
+
+// 表格选择后回调事件
+const handleSelectionChange = (val: any[]) => {
+    selectData.value = val.map(({ {PK} }) => {PK})
+}
+
+// 获取字典数据
+const { dictData } = useDictData('{DICT_DATA}')
+
+// 添加
+const handleAdd = async ({TREE_ID}?: number) => {
+    showEdit.value = true
+    await nextTick()
+    if ({TREE_ID}) {
+        editRef.value?.setFormData({
+            {TREE_PID}: {TREE_ID}
+        })
+    }
+    editRef.value?.open('add')
+}
+
+// 编辑
+const handleEdit = async (data: any) => {
+    showEdit.value = true
+    await nextTick()
+    editRef.value?.open('edit')
+    editRef.value?.setFormData(data)
+}
+
+// 删除
+const handleDelete = async ({PK}: number | any[]) => {
+    await feedback.confirm('确定要删除？')
+    await api{UPPER_CAMEL_NAME}Delete({ {PK} })
+    getLists()
+}
+
+const handleExpand = () => {
+    isExpand = !isExpand
+    toggleExpand(lists.value, isExpand)
+}
+
+const toggleExpand = (children: any[], unfold = true) => {
+    for (const key in children) {
+        tableRef.value?.toggleRowExpansion(children[key], unfold)
+        if (children[key].children) {
+            toggleExpand(children[key].children!, unfold)
+        }
+    }
+}
+
+
+getLists()
+</script>
+

@@ -30,7 +30,7 @@
                     <div class="w-80">
                         <el-input
                             v-model="formData.command"
-                            placeholder="请输入thankphp命令，如vresion"
+                            placeholder="请输入thinkphp命令，如vresion"
                             clearable
                         />
                     </div>

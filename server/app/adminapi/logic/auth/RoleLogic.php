@@ -92,16 +92,17 @@ class RoleLogic extends BaseLogic
                 'sort' => $params['sort'] ?? 0,
             ]);
 
-            SystemRoleMenu::where(['role_id' => $params['id']])->delete();
-
-            $data = [];
-            foreach ($menuId as $item) {
-                $data[] = [
-                    'role_id' => $params['id'],
-                    'menu_id' => $item,
-                ];
+            if (!empty($menuId)) {
+                SystemRoleMenu::where(['role_id' => $params['id']])->delete();
+                $data = [];
+                foreach ($menuId as $item) {
+                    $data[] = [
+                        'role_id' => $params['id'],
+                        'menu_id' => $item,
+                    ];
+                }
+                (new SystemRoleMenu)->insertAll($data);
             }
-            (new SystemRoleMenu)->insertAll($data);
 
             (new AdminAuthCache())->deleteTag();
 

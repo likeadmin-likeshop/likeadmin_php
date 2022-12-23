@@ -21,6 +21,7 @@ use app\adminapi\logic\tools\GeneratorLogic;
 use app\adminapi\validate\tools\EditTableValidate;
 use app\adminapi\validate\tools\GenerateTableValidate;
 
+
 /**
  * 代码生成器控制器
  * Class GeneratorController
@@ -30,6 +31,7 @@ class GeneratorController extends BaseAdminController
 {
 
     public array $notNeedLogin = ['download'];
+
 
     /**
      * @notes 获取数据库中所有数据表信息
@@ -188,4 +190,17 @@ class GeneratorController extends BaseAdminController
     }
 
 
+    /**
+     * @notes 获取模型
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/12/14 11:07
+     */
+    public function getModels()
+    {
+        $result = GeneratorLogic::getAllModels();
+        return $this->success('', $result, 1, 1);
+    }
+
 }
+

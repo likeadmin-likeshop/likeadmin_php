@@ -54,12 +54,12 @@ class BaseValidate extends Validate
     /**
      * @notes 切面验证接收到的参数
      * @param null $scene 场景验证
-     * @param array $validate_data 验证参数，可追加和覆盖掉接收的参数
+     * @param array $validateData 验证参数，可追加和覆盖掉接收的参数
      * @return array
      * @author 令狐冲
      * @date 2021/12/27 14:13
      */
-    public function goCheck($scene = null, array $validate_data = []): array
+    public function goCheck($scene = null, array $validateData = []): array
     {
         //接收参数
         if ($this->method == 'GET') {
@@ -68,7 +68,7 @@ class BaseValidate extends Validate
             $params = request()->post();
         }
         //合并验证参数
-        $params = array_merge($params, $validate_data);
+        $params = array_merge($params, $validateData);
 
         //场景
         if ($scene) {

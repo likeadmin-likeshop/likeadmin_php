@@ -1,0 +1,8 @@
+1.5.0
+
+la_generate_table表 
+增加 【delete， tree，relations】配置字段
+
+la_system_menu表
+增加 模板菜单数据
+

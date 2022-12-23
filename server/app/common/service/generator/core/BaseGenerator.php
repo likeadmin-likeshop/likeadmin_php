@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace app\common\service\generator\core;
 
-
 use think\helper\Str;
+use app\common\enum\GeneratorEnum;
 
 
 /**
@@ -34,13 +34,11 @@ abstract class BaseGenerator
      */
     protected $templateDir;
 
-
     /**
      * 模块名
      * @var string
      */
     protected $moduleName;
-
 
     /**
      * 类目录
@@ -48,13 +46,11 @@ abstract class BaseGenerator
      */
     protected $classDir;
 
-
     /**
      * 表信息
      * @var array
      */
     protected $tableData;
-
 
     /**
      * 表字段信息
@@ -62,13 +58,11 @@ abstract class BaseGenerator
      */
     protected $tableColumn;
 
-
     /**
      * 文件内容
      * @var string
      */
     protected $content;
-
 
     /**
      * basePath
@@ -76,19 +70,41 @@ abstract class BaseGenerator
      */
     protected $basePath;
 
-
     /**
      * rootPath
      * @var string
      */
     protected $rootPath;
 
-
     /**
      * 生成的文件夹
      * @var string
      */
     protected $generatorDir;
+
+    /**
+     * 删除配置
+     * @var array
+     */
+    protected $deleteConfig;
+
+    /**
+     * 菜单配置
+     * @var array
+     */
+    protected $menuConfig;
+
+    /**
+     * 模型关联配置
+     * @var array
+     */
+    protected $relationConfig;
+
+    /**
+     * 树表配置
+     * @var array
+     */
+    protected $treeConfig;
 
 
     public function __construct()
@@ -117,6 +133,62 @@ abstract class BaseGenerator
         $this->setClassDir($tableData['class_dir'] ?? '');
         // 替换模板变量
         $this->replaceVariables();
+    }
+
+
+    /**
+     * @notes 菜单配置
+     * @author 段誉
+     * @date 2022/12/13 15:14
+     */
+    public function setMenuConfig()
+    {
+        $this->menuConfig = [
+            'pid' => $this->tableData['menu']['pid'] ?? 0,
+            'type' => $this->tableData['menu']['type'] ?? GeneratorEnum::DELETE_TRUE,
+            'name' => $this->tableData['menu']['name'] ?? $this->tableData['table_comment']
+        ];
+    }
+
+
+    /**
+     * @notes 删除配置
+     * @return array
+     * @author 段誉
+     * @date 2022/12/13 15:09
+     */
+    public function setDeleteConfig()
+    {
+        $this->deleteConfig = [
+            'type' => $this->tableData['delete']['type'] ?? GeneratorEnum::DELETE_TRUE,
+            'name' => $this->tableData['delete']['name'] ?? GeneratorEnum::DELETE_NAME,
+        ];
+    }
+
+
+    /**
+     * @notes 关联模型配置
+     * @author 段誉
+     * @date 2022/12/14 11:28
+     */
+    public function setRelationConfig()
+    {
+        $this->relationConfig = empty($this->tableData['relations']) ? [] : $this->tableData['relations'];
+    }
+
+
+    /**
+     * @notes 设置树表配置
+     * @author 段誉
+     * @date 2022/12/20 14:30
+     */
+    public function setTreeConfig()
+    {
+        $this->treeConfig = [
+            'tree_id' => $this->tableData['tree']['tree_id'] ?? '',
+            'tree_pid' => $this->tableData['tree']['tree_pid'] ?? '',
+            'tree_name' => $this->tableData['tree']['tree_name'] ?? '',
+        ];
     }
 
 
@@ -198,6 +270,14 @@ abstract class BaseGenerator
     {
         $this->tableData = !empty($tableData) ? $tableData : [];
         $this->tableColumn = $tableData['table_column'] ?? [];
+        // 菜单配置
+        $this->setMenuConfig();
+        // 删除配置
+        $this->setDeleteConfig();
+        // 关联模型配置
+        $this->setRelationConfig();
+        // 设置树表配置
+        $this->setTreeConfig();
     }
 
 
@@ -294,8 +374,7 @@ abstract class BaseGenerator
      */
     public function getTableName()
     {
-        $tablePrefix = config('database.connections.mysql.prefix');
-        return str_replace($tablePrefix, '', $this->tableData['table_name']);
+        return get_no_prefix_table_name($this->tableData['table_name']);
     }
 
 
@@ -386,10 +465,19 @@ abstract class BaseGenerator
      */
     public function isGenerateTypeZip()
     {
-        return $this->tableData['generate_type'] == 0;
+        return $this->tableData['generate_type'] == GeneratorEnum::GENERATE_TYPE_ZIP;
     }
 
-    
 
+    /**
+     * @notes 是否为树表crud
+     * @return bool
+     * @author 段誉
+     * @date 2022/12/23 11:25
+     */
+    public function isTreeCrud()
+    {
+        return $this->tableData['template_type'] == GeneratorEnum::TEMPLATE_TYPE_TREE;
+    }
 
 }
