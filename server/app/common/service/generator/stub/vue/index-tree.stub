@@ -2,6 +2,7 @@
     <div>
         <el-card class="!border-none mb-4" shadow="never">
             <el-form
+                ref="formRef"
                 class="mb-[-16px]"
                 :model="queryParams"
                 inline
@@ -9,7 +10,7 @@
 {SEARCH_VIEW}
                 <el-form-item>
                     <el-button type="primary" @click="getLists">查询</el-button>
-                    <el-button @click="getLists">重置</el-button>
+                    <el-button @click="resetParams">重置</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -75,9 +76,10 @@ import { useDictData } from '@/hooks/useDictOptions'
 import { api{UPPER_CAMEL_NAME}Lists, api{UPPER_CAMEL_NAME}Delete } from '@/api/{API_DIR}'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
-import type { ElTable } from 'element-plus'
+import type { ElTable, FormInstance } from 'element-plus'
 
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
+const formRef = shallowRef<FormInstance>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 let isExpand = false
 
@@ -90,6 +92,11 @@ const lists = ref<any[]>([])
 const queryParams = reactive({
 {QUERY_PARAMS}
 })
+
+const resetParams = () => {
+    formRef.value?.resetFields()
+    getLists()
+}
 
 const getLists = async () => {
     loading.value = true
