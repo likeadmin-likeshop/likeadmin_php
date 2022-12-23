@@ -55,6 +55,7 @@
                         }}</el-tag>
                     </template>
                 </el-table-column>
+
                 <el-table-column label="排序" prop="sort" min-width="100" />
                 <el-table-column label="更新时间" prop="update_time" min-width="180" />
                 <el-table-column label="操作" width="160" fixed="right">

@@ -162,9 +162,89 @@
                         <el-form-item label="模板类型" prop="template_type">
                             <el-radio-group v-model="formData.template_type">
                                 <el-radio :label="0">单表（curd）</el-radio>
-                                <!-- <el-radio :label="1">树表（curd）</el-radio> -->
+                                <el-radio :label="1">树表（curd）</el-radio>
                             </el-radio-group>
                         </el-form-item>
+                        <el-form-item label="删除类型" prop="delete.type">
+                            <el-radio-group v-model="formData.delete.type">
+                                <el-radio :label="0">物理删除</el-radio>
+                                <el-radio :label="1">软删除</el-radio>
+                            </el-radio-group>
+                        </el-form-item>
+                        <el-form-item
+                            label="删除字段"
+                            prop="delete.name"
+                            v-if="formData.delete.type == 1"
+                        >
+                            <el-select class="w-80" v-model="formData.delete.name" clearable>
+                                <el-option
+                                    v-for="item in formData.table_column"
+                                    :key="item.id"
+                                    :value="item.column_name"
+                                    :label="`${item.column_name}：${item.column_comment}`"
+                                />
+                            </el-select>
+                        </el-form-item>
+                        <template v-if="formData.template_type == 1">
+                            <el-form-item label="树表ID" prop="treePrimary">
+                                <div>
+                                    <el-select
+                                        class="w-80"
+                                        v-model="formData.tree.tree_id"
+                                        clearable
+                                    >
+                                        <el-option
+                                            v-for="item in formData.table_column"
+                                            :key="item.id"
+                                            :value="item.column_name"
+                                            :label="`${item.column_name}：${item.column_comment}`"
+                                        />
+                                    </el-select>
+                                    <div class="form-tips">指定树表的主要ID，一般为主键</div>
+                                </div>
+                            </el-form-item>
+                            <el-form-item label="树表父ID" prop="treeParent">
+                                <div>
+                                    <el-select
+                                        class="w-80"
+                                        v-model="formData.tree.tree_pid"
+                                        clearable
+                                    >
+                                        <el-option
+                                            v-for="item in formData.table_column"
+                                            :key="item.id"
+                                            :value="item.column_name"
+                                            :label="`${item.column_name}：${item.column_comment}`"
+                                        />
+                                    </el-select>
+                                    <div class="form-tips">指定树表的父ID，比如：parent_id</div>
+                                </div>
+                            </el-form-item>
+                            <el-form-item label="树名称" prop="treeName">
+                                <el-select class="w-80" v-model="formData.tree.tree_name" clearable>
+                                    <el-option
+                                        v-for="item in formData.table_column"
+                                        :key="item.id"
+                                        :value="item.column_name"
+                                        :label="`${item.column_name}：${item.column_comment}`"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                        </template>
+                        <el-form-item label="类描述">
+                            <div class="w-80">
+                                <div>
+                                    <el-input v-model="formData.class_comment" clearable />
+                                </div>
+                                <div class="form-tips">
+                                    <div>生成文件描述。</div>
+                                    <div>
+                                        例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
+                                    </div>
+                                </div>
+                            </div>
+                        </el-form-item>
+
                         <el-form-item label="生成方式" prop="generate_type">
                             <el-radio-group v-model="formData.generate_type">
                                 <el-radio :label="0">压缩包下载</el-radio>
@@ -197,19 +277,7 @@
                                 </div>
                             </div>
                         </el-form-item>
-                        <el-form-item label="类描述">
-                            <div class="w-80">
-                                <div>
-                                    <el-input v-model="formData.class_comment" clearable />
-                                </div>
-                                <div class="form-tips">
-                                    <div>生成文件描述。</div>
-                                    <div>
-                                        例：填写用户，生成控制器名/逻辑/模型等，文件内描述为用户控制器/用户逻辑/用户模型
-                                    </div>
-                                </div>
-                            </div>
-                        </el-form-item>
+
                         <el-form-item label="父级菜单" prop="menu.pid">
                             <el-tree-select
                                 class="w-80"
@@ -246,6 +314,61 @@
                             </div>
                         </el-form-item>
                     </el-tab-pane>
+                    <el-tab-pane label="关联配置" name="relations">
+                        <el-button type="primary" @click="showEditPopup('add')">
+                            <template #icon>
+                                <icon name="el-icon-Plus" />
+                            </template>
+                            新增关联
+                        </el-button>
+                        <div class="mt-4">
+                            <el-table :data="formData.relations" size="mini">
+                                <el-table-column prop="type" label="关联类型">
+                                    <template #default="{ row }">
+                                        <dict-value :value="row.type" :options="relationTypes" />
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="name" label="关联名称" />
+                                <el-table-column prop="model" label="关联模型" />
+                                <el-table-column prop="local_key" label="关联键">
+                                    <template #default="{ row }">
+                                        <dict-value
+                                            :value="row.local_key"
+                                            :options="formData.table_column"
+                                            :config="{
+                                                label: 'column_comment',
+                                                value: 'column_name'
+                                            }"
+                                        />
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="foreign_key" label="外键" />
+                                <el-table-column label="操作">
+                                    <template #default="{ row, index }">
+                                        <el-button
+                                            link
+                                            type="primary"
+                                            @click="showEditPopup('edit', row, index)"
+                                        >
+                                            编辑
+                                        </el-button>
+                                        <el-button link type="danger" @click="handelDelete(index)"
+                                            >删除</el-button
+                                        >
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                            <relations-add
+                                :column="formData.table_column"
+                                :types="relationTypes"
+                                v-if="showEdit"
+                                ref="editRef"
+                                @add="handleAdd"
+                                @edit="handleEdit"
+                                @close="showEdit = false"
+                            />
+                        </div>
+                    </el-tab-pane>
                 </el-tabs>
             </el-form>
         </el-card>
@@ -262,9 +385,22 @@ import feedback from '@/utils/feedback'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { dictTypeAll } from '@/api/setting/dict'
 import { menuAll } from '@/api/perms/menu'
+import RelationsAdd from '../components/relations-add.vue'
+import { cloneDeep } from 'lodash'
 const route = useRoute()
 const router = useRouter()
 const activeName = ref('column')
+const showEdit = ref(false)
+const relationTypes = [
+    {
+        name: '一对一',
+        value: 'has_one'
+    },
+    {
+        name: '一对多',
+        value: 'has_many'
+    }
+]
 const formData = reactive({
     id: '',
     table_name: '',
@@ -276,25 +412,61 @@ const formData = reactive({
     module_name: '',
     class_dir: '',
     class_comment: '',
-    table_column: [],
+    table_column: [] as any[],
     menu: {
         pid: 0,
         name: '',
         type: 0
-    }
+    },
+    tree: {
+        tree_id: 0,
+        tree_pid: 0,
+        tree_name: 0
+    },
+    delete: {
+        name: '',
+        type: 0
+    },
+    relations: []
 })
-
+let editIndex = 0
 const formRef = shallowRef<FormInstance>()
+const editRef = shallowRef<InstanceType<typeof RelationsAdd>>()
 const rules = reactive({
-    table_name: [{ required: true, message: '请输入表名称', trigger: 'blur' }],
-    table_comment: [{ required: true, message: '请输入表描述', trigger: 'blur' }],
-    module_name: [{ required: true, message: '请输入模块名', trigger: 'blur' }],
+    table_name: [{ required: true, message: '请输入表名称' }],
+    table_comment: [{ required: true, message: '请输入表描述' }],
+    module_name: [{ required: true, message: '请输入模块名' }],
     generate_type: [{ required: true, trigger: 'change' }],
     template_type: [{ required: true, trigger: 'change' }],
-    ['menu.pid']: [{ required: true, message: '请选择父级菜单', trigger: 'blur' }],
-    ['menu.name']: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }]
+    ['menu.pid']: [{ required: true, message: '请选择父级菜单' }],
+    ['menu.name']: [{ required: true, message: '请输入菜单名称' }],
+    ['delete.type']: [{ required: true, trigger: 'change' }],
+    ['delete.name']: [{ required: true, message: '请选择删除字段' }]
 })
 
+const showEditPopup = async (type: string, data?: any, index?: number) => {
+    showEdit.value = true
+    await nextTick()
+    if (data) {
+        editRef.value?.setFormData(data)
+        editIndex = index
+    }
+    editRef.value?.open(type)
+}
+
+const handleAdd = (data: any) => {
+    const newData = cloneDeep(toRaw(data))
+    formData.relations.push(newData)
+}
+
+const handleEdit = async (data: any) => {
+    const newData = cloneDeep(toRaw(data))
+    formData.relations.splice(editIndex, 1, newData)
+}
+
+const handelDelete = (index: number) => {
+    formData.relations.splice(index, 1)
+}
 const getDetails = async () => {
     const data = await tableDetail({
         id: route.query.id
