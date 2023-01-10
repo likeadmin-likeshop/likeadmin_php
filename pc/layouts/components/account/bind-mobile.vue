@@ -81,7 +81,7 @@ const formRules: FormRules = {
 }
 const hasMobile = computed(() => !!userStore.userInfo.mobile)
 const formData = reactive({
-    type: hasMobile ? 'change' : 'bind',
+    type: hasMobile.value ? 'change' : 'bind',
     mobile: '',
     code: ''
 })
@@ -89,7 +89,7 @@ const formData = reactive({
 const sendSms = async () => {
     await formRef.value?.validateField(['mobile'])
     await smsSend({
-        scene: hasMobile ? SMSEnum.CHANGE_MOBILE : SMSEnum.BIND_MOBILE,
+        scene: hasMobile.value ? SMSEnum.CHANGE_MOBILE : SMSEnum.BIND_MOBILE,
         mobile: formData.mobile
     })
     verificationCodeRef.value?.start()

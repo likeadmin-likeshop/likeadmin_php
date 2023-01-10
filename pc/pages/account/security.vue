@@ -113,9 +113,12 @@ import {
     PopupTypeEnum,
     useAccount
 } from '~~/layouts/components/account/useAccount'
+import { useUserStore } from '@/stores/user'
 const { data: userInfo, refresh } = await useAsyncData(() => getUserInfo(), {
-    default: () => ({})
+    default: () => ({}),
+    initialCache: false
 })
+const userStore = useUserStore()
 const showMobilePopup = ref(false)
 const { setPopupType, toggleShowPopup } = useAccount()
 const formRef = shallowRef<FormInstance>()
@@ -170,6 +173,7 @@ const toForgetPwd = () => {
 const handleConfirm = async () => {
     await formRef.value?.validate()
     await userChangePwd(formData)
+    userStore.logout()
     showMobilePopup.value = false
     refresh()
 }

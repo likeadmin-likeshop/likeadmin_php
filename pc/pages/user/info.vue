@@ -9,11 +9,11 @@
                 <div class="avatar">
                     <ElAvatar :size="60" :src="userInfo.avatar"></ElAvatar>
                     <div class="change-btn">
-                        <CropperUploaad
+                        <CropperUpload
                             @change="setUserInfo($event, UserFieldEnum.AVATAR)"
                         >
                             <span class="text-xs text-white">修改</span>
-                        </CropperUploaad>
+                        </CropperUpload>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
 <script lang="ts" setup>
 import { ElAvatar, ElButton } from 'element-plus'
 import { getUserInfo, userEdit } from '@/api/user'
-import CropperUploaad from '@/components/cropper-upload/index.vue'
+import CropperUpload from '@/components/cropper-upload/index.vue'
 import PopoverInput from '@/components/popover-input/index.vue'
 import {
     useAccount,
