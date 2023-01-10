@@ -79,10 +79,7 @@ const getSourceText = computed(() => {
     }
 })
 
-watch([() => route.query.keywords, () => route.query.cid], ([value1]) => {
-    if (value1) {
-        params.keyword = value1 as string
-    }
+watch([() => route.query.keywords, () => route.query.cid], () => {
     refresh()
 })
 </script>
