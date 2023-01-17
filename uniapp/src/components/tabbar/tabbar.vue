@@ -1,5 +1,6 @@
 <template>
     <u-tabbar
+        v-if="showTabbar"
         v-model="current"
         v-bind="tabbarStyle"
         :list="tabbarList"
@@ -24,6 +25,14 @@ const tabbarList = computed(() => {
             pagePath: item.link.path
         }
     })
+})
+const showTabbar = computed(() => {
+    const currentPages = getCurrentPages()
+    const currentPage = currentPages[currentPages.length - 1]
+    const current = tabbarList.value.findIndex((item: any) => {
+        return item.pagePath === '/' + currentPage.route
+    })
+    return current >= 0
 })
 
 const tabbarStyle = computed(() => ({

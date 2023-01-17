@@ -180,7 +180,6 @@ import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import cache from '@/utils/cache'
 import { isWeixinClient } from '@/utils/client'
-import { currentPage } from '@/utils/util'
 // #ifdef H5
 import wechatOa from '@/utils/wechat'
 // #endif
@@ -281,11 +280,13 @@ const loginHandle = async (data: any) => {
     await userStore.getUser()
     uni.$u.toast('登录成功')
     uni.hideLoading()
-    if (getCurrentPages().length > 1) {
+    const pages = getCurrentPages()
+    if (pages.length > 1) {
+        const prevPage = pages.at(-2)
         uni.navigateBack({
             success: () => {
                 // @ts-ignore
-                const { onLoad, options } = currentPage()
+                const { onLoad, options } = prevPage
                 // 刷新上一个页面
                 onLoad && onLoad(options)
             }
