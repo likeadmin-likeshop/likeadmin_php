@@ -47,7 +47,7 @@ export const rules = reactive<FormRules>({
         },
         {
             pattern:
-                /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/,
+                /(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/,
             message: '请输入合法的网址链接',
             trigger: ['blur', 'change']
         }
