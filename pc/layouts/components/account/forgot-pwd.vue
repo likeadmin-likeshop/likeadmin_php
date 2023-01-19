@@ -82,7 +82,7 @@ import { SMSEnum } from '~~/enums/appEnums'
 import { useUserStore } from '~~/stores/user'
 import { useAccount, PopupTypeEnum } from './useAccount'
 const userStore = useUserStore()
-const { setPopupType } = useAccount()
+const { setPopupType, toggleShowPopup } = useAccount()
 const formRef = shallowRef<FormInstance>()
 const verificationCodeRef = shallowRef()
 const formRules: FormRules = {
@@ -153,6 +153,7 @@ const sendSms = async () => {
 const handleConfirm = async () => {
     await formRef.value?.validate()
     await forgotPassword(formData)
+    userStore.logout()
     setPopupType(PopupTypeEnum.LOGIN)
 }
 const { lockFn: handleConfirmLock, isLock } = useLockFn(handleConfirm)

@@ -347,17 +347,17 @@
                                 </el-table-column>
                                 <el-table-column prop="foreign_key" label="外键" />
                                 <el-table-column label="操作">
-                                    <template #default="{ row, index }">
+                                    <template #default="{ row, $index }">
                                         <el-button
                                             link
                                             type="primary"
-                                            @click="showEditPopup('edit', row, index)"
+                                            @click="showEditPopup('edit', row, $index)"
                                         >
                                             编辑
                                         </el-button>
-                                        <el-button link type="danger" @click="handelDelete(index)"
-                                            >删除</el-button
-                                        >
+                                        <el-button link type="danger" @click="handelDelete($index)">
+                                            删除
+                                        </el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -430,7 +430,7 @@ const formData = reactive({
         name: '',
         type: 0
     },
-    relations: []
+    relations: [] as any[]
 })
 let editIndex = 0
 const formRef = shallowRef<FormInstance>()
@@ -450,7 +450,7 @@ const rules = reactive({
 const showEditPopup = async (type: string, data?: any, index?: number) => {
     showEdit.value = true
     await nextTick()
-    if (data) {
+    if (data && index !== undefined) {
         editRef.value?.setFormData(data)
         editIndex = index
     }
@@ -464,6 +464,7 @@ const handleAdd = (data: any) => {
 
 const handleEdit = async (data: any) => {
     const newData = cloneDeep(toRaw(data))
+    console.log(editIndex)
     formData.relations.splice(editIndex, 1, newData)
 }
 

@@ -52,10 +52,10 @@
                             :name="`el-icon-${
                                 newsDetail.collect ? 'StarFilled' : 'Star'
                             }`"
-                            :size="16"
+                            :size="newsDetail.collect ? 20 : 16"
                             :color="newsDetail.collect ? '#FF2C2F' : 'inherit'"
                         />
-                        点击收藏
+                        {{ newsDetail.collect ? '取消收藏' : '点击收藏' }}
                     </ElButton>
                 </div>
                 <div class="border-t border-br mt-[30px]">
