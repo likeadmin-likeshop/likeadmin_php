@@ -42,10 +42,10 @@ trait ListsSortTrait
             return $defaultOrder;
         }
 
-        if ($this->orderBy = 'desc') {
+        if ($this->orderBy == 'desc') {
             return [$field => 'desc'];
         }
-        if ($this->orderBy = 'asc') {
+        if ($this->orderBy == 'asc') {
             return [$field => 'asc'];
         }
         return $defaultOrder;
