@@ -1,14 +1,18 @@
-// #ifdef H5
-// 提交前需要注释  本地调试使用
-import Vconsole from 'vconsole'
-import { isDevMode } from '@/utils/env'
-// #endif
+// url中携带参数vconsole== vconsoleKey时打开Vconsole，可以用于手机浏览器中调试
+// 如/mobile/pages/user/user?vconsole=vconsole2022，此时在个人中心页面打开vconsole
 
-export default () => {
+const vconsoleKey = 'vconsole2022'
+export default async () => {
     // #ifdef H5
-    if (isDevMode()) {
+    const url = new URL(location.href)
+    const searchParams = new URLSearchParams(url.search)
+    const vconsole = searchParams.get('vconsole')
+    if (vconsole == vconsoleKey) {
+        const module: any = await import('vconsole')
+        const Vconsole = module.default
         const vConsole = new Vconsole()
         return vConsole
     }
+
     // #endif
 }
