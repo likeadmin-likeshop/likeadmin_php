@@ -43,7 +43,7 @@ class OfficialAccountSettingLogic extends BaseLogic
             'app_id'            => ConfigService::get('oa_setting', 'app_id', ''),
             'app_secret'        => ConfigService::get('oa_setting', 'app_secret', ''),
             // url()方法返回Url实例，通过与空字符串连接触发该实例的__toString()方法以得到路由地址
-            'url'               => url('adminapi/wechat.official_account_reply/index', [],'',true).'',
+            'url'               => url('adminapi/channel.official_account_reply/index', [],'',true).'',
             'token'             => ConfigService::get('oa_setting', 'token'),
             'encoding_aes_key'  => ConfigService::get('oa_setting', 'encoding_aes_key', ''),
             'encryption_type'   => ConfigService::get('oa_setting', 'encryption_type'),
