@@ -17,7 +17,7 @@ namespace app\api\logic;
 use app\common\cache\WebScanLoginCache;
 use app\common\logic\BaseLogic;
 use app\api\service\{UserTokenService, WechatUserService};
-use app\common\enum\{LoginEnum, user\UserTerminalEnum};
+use app\common\enum\{LoginEnum, user\UserTerminalEnum, YesNoEnum};
 use app\common\service\{ConfigService,
     FileService,
     wechat\WeChatConfigService,
@@ -410,4 +410,21 @@ class LoginLogic extends BaseLogic
         }
     }
 
+
+    /**
+     * @notes 更新用户信息
+     * @param $params
+     * @param $userId
+     * @return User
+     * @author 段誉
+     * @date 2023/2/22 11:19
+     */
+    public static function updateUser($params, $userId)
+    {
+        return User::where(['id' => $userId])->update([
+            'nickname' => $params['nickname'],
+            'avatar' => FileService::setFileUrl($params['avatar']),
+            'is_new_user' => YesNoEnum::NO
+        ]);
+    }
 }

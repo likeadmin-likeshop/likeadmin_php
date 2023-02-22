@@ -46,7 +46,7 @@ class UserLogic extends BaseLogic
     public static function center(int $userId): array
     {
         $user = User::where(['id' => $userId])
-            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time')
+            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time,is_new_user')
             ->findOrEmpty()->toArray();
         return $user;
     }
