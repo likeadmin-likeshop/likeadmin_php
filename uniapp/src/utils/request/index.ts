@@ -22,7 +22,7 @@ const requestHooks: RequestHooks = {
         }
         return options
     },
-    responseInterceptorsHook(response, config) {
+    async responseInterceptorsHook(response, config) {
         const { isTransformResponse, isReturnDefaultResponse, isAuth } = config
 
         //返回默认响应，当需要获取响应头及其他数据时可使用
@@ -50,17 +50,17 @@ const requestHooks: RequestHooks = {
                         url: '/pages/login/login'
                     })
                 }
-                return Promise.reject()
+                return Promise.reject(msg)
 
             default:
                 return data
         }
     },
-    responseInterceptorsCatchHook(options) {
+    async responseInterceptorsCatchHook(options, error) {
         if (options.method?.toUpperCase() == RequestMethodsEnum.POST) {
             uni.$u.toast('请求失败，请重试')
         }
-        return Promise.reject()
+        return Promise.reject(error)
     }
 }
 

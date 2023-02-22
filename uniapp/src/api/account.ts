@@ -23,3 +23,8 @@ export function OALogin(data: Record<string, any>) {
 export function mnpLogin(data: Record<string, any>) {
     return request.post({ url: '/login/mnpLogin', data })
 }
+
+//更新微信小程序头像昵称
+export function updateUser(data: Record<string, any>, header: any) {
+    return request.post({ url: '/login/updateUser', data, header })
+}

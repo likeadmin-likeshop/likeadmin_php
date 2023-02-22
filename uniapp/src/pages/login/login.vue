@@ -167,11 +167,17 @@
             </view>
             <!-- #endif -->
         </view>
+        <mplogin-popup
+            v-model:show="showLoginPopup"
+            :logo="websiteConfig.shop_logo"
+            :title="websiteConfig.shop_name"
+            @update="handleUpdateUser"
+        />
     </view>
 </template>
 
 <script setup lang="ts">
-import { login, mnpLogin } from '@/api/account'
+import { login, mnpLogin, updateUser } from '@/api/account'
 import { smsSend } from '@/api/app'
 import { SMSEnum } from '@/enums/appEnums'
 import { BACK_URL } from '@/enums/cacheEnums'
@@ -201,6 +207,7 @@ const appStore = useAppStore()
 
 const uCodeRef = shallowRef()
 const codeTips = ref('')
+const showLoginPopup = ref(false)
 const isCheckAgreement = ref(false)
 
 const formData = reactive({
@@ -210,9 +217,12 @@ const formData = reactive({
     code: ''
 })
 
+const loginData = ref()
 const codeChange = (text: string) => {
     codeTips.value = text
 }
+
+const websiteConfig = computed(() => appStore.getWebsiteConfig)
 
 const sendSms = async () => {
     if (!formData.account) return
@@ -318,6 +328,13 @@ const wxLogin = async () => {
         const data = await mnpLogin({
             code: code
         })
+        if (data.is_new_user) {
+            uni.hideLoading()
+            userStore.temToken = data.token
+            showLoginPopup.value = true
+            return
+        }
+        loginData.value = data
         loginHandle(data)
     } catch (error: any) {
         uni.hideLoading()
@@ -329,6 +346,11 @@ const wxLogin = async () => {
         wechatOa.getUrl()
     }
     // #endif
+}
+const handleUpdateUser = async (value: any) => {
+    await updateUser(value, { token: userStore.temToken })
+    showLoginPopup.value = false
+    loginHandle(loginData.value)
 }
 
 watch(

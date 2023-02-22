@@ -94,34 +94,12 @@ export function objectToQuery(params: Record<string, any>): string {
     }
     return query.slice(0, -1)
 }
+
 /**
- * @description 上传图片
- * @param  { String } path 选择的本地地址
+ * @description 添加单位
+ * @param {String | Number} value 值 100
+ * @param {String} unit 单位 px em rem
  */
-export function uploadFile(path: any) {
-    return new Promise((resolve, reject) => {
-        const token = getToken()
-        uni.uploadFile({
-            url: `${import.meta.env.VITE_APP_BASE_URL}/api/upload/image`,
-            filePath: path,
-            name: 'file',
-            header: {
-                token
-            },
-            fileType: 'image',
-            success: (res) => {
-                console.log('uploadFile res ==> ', res)
-                const data = JSON.parse(res.data)
-                if (data.code == 1) {
-                    resolve(data.data)
-                } else {
-                    reject()
-                }
-            },
-            fail: (err) => {
-                console.log(err)
-                reject()
-            }
-        })
-    })
+export const addUnit = (value: string | number, unit = 'rpx') => {
+    return !Object.is(Number(value), NaN) ? `${value}${unit}` : value
 }
