@@ -19,7 +19,7 @@ use app\common\service\ConfigService;
 /**
  * H5设置逻辑层
  * Class HFiveSettingLogic
- * @package app\adminapi\logic\settings\h5
+ * @package app\adminapi\logic\setting\h5
  */
 class WebPageSettingLogic extends BaseLogic
 {

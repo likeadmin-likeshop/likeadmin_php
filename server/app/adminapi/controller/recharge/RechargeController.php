@@ -49,7 +49,7 @@ class RechargeController extends BaseAdminController
         $params = $this->request->post();
         $result = RechargeLogic::setConfig($params);
         if($result) {
-            return $this->success('设置成功');
+            return $this->success('操作成功', [], 1, 1);
         }
         return $this->fail(RechargeLogic::getError());
     }

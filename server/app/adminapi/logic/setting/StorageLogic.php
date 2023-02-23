@@ -23,7 +23,7 @@ use think\facade\Cache;
 /**
  * 存储设置逻辑层
  * Class ShopStorageLogic
- * @package app\adminapi\logic\settings\shop
+ * @package app\adminapi\logic\setting\
  */
 class StorageLogic extends BaseLogic
 {
