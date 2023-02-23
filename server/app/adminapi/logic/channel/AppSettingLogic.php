@@ -19,7 +19,7 @@ use app\common\service\ConfigService;
 /**
  * App设置逻辑层
  * Class AppSettingLogic
- * @package app\adminapi\logic\settings\app
+ * @package app\adminapi\logic\setting\app
  */
 class AppSettingLogic extends BaseLogic
 {

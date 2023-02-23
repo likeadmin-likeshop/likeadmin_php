@@ -20,7 +20,7 @@ use app\adminapi\logic\channel\AppSettingLogic;
 /**
  * APP设置控制器
  * Class AppSettingController
- * @package app\adminapi\controller\settings\app
+ * @package app\adminapi\controller\setting\app
  */
 class AppSettingController extends BaseAdminController
 {

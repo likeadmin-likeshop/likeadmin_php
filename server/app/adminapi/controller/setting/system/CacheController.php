@@ -20,7 +20,7 @@ use app\adminapi\logic\setting\system\CacheLogic;
 /**
  * 系统缓存
  * Class CacheController
- * @package app\adminapi\controller\settings\system
+ * @package app\adminapi\controller\setting\system
  */
 class CacheController extends BaseAdminController
 {

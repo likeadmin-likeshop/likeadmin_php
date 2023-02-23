@@ -21,7 +21,7 @@ use app\adminapi\validate\channel\OpenSettingValidate;
 /**
  * 微信开放平台
  * Class AppSettingController
- * @package app\adminapi\controller\settings\app
+ * @package app\adminapi\controller\setting\app
  */
 class OpenSettingController extends BaseAdminController
 {

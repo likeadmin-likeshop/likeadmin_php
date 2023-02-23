@@ -18,7 +18,7 @@ use app\common\validate\BaseValidate;
 /**
  * H5设置验证器
  * Class HFiveSettingValidate
- * @package app\adminapi\validate\settings\h5
+ * @package app\adminapi\validate\setting\h5
  */
 class WebPageSettingValidate extends BaseValidate
 {

@@ -19,7 +19,7 @@ use app\common\service\ConfigService;
 /**
  * 微信开放平台
  * Class AppSettingLogic
- * @package app\adminapi\logic\settings\app
+ * @package app\adminapi\logic\setting\app
  */
 class OpenSettingLogic extends BaseLogic
 {
