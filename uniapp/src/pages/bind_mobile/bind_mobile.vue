@@ -74,7 +74,9 @@ const handleConfirm = async () => {
     await userBindMobile(formData, { token: userStore.temToken })
     uni.$u.toast('绑定成功')
     userStore.login(userStore.temToken!)
-    uni.navigateBack()
+    setTimeout(() => {
+        uni.navigateBack()
+    }, 1500)
 }
 </script>
 
