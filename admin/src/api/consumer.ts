@@ -14,3 +14,8 @@ export function getUserDetail(params: any) {
 export function userEdit(params: any) {
     return request.post({ url: '/user.user/edit', params })
 }
+
+// 用户编辑
+export function adjustMoney(params: any) {
+    return request.post({ url: '/user.user/adjustMoney', params })
+}
