@@ -34,8 +34,8 @@
 </template>
 <script lang="ts" setup>
 import Popup from '@/components/popup/index.vue'
-import { ElMessage, type FormRules } from 'element-plus'
-import type { FormInstance } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
+import feedback from '@/utils/feedback'
 const formRef = shallowRef<FormInstance>()
 const props = defineProps({
     show: {
@@ -72,7 +72,7 @@ const formRules: FormRules = {
 }
 const numberValidate = (value: string) => {
     if (value.includes('-')) {
-        return ElMessage.error('请输入正整数')
+        return feedback.msgError('请输入正整数')
     }
     formData.num = value
 }
@@ -97,7 +97,7 @@ watch(
 )
 watch(adjustmentMoney, (val) => {
     if (val < 0) {
-        ElMessage.error('调整后余额需大于0')
+        feedback.msgError('调整后余额需大于0')
         formData.num = ''
     }
 })
