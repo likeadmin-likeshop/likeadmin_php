@@ -292,7 +292,7 @@ const loginHandle = async (data: any) => {
     uni.hideLoading()
     const pages = getCurrentPages()
     if (pages.length > 1) {
-        const prevPage = pages.at(-2)
+        const prevPage = pages[pages.length - 1]
         uni.navigateBack({
             success: () => {
                 // @ts-ignore
@@ -394,13 +394,16 @@ onLoad(async (options) => {
         uni.showLoading({
             title: '请稍后...'
         })
-        //用于清空code
 
         try {
             const data = await wechatOa.authLogin(code)
             loginHandle(data)
         } catch (error: any) {
             uni.hideLoading()
+            //用于清空code
+            uni.redirectTo({
+                url: '/pages/login/login'
+            })
             throw new Error(error)
         }
     }

@@ -28,3 +28,13 @@ export function mnpLogin(data: Record<string, any>) {
 export function updateUser(data: Record<string, any>, header: any) {
     return request.post({ url: '/login/updateUser', data, header })
 }
+
+//小程序绑定微信
+export function mnpAuthBind(data: Record<string, any>) {
+    return request.post({ url: '/login/mnpAuthBind', data })
+}
+
+//公众号绑定微信
+export function oaAuthBind(data: Record<string, any>) {
+    return request.post({ url: '/login/oaAuthBind', data })
+}

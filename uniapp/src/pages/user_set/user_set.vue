@@ -19,17 +19,15 @@
             <view class="">登录密码</view>
             <u-icon name="arrow-right" color="#666"></u-icon>
         </view>
-        <!-- #ifdef MP-WEIXIN || H5 -->
-        <view class="item bg-white flex flex-1 justify-between" v-if="isWeixin">
+        <view class="item bg-white flex flex-1 justify-between" @click="bindWechatLock">
             <view class="">绑定微信</view>
             <view class="flex justify-between">
                 <view class="text-muted mr-[20rpx]">
                     {{ userInfo.has_auth ? '已绑定' : '未绑定' }}
                 </view>
-                <!-- <u-icon name="arrow-right" color="#666"></u-icon> -->
+                <u-icon name="arrow-right" color="#666"></u-icon>
             </view>
         </view>
-        <!-- #endif -->
         <navigator :url="`/pages/agreement/agreement?type=${AgreementEnum.PRIVACY}`">
             <view class="item bg-white mt-[20rpx] btn-border flex flex-1 justify-between">
                 <view class="">隐私政策</view>
@@ -69,13 +67,17 @@
 
 <script setup lang="ts">
 import { getUserInfo } from '@/api/user'
-import { onShow } from '@dcloudio/uni-app'
+import { onLoad, onShow } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { AgreementEnum } from '@/enums/agreementEnums'
 import { isWeixinClient } from '@/utils/client'
-
+import { mnpAuthBind, oaAuthBind } from '@/api/account'
+import { useLockFn } from '@/hooks/useLockFn'
+// #ifdef H5
+import wechatOa from '@/utils/wechat'
+// #endif
 const appStore = useAppStore()
 const userStore = useUserStore()
 const userInfo = ref({
@@ -138,8 +140,53 @@ const logoutHandle = () => {
     })
 }
 
+const bindWechat = async () => {
+    if (userInfo.value.has_auth) return
+    try {
+        // #ifdef MP-WEIXIN
+        const { code }: any = await uni.login({
+            provider: 'weixin'
+        })
+        await mnpAuthBind({
+            code: code
+        })
+        //#endif
+        // #ifdef H5
+        if (isWeixin.value) {
+            wechatOa.getUrl()
+        }
+        // #endif
+        await getUser()
+    } catch (e) {
+        uni.$u.toast(e)
+    }
+}
+const { lockFn: bindWechatLock } = useLockFn(bindWechat)
+
 onShow(() => {
     getUser()
+})
+
+onLoad(async (options) => {
+    // #ifdef H5
+    const { code } = options
+    if (!isWeixin.value) return
+    if (code) {
+        uni.showLoading({
+            title: '请稍后...'
+        })
+        //用于清空code
+
+        try {
+            await oaAuthBind({ code })
+        } catch (error: any) {
+            uni.redirectTo({
+                url: '/pages/user_set/user_set'
+            })
+        }
+    }
+
+    // #endif
 })
 </script>
 
