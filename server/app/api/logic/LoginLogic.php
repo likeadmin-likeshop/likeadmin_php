@@ -321,7 +321,7 @@ class LoginLogic extends BaseLogic
         //先检查openid是否有记录
         $isAuth = UserAuth::where('openid', '=', $response['openid'])->findOrEmpty();
         if (!$isAuth->isEmpty()) {
-            throw new \Exception('该微信已经绑定，请切换微信授权登录');
+            throw new \Exception('该微信已经绑定');
         }
 
         if (isset($response['unionid']) && !empty($response['unionid'])) {
@@ -329,7 +329,7 @@ class LoginLogic extends BaseLogic
             $userAuth = UserAuth::where(['unionid' => $response['unionid']])
                 ->findOrEmpty();
             if (!$userAuth->isEmpty() && $userAuth->user_id != $response['user_id']) {
-                throw new \Exception('该微信已经绑定，请切换微信授权登录');
+                throw new \Exception('该微信已经绑定');
             }
         }
 
