@@ -16,6 +16,7 @@ namespace app\adminapi\controller\user;
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\user\UserLists;
 use app\adminapi\logic\user\UserLogic;
+use app\adminapi\validate\user\AdjustUserMoney;
 use app\adminapi\validate\user\UserValidate;
 
 /**
@@ -63,6 +64,23 @@ class UserController extends BaseAdminController
         $params = (new UserValidate())->post()->goCheck('setInfo');
         UserLogic::setUserInfo($params);
         return $this->success('操作成功', [], 1, 1);
+    }
+
+
+    /**
+     * @notes 调整用户余额
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2023/2/23 14:33
+     */
+    public function adjustMoney()
+    {
+        $params = (new AdjustUserMoney())->post()->goCheck();
+        $res = UserLogic::adjustUserMoney($params);
+        if (true === $res) {
+            return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail($res);
     }
 
 }

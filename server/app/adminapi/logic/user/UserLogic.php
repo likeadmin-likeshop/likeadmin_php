@@ -13,9 +13,12 @@
 // +----------------------------------------------------------------------
 namespace app\adminapi\logic\user;
 
+use app\common\enum\user\AccountLogEnum;
 use app\common\enum\user\UserTerminalEnum;
+use app\common\logic\AccountLogLogic;
 use app\common\logic\BaseLogic;
 use app\common\model\user\User;
+use think\facade\Db;
 
 /**
  * 用户逻辑层
@@ -61,6 +64,55 @@ class UserLogic extends BaseLogic
             'id' => $params['id'],
             $params['field'] => $params['value']
         ]);
+    }
+
+
+    /**
+     * @notes 调整用户余额
+     * @param array $params
+     * @return bool|string
+     * @author 段誉
+     * @date 2023/2/23 14:25
+     */
+    public static function adjustUserMoney(array $params)
+    {
+        Db::startTrans();
+        try {
+            $user = User::find($params['user_id']);
+            if (AccountLogEnum::INC == $params['action']) {
+                //调整可用余额
+                $user->user_money += $params['num'];
+                $user->save();
+                //记录日志
+                AccountLogLogic::add(
+                    $user->id,
+                    AccountLogEnum::UM_INC_ADMIN,
+                    AccountLogEnum::INC,
+                    $params['num'],
+                    '',
+                    $params['remark'] ?? ''
+                );
+            } else {
+                $user->user_money -= $params['num'];
+                $user->save();
+                //记录日志
+                AccountLogLogic::add(
+                    $user->id,
+                    AccountLogEnum::UM_DEC_ADMIN,
+                    AccountLogEnum::DEC,
+                    $params['num'],
+                    '',
+                    $params['remark'] ?? ''
+                );
+            }
+
+            Db::commit();
+            return true;
+
+        } catch (\Exception $e) {
+            Db::rollback();
+            return $e->getMessage();
+        }
     }
 
 }

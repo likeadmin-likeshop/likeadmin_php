@@ -249,3 +249,32 @@ function get_no_prefix_table_name($tableName)
     $tableName = substr_replace($tableName, '', 0, strlen($tablePrefix));
     return trim($tableName);
 }
+
+
+/**
+ * @notes 生成编码
+ * @param $table
+ * @param $field
+ * @param string $prefix
+ * @param int $randSuffixLength
+ * @param array $pool
+ * @return string
+ * @author 段誉
+ * @date 2023/2/23 11:35
+ */
+function generate_sn($table, $field, $prefix = '', $randSuffixLength = 4, $pool = []) : string
+{
+    $suffix = '';
+    for ($i = 0; $i < $randSuffixLength; $i++) {
+        if (empty($pool)) {
+            $suffix .= rand(0, 9);
+        } else {
+            $suffix .= $pool[array_rand($pool)];
+        }
+    }
+    $sn = $prefix . date('YmdHis') . $suffix;
+    if (app()->make($table)->where($field, $sn)->find()) {
+        return generate_sn($table, $field, $prefix, $randSuffixLength, $pool);
+    }
+    return $sn;
+}
