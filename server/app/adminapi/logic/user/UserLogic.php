@@ -39,7 +39,8 @@ class UserLogic extends BaseLogic
     {
         $field = [
             'id', 'sn', 'account', 'nickname', 'avatar', 'real_name',
-            'sex', 'mobile', 'create_time', 'login_time', 'channel'
+            'sex', 'mobile', 'create_time', 'login_time', 'channel',
+            'user_money',
         ];
 
         $user = User::where(['id' => $userId])->field($field)
