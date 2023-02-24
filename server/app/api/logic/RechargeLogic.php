@@ -17,6 +17,8 @@ namespace app\api\logic;
 use app\common\enum\PayEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\recharge\RechargeOrder;
+use app\common\model\user\User;
+use app\common\service\ConfigService;
 
 
 /**
@@ -58,6 +60,25 @@ class RechargeLogic extends BaseLogic
     }
 
 
+    /**
+     * @notes 充值配置
+     * @param $userId
+     * @return array
+     * @author 段誉
+     * @date 2023/2/24 16:56
+     */
+    public static function config($userId)
+    {
+        $userMoney = User::where(['id' => $userId])->value('user_money');
+        $minAmount = ConfigService::get('recharge', 'min_amount', 0);
+        $status = ConfigService::get('recharge', 'status', 0);
+
+        return [
+            'status' => $status,
+            'min_amount' => $minAmount,
+            'user_money' => $userMoney,
+        ];
+    }
 
 
 

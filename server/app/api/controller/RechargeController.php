@@ -58,4 +58,16 @@ class RechargeController extends BaseApiController
     }
 
 
+    /**
+     * @notes 充值配置
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2023/2/24 16:56
+     */
+    public function config()
+    {
+        return $this->data(RechargeLogic::config($this->userId));
+    }
+
+
 }
