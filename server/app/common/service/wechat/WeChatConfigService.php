@@ -30,7 +30,7 @@ class WeChatConfigService
      */
     public static function getMnpConfig()
     {
-        $config = [
+        return [
             'app_id' => ConfigService::get('mnp_setting', 'app_id'),
             'secret' => ConfigService::get('mnp_setting', 'app_secret'),
             'mch_id' => ConfigService::get('mnp_setting', 'mch_id'),
@@ -38,10 +38,9 @@ class WeChatConfigService
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => '../runtime/log/wechat.log'
+                'file' => app()->getRootPath() . '/runtime/log/wechat/' . date('Ymd') . '.log'
             ],
         ];
-        return $config;
     }
 
 
@@ -53,7 +52,7 @@ class WeChatConfigService
      */
     public static function getOaConfig()
     {
-        $config = [
+        return [
             'app_id' => ConfigService::get('oa_setting', 'app_id'),
             'secret' => ConfigService::get('oa_setting', 'app_secret'),
             'mch_id' => ConfigService::get('oa_setting', 'mch_id'),
@@ -62,10 +61,9 @@ class WeChatConfigService
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => '../runtime/log/wechat.log'
+                'file' => app()->getRootPath() . '/runtime/log/wechat/' . date('Ymd') . '.log'
             ],
         ];
-        return $config;
     }
 
 
@@ -77,16 +75,15 @@ class WeChatConfigService
      */
     public static function getOpConfig()
     {
-        $config = [
+        return [
             'app_id' => ConfigService::get('open_platform', 'app_id'),
             'secret' => ConfigService::get('open_platform', 'app_secret'),
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => '../runtime/log/wechat.log'
+                'file' => app()->getRootPath() . '/runtime/log/wechat/' . date('Ymd') . '.log'
             ],
         ];
-        return $config;
     }
 
 }
