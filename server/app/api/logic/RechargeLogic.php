@@ -44,7 +44,6 @@ class RechargeLogic extends BaseLogic
                 'terminal' => $params['terminal'],
                 'user_id' => $params['user_id'],
                 'pay_status' => PayEnum::UNPAID,
-                'pay_way' => $params['pay_way'],
                 'order_amount' => $params['money'],
             ];
             $order = RechargeOrder::create($data);
