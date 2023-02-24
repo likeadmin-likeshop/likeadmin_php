@@ -26,7 +26,12 @@
                     <el-table-column label="操作" min-width="150">
                         <!-- 操作 -->
                         <template #default="{ row }">
-                            <el-button link type="primary" @click="handleEdit(row)">
+                            <el-button
+                                v-perms="['setting.pay.pay_config/setConfig']"
+                                link
+                                type="primary"
+                                @click="handleEdit(row)"
+                            >
                                 配置
                             </el-button>
                         </template>
