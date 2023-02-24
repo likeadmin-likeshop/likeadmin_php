@@ -46,7 +46,7 @@ class UserLogic extends BaseLogic
     public static function center(int $userId): array
     {
         $user = User::where(['id' => $userId])
-            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time,is_new_user')
+            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time,is_new_user,user_money')
             ->findOrEmpty()->toArray();
         return $user;
     }
@@ -62,7 +62,7 @@ class UserLogic extends BaseLogic
     public static function info(int $userId)
     {
         $user = User::where(['id' => $userId])
-            ->field('id,sn,sex,account,password,nickname,real_name,avatar,mobile,create_time')
+            ->field('id,sn,sex,account,password,nickname,real_name,avatar,mobile,create_time,user_money')
             ->findOrEmpty();
         $user['has_password'] = !empty($user['password']);
         $user['has_auth'] = self::hasWechatAuth($userId);
