@@ -15,6 +15,7 @@
 namespace app\adminapi\controller\recharge;
 
 use app\adminapi\controller\BaseAdminController;
+use app\adminapi\lists\recharge\RechargeLists;
 use app\adminapi\logic\recharge\RechargeLogic;
 
 /**
@@ -53,4 +54,17 @@ class RechargeController extends BaseAdminController
         }
         return $this->fail(RechargeLogic::getError());
     }
+
+
+    /**
+     * @notes 充值记录
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2023/2/24 16:01
+     */
+    public function lists()
+    {
+        return $this->dataLists(new RechargeLists());
+    }
+
 }

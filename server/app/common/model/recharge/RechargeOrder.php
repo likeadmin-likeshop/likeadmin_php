@@ -37,9 +37,9 @@ class RechargeOrder extends BaseModel
      * @author 段誉
      * @date 2023/2/23 18:32
      */
-    public function getPayWayAttr($value)
+    public function getPayWayTextAttr($value, $data)
     {
-        return PayEnum::getPayDesc($value);
+        return PayEnum::getPayDesc($data['pay_way']);
     }
 
 
@@ -50,8 +50,8 @@ class RechargeOrder extends BaseModel
      * @author 段誉
      * @date 2023/2/23 18:32
      */
-    public function getPayStatusAttr($value)
+    public function getPayStatusTextAttr($value, $data)
     {
-        return PayEnum::getPayStatusDesc($value);
+        return PayEnum::getPayStatusDesc($data['pay_status']);
     }
 }

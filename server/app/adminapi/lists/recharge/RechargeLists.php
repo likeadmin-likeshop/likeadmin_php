@@ -12,33 +12,63 @@
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
 
-namespace app\adminapi\lists\finance;
+namespace app\adminapi\lists\recharge;
 
 use app\adminapi\lists\BaseAdminDataLists;
-use app\common\enum\user\AccountLogEnum;
+use app\common\lists\ListsExcelInterface;
 use app\common\lists\ListsSearchInterface;
-use app\common\model\user\UserAccountLog;
+use app\common\model\recharge\RechargeOrder;
 use app\common\service\FileService;
 
-
 /**
- * 账记流水列表
- * Class AccountLogLists
- * @package app\adminapi\lists\finance
+ * 充值记录列表
+ * Class RecharLists
+ * @package app\adminapi\lists
  */
-class AccountLogLists extends BaseAdminDataLists implements ListsSearchInterface
+class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, ListsExcelInterface
 {
+    /**
+     * @notes 导出字段
+     * @return string[]
+     * @author 段誉
+     * @date 2023/2/24 16:07
+     */
+    public function setExcelFields(): array
+    {
+        return [
+            'sn' => '充值单号',
+            'nickname' => '用户昵称',
+            'order_amount' => '充值金额',
+            'pay_way' => '支付方式',
+            'pay_status' => '支付状态',
+            'pay_time' => '支付时间',
+            'create_time' => '下单时间',
+        ];
+    }
+
+
+    /**
+     * @notes 导出表名
+     * @return string
+     * @author 段誉
+     * @date 2023/2/24 16:07
+     */
+    public function setFileName(): string
+    {
+        return '充值记录';
+    }
+
 
     /**
      * @notes 搜索条件
-     * @return array
+     * @return \string[][]
      * @author 段誉
-     * @date 2023/2/24 15:26
+     * @date 2023/2/24 16:08
      */
     public function setSearch(): array
     {
         return [
-            '=' => ['al.change_type'],
+            '=' => ['ro.sn', 'ro.pay_way', 'ro.pay_status'],
         ];
     }
 
@@ -46,26 +76,19 @@ class AccountLogLists extends BaseAdminDataLists implements ListsSearchInterface
     /**
      * @notes 搜索条件
      * @author 段誉
-     * @date 2023/2/24 15:26
+     * @date 2023/2/24 16:08
      */
     public function queryWhere()
     {
         $where = [];
-        // 用户余额
-        if (isset($this->params['type']) && $this->params['type'] == 'um') {
-            $where[] = ['change_type', 'in', AccountLogEnum::getUserMoneyChangeType()];
-        }
-
+        // 用户编号
         if (!empty($this->params['user_info'])) {
             $where[] = ['u.sn|u.nickname|u.mobile', 'like', '%' . $this->params['user_info'] . '%'];
         }
 
-        if (!empty($this->params['start_time'])) {
-            $where[] = ['al.create_time', '>=', strtotime($this->params['start_time'])];
-        }
-
-        if (!empty($this->params['end_time'])) {
-            $where[] = ['al.create_time', '<=', strtotime($this->params['end_time'])];
+        // 下单时间
+        if (!empty($this->params['start_time']) && !empty($this->params['end_time'])) {
+            $where[] = ['ro.create_time', 'between', [$this->params['start_time'], $this->params['end_time']]];
         }
 
         return $where;
@@ -76,26 +99,26 @@ class AccountLogLists extends BaseAdminDataLists implements ListsSearchInterface
      * @notes 获取列表
      * @return array
      * @author 段誉
-     * @date 2023/2/24 15:31
+     * @date 2023/2/24 16:13
      */
     public function lists(): array
     {
-        $field = 'u.nickname,u.sn,u.avatar,u.mobile,al.action,al.change_amount,al.left_amount,al.change_type,al.source_sn,al.create_time';
-        $lists = UserAccountLog::alias('al')
-            ->join('user u', 'u.id = al.user_id')
+        $field = 'ro.sn,ro.order_amount,ro.pay_way,ro.pay_time,ro.pay_status,ro.create_time,ro.refund_status';
+        $field .= ',u.avatar,u.nickname';
+        $lists = RechargeOrder::alias('ro')
+            ->join('user u', 'u.id = ro.user_id')
             ->field($field)
-            ->where($this->searchWhere)
             ->where($this->queryWhere())
-            ->order('al.id', 'desc')
+            ->where($this->searchWhere)
+            ->order('ro.id', 'desc')
             ->limit($this->limitOffset, $this->limitLength)
+            ->append(['pay_status_text', 'pay_way_text'])
             ->select()
             ->toArray();
 
         foreach ($lists as &$item) {
             $item['avatar'] = FileService::getFileUrl($item['avatar']);
-            $item['change_type_desc'] = AccountLogEnum::getChangeTypeDesc($item['change_type']);
-            $symbol = $item['action'] == AccountLogEnum::INC ? '+' : '-';
-            $item['change_amount'] = $symbol . $item['change_amount'];
+            $item['pay_time'] = empty($item['pay_time']) ? '' : date('Y-m-d H:i:s', $item['pay_time']);
         }
 
         return $lists;
@@ -106,14 +129,16 @@ class AccountLogLists extends BaseAdminDataLists implements ListsSearchInterface
      * @notes 获取数量
      * @return int
      * @author 段誉
-     * @date 2023/2/24 15:36
+     * @date 2023/2/24 16:13
      */
     public function count(): int
     {
-        return UserAccountLog::alias('al')
-            ->join('user u', 'u.id = al.user_id')
+        return RechargeOrder::alias('ro')
+            ->join('user u', 'u.id = ro.user_id')
             ->where($this->queryWhere())
             ->where($this->searchWhere)
             ->count();
     }
+
+
 }
