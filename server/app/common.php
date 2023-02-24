@@ -278,3 +278,21 @@ function generate_sn($table, $field, $prefix = '', $randSuffixLength = 4, $pool 
     }
     return $sn;
 }
+
+
+/**
+ * @notes 格式化金额
+ * @param $float
+ * @return int|mixed|string
+ * @author 段誉
+ * @date 2023/2/24 11:20
+ */
+function format_amount($float)
+{
+    if ($float == intval($float)) {
+        return intval($float);
+    } elseif ($float == sprintf('%.1f', $float)) {
+        return sprintf('%.1f', $float);
+    }
+    return $float;
+}

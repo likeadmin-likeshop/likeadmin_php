@@ -37,7 +37,7 @@ class RechargeLists extends BaseApiDataLists
      */
     public function lists(): array
     {
-        $lists = RechargeOrder::field('order_amount,award,create_time')
+        $lists = RechargeOrder::field('order_amount,create_time')
             ->where([
                 'user_id' => $this->userId,
                 'pay_status' => PayEnum::ISPAID
@@ -47,7 +47,7 @@ class RechargeLists extends BaseApiDataLists
             ->toArray();
 
         foreach($lists as &$item) {
-            $item['tips'] = $this->getTips($item);
+            $item['tips'] = '充值' . format_amount($item['order_amount']) . '元';
         }
 
         return $lists;
@@ -69,23 +69,4 @@ class RechargeLists extends BaseApiDataLists
             ->count();
     }
 
-
-    /**
-     * @notes 获取充值赠送提示语
-     * @param $item
-     * @return string
-     * @author Tab
-     * @date 2021/8/11 10:13
-     */
-    public function getTips(&$item)
-    {
-        if(empty($item['award']) || !is_array($item['award'])) {
-            return '充值' . $item['order_amount'] . '元';
-        }
-        foreach($item['award'] as $subItem) {
-            $tips = isset($subItem['give_money']) && $subItem['give_money'] > 0 ? '充' . $item['order_amount'] . '送' . $subItem['give_money'] . '元' : '';
-            $item['order_amount'] += $subItem['give_money'];
-            return $tips;
-        }
-    }
 }
