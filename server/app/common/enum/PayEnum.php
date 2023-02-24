@@ -35,12 +35,6 @@ class PayEnum
     const ISPAID = 1; //已支付
 
 
-    //退款状态
-    const NOT_REFUND = 0;//未退款
-    const REFUND_ING = 1;//退款中
-    const REFUND_SUCCESS = 1;//退款成功
-    const REFUND_ERROR = 1;//退款失败
-
 
     //支付场景
     const SCENE_H5 = 1;//H5
@@ -48,7 +42,6 @@ class PayEnum
     const SCENE_MNP = 3;//微信小程序
     const SCENE_APP = 4;//APP
     const SCENE_PC = 5;//PC商城
-    const SCENE_BYTE = 7;//字节小程序
 
 
     /**
