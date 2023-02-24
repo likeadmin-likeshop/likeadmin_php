@@ -32,14 +32,14 @@ class AccountLogLogic extends BaseLogic
      * @param $changeType
      * @param $action
      * @param $changeAmount
-     * @param string $associationSn
+     * @param string $sourceSn
      * @param string $remark
      * @param array $extra
      * @return UserAccountLog|false|\think\Model
      * @author 段誉
      * @date 2023/2/23 12:03
      */
-    public static function add($userId, $changeType, $action, $changeAmount, string $associationSn = '', string $remark = '',  array $extra = [])
+    public static function add($userId, $changeType, $action, $changeAmount, string $sourceSn = '', string $remark = '',  array $extra = [])
     {
         $user = User::findOrEmpty($userId);
         if($user->isEmpty()) {
@@ -67,7 +67,7 @@ class AccountLogLogic extends BaseLogic
             'action' => $action,
             'left_amount' => $left_amount,
             'change_amount' => $changeAmount,
-            'association_sn' => $associationSn,
+            'source_sn' => $sourceSn,
             'remark' => $remark,
             'extra' => $extra ? json_encode($extra, JSON_UNESCAPED_UNICODE) : '',
         ];
