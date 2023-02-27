@@ -1,0 +1,7 @@
+.VPContent,
+.VPContent .VPContentPage,
+.VPContent .VPContentPage main,
+.VPContent .VPContentPage main > div,
+.VPContent .VPContentPage main > div > div {
+  @apply flex-1 flex flex-col;
+}

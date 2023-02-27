@@ -25,7 +25,6 @@
         "topthink/think-orm": "^2.0",
         "topthink/think-multi-app": "^1.0",
         "topthink/think-view": "^1.0",
-        "overtrue/wechat": "~5.0",
         "dragonmantank/cron-expression": "^3.3",
         "phpoffice/phpspreadsheet": "^1.22",
         "qiniu/php-sdk": "7.4",
@@ -33,7 +32,8 @@
         "aliyuncs/oss-sdk-php": "^2.4",
         "tencentcloud/tencentcloud-sdk-php": "^3.0",
         "alibabacloud/client": "^1.5",
-        "rmccue/requests": "^2.0"
+        "rmccue/requests": "^2.0",
+        "w7corp/easywechat": "^6.8"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
