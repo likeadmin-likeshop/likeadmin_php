@@ -27,13 +27,11 @@ class RechargeValidate extends BaseValidate
 {
 
     protected $rule = [
-        'pay_way' => 'require|checkPayWay',
         'money' => 'require|gt:0|checkMoney',
     ];
 
 
     protected $message = [
-        'pay_way.require' => '请选择支付方式',
         'money.require' => '请填写充值金额',
         'money.gt' => '请填写大于0的充值金额',
     ];
@@ -41,32 +39,9 @@ class RechargeValidate extends BaseValidate
 
     public function sceneRecharge()
     {
-        return $this->only(['pay_way', 'money']);
+        return $this->only(['money']);
     }
 
-
-    /**
-     * @notes 校验充值及支付方式
-     * @param $payWay
-     * @param $rule
-     * @param $data
-     * @return bool|string
-     * @author 段誉
-     * @date 2023/2/24 10:39
-     */
-    protected function checkPayWay($payWay, $rule, $data)
-    {
-        $status = ConfigService::get('recharge', 'status', 0);
-        if (!$status) {
-            return '充值功能已关闭';
-        }
-
-        if (!in_array($payWay, [PayEnum::WECHAT_PAY, PayEnum::ALI_PAY])) {
-            return '暂不支持当前支付方式';
-        }
-
-        return true;
-    }
 
 
     /**
@@ -80,6 +55,11 @@ class RechargeValidate extends BaseValidate
      */
     protected function checkMoney($money, $rule, $data)
     {
+        $status = ConfigService::get('recharge', 'status', 0);
+        if (!$status) {
+            return '充值功能已关闭';
+        }
+
         $minAmount = ConfigService::get('recharge', 'min_amount', 0);
 
         if ($money < $minAmount) {

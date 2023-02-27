@@ -17,7 +17,7 @@ namespace app\adminapi\logic\channel;
 use app\common\enum\OfficialAccountEnum;
 use app\common\logic\BaseLogic;
 use app\common\service\ConfigService;
-use EasyWeChat\Factory;
+use app\common\service\wechat\WeChatOaService;
 
 /**
  * 微信公众号菜单逻辑层
@@ -180,18 +180,7 @@ class OfficialAccountMenuLogic extends BaseLogic
         try {
             self::checkMenu($params);
 
-            $officialAccountSetting = (new OfficialAccountSettingLogic())->getConfig();
-            if (empty($officialAccountSetting['app_id']) || empty($officialAccountSetting['app_secret'])) {
-                throw new \Exception('请先配置好微信公众号');
-            }
-
-            $app = Factory::officialAccount([
-                'app_id' => $officialAccountSetting['app_id'],
-                'secret' => $officialAccountSetting['app_secret'],
-                'response_type' => 'array',
-            ]);
-
-            $result = $app->menu->create($params);
+            $result = (new WeChatOaService())->createMenu($params);
             if ($result['errcode'] == 0) {
                 ConfigService::set('oa_setting', 'menu', $params);
                 return true;

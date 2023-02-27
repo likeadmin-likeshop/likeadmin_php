@@ -103,8 +103,8 @@ class AccountLogEnum
     public static function getChangeTypeDesc($changeType, $flag = false)
     {
         $desc = [
-            self::UM_DEC_ADMIN => '管理员减少余额',
-            self::UM_INC_ADMIN => '管理员增加余额',
+            self::UM_DEC_ADMIN => '平台减少余额',
+            self::UM_INC_ADMIN => '平台增加余额',
             self::UM_INC_RECHARGE => '充值增加余额',
         ];
         if ($flag) {

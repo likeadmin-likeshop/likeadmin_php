@@ -14,15 +14,14 @@
 
 namespace app\api\logic;
 
-use EasyWeChat\Factory;
+
 use app\common\{enum\notice\NoticeEnum,
     enum\user\UserTerminalEnum,
     logic\BaseLogic,
     model\user\User,
     model\user\UserAuth,
     service\sms\SmsDriver,
-    service\wechat\WeChatConfigService
-};
+    service\wechat\WeChatMnpService};
 use think\facade\Config;
 
 /**
@@ -46,7 +45,7 @@ class UserLogic extends BaseLogic
     public static function center(int $userId): array
     {
         $user = User::where(['id' => $userId])
-            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time,is_new_user')
+            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time,is_new_user,user_money')
             ->findOrEmpty()->toArray();
         return $user;
     }
@@ -62,7 +61,7 @@ class UserLogic extends BaseLogic
     public static function info(int $userId)
     {
         $user = User::where(['id' => $userId])
-            ->field('id,sn,sex,account,password,nickname,real_name,avatar,mobile,create_time')
+            ->field('id,sn,sex,account,password,nickname,real_name,avatar,mobile,create_time,user_money')
             ->findOrEmpty();
         $user['has_password'] = !empty($user['password']);
         $user['has_auth'] = self::hasWechatAuth($userId);
@@ -189,19 +188,16 @@ class UserLogic extends BaseLogic
 
     /**
      * @notes 获取小程序手机号
-     * @param $params
+     * @param array $params
      * @return bool
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      * @author 段誉
-     * @date 2022/9/21 16:46
+     * @date 2023/2/27 11:49
      */
     public static function getMobileByMnp(array $params)
     {
         try {
-            $getMnpConfig = WeChatConfigService::getMnpConfig();
-            $app = Factory::miniProgram($getMnpConfig);
-            $response = $app->phone_number->getUserPhoneNumber($params['code']);
-
+            $response = (new WeChatMnpService())->getUserPhoneNumber($params['code']);
             $phoneNumber = $response['phone_info']['purePhoneNumber'] ?? '';
             if (empty($phoneNumber)) {
                 throw new \Exception('获取手机号码失败');
