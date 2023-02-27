@@ -14,14 +14,13 @@
 
 namespace app\api\logic;
 
-use EasyWeChat\Factory;
+
 use app\common\{enum\notice\NoticeEnum,
     enum\user\UserTerminalEnum,
     logic\BaseLogic,
     model\user\User,
     model\user\UserAuth,
     service\sms\SmsDriver,
-    service\wechat\WeChatConfigService,
     service\wechat\WeChatMnpService};
 use think\facade\Config;
 

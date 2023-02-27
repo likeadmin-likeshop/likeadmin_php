@@ -19,8 +19,8 @@ use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\channel\OfficialAccountReply;
 use app\common\service\wechat\WeChatOaService;
-use EasyWeChat\Factory;
-use EasyWeChat\Kernel\Messages\Text;
+
+
 
 /**
  * 微信公众号回复逻辑层

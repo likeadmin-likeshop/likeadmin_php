@@ -17,10 +17,7 @@ namespace app\adminapi\logic\channel;
 use app\common\enum\OfficialAccountEnum;
 use app\common\logic\BaseLogic;
 use app\common\service\ConfigService;
-use app\common\service\wechat\WeChatConfigService;
-use app\common\service\wechat\WeChatMnpService;
 use app\common\service\wechat\WeChatOaService;
-use EasyWeChat\Factory;
 
 /**
  * 微信公众号菜单逻辑层
