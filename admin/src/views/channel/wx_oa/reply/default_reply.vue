@@ -72,7 +72,7 @@ const getContentType = computed(() => {
 const { pager, getLists } = usePaging({
     fetchFun: getOaReplyList,
     params: {
-        reply_type: 1
+        reply_type: 3
     }
 })
 
