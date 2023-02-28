@@ -341,8 +341,6 @@ class WeChatPayService extends BasePayService
         $server = $this->app->getServer();
         // 支付通知
         $server->handlePaid(function (Message $message) {
-            Cache::set("wechat-pay", json_encode($message,JSON_UNESCAPED_UNICODE));
-            Log::record('支付参数--'. json_encode($message,JSON_UNESCAPED_UNICODE));
             if ($message['trade_state'] === 'SUCCESS') {
                 $extra['transaction_id'] = $message['transaction_id'];
                 $attach = $message['attach'];
