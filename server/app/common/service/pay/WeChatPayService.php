@@ -24,6 +24,7 @@ use app\common\model\user\UserAuth;
 use app\common\service\wechat\WeChatConfigService;
 use EasyWeChat\Pay\Application;
 use EasyWeChat\Pay\Message;
+use think\facade\Cache;
 
 
 /**
@@ -339,6 +340,7 @@ class WeChatPayService extends BasePayService
         $server = $this->app->getServer();
         // 支付通知
         $server->handlePaid(function (Message $message, \Closure $next) {
+            Cache::set("wechat-pay", json_encode($message,JSON_UNESCAPED_UNICODE));
             if ($message['trade_state'] === 'SUCCESS') {
                 $extra['transaction_id'] = $message['transaction_id'];
                 $attach = $message['attach'];
@@ -367,7 +369,6 @@ class WeChatPayService extends BasePayService
             // $message->payer['openid'] 获取支付者 openid
             return $next($message);
         });
-
         return $server->serve();
     }
 
