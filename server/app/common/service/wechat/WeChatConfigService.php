@@ -40,7 +40,7 @@ class WeChatConfigService
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => app()->getRootPath() . 'runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
+                'file' => app()->getRootPath() . 'runtime/wechat/' . date('Ym') . '/' . date('d') . '.log'
             ],
         ];
     }
@@ -61,7 +61,7 @@ class WeChatConfigService
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => app()->getRootPath() . 'runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
+                'file' => app()->getRootPath() . 'runtime/wechat/' . date('Ym') . '/' . date('d') . '.log'
             ],
         ];
     }
@@ -81,7 +81,7 @@ class WeChatConfigService
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => app()->getRootPath() . 'runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
+                'file' => app()->getRootPath() . 'runtime/wechat/' . date('Ym') . '/' . date('d') . '.log'
             ],
         ];
     }
