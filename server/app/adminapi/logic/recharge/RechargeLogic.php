@@ -145,4 +145,39 @@ class RechargeLogic extends BaseLogic
     }
 
 
+    /**
+     * @notes 重新退款
+     * @param $params
+     * @param $adminId
+     * @return false|string
+     * @author 段誉
+     * @date 2023/2/28 19:16
+     */
+    public static function refundAgain($params, $adminId)
+    {
+        Db::startTrans();
+        try {
+            $record = RefundRecord::findOrEmpty($params['record_id']);
+            if ($record->isEmpty()) {
+                throw new \Exception('退款记录不存在');
+            }
+
+            $order = RechargeOrder::findOrEmpty($record['order_id']);
+
+            // 退款
+            $result = RefundLogic::refund($order, $record['id'], $order['order_amount'], $adminId);
+            $resultMsg = '操作成功';
+            if ($result !== true) {
+                $resultMsg = RefundLogic::getError();
+            }
+
+            Db::commit();
+            return $resultMsg;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::$error = $e->getMessage();
+            return false;
+        }
+    }
+
 }

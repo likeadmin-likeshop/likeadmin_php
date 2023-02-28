@@ -85,4 +85,21 @@ class RechargeController extends BaseAdminController
         return $this->success($result, [], 1, 1);
     }
 
+
+    /**
+     * @notes 重新退款
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2023/2/28 19:17
+     */
+    public function refundAgain()
+    {
+        $params = (new RechargeRefundValidate())->post()->goCheck('refund');
+        $result = RechargeLogic::refundAgain($params, $this->adminId);
+        if(false === $result) {
+            return $this->fail(RechargeLogic::getError());
+        }
+        return $this->success($result, [], 1, 1);
+    }
+
 }

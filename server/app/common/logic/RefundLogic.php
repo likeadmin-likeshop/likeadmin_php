@@ -110,7 +110,7 @@ class RefundLogic extends BaseLogic
             'transaction_id' => $order['transaction_id'],
             'refund_sn' => self::$refundLog['sn'],
             'refund_amount' => $refundAmount,// 退款金额
-            'total_amount' => $order['order_terminal'],// 订单金额
+            'total_amount' => $order['order_amount'],// 订单金额
         ]);
     }
 

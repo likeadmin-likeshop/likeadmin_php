@@ -263,7 +263,7 @@ class WeChatPayService extends BasePayService
     public function refund(array $refundData)
     {
         $response =  $this->app->getClient()->postJson('v3/refund/domestic/refunds', [
-            'out_trade_no' => $refundData['transaction_id'],
+            'transaction_id' => $refundData['transaction_id'],
             'out_refund_no' => $refundData['refund_sn'],
             'amount' => [
                 'refund' => intval($refundData['refund_amount'] * 100),
@@ -271,7 +271,6 @@ class WeChatPayService extends BasePayService
                 'currency' => 'CNY',
             ]
         ]);
-
         $result = $response->toArray(false);
         $this->checkResultFail($result);
         return $result;
