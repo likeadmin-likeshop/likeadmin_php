@@ -17,6 +17,7 @@ namespace app\adminapi\controller\recharge;
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\recharge\RechargeLists;
 use app\adminapi\logic\recharge\RechargeLogic;
+use app\adminapi\validate\recharge\RechargeRefundValidate;
 
 /**
  * 充值控制器
@@ -65,6 +66,23 @@ class RechargeController extends BaseAdminController
     public function lists()
     {
         return $this->dataLists(new RechargeLists());
+    }
+
+
+    /**
+     * @notes 退款
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2023/2/28 17:29
+     */
+    public function refund()
+    {
+        $params = (new RechargeRefundValidate())->post()->goCheck('refund');
+        $result = RechargeLogic::refund($params, $this->adminId);
+        if(false === $result) {
+            return $this->fail(RechargeLogic::getError());
+        }
+        return $this->success($result, [], 1, 1);
     }
 
 }

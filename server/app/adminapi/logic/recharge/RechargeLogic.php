@@ -15,8 +15,18 @@
 namespace app\adminapi\logic\recharge;
 
 
+use app\common\enum\PayEnum;
+use app\common\enum\RefundEnum;
+use app\common\enum\user\AccountLogEnum;
+use app\common\enum\YesNoEnum;
+use app\common\logic\AccountLogLogic;
 use app\common\logic\BaseLogic;
+use app\common\logic\RefundLogic;
+use app\common\model\recharge\RechargeOrder;
+use app\common\model\refund\RefundRecord;
+use app\common\model\user\User;
 use app\common\service\ConfigService;
+use think\facade\Db;
 
 
 /**
@@ -54,20 +64,85 @@ class RechargeLogic extends BaseLogic
     public static function setConfig($params)
     {
         try {
-            if(isset($params['status'])) {
+            if (isset($params['status'])) {
                 ConfigService::set('recharge', 'status', $params['status']);
             }
-            if(isset($params['min_amount'])) {
+            if (isset($params['min_amount'])) {
                 ConfigService::set('recharge', 'min_amount', $params['min_amount']);
             }
             return true;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             self::setError($e->getMessage());
             return false;
         }
     }
 
 
+    /**
+     * @notes 退款
+     * @param $params
+     * @param $adminId
+     * @return bool
+     * @author 段誉
+     * @date 2023/2/28 17:02
+     */
+    public static function refund($params, $adminId)
+    {
+        Db::startTrans();
+        try {
+            $order = RechargeOrder::findOrEmpty($params['id']);
+
+            // 更新订单信息, 标记已发起退款状态,具体退款成功看退款日志
+            RechargeOrder::update([
+                'id' => $order['id'],
+                'refund_status' => YesNoEnum::YES,
+            ]);
+
+            // 更新用户余额及累计充值金额
+            User::where(['id' => $order['user_id']])
+                ->dec('total_recharge_amount', $order['order_amount'])
+                ->dec('user_money', $order['order_amount'])
+                ->update();
+
+            // 记录日志
+            AccountLogLogic::add(
+                $order['user_id'],
+                AccountLogEnum::UM_INC_ADMIN,
+                AccountLogEnum::DEC,
+                $order['order_amount'],
+                $order['sn'],
+                '充值订单退款'
+            );
+
+            // 生成退款记录
+            $recordSn = generate_sn(RefundRecord::class, 'sn');
+            $record = RefundRecord::create([
+                'sn' => $recordSn,
+                'user_id' => $order['user_id'],
+                'order_id' => $order['id'],
+                'order_sn' => $order['sn'],
+                'order_amount' => $order['order_amount'],
+                'refund_amount' => $order['order_amount'],
+                'refund_type' => RefundEnum::TYPE_ADMIN,
+                'transaction_id' => $order['transaction_id'] ?? '',
+                'refund_way' => RefundEnum::getRefundWayByPayWay($order['pay_way']),
+            ]);
+
+            // 退款
+            $result = RefundLogic::refund($order, $record['id'], $order['order_amount'], $adminId);
+            $resultMsg = '操作成功';
+            if ($result !== true) {
+                $resultMsg = RefundLogic::getError();
+            }
+
+            Db::commit();
+            return $resultMsg;
+        } catch (\Exception $e) {
+            Db::rollback();
+            self::$error = $e->getMessage();
+            return false;
+        }
+    }
 
 
 }

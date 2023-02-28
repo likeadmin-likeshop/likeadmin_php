@@ -250,6 +250,33 @@ class WeChatPayService extends BasePayService
 
 
     /**
+     * @notes 退款
+     * @param array $refundData
+     * @return mixed
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @author 段誉
+     * @date 2023/2/28 16:53
+     */
+    public function refund(array $refundData)
+    {
+        $response =  $this->app->getClient()->postJson('v3/refund/domestic/refunds', [
+            'out_trade_no' => $refundData['transaction_id'],
+            'out_refund_no' => $refundData['refund_sn'],
+            'amount' => [
+                'refund' => intval($refundData['refund_amount'] * 100),
+                'total' => intval($refundData['total_amount'] * 100),
+                'currency' => 'CNY',
+            ]
+        ]);
+
+        $result = $response->toArray(false);
+        $this->checkResultFail($result);
+        return $result;
+    }
+
+
+    /**
      * @notes 支付描述
      * @param $from
      * @return string
@@ -327,5 +354,8 @@ class WeChatPayService extends BasePayService
 
         return $server->serve();
     }
+
+
+
 
 }

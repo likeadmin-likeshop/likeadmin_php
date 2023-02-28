@@ -46,6 +46,7 @@ class AccountLogEnum
      * 用户余额减少类型
      */
     const UM_DEC_ADMIN = 100;
+    const UM_DEC_RECHARGE_REFUND = 101;
 
     /**
      * 用户余额增加类型
@@ -55,15 +56,16 @@ class AccountLogEnum
 
 
     /**
-     * 不可提现余额（减少类型汇总）
+     * 用户余额（减少类型汇总）
      */
     const UM_DEC = [
         self::UM_DEC_ADMIN,
+        self::UM_DEC_RECHARGE_REFUND,
     ];
 
 
     /**
-     * 不可提现余额（增加类型汇总）
+     * 用户余额（增加类型汇总）
      */
     const UM_INC = [
         self::UM_INC_ADMIN,
@@ -106,6 +108,7 @@ class AccountLogEnum
             self::UM_DEC_ADMIN => '平台减少余额',
             self::UM_INC_ADMIN => '平台增加余额',
             self::UM_INC_RECHARGE => '充值增加余额',
+            self::UM_DEC_RECHARGE_REFUND => '充值订单退款减少余额',
         ];
         if ($flag) {
             return $desc;
