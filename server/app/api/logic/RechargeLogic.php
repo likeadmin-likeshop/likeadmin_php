@@ -41,7 +41,7 @@ class RechargeLogic extends BaseLogic
         try {
             $data = [
                 'sn' => generate_sn(RechargeOrder::class, 'sn'),
-                'terminal' => $params['terminal'],
+                'order_terminal' => $params['terminal'],
                 'user_id' => $params['user_id'],
                 'pay_status' => PayEnum::UNPAID,
                 'order_amount' => $params['money'],
