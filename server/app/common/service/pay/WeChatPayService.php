@@ -25,6 +25,7 @@ use app\common\service\wechat\WeChatConfigService;
 use EasyWeChat\Pay\Application;
 use EasyWeChat\Pay\Message;
 use think\facade\Cache;
+use think\facade\Log;
 
 
 /**
@@ -339,8 +340,9 @@ class WeChatPayService extends BasePayService
     {
         $server = $this->app->getServer();
         // 支付通知
-        $server->handlePaid(function (Message $message, \Closure $next) {
+        $server->handlePaid(function (Message $message) {
             Cache::set("wechat-pay", json_encode($message,JSON_UNESCAPED_UNICODE));
+            Log::record('支付参数--'. json_encode($message,JSON_UNESCAPED_UNICODE));
             if ($message['trade_state'] === 'SUCCESS') {
                 $extra['transaction_id'] = $message['transaction_id'];
                 $attach = $message['attach'];
@@ -355,19 +357,13 @@ class WeChatPayService extends BasePayService
                         break;
                 }
             }
-
-            // $message->out_trade_no 获取商户订单号
-            // $message->payer['openid'] 获取支付者 openid
-            // 🚨🚨🚨 注意：推送信息不一定靠谱哈，请务必验证
-            // 建议是拿订单号调用微信支付查询接口，以查询到的订单状态为准
-            return $next($message);
+            return true;
         });
 
         // 退款通知
-        $server->handleRefunded(function (Message $message, \Closure $next) {
-            // $message->out_trade_no 获取商户订单号
-            // $message->payer['openid'] 获取支付者 openid
-            return $next($message);
+        $server->handleRefunded(function (Message $message) {
+
+            return true;
         });
         return $server->serve();
     }
