@@ -28,6 +28,7 @@ use app\common\service\pay\WeChatPayService;
 class PayController extends BaseApiController
 {
 
+    public array $notNeedLogin = ['notifyMnp', 'notifyOa'];
 
     /**
      * @notes 支付方式
