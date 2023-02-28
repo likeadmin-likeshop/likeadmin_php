@@ -39,35 +39,35 @@ class PayConfigLogic extends BaseLogic
      */
     public static function setConfig($params)
     {
-        $pay_config = PayConfig::find($params['id']);
+        $payConfig = PayConfig::find($params['id']);
 
         $config = '';
-        if ($pay_config['pay_way'] == PayEnum::WECHAT_PAY) {
+        if ($payConfig['pay_way'] == PayEnum::WECHAT_PAY) {
             $config = [
-                'interface_version' => $params['interface_version'],
-                'merchant_type' => $params['merchant_type'],
-                'mch_id' => $params['mch_id'],
-                'pay_sign_key' => $params['pay_sign_key'],
-                'apiclient_cert' => $params['apiclient_cert'],
-                'apiclient_key' => $params['apiclient_key'],
+                'interface_version' => $params['config']['interface_version'],
+                'merchant_type' => $params['config']['merchant_type'],
+                'mch_id' => $params['config']['mch_id'],
+                'pay_sign_key' => $params['config']['pay_sign_key'],
+                'apiclient_cert' => $params['config']['apiclient_cert'],
+                'apiclient_key' => $params['config']['apiclient_key'],
             ];
         }
-        if ($pay_config['pay_way'] == PayEnum::ALI_PAY) {
+        if ($payConfig['pay_way'] == PayEnum::ALI_PAY) {
             $config = [
-                'mode' => $params['mode'],
-                'merchant_type' => $params['merchant_type'],
-                'app_id' => $params['app_id'],
-                'private_key' => $params['private_key'],
-                'ali_public_key' => $params['ali_public_key'],
+                'mode' => $params['config']['mode'],
+                'merchant_type' => $params['config']['merchant_type'],
+                'app_id' => $params['config']['app_id'],
+                'private_key' => $params['config']['private_key'],
+                'ali_public_key' => $params['config']['ali_public_key'],
             ];
         }
 
-        $pay_config->name = $params['name'];
-        $pay_config->icon = $params['icon'];
-        $pay_config->sort = $params['sort'];
-        $pay_config->config = $config;
-        $pay_config->remark = $params['remark'] ?? '';
-        return $pay_config->save();
+        $payConfig->name = $params['name'];
+        $payConfig->icon = $params['icon'];
+        $payConfig->sort = $params['sort'];
+        $payConfig->config = $config;
+        $payConfig->remark = $params['remark'] ?? '';
+        return $payConfig->save();
     }
 
 

@@ -23,10 +23,11 @@ use app\common\validate\BaseValidate;
 class PayConfigValidate extends BaseValidate
 {
     protected $rule = [
-        'id' => 'require|checkId',
+        'id' => 'require',
         'name' => 'require|checkName',
         'icon' => 'require',
         'sort' => 'require|number|max:5',
+        'config' => 'require|checkConfig',
     ];
 
     protected $message = [
@@ -36,12 +37,12 @@ class PayConfigValidate extends BaseValidate
         'sort.require' => '排序不能为空',
         'sort,number' => '排序必须是纯数字',
         'sort.max' => '排序最大不能超过五位数',
+        'config.require' => '支付参数缺失',
     ];
 
     public function sceneGet()
     {
-        return $this->only(['id'])
-            ->remove('id','checkId');
+        return $this->only(['id']);
     }
 
 
@@ -57,46 +58,47 @@ class PayConfigValidate extends BaseValidate
      * @author 段誉
      * @date 2023/2/23 16:19
      */
-    public function checkId($value,$rule,$data)
+    public function checkConfig($config, $rule, $data)
     {
-        $result = PayConfig::where('id',$value)->find();
+        $result = PayConfig::where('id', $data['id'])->find();
         if (empty($result)) {
             return '支付方式不存在';
         }
+
         if ($result['pay_way'] == PayEnum::WECHAT_PAY) {
-            if (!isset($data['interface_version']) || empty($data['interface_version'])) {
+            if (empty($config['interface_version'])) {
                 return '微信支付接口版本不能为空';
             }
-            if (!isset($data['merchant_type']) || empty($data['merchant_type'])) {
+            if (empty($config['merchant_type'])) {
                 return '商户类型不能为空';
             }
-            if (!isset($data['mch_id']) || empty($data['mch_id'])) {
+            if (empty($config['mch_id'])) {
                 return '微信支付商户号不能为空';
             }
-            if (!isset($data['pay_sign_key']) || empty($data['pay_sign_key'])) {
+            if (empty($config['pay_sign_key'])) {
                 return '商户API密钥不能为空';
             }
-            if (!isset($data['apiclient_cert']) || empty($data['apiclient_cert'])) {
+            if (empty($config['apiclient_cert'])) {
                 return '微信支付证书不能为空';
             }
-            if (!isset($data['apiclient_key']) || empty($data['apiclient_key'])) {
+            if (empty($config['apiclient_key'])) {
                 return '微信支付证书密钥不能为空';
             }
         }
         if ($result['pay_way'] == PayEnum::ALI_PAY) {
-            if (!isset($data['mode']) || empty($data['mode'])) {
+            if (empty($config['mode'])) {
                 return '模式不能为空';
             }
-            if (!isset($data['merchant_type']) || empty($data['merchant_type'])) {
+            if (empty($config['merchant_type'])) {
                 return '商户类型不能为空';
             }
-            if (!isset($data['app_id']) || empty($data['app_id'])) {
+            if (empty($config['app_id'])) {
                 return '应用ID不能为空';
             }
-            if (!isset($data['private_key']) || empty($data['private_key'])) {
+            if (empty($config['private_key'])) {
                 return '应用私钥不能为空';
             }
-            if (!isset($data['ali_public_key']) || empty($data['ali_public_key'])) {
+            if (empty($config['ali_public_key'])) {
                 return '支付宝公钥不能为空';
             }
         }
@@ -113,10 +115,10 @@ class PayConfigValidate extends BaseValidate
      * @author 段誉
      * @date 2023/2/23 16:19
      */
-    public function checkName($value,$rule,$data)
+    public function checkName($value, $rule, $data)
     {
         $result = PayConfig::where('name', $value)
-            ->where('id','<>', $data['id'])
+            ->where('id', '<>', $data['id'])
             ->findOrEmpty();
         if (!$result->isEmpty()) {
             return '支付名称已存在';

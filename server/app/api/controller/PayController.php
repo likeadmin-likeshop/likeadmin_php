@@ -16,7 +16,9 @@ namespace app\api\controller;
 
 
 use app\api\validate\PayValidate;
+use app\common\enum\user\UserTerminalEnum;
 use app\common\logic\PaymentLogic;
+use app\common\service\pay\WeChatPayService;
 
 /**
  * 支付
@@ -44,7 +46,59 @@ class PayController extends BaseApiController
     }
 
 
+    /**
+     * @notes 预支付
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2023/2/28 14:21
+     */
+    public function prepay()
+    {
+        $params = (new PayValidate())->post()->goCheck();
+        //订单信息
+        $order = PaymentLogic::getPayOrderInfo($params);
+        if (false === $order) {
+            return $this->fail(PaymentLogic::getError(), $params);
+        }
+        //支付流程
+        $result = PaymentLogic::pay($params['pay_way'], $params['from'], $order, $this->userInfo['terminal']);
+        if (false === $result) {
+            return $this->fail(PaymentLogic::getError(), $params);
+        }
+        return $this->success('', $result);
+    }
 
+
+    /**
+     * @notes 小程序支付回调
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\RuntimeException
+     * @throws \ReflectionException
+     * @throws \Throwable
+     * @author 段誉
+     * @date 2023/2/28 14:21
+     */
+    public function notifyMnp()
+    {
+        return (new WeChatPayService(UserTerminalEnum::WECHAT_MMP))->notify();
+    }
+
+
+    /**
+     * @notes 公众号支付回调
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\RuntimeException
+     * @throws \ReflectionException
+     * @throws \Throwable
+     * @author 段誉
+     * @date 2023/2/28 14:21
+     */
+    public function notifyOa()
+    {
+        return (new WeChatPayService(UserTerminalEnum::WECHAT_OA))->notify();
+    }
 
 
 }

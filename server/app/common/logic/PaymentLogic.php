@@ -20,6 +20,7 @@ use app\common\enum\YesNoEnum;
 use app\common\model\pay\PayWay;
 use app\common\model\recharge\RechargeOrder;
 use app\common\model\user\User;
+use app\common\service\pay\WeChatPayService;
 
 
 /**
@@ -29,7 +30,6 @@ use app\common\model\user\User;
  */
 class PaymentLogic extends BaseLogic
 {
-
 
     /**
      * @notes 支付方式
@@ -87,6 +87,79 @@ class PaymentLogic extends BaseLogic
             self::setError($e->getMessage());
             return false;
         }
+    }
+
+
+    /**
+     * @notes 获取预支付订单信息
+     * @param $params
+     * @return RechargeOrder|array|false|\think\Model
+     * @author 段誉
+     * @date 2023/2/27 15:19
+     */
+    public static function getPayOrderInfo($params)
+    {
+        try {
+            switch ($params['from']) {
+                case 'recharge':
+                    $order = RechargeOrder::findOrEmpty($params['order_id']);
+                    if ($order->isEmpty()) {
+                        throw new \Exception('充值订单不存在');
+                    }
+                    break;
+            }
+
+            if ($order['pay_status'] == PayEnum::ISPAID) {
+                throw new \Exception('订单已支付');
+            }
+            return $order;
+        } catch (\Exception $e) {
+            self::$error = $e->getMessage();
+            return false;
+        }
+    }
+
+
+    /**
+     * @notes 支付
+     * @param $payWay
+     * @param $from
+     * @param $order
+     * @param $terminal
+     * @return array|false|mixed|string
+     * @author 段誉
+     * @date 2023/2/28 12:15
+     */
+    public static function pay($payWay, $from, $order, $terminal)
+    {
+        //更新支付方式
+        switch ($from) {
+            case 'recharge':
+                RechargeOrder::update(['pay_way' => $payWay], ['id' => $order['id']]);
+                break;
+        }
+
+        if ($order['order_amount'] == 0) {
+            PayNotifyLogic::handle($from, $order['sn']);
+            return ['pay_way' => PayEnum::BALANCE_PAY];
+        }
+
+
+        switch ($payWay) {
+            case PayEnum::WECHAT_PAY:
+                $payService = (new WeChatPayService($terminal, $order['user_id'] ?? null));
+                $result = $payService->pay($from, $order);
+                break;
+            default:
+                self::$error = '订单异常';
+                $result = false;
+        }
+
+        //支付成功, 执行支付回调
+        if (false === $result && !self::hasError()) {
+            self::setError($payService->getError());
+        }
+        return $result;
     }
 
 }

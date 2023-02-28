@@ -13,6 +13,9 @@
 // +----------------------------------------------------------------------
 namespace app\common\service\wechat;
 
+use app\common\enum\PayEnum;
+use app\common\enum\user\UserTerminalEnum;
+use app\common\model\pay\PayConfig;
 use app\common\service\ConfigService;
 
 /**
@@ -22,6 +25,7 @@ use app\common\service\ConfigService;
  */
 class WeChatConfigService
 {
+
     /**
      * @notes 获取小程序配置
      * @return array
@@ -33,12 +37,10 @@ class WeChatConfigService
         return [
             'app_id' => ConfigService::get('mnp_setting', 'app_id'),
             'secret' => ConfigService::get('mnp_setting', 'app_secret'),
-            'mch_id' => ConfigService::get('mnp_setting', 'mch_id'),
-            'key' => ConfigService::get('mnp_setting', 'key'),
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => app()->getRootPath() . '/runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
+                'file' => app()->getRootPath() . 'runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
             ],
         ];
     }
@@ -55,13 +57,11 @@ class WeChatConfigService
         return [
             'app_id' => ConfigService::get('oa_setting', 'app_id'),
             'secret' => ConfigService::get('oa_setting', 'app_secret'),
-            'mch_id' => ConfigService::get('oa_setting', 'mch_id'),
-            'key' => ConfigService::get('oa_setting', 'key'),
             'token' => ConfigService::get('oa_setting', 'token'),
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => app()->getRootPath() . '/runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
+                'file' => app()->getRootPath() . 'runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
             ],
         ];
     }
@@ -81,9 +81,85 @@ class WeChatConfigService
             'response_type' => 'array',
             'log' => [
                 'level' => 'debug',
-                'file' => app()->getRootPath() . '/runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
+                'file' => app()->getRootPath() . 'runtime/log/wechat/' . date('Ym') . '/' . date('d') . '.log'
             ],
         ];
     }
+
+
+    /**
+     * @notes 根据终端获取支付配置
+     * @param $terminal
+     * @return array
+     * @author 段誉
+     * @date 2023/2/27 15:45
+     */
+    public static function getPayConfigByTerminal($terminal)
+    {
+        switch ($terminal) {
+            case UserTerminalEnum::WECHAT_MMP:
+                $notifyUrl = (string)url('pay/notifyMnp', [], false, true);
+                break;
+            case UserTerminalEnum::WECHAT_OA:
+            case UserTerminalEnum::PC:
+            case UserTerminalEnum::H5:
+                $notifyUrl = (string)url('pay/notifyOa', [], false, true);
+                break;
+            case UserTerminalEnum::ANDROID:
+            case UserTerminalEnum::IOS:
+                $notifyUrl = (string)url('pay/notifyApp', [], false, true);
+                break;
+        }
+
+        $pay = PayConfig::where(['pay_way' => PayEnum::WECHAT_PAY])->findOrEmpty()->toArray();
+        //判断是否已经存在证书文件夹，不存在则新建
+        if (!file_exists(app()->getRootPath() . 'runtime/cert')) {
+            mkdir(app()->getRootPath() . 'runtime/cert', 0775, true);
+        }
+        //写入文件
+        $apiclientCert = $pay['config']['apiclient_cert'] ?? '';
+        $apiclientKey = $pay['config']['apiclient_key'] ?? '';
+
+        $certPath = app()->getRootPath() . 'runtime/cert/' . md5($apiclientCert) . '.pem';
+        $keyPath = app()->getRootPath() . 'runtime/cert/' . md5($apiclientKey) . '.pem';
+
+        if (!empty($apiclientCert) && !file_exists($certPath)) {
+            static::setCert($certPath, trim($apiclientCert));
+        }
+        if (!empty($apiclientKey) && !file_exists($keyPath)) {
+            static::setCert($keyPath, trim($apiclientKey));
+        }
+
+        return [
+            // 商户号
+            'mch_id' => $pay['config']['mch_id'] ?? '',
+            // 商户证书
+            'private_key' => $keyPath,
+            'certificate' => $certPath,
+            // v3 API 秘钥
+            'secret_key' => $pay['config']['pay_sign_key'] ?? '',
+            'notify_url' => $notifyUrl,
+            'http' => [
+                'throw'  => true, // 状态码非 200、300 时是否抛出异常，默认为开启
+                'timeout' => 5.0,
+            ]
+        ];
+    }
+
+
+    /**
+     * @notes 临时写入证书
+     * @param $path
+     * @param $cert
+     * @author 段誉
+     * @date 2023/2/27 15:48
+     */
+    public static function setCert($path, $cert)
+    {
+        $fopenPath = fopen($path, 'w');
+        fwrite($fopenPath, $cert);
+        fclose($fopenPath);
+    }
+
 
 }
