@@ -115,7 +115,7 @@ class WeChatPayService extends BasePayService
             }
 
             return [
-                'data' => $result,
+                'config' => $result,
                 'pay_way' => PayEnum::WECHAT_PAY
             ];
         } catch (\Exception $e) {
@@ -155,7 +155,7 @@ class WeChatPayService extends BasePayService
 
         $result = $response->toArray(false);
         $this->checkResultFail($result);
-        return $result['prepay_id'];
+        return $this->getPrepayConfig($result['prepay_id'], $appId);
     }
 
 
@@ -305,6 +305,22 @@ class WeChatPayService extends BasePayService
         if (!empty($result['code']) || !empty($result['message'])) {
             throw new \Exception('微信支付:'. $result['code'] . '-' . $result['message']);
         }
+    }
+
+
+    /**
+     * @notes 预支付配置
+     * @param $prepayId
+     * @param $appId
+     * @return mixed[]
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @author 段誉
+     * @date 2023/2/28 17:38
+     */
+    public function getPrepayConfig($prepayId, $appId)
+    {
+        return $this->app->getUtils()->buildBridgeConfig($prepayId, $appId);
     }
 
 

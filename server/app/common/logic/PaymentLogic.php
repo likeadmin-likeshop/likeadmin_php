@@ -144,7 +144,6 @@ class PaymentLogic extends BaseLogic
             return ['pay_way' => PayEnum::BALANCE_PAY];
         }
 
-
         switch ($payWay) {
             case PayEnum::WECHAT_PAY:
                 $payService = (new WeChatPayService($terminal, $order['user_id'] ?? null));
