@@ -121,6 +121,7 @@ class RechargeLogic extends BaseLogic
                 'user_id' => $order['user_id'],
                 'order_id' => $order['id'],
                 'order_sn' => $order['sn'],
+                'order_type' => RefundEnum::ORDER_TYPE_RECHARGE,
                 'order_amount' => $order['order_amount'],
                 'refund_amount' => $order['order_amount'],
                 'refund_type' => RefundEnum::TYPE_ADMIN,

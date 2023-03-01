@@ -32,6 +32,11 @@ class RefundEnum
     const REFUND_OFFLINE = 2; // 线下退款
 
 
+    // 退款订单类型
+    const ORDER_TYPE_ORDER = 'order'; // 普通订单
+    const ORDER_TYPE_RECHARGE = 'recharge'; // 充值订单
+
+
     /**
      * @notes 退款类型描述
      * @param bool $value
