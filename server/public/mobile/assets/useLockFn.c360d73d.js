@@ -1,1 +1,0 @@
-import{z as a}from"./index.01e6308a.js";function t(t){const e=a(!1);return{isLock:e,lockFn:async(...a)=>{if(!e.value){e.value=!0;try{const n=await t(...a);return e.value=!1,n}catch(n){throw e.value=!1,n}}}}}export{t as u};
