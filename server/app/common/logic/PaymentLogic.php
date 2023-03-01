@@ -168,10 +168,16 @@ class PaymentLogic extends BaseLogic
      */
     public static function pay($payWay, $from, $order, $terminal)
     {
+        // 支付编号-仅为微信支付预置(同一商户号下不同客户端支付需使用唯一订单号)
+        $paySn = $order['sn'];
+        if ($payWay == PayEnum::WECHAT_PAY) {
+            $paySn = self::formatOrderSn($order['sn'], $terminal);
+        }
+
         //更新支付方式
         switch ($from) {
             case 'recharge':
-                RechargeOrder::update(['pay_way' => $payWay], ['id' => $order['id']]);
+                RechargeOrder::update(['pay_way' => $payWay, 'pay_sn' => $paySn], ['id' => $order['id']]);
                 break;
         }
 
@@ -183,6 +189,7 @@ class PaymentLogic extends BaseLogic
         switch ($payWay) {
             case PayEnum::WECHAT_PAY:
                 $payService = (new WeChatPayService($terminal, $order['user_id'] ?? null));
+                $order['pay_sn'] = $paySn;
                 $result = $payService->pay($from, $order);
                 break;
             default:
@@ -190,11 +197,28 @@ class PaymentLogic extends BaseLogic
                 $result = false;
         }
 
-        //支付成功, 执行支付回调
         if (false === $result && !self::hasError()) {
             self::setError($payService->getError());
         }
         return $result;
+    }
+
+
+
+
+    /**
+     * @notes 设置订单号 支付回调时截取前面的单号 18个
+     * @param $orderSn
+     * @param $terminal
+     * @return string
+     * @author 段誉
+     * @date 2023/3/1 16:31
+     * @remark 回调时使用了不同的回调地址,导致跨客户端支付时(例如小程序,公众号)可能出现201,商户订单号重复错误
+     */
+    public static function formatOrderSn($orderSn, $terminal)
+    {
+        $suffix = mb_substr(time(), -4);
+        return $orderSn . $terminal . $suffix;
     }
 
 }
