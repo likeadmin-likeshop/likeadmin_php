@@ -17,6 +17,7 @@ namespace app\api\logic;
 
 use app\common\{enum\notice\NoticeEnum,
     enum\user\UserTerminalEnum,
+    enum\YesNoEnum,
     logic\BaseLogic,
     model\user\User,
     model\user\UserAuth,
@@ -42,11 +43,17 @@ class UserLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/16 18:04
      */
-    public static function center(int $userId): array
+    public static function center(array $userInfo): array
     {
-        $user = User::where(['id' => $userId])
+        $user = User::where(['id' => $userInfo['user_id']])
             ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time,is_new_user,user_money')
             ->findOrEmpty()->toArray();
+
+        if (in_array($userInfo['terminal'], [UserTerminalEnum::WECHAT_MMP, UserTerminalEnum::WECHAT_OA])) {
+            $auth = UserAuth::where(['user_id' => $userInfo['user_id'], 'terminal' => $userInfo['terminal']])->find();
+            $user['is_auth'] = $auth ? YesNoEnum::YES : YesNoEnum::NO;
+        }
+
         return $user;
     }
 

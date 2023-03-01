@@ -40,7 +40,7 @@ class UserController extends BaseApiController
      */
     public function center()
     {
-        $data = UserLogic::center($this->userId);
+        $data = UserLogic::center($this->userInfo);
         return $this->success('', $data);
     }
 
