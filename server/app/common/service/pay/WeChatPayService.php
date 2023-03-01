@@ -252,7 +252,7 @@ class WeChatPayService extends BasePayService
         $result = $response->toArray(false);
         $this->checkResultFail($result);
         $redirectUrl = request()->domain() . '/mobile/pages/payment/payment?id=' . $order['id'] . '&from='. $from;
-        return $result['h5_url'] . '&redirect_url=' . $redirectUrl;
+        return $result['h5_url'] . '&redirect_url=' . urlencode($redirectUrl);
     }
 
 
