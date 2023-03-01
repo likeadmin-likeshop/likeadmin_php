@@ -56,7 +56,7 @@ class PaymentLogic extends BaseLogic
             $pay_way = PayWay::alias('pw')
                 ->join('dev_pay_config dp', 'pw.pay_config_id = dp.id')
                 ->where(['pw.scene' => $terminal, 'pw.status' => YesNoEnum::YES])
-                ->field('dp.id,dp.name,dp.pay_way,dp.icon,dp.sort,dp.remark')
+                ->field('dp.id,dp.name,dp.pay_way,dp.icon,dp.sort,dp.remark,pw.is_default')
                 ->order('pw.is_default desc,dp.sort desc,id asc')
                 ->select()
                 ->toArray();
