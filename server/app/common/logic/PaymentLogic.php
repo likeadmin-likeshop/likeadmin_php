@@ -91,6 +91,42 @@ class PaymentLogic extends BaseLogic
 
 
     /**
+     * @notes 获取支付状态
+     * @param $params
+     * @return array|false
+     * @author 段誉
+     * @date 2023/3/1 16:23
+     */
+    public static function getPayStatus($params)
+    {
+        try {
+            $order = [];
+            $orderInfo = [];
+            switch ($params['from']) {
+                case 'recharge':
+                    $order = RechargeOrder::where(['user_id' => $params['user_id'], 'id' => $params['order_id']])
+                        ->findOrEmpty()->toArray();
+                    $orderInfo = []; // 充值无需返回订单详情
+                    break;
+            }
+
+            if (empty($order)) {
+                throw new \Exception('订单不存在');
+            }
+
+            return [
+                'pay_status' => $order['pay_status'],
+                'pay_way' => $order['pay_way'],
+                'order' => $orderInfo
+            ];
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
+        }
+    }
+
+
+    /**
      * @notes 获取预支付订单信息
      * @param $params
      * @return RechargeOrder|array|false|\think\Model

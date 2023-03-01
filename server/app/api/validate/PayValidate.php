@@ -52,5 +52,17 @@ class PayValidate extends BaseValidate
     }
 
 
+    /**
+     * @notes 支付状态
+     * @return PayValidate
+     * @author 段誉
+     * @date 2023/3/1 16:17
+     */
+    public function sceneStatus()
+    {
+        return $this->only(['from', 'order_id']);
+    }
+
+
 
 }

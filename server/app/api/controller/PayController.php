@@ -71,6 +71,23 @@ class PayController extends BaseApiController
 
 
     /**
+     * @notes 获取支付状态
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2023/3/1 16:23
+     */
+    public function payStatus()
+    {
+        $params = (new PayValidate())->goCheck('status', ['user_id' => $this->userId]);
+        $result = PaymentLogic::getPayStatus($params);
+        if ($result === false) {
+            return $this->fail(PaymentLogic::getError());
+        }
+        return $this->data($result);
+    }
+
+
+    /**
      * @notes 小程序支付回调
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
