@@ -131,4 +131,27 @@ class WeChatOaService
         return $this->app->getClient()->postJson('cgi-bin/menu/create', ['button' => $buttons]);
     }
 
+
+    /**
+     * @notes 获取jssdkConfig
+     * @param $url
+     * @param $jsApiList
+     * @param array $openTagList
+     * @param false $debug
+     * @return mixed[]
+     * @throws \EasyWeChat\Kernel\Exceptions\HttpException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @author 段誉
+     * @date 2023/3/1 11:46
+     */
+    public function getJsConfig($url, $jsApiList, $openTagList = [], $debug = false)
+    {
+        return $this->app->getUtils()->buildJsSdkConfig($url, $jsApiList, $openTagList, $debug);
+    }
+
 }
