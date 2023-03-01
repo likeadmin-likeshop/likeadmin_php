@@ -243,7 +243,11 @@ class WeChatPayService extends BasePayService
             ],
             'attach' => $from,
             'scene_info' => [
-                'payer_client_ip' => request()->ip()
+                'payer_client_ip' => request()->ip(),
+                'h5_info' => [
+                    'type' => 'Wap',
+                    'app_url' => request()->domain() . '/pages/payment/payment?id=' . $order['id'] . '&from='. $from,
+                ]
             ]
         ]);
         $result = $response->toArray(false);
