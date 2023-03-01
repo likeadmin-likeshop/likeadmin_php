@@ -142,7 +142,7 @@ class WeChatPayService extends BasePayService
             "appid" => $appId,
             "mchid" => $this->config['mch_id'],
             "description" => $this->payDesc($from),
-            "out_trade_no" => $order['sn'],
+            "out_trade_no" => $order['pay_sn'],
             "notify_url" => $this->config['notify_url'],
             "amount" => [
                 "total" => intval($order['order_amount'] * 100),
@@ -176,7 +176,7 @@ class WeChatPayService extends BasePayService
             'appid' => $appId,
             'mchid' => $this->config['mch_id'],
             'description' => $this->payDesc($from),
-            'out_trade_no' => $order['sn'],
+            'out_trade_no' => $order['pay_sn'],
             'notify_url' => $this->config['notify_url'],
             'amount' => [
                 'total' => intval($order['order_amount'] * 100),
@@ -206,7 +206,7 @@ class WeChatPayService extends BasePayService
             'appid' => $appId,
             'mchid' => $this->config['mch_id'],
             'description' => $this->payDesc($from),
-            'out_trade_no' => $order['sn'],
+            'out_trade_no' => $order['pay_sn'],
             'notify_url' => $this->config['notify_url'],
             'amount' => [
                 'total' => intval($order['order_amount'] * 100),
@@ -236,7 +236,7 @@ class WeChatPayService extends BasePayService
             'appid' => $appId,
             'mchid' => $this->config['mch_id'],
             'description' => $this->payDesc($from),
-            'out_trade_no' => $order['sn'],
+            'out_trade_no' => $order['pay_sn'],
             'notify_url' => $this->config['notify_url'],
             'amount' => [
                 'total' => intval($order['order_amount'] * 100),
@@ -383,6 +383,7 @@ class WeChatPayService extends BasePayService
         });
         return $server->serve();
     }
+
 
 
 
