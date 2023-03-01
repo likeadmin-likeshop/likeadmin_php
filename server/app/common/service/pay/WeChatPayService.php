@@ -24,8 +24,6 @@ use app\common\model\user\UserAuth;
 use app\common\service\wechat\WeChatConfigService;
 use EasyWeChat\Pay\Application;
 use EasyWeChat\Pay\Message;
-use think\facade\Cache;
-use think\facade\Log;
 
 
 /**
@@ -243,7 +241,10 @@ class WeChatPayService extends BasePayService
             'amount' => [
                 'total' => intval($order['order_amount'] * 100),
             ],
-            'attach' => $from
+            'attach' => $from,
+            'scene_info' => [
+                'payer_client_ip' => request()->ip()
+            ]
         ]);
         $result = $response->toArray(false);
         $this->checkResultFail($result);
@@ -278,6 +279,21 @@ class WeChatPayService extends BasePayService
 
 
     /**
+     * @notes 查询退款
+     * @param $refundSn
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @author 段誉
+     * @date 2023/3/1 11:16
+     */
+    public function queryRefund($refundSn)
+    {
+        $response = $this->app->getClient()->get("v3/refund/domestic/refunds/{$refundSn}");
+        return $response->toArray(false);
+    }
+
+
+    /**
      * @notes 支付描述
      * @param $from
      * @return string
@@ -304,7 +320,7 @@ class WeChatPayService extends BasePayService
     public function checkResultFail($result)
     {
         if (!empty($result['code']) || !empty($result['message'])) {
-            throw new \Exception('微信支付:'. $result['code'] . '-' . $result['message']);
+            throw new \Exception('微信:'. $result['code'] . '-' . $result['message']);
         }
     }
 
@@ -359,7 +375,6 @@ class WeChatPayService extends BasePayService
 
         // 退款通知
         $server->handleRefunded(function (Message $message) {
-
             return true;
         });
         return $server->serve();
