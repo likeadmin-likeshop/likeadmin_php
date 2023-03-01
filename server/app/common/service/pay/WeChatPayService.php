@@ -246,13 +246,13 @@ class WeChatPayService extends BasePayService
                 'payer_client_ip' => request()->ip(),
                 'h5_info' => [
                     'type' => 'Wap',
-                    'app_url' => request()->domain() . '/pages/payment/payment?id=' . $order['id'] . '&from='. $from,
                 ]
             ]
         ]);
         $result = $response->toArray(false);
         $this->checkResultFail($result);
-        return $result['h5_url'];
+        $redirectUrl = request()->domain() . '/mobile/pages/payment/payment?id=' . $order['id'] . '&from='. $from;
+        return $result['h5_url'] . '&redirect_url=' . $redirectUrl;
     }
 
 
