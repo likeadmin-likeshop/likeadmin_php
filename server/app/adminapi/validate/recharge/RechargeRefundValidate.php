@@ -16,8 +16,10 @@ namespace app\adminapi\validate\recharge;
 
 
 use app\common\enum\PayEnum;
+use app\common\enum\RefundEnum;
 use app\common\enum\YesNoEnum;
 use app\common\model\recharge\RechargeOrder;
+use app\common\model\refund\RefundRecord;
 use app\common\model\user\User;
 use app\common\validate\BaseValidate;
 
@@ -29,16 +31,25 @@ use app\common\validate\BaseValidate;
 class RechargeRefundValidate extends BaseValidate
 {
     protected $rule = [
-        'id' => 'require|checkRecharge',
+        'recharge_id' => 'require|checkRecharge',
+        'record_id' => 'require|checkRecord',
     ];
 
     protected $message = [
-        'id.require' => '参数缺失',
+        'recharge_id.require' => '参数缺失',
+        'record_id.require' => '参数缺失',
     ];
+
 
     public function sceneRefund()
     {
-        return $this->only(['id']);
+        return $this->only(['recharge_id']);
+    }
+
+
+    public function sceneAgain()
+    {
+        return $this->only(['record_id']);
     }
 
 
@@ -77,5 +88,35 @@ class RechargeRefundValidate extends BaseValidate
         return true;
     }
 
+
+    /**
+     * @notes 校验退款记录
+     * @param $recordId
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2023/3/1 9:40
+     */
+    protected function checkRecord($recordId, $rule, $data)
+    {
+        $record = RefundRecord::findOrEmpty($recordId);
+        if ($record->isEmpty()) {
+            return '退款记录不存在';
+        }
+
+        if($record['refund_status'] == RefundEnum::REFUND_SUCCESS) {
+            return '该退款记录已退款成功';
+        }
+
+        $order = RechargeOrder::findOrEmpty($record['order_id']);
+        $user = User::findOrEmpty($record['user_id']);
+
+        if ($user['user_money'] < $order['order_amount']) {
+            return '退款失败:用户余额已不足退款金额';
+        }
+
+        return true;
+    }
 
 }

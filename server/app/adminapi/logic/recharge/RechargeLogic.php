@@ -90,7 +90,7 @@ class RechargeLogic extends BaseLogic
     {
         Db::startTrans();
         try {
-            $order = RechargeOrder::findOrEmpty($params['id']);
+            $order = RechargeOrder::findOrEmpty($params['recharge_id']);
 
             // 更新订单信息, 标记已发起退款状态,具体退款成功看退款日志
             RechargeOrder::update([
@@ -158,10 +158,6 @@ class RechargeLogic extends BaseLogic
         Db::startTrans();
         try {
             $record = RefundRecord::findOrEmpty($params['record_id']);
-            if ($record->isEmpty()) {
-                throw new \Exception('退款记录不存在');
-            }
-
             $order = RechargeOrder::findOrEmpty($record['order_id']);
 
             // 退款

@@ -94,7 +94,7 @@ class RechargeController extends BaseAdminController
      */
     public function refundAgain()
     {
-        $params = (new RechargeRefundValidate())->post()->goCheck('refund');
+        $params = (new RechargeRefundValidate())->post()->goCheck('again');
         $result = RechargeLogic::refundAgain($params, $this->adminId);
         if(false === $result) {
             return $this->fail(RechargeLogic::getError());
