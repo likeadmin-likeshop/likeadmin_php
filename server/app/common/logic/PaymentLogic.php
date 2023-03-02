@@ -105,8 +105,16 @@ class PaymentLogic extends BaseLogic
             switch ($params['from']) {
                 case 'recharge':
                     $order = RechargeOrder::where(['user_id' => $params['user_id'], 'id' => $params['order_id']])
-                        ->findOrEmpty()->toArray();
-                    $orderInfo = []; // 充值无需返回订单详情
+                        ->findOrEmpty();
+                    $payTime = empty($order['pay_time']) ? '' : date('Y-m-d H:i:s', $order['pay_time']);
+                    $orderInfo = [
+                        'order_id' => $order['id'],
+                        'order_sn' => $order['sn'],
+                        'order_amount' => $order['order_amount'],
+                        'pay_way' => PayEnum::getPayDesc($order['pay_way']),
+                        'pay_status' => PayEnum::getPayStatusDesc($order['pay_status']),
+                        'pay_time' => $payTime,
+                    ];
                     break;
             }
 
