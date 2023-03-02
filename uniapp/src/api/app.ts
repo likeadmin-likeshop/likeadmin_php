@@ -24,3 +24,7 @@ export function uploadImage(file: any, token?: string) {
         fileType: 'image'
     })
 }
+
+export function wxJsConfig(data: any) {
+    return request.get({ url: '/wechat/jsConfig', data })
+}

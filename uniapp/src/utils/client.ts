@@ -43,7 +43,7 @@ export const getClient = () => {
 
 // 根据端处理事件
 //@ts-ignore
-export const handleClientEvent = ({ MP_WEIXIN, OA_WEIXIN, H5, IOS, ANDROID, OTHER }) => {
+export const handleClientEvent = ({ MP_WEIXIN, OA_WEIXIN, H5, IOS, ANDROID, OTHER }: any) => {
     // #ifdef MP-WEIXIN
     return MP_WEIXIN()
     // #endif

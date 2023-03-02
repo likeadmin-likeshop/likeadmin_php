@@ -1,7 +1,7 @@
 import weixin from 'weixin-js-sdk'
 import { getWxCodeUrl, OALogin } from '@/api/account'
-import { useUserStore } from '@/stores/user'
 import { isAndroid } from './client'
+import { wxJsConfig } from '@/api/app'
 
 const wechatOa = {
     getSignLink() {
@@ -13,6 +13,23 @@ const wechatOa = {
     getUrl() {
         getWxCodeUrl().then((res) => {
             location.href = res.url
+        })
+    },
+    config() {
+        return new Promise((resolve, reject) => {
+            wxJsConfig({
+                url: this.getSignLink()
+            }).then((res) => {
+                weixin.config({
+                    ...res,
+                    success: () => {
+                        resolve('success')
+                    },
+                    fail: (res: any) => {
+                        reject('weixin config is fail')
+                    }
+                })
+            })
         })
     },
     authLogin(code: string) {
@@ -33,6 +50,36 @@ const wechatOa = {
             weixin.ready(() => {
                 resolve('success')
             })
+        })
+    },
+    pay(options: Record<any, any>) {
+        return new Promise((resolve, reject) => {
+            this.ready()
+                .then(() => {
+                    weixin.chooseWXPay({
+                        timestamp: options.timeStamp,
+                        nonceStr: options.nonceStr,
+                        package: options.package,
+                        signType: options.signType,
+                        paySign: options.paySign,
+                        success: (res: any) => {
+                            if (res.errMsg === 'chooseWXPay:ok') {
+                                resolve(res)
+                            } else {
+                                reject(res.errMsg)
+                            }
+                        },
+                        cancel: (res: any) => {
+                            reject(res)
+                        },
+                        fail: (res: any) => {
+                            reject(res)
+                        }
+                    })
+                })
+                .catch((err) => {
+                    reject(err)
+                })
         })
     },
     share(options: Record<any, any>) {
@@ -91,24 +138,3 @@ const wechatOa = {
 }
 
 export default wechatOa
-// export function wxOaConfig() {
-//     return new Promise((resolve, reject) => {
-//         apiJsConfig().then((res) => {
-//             console.log(res) //微信配置
-//             weixin.config({
-//                 debug: false, // 开启调试模式
-//                 appId: res.appId, // 必填，公众号的唯一标识
-//                 timestamp: res.timestamp, // 必填，生成签名的时间戳
-//                 nonceStr: res.nonceStr, // 必填，生成签名的随机串
-//                 signature: res.signature, // 必填，签名
-//                 jsApiList: res.jsApiList, // 必填，需要使用的JS接口列表
-//                 success: () => {
-//                     resolve('success')
-//                 },
-//                 fail: (res: any) => {
-//                     reject('weixin config is fail')
-//                 }
-//             })
-//         })
-//     })
-// }

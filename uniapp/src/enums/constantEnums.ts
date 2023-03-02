@@ -7,3 +7,5 @@ export const TOKEN_KEY = 'token'
 export const HISTORY = 'history'
 
 export const BACK_URL = 'back_url'
+
+export const PAY_STATUS_EVENT = 'event:payStatus'

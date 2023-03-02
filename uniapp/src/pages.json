@@ -111,6 +111,13 @@
             }
         },
         {
+            "path": "pages/payment_result/payment_result",
+            "style": {
+                "navigationBarTitleText": "支付结果"
+            },
+            "auth": true
+        },
+        {
             "path": "uni_modules/vk-uview-ui/components/u-avatar-cropper/u-avatar-cropper",
             "style": {
                 "navigationBarTitleText": "头像裁剪",
@@ -118,6 +125,32 @@
             }
         }
     ],
+	"subPackages": [{
+		"root": "packages",
+		"pages": [
+			{
+				"path": "pages/user_wallet/user_wallet",
+				"style": {
+				    "navigationBarTitleText": "我的钱包"
+				},
+				"auth": true
+			},
+            {
+				"path": "pages/recharge/recharge",
+				"style": {
+				    "navigationBarTitleText": "充值"
+				},
+				"auth": true
+			},
+            {
+				"path": "pages/recharge_record/recharge_record",
+				"style": {
+				    "navigationBarTitleText": "充值记录"
+				},
+				"auth": true
+			}
+		]
+	}],
     "globalStyle": {
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "商城",

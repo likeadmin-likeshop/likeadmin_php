@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 import { ref, reactive, shallowRef } from 'vue'
 import Suggest from './component/suggest.vue'
-import { HISTORY } from '@/enums/cacheEnums'
+import { HISTORY } from '@/enums/constantEnums'
 import { getHotSearch } from '@/api/shop'
 import cache from '@/utils/cache'
 import { getArticleList } from '@/api/news'

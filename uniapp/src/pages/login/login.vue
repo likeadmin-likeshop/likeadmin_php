@@ -180,7 +180,7 @@
 import { login, mnpLogin, updateUser } from '@/api/account'
 import { smsSend } from '@/api/app'
 import { SMSEnum } from '@/enums/appEnums'
-import { BACK_URL } from '@/enums/cacheEnums'
+import { BACK_URL } from '@/enums/constantEnums'
 import { useLockFn } from '@/hooks/useLockFn'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
@@ -291,8 +291,8 @@ const loginHandle = async (data: any) => {
     uni.$u.toast('登录成功')
     uni.hideLoading()
     const pages = getCurrentPages()
-    if (pages.length > 1) {
-        const prevPage = pages[pages.length - 1]
+    if (pages.length > 2) {
+        const prevPage = pages[pages.length - 2]
         uni.navigateBack({
             success: () => {
                 // @ts-ignore

@@ -1,4 +1,4 @@
-import { TOKEN_KEY } from '@/enums/cacheEnums'
+import { TOKEN_KEY } from '@/enums/constantEnums'
 import cache from './cache'
 
 export function getToken() {

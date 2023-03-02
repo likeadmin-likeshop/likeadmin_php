@@ -156,6 +156,7 @@ const bindWechat = async () => {
             wechatOa.getUrl()
         }
         // #endif
+        userStore.getUser()
         await getUser()
     } catch (e) {
         uni.$u.toast(e)

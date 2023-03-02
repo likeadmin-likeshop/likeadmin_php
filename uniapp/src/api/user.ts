@@ -33,3 +33,8 @@ export function userChangePwd(data: any) {
 export function forgotPassword(data: Record<string, any>) {
     return request.post({ url: '/user/resetPassword', data })
 }
+
+//余额明细
+export function accountLog(data: any) {
+    return request.get({ url: '/account_log/lists', data })
+}

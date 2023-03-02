@@ -524,7 +524,6 @@ export default {
 	font-size: 26rpx;
 	height: 70rpx;
 	line-height: 70rpx;
-	padding: 0 80rpx;
 }
 
 .u-size-mini {
@@ -532,7 +531,7 @@ export default {
 	display: inline-flex;		
 	/* #endif */
 	width: auto;
-	font-size: 22rpx;
+	font-size: 24rpx;
 	padding-top: 1px;
 	height: 50rpx;
 	line-height: 50rpx;

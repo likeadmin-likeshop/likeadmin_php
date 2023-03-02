@@ -1,5 +1,5 @@
 import { getUserCenter } from '@/api/user'
-import { TOKEN_KEY } from '@/enums/cacheEnums'
+import { TOKEN_KEY } from '@/enums/constantEnums'
 import cache from '@/utils/cache'
 import { defineStore } from 'pinia'
 

@@ -32,3 +32,18 @@ export enum FieldType {
     NICKNAME = 'nickname',
     SEX = 'sex'
 }
+
+// 支付结果
+export enum PayStatusEnum {
+    SUCCESS = 'success',
+    FAIL = 'fail',
+    PENDING = 'pending'
+}
+
+// 页面状态
+export enum PageStatusEnum {
+    LOADING = 'loading', // 加载中
+    NORMAL = 'normal', // 正常
+    ERROR = 'error', // 异常
+    EMPTY = 'empty' // 为空
+}

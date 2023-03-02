@@ -183,13 +183,18 @@
 		watch: {
 			// 监听tab的变化，重新计算tab菜单的布局信息，因为实际使用中菜单可能是通过
 			// 后台获取的（如新闻app顶部的菜单），获取返回需要一定时间，所以list变化时，重新获取布局信息
-			list(n, o) {
-				// list变动时，重制内部索引，否则可能导致超出数组边界的情况
-				if(n.length !== o.length) this.currentIndex = 0;
-				// 用$nextTick等待视图更新完毕后再计算tab的局部信息，否则可能因为tab还没生成就获取，就会有问题
-				this.$nextTick(() => {
-					this.init();
-				});
+			list: {
+				immediate: true,
+				handler(n, o) {
+					if(o) {
+					// list变动时，重制内部索引，否则可能导致超出数组边界的情况
+						if(n.length !== o.length) this.currentIndex = 0;
+						// 用$nextTick等待视图更新完毕后再计算tab的局部信息，否则可能因为tab还没生成就获取，就会有问题
+					}
+					setTimeout(() => {
+						this.init();
+					},200)
+				}
 			},
 			current: {
 				immediate: true,
@@ -290,6 +295,7 @@
 				for (let i = 0; i < this.list.length; i++) {
 					// 只要size和rect两个参数
 					query.select(`#u-tab-item-${i}`).fields({
+						id: true,
 						size: true,
 						rect: true
 					});
@@ -319,6 +325,7 @@
 				let left = tabInfo.left + tabInfo.width / 2 - this.parentLeft;
 				// 计算当前活跃item到组件左边的距离
 				this.scrollBarLeft = left - uni.upx2px(this.barWidth) / 2;
+				
 				// 第一次移动滑块的时候，barFirstTimeMove为true，放到延时中将其设置false
 				// 延时是因为scrollBarLeft作用于computed计算时，需要一个过程需，否则导致出错
 				if(this.barFirstTimeMove == true) {
