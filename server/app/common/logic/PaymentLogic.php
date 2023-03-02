@@ -162,11 +162,12 @@ class PaymentLogic extends BaseLogic
      * @param $from
      * @param $order
      * @param $terminal
+     * @param $redirectUrl
      * @return array|false|mixed|string
      * @author 段誉
      * @date 2023/2/28 12:15
      */
-    public static function pay($payWay, $from, $order, $terminal)
+    public static function pay($payWay, $from, $order, $terminal, $redirectUrl)
     {
         // 支付编号-仅为微信支付预置(同一商户号下不同客户端支付需使用唯一订单号)
         $paySn = $order['sn'];
@@ -190,6 +191,7 @@ class PaymentLogic extends BaseLogic
             case PayEnum::WECHAT_PAY:
                 $payService = (new WeChatPayService($terminal, $order['user_id'] ?? null));
                 $order['pay_sn'] = $paySn;
+                $order['redirect_url'] = $redirectUrl;
                 $result = $payService->pay($from, $order);
                 break;
             default:

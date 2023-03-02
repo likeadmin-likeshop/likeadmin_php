@@ -224,6 +224,7 @@ class WeChatPayService extends BasePayService
      * @param $from
      * @param $order
      * @param $appId
+     * @param $redirectUrl
      * @return mixed
      * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
      * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
@@ -256,7 +257,7 @@ class WeChatPayService extends BasePayService
         if (!empty(env('project.test_web_domain'))) {
             $domain = env('project.test_web_domain');
         }
-        $redirectUrl = $domain . '/mobile/pages/payment/payment?id=' . $order['id'] . '&from='. $from . '&checkPay=true';
+        $redirectUrl = $domain . '/mobile'. $order['redirect_url'] .'?id=' . $order['id'] . '&from='. $from . '&checkPay=true';
         return $result['h5_url'] . '&redirect_url=' . urlencode($redirectUrl);
     }
 

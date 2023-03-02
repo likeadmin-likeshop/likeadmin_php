@@ -62,7 +62,8 @@ class PayController extends BaseApiController
             return $this->fail(PaymentLogic::getError(), $params);
         }
         //支付流程
-        $result = PaymentLogic::pay($params['pay_way'], $params['from'], $order, $this->userInfo['terminal']);
+        $redirectUrl = $params['redirect'] ?? '/pages/payment/payment';
+        $result = PaymentLogic::pay($params['pay_way'], $params['from'], $order, $this->userInfo['terminal'], $redirectUrl);
         if (false === $result) {
             return $this->fail(PaymentLogic::getError(), $params);
         }
