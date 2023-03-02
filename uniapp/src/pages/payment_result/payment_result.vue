@@ -4,7 +4,7 @@
         <template #error>
             <u-empty text="订单不存在" mode="order"></u-empty>
         </template>
-        <template>
+        <template #default>
             <view class="payment-result p-[20rpx]">
                 <view class="result bg-white p-[20rpx] rounded-md">
                     <view class="flex flex-col items-center my-[40rpx]">
