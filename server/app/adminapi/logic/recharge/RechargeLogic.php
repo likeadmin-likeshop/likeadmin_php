@@ -140,11 +140,11 @@ class RechargeLogic extends BaseLogic
             }
 
             Db::commit();
-            return ['flag' => $flag, 'msg' => $resultMsg];
+            return [$flag, $resultMsg];
         } catch (\Exception $e) {
             Db::rollback();
             self::$error = $e->getMessage();
-            return ['flag' => false, 'msg' => $e->getMessage()];
+            return [false, $e->getMessage()];
         }
     }
 
@@ -175,11 +175,11 @@ class RechargeLogic extends BaseLogic
             }
 
             Db::commit();
-            return ['flag' => $flag, 'msg' => $resultMsg];
+            return [$flag, $resultMsg];
         } catch (\Exception $e) {
             Db::rollback();
             self::$error = $e->getMessage();
-            return ['flag' => false, 'msg' => $e->getMessage()];
+            return [false, $e->getMessage()];
         }
     }
 
