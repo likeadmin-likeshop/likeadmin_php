@@ -30,7 +30,7 @@
                 <view class="text-muted mr-[20rpx]">
                     {{ userInfo.is_auth ? '已绑定' : '未绑定' }}
                 </view>
-                <u-icon name="arrow-right" color="#666"></u-icon>
+                <u-icon v-if="userInfo.is_auth == 0" name="arrow-right" color="#666"></u-icon>
             </view>
         </view>
         <!-- #endif -->
@@ -135,7 +135,7 @@ const logoutHandle = () => {
 }
 
 const bindWechat = async () => {
-    if (userInfo.value.has_auth) return
+    if (userInfo.value.is_auth) return
     try {
         // #ifdef MP-WEIXIN
         const { code }: any = await uni.login({
@@ -172,11 +172,11 @@ onLoad(async (options) => {
         })
 
         await oaAuthBind({ code })
-        userStore.getUser()
         //用于清空code
         uni.redirectTo({
             url: '/pages/user_set/user_set'
         })
+        await userStore.getUser()
     }
 
     // #endif
