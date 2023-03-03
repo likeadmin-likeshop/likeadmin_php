@@ -159,7 +159,6 @@ const { lockFn: bindWechatLock } = useLockFn(bindWechat)
 
 onShow(() => {
     userStore.getUser()
-    console.log(userInfo.value)
 })
 
 onLoad(async (options) => {
@@ -174,7 +173,7 @@ onLoad(async (options) => {
         await oaAuthBind({ code })
         //用于清空code
         uni.redirectTo({
-            url: '/pages/user_set/user_set'
+            url: '/pages/user_set/user_set?refresh=true'
         })
         await userStore.getUser()
     }
