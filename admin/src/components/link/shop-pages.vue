@@ -92,6 +92,11 @@ const linkList = ref([
         path: '/pages/search/search',
         name: '搜索',
         type: LinkTypeEnum.SHOP_PAGES
+    },
+    {
+        path: '/packages/pages/user_wallet/user_wallet',
+        name: '我的钱包',
+        type: LinkTypeEnum.SHOP_PAGES
     }
 ])
 
