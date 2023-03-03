@@ -64,7 +64,9 @@ class RefundController extends BaseAdminController
      */
     public function log()
     {
-        return $this->dataLists(new RefundLogLists());
+        $recordId = $this->request->get('record_id', 0);
+        $result = RefundLogic::refundLog($recordId);
+        return $this->success('', $result);
     }
 
 }

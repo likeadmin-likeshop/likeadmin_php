@@ -17,6 +17,7 @@ namespace app\adminapi\logic\finance;
 
 use app\common\enum\RefundEnum;
 use app\common\logic\BaseLogic;
+use app\common\model\refund\RefundLog;
 use app\common\model\refund\RefundRecord;
 
 
@@ -68,4 +69,27 @@ class RefundLogic extends BaseLogic
             'error' => round($error, 2),
         ];
     }
+
+
+    /**
+     * @notes 退款日志
+     * @param $recordId
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2023/3/3 14:25
+     */
+    public static function refundLog($recordId)
+    {
+        return (new RefundLog())
+            ->order(['id' => 'desc'])
+            ->where('record_id', $recordId)
+            ->hidden(['refund_msg'])
+            ->append(['handler', 'refund_status_text'])
+            ->select()
+            ->toArray();
+    }
+
 }
