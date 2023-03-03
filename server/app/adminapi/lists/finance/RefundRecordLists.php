@@ -131,7 +131,7 @@ class RefundRecordLists extends BaseAdminDataLists implements ListsSearchInterfa
             ->field([
                 'count(r.id) as total',
                 'count(if(r.refund_status='.RefundEnum::REFUND_ING.', true, null)) as ing',
-                'count(if(r.refund_status='.RefundEnum::REFUND_SUCCESS.', true, null)) as ssuccess',
+                'count(if(r.refund_status='.RefundEnum::REFUND_SUCCESS.', true, null)) as success',
                 'count(if(r.refund_status='.RefundEnum::REFUND_ERROR.', true, null)) as error',
             ])
             ->where($this->searchWhere)
