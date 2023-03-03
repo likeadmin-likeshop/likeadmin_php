@@ -82,9 +82,9 @@ class RechargeLogic extends BaseLogic
      * @notes 退款
      * @param $params
      * @param $adminId
-     * @return bool
+     * @return array|false
      * @author 段誉
-     * @date 2023/2/28 17:02
+     * @date 2023/3/3 11:42
      */
     public static function refund($params, $adminId)
     {
@@ -131,17 +131,20 @@ class RechargeLogic extends BaseLogic
 
             // 退款
             $result = RefundLogic::refund($order, $record['id'], $order['order_amount'], $adminId);
+
+            $flag = true;
             $resultMsg = '操作成功';
             if ($result !== true) {
+                $flag = false;
                 $resultMsg = RefundLogic::getError();
             }
 
             Db::commit();
-            return $resultMsg;
+            return ['flag' => $flag, 'msg' => $resultMsg];
         } catch (\Exception $e) {
             Db::rollback();
             self::$error = $e->getMessage();
-            return false;
+            return ['flag' => false, 'msg' => $e->getMessage()];
         }
     }
 
@@ -150,9 +153,9 @@ class RechargeLogic extends BaseLogic
      * @notes 重新退款
      * @param $params
      * @param $adminId
-     * @return false|string
+     * @return array
      * @author 段誉
-     * @date 2023/2/28 19:16
+     * @date 2023/3/3 11:44
      */
     public static function refundAgain($params, $adminId)
     {
@@ -163,17 +166,20 @@ class RechargeLogic extends BaseLogic
 
             // 退款
             $result = RefundLogic::refund($order, $record['id'], $order['order_amount'], $adminId);
+
+            $flag = true;
             $resultMsg = '操作成功';
             if ($result !== true) {
+                $flag = false;
                 $resultMsg = RefundLogic::getError();
             }
 
             Db::commit();
-            return $resultMsg;
+            return ['flag' => $flag, 'msg' => $resultMsg];
         } catch (\Exception $e) {
             Db::rollback();
             self::$error = $e->getMessage();
-            return false;
+            return ['flag' => false, 'msg' => $e->getMessage()];
         }
     }
 

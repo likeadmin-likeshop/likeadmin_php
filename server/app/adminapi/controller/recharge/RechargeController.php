@@ -79,10 +79,11 @@ class RechargeController extends BaseAdminController
     {
         $params = (new RechargeRefundValidate())->post()->goCheck('refund');
         $result = RechargeLogic::refund($params, $this->adminId);
-        if(false === $result) {
-            return $this->fail(RechargeLogic::getError());
+        list($flag, $msg) = $result;
+        if(false === $flag) {
+            return $this->fail($msg);
         }
-        return $this->success($result, [], 1, 1);
+        return $this->success($msg, [], 1, 1);
     }
 
 
@@ -96,10 +97,11 @@ class RechargeController extends BaseAdminController
     {
         $params = (new RechargeRefundValidate())->post()->goCheck('again');
         $result = RechargeLogic::refundAgain($params, $this->adminId);
-        if(false === $result) {
-            return $this->fail(RechargeLogic::getError());
+        list($flag, $msg) = $result;
+        if(false === $flag) {
+            return $this->fail($msg);
         }
-        return $this->success($result, [], 1, 1);
+        return $this->success($msg, [], 1, 1);
     }
 
 }
