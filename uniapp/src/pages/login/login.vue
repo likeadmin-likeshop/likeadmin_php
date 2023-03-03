@@ -291,7 +291,7 @@ const loginHandle = async (data: any) => {
     uni.$u.toast('登录成功')
     uni.hideLoading()
     const pages = getCurrentPages()
-    if (pages.length > 2) {
+    if (pages.length > 1) {
         const prevPage = pages[pages.length - 2]
         uni.navigateBack({
             success: () => {
