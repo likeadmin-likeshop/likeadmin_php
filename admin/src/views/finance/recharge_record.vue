@@ -1,5 +1,5 @@
 <template>
-    <div class="article-lists">
+    <div>
         <el-card class="!border-none" shadow="never">
             <el-alert
                 type="warning"
@@ -60,7 +60,6 @@
         </el-card>
         <el-card class="!border-none mt-4" shadow="never">
             <el-table size="large" v-loading="pager.loading" :data="pager.lists">
-                <el-table-column label="ID" prop="id" min-width="80" />
                 <el-table-column label="用户信息" min-width="160">
                     <template #default="{ row }">
                         <div class="flex items-center">
@@ -76,17 +75,34 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="充值单号" prop="mobile" min-width="100" />
-                <el-table-column label="充值金额" prop="change_amount" min-width="100">
+                <el-table-column label="充值单号" prop="sn" min-width="190" />
+                <el-table-column label="充值金额" prop="order_amount" min-width="100">
                 </el-table-column>
-                <el-table-column label="支付方式" prop="left_amount" min-width="100" />
-                <el-table-column label="支付状态" prop="change_type_desc" min-width="120" />
-                <el-table-column label="提交时间" prop="source_sn" min-width="100" />
-                <el-table-column label="支付时间" prop="create_time" min-width="120" />
+                <el-table-column label="支付方式" prop="pay_way_text" min-width="100" />
+                <el-table-column label="支付状态" prop="" min-width="100">
+                    <template #default="{ row }">
+                        <span
+                            :class="{
+                                'text-error': row.pay_status == 0
+                            }"
+                        >
+                            {{ row.pay_status_text }}
+                        </span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="提交时间" prop="create_time" min-width="180" />
+                <el-table-column label="支付时间" prop="pay_time" min-width="180" />
                 <el-table-column label="操作" width="120" fixed="right">
                     <template #default="{ row }">
-                        <el-button v-perms="['user.user/detail']" type="primary" link>
-                            详情
+                        <el-button
+                            v-if="row.pay_status == 1"
+                            v-perms="['recharge.recharge/refund']"
+                            type="primary"
+                            link
+                            :disabled="row.refund_status == 1"
+                            @click="handleRefund(row.id)"
+                        >
+                            退款
                         </el-button>
                     </template>
                 </el-table-column>
@@ -98,8 +114,9 @@
     </div>
 </template>
 <script lang="ts" setup name="articleLists">
-import { rechargeLists } from '@/api/finance'
+import { rechargeLists, refund } from '@/api/finance'
 import { usePaging } from '@/hooks/usePaging'
+import feedback from '@/utils/feedback'
 const queryParams = reactive({
     sn: '',
     user_info: '',
@@ -113,6 +130,13 @@ const { pager, getLists, resetPage, resetParams } = usePaging({
     fetchFun: rechargeLists,
     params: queryParams
 })
+const handleRefund = async (id: number) => {
+    await feedback.confirm('确认重新退款？')
+    await refund({
+        recharge_id: id
+    })
+    getLists()
+}
 
 getLists()
 </script>

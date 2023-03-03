@@ -23,7 +23,7 @@
                         </template>
                     </el-table-column>
                     <el-table-column prop="sort" label="排序" min-width="150" />
-                    <el-table-column label="操作" min-width="150">
+                    <el-table-column label="操作" min-width="80" fixed="right">
                         <!-- 操作 -->
                         <template #default="{ row }">
                             <el-button
