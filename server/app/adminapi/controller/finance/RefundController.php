@@ -17,6 +17,7 @@ namespace app\adminapi\controller\finance;
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\finance\RefundLogLists;
 use app\adminapi\lists\finance\RefundRecordLists;
+use app\adminapi\logic\finance\RefundLogic;
 
 /**
  * 退款控制器
@@ -25,6 +26,23 @@ use app\adminapi\lists\finance\RefundRecordLists;
  */
 class RefundController extends BaseAdminController
 {
+
+
+    /**
+     * @notes 退还统计
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author 段誉
+     * @date 2023/3/3 12:10
+     */
+    public function stat()
+    {
+        $result = RefundLogic::stat();
+        return $this->success('', $result);
+    }
+
 
     /**
      * @notes 退款记录
