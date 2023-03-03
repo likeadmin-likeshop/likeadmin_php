@@ -66,9 +66,8 @@
 </template>
 
 <script setup lang="ts">
-import { getUserInfo } from '@/api/user'
 import { onLoad, onShow } from '@dcloudio/uni-app'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { AgreementEnum } from '@/enums/agreementEnums'
@@ -80,13 +79,7 @@ import wechatOa from '@/utils/wechat'
 // #endif
 const appStore = useAppStore()
 const userStore = useUserStore()
-const userInfo = ref({
-    avatar: '',
-    nickname: '',
-    account: '',
-    has_auth: '',
-    has_password: ''
-})
+const userInfo = computed(() => userStore.userInfo)
 const list = ref([
     {
         text: '修改密码'
@@ -102,12 +95,6 @@ isWeixin.value = isWeixinClient()
 // #endif
 
 const show = ref(false)
-
-// 获取用户信息
-const getUser = async () => {
-    const res = await getUserInfo()
-    userInfo.value = res
-}
 
 // 修改/忘记密码
 const handleClick = (index: number) => {
@@ -156,8 +143,7 @@ const bindWechat = async () => {
             wechatOa.getUrl()
         }
         // #endif
-        userStore.getUser()
-        await getUser()
+        await userStore.getUser()
     } catch (e) {
         uni.$u.toast(e)
     }
@@ -165,7 +151,7 @@ const bindWechat = async () => {
 const { lockFn: bindWechatLock } = useLockFn(bindWechat)
 
 onShow(() => {
-    getUser()
+    userStore.getUser()
 })
 
 onLoad(async (options) => {
@@ -180,6 +166,7 @@ onLoad(async (options) => {
 
         try {
             await oaAuthBind({ code })
+            userStore.getUser()
         } catch (error: any) {
             uni.redirectTo({
                 url: '/pages/user_set/user_set'
