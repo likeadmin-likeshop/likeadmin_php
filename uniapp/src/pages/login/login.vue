@@ -328,13 +328,13 @@ const wxLogin = async () => {
         const data = await mnpLogin({
             code: code
         })
+        loginData.value = data
         if (data.is_new_user) {
             uni.hideLoading()
             userStore.temToken = data.token
             showLoginPopup.value = true
             return
         }
-        loginData.value = data
         loginHandle(data)
     } catch (error: any) {
         uni.hideLoading()
