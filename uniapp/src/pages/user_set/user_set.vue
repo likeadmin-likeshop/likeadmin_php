@@ -169,13 +169,14 @@ onLoad(async (options) => {
         uni.showLoading({
             title: '请稍后...'
         })
-
-        await oaAuthBind({ code })
+        try {
+            await oaAuthBind({ code })
+            await userStore.getUser()
+        } catch (error) {}
         //用于清空code
         uni.redirectTo({
-            url: '/pages/user_set/user_set?refresh=true'
+            url: '/pages/user_set/user_set'
         })
-        await userStore.getUser()
     }
 
     // #endif
