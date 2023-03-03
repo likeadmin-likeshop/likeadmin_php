@@ -19,15 +19,21 @@
             <view class="">登录密码</view>
             <u-icon name="arrow-right" color="#666"></u-icon>
         </view>
-        <view class="item bg-white flex flex-1 justify-between" @click="bindWechatLock">
+        <!--  #ifdef H5 || MP-WEIXIN -->
+        <view
+            v-if="isWeixin"
+            class="item bg-white flex flex-1 justify-between"
+            @click="bindWechatLock"
+        >
             <view class="">绑定微信</view>
             <view class="flex justify-between">
                 <view class="text-muted mr-[20rpx]">
-                    {{ userInfo.has_auth ? '已绑定' : '未绑定' }}
+                    {{ userInfo.is_auth ? '已绑定' : '未绑定' }}
                 </view>
                 <u-icon name="arrow-right" color="#666"></u-icon>
             </view>
         </view>
+        <!-- #endif -->
         <navigator :url="`/pages/agreement/agreement?type=${AgreementEnum.PRIVACY}`">
             <view class="item bg-white mt-[20rpx] btn-border flex flex-1 justify-between">
                 <view class="">隐私政策</view>
@@ -80,6 +86,7 @@ import wechatOa from '@/utils/wechat'
 const appStore = useAppStore()
 const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo)
+
 const list = ref([
     {
         text: '修改密码'
@@ -152,6 +159,7 @@ const { lockFn: bindWechatLock } = useLockFn(bindWechat)
 
 onShow(() => {
     userStore.getUser()
+    console.log(userInfo.value)
 })
 
 onLoad(async (options) => {
@@ -162,16 +170,13 @@ onLoad(async (options) => {
         uni.showLoading({
             title: '请稍后...'
         })
-        //用于清空code
 
-        try {
-            await oaAuthBind({ code })
-            userStore.getUser()
-        } catch (error: any) {
-            uni.redirectTo({
-                url: '/pages/user_set/user_set'
-            })
-        }
+        await oaAuthBind({ code })
+        userStore.getUser()
+        //用于清空code
+        uni.redirectTo({
+            url: '/pages/user_set/user_set'
+        })
     }
 
     // #endif
