@@ -103,7 +103,7 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
      */
     public function lists(): array
     {
-        $field = 'ro.sn,ro.order_amount,ro.pay_way,ro.pay_time,ro.pay_status,ro.create_time,ro.refund_status';
+        $field = 'ro.id,ro.sn,ro.order_amount,ro.pay_way,ro.pay_time,ro.pay_status,ro.create_time,ro.refund_status';
         $field .= ',u.avatar,u.nickname';
         $lists = RechargeOrder::alias('ro')
             ->join('user u', 'u.id = ro.user_id')
