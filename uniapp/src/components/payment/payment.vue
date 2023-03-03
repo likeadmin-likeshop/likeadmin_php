@@ -1,4 +1,4 @@
-<template>
+ <template>
     <u-popup
         v-model="showPay"
         mode="bottom"
@@ -259,6 +259,7 @@ const { isLock, lockFn: handlePay } = useLockFn(async () => {
         uni.hideLoading()
     } catch (error) {
         uni.hideLoading()
+		handlePayResult(PayStatusEnum.FAIL)
         console.log(error)
     }
 })
@@ -279,6 +280,7 @@ const queryPayResult = async (confirm = true) => {
         order_id: props.orderId,
         from: props.from
     })
+	
     if (res.pay_status === 0) {
         if (confirm == true) {
             uni.$u.toast('您的订单还未支付，请重新支付')
@@ -291,7 +293,8 @@ const queryPayResult = async (confirm = true) => {
         }
         handlePayResult(PayStatusEnum.SUCCESS)
     }
-    showCheckPay.value = false
+	  showCheckPay.value = false
+  
 }
 
 watch(
