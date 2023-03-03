@@ -5,9 +5,9 @@
             <view class="border-0 border-b border-solid border-light">
                 <input
                     v-model="money"
-                    type="text"
                     class="text-[60rpx] h-[60rpx] py-[24rpx]"
                     placeholder="0.00"
+                    type="digit"
                 />
             </view>
             <view class="mt-[20rpx] text-xs text-muted">
@@ -32,6 +32,7 @@
             :from="payState.from"
             :redirect="payState.redirect"
             @success="handlePaySuccess"
+            @fail="handlePayFail"
         />
     </view>
 </template>
@@ -75,6 +76,10 @@ const handlePaySuccess = async () => {
     uni.navigateTo({
         url: `/pages/payment_result/payment_result?id=${payState.orderId}&from=${payState.from}`
     })
+}
+
+const handlePayFail = async () => {
+    uni.$u.toast('支付失败')
 }
 
 const getWallet = async () => {

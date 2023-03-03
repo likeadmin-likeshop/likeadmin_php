@@ -259,7 +259,6 @@ const { isLock, lockFn: handlePay } = useLockFn(async () => {
         uni.hideLoading()
     } catch (error) {
         uni.hideLoading()
-        handlePayResult(PayStatusEnum.FAIL)
         console.log(error)
     }
 })
