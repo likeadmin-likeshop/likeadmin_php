@@ -1,7 +1,7 @@
 <template>
     <div class="workbench">
-        <div class="md:flex">
-            <el-card class="!border-none mb-4 md:mr-4" shadow="never">
+        <div class="lg:flex">
+            <el-card class="!border-none mb-4 lg:mr-4 lg:w-[350px]" shadow="never">
                 <template #header>
                     <span class="card-title">版本信息</span>
                 </template>
