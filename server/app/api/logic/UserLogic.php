@@ -46,15 +46,17 @@ class UserLogic extends BaseLogic
     public static function center(array $userInfo): array
     {
         $user = User::where(['id' => $userInfo['user_id']])
-            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time,is_new_user,user_money')
-            ->findOrEmpty()->toArray();
+            ->field('id,sn,sex,account,nickname,real_name,avatar,mobile,create_time,is_new_user,user_money,password')
+            ->findOrEmpty();
 
         if (in_array($userInfo['terminal'], [UserTerminalEnum::WECHAT_MMP, UserTerminalEnum::WECHAT_OA])) {
             $auth = UserAuth::where(['user_id' => $userInfo['user_id'], 'terminal' => $userInfo['terminal']])->find();
             $user['is_auth'] = $auth ? YesNoEnum::YES : YesNoEnum::NO;
         }
 
-        return $user;
+        $user['has_password'] = !empty($user['password']);
+        $user->hidden(['password']);
+        return $user->toArray();
     }
 
 
