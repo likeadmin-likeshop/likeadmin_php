@@ -46,7 +46,7 @@ class OfficialAccountSettingLogic extends BaseLogic
             'url'               => url('adminapi/channel.official_account_reply/index', [],'',true).'',
             'token'             => ConfigService::get('oa_setting', 'token'),
             'encoding_aes_key'  => ConfigService::get('oa_setting', 'encoding_aes_key', ''),
-            'encryption_type'   => ConfigService::get('oa_setting', 'encryption_type'),
+            'encryption_type'   => ConfigService::get('oa_setting', 'encryption_type', 1),
             'business_domain'   => $domainName,
             'js_secure_domain'  => $domainName,
             'web_auth_domain'   => $domainName,
