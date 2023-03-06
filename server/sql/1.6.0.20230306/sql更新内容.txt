@@ -1,0 +1,30 @@
+1.5.1
+
+表结构调整
+
+表调整
+la_user表 
+增加 【is_new_user， user_money，total_recharge_amount】字段
+
+表增加
+la_dev_pay_config  支付配置表
+la_dev_pay_way 支付方式表
+la_recharge_order 充值订单表
+la_refund_record 退款记录表
+la_refund_log 退款日志表
+la_user_account_log 用户账户流水表
+
+
+表数据调整
+
+菜单数据更新sql独立在menu.sql。
+若已对菜单做过编辑的请谨慎直接更新menu.sql。可以新建数据库导入
+server/public/install/db/like.sql 完整安装数据对比菜单调整。
+
+la_decorate_page 装修页配置表  调整个人中心页数据
+la_system_menu  系统菜单表  新增菜单
+ 
+
+
+
+
