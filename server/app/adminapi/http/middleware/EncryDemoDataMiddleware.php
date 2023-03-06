@@ -36,16 +36,9 @@ class EncryDemoDataMiddleware
         'channel.mnp_settings/getConfig',
         // 开放平台配置
         'channel.open_setting/getConfig',
+        // 支付配置
+        'setting.pay.pay_config/getConfig',
     ];
-
-
-    // 必须过滤字段
-    protected $needCheckParams = [
-        'app_id',
-        'app_secret',
-        'original_id',
-    ];
-
 
     // 可以排除字段
     protected $excludeParams = [
@@ -53,6 +46,8 @@ class EncryDemoDataMiddleware
         'icon',
         'image',
         'qr_code',
+        'interface_version',
+        'merchant_type',
     ];
 
 
@@ -77,22 +72,43 @@ class EncryDemoDataMiddleware
         }
 
         foreach ($data['data'] as $key => $item) {
-            // 排除部分字段，如图片等
-            if (in_array($key, $this->excludeParams)) {
-                continue;
-            }
-
-            if (in_array($key, $this->needCheckParams)) {
-                $data['data'][$key] = '******';
-                continue;
-            }
-
+            // 字符串
             if (is_string($item)) {
-                $data['data'][$key] = '******';
+                $data['data'][$key] = $this->getEncryData($key, $item);
+                continue;
+            }
+            // 数组
+            if (is_array($item)) {
+                foreach ($item as $itemKey => $itemValue) {
+                    $data['data'][$key][$itemKey] = $this->getEncryData($itemKey, $itemValue);
+                }
             }
         }
 
         return $response->data($data);
+    }
+
+
+    /**
+     * @notes 加密配置
+     * @param $key
+     * @param $value
+     * @return mixed|string
+     * @author 段誉
+     * @date 2023/3/6 11:49
+     */
+    protected function getEncryData($key, $value)
+    {
+        // 非隐藏字段
+        if (in_array($key, $this->excludeParams)) {
+            return $value;
+        }
+
+        // 隐藏字段
+        if (is_string($value)) {
+            return '******';
+        }
+        return $value;
     }
 
 }

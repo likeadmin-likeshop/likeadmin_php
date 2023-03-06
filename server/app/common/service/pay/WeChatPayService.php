@@ -254,7 +254,7 @@ class WeChatPayService extends BasePayService
         $this->checkResultFail($result);
 
         $domain = request()->domain();
-        if (!empty(env('project.test_web_domain'))) {
+        if (!empty(env('project.test_web_domain')) && env('APP_DEBUG')) {
             $domain = env('project.test_web_domain');
         }
         $redirectUrl = $domain . '/mobile'. $order['redirect_url'] .'?id=' . $order['id'] . '&from='. $from . '&checkPay=true';
