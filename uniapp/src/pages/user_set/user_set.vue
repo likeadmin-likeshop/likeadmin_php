@@ -137,6 +137,9 @@ const logoutHandle = () => {
 const bindWechat = async () => {
     if (userInfo.value.is_auth) return
     try {
+        uni.showLoading({
+            title: '请稍后...'
+        })
         // #ifdef MP-WEIXIN
         const { code }: any = await uni.login({
             provider: 'weixin'
@@ -151,7 +154,9 @@ const bindWechat = async () => {
         }
         // #endif
         await userStore.getUser()
+        uni.hideLoading()
     } catch (e) {
+        uni.hideLoading()
         uni.$u.toast(e)
     }
 }
