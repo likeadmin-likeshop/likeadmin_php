@@ -11,7 +11,7 @@
                             <el-radio :label="1">开启</el-radio>
                             <el-radio :label="0">关闭</el-radio>
                         </el-radio-group>
-                        <div class="form-tips">关闭或开启充值功能，关闭后商城将不显示充值入口</div>
+                        <div class="form-tips">关闭或开启充值功能，关闭后将不显示充值入口</div>
                     </div>
                 </el-form-item>
                 <el-form-item label="最低充值金额">
