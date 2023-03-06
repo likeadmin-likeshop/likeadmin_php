@@ -167,14 +167,20 @@
             </view>
             <!-- #endif -->
         </view>
+        <mplogin-popup
+            v-model:show="showLoginPopup"
+            :logo="websiteConfig.shop_logo"
+            :title="websiteConfig.shop_name"
+            @update="handleUpdateUser"
+        />
     </view>
 </template>
 
 <script setup lang="ts">
-import { login, mnpLogin } from '@/api/account'
+import { login, mnpLogin, updateUser } from '@/api/account'
 import { smsSend } from '@/api/app'
 import { SMSEnum } from '@/enums/appEnums'
-import { BACK_URL } from '@/enums/cacheEnums'
+import { BACK_URL } from '@/enums/constantEnums'
 import { useLockFn } from '@/hooks/useLockFn'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
@@ -201,6 +207,7 @@ const appStore = useAppStore()
 
 const uCodeRef = shallowRef()
 const codeTips = ref('')
+const showLoginPopup = ref(false)
 const isCheckAgreement = ref(false)
 
 const formData = reactive({
@@ -210,9 +217,12 @@ const formData = reactive({
     code: ''
 })
 
+const loginData = ref()
 const codeChange = (text: string) => {
     codeTips.value = text
 }
+
+const websiteConfig = computed(() => appStore.getWebsiteConfig)
 
 const sendSms = async () => {
     if (!formData.account) return
@@ -282,7 +292,7 @@ const loginHandle = async (data: any) => {
     uni.hideLoading()
     const pages = getCurrentPages()
     if (pages.length > 1) {
-        const prevPage = pages.at(-2)
+        const prevPage = pages[pages.length - 2]
         uni.navigateBack({
             success: () => {
                 // @ts-ignore
@@ -318,6 +328,13 @@ const wxLogin = async () => {
         const data = await mnpLogin({
             code: code
         })
+        loginData.value = data
+        if (data.is_new_user) {
+            uni.hideLoading()
+            userStore.temToken = data.token
+            showLoginPopup.value = true
+            return
+        }
         loginHandle(data)
     } catch (error: any) {
         uni.hideLoading()
@@ -329,6 +346,11 @@ const wxLogin = async () => {
         wechatOa.getUrl()
     }
     // #endif
+}
+const handleUpdateUser = async (value: any) => {
+    await updateUser(value, { token: userStore.temToken })
+    showLoginPopup.value = false
+    loginHandle(loginData.value)
 }
 
 watch(
@@ -372,13 +394,16 @@ onLoad(async (options) => {
         uni.showLoading({
             title: '请稍后...'
         })
-        //用于清空code
 
         try {
             const data = await wechatOa.authLogin(code)
             loginHandle(data)
         } catch (error: any) {
             uni.hideLoading()
+            //用于清空code
+            uni.redirectTo({
+                url: '/pages/login/login'
+            })
             throw new Error(error)
         }
     }

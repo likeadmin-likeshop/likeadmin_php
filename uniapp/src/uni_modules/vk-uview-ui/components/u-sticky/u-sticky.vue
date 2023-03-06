@@ -117,6 +117,7 @@
 						this.observeContent();
 					});
 				});
+				
 			},
 			observeContent() {
 				this.disconnectObserver('contentObserver');

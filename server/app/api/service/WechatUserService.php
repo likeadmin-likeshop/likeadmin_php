@@ -15,6 +15,7 @@
 namespace app\api\service;
 
 
+use app\common\enum\YesNoEnum;
 use app\common\model\user\{User, UserAuth};
 use app\common\enum\user\UserTerminalEnum;
 use app\common\service\{ConfigService, storage\Driver as StorageDriver};
@@ -74,7 +75,7 @@ class WechatUserService
         $unionid = $this->unionid;
 
         $user = User::alias('u')
-            ->field('u.id,u.sn,u.mobile,u.nickname,u.avatar,u.mobile,u.is_disable')
+            ->field('u.id,u.sn,u.mobile,u.nickname,u.avatar,u.mobile,u.is_disable,u.is_new_user')
             ->join('user_auth au', 'au.user_id = u.id')
             ->where(function ($query) use ($openid, $unionid) {
                 $query->whereOr(['au.openid' => $openid]);
@@ -147,6 +148,7 @@ class WechatUserService
         $this->user->nickname = "用户" . $userSn;
         $this->user->avatar = $avatar;
         $this->user->channel = $this->terminal;
+        $this->user->is_new_user = YesNoEnum::YES;
 
         if (empty($this->nickname)) {
             $this->user->nickname = '用户' . $this->user->sn;

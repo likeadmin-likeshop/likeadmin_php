@@ -23,3 +23,18 @@ export function OALogin(data: Record<string, any>) {
 export function mnpLogin(data: Record<string, any>) {
     return request.post({ url: '/login/mnpLogin', data })
 }
+
+//更新微信小程序头像昵称
+export function updateUser(data: Record<string, any>, header: any) {
+    return request.post({ url: '/login/updateUser', data, header })
+}
+
+//小程序绑定微信
+export function mnpAuthBind(data: Record<string, any>) {
+    return request.post({ url: '/login/mnpAuthBind', data })
+}
+
+//公众号绑定微信
+export function oaAuthBind(data: Record<string, any>) {
+    return request.post({ url: '/login/oaAuthBind', data })
+}

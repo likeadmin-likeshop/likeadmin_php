@@ -60,7 +60,9 @@ const handleConfirm = async () => {
     if (formData.password != formData.password_confirm) return uni.$u.toast('两次输入的密码不一致')
     await userChangePwd(formData)
     uni.$u.toast('操作成功')
-    uni.navigateBack()
+    setTimeout(() => {
+        uni.navigateBack()
+    }, 1500)
 }
 
 onLoad((options) => {

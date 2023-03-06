@@ -19,7 +19,7 @@ module.exports = {
                 printWidth: 100,
                 proseWrap: 'preserve',
                 bracketSameLine: false,
-                endOfLine: 'lf',
+                endOfLine: 'auto',
                 tabWidth: 4,
                 useTabs: false,
                 trailingComma: 'none'

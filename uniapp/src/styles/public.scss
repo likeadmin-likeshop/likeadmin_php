@@ -2,3 +2,7 @@ page {
     background-color: $u-bg-color;
     font-size: 28rpx;
 }
+
+uni-modal {
+  z-index: 999999 !important;
+}

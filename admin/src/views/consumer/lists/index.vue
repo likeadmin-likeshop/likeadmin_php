@@ -50,7 +50,6 @@
                 <el-table-column label="昵称" prop="nickname" min-width="100" />
                 <el-table-column label="账号" prop="account" min-width="120" />
                 <el-table-column label="手机号码" prop="mobile" min-width="100" />
-                <el-table-column label="性别" prop="sex" min-width="100" />
                 <el-table-column label="注册来源" prop="channel" min-width="100" />
                 <el-table-column label="注册时间" prop="create_time" min-width="120" />
                 <el-table-column label="操作" width="120" fixed="right">

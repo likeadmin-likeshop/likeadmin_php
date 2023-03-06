@@ -19,14 +19,18 @@
             <view class="">登录密码</view>
             <u-icon name="arrow-right" color="#666"></u-icon>
         </view>
-        <!-- #ifdef MP-WEIXIN || H5 -->
-        <view class="item bg-white flex flex-1 justify-between" v-if="isWeixin">
+        <!--  #ifdef H5 || MP-WEIXIN -->
+        <view
+            v-if="isWeixin"
+            class="item bg-white flex flex-1 justify-between"
+            @click="bindWechatLock"
+        >
             <view class="">绑定微信</view>
             <view class="flex justify-between">
                 <view class="text-muted mr-[20rpx]">
-                    {{ userInfo.has_auth ? '已绑定' : '未绑定' }}
+                    {{ userInfo.is_auth ? '已绑定' : '未绑定' }}
                 </view>
-                <!-- <u-icon name="arrow-right" color="#666"></u-icon> -->
+                <u-icon v-if="userInfo.is_auth == 0" name="arrow-right" color="#666"></u-icon>
             </view>
         </view>
         <!-- #endif -->
@@ -68,23 +72,21 @@
 </template>
 
 <script setup lang="ts">
-import { getUserInfo } from '@/api/user'
-import { onShow } from '@dcloudio/uni-app'
-import { ref } from 'vue'
+import { onLoad, onShow } from '@dcloudio/uni-app'
+import { computed, ref } from 'vue'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { AgreementEnum } from '@/enums/agreementEnums'
 import { isWeixinClient } from '@/utils/client'
-
+import { mnpAuthBind, oaAuthBind } from '@/api/account'
+import { useLockFn } from '@/hooks/useLockFn'
+// #ifdef H5
+import wechatOa from '@/utils/wechat'
+// #endif
 const appStore = useAppStore()
 const userStore = useUserStore()
-const userInfo = ref({
-    avatar: '',
-    nickname: '',
-    account: '',
-    has_auth: '',
-    has_password: ''
-})
+const userInfo = computed(() => userStore.userInfo)
+
 const list = ref([
     {
         text: '修改密码'
@@ -100,12 +102,6 @@ isWeixin.value = isWeixinClient()
 // #endif
 
 const show = ref(false)
-
-// 获取用户信息
-const getUser = async () => {
-    const res = await getUserInfo()
-    userInfo.value = res
-}
 
 // 修改/忘记密码
 const handleClick = (index: number) => {
@@ -138,8 +134,57 @@ const logoutHandle = () => {
     })
 }
 
+const bindWechat = async () => {
+    if (userInfo.value.is_auth) return
+    try {
+        uni.showLoading({
+            title: '请稍后...'
+        })
+        // #ifdef MP-WEIXIN
+        const { code }: any = await uni.login({
+            provider: 'weixin'
+        })
+        await mnpAuthBind({
+            code: code
+        })
+        //#endif
+        // #ifdef H5
+        if (isWeixin.value) {
+            wechatOa.getUrl()
+        }
+        // #endif
+        await userStore.getUser()
+        uni.hideLoading()
+    } catch (e) {
+        uni.hideLoading()
+        uni.$u.toast(e)
+    }
+}
+const { lockFn: bindWechatLock } = useLockFn(bindWechat)
+
 onShow(() => {
-    getUser()
+    userStore.getUser()
+})
+
+onLoad(async (options) => {
+    // #ifdef H5
+    const { code } = options
+    if (!isWeixin.value) return
+    if (code) {
+        uni.showLoading({
+            title: '请稍后...'
+        })
+        try {
+            await oaAuthBind({ code })
+            await userStore.getUser()
+        } catch (error) {}
+        //用于清空code
+        uni.redirectTo({
+            url: '/pages/user_set/user_set'
+        })
+    }
+
+    // #endif
 })
 </script>
 

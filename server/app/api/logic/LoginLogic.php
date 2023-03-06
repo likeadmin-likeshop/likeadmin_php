@@ -17,12 +17,15 @@ namespace app\api\logic;
 use app\common\cache\WebScanLoginCache;
 use app\common\logic\BaseLogic;
 use app\api\service\{UserTokenService, WechatUserService};
-use app\common\enum\{LoginEnum, user\UserTerminalEnum};
-use app\common\service\{ConfigService,
+use app\common\enum\{LoginEnum, user\UserTerminalEnum, YesNoEnum};
+use app\common\service\{
+    ConfigService,
     FileService,
     wechat\WeChatConfigService,
-    wechat\WeChatRequestService,
-    wechat\WeChatService};
+    wechat\WeChatMnpService,
+    wechat\WeChatOaService,
+    wechat\WeChatRequestService
+};
 use app\common\model\user\{User, UserAuth};
 use think\facade\{Db, Config};
 
@@ -145,7 +148,7 @@ class LoginLogic extends BaseLogic
      */
     public static function codeUrl(string $url)
     {
-        return WeChatService::getCodeUrl($url);
+        return (new WeChatOaService())->getCodeUrl($url);
     }
 
 
@@ -162,7 +165,7 @@ class LoginLogic extends BaseLogic
         Db::startTrans();
         try {
             //通过code获取微信 openid
-            $response = WeChatService::getOaResByCode($params);
+            $response = (new WeChatOaService())->getOaResByCode($params['code']);
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_OA);
             $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
 
@@ -191,7 +194,7 @@ class LoginLogic extends BaseLogic
     {
         try {
             //通过code获取微信 openid
-            $response = WeChatService::getMnpResByCode($params);
+            $response = (new WeChatMnpService())->getMnpResByCode($params['code']);
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_MMP);
             $userInfo = $userServer->getResopnseByUserInfo('silent')->getUserInfo();
 
@@ -220,7 +223,7 @@ class LoginLogic extends BaseLogic
         Db::startTrans();
         try {
             //通过code获取微信 openid
-            $response = WeChatService::getMnpResByCode($params);
+            $response = (new WeChatMnpService())->getMnpResByCode($params['code']);
             $userServer = new WechatUserService($response, UserTerminalEnum::WECHAT_MMP);
             $userInfo = $userServer->getResopnseByUserInfo()->authUserLogin()->getUserInfo();
 
@@ -270,7 +273,7 @@ class LoginLogic extends BaseLogic
     {
         try {
             //通过code获取微信openid
-            $response = WeChatService::getMnpResByCode($params);
+            $response = (new WeChatMnpService())->getMnpResByCode($params['code']);
             $response['user_id'] = $params['user_id'];
             $response['terminal'] = UserTerminalEnum::WECHAT_MMP;
 
@@ -295,7 +298,7 @@ class LoginLogic extends BaseLogic
     {
         try {
             //通过code获取微信openid
-            $response = WeChatService::getOaResByCode($params);
+            $response = (new WeChatOaService())->getOaResByCode($params['code']);
             $response['user_id'] = $params['user_id'];
             $response['terminal'] = UserTerminalEnum::WECHAT_OA;
 
@@ -321,7 +324,7 @@ class LoginLogic extends BaseLogic
         //先检查openid是否有记录
         $isAuth = UserAuth::where('openid', '=', $response['openid'])->findOrEmpty();
         if (!$isAuth->isEmpty()) {
-            throw new \Exception('该微信已经绑定，请切换微信授权登录');
+            throw new \Exception('该微信已被绑定');
         }
 
         if (isset($response['unionid']) && !empty($response['unionid'])) {
@@ -329,7 +332,7 @@ class LoginLogic extends BaseLogic
             $userAuth = UserAuth::where(['unionid' => $response['unionid']])
                 ->findOrEmpty();
             if (!$userAuth->isEmpty() && $userAuth->user_id != $response['user_id']) {
-                throw new \Exception('该微信已经绑定，请切换微信授权登录');
+                throw new \Exception('该微信已被绑定');
             }
         }
 
@@ -410,4 +413,21 @@ class LoginLogic extends BaseLogic
         }
     }
 
+
+    /**
+     * @notes 更新用户信息
+     * @param $params
+     * @param $userId
+     * @return User
+     * @author 段誉
+     * @date 2023/2/22 11:19
+     */
+    public static function updateUser($params, $userId)
+    {
+        return User::where(['id' => $userId])->update([
+            'nickname' => $params['nickname'],
+            'avatar' => FileService::setFileUrl($params['avatar']),
+            'is_new_user' => YesNoEnum::NO
+        ]);
+    }
 }

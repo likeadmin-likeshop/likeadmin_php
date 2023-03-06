@@ -7,5 +7,7 @@ return [
     'commands' => [
         // 定时任务
         'crontab' => 'app\common\command\Crontab',
+        // 退款查询
+        'query_refund' => 'app\common\command\QueryRefund',
     ],
 ];

@@ -122,7 +122,7 @@ export default {
 		// 拉取父组件新的变化后的参数
 		parentData() {
 			return [
-				this.value,
+				this.valueCom,
 				this.disabled,
 				this.activeColor,
 				this.size,

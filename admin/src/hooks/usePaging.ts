@@ -19,7 +19,8 @@ export function usePaging(options: Options) {
         size,
         loading: firstLoading,
         count: 0,
-        lists: [] as any[]
+        lists: [] as any[],
+        extend: {} as Record<string, any>
     })
     // 请求分页接口
     const getLists = () => {
@@ -32,6 +33,7 @@ export function usePaging(options: Options) {
             .then((res: any) => {
                 pager.count = res?.count
                 pager.lists = res?.lists
+                pager.extend = res?.extend
                 return Promise.resolve(res)
             })
             .catch((err: any) => {

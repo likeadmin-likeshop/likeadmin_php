@@ -1,6 +1,6 @@
 import { merge } from 'lodash-es'
 import { isFunction } from '@vue/shared'
-import { HttpRequestOptions, RequestConfig, RequestOptions } from './type'
+import { HttpRequestOptions, RequestConfig, RequestOptions, UploadFileOption } from './type'
 import { RequestErrMsgEnum, RequestMethodsEnum } from '@/enums/requestEnums'
 import requestCancel from './cancel'
 
@@ -41,6 +41,49 @@ export default class HttpRequest {
     post<T = any>(options: RequestOptions, config?: Partial<RequestConfig>): Promise<T> {
         return this.request({ ...options, method: RequestMethodsEnum.POST }, config)
     }
+
+    /**
+     * @description 上传图片
+     */
+    uploadFile(options: UploadFileOption, config?: Partial<RequestConfig>) {
+        let mergeOptions: RequestOptions = merge({}, this.options.requestOptions, options)
+        const mergeConfig: RequestConfig = merge({}, this.options, config)
+        const { requestInterceptorsHook, responseInterceptorsHook, responseInterceptorsCatchHook } =
+            mergeConfig.requestHooks || {}
+        if (requestInterceptorsHook && isFunction(requestInterceptorsHook)) {
+            mergeOptions = requestInterceptorsHook(mergeOptions, mergeConfig)
+        }
+        return new Promise((resolve, reject) => {
+            uni.uploadFile({
+                ...mergeOptions,
+                success: async (response) => {
+                    if (response.statusCode == 200) {
+                        response.data = JSON.parse(response.data)
+                        if (responseInterceptorsHook && isFunction(responseInterceptorsHook)) {
+                            try {
+                                response = await responseInterceptorsHook(response, mergeConfig)
+                                resolve(response)
+                            } catch (error) {
+                                reject(error)
+                            }
+                            return
+                        }
+                        resolve(response)
+                    }
+                },
+                fail: async (err) => {
+                    if (
+                        responseInterceptorsCatchHook &&
+                        isFunction(responseInterceptorsCatchHook)
+                    ) {
+                        reject(await responseInterceptorsCatchHook(mergeOptions, err))
+                        return
+                    }
+                    reject(err)
+                }
+            })
+        })
+    }
     /**
      * @description 请求函数
      */
@@ -55,10 +98,10 @@ export default class HttpRequest {
         return new Promise((resolve, reject) => {
             const requestTask = uni.request({
                 ...mergeOptions,
-                success(response) {
+                async success(response) {
                     if (responseInterceptorsHook && isFunction(responseInterceptorsHook)) {
                         try {
-                            response = responseInterceptorsHook(response, mergeConfig)
+                            response = await responseInterceptorsHook(response, mergeConfig)
                             resolve(response)
                         } catch (error) {
                             reject(error)
@@ -67,7 +110,7 @@ export default class HttpRequest {
                     }
                     resolve(response)
                 },
-                fail: (err) => {
+                fail: async (err) => {
                     if (err.errMsg == RequestErrMsgEnum.TIMEOUT) {
                         this.retryRequest(mergeOptions, mergeConfig)
                             .then((res) => resolve(res))
@@ -79,7 +122,7 @@ export default class HttpRequest {
                         responseInterceptorsCatchHook &&
                         isFunction(responseInterceptorsCatchHook)
                     ) {
-                        reject(responseInterceptorsCatchHook(mergeOptions, mergeConfig))
+                        reject(await responseInterceptorsCatchHook(mergeOptions, err))
                         return
                     }
                     reject(err)

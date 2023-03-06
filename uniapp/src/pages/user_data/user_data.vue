@@ -2,18 +2,14 @@
     <!-- Main Start -->
     <!-- 头部修改头像 -->
     <view class="header bg-white pt-[30rpx]">
-        <view class="flex">
-            <button
-                class="flex flex-col items-center after:border-0"
-                hover-class="none"
-                open-type="chooseAvatar"
-                style="background-color: transparent"
-                @click="chooseAvatar"
-                @chooseavatar="chooseAvatar"
+        <view class="flex justify-center pb-5">
+            <avatar-upload
+                :modelValue="userInfo?.avatar"
+                file-key="url"
+                :round="true"
+                @update:modelValue="handleAvatarChange"
             >
-                <image :src="userInfo?.avatar"></image>
-                <view class="mt-[10rpx] text-center text-muted text-xs"> 点击修改头像 </view>
-            </button>
+            </avatar-upload>
         </view>
     </view>
 
@@ -191,10 +187,9 @@ import { onShow, onUnload } from '@dcloudio/uni-app'
 import { getUserInfo, userEdit, userBindMobile, userMnpMobile } from '@/api/user'
 import { smsSend } from '@/api/app'
 import { FieldType, SMSEnum } from '@/enums/appEnums'
-import { uploadFile } from '@/utils/util'
 
 // 用户信息
-const userInfo = ref<any | null>(null)
+const userInfo = ref<any>({})
 // 用户信息的枚举
 const fieldType = ref(FieldType.NONE)
 //选择性别数据
@@ -244,6 +239,11 @@ const sendSms = async () => {
     }
 }
 
+const handleAvatarChange = (value) => {
+    fieldType.value = FieldType.AVATAR
+    setUserInfoFun(value)
+}
+
 // 验证码修改手机号-非微信小程序
 const changeCodeMobile = async () => {
     await userBindMobile({
@@ -266,20 +266,6 @@ const setUserInfoFun = async (value: string): Promise<void> => {
     getUser()
 }
 
-// 上传头像
-const chooseAvatar = (e: any) => {
-    fieldType.value = FieldType.AVATAR
-    // #ifndef MP-WEIXIN
-    uni.navigateTo({
-        url: '/uni_modules/vk-uview-ui/components/u-avatar-cropper/u-avatar-cropper?destWidth=300&rectWidth=200&fileType=jpg'
-    })
-    // #endif
-    // #ifdef MP-WEIXIN
-    if (e.detail.avatarUrl) {
-        uploadAvatar(e.detail.avatarUrl)
-    }
-    // #endif
-}
 // 显示修改用户性别弹窗
 const changeSex = () => {
     showPicker.value = true
@@ -335,46 +321,12 @@ const goPage = (url: string) => {
         url: url
     })
 }
-const uploadAvatar = (path: string) => {
-    uni.showLoading({
-        title: '正在上传中...',
-        mask: true
-    })
-    uploadFile(path)
-        .then((res) => {
-            uni.hideLoading()
-            setUserInfoFun(res.url)
-        })
-        .catch(() => {
-            uni.hideLoading()
-            uni.$u.toast('上传失败')
-        })
-}
-
-// 监听从裁剪页发布的事件，获得裁剪结果
-uni.$on('uAvatarCropper', (path) => {
-    uni.showLoading({
-        title: '正在上传中...',
-        mask: true
-    })
-    uploadFile(path)
-        .then((res) => {
-            uni.hideLoading()
-            setUserInfoFun(res.url)
-        })
-        .catch(() => {
-            uni.hideLoading()
-            uni.$u.toast('上传失败')
-        })
-})
 
 onShow(async () => {
     getUser()
 })
 
-onUnload(() => {
-    uni.$off('uAvatarCropper')
-})
+onUnload(() => {})
 </script>
 
 <style lang="scss">

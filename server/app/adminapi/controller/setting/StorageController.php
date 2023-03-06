@@ -24,7 +24,7 @@ use think\response\Json;
 /**
  * 存储设置控制器
  * Class StorageController
- * @package app\adminapi\controller\settings\shop
+ * @package app\adminapi\controller\setting\shop
  */
 class StorageController extends BaseAdminController
 {
