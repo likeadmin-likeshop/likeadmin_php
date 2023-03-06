@@ -30,7 +30,6 @@
                     <el-select class="w-[280px]" v-model="queryParams.pay_way">
                         <el-option label="全部" value />
                         <el-option label="微信支付" :value="2" />
-                        <el-option label="微信支付" :value="3" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="支付状态">
