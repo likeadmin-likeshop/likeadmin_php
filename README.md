@@ -9,14 +9,14 @@
 
 ##  👀体验后台
 ### 管理后台
-**地址：https://demo.likeadmin.cn/admin <br>
+**地址：https://php.likeadmin.cn/admin <br>
 账号：admin 密码：123456**
 ### 微信小程序前台
 <img  width="40%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=1d806dc4d79c267737e9b5fa79835e59" /><br>
 ### 手机端网页前台
-https://demo.likeadmin.cn/mobile
+https://php.likeadmin.cn/mobile
 ### PC（电脑）端网页前台
-https://demo.likeadmin.cn/pc/
+https://php.likeadmin.cn/pc/
 ### 开发文档
 地址：[https://www.likeadmin.cn](https://www.likeadmin.cn "https://www.likeadmin.cn")
 
