@@ -2,6 +2,19 @@
 <h4 align="center">🚀快速开发、🛠️ 一键生成代码、✅后台多端自适应、📱手机端前台、🖥️PC（电脑）端前台</h4> 
 <p align="center">
 <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8-8892bf"></a> <a href="https://www.tslang.cn/"><img src="https://img.shields.io/badge/TypeScript-3-294e80"></a> <a href="#"><img src="https://img.shields.io/badge/ThinkPHP-6.0-6fb737"></a> <a href="#"><img src="https://img.shields.io/badge/Vue.js-3-4eb883"></a> <a href="#"><img src="https://img.shields.io/badge/vite-2-ffc018"></a> <a href="#"><img src="https://img.shields.io/badge/Element Plus-2-409eff"></a> <a href="https://uniapp.dcloud.io/"><img src="https://img.shields.io/badge/uniapp--d85806"></a> <a href="https://www.nuxtjs.cn/"><img src="https://img.shields.io/badge/Nuxt.js--18bc78"></a>
+</p>
+<p align="center">
+<a href="https://mp.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-公众号-05ce66"></a>
+<a href="https://mp.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-小程序-05ce66"></a>
+<a href="https://pay.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-支付API3-05ce66"></a>
+<a href="https://open.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-开发平台-05ce66"></a>
+<a href="https://cloud.tencent.com/"><img src="https://img.shields.io/badge/腾讯云-COS-00a3ff"></a>
+<a href="https://cloud.tencent.com/"><img src="https://img.shields.io/badge/腾讯云-短信-00a3ff"></a>
+<a href="https://www.aliyun.com/"><img src="https://img.shields.io/badge/阿里云-OSS-ff6a00"></a>
+<a href="https://www.aliyun.com/"><img src="https://img.shields.io/badge/阿里云-短信-ff6a00"></a>
+<a href="https://www.qiniu.com/"><img src="https://img.shields.io/badge/七牛云-OSS-07beff"></a>
+</p>
+</p>
 <div align="center">
   <img  width="80%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=9cf02b831e49d6a411bafbc4d79f51d4" /><br>
 </div>
@@ -25,10 +38,10 @@ https://php.likeadmin.cn/pc/
 <br>
 ##  🧐进一步了解
 ### 🧰场景介绍
-1.likeadmin已经搭建好前后端分离的底层，包含程序安装、登录、登出、工作台、菜单权限控制、角色、管理员、部门管理、岗位管理、素材管理、网站设置、图库管理等基础功能，无需重复造轮子。更有开发者工具功能，一生成代码，大大节省开发时间。<br>
+1.likeadmin已经搭建好前后端分离的底层，包含程序安装、登录、登出、工作台、菜单权限控制、角色、管理员、部门管理、岗位管理、素材管理、网站设置、图库管理等基础功能，无需重复造轮子。更有开发者工具功能，一键生成代码，大大节省开发时间。<br>
 2.可视化系统程序安装界面，可自定义安装数据，开发者可快速扩展发行自己的软件产品。<br>
 3.likeadmin定位为通用的软件系统管理后台，方便开发者快速开发软件系统，文档清晰、代码易懂、简单易用。<br>
-4.未来将持续集成通用的微信/支付宝支付，阿里云/腾讯云短信，阿里云/腾讯云OSS等通用模块。
+4.集成通用的微信支付（API3）、微信小程序公众号登录、阿里云、腾讯云短信，阿里云OSS、腾讯云COS、七牛云OSS等通用模块。
 ### 🐙后端架构方面
 1.服务端使用PHP8.0开发，性能有突破性的提升。<br>
 2.使用最新ThinkPHP6框架，目前国内最流行的PHP框架，高性能、简单易用、文档齐全、支持composer快速安装组件、支持Redis、支持PSR多种规范等。
