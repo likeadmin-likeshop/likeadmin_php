@@ -38,3 +38,4 @@ export function forgotPassword(data: Record<string, any>) {
 export function accountLog(data: any) {
     return request.get({ url: '/account_log/lists', data })
 }
+
