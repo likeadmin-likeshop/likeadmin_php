@@ -130,7 +130,7 @@ const { pager, getLists, resetPage, resetParams } = usePaging({
     params: queryParams
 })
 const handleRefund = async (id: number) => {
-    await feedback.confirm('确认重新退款？')
+    await feedback.confirm('确认退款？')
     await refund({
         recharge_id: id
     })
