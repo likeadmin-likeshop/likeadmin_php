@@ -18,7 +18,26 @@
 <div align="center">
   <img  width="80%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=9cf02b831e49d6a411bafbc4d79f51d4" /><br>
 </div>
- <br>
+<br>
+<br>
+
+## 🚀🚀🚀docker本地一句命令快速部署体验
+### 快速部署
+1.安装启动 [docker](https://www.docker.com/) 之后，在终端运行以下命令即可体验。<br>
+  ```shell
+  docker run -d --name likeadmin_php -p 20221:80 likeshop/likeadmin_php:1.6.0
+  ```
+2.访问安装程序：http://127.0.0.1:20221
+<br>
+### 本地访问
+命令运行完毕以后，访问不了，请稍等10秒，安装界面数据库信息按默认，请勿更改。由于谷歌浏览器对本地部署不友好原因，访问的链接下面尾部有/就带上/。<br>
+
+PC端管理后台：http://127.0.0.1:20221/admin/login
+<br>PC端前台：http://127.0.0.1:20221/pc/
+<br>手机端前台：http://127.0.0.1:20221/mobile/
+### ⚠️注意
+docker快速部署只适合本地部署体验，不熟悉docker请勿用于生产环境，可能造成数据丢失等问题。
+<br>
 
 ##  👀体验后台
 ### 管理后台
