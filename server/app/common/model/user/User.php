@@ -88,7 +88,7 @@ class User extends BaseModel
     public function searchCreateTimeStartAttr($query, $value, $data)
     {
         if ($value) {
-            $query->where('create_time', '>=', $value);
+            $query->where('create_time', '>=', strtotime($value));
         }
     }
 
@@ -104,7 +104,7 @@ class User extends BaseModel
     public function searchCreateTimeEndAttr($query, $value, $data)
     {
         if ($value) {
-            $query->where('create_time', '<=', $value);
+            $query->where('create_time', '<=', strtotime($value));
         }
     }
 
