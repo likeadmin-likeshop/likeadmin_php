@@ -140,6 +140,9 @@ class OfficialAccountReplyController extends BaseAdminController
      */
     public function index()
     {
-        OfficialAccountReplyLogic::index();
+        $result = OfficialAccountReplyLogic::index();
+        return response($result->getBody())->header([
+            'Content-Type' => 'text/plain;charset=utf-8'
+        ]);
     }
 }

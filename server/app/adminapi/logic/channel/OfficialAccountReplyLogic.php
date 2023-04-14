@@ -18,6 +18,7 @@ use app\common\enum\OfficialAccountEnum;
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\channel\OfficialAccountReply;
+use app\common\service\wechat\WeChatConfigService;
 use app\common\service\wechat\WeChatOaService;
 
 
@@ -151,12 +152,6 @@ class OfficialAccountReplyLogic extends BaseLogic
     public static function index()
     {
         $server = (new WeChatOaService())->getServer();
-
-        // 确认此次GET请求来自微信服务器，原样返回echostr参数内容，接入生效，成为开发者成功
-        if (isset($_GET['echostr'])) {
-            return $server->serve();
-        }
-
         // 事件
         $server->addMessageListener(OfficialAccountEnum::MSG_TYPE_EVENT, function ($message, \Closure $next) {
             switch ($message['Event']) {
@@ -212,8 +207,7 @@ class OfficialAccountReplyLogic extends BaseLogic
             return $next($message);
         });
 
-        $response = $server->serve();
-        $response->send();
+        return $server->serve();
     }
 
 
