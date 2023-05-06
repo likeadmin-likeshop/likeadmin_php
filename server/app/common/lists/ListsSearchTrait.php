@@ -77,7 +77,7 @@ trait ListsSearchTrait
                         if (!isset($this->params[$paramsName]) || empty($this->params[$paramsName])) {
                             continue;
                         }
-                        $where[] = [$whereField, 'like', $this->params[$paramsName]];
+                        $where[] = [$whereField, 'like', $this->params[$paramsName] . '%'];
                     }
                     break;
                 case 'between_time':
