@@ -86,8 +86,6 @@ class OfficialAccountMenuLogic extends BaseLogic
                 throw new \Exception('请配置子菜单');
             }
 
-            self::checkType($item);
-
             if (!empty($item['sub_button'])) {
                 self::checkSubButton($item['sub_button']);
             }
