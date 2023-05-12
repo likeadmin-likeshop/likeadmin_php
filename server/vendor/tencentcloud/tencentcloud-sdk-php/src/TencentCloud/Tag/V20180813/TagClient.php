@@ -23,13 +23,14 @@ use TencentCloud\Common\Credential;
 use TencentCloud\Tag\V20180813\Models as Models;
 
 /**
+ * @method Models\AddProjectResponse AddProject(Models\AddProjectRequest $req) 创建项目
  * @method Models\AddResourceTagResponse AddResourceTag(Models\AddResourceTagRequest $req) 本接口用于给标签关联资源
  * @method Models\AttachResourcesTagResponse AttachResourcesTag(Models\AttachResourcesTagRequest $req) 给多个资源关联某个标签
  * @method Models\CreateTagResponse CreateTag(Models\CreateTagRequest $req) 本接口用于创建一对标签键和标签值
  * @method Models\CreateTagsResponse CreateTags(Models\CreateTagsRequest $req) 本接口用于创建多对标签键和标签值
  * @method Models\DeleteResourceTagResponse DeleteResourceTag(Models\DeleteResourceTagRequest $req) 本接口用于解除标签和资源的关联关系
  * @method Models\DeleteTagResponse DeleteTag(Models\DeleteTagRequest $req) 本接口用于删除一对标签键和标签值
- * @method Models\DeleteTagsResponse DeleteTags(Models\DeleteTagsRequest $req) 本接口用于删除一对标签键和标签值
+ * @method Models\DeleteTagsResponse DeleteTags(Models\DeleteTagsRequest $req) 本接口用于批量删除标签键和标签值。
  * @method Models\DescribeProjectsResponse DescribeProjects(Models\DescribeProjectsRequest $req) 获取项目列表
  * @method Models\DescribeResourceTagsResponse DescribeResourceTags(Models\DescribeResourceTagsRequest $req) 查询资源关联标签
  * @method Models\DescribeResourceTagsByResourceIdsResponse DescribeResourceTagsByResourceIds(Models\DescribeResourceTagsByResourceIdsRequest $req) 用于批量查询已有资源关联的标签键值对
@@ -54,6 +55,7 @@ use TencentCloud\Tag\V20180813\Models as Models;
  * @method Models\ModifyResourcesTagValueResponse ModifyResourcesTagValue(Models\ModifyResourcesTagValueRequest $req) 修改多个资源关联的某个标签键对应的标签值
  * @method Models\TagResourcesResponse TagResources(Models\TagResourcesRequest $req) 为指定的多个云产品的多个云资源统一创建并绑定标签。
  * @method Models\UnTagResourcesResponse UnTagResources(Models\UnTagResourcesRequest $req) 指定的多个云产品的多个云资源统一解绑标签。
+ * @method Models\UpdateProjectResponse UpdateProject(Models\UpdateProjectRequest $req) 修改项目
  * @method Models\UpdateResourceTagValueResponse UpdateResourceTagValue(Models\UpdateResourceTagValueRequest $req) 本接口用于修改资源已关联的标签值（标签键不变）
  */
 

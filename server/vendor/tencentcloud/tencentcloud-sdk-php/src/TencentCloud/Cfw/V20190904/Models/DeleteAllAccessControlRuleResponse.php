@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DeleteAllAccessControlRule返回参数结构体
  *
- * @method integer getStatus() 获取状态值 0: 修改成功, !0: 修改失败
- * @method void setStatus(integer $Status) 设置状态值 0: 修改成功, !0: 修改失败
+ * @method integer getStatus() 获取状态值 0: 修改成功, 非0: 修改失败
+ * @method void setStatus(integer $Status) 设置状态值 0: 修改成功, 非0: 修改失败
  * @method integer getInfo() 获取删除了几条访问控制规则
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setInfo(integer $Info) 设置删除了几条访问控制规则
@@ -32,7 +32,7 @@ use TencentCloud\Common\AbstractModel;
 class DeleteAllAccessControlRuleResponse extends AbstractModel
 {
     /**
-     * @var integer 状态值 0: 修改成功, !0: 修改失败
+     * @var integer 状态值 0: 修改成功, 非0: 修改失败
      */
     public $Status;
 
@@ -48,7 +48,7 @@ class DeleteAllAccessControlRuleResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param integer $Status 状态值 0: 修改成功, !0: 修改失败
+     * @param integer $Status 状态值 0: 修改成功, 非0: 修改失败
      * @param integer $Info 删除了几条访问控制规则
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。

@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 语音过滤用量统计数据
  *
- * @method integer getDuration() 获取语音过滤总时长
- * @method void setDuration(integer $Duration) 设置语音过滤总时长
+ * @method integer getDuration() 获取语音过滤总时长，单位为min
+ * @method void setDuration(integer $Duration) 设置语音过滤总时长，单位为min
  */
 class VoiceFilterStatisticsItem extends AbstractModel
 {
     /**
-     * @var integer 语音过滤总时长
+     * @var integer 语音过滤总时长，单位为min
      */
     public $Duration;
 
     /**
-     * @param integer $Duration 语音过滤总时长
+     * @param integer $Duration 语音过滤总时长，单位为min
      */
     function __construct()
     {

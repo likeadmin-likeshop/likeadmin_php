@@ -32,8 +32,8 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getMemory() 获取内存容量，单位为 MB
  * @method void setMemory(integer $Memory) 设置内存容量，单位为 MB
- * @method integer getStatus() 获取实例状态，可能的返回值：0-创建中；1-运行中；4-隔离中；5-已隔离
- * @method void setStatus(integer $Status) 设置实例状态，可能的返回值：0-创建中；1-运行中；4-隔离中；5-已隔离
+ * @method integer getStatus() 获取实例状态，可能的返回值：0-创建中；1-运行中；4-正在进行隔离操作；5-已隔离
+ * @method void setStatus(integer $Status) 设置实例状态，可能的返回值：0-创建中；1-运行中；4-正在进行隔离操作；5-已隔离
  * @method integer getVpcId() 获取私有网络 ID，例如：51102
  * @method void setVpcId(integer $VpcId) 设置私有网络 ID，例如：51102
  * @method SlaveInfo getSlaveInfo() 获取备机信息
@@ -132,6 +132,8 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setMaxDelayTime(integer $MaxDelayTime) 设置最大延迟阈值
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getDiskType() 获取实例磁盘类型，仅云盘版实例才返回该值。可能的值为 CLOUD_SSD：SSD云硬盘， CLOUD_HSSD：增强型SSD云硬盘
+ * @method void setDiskType(string $DiskType) 设置实例磁盘类型，仅云盘版实例才返回该值。可能的值为 CLOUD_SSD：SSD云硬盘， CLOUD_HSSD：增强型SSD云硬盘
  */
 class InstanceInfo extends AbstractModel
 {
@@ -162,7 +164,7 @@ class InstanceInfo extends AbstractModel
     public $Memory;
 
     /**
-     * @var integer 实例状态，可能的返回值：0-创建中；1-运行中；4-隔离中；5-已隔离
+     * @var integer 实例状态，可能的返回值：0-创建中；1-运行中；4-正在进行隔离操作；5-已隔离
      */
     public $Status;
 
@@ -372,13 +374,18 @@ class InstanceInfo extends AbstractModel
     public $MaxDelayTime;
 
     /**
+     * @var string 实例磁盘类型，仅云盘版实例才返回该值。可能的值为 CLOUD_SSD：SSD云硬盘， CLOUD_HSSD：增强型SSD云硬盘
+     */
+    public $DiskType;
+
+    /**
      * @param integer $WanStatus 外网状态，可能的返回值为：0-未开通外网；1-已开通外网；2-已关闭外网
      * @param string $Zone 可用区信息
      * @param integer $InitFlag 初始化标志，可能的返回值为：0-未初始化；1-已初始化
      * @param RoVipInfo $RoVipInfo 只读vip信息。单独开通只读实例访问的只读实例才有该字段
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $Memory 内存容量，单位为 MB
-     * @param integer $Status 实例状态，可能的返回值：0-创建中；1-运行中；4-隔离中；5-已隔离
+     * @param integer $Status 实例状态，可能的返回值：0-创建中；1-运行中；4-正在进行隔离操作；5-已隔离
      * @param integer $VpcId 私有网络 ID，例如：51102
      * @param SlaveInfo $SlaveInfo 备机信息
 注意：此字段可能返回 null，表示取不到有效值。
@@ -428,6 +435,7 @@ class InstanceInfo extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $MaxDelayTime 最大延迟阈值
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $DiskType 实例磁盘类型，仅云盘版实例才返回该值。可能的值为 CLOUD_SSD：SSD云硬盘， CLOUD_HSSD：增强型SSD云硬盘
      */
     function __construct()
     {
@@ -638,6 +646,10 @@ class InstanceInfo extends AbstractModel
 
         if (array_key_exists("MaxDelayTime",$param) and $param["MaxDelayTime"] !== null) {
             $this->MaxDelayTime = $param["MaxDelayTime"];
+        }
+
+        if (array_key_exists("DiskType",$param) and $param["DiskType"] !== null) {
+            $this->DiskType = $param["DiskType"];
         }
     }
 }

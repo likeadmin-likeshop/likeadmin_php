@@ -3,6 +3,7 @@
 namespace Overtrue\Socialite\Traits;
 
 use JetBrains\PhpStorm\Pure;
+use Overtrue\Socialite\Exceptions;
 
 trait HasAttributes
 {
@@ -13,28 +14,28 @@ trait HasAttributes
         return $this->attributes;
     }
 
-    public function getAttribute(string $name, mixed $default = null)
+    public function getAttribute(string $name, mixed $default = null): mixed
     {
         return $this->attributes[$name] ?? $default;
     }
 
-    public function setAttribute(string $name, mixed $value): static
+    public function setAttribute(string $name, mixed $value): self
     {
         $this->attributes[$name] = $value;
 
         return $this;
     }
 
-    public function merge(array $attributes): static
+    public function merge(array $attributes): self
     {
-        $this->attributes = array_merge($this->attributes, $attributes);
+        $this->attributes = \array_merge($this->attributes, $attributes);
 
         return $this;
     }
 
     public function offsetExists(mixed $offset): bool
     {
-        return array_key_exists($offset, $this->attributes);
+        return \array_key_exists($offset, $this->attributes);
     }
 
     public function offsetGet(mixed $offset): mixed
@@ -52,7 +53,7 @@ trait HasAttributes
         unset($this->attributes[$offset]);
     }
 
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         return $this->getAttribute($property);
     }
@@ -65,6 +66,10 @@ trait HasAttributes
 
     public function toJSON(): string
     {
-        return \json_encode($this->getAttributes(), JSON_UNESCAPED_UNICODE);
+        $result = \json_encode($this->getAttributes(), JSON_UNESCAPED_UNICODE);
+
+        false === $result && throw new Exceptions\Exception('Cannot Processing this instance as JSON stringify.');
+
+        return $result;
     }
 }

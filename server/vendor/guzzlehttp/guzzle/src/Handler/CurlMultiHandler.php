@@ -19,6 +19,7 @@ use Psr\Http\Message\RequestInterface;
  *
  * @final
  */
+#[\AllowDynamicProperties]
 class CurlMultiHandler
 {
     /**
@@ -32,9 +33,9 @@ class CurlMultiHandler
     private $selectTimeout;
 
     /**
-     * @var resource|\CurlMultiHandle|null the currently executing resource in `curl_multi_exec`.
+     * @var int Will be higher than 0 when `curl_multi_exec` is still running.
      */
-    private $active;
+    private $active = 0;
 
     /**
      * @var array Request entry handles, indexed by handle id in `addRequest`.

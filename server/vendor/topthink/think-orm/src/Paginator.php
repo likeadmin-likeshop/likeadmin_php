@@ -377,6 +377,19 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
         return $this->items;
     }
 
+    /**
+     * 设置数据集
+     *
+     * @param Collection $items
+     * @return $this
+     */
+    public function setCollection(Collection $items)
+    {
+        $this->items = $items;
+
+        return $this;
+    }
+
     public function isEmpty(): bool
     {
         return $this->items->isEmpty();
@@ -410,7 +423,8 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
      * @return Traversable An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
      */
-    public function getIterator()
+    #[\ReturnTypeWillChange]
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->items->all());
     }
@@ -421,7 +435,8 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
      * @param mixed $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    #[\ReturnTypeWillChange]
+    public function offsetExists($offset): bool
     {
         return $this->items->offsetExists($offset);
     }
@@ -432,6 +447,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
      * @param mixed $offset
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->items->offsetGet($offset);
@@ -443,6 +459,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
      * @param mixed $offset
      * @param mixed $value
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->items->offsetSet($offset, $value);
@@ -455,6 +472,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
      * @return void
      * @since  5.0.0
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $this->items->offsetUnset($offset);
@@ -498,6 +516,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
     /**
      * Specify data which should be serialized to JSON
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();

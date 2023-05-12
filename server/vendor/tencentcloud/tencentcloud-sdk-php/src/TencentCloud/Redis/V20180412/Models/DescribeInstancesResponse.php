@@ -20,22 +20,22 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeInstances返回参数结构体
  *
- * @method integer getTotalCount() 获取实例数
- * @method void setTotalCount(integer $TotalCount) 设置实例数
- * @method array getInstanceSet() 获取实例详细信息列表
- * @method void setInstanceSet(array $InstanceSet) 设置实例详细信息列表
+ * @method integer getTotalCount() 获取实例总数量。
+ * @method void setTotalCount(integer $TotalCount) 设置实例总数量。
+ * @method array getInstanceSet() 获取实例详细信息列表。
+ * @method void setInstanceSet(array $InstanceSet) 设置实例详细信息列表。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class DescribeInstancesResponse extends AbstractModel
 {
     /**
-     * @var integer 实例数
+     * @var integer 实例总数量。
      */
     public $TotalCount;
 
     /**
-     * @var array 实例详细信息列表
+     * @var array 实例详细信息列表。
      */
     public $InstanceSet;
 
@@ -45,8 +45,8 @@ class DescribeInstancesResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param integer $TotalCount 实例数
-     * @param array $InstanceSet 实例详细信息列表
+     * @param integer $TotalCount 实例总数量。
+     * @param array $InstanceSet 实例详细信息列表。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

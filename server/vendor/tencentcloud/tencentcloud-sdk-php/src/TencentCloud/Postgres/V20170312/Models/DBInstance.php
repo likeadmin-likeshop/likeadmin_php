@@ -34,8 +34,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setDBInstanceId(string $DBInstanceId) 设置实例ID
  * @method string getDBInstanceName() 获取实例名称
  * @method void setDBInstanceName(string $DBInstanceName) 设置实例名称
- * @method string getDBInstanceStatus() 获取实例状态，分别为：applying（申请中）、init(待初始化)、initing(初始化中)、running(运行中)、limited run（受限运行）、isolated（已隔离）、recycling（回收中）、recycled（已回收）、job running（任务执行中）、offline（下线）、migrating（迁移中）、expanding（扩容中）、waitSwitch（等待切换）、switching（切换中）、readonly（只读）、restarting（重启中）、network changing（网络变更中）
- * @method void setDBInstanceStatus(string $DBInstanceStatus) 设置实例状态，分别为：applying（申请中）、init(待初始化)、initing(初始化中)、running(运行中)、limited run（受限运行）、isolated（已隔离）、recycling（回收中）、recycled（已回收）、job running（任务执行中）、offline（下线）、migrating（迁移中）、expanding（扩容中）、waitSwitch（等待切换）、switching（切换中）、readonly（只读）、restarting（重启中）、network changing（网络变更中）
+ * @method string getDBInstanceStatus() 获取实例状态，分别为：applying（申请中）、init(待初始化)、initing(初始化中)、running(运行中)、limited run（受限运行）、isolated（已隔离）、recycling（回收中）、recycled（已回收）、job running（任务执行中）、offline（下线）、migrating（迁移中）、expanding（扩容中）、waitSwitch（等待切换）、switching（切换中）、readonly（只读）、restarting（重启中）、network changing（网络变更中）、upgrading（内核版本升级中）
+ * @method void setDBInstanceStatus(string $DBInstanceStatus) 设置实例状态，分别为：applying（申请中）、init(待初始化)、initing(初始化中)、running(运行中)、limited run（受限运行）、isolated（已隔离）、recycling（回收中）、recycled（已回收）、job running（任务执行中）、offline（下线）、migrating（迁移中）、expanding（扩容中）、waitSwitch（等待切换）、switching（切换中）、readonly（只读）、restarting（重启中）、network changing（网络变更中）、upgrading（内核版本升级中）
  * @method integer getDBInstanceMemory() 获取实例分配的内存大小，单位：GB
  * @method void setDBInstanceMemory(integer $DBInstanceMemory) 设置实例分配的内存大小，单位：GB
  * @method integer getDBInstanceStorage() 获取实例分配的存储空间大小，单位：GB
@@ -114,6 +114,18 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setIsSupportTDE(integer $IsSupportTDE) 设置实例是否支持TDE数据加密  0：不支持，1：支持
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getDBEngine() 获取数据库引擎，支持：
+1、postgresql（云数据库PostgreSQL）；
+2、mssql_compatible（MSSQL兼容-云数据库PostgreSQL）；
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDBEngine(string $DBEngine) 设置数据库引擎，支持：
+1、postgresql（云数据库PostgreSQL）；
+2、mssql_compatible（MSSQL兼容-云数据库PostgreSQL）；
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getDBEngineConfig() 获取数据库引擎的配置信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDBEngineConfig(string $DBEngineConfig) 设置数据库引擎的配置信息
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class DBInstance extends AbstractModel
 {
@@ -153,7 +165,7 @@ class DBInstance extends AbstractModel
     public $DBInstanceName;
 
     /**
-     * @var string 实例状态，分别为：applying（申请中）、init(待初始化)、initing(初始化中)、running(运行中)、limited run（受限运行）、isolated（已隔离）、recycling（回收中）、recycled（已回收）、job running（任务执行中）、offline（下线）、migrating（迁移中）、expanding（扩容中）、waitSwitch（等待切换）、switching（切换中）、readonly（只读）、restarting（重启中）、network changing（网络变更中）
+     * @var string 实例状态，分别为：applying（申请中）、init(待初始化)、initing(初始化中)、running(运行中)、limited run（受限运行）、isolated（已隔离）、recycling（回收中）、recycled（已回收）、job running（任务执行中）、offline（下线）、migrating（迁移中）、expanding（扩容中）、waitSwitch（等待切换）、switching（切换中）、readonly（只读）、restarting（重启中）、network changing（网络变更中）、upgrading（内核版本升级中）
      */
     public $DBInstanceStatus;
 
@@ -313,6 +325,20 @@ class DBInstance extends AbstractModel
     public $IsSupportTDE;
 
     /**
+     * @var string 数据库引擎，支持：
+1、postgresql（云数据库PostgreSQL）；
+2、mssql_compatible（MSSQL兼容-云数据库PostgreSQL）；
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DBEngine;
+
+    /**
+     * @var string 数据库引擎的配置信息
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DBEngineConfig;
+
+    /**
      * @param string $Region 实例所属地域，如: ap-guangzhou，对应RegionSet的Region字段
      * @param string $Zone 实例所属可用区， 如：ap-guangzhou-3，对应ZoneSet的Zone字段
      * @param integer $ProjectId 项目ID
@@ -320,7 +346,7 @@ class DBInstance extends AbstractModel
      * @param string $SubnetId 子网ID
      * @param string $DBInstanceId 实例ID
      * @param string $DBInstanceName 实例名称
-     * @param string $DBInstanceStatus 实例状态，分别为：applying（申请中）、init(待初始化)、initing(初始化中)、running(运行中)、limited run（受限运行）、isolated（已隔离）、recycling（回收中）、recycled（已回收）、job running（任务执行中）、offline（下线）、migrating（迁移中）、expanding（扩容中）、waitSwitch（等待切换）、switching（切换中）、readonly（只读）、restarting（重启中）、network changing（网络变更中）
+     * @param string $DBInstanceStatus 实例状态，分别为：applying（申请中）、init(待初始化)、initing(初始化中)、running(运行中)、limited run（受限运行）、isolated（已隔离）、recycling（回收中）、recycled（已回收）、job running（任务执行中）、offline（下线）、migrating（迁移中）、expanding（扩容中）、waitSwitch（等待切换）、switching（切换中）、readonly（只读）、restarting（重启中）、network changing（网络变更中）、upgrading（内核版本升级中）
      * @param integer $DBInstanceMemory 实例分配的内存大小，单位：GB
      * @param integer $DBInstanceStorage 实例分配的存储空间大小，单位：GB
      * @param integer $DBInstanceCpu 实例分配的CPU数量，单位：个
@@ -359,6 +385,12 @@ class DBInstance extends AbstractModel
      * @param array $DBNodeSet 实例的节点信息
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $IsSupportTDE 实例是否支持TDE数据加密  0：不支持，1：支持
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $DBEngine 数据库引擎，支持：
+1、postgresql（云数据库PostgreSQL）；
+2、mssql_compatible（MSSQL兼容-云数据库PostgreSQL）；
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $DBEngineConfig 数据库引擎的配置信息
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -540,6 +572,14 @@ class DBInstance extends AbstractModel
 
         if (array_key_exists("IsSupportTDE",$param) and $param["IsSupportTDE"] !== null) {
             $this->IsSupportTDE = $param["IsSupportTDE"];
+        }
+
+        if (array_key_exists("DBEngine",$param) and $param["DBEngine"] !== null) {
+            $this->DBEngine = $param["DBEngine"];
+        }
+
+        if (array_key_exists("DBEngineConfig",$param) and $param["DBEngineConfig"] !== null) {
+            $this->DBEngineConfig = $param["DBEngineConfig"];
         }
     }
 }

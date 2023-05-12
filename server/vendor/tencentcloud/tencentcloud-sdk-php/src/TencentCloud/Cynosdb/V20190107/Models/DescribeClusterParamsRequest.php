@@ -22,6 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getClusterId() 获取集群ID
  * @method void setClusterId(string $ClusterId) 设置集群ID
+ * @method string getParamName() 获取参数名字
+ * @method void setParamName(string $ParamName) 设置参数名字
  */
 class DescribeClusterParamsRequest extends AbstractModel
 {
@@ -31,7 +33,13 @@ class DescribeClusterParamsRequest extends AbstractModel
     public $ClusterId;
 
     /**
+     * @var string 参数名字
+     */
+    public $ParamName;
+
+    /**
      * @param string $ClusterId 集群ID
+     * @param string $ParamName 参数名字
      */
     function __construct()
     {
@@ -48,6 +56,10 @@ class DescribeClusterParamsRequest extends AbstractModel
         }
         if (array_key_exists("ClusterId",$param) and $param["ClusterId"] !== null) {
             $this->ClusterId = $param["ClusterId"];
+        }
+
+        if (array_key_exists("ParamName",$param) and $param["ParamName"] !== null) {
+            $this->ParamName = $param["ParamName"];
         }
     }
 }

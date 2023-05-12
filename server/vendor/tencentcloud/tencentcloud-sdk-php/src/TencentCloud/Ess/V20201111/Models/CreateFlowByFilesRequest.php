@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * CreateFlowByFiles请求参数结构体
  *
- * @method UserInfo getOperator() 获取调用方用户信息，userId 必填
- * @method void setOperator(UserInfo $Operator) 设置调用方用户信息，userId 必填
+ * @method UserInfo getOperator() 获取调用方用户信息，userId 必填。支持填入集团子公司经办人 userId 代发合同
+ * @method void setOperator(UserInfo $Operator) 设置调用方用户信息，userId 必填。支持填入集团子公司经办人 userId 代发合同
  * @method string getFlowName() 获取签署流程名称,最大长度200个字符
  * @method void setFlowName(string $FlowName) 设置签署流程名称,最大长度200个字符
  * @method array getApprovers() 获取签署参与者信息，最大限制50方
@@ -38,10 +38,14 @@ use TencentCloud\Common\AbstractModel;
 注:此功能为白名单功能，若有需要，请联系电子签客服开白使用
  * @method boolean getNeedPreview() 获取是否需要预览，true：预览模式，false：非预览（默认）；
 预览链接有效期300秒；
+
+注：如果使用“预览模式”，出参会返回合同预览链接 PreviewUrl，不会正式发起合同，且出参不会返回签署流程编号 FlowId；如果使用“非预览”，则会正常返回签署流程编号 FlowId，不会生成合同预览链接 PreviewUrl。
  * @method void setNeedPreview(boolean $NeedPreview) 设置是否需要预览，true：预览模式，false：非预览（默认）；
 预览链接有效期300秒；
- * @method string getFlowDescription() 获取签署流程描述,最大长度1000个字符
- * @method void setFlowDescription(string $FlowDescription) 设置签署流程描述,最大长度1000个字符
+
+注：如果使用“预览模式”，出参会返回合同预览链接 PreviewUrl，不会正式发起合同，且出参不会返回签署流程编号 FlowId；如果使用“非预览”，则会正常返回签署流程编号 FlowId，不会生成合同预览链接 PreviewUrl。
+ * @method integer getPreviewType() 获取预览链接类型 默认:0-文件流, 1- H5链接 注意:此参数在NeedPreview 为true 时有效,
+ * @method void setPreviewType(integer $PreviewType) 设置预览链接类型 默认:0-文件流, 1- H5链接 注意:此参数在NeedPreview 为true 时有效,
  * @method integer getDeadline() 获取签署流程的签署截止时间。
 值为unix时间戳,精确到秒,不传默认为当前时间一年后
  * @method void setDeadline(integer $Deadline) 设置签署流程的签署截止时间。
@@ -56,21 +60,37 @@ false：有序签
 注：默认为false（有序签）
  * @method string getCustomShowMap() 获取合同显示的页卡模板，说明：只支持{合同名称}, {发起方企业}, {发起方姓名}, {签署方N企业}, {签署方N姓名}，且N不能超过签署人的数量，N从1开始
  * @method void setCustomShowMap(string $CustomShowMap) 设置合同显示的页卡模板，说明：只支持{合同名称}, {发起方企业}, {发起方姓名}, {签署方N企业}, {签署方N姓名}，且N不能超过签署人的数量，N从1开始
- * @method boolean getNeedSignReview() 获取发起方企业的签署人进行签署操作是否需要企业内部审批。
-若设置为true,审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+ * @method boolean getNeedSignReview() 获取发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
 
 注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
- * @method void setNeedSignReview(boolean $NeedSignReview) 设置发起方企业的签署人进行签署操作是否需要企业内部审批。
-若设置为true,审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+ * @method void setNeedSignReview(boolean $NeedSignReview) 设置发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
 
 注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
- * @method Agent getAgent() 获取应用号信息
- * @method void setAgent(Agent $Agent) 设置应用号信息
+ * @method string getUserData() 获取用户自定义字段，回调的时候会进行透传，长度需要小于20480
+ * @method void setUserData(string $UserData) 设置用户自定义字段，回调的时候会进行透传，长度需要小于20480
+ * @method string getApproverVerifyType() 获取签署人校验方式
+VerifyCheck: 人脸识别（默认）
+MobileCheck：手机号验证
+参数说明：可选人脸识别或手机号验证两种方式，若选择后者，未实名个人签署方在签署合同时，无需经过实名认证和意愿确认两次人脸识别，该能力仅适用于个人签署方。
+ * @method void setApproverVerifyType(string $ApproverVerifyType) 设置签署人校验方式
+VerifyCheck: 人脸识别（默认）
+MobileCheck：手机号验证
+参数说明：可选人脸识别或手机号验证两种方式，若选择后者，未实名个人签署方在签署合同时，无需经过实名认证和意愿确认两次人脸识别，该能力仅适用于个人签署方。
+ * @method string getFlowDescription() 获取签署流程描述,最大长度1000个字符
+ * @method void setFlowDescription(string $FlowDescription) 设置签署流程描述,最大长度1000个字符
+ * @method integer getSignBeanTag() 获取标识是否允许发起后添加控件。0为不允许1为允许。如果为1，创建的时候不能有签署控件，只能创建后添加。注意发起后添加控件功能不支持添加骑缝章和签批控件
+ * @method void setSignBeanTag(integer $SignBeanTag) 设置标识是否允许发起后添加控件。0为不允许1为允许。如果为1，创建的时候不能有签署控件，只能创建后添加。注意发起后添加控件功能不支持添加骑缝章和签批控件
+ * @method Agent getAgent() 获取代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+ * @method void setAgent(Agent $Agent) 设置代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+ * @method integer getCcNotifyType() 获取给关注人发送短信通知的类型，0-合同发起时通知 1-签署完成后通知
+ * @method void setCcNotifyType(integer $CcNotifyType) 设置给关注人发送短信通知的类型，0-合同发起时通知 1-签署完成后通知
  */
 class CreateFlowByFilesRequest extends AbstractModel
 {
     /**
-     * @var UserInfo 调用方用户信息，userId 必填
+     * @var UserInfo 调用方用户信息，userId 必填。支持填入集团子公司经办人 userId 代发合同
      */
     public $Operator;
 
@@ -108,13 +128,15 @@ class CreateFlowByFilesRequest extends AbstractModel
     /**
      * @var boolean 是否需要预览，true：预览模式，false：非预览（默认）；
 预览链接有效期300秒；
+
+注：如果使用“预览模式”，出参会返回合同预览链接 PreviewUrl，不会正式发起合同，且出参不会返回签署流程编号 FlowId；如果使用“非预览”，则会正常返回签署流程编号 FlowId，不会生成合同预览链接 PreviewUrl。
      */
     public $NeedPreview;
 
     /**
-     * @var string 签署流程描述,最大长度1000个字符
+     * @var integer 预览链接类型 默认:0-文件流, 1- H5链接 注意:此参数在NeedPreview 为true 时有效,
      */
-    public $FlowDescription;
+    public $PreviewType;
 
     /**
      * @var integer 签署流程的签署截止时间。
@@ -136,20 +158,48 @@ false：有序签
     public $CustomShowMap;
 
     /**
-     * @var boolean 发起方企业的签署人进行签署操作是否需要企业内部审批。
-若设置为true,审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+     * @var boolean 发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
 
 注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
      */
     public $NeedSignReview;
 
     /**
-     * @var Agent 应用号信息
+     * @var string 用户自定义字段，回调的时候会进行透传，长度需要小于20480
+     */
+    public $UserData;
+
+    /**
+     * @var string 签署人校验方式
+VerifyCheck: 人脸识别（默认）
+MobileCheck：手机号验证
+参数说明：可选人脸识别或手机号验证两种方式，若选择后者，未实名个人签署方在签署合同时，无需经过实名认证和意愿确认两次人脸识别，该能力仅适用于个人签署方。
+     */
+    public $ApproverVerifyType;
+
+    /**
+     * @var string 签署流程描述,最大长度1000个字符
+     */
+    public $FlowDescription;
+
+    /**
+     * @var integer 标识是否允许发起后添加控件。0为不允许1为允许。如果为1，创建的时候不能有签署控件，只能创建后添加。注意发起后添加控件功能不支持添加骑缝章和签批控件
+     */
+    public $SignBeanTag;
+
+    /**
+     * @var Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
      */
     public $Agent;
 
     /**
-     * @param UserInfo $Operator 调用方用户信息，userId 必填
+     * @var integer 给关注人发送短信通知的类型，0-合同发起时通知 1-签署完成后通知
+     */
+    public $CcNotifyType;
+
+    /**
+     * @param UserInfo $Operator 调用方用户信息，userId 必填。支持填入集团子公司经办人 userId 代发合同
      * @param string $FlowName 签署流程名称,最大长度200个字符
      * @param array $Approvers 签署参与者信息，最大限制50方
      * @param array $FileIds 签署pdf文件的资源编号列表，通过UploadFiles接口获取，暂时仅支持单文件发起
@@ -159,7 +209,9 @@ false：有序签
 注:此功能为白名单功能，若有需要，请联系电子签客服开白使用
      * @param boolean $NeedPreview 是否需要预览，true：预览模式，false：非预览（默认）；
 预览链接有效期300秒；
-     * @param string $FlowDescription 签署流程描述,最大长度1000个字符
+
+注：如果使用“预览模式”，出参会返回合同预览链接 PreviewUrl，不会正式发起合同，且出参不会返回签署流程编号 FlowId；如果使用“非预览”，则会正常返回签署流程编号 FlowId，不会生成合同预览链接 PreviewUrl。
+     * @param integer $PreviewType 预览链接类型 默认:0-文件流, 1- H5链接 注意:此参数在NeedPreview 为true 时有效,
      * @param integer $Deadline 签署流程的签署截止时间。
 值为unix时间戳,精确到秒,不传默认为当前时间一年后
      * @param boolean $Unordered 发送类型：
@@ -167,11 +219,19 @@ true：无序签
 false：有序签
 注：默认为false（有序签）
      * @param string $CustomShowMap 合同显示的页卡模板，说明：只支持{合同名称}, {发起方企业}, {发起方姓名}, {签署方N企业}, {签署方N姓名}，且N不能超过签署人的数量，N从1开始
-     * @param boolean $NeedSignReview 发起方企业的签署人进行签署操作是否需要企业内部审批。
-若设置为true,审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+     * @param boolean $NeedSignReview 发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
 
 注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
-     * @param Agent $Agent 应用号信息
+     * @param string $UserData 用户自定义字段，回调的时候会进行透传，长度需要小于20480
+     * @param string $ApproverVerifyType 签署人校验方式
+VerifyCheck: 人脸识别（默认）
+MobileCheck：手机号验证
+参数说明：可选人脸识别或手机号验证两种方式，若选择后者，未实名个人签署方在签署合同时，无需经过实名认证和意愿确认两次人脸识别，该能力仅适用于个人签署方。
+     * @param string $FlowDescription 签署流程描述,最大长度1000个字符
+     * @param integer $SignBeanTag 标识是否允许发起后添加控件。0为不允许1为允许。如果为1，创建的时候不能有签署控件，只能创建后添加。注意发起后添加控件功能不支持添加骑缝章和签批控件
+     * @param Agent $Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+     * @param integer $CcNotifyType 给关注人发送短信通知的类型，0-合同发起时通知 1-签署完成后通知
      */
     function __construct()
     {
@@ -234,8 +294,8 @@ false：有序签
             $this->NeedPreview = $param["NeedPreview"];
         }
 
-        if (array_key_exists("FlowDescription",$param) and $param["FlowDescription"] !== null) {
-            $this->FlowDescription = $param["FlowDescription"];
+        if (array_key_exists("PreviewType",$param) and $param["PreviewType"] !== null) {
+            $this->PreviewType = $param["PreviewType"];
         }
 
         if (array_key_exists("Deadline",$param) and $param["Deadline"] !== null) {
@@ -254,9 +314,29 @@ false：有序签
             $this->NeedSignReview = $param["NeedSignReview"];
         }
 
+        if (array_key_exists("UserData",$param) and $param["UserData"] !== null) {
+            $this->UserData = $param["UserData"];
+        }
+
+        if (array_key_exists("ApproverVerifyType",$param) and $param["ApproverVerifyType"] !== null) {
+            $this->ApproverVerifyType = $param["ApproverVerifyType"];
+        }
+
+        if (array_key_exists("FlowDescription",$param) and $param["FlowDescription"] !== null) {
+            $this->FlowDescription = $param["FlowDescription"];
+        }
+
+        if (array_key_exists("SignBeanTag",$param) and $param["SignBeanTag"] !== null) {
+            $this->SignBeanTag = $param["SignBeanTag"];
+        }
+
         if (array_key_exists("Agent",$param) and $param["Agent"] !== null) {
             $this->Agent = new Agent();
             $this->Agent->deserialize($param["Agent"]);
+        }
+
+        if (array_key_exists("CcNotifyType",$param) and $param["CcNotifyType"] !== null) {
+            $this->CcNotifyType = $param["CcNotifyType"];
         }
     }
 }

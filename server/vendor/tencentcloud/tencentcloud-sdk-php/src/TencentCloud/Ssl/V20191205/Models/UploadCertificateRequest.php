@@ -24,14 +24,16 @@ use TencentCloud\Common\AbstractModel;
  * @method void setCertificatePublicKey(string $CertificatePublicKey) 设置证书内容。
  * @method string getCertificatePrivateKey() 获取私钥内容，证书类型为 SVR 时必填，为 CA 时可不填。
  * @method void setCertificatePrivateKey(string $CertificatePrivateKey) 设置私钥内容，证书类型为 SVR 时必填，为 CA 时可不填。
- * @method string getCertificateType() 获取证书类型，默认 SVR。CA = 客户端证书，SVR = 服务器证书。
- * @method void setCertificateType(string $CertificateType) 设置证书类型，默认 SVR。CA = 客户端证书，SVR = 服务器证书。
+ * @method string getCertificateType() 获取证书类型，默认 SVR。CA = CA证书，SVR = 服务器证书。
+ * @method void setCertificateType(string $CertificateType) 设置证书类型，默认 SVR。CA = CA证书，SVR = 服务器证书。
  * @method string getAlias() 获取备注名称。
  * @method void setAlias(string $Alias) 设置备注名称。
  * @method integer getProjectId() 获取项目 ID。
  * @method void setProjectId(integer $ProjectId) 设置项目 ID。
  * @method string getCertificateUse() 获取证书用途/证书来源。“CLB，CDN，WAF，LIVE，DDOS”
  * @method void setCertificateUse(string $CertificateUse) 设置证书用途/证书来源。“CLB，CDN，WAF，LIVE，DDOS”
+ * @method boolean getRepeatable() 获取相同的证书是否允许重复上传
+ * @method void setRepeatable(boolean $Repeatable) 设置相同的证书是否允许重复上传
  */
 class UploadCertificateRequest extends AbstractModel
 {
@@ -46,7 +48,7 @@ class UploadCertificateRequest extends AbstractModel
     public $CertificatePrivateKey;
 
     /**
-     * @var string 证书类型，默认 SVR。CA = 客户端证书，SVR = 服务器证书。
+     * @var string 证书类型，默认 SVR。CA = CA证书，SVR = 服务器证书。
      */
     public $CertificateType;
 
@@ -66,12 +68,18 @@ class UploadCertificateRequest extends AbstractModel
     public $CertificateUse;
 
     /**
+     * @var boolean 相同的证书是否允许重复上传
+     */
+    public $Repeatable;
+
+    /**
      * @param string $CertificatePublicKey 证书内容。
      * @param string $CertificatePrivateKey 私钥内容，证书类型为 SVR 时必填，为 CA 时可不填。
-     * @param string $CertificateType 证书类型，默认 SVR。CA = 客户端证书，SVR = 服务器证书。
+     * @param string $CertificateType 证书类型，默认 SVR。CA = CA证书，SVR = 服务器证书。
      * @param string $Alias 备注名称。
      * @param integer $ProjectId 项目 ID。
      * @param string $CertificateUse 证书用途/证书来源。“CLB，CDN，WAF，LIVE，DDOS”
+     * @param boolean $Repeatable 相同的证书是否允许重复上传
      */
     function __construct()
     {
@@ -108,6 +116,10 @@ class UploadCertificateRequest extends AbstractModel
 
         if (array_key_exists("CertificateUse",$param) and $param["CertificateUse"] !== null) {
             $this->CertificateUse = $param["CertificateUse"];
+        }
+
+        if (array_key_exists("Repeatable",$param) and $param["Repeatable"] !== null) {
+            $this->Repeatable = $param["Repeatable"];
         }
     }
 }

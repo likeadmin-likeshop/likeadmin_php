@@ -90,6 +90,22 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setAttrFlags(array $AttrFlags) 设置监听器的属性
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getTargetGroupList() 获取绑定的目标组列表
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTargetGroupList(array $TargetGroupList) 设置绑定的目标组列表
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getMaxConn() 获取监听器最大连接数，-1表示监听器维度不限速。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setMaxConn(integer $MaxConn) 设置监听器最大连接数，-1表示监听器维度不限速。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getMaxCps() 获取监听器最大新增连接数，-1表示监听器维度不限速。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setMaxCps(integer $MaxCps) 设置监听器最大新增连接数，-1表示监听器维度不限速。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getIdleConnectTimeout() 获取空闲连接超时时间，仅支持TCP监听器。默认值:900；共享型实例和独占型实例取值范围：300～900，性能容量型实例取值范围:300～1980。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setIdleConnectTimeout(integer $IdleConnectTimeout) 设置空闲连接超时时间，仅支持TCP监听器。默认值:900；共享型实例和独占型实例取值范围：300～900，性能容量型实例取值范围:300～1980。
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class Listener extends AbstractModel
 {
@@ -205,6 +221,30 @@ class Listener extends AbstractModel
     public $AttrFlags;
 
     /**
+     * @var array 绑定的目标组列表
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TargetGroupList;
+
+    /**
+     * @var integer 监听器最大连接数，-1表示监听器维度不限速。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $MaxConn;
+
+    /**
+     * @var integer 监听器最大新增连接数，-1表示监听器维度不限速。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $MaxCps;
+
+    /**
+     * @var integer 空闲连接超时时间，仅支持TCP监听器。默认值:900；共享型实例和独占型实例取值范围：300～900，性能容量型实例取值范围:300～1980。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $IdleConnectTimeout;
+
+    /**
      * @param string $ListenerId 负载均衡监听器 ID
      * @param string $Protocol 监听器协议
      * @param integer $Port 监听器端口
@@ -239,6 +279,14 @@ class Listener extends AbstractModel
      * @param boolean $DeregisterTargetRst 解绑后端目标时，是否发RST给客户端，（此参数仅对于TCP监听器有意义）。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $AttrFlags 监听器的属性
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $TargetGroupList 绑定的目标组列表
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $MaxConn 监听器最大连接数，-1表示监听器维度不限速。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $MaxCps 监听器最大新增连接数，-1表示监听器维度不限速。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $IdleConnectTimeout 空闲连接超时时间，仅支持TCP监听器。默认值:900；共享型实例和独占型实例取值范围：300～900，性能容量型实例取值范围:300～1980。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -336,6 +384,27 @@ class Listener extends AbstractModel
 
         if (array_key_exists("AttrFlags",$param) and $param["AttrFlags"] !== null) {
             $this->AttrFlags = $param["AttrFlags"];
+        }
+
+        if (array_key_exists("TargetGroupList",$param) and $param["TargetGroupList"] !== null) {
+            $this->TargetGroupList = [];
+            foreach ($param["TargetGroupList"] as $key => $value){
+                $obj = new BasicTargetGroupInfo();
+                $obj->deserialize($value);
+                array_push($this->TargetGroupList, $obj);
+            }
+        }
+
+        if (array_key_exists("MaxConn",$param) and $param["MaxConn"] !== null) {
+            $this->MaxConn = $param["MaxConn"];
+        }
+
+        if (array_key_exists("MaxCps",$param) and $param["MaxCps"] !== null) {
+            $this->MaxCps = $param["MaxCps"];
+        }
+
+        if (array_key_exists("IdleConnectTimeout",$param) and $param["IdleConnectTimeout"] !== null) {
+            $this->IdleConnectTimeout = $param["IdleConnectTimeout"];
         }
     }
 }

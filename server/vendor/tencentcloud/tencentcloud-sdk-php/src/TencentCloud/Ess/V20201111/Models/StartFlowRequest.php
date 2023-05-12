@@ -20,19 +20,21 @@ use TencentCloud\Common\AbstractModel;
 /**
  * StartFlow请求参数结构体
  *
- * @method UserInfo getOperator() 获取调用方用户信息，userId 必填
- * @method void setOperator(UserInfo $Operator) 设置调用方用户信息，userId 必填
+ * @method UserInfo getOperator() 获取调用方用户信息，userId 必填。支持填入集团子公司经办人 userId代发合同。
+ * @method void setOperator(UserInfo $Operator) 设置调用方用户信息，userId 必填。支持填入集团子公司经办人 userId代发合同。
  * @method string getFlowId() 获取签署流程编号，由CreateFlow接口返回
  * @method void setFlowId(string $FlowId) 设置签署流程编号，由CreateFlow接口返回
  * @method string getClientToken() 获取客户端Token，保持接口幂等性,最大长度64个字符
  * @method void setClientToken(string $ClientToken) 设置客户端Token，保持接口幂等性,最大长度64个字符
- * @method Agent getAgent() 获取应用相关信息
- * @method void setAgent(Agent $Agent) 设置应用相关信息
+ * @method Agent getAgent() 获取代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+ * @method void setAgent(Agent $Agent) 设置代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+ * @method integer getCcNotifyType() 获取给关注人发送短信通知的类型，0-合同发起时通知 1-签署完成后通知
+ * @method void setCcNotifyType(integer $CcNotifyType) 设置给关注人发送短信通知的类型，0-合同发起时通知 1-签署完成后通知
  */
 class StartFlowRequest extends AbstractModel
 {
     /**
-     * @var UserInfo 调用方用户信息，userId 必填
+     * @var UserInfo 调用方用户信息，userId 必填。支持填入集团子公司经办人 userId代发合同。
      */
     public $Operator;
 
@@ -47,15 +49,21 @@ class StartFlowRequest extends AbstractModel
     public $ClientToken;
 
     /**
-     * @var Agent 应用相关信息
+     * @var Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
      */
     public $Agent;
 
     /**
-     * @param UserInfo $Operator 调用方用户信息，userId 必填
+     * @var integer 给关注人发送短信通知的类型，0-合同发起时通知 1-签署完成后通知
+     */
+    public $CcNotifyType;
+
+    /**
+     * @param UserInfo $Operator 调用方用户信息，userId 必填。支持填入集团子公司经办人 userId代发合同。
      * @param string $FlowId 签署流程编号，由CreateFlow接口返回
      * @param string $ClientToken 客户端Token，保持接口幂等性,最大长度64个字符
-     * @param Agent $Agent 应用相关信息
+     * @param Agent $Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+     * @param integer $CcNotifyType 给关注人发送短信通知的类型，0-合同发起时通知 1-签署完成后通知
      */
     function __construct()
     {
@@ -86,6 +94,10 @@ class StartFlowRequest extends AbstractModel
         if (array_key_exists("Agent",$param) and $param["Agent"] !== null) {
             $this->Agent = new Agent();
             $this->Agent->deserialize($param["Agent"]);
+        }
+
+        if (array_key_exists("CcNotifyType",$param) and $param["CcNotifyType"] !== null) {
+            $this->CcNotifyType = $param["CcNotifyType"];
         }
     }
 }

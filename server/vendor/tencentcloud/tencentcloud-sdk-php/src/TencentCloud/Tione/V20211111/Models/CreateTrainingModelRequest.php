@@ -70,8 +70,8 @@ EXIST：导入现有版本
  * @method void setModelVersionType(string $ModelVersionType) 设置模型版本类型；
 枚举值：NORMAL(通用)  ACCELERATE(加速)
 注意:  默认为NORMAL
- * @method string getModelFormat() 获取模型格式 （PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML）
- * @method void setModelFormat(string $ModelFormat) 设置模型格式 （PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML）
+ * @method string getModelFormat() 获取模型格式 （PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML/MMDETECTION/ONNX/HUGGING_FACE）
+ * @method void setModelFormat(string $ModelFormat) 设置模型格式 （PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML/MMDETECTION/ONNX/HUGGING_FACE）
  * @method string getReasoningEnvironmentId() 获取推理镜像ID
  * @method void setReasoningEnvironmentId(string $ReasoningEnvironmentId) 设置推理镜像ID
  * @method string getAutoClean() 获取模型自动清理开关(true/false)，当前版本仅支持SAVED_MODEL格式模型
@@ -80,6 +80,8 @@ EXIST：导入现有版本
  * @method void setMaxReservedModels(integer $MaxReservedModels) 设置模型数量保留上限(默认值为24个，上限为24，下限为1，步长为1)
  * @method integer getModelCleanPeriod() 获取模型清理周期(默认值为1分钟，上限为1440，下限为1分钟，步长为1)
  * @method void setModelCleanPeriod(integer $ModelCleanPeriod) 设置模型清理周期(默认值为1分钟，上限为1440，下限为1分钟，步长为1)
+ * @method boolean getIsQAT() 获取是否QAT模型
+ * @method void setIsQAT(boolean $IsQAT) 设置是否QAT模型
  */
 class CreateTrainingModelRequest extends AbstractModel
 {
@@ -189,7 +191,7 @@ EXIST：导入现有版本
     public $ModelVersionType;
 
     /**
-     * @var string 模型格式 （PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML）
+     * @var string 模型格式 （PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML/MMDETECTION/ONNX/HUGGING_FACE）
      */
     public $ModelFormat;
 
@@ -212,6 +214,11 @@ EXIST：导入现有版本
      * @var integer 模型清理周期(默认值为1分钟，上限为1440，下限为1分钟，步长为1)
      */
     public $ModelCleanPeriod;
+
+    /**
+     * @var boolean 是否QAT模型
+     */
+    public $IsQAT;
 
     /**
      * @param string $ImportMethod 导入方式
@@ -239,11 +246,12 @@ EXIST：导入现有版本
      * @param string $ModelVersionType 模型版本类型；
 枚举值：NORMAL(通用)  ACCELERATE(加速)
 注意:  默认为NORMAL
-     * @param string $ModelFormat 模型格式 （PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML）
+     * @param string $ModelFormat 模型格式 （PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML/MMDETECTION/ONNX/HUGGING_FACE）
      * @param string $ReasoningEnvironmentId 推理镜像ID
      * @param string $AutoClean 模型自动清理开关(true/false)，当前版本仅支持SAVED_MODEL格式模型
      * @param integer $MaxReservedModels 模型数量保留上限(默认值为24个，上限为24，下限为1，步长为1)
      * @param integer $ModelCleanPeriod 模型清理周期(默认值为1分钟，上限为1440，下限为1分钟，步长为1)
+     * @param boolean $IsQAT 是否QAT模型
      */
     function __construct()
     {
@@ -364,6 +372,10 @@ EXIST：导入现有版本
 
         if (array_key_exists("ModelCleanPeriod",$param) and $param["ModelCleanPeriod"] !== null) {
             $this->ModelCleanPeriod = $param["ModelCleanPeriod"];
+        }
+
+        if (array_key_exists("IsQAT",$param) and $param["IsQAT"] !== null) {
+            $this->IsQAT = $param["IsQAT"];
         }
     }
 }

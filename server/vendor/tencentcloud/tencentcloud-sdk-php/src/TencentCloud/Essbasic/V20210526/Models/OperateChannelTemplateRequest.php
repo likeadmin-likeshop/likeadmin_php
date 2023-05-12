@@ -20,23 +20,23 @@ use TencentCloud\Common\AbstractModel;
 /**
  * OperateChannelTemplate请求参数结构体
  *
- * @method Agent getAgent() 获取渠道应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
- * @method void setAgent(Agent $Agent) 设置渠道应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+ * @method Agent getAgent() 获取应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+ * @method void setAgent(Agent $Agent) 设置应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
  * @method string getOperateType() 获取操作类型，查询:"SELECT"，删除:"DELETE"，更新:"UPDATE"
  * @method void setOperateType(string $OperateType) 设置操作类型，查询:"SELECT"，删除:"DELETE"，更新:"UPDATE"
- * @method string getTemplateId() 获取渠道方模板库模板唯一标识
- * @method void setTemplateId(string $TemplateId) 设置渠道方模板库模板唯一标识
+ * @method string getTemplateId() 获取第三方应用平台模板库模板唯一标识
+ * @method void setTemplateId(string $TemplateId) 设置第三方应用平台模板库模板唯一标识
  * @method string getProxyOrganizationOpenIds() 获取合作企业方第三方机构唯一标识数据，支持多个， 用","进行分隔
  * @method void setProxyOrganizationOpenIds(string $ProxyOrganizationOpenIds) 设置合作企业方第三方机构唯一标识数据，支持多个， 用","进行分隔
  * @method string getAuthTag() 获取模板可见性, 全部可见-"all", 部分可见-"part"
  * @method void setAuthTag(string $AuthTag) 设置模板可见性, 全部可见-"all", 部分可见-"part"
- * @method UserInfo getOperator() 获取操作者的信息
- * @method void setOperator(UserInfo $Operator) 设置操作者的信息
+ * @method UserInfo getOperator() 获取暂未开放
+ * @method void setOperator(UserInfo $Operator) 设置暂未开放
  */
 class OperateChannelTemplateRequest extends AbstractModel
 {
     /**
-     * @var Agent 渠道应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+     * @var Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
      */
     public $Agent;
 
@@ -46,7 +46,7 @@ class OperateChannelTemplateRequest extends AbstractModel
     public $OperateType;
 
     /**
-     * @var string 渠道方模板库模板唯一标识
+     * @var string 第三方应用平台模板库模板唯一标识
      */
     public $TemplateId;
 
@@ -61,17 +61,17 @@ class OperateChannelTemplateRequest extends AbstractModel
     public $AuthTag;
 
     /**
-     * @var UserInfo 操作者的信息
+     * @var UserInfo 暂未开放
      */
     public $Operator;
 
     /**
-     * @param Agent $Agent 渠道应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+     * @param Agent $Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
      * @param string $OperateType 操作类型，查询:"SELECT"，删除:"DELETE"，更新:"UPDATE"
-     * @param string $TemplateId 渠道方模板库模板唯一标识
+     * @param string $TemplateId 第三方应用平台模板库模板唯一标识
      * @param string $ProxyOrganizationOpenIds 合作企业方第三方机构唯一标识数据，支持多个， 用","进行分隔
      * @param string $AuthTag 模板可见性, 全部可见-"all", 部分可见-"part"
-     * @param UserInfo $Operator 操作者的信息
+     * @param UserInfo $Operator 暂未开放
      */
     function __construct()
     {

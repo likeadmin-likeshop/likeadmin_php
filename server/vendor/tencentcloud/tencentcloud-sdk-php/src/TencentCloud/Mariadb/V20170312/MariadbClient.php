@@ -39,16 +39,15 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
  * @method Models\DescribeAccountPrivilegesResponse DescribeAccountPrivileges(Models\DescribeAccountPrivilegesRequest $req) 本接口（DescribeAccountPrivileges）用于查询云数据库账号权限。
 注意：注意：相同用户名，不同Host是不同的账号。
  * @method Models\DescribeAccountsResponse DescribeAccounts(Models\DescribeAccountsRequest $req) 本接口（DescribeAccounts）用于查询指定云数据库实例的账号列表。
+ * @method Models\DescribeBackupFilesResponse DescribeBackupFiles(Models\DescribeBackupFilesRequest $req) 本接口(DescribeBackupFiles)用于查看备份文件列表。
  * @method Models\DescribeBackupTimeResponse DescribeBackupTime(Models\DescribeBackupTimeRequest $req) 本接口（DescribeBackupTime）用于获取云数据库的备份时间。后台系统将根据此配置定期进行实例备份。
+ * @method Models\DescribeDBEncryptAttributesResponse DescribeDBEncryptAttributes(Models\DescribeDBEncryptAttributesRequest $req) 本接口(DescribeDBEncryptAttributes)用于查询实例数据加密状态。
+ * @method Models\DescribeDBInstanceDetailResponse DescribeDBInstanceDetail(Models\DescribeDBInstanceDetailRequest $req) 本接口(DescribeDBInstanceDetail)用于查询指定实例的详细信息。
  * @method Models\DescribeDBInstanceSpecsResponse DescribeDBInstanceSpecs(Models\DescribeDBInstanceSpecsRequest $req) 本接口(DescribeDBInstanceSpecs)用于查询可创建的云数据库可售卖的规格配置。
  * @method Models\DescribeDBInstancesResponse DescribeDBInstances(Models\DescribeDBInstancesRequest $req) 本接口（DescribeDBInstances）用于查询云数据库实例列表，支持通过项目ID、实例ID、内网地址、实例名称等来筛选实例。
 如果不指定任何筛选条件，则默认返回20条实例记录，单次请求最多支持返回100条实例记录。
  * @method Models\DescribeDBLogFilesResponse DescribeDBLogFiles(Models\DescribeDBLogFilesRequest $req) 本接口(DescribeDBLogFiles)用于获取数据库的各种日志列表，包括冷备、binlog、errlog和slowlog。
  * @method Models\DescribeDBParametersResponse DescribeDBParameters(Models\DescribeDBParametersRequest $req) 本接口(DescribeDBParameters)用于获取数据库的当前参数设置。
- * @method Models\DescribeDBPerformanceResponse DescribeDBPerformance(Models\DescribeDBPerformanceRequest $req) 本接口(DescribeDBPerformance)用于查看数据库实例当前性能数据。
- * @method Models\DescribeDBPerformanceDetailsResponse DescribeDBPerformanceDetails(Models\DescribeDBPerformanceDetailsRequest $req) 本接口(DescribeDBPerformanceDetails)用于查看实例性能数据详情。
- * @method Models\DescribeDBResourceUsageResponse DescribeDBResourceUsage(Models\DescribeDBResourceUsageRequest $req) 本接口(DescribeDBResourceUsage)用于查看数据库实例资源的使用情况。
- * @method Models\DescribeDBResourceUsageDetailsResponse DescribeDBResourceUsageDetails(Models\DescribeDBResourceUsageDetailsRequest $req) 本接口(DescribeDBResourceUsageDetails)用于查看数据库实例当前性能数据。
  * @method Models\DescribeDBSecurityGroupsResponse DescribeDBSecurityGroups(Models\DescribeDBSecurityGroupsRequest $req) 本接口（DescribeDBSecurityGroups）用于查询实例安全组信息
  * @method Models\DescribeDBSlowLogsResponse DescribeDBSlowLogs(Models\DescribeDBSlowLogsRequest $req) 本接口(DescribeDBSlowLogs)用于查询慢查询日志列表。
  * @method Models\DescribeDatabaseObjectsResponse DescribeDatabaseObjects(Models\DescribeDatabaseObjectsRequest $req) 本接口（DescribeDatabaseObjects）用于查询云数据库实例的数据库中的对象列表，包含表、存储过程、视图和函数。
@@ -64,7 +63,6 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
  * @method Models\DescribeProjectSecurityGroupsResponse DescribeProjectSecurityGroups(Models\DescribeProjectSecurityGroupsRequest $req) 本接口（DescribeProjectSecurityGroups）用于查询项目安全组信息
  * @method Models\DescribeRenewalPriceResponse DescribeRenewalPrice(Models\DescribeRenewalPriceRequest $req) 本接口（DescribeRenewalPrice）用于在续费云数据库实例时，查询续费的价格。
  * @method Models\DescribeSaleInfoResponse DescribeSaleInfo(Models\DescribeSaleInfoRequest $req) 本接口(DescribeSaleInfo)用于查询云数据库可售卖的地域和可用区信息。
- * @method Models\DescribeSqlLogsResponse DescribeSqlLogs(Models\DescribeSqlLogsRequest $req) 本接口（DescribeSqlLogs）用于获取实例SQL日志。
  * @method Models\DescribeUpgradePriceResponse DescribeUpgradePrice(Models\DescribeUpgradePriceRequest $req) 本接口（DescribeUpgradePrice）用于在扩容云数据库实例时，查询变配的价格。
  * @method Models\DestroyDBInstanceResponse DestroyDBInstance(Models\DestroyDBInstanceRequest $req) 本接口(DestroyDBInstance)用于销毁已隔离的包年包月实例。
  * @method Models\DestroyHourDBInstanceResponse DestroyHourDBInstance(Models\DestroyHourDBInstanceRequest $req) 本接口（DestroyHourDBInstance）用于销毁按量计费实例。
@@ -73,6 +71,8 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
  * @method Models\GrantAccountPrivilegesResponse GrantAccountPrivileges(Models\GrantAccountPrivilegesRequest $req) 本接口（GrantAccountPrivileges）用于给云数据库账号赋权。
 注意：相同用户名，不同Host是不同的账号。
  * @method Models\InitDBInstancesResponse InitDBInstances(Models\InitDBInstancesRequest $req) 本接口(InitDBInstances)用于初始化云数据库实例，包括设置默认字符集、表名大小写敏感等。
+ * @method Models\IsolateDBInstanceResponse IsolateDBInstance(Models\IsolateDBInstanceRequest $req) 本接口(IsolateDBInstance)用于隔离云数据库实例（包年包月），隔离后不能通过IP和端口访问数据库。隔离的实例可在回收站中进行开机。若为欠费隔离，请尽快进行充值。
+ * @method Models\IsolateDedicatedDBInstanceResponse IsolateDedicatedDBInstance(Models\IsolateDedicatedDBInstanceRequest $req) 本接口（IsolateDedicatedDBInstance）用于隔离独享云数据库实例。
  * @method Models\IsolateHourDBInstanceResponse IsolateHourDBInstance(Models\IsolateHourDBInstanceRequest $req) 隔离后付费实例
  * @method Models\KillSessionResponse KillSession(Models\KillSessionRequest $req) 本接口（KillSession）用于杀死指定会话。
  * @method Models\ModifyAccountDescriptionResponse ModifyAccountDescription(Models\ModifyAccountDescriptionRequest $req) 本接口（ModifyAccountDescription）用于修改云数据库账号备注。
@@ -84,11 +84,15 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
 - 只读账号授予读写权限会报错
 - 不传该参数表示保留现有权限，如需清除，请在复杂类型Privileges字段传空数组
  * @method Models\ModifyBackupTimeResponse ModifyBackupTime(Models\ModifyBackupTimeRequest $req) 本接口（ModifyBackupTime）用于设置云数据库实例的备份时间。后台系统将根据此配置定期进行实例备份。
+ * @method Models\ModifyDBEncryptAttributesResponse ModifyDBEncryptAttributes(Models\ModifyDBEncryptAttributesRequest $req) 本接口(ModifyDBEncryptAttributes)用于修改实例数据加密。
  * @method Models\ModifyDBInstanceNameResponse ModifyDBInstanceName(Models\ModifyDBInstanceNameRequest $req) 本接口（ModifyDBInstanceName）用于修改云数据库实例的名称。
  * @method Models\ModifyDBInstanceSecurityGroupsResponse ModifyDBInstanceSecurityGroups(Models\ModifyDBInstanceSecurityGroupsRequest $req) 本接口（ModifyDBInstanceSecurityGroups）用于修改云数据库安全组
  * @method Models\ModifyDBInstancesProjectResponse ModifyDBInstancesProject(Models\ModifyDBInstancesProjectRequest $req) 本接口（ModifyDBInstancesProject）用于修改云数据库实例所属项目。
  * @method Models\ModifyDBParametersResponse ModifyDBParameters(Models\ModifyDBParametersRequest $req) 本接口(ModifyDBParameters)用于修改数据库参数。
  * @method Models\ModifyDBSyncModeResponse ModifyDBSyncMode(Models\ModifyDBSyncModeRequest $req) 本接口（ModifyDBSyncMode）用于修改云数据库实例的同步模式。
+ * @method Models\ModifyInstanceNetworkResponse ModifyInstanceNetwork(Models\ModifyInstanceNetworkRequest $req) 本接口（ModifyInstanceNetwork）用于修改实例所属网络
+ * @method Models\ModifyInstanceVipResponse ModifyInstanceVip(Models\ModifyInstanceVipRequest $req) 本接口（ModifyInstanceVip）用于修改实例VIP
+ * @method Models\ModifyInstanceVportResponse ModifyInstanceVport(Models\ModifyInstanceVportRequest $req) 本接口（ModifyInstanceVport）用于修改实例VPORT
  * @method Models\ModifyLogFileRetentionPeriodResponse ModifyLogFileRetentionPeriod(Models\ModifyLogFileRetentionPeriodRequest $req) 本接口(ModifyLogFileRetentionPeriod)用于修改数据库备份日志保存天数。
  * @method Models\ModifyRealServerAccessStrategyResponse ModifyRealServerAccessStrategy(Models\ModifyRealServerAccessStrategyRequest $req) 本接口(ModifyRealServerAccessStrategy)用于修改云数据库的VPCGW到RS的访问策略。
 
@@ -103,6 +107,7 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
 注意：相同用户名，不同Host是不同的账号。
  * @method Models\RestartDBInstancesResponse RestartDBInstances(Models\RestartDBInstancesRequest $req) 本接口（RestartDBInstances）用于重启数据库实例
  * @method Models\SwitchDBInstanceHAResponse SwitchDBInstanceHA(Models\SwitchDBInstanceHARequest $req) 本接口（SwitchDBInstanceHA）用于发起实例主备切换。
+ * @method Models\TerminateDedicatedDBInstanceResponse TerminateDedicatedDBInstance(Models\TerminateDedicatedDBInstanceRequest $req) 本接口（TerminateDedicatedDBInstance）用于销毁已隔离的独享云数据库实例。
  * @method Models\UpgradeDBInstanceResponse UpgradeDBInstance(Models\UpgradeDBInstanceRequest $req) 本接口(UpgradeDBInstance)用于扩容云数据库实例。本接口完成下单和支付两个动作，如果发生支付失败的错误，调用用户账户相关接口中的支付订单接口（PayDeals）重新支付即可。
  */
 

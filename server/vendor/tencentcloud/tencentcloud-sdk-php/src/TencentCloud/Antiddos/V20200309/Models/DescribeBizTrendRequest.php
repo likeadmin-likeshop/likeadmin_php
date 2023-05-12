@@ -24,8 +24,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setStatistics(string $Statistics) 设置统计方式，可取值max, min, avg, sum, 如统计纬度是流量速率或包量速率，仅可取值max
  * @method string getBusiness() 获取大禹子产品代号（bgpip表示高防IP）
  * @method void setBusiness(string $Business) 设置大禹子产品代号（bgpip表示高防IP）
- * @method integer getPeriod() 获取统计周期，可取值300，1800，3600，21600，86400，单位秒
- * @method void setPeriod(integer $Period) 设置统计周期，可取值300，1800，3600，21600，86400，单位秒
+ * @method integer getPeriod() 获取统计周期，可取值60，300，1800，3600，21600，86400，单位秒
+ * @method void setPeriod(integer $Period) 设置统计周期，可取值60，300，1800，3600，21600，86400，单位秒
  * @method string getStartTime() 获取统计开始时间。 例：“2020-09-22 00:00:00”
  * @method void setStartTime(string $StartTime) 设置统计开始时间。 例：“2020-09-22 00:00:00”
  * @method string getEndTime() 获取统计结束时间。 例：“2020-09-22 00:00:00”
@@ -38,6 +38,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setDomain(string $Domain) 设置统计纬度为qps时，可选特定域名查询
  * @method array getProtoInfo() 获取协议及端口列表，协议可取值TCP, UDP, HTTP, HTTPS，仅统计纬度为连接数时有效
  * @method void setProtoInfo(array $ProtoInfo) 设置协议及端口列表，协议可取值TCP, UDP, HTTP, HTTPS，仅统计纬度为连接数时有效
+ * @method string getBusinessType() 获取业务类型可取值domain, port
+port：端口业务
+domain：域名业务
+ * @method void setBusinessType(string $BusinessType) 设置业务类型可取值domain, port
+port：端口业务
+domain：域名业务
  */
 class DescribeBizTrendRequest extends AbstractModel
 {
@@ -52,7 +58,7 @@ class DescribeBizTrendRequest extends AbstractModel
     public $Business;
 
     /**
-     * @var integer 统计周期，可取值300，1800，3600，21600，86400，单位秒
+     * @var integer 统计周期，可取值60，300，1800，3600，21600，86400，单位秒
      */
     public $Period;
 
@@ -87,15 +93,25 @@ class DescribeBizTrendRequest extends AbstractModel
     public $ProtoInfo;
 
     /**
+     * @var string 业务类型可取值domain, port
+port：端口业务
+domain：域名业务
+     */
+    public $BusinessType;
+
+    /**
      * @param string $Statistics 统计方式，可取值max, min, avg, sum, 如统计纬度是流量速率或包量速率，仅可取值max
      * @param string $Business 大禹子产品代号（bgpip表示高防IP）
-     * @param integer $Period 统计周期，可取值300，1800，3600，21600，86400，单位秒
+     * @param integer $Period 统计周期，可取值60，300，1800，3600，21600，86400，单位秒
      * @param string $StartTime 统计开始时间。 例：“2020-09-22 00:00:00”
      * @param string $EndTime 统计结束时间。 例：“2020-09-22 00:00:00”
      * @param string $Id 资源实例ID
      * @param string $MetricName 统计纬度，可取值connum, new_conn, inactive_conn, intraffic, outtraffic, inpkg, outpkg, qps
      * @param string $Domain 统计纬度为qps时，可选特定域名查询
      * @param array $ProtoInfo 协议及端口列表，协议可取值TCP, UDP, HTTP, HTTPS，仅统计纬度为连接数时有效
+     * @param string $BusinessType 业务类型可取值domain, port
+port：端口业务
+domain：域名业务
      */
     function __construct()
     {
@@ -149,6 +165,10 @@ class DescribeBizTrendRequest extends AbstractModel
                 $obj->deserialize($value);
                 array_push($this->ProtoInfo, $obj);
             }
+        }
+
+        if (array_key_exists("BusinessType",$param) and $param["BusinessType"] !== null) {
+            $this->BusinessType = $param["BusinessType"];
         }
     }
 }

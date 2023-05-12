@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeAccountQuota返回参数结构体
  *
- * @method string getAppId() 获取用户appid
- * @method void setAppId(string $AppId) 设置用户appid
+ * @method integer getAppId() 获取用户appid
+ * @method void setAppId(integer $AppId) 设置用户appid
  * @method AccountQuotaOverview getAccountQuotaOverview() 获取配额数据
  * @method void setAccountQuotaOverview(AccountQuotaOverview $AccountQuotaOverview) 设置配额数据
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -30,7 +30,7 @@ use TencentCloud\Common\AbstractModel;
 class DescribeAccountQuotaResponse extends AbstractModel
 {
     /**
-     * @var string 用户appid
+     * @var integer 用户appid
      */
     public $AppId;
 
@@ -45,7 +45,7 @@ class DescribeAccountQuotaResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param string $AppId 用户appid
+     * @param integer $AppId 用户appid
      * @param AccountQuotaOverview $AccountQuotaOverview 配额数据
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */

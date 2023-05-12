@@ -98,6 +98,24 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setIsAddedOnTheFifteen(integer $IsAddedOnTheFifteen) 设置是否15天内新增的主机 0：非15天内新增的主机，1：15天内增加的主机
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getIpList() 获取主机ip列表
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setIpList(string $IpList) 设置主机ip列表
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getVpcId() 获取所属网络
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setVpcId(string $VpcId) 设置所属网络
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method MachineExtraInfo getMachineExtraInfo() 获取附加信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setMachineExtraInfo(MachineExtraInfo $MachineExtraInfo) 设置附加信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getInstanceId() 获取实例ID
+ * @method void setInstanceId(string $InstanceId) 设置实例ID
+ * @method string getRemark() 获取备注信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setRemark(string $Remark) 设置备注信息
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class Machine extends AbstractModel
 {
@@ -245,6 +263,35 @@ class Machine extends AbstractModel
     public $IsAddedOnTheFifteen;
 
     /**
+     * @var string 主机ip列表
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $IpList;
+
+    /**
+     * @var string 所属网络
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $VpcId;
+
+    /**
+     * @var MachineExtraInfo 附加信息
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $MachineExtraInfo;
+
+    /**
+     * @var string 实例ID
+     */
+    public $InstanceId;
+
+    /**
+     * @var string 备注信息
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Remark;
+
+    /**
      * @param string $MachineName 主机名称。
      * @param string $MachineOs 主机系统。
      * @param string $MachineStatus 主机状态。
@@ -283,6 +330,15 @@ class Machine extends AbstractModel
      * @param array $CloudTags 云标签信息
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $IsAddedOnTheFifteen 是否15天内新增的主机 0：非15天内新增的主机，1：15天内增加的主机
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $IpList 主机ip列表
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $VpcId 所属网络
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param MachineExtraInfo $MachineExtraInfo 附加信息
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $InstanceId 实例ID
+     * @param string $Remark 备注信息
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -411,6 +467,27 @@ class Machine extends AbstractModel
 
         if (array_key_exists("IsAddedOnTheFifteen",$param) and $param["IsAddedOnTheFifteen"] !== null) {
             $this->IsAddedOnTheFifteen = $param["IsAddedOnTheFifteen"];
+        }
+
+        if (array_key_exists("IpList",$param) and $param["IpList"] !== null) {
+            $this->IpList = $param["IpList"];
+        }
+
+        if (array_key_exists("VpcId",$param) and $param["VpcId"] !== null) {
+            $this->VpcId = $param["VpcId"];
+        }
+
+        if (array_key_exists("MachineExtraInfo",$param) and $param["MachineExtraInfo"] !== null) {
+            $this->MachineExtraInfo = new MachineExtraInfo();
+            $this->MachineExtraInfo->deserialize($param["MachineExtraInfo"]);
+        }
+
+        if (array_key_exists("InstanceId",$param) and $param["InstanceId"] !== null) {
+            $this->InstanceId = $param["InstanceId"];
+        }
+
+        if (array_key_exists("Remark",$param) and $param["Remark"] !== null) {
+            $this->Remark = $param["Remark"];
         }
     }
 }

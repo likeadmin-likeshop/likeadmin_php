@@ -26,6 +26,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setOffset(integer $Offset) 设置分页下标
  * @method integer getSourceChannel() 获取来源source
  * @method void setSourceChannel(integer $SourceChannel) 设置来源source
+ * @method array getFilters() 获取查询过滤器
+ * @method void setFilters(array $Filters) 设置查询过滤器
+ * @method SortType getSortInfo() 获取排序字段
+ * @method void setSortInfo(SortType $SortInfo) 设置排序字段
+ * @method string getEnvironmentId() 获取环境id
+ * @method void setEnvironmentId(string $EnvironmentId) 设置环境id
  */
 class DescribeEnvironmentsRequest extends AbstractModel
 {
@@ -45,9 +51,27 @@ class DescribeEnvironmentsRequest extends AbstractModel
     public $SourceChannel;
 
     /**
+     * @var array 查询过滤器
+     */
+    public $Filters;
+
+    /**
+     * @var SortType 排序字段
+     */
+    public $SortInfo;
+
+    /**
+     * @var string 环境id
+     */
+    public $EnvironmentId;
+
+    /**
      * @param integer $Limit 分页limit
      * @param integer $Offset 分页下标
      * @param integer $SourceChannel 来源source
+     * @param array $Filters 查询过滤器
+     * @param SortType $SortInfo 排序字段
+     * @param string $EnvironmentId 环境id
      */
     function __construct()
     {
@@ -72,6 +96,24 @@ class DescribeEnvironmentsRequest extends AbstractModel
 
         if (array_key_exists("SourceChannel",$param) and $param["SourceChannel"] !== null) {
             $this->SourceChannel = $param["SourceChannel"];
+        }
+
+        if (array_key_exists("Filters",$param) and $param["Filters"] !== null) {
+            $this->Filters = [];
+            foreach ($param["Filters"] as $key => $value){
+                $obj = new QueryFilter();
+                $obj->deserialize($value);
+                array_push($this->Filters, $obj);
+            }
+        }
+
+        if (array_key_exists("SortInfo",$param) and $param["SortInfo"] !== null) {
+            $this->SortInfo = new SortType();
+            $this->SortInfo->deserialize($param["SortInfo"]);
+        }
+
+        if (array_key_exists("EnvironmentId",$param) and $param["EnvironmentId"] !== null) {
+            $this->EnvironmentId = $param["EnvironmentId"];
         }
     }
 }

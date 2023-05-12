@@ -3,14 +3,14 @@
 namespace Overtrue\Socialite;
 
 use ArrayAccess;
-use InvalidArgumentException;
+use JsonSerializable;
 
-class Config implements ArrayAccess, \JsonSerializable
+class Config implements ArrayAccess, JsonSerializable
 {
     protected array $config;
 
     /**
-     * @param array $config
+     * @param  array  $config
      */
     public function __construct(array $config)
     {
@@ -25,8 +25,8 @@ class Config implements ArrayAccess, \JsonSerializable
             return $config[$key];
         }
 
-        foreach (explode('.', $key) as $segment) {
-            if (!is_array($config) || !array_key_exists($segment, $config)) {
+        foreach (\explode('.', $key) as $segment) {
+            if (! \is_array($config) || ! \array_key_exists($segment, $config)) {
                 return $default;
             }
             $config = $config[$segment];
@@ -35,20 +35,20 @@ class Config implements ArrayAccess, \JsonSerializable
         return $config;
     }
 
-    public function set(string $key, $value): mixed
+    public function set(string $key, mixed $value): array
     {
-        $keys = explode('.', $key);
+        $keys = \explode('.', $key);
         $config = &$this->config;
 
-        while (count($keys) > 1) {
-            $key = array_shift($keys);
-            if (!isset($config[$key]) || !is_array($config[$key])) {
+        while (\count($keys) > 1) {
+            $key = \array_shift($keys);
+            if (! isset($config[$key]) || ! \is_array($config[$key])) {
                 $config[$key] = [];
             }
             $config = &$config[$key];
         }
 
-        $config[array_shift($keys)] = $value;
+        $config[\array_shift($keys)] = $value;
 
         return $config;
     }
@@ -60,21 +60,29 @@ class Config implements ArrayAccess, \JsonSerializable
 
     public function offsetExists(mixed $offset): bool
     {
-        return array_key_exists($offset, $this->config);
+        \is_string($offset) || throw new Exceptions\InvalidArgumentException('The $offset must be type of string here.');
+
+        return \array_key_exists($offset, $this->config);
     }
 
     public function offsetGet(mixed $offset): mixed
     {
+        \is_string($offset) || throw new Exceptions\InvalidArgumentException('The $offset must be type of string here.');
+
         return $this->get($offset);
     }
 
-    public function offsetSet(mixed $offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
+        \is_string($offset) || throw new Exceptions\InvalidArgumentException('The $offset must be type of string here.');
+
         $this->set($offset, $value);
     }
 
     public function offsetUnset(mixed $offset): void
     {
+        \is_string($offset) || throw new Exceptions\InvalidArgumentException('The $offset must be type of string here.');
+
         $this->set($offset, null);
     }
 
@@ -83,8 +91,8 @@ class Config implements ArrayAccess, \JsonSerializable
         return $this->config;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return \json_encode($this, \JSON_UNESCAPED_UNICODE);
+        return \json_encode($this, \JSON_UNESCAPED_UNICODE) ?: '';
     }
 }

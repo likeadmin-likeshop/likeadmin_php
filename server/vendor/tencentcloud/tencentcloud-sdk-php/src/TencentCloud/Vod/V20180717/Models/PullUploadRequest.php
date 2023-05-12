@@ -24,12 +24,16 @@ use TencentCloud\Common\AbstractModel;
 支持的扩展名详见[媒体类型](https://cloud.tencent.com/document/product/266/9760#.E5.AA.92.E4.BD.93.E7.B1.BB.E5.9E.8B)。请确保媒体 URL 可以访问。
  * @method void setMediaUrl(string $MediaUrl) 设置要拉取的媒体 URL，暂不支持拉取 Dash 格式（可以支持 HLS）。
 支持的扩展名详见[媒体类型](https://cloud.tencent.com/document/product/266/9760#.E5.AA.92.E4.BD.93.E7.B1.BB.E5.9E.8B)。请确保媒体 URL 可以访问。
+ * @method string getMediaType() 获取媒体文件类型（扩展名），支持的类型详见[媒体类型](https://cloud.tencent.com/document/product/266/9760#.E5.AA.92.E4.BD.93.E7.B1.BB.E5.9E.8B)。
+如果 MediaType 不填或取值为空字符串，将根据 MediaUrl 自动获取文件类型。
+ * @method void setMediaType(string $MediaType) 设置媒体文件类型（扩展名），支持的类型详见[媒体类型](https://cloud.tencent.com/document/product/266/9760#.E5.AA.92.E4.BD.93.E7.B1.BB.E5.9E.8B)。
+如果 MediaType 不填或取值为空字符串，将根据 MediaUrl 自动获取文件类型。
  * @method integer getSubAppId() 获取<b>点播[子应用](/document/product/266/14574) ID。如果要访问子应用中的资源，则将该字段填写为子应用 ID；否则无需填写该字段。</b>
  * @method void setSubAppId(integer $SubAppId) 设置<b>点播[子应用](/document/product/266/14574) ID。如果要访问子应用中的资源，则将该字段填写为子应用 ID；否则无需填写该字段。</b>
  * @method string getMediaName() 获取媒体名称。
  * @method void setMediaName(string $MediaName) 设置媒体名称。
- * @method string getCoverUrl() 获取要拉取的视频封面 URL。仅支持 gif、jpeg、png 三种图片格式。
- * @method void setCoverUrl(string $CoverUrl) 设置要拉取的视频封面 URL。仅支持 gif、jpeg、png 三种图片格式。
+ * @method string getCoverUrl() 获取要拉取的视频封面 URL。支持的文件格式：gif、jpeg（jpg）、png。
+ * @method void setCoverUrl(string $CoverUrl) 设置要拉取的视频封面 URL。支持的文件格式：gif、jpeg（jpg）、png。
  * @method string getProcedure() 获取媒体后续任务操作，详见[上传指定任务流](https://cloud.tencent.com/document/product/266/9759)。
  * @method void setProcedure(string $Procedure) 设置媒体后续任务操作，详见[上传指定任务流](https://cloud.tencent.com/document/product/266/9759)。
  * @method string getExpireTime() 获取媒体文件过期时间，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
@@ -60,6 +64,12 @@ class PullUploadRequest extends AbstractModel
     public $MediaUrl;
 
     /**
+     * @var string 媒体文件类型（扩展名），支持的类型详见[媒体类型](https://cloud.tencent.com/document/product/266/9760#.E5.AA.92.E4.BD.93.E7.B1.BB.E5.9E.8B)。
+如果 MediaType 不填或取值为空字符串，将根据 MediaUrl 自动获取文件类型。
+     */
+    public $MediaType;
+
+    /**
      * @var integer <b>点播[子应用](/document/product/266/14574) ID。如果要访问子应用中的资源，则将该字段填写为子应用 ID；否则无需填写该字段。</b>
      */
     public $SubAppId;
@@ -70,7 +80,7 @@ class PullUploadRequest extends AbstractModel
     public $MediaName;
 
     /**
-     * @var string 要拉取的视频封面 URL。仅支持 gif、jpeg、png 三种图片格式。
+     * @var string 要拉取的视频封面 URL。支持的文件格式：gif、jpeg（jpg）、png。
      */
     public $CoverUrl;
 
@@ -119,9 +129,11 @@ class PullUploadRequest extends AbstractModel
     /**
      * @param string $MediaUrl 要拉取的媒体 URL，暂不支持拉取 Dash 格式（可以支持 HLS）。
 支持的扩展名详见[媒体类型](https://cloud.tencent.com/document/product/266/9760#.E5.AA.92.E4.BD.93.E7.B1.BB.E5.9E.8B)。请确保媒体 URL 可以访问。
+     * @param string $MediaType 媒体文件类型（扩展名），支持的类型详见[媒体类型](https://cloud.tencent.com/document/product/266/9760#.E5.AA.92.E4.BD.93.E7.B1.BB.E5.9E.8B)。
+如果 MediaType 不填或取值为空字符串，将根据 MediaUrl 自动获取文件类型。
      * @param integer $SubAppId <b>点播[子应用](/document/product/266/14574) ID。如果要访问子应用中的资源，则将该字段填写为子应用 ID；否则无需填写该字段。</b>
      * @param string $MediaName 媒体名称。
-     * @param string $CoverUrl 要拉取的视频封面 URL。仅支持 gif、jpeg、png 三种图片格式。
+     * @param string $CoverUrl 要拉取的视频封面 URL。支持的文件格式：gif、jpeg（jpg）、png。
      * @param string $Procedure 媒体后续任务操作，详见[上传指定任务流](https://cloud.tencent.com/document/product/266/9759)。
      * @param string $ExpireTime 媒体文件过期时间，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
      * @param string $StorageRegion 指定上传园区，仅适用于对上传地域有特殊需求的用户：
@@ -148,6 +160,10 @@ class PullUploadRequest extends AbstractModel
         }
         if (array_key_exists("MediaUrl",$param) and $param["MediaUrl"] !== null) {
             $this->MediaUrl = $param["MediaUrl"];
+        }
+
+        if (array_key_exists("MediaType",$param) and $param["MediaType"] !== null) {
+            $this->MediaType = $param["MediaType"];
         }
 
         if (array_key_exists("SubAppId",$param) and $param["SubAppId"] !== null) {

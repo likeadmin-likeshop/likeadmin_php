@@ -202,9 +202,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setCurrentTime(string $CurrentTime) 设置系统当前时间
 注意：此字段可能返回 null，表示取不到有效值。
- * @method integer getIsFederation() 获取是否用于联邦
+ * @method integer getIsFederation() 获取是否用于联邦 ,1是，0否
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setIsFederation(integer $IsFederation) 设置是否用于联邦
+ * @method void setIsFederation(integer $IsFederation) 设置是否用于联邦 ,1是，0否
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getDeviceName() 获取设备名称
 注意：此字段可能返回 null，表示取不到有效值。
@@ -213,6 +213,14 @@ use TencentCloud\Common\AbstractModel;
  * @method string getServiceClient() 获取服务
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setServiceClient(string $ServiceClient) 设置服务
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method boolean getDisableApiTermination() 获取该实例是否开启实例保护，true为开启 false为关闭
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDisableApiTermination(boolean $DisableApiTermination) 设置该实例是否开启实例保护，true为开启 false为关闭
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getTradeVersion() 获取0表示老计费，1表示新计费
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTradeVersion(integer $TradeVersion) 设置0表示老计费，1表示新计费
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class NodeHardwareInfo extends AbstractModel
@@ -489,7 +497,7 @@ class NodeHardwareInfo extends AbstractModel
     public $CurrentTime;
 
     /**
-     * @var integer 是否用于联邦
+     * @var integer 是否用于联邦 ,1是，0否
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $IsFederation;
@@ -505,6 +513,18 @@ class NodeHardwareInfo extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ServiceClient;
+
+    /**
+     * @var boolean 该实例是否开启实例保护，true为开启 false为关闭
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DisableApiTermination;
+
+    /**
+     * @var integer 0表示老计费，1表示新计费
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TradeVersion;
 
     /**
      * @param integer $AppId 用户APPID
@@ -598,11 +618,15 @@ class NodeHardwareInfo extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $CurrentTime 系统当前时间
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param integer $IsFederation 是否用于联邦
+     * @param integer $IsFederation 是否用于联邦 ,1是，0否
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $DeviceName 设备名称
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $ServiceClient 服务
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param boolean $DisableApiTermination 该实例是否开启实例保护，true为开启 false为关闭
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $TradeVersion 0表示老计费，1表示新计费
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -820,6 +844,14 @@ class NodeHardwareInfo extends AbstractModel
 
         if (array_key_exists("ServiceClient",$param) and $param["ServiceClient"] !== null) {
             $this->ServiceClient = $param["ServiceClient"];
+        }
+
+        if (array_key_exists("DisableApiTermination",$param) and $param["DisableApiTermination"] !== null) {
+            $this->DisableApiTermination = $param["DisableApiTermination"];
+        }
+
+        if (array_key_exists("TradeVersion",$param) and $param["TradeVersion"] !== null) {
+            $this->TradeVersion = $param["TradeVersion"];
         }
     }
 }

@@ -40,6 +40,42 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setSupportNamespaceEndpoint(boolean $SupportNamespaceEndpoint) 设置是否支持命名空间接入点
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getVpcs() 获取VPC信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setVpcs(array $Vpcs) 设置VPC信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method boolean getIsVip() 获取是否为专享实例
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setIsVip(boolean $IsVip) 设置是否为专享实例
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method boolean getRocketMQFlag() 获取Rocketmq集群标识
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setRocketMQFlag(boolean $RocketMQFlag) 设置Rocketmq集群标识
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getStatus() 获取计费状态，1表示正常，2表示已停服，3表示已销毁
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setStatus(integer $Status) 设置计费状态，1表示正常，2表示已停服，3表示已销毁
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getIsolateTime() 获取欠费停服时间，毫秒为单位
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setIsolateTime(integer $IsolateTime) 设置欠费停服时间，毫秒为单位
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getHttpPublicEndpoint() 获取HTTP协议公网接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setHttpPublicEndpoint(string $HttpPublicEndpoint) 设置HTTP协议公网接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getHttpVpcEndpoint() 获取HTTP协议VPC接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setHttpVpcEndpoint(string $HttpVpcEndpoint) 设置HTTP协议VPC接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getInternalEndpoint() 获取TCP内部接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setInternalEndpoint(string $InternalEndpoint) 设置TCP内部接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getHttpInternalEndpoint() 获取HTTP协议内部接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setHttpInternalEndpoint(string $HttpInternalEndpoint) 设置HTTP协议内部接入地址
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class RocketMQClusterInfo extends AbstractModel
 {
@@ -86,6 +122,60 @@ class RocketMQClusterInfo extends AbstractModel
     public $SupportNamespaceEndpoint;
 
     /**
+     * @var array VPC信息
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Vpcs;
+
+    /**
+     * @var boolean 是否为专享实例
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $IsVip;
+
+    /**
+     * @var boolean Rocketmq集群标识
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $RocketMQFlag;
+
+    /**
+     * @var integer 计费状态，1表示正常，2表示已停服，3表示已销毁
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Status;
+
+    /**
+     * @var integer 欠费停服时间，毫秒为单位
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $IsolateTime;
+
+    /**
+     * @var string HTTP协议公网接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $HttpPublicEndpoint;
+
+    /**
+     * @var string HTTP协议VPC接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $HttpVpcEndpoint;
+
+    /**
+     * @var string TCP内部接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $InternalEndpoint;
+
+    /**
+     * @var string HTTP协议内部接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $HttpInternalEndpoint;
+
+    /**
      * @param string $ClusterId 集群ID
      * @param string $ClusterName 集群名称
      * @param string $Region 地域信息
@@ -95,6 +185,24 @@ class RocketMQClusterInfo extends AbstractModel
      * @param string $PublicEndPoint 公网接入地址
      * @param string $VpcEndPoint VPC接入地址
      * @param boolean $SupportNamespaceEndpoint 是否支持命名空间接入点
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $Vpcs VPC信息
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param boolean $IsVip 是否为专享实例
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param boolean $RocketMQFlag Rocketmq集群标识
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $Status 计费状态，1表示正常，2表示已停服，3表示已销毁
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $IsolateTime 欠费停服时间，毫秒为单位
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $HttpPublicEndpoint HTTP协议公网接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $HttpVpcEndpoint HTTP协议VPC接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $InternalEndpoint TCP内部接入地址
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $HttpInternalEndpoint HTTP协议内部接入地址
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -140,6 +248,47 @@ class RocketMQClusterInfo extends AbstractModel
 
         if (array_key_exists("SupportNamespaceEndpoint",$param) and $param["SupportNamespaceEndpoint"] !== null) {
             $this->SupportNamespaceEndpoint = $param["SupportNamespaceEndpoint"];
+        }
+
+        if (array_key_exists("Vpcs",$param) and $param["Vpcs"] !== null) {
+            $this->Vpcs = [];
+            foreach ($param["Vpcs"] as $key => $value){
+                $obj = new VpcConfig();
+                $obj->deserialize($value);
+                array_push($this->Vpcs, $obj);
+            }
+        }
+
+        if (array_key_exists("IsVip",$param) and $param["IsVip"] !== null) {
+            $this->IsVip = $param["IsVip"];
+        }
+
+        if (array_key_exists("RocketMQFlag",$param) and $param["RocketMQFlag"] !== null) {
+            $this->RocketMQFlag = $param["RocketMQFlag"];
+        }
+
+        if (array_key_exists("Status",$param) and $param["Status"] !== null) {
+            $this->Status = $param["Status"];
+        }
+
+        if (array_key_exists("IsolateTime",$param) and $param["IsolateTime"] !== null) {
+            $this->IsolateTime = $param["IsolateTime"];
+        }
+
+        if (array_key_exists("HttpPublicEndpoint",$param) and $param["HttpPublicEndpoint"] !== null) {
+            $this->HttpPublicEndpoint = $param["HttpPublicEndpoint"];
+        }
+
+        if (array_key_exists("HttpVpcEndpoint",$param) and $param["HttpVpcEndpoint"] !== null) {
+            $this->HttpVpcEndpoint = $param["HttpVpcEndpoint"];
+        }
+
+        if (array_key_exists("InternalEndpoint",$param) and $param["InternalEndpoint"] !== null) {
+            $this->InternalEndpoint = $param["InternalEndpoint"];
+        }
+
+        if (array_key_exists("HttpInternalEndpoint",$param) and $param["HttpInternalEndpoint"] !== null) {
+            $this->HttpInternalEndpoint = $param["HttpInternalEndpoint"];
         }
     }
 }

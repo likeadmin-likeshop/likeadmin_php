@@ -36,11 +36,11 @@ use TencentCloud\Common\AbstractModel;
  * @method void setNationality(string $Nationality) 设置国家地区代码
  * @method array getWarn() 获取告警码
 -9103	证照翻拍告警
--9102	证照复印件告警
+-9102	证照复印件告警（包括黑白复印件、彩色复印件）
 -9106       证件遮挡告警
  * @method void setWarn(array $Warn) 设置告警码
 -9103	证照翻拍告警
--9102	证照复印件告警
+-9102	证照复印件告警（包括黑白复印件、彩色复印件）
 -9106       证件遮挡告警
  * @method string getImage() 获取证件图片
  * @method void setImage(string $Image) 设置证件图片
@@ -66,6 +66,14 @@ use TencentCloud\Common\AbstractModel;
  * @method void setCodeSet(string $CodeSet) 设置最下方第一行 MRZ Code 序列
  * @method string getCodeCrc() 获取最下方第二行 MRZ Code 序列
  * @method void setCodeCrc(string $CodeCrc) 设置最下方第二行 MRZ Code 序列
+ * @method string getSurname() 获取姓
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSurname(string $Surname) 设置姓
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getGivenName() 获取名
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setGivenName(string $GivenName) 设置名
+注意：此字段可能返回 null，表示取不到有效值。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -109,7 +117,7 @@ class MLIDPassportOCRResponse extends AbstractModel
     /**
      * @var array 告警码
 -9103	证照翻拍告警
--9102	证照复印件告警
+-9102	证照复印件告警（包括黑白复印件、彩色复印件）
 -9106       证件遮挡告警
      */
     public $Warn;
@@ -143,6 +151,18 @@ class MLIDPassportOCRResponse extends AbstractModel
     public $CodeCrc;
 
     /**
+     * @var string 姓
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Surname;
+
+    /**
+     * @var string 名
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $GivenName;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
@@ -157,7 +177,7 @@ class MLIDPassportOCRResponse extends AbstractModel
      * @param string $Nationality 国家地区代码
      * @param array $Warn 告警码
 -9103	证照翻拍告警
--9102	证照复印件告警
+-9102	证照复印件告警（包括黑白复印件、彩色复印件）
 -9106       证件遮挡告警
      * @param string $Image 证件图片
      * @param string $AdvancedInfo 扩展字段:
@@ -171,6 +191,10 @@ class MLIDPassportOCRResponse extends AbstractModel
 }
      * @param string $CodeSet 最下方第一行 MRZ Code 序列
      * @param string $CodeCrc 最下方第二行 MRZ Code 序列
+     * @param string $Surname 姓
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $GivenName 名
+注意：此字段可能返回 null，表示取不到有效值。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -232,6 +256,14 @@ class MLIDPassportOCRResponse extends AbstractModel
 
         if (array_key_exists("CodeCrc",$param) and $param["CodeCrc"] !== null) {
             $this->CodeCrc = $param["CodeCrc"];
+        }
+
+        if (array_key_exists("Surname",$param) and $param["Surname"] !== null) {
+            $this->Surname = $param["Surname"];
+        }
+
+        if (array_key_exists("GivenName",$param) and $param["GivenName"] !== null) {
+            $this->GivenName = $param["GivenName"];
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

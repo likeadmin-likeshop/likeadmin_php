@@ -35,13 +35,16 @@ use TencentCloud\Ssl\V20191205\Models as Models;
  * @method Models\DescribeCertificateDetailResponse DescribeCertificateDetail(Models\DescribeCertificateDetailRequest $req) 获取证书详情。
  * @method Models\DescribeCertificateOperateLogsResponse DescribeCertificateOperateLogs(Models\DescribeCertificateOperateLogsRequest $req) 获取用户账号下有关证书的操作日志。
  * @method Models\DescribeCertificatesResponse DescribeCertificates(Models\DescribeCertificatesRequest $req) 本接口（DescribeCertificates）用于获取证书列表。
+ * @method Models\DescribeCompaniesResponse DescribeCompanies(Models\DescribeCompaniesRequest $req) 查询公司列表
  * @method Models\DescribeDeployedResourcesResponse DescribeDeployedResources(Models\DescribeDeployedResourcesRequest $req) 证书查询关联资源
  * @method Models\DescribeManagerDetailResponse DescribeManagerDetail(Models\DescribeManagerDetailRequest $req) 查询管理人详情
  * @method Models\DescribeManagersResponse DescribeManagers(Models\DescribeManagersRequest $req) 查询管理人列表
+ * @method Models\DescribePackagesResponse DescribePackages(Models\DescribePackagesRequest $req) 获得权益包列表
  * @method Models\DownloadCertificateResponse DownloadCertificate(Models\DownloadCertificateRequest $req) 本接口（DownloadCertificate）用于下载证书。
  * @method Models\HostCertificateResponse HostCertificate(Models\HostCertificateRequest $req) 云资源托管
  * @method Models\ModifyCertificateAliasResponse ModifyCertificateAlias(Models\ModifyCertificateAliasRequest $req) 用户传入证书id和备注来修改证书备注。
  * @method Models\ModifyCertificateProjectResponse ModifyCertificateProject(Models\ModifyCertificateProjectRequest $req) 批量修改证书所属项目。
+ * @method Models\ModifyCertificatesExpiringNotificationSwitchResponse ModifyCertificatesExpiringNotificationSwitch(Models\ModifyCertificatesExpiringNotificationSwitchRequest $req) 修改忽略证书到期通知。打开或关闭证书到期通知。
  * @method Models\ReplaceCertificateResponse ReplaceCertificate(Models\ReplaceCertificateRequest $req) 本接口（ReplaceCertificate）用于重颁发证书。已申请的免费证书仅支持 RSA 算法、密钥对参数为2048的证书重颁发，并且目前仅支持1次重颁发。
  * @method Models\RevokeCertificateResponse RevokeCertificate(Models\RevokeCertificateRequest $req) 本接口（RevokeCertificate）用于吊销证书。
  * @method Models\SubmitAuditManagerResponse SubmitAuditManager(Models\SubmitAuditManagerRequest $req) 重新提交审核管理人

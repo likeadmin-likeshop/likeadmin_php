@@ -20,20 +20,20 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 溯源码
  *
- * @method string getCode() 获取码
- * @method void setCode(string $Code) 设置码
+ * @method string getCode() 获取二维码
+ * @method void setCode(string $Code) 设置二维码
  * @method integer getCorpId() 获取企业ID
  * @method void setCorpId(integer $CorpId) 设置企业ID
- * @method string getPackId() 获取包ID
- * @method void setPackId(string $PackId) 设置包ID
+ * @method string getPackId() 获取码包ID
+ * @method void setPackId(string $PackId) 设置码包ID
  * @method string getBatchId() 获取批次ID
  * @method void setBatchId(string $BatchId) 设置批次ID
  * @method string getMerchantId() 获取所属商户ID
  * @method void setMerchantId(string $MerchantId) 设置所属商户ID
  * @method string getProductId() 获取产品ID
  * @method void setProductId(string $ProductId) 设置产品ID
- * @method integer getStatus() 获取状态
- * @method void setStatus(integer $Status) 设置状态
+ * @method integer getStatus() 获取码状态 0: 冻结 1: 激活
+ * @method void setStatus(integer $Status) 设置码状态 0: 冻结 1: 激活
  * @method string getCreateTime() 获取创建时间
  * @method void setCreateTime(string $CreateTime) 设置创建时间
  * @method string getUpdateTime() 获取修改时间
@@ -42,11 +42,15 @@ use TencentCloud\Common\AbstractModel;
  * @method void setMerchantName(string $MerchantName) 设置商户名称
  * @method string getProductName() 获取产品名称
  * @method void setProductName(string $ProductName) 设置产品名称
+ * @method integer getAgentId() 获取渠道商ID
+ * @method void setAgentId(integer $AgentId) 设置渠道商ID
+ * @method integer getLevel() 获取码层级 0: 最小级, 1: 一级, 2: 二级
+ * @method void setLevel(integer $Level) 设置码层级 0: 最小级, 1: 一级, 2: 二级
  */
 class TraceCode extends AbstractModel
 {
     /**
-     * @var string 码
+     * @var string 二维码
      */
     public $Code;
 
@@ -56,7 +60,7 @@ class TraceCode extends AbstractModel
     public $CorpId;
 
     /**
-     * @var string 包ID
+     * @var string 码包ID
      */
     public $PackId;
 
@@ -76,7 +80,7 @@ class TraceCode extends AbstractModel
     public $ProductId;
 
     /**
-     * @var integer 状态
+     * @var integer 码状态 0: 冻结 1: 激活
      */
     public $Status;
 
@@ -101,17 +105,29 @@ class TraceCode extends AbstractModel
     public $ProductName;
 
     /**
-     * @param string $Code 码
+     * @var integer 渠道商ID
+     */
+    public $AgentId;
+
+    /**
+     * @var integer 码层级 0: 最小级, 1: 一级, 2: 二级
+     */
+    public $Level;
+
+    /**
+     * @param string $Code 二维码
      * @param integer $CorpId 企业ID
-     * @param string $PackId 包ID
+     * @param string $PackId 码包ID
      * @param string $BatchId 批次ID
      * @param string $MerchantId 所属商户ID
      * @param string $ProductId 产品ID
-     * @param integer $Status 状态
+     * @param integer $Status 码状态 0: 冻结 1: 激活
      * @param string $CreateTime 创建时间
      * @param string $UpdateTime 修改时间
      * @param string $MerchantName 商户名称
      * @param string $ProductName 产品名称
+     * @param integer $AgentId 渠道商ID
+     * @param integer $Level 码层级 0: 最小级, 1: 一级, 2: 二级
      */
     function __construct()
     {
@@ -168,6 +184,14 @@ class TraceCode extends AbstractModel
 
         if (array_key_exists("ProductName",$param) and $param["ProductName"] !== null) {
             $this->ProductName = $param["ProductName"];
+        }
+
+        if (array_key_exists("AgentId",$param) and $param["AgentId"] !== null) {
+            $this->AgentId = $param["AgentId"];
+        }
+
+        if (array_key_exists("Level",$param) and $param["Level"] !== null) {
+            $this->Level = $param["Level"];
         }
     }
 }

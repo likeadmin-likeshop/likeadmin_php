@@ -22,6 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method array getPlaylistBaseInfoSet() 获取歌单基础信息。
  * @method void setPlaylistBaseInfoSet(array $PlaylistBaseInfoSet) 设置歌单基础信息。
+ * @method integer getTotalCount() 获取歌单总数。
+ * @method void setTotalCount(integer $TotalCount) 设置歌单总数。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -33,12 +35,18 @@ class DescribeKTVPlaylistsResponse extends AbstractModel
     public $PlaylistBaseInfoSet;
 
     /**
+     * @var integer 歌单总数。
+     */
+    public $TotalCount;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
 
     /**
      * @param array $PlaylistBaseInfoSet 歌单基础信息。
+     * @param integer $TotalCount 歌单总数。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -61,6 +69,10 @@ class DescribeKTVPlaylistsResponse extends AbstractModel
                 $obj->deserialize($value);
                 array_push($this->PlaylistBaseInfoSet, $obj);
             }
+        }
+
+        if (array_key_exists("TotalCount",$param) and $param["TotalCount"] !== null) {
+            $this->TotalCount = $param["TotalCount"];
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

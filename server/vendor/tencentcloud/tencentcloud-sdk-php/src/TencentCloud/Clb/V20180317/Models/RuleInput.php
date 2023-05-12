@@ -28,28 +28,30 @@ use TencentCloud\Common\AbstractModel;
  * @method void setSessionExpireTime(integer $SessionExpireTime) 设置会话保持时间。设置为0表示关闭会话保持，开启会话保持可取值30~3600，单位：秒。
  * @method HealthCheck getHealthCheck() 获取健康检查信息。详情请参见：[健康检查](https://cloud.tencent.com/document/product/214/6097)
  * @method void setHealthCheck(HealthCheck $HealthCheck) 设置健康检查信息。详情请参见：[健康检查](https://cloud.tencent.com/document/product/214/6097)
- * @method CertificateInput getCertificate() 获取证书信息
- * @method void setCertificate(CertificateInput $Certificate) 设置证书信息
+ * @method CertificateInput getCertificate() 获取证书信息；此参数和MultiCertInfo不能同时传入。
+ * @method void setCertificate(CertificateInput $Certificate) 设置证书信息；此参数和MultiCertInfo不能同时传入。
  * @method string getScheduler() 获取规则的请求转发方式，可选值：WRR、LEAST_CONN、IP_HASH
 分别表示按权重轮询、最小连接数、按IP哈希， 默认为 WRR。
  * @method void setScheduler(string $Scheduler) 设置规则的请求转发方式，可选值：WRR、LEAST_CONN、IP_HASH
 分别表示按权重轮询、最小连接数、按IP哈希， 默认为 WRR。
- * @method string getForwardType() 获取负载均衡与后端服务之间的转发协议，目前支持 HTTP/HTTPS/TRPC
- * @method void setForwardType(string $ForwardType) 设置负载均衡与后端服务之间的转发协议，目前支持 HTTP/HTTPS/TRPC
+ * @method string getForwardType() 获取负载均衡与后端服务之间的转发协议，目前支持 HTTP/HTTPS/TRPC，TRPC暂未对外开放。
+ * @method void setForwardType(string $ForwardType) 设置负载均衡与后端服务之间的转发协议，目前支持 HTTP/HTTPS/TRPC，TRPC暂未对外开放。
  * @method boolean getDefaultServer() 获取是否将该域名设为默认域名，注意，一个监听器下只能设置一个默认域名。
  * @method void setDefaultServer(boolean $DefaultServer) 设置是否将该域名设为默认域名，注意，一个监听器下只能设置一个默认域名。
  * @method boolean getHttp2() 获取是否开启Http2，注意，只有HTTPS域名才能开启Http2。
  * @method void setHttp2(boolean $Http2) 设置是否开启Http2，注意，只有HTTPS域名才能开启Http2。
  * @method string getTargetType() 获取后端目标类型，NODE表示绑定普通节点，TARGETGROUP表示绑定目标组
  * @method void setTargetType(string $TargetType) 设置后端目标类型，NODE表示绑定普通节点，TARGETGROUP表示绑定目标组
- * @method string getTrpcCallee() 获取TRPC被调服务器路由，ForwardType为TRPC时必填
- * @method void setTrpcCallee(string $TrpcCallee) 设置TRPC被调服务器路由，ForwardType为TRPC时必填
- * @method string getTrpcFunc() 获取TRPC调用服务接口，ForwardType为TRPC时必填
- * @method void setTrpcFunc(string $TrpcFunc) 设置TRPC调用服务接口，ForwardType为TRPC时必填
+ * @method string getTrpcCallee() 获取TRPC被调服务器路由，ForwardType为TRPC时必填。目前暂未对外开放。
+ * @method void setTrpcCallee(string $TrpcCallee) 设置TRPC被调服务器路由，ForwardType为TRPC时必填。目前暂未对外开放。
+ * @method string getTrpcFunc() 获取TRPC调用服务接口，ForwardType为TRPC时必填。目前暂未对外开放
+ * @method void setTrpcFunc(string $TrpcFunc) 设置TRPC调用服务接口，ForwardType为TRPC时必填。目前暂未对外开放
  * @method boolean getQuic() 获取是否开启QUIC，注意，只有HTTPS域名才能开启QUIC
  * @method void setQuic(boolean $Quic) 设置是否开启QUIC，注意，只有HTTPS域名才能开启QUIC
  * @method array getDomains() 获取转发规则的域名列表。每个域名的长度限制为：1~80。Domain和Domains只需要传一个，单域名规则传Domain，多域名规则传Domains。
  * @method void setDomains(array $Domains) 设置转发规则的域名列表。每个域名的长度限制为：1~80。Domain和Domains只需要传一个，单域名规则传Domain，多域名规则传Domains。
+ * @method MultiCertInfo getMultiCertInfo() 获取证书信息，支持同时传入不同算法类型的多本服务端证书；此参数和Certificate不能同时传入。
+ * @method void setMultiCertInfo(MultiCertInfo $MultiCertInfo) 设置证书信息，支持同时传入不同算法类型的多本服务端证书；此参数和Certificate不能同时传入。
  */
 class RuleInput extends AbstractModel
 {
@@ -74,7 +76,7 @@ class RuleInput extends AbstractModel
     public $HealthCheck;
 
     /**
-     * @var CertificateInput 证书信息
+     * @var CertificateInput 证书信息；此参数和MultiCertInfo不能同时传入。
      */
     public $Certificate;
 
@@ -85,7 +87,7 @@ class RuleInput extends AbstractModel
     public $Scheduler;
 
     /**
-     * @var string 负载均衡与后端服务之间的转发协议，目前支持 HTTP/HTTPS/TRPC
+     * @var string 负载均衡与后端服务之间的转发协议，目前支持 HTTP/HTTPS/TRPC，TRPC暂未对外开放。
      */
     public $ForwardType;
 
@@ -105,12 +107,12 @@ class RuleInput extends AbstractModel
     public $TargetType;
 
     /**
-     * @var string TRPC被调服务器路由，ForwardType为TRPC时必填
+     * @var string TRPC被调服务器路由，ForwardType为TRPC时必填。目前暂未对外开放。
      */
     public $TrpcCallee;
 
     /**
-     * @var string TRPC调用服务接口，ForwardType为TRPC时必填
+     * @var string TRPC调用服务接口，ForwardType为TRPC时必填。目前暂未对外开放
      */
     public $TrpcFunc;
 
@@ -125,21 +127,27 @@ class RuleInput extends AbstractModel
     public $Domains;
 
     /**
+     * @var MultiCertInfo 证书信息，支持同时传入不同算法类型的多本服务端证书；此参数和Certificate不能同时传入。
+     */
+    public $MultiCertInfo;
+
+    /**
      * @param string $Url 转发规则的路径。长度限制为：1~200。
      * @param string $Domain 转发规则的域名。长度限制为：1~80。Domain和Domains只需要传一个，单域名规则传Domain，多域名规则传Domains。
      * @param integer $SessionExpireTime 会话保持时间。设置为0表示关闭会话保持，开启会话保持可取值30~3600，单位：秒。
      * @param HealthCheck $HealthCheck 健康检查信息。详情请参见：[健康检查](https://cloud.tencent.com/document/product/214/6097)
-     * @param CertificateInput $Certificate 证书信息
+     * @param CertificateInput $Certificate 证书信息；此参数和MultiCertInfo不能同时传入。
      * @param string $Scheduler 规则的请求转发方式，可选值：WRR、LEAST_CONN、IP_HASH
 分别表示按权重轮询、最小连接数、按IP哈希， 默认为 WRR。
-     * @param string $ForwardType 负载均衡与后端服务之间的转发协议，目前支持 HTTP/HTTPS/TRPC
+     * @param string $ForwardType 负载均衡与后端服务之间的转发协议，目前支持 HTTP/HTTPS/TRPC，TRPC暂未对外开放。
      * @param boolean $DefaultServer 是否将该域名设为默认域名，注意，一个监听器下只能设置一个默认域名。
      * @param boolean $Http2 是否开启Http2，注意，只有HTTPS域名才能开启Http2。
      * @param string $TargetType 后端目标类型，NODE表示绑定普通节点，TARGETGROUP表示绑定目标组
-     * @param string $TrpcCallee TRPC被调服务器路由，ForwardType为TRPC时必填
-     * @param string $TrpcFunc TRPC调用服务接口，ForwardType为TRPC时必填
+     * @param string $TrpcCallee TRPC被调服务器路由，ForwardType为TRPC时必填。目前暂未对外开放。
+     * @param string $TrpcFunc TRPC调用服务接口，ForwardType为TRPC时必填。目前暂未对外开放
      * @param boolean $Quic 是否开启QUIC，注意，只有HTTPS域名才能开启QUIC
      * @param array $Domains 转发规则的域名列表。每个域名的长度限制为：1~80。Domain和Domains只需要传一个，单域名规则传Domain，多域名规则传Domains。
+     * @param MultiCertInfo $MultiCertInfo 证书信息，支持同时传入不同算法类型的多本服务端证书；此参数和Certificate不能同时传入。
      */
     function __construct()
     {
@@ -210,6 +218,11 @@ class RuleInput extends AbstractModel
 
         if (array_key_exists("Domains",$param) and $param["Domains"] !== null) {
             $this->Domains = $param["Domains"];
+        }
+
+        if (array_key_exists("MultiCertInfo",$param) and $param["MultiCertInfo"] !== null) {
+            $this->MultiCertInfo = new MultiCertInfo();
+            $this->MultiCertInfo->deserialize($param["MultiCertInfo"]);
         }
     }
 }

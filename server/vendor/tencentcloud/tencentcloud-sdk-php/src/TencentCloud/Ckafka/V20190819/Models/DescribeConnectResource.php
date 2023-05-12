@@ -48,13 +48,21 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setErrorMessage(string $ErrorMessage) 设置连接源的异常信息
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getDatahubTaskCount() 获取该连接源关联的Datahub任务数
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDatahubTaskCount(integer $DatahubTaskCount) 设置该连接源关联的Datahub任务数
+注意：此字段可能返回 null，表示取不到有效值。
  * @method string getCurrentStep() 获取连接源的当前所处步骤
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setCurrentStep(string $CurrentStep) 设置连接源的当前所处步骤
 注意：此字段可能返回 null，表示取不到有效值。
- * @method integer getDatahubTaskCount() 获取该连接源关联的Datahub任务数
+ * @method float getTaskProgress() 获取创建进度百分比
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setDatahubTaskCount(integer $DatahubTaskCount) 设置该连接源关联的Datahub任务数
+ * @method void setTaskProgress(float $TaskProgress) 设置创建进度百分比
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getStepList() 获取步骤列表
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setStepList(array $StepList) 设置步骤列表
 注意：此字段可能返回 null，表示取不到有效值。
  * @method DtsConnectParam getDtsConnectParam() 获取Dts配置，Type为DTS时返回
 注意：此字段可能返回 null，表示取不到有效值。
@@ -72,13 +80,33 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setClickHouseConnectParam(ClickHouseConnectParam $ClickHouseConnectParam) 设置ClickHouse配置，Type为CLICKHOUSE时返回
 注意：此字段可能返回 null，表示取不到有效值。
- * @method MySQLConnectParam getMySQLConnectParam() 获取MySQL配置，Type为MYSQL时必填
+ * @method MySQLConnectParam getMySQLConnectParam() 获取MySQL配置，Type为MYSQL或TDSQL_C_MYSQL时返回
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setMySQLConnectParam(MySQLConnectParam $MySQLConnectParam) 设置MySQL配置，Type为MYSQL时必填
+ * @method void setMySQLConnectParam(MySQLConnectParam $MySQLConnectParam) 设置MySQL配置，Type为MYSQL或TDSQL_C_MYSQL时返回
 注意：此字段可能返回 null，表示取不到有效值。
- * @method PostgreSQLConnectParam getPostgreSQLConnectParam() 获取PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时必填
+ * @method PostgreSQLConnectParam getPostgreSQLConnectParam() 获取PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时返回
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setPostgreSQLConnectParam(PostgreSQLConnectParam $PostgreSQLConnectParam) 设置PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时必填
+ * @method void setPostgreSQLConnectParam(PostgreSQLConnectParam $PostgreSQLConnectParam) 设置PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method MariaDBConnectParam getMariaDBConnectParam() 获取MariaDB配置，Type为MARIADB时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setMariaDBConnectParam(MariaDBConnectParam $MariaDBConnectParam) 设置MariaDB配置，Type为MARIADB时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method SQLServerConnectParam getSQLServerConnectParam() 获取SQLServer配置，Type为SQLSERVER时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSQLServerConnectParam(SQLServerConnectParam $SQLServerConnectParam) 设置SQLServer配置，Type为SQLSERVER时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method CtsdbConnectParam getCtsdbConnectParam() 获取Ctsdb配置，Type为CTSDB时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setCtsdbConnectParam(CtsdbConnectParam $CtsdbConnectParam) 设置Ctsdb配置，Type为CTSDB时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method DorisConnectParam getDorisConnectParam() 获取Doris 配置，Type 为 DORIS 时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDorisConnectParam(DorisConnectParam $DorisConnectParam) 设置Doris 配置，Type 为 DORIS 时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method KafkaConnectParam getKafkaConnectParam() 获取Kafka配置，Type 为 KAFKA 时返回
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setKafkaConnectParam(KafkaConnectParam $KafkaConnectParam) 设置Kafka配置，Type 为 KAFKA 时返回
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class DescribeConnectResource extends AbstractModel
@@ -126,16 +154,28 @@ class DescribeConnectResource extends AbstractModel
     public $ErrorMessage;
 
     /**
+     * @var integer 该连接源关联的Datahub任务数
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DatahubTaskCount;
+
+    /**
      * @var string 连接源的当前所处步骤
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $CurrentStep;
 
     /**
-     * @var integer 该连接源关联的Datahub任务数
+     * @var float 创建进度百分比
 注意：此字段可能返回 null，表示取不到有效值。
      */
-    public $DatahubTaskCount;
+    public $TaskProgress;
+
+    /**
+     * @var array 步骤列表
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $StepList;
 
     /**
      * @var DtsConnectParam Dts配置，Type为DTS时返回
@@ -162,16 +202,46 @@ class DescribeConnectResource extends AbstractModel
     public $ClickHouseConnectParam;
 
     /**
-     * @var MySQLConnectParam MySQL配置，Type为MYSQL时必填
+     * @var MySQLConnectParam MySQL配置，Type为MYSQL或TDSQL_C_MYSQL时返回
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $MySQLConnectParam;
 
     /**
-     * @var PostgreSQLConnectParam PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时必填
+     * @var PostgreSQLConnectParam PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时返回
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $PostgreSQLConnectParam;
+
+    /**
+     * @var MariaDBConnectParam MariaDB配置，Type为MARIADB时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $MariaDBConnectParam;
+
+    /**
+     * @var SQLServerConnectParam SQLServer配置，Type为SQLSERVER时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SQLServerConnectParam;
+
+    /**
+     * @var CtsdbConnectParam Ctsdb配置，Type为CTSDB时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $CtsdbConnectParam;
+
+    /**
+     * @var DorisConnectParam Doris 配置，Type 为 DORIS 时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DorisConnectParam;
+
+    /**
+     * @var KafkaConnectParam Kafka配置，Type 为 KAFKA 时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $KafkaConnectParam;
 
     /**
      * @param string $ResourceId 连接源的Id
@@ -188,9 +258,13 @@ class DescribeConnectResource extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $ErrorMessage 连接源的异常信息
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $DatahubTaskCount 该连接源关联的Datahub任务数
+注意：此字段可能返回 null，表示取不到有效值。
      * @param string $CurrentStep 连接源的当前所处步骤
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param integer $DatahubTaskCount 该连接源关联的Datahub任务数
+     * @param float $TaskProgress 创建进度百分比
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $StepList 步骤列表
 注意：此字段可能返回 null，表示取不到有效值。
      * @param DtsConnectParam $DtsConnectParam Dts配置，Type为DTS时返回
 注意：此字段可能返回 null，表示取不到有效值。
@@ -200,9 +274,19 @@ class DescribeConnectResource extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param ClickHouseConnectParam $ClickHouseConnectParam ClickHouse配置，Type为CLICKHOUSE时返回
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param MySQLConnectParam $MySQLConnectParam MySQL配置，Type为MYSQL时必填
+     * @param MySQLConnectParam $MySQLConnectParam MySQL配置，Type为MYSQL或TDSQL_C_MYSQL时返回
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param PostgreSQLConnectParam $PostgreSQLConnectParam PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时必填
+     * @param PostgreSQLConnectParam $PostgreSQLConnectParam PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param MariaDBConnectParam $MariaDBConnectParam MariaDB配置，Type为MARIADB时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param SQLServerConnectParam $SQLServerConnectParam SQLServer配置，Type为SQLSERVER时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param CtsdbConnectParam $CtsdbConnectParam Ctsdb配置，Type为CTSDB时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param DorisConnectParam $DorisConnectParam Doris 配置，Type 为 DORIS 时返回
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param KafkaConnectParam $KafkaConnectParam Kafka配置，Type 为 KAFKA 时返回
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -246,12 +330,20 @@ class DescribeConnectResource extends AbstractModel
             $this->ErrorMessage = $param["ErrorMessage"];
         }
 
+        if (array_key_exists("DatahubTaskCount",$param) and $param["DatahubTaskCount"] !== null) {
+            $this->DatahubTaskCount = $param["DatahubTaskCount"];
+        }
+
         if (array_key_exists("CurrentStep",$param) and $param["CurrentStep"] !== null) {
             $this->CurrentStep = $param["CurrentStep"];
         }
 
-        if (array_key_exists("DatahubTaskCount",$param) and $param["DatahubTaskCount"] !== null) {
-            $this->DatahubTaskCount = $param["DatahubTaskCount"];
+        if (array_key_exists("TaskProgress",$param) and $param["TaskProgress"] !== null) {
+            $this->TaskProgress = $param["TaskProgress"];
+        }
+
+        if (array_key_exists("StepList",$param) and $param["StepList"] !== null) {
+            $this->StepList = $param["StepList"];
         }
 
         if (array_key_exists("DtsConnectParam",$param) and $param["DtsConnectParam"] !== null) {
@@ -282,6 +374,31 @@ class DescribeConnectResource extends AbstractModel
         if (array_key_exists("PostgreSQLConnectParam",$param) and $param["PostgreSQLConnectParam"] !== null) {
             $this->PostgreSQLConnectParam = new PostgreSQLConnectParam();
             $this->PostgreSQLConnectParam->deserialize($param["PostgreSQLConnectParam"]);
+        }
+
+        if (array_key_exists("MariaDBConnectParam",$param) and $param["MariaDBConnectParam"] !== null) {
+            $this->MariaDBConnectParam = new MariaDBConnectParam();
+            $this->MariaDBConnectParam->deserialize($param["MariaDBConnectParam"]);
+        }
+
+        if (array_key_exists("SQLServerConnectParam",$param) and $param["SQLServerConnectParam"] !== null) {
+            $this->SQLServerConnectParam = new SQLServerConnectParam();
+            $this->SQLServerConnectParam->deserialize($param["SQLServerConnectParam"]);
+        }
+
+        if (array_key_exists("CtsdbConnectParam",$param) and $param["CtsdbConnectParam"] !== null) {
+            $this->CtsdbConnectParam = new CtsdbConnectParam();
+            $this->CtsdbConnectParam->deserialize($param["CtsdbConnectParam"]);
+        }
+
+        if (array_key_exists("DorisConnectParam",$param) and $param["DorisConnectParam"] !== null) {
+            $this->DorisConnectParam = new DorisConnectParam();
+            $this->DorisConnectParam->deserialize($param["DorisConnectParam"]);
+        }
+
+        if (array_key_exists("KafkaConnectParam",$param) and $param["KafkaConnectParam"] !== null) {
+            $this->KafkaConnectParam = new KafkaConnectParam();
+            $this->KafkaConnectParam->deserialize($param["KafkaConnectParam"]);
         }
     }
 }

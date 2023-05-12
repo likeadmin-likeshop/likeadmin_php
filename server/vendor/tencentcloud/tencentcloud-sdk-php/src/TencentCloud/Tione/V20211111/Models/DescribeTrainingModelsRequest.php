@@ -22,25 +22,23 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method array getFilters() 获取过滤器
 Filter.Name: 枚举值:
-    keyword (模型名称)
-    TrainingModelId (模型ID)
-    ModelVersionType (模型版本类型) 其值Filter.Values支持: NORMAL(通用) ACCELERATE (加速)
-    TrainingModelSource (模型来源)  其值Filter.Values支持： JOB/COS/AUTO_ML
-    AlgorithmFramework (算法框架) 其值Filter.Values支持：TENSORFLOW/PYTORCH/DETECTRON2
-    ModelFormat（模型格式）其值Filter.Values支持：
-TORCH_SCRIPT/PYTORCH/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML
+keyword (模型名称)
+TrainingModelId (模型ID)
+ModelVersionType (模型版本类型) 其值Filter.Values支持: NORMAL(通用) ACCELERATE (加速)
+TrainingModelSource (模型来源) 其值Filter.Values支持： JOB/COS
+ModelFormat（模型格式）其值Filter.Values支持：
+PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML/MMDETECTION/ONNX/HUGGING_FACE
 Filter.Values: 当长度为1时，支持模糊查询; 不为1时，精确查询
 每次请求的Filters的上限为10，Filter.Values的上限为100
 Filter.Fuzzy取值：true/false，是否支持模糊匹配
  * @method void setFilters(array $Filters) 设置过滤器
 Filter.Name: 枚举值:
-    keyword (模型名称)
-    TrainingModelId (模型ID)
-    ModelVersionType (模型版本类型) 其值Filter.Values支持: NORMAL(通用) ACCELERATE (加速)
-    TrainingModelSource (模型来源)  其值Filter.Values支持： JOB/COS/AUTO_ML
-    AlgorithmFramework (算法框架) 其值Filter.Values支持：TENSORFLOW/PYTORCH/DETECTRON2
-    ModelFormat（模型格式）其值Filter.Values支持：
-TORCH_SCRIPT/PYTORCH/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML
+keyword (模型名称)
+TrainingModelId (模型ID)
+ModelVersionType (模型版本类型) 其值Filter.Values支持: NORMAL(通用) ACCELERATE (加速)
+TrainingModelSource (模型来源) 其值Filter.Values支持： JOB/COS
+ModelFormat（模型格式）其值Filter.Values支持：
+PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML/MMDETECTION/ONNX/HUGGING_FACE
 Filter.Values: 当长度为1时，支持模糊查询; 不为1时，精确查询
 每次请求的Filters的上限为10，Filter.Values的上限为100
 Filter.Fuzzy取值：true/false，是否支持模糊匹配
@@ -54,19 +52,20 @@ Filter.Fuzzy取值：true/false，是否支持模糊匹配
  * @method void setLimit(integer $Limit) 设置返回结果数量
  * @method array getTagFilters() 获取标签过滤
  * @method void setTagFilters(array $TagFilters) 设置标签过滤
+ * @method boolean getWithModelVersions() 获取是否同时返回模型版本列表
+ * @method void setWithModelVersions(boolean $WithModelVersions) 设置是否同时返回模型版本列表
  */
 class DescribeTrainingModelsRequest extends AbstractModel
 {
     /**
      * @var array 过滤器
 Filter.Name: 枚举值:
-    keyword (模型名称)
-    TrainingModelId (模型ID)
-    ModelVersionType (模型版本类型) 其值Filter.Values支持: NORMAL(通用) ACCELERATE (加速)
-    TrainingModelSource (模型来源)  其值Filter.Values支持： JOB/COS/AUTO_ML
-    AlgorithmFramework (算法框架) 其值Filter.Values支持：TENSORFLOW/PYTORCH/DETECTRON2
-    ModelFormat（模型格式）其值Filter.Values支持：
-TORCH_SCRIPT/PYTORCH/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML
+keyword (模型名称)
+TrainingModelId (模型ID)
+ModelVersionType (模型版本类型) 其值Filter.Values支持: NORMAL(通用) ACCELERATE (加速)
+TrainingModelSource (模型来源) 其值Filter.Values支持： JOB/COS
+ModelFormat（模型格式）其值Filter.Values支持：
+PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML/MMDETECTION/ONNX/HUGGING_FACE
 Filter.Values: 当长度为1时，支持模糊查询; 不为1时，精确查询
 每次请求的Filters的上限为10，Filter.Values的上限为100
 Filter.Fuzzy取值：true/false，是否支持模糊匹配
@@ -99,15 +98,19 @@ Filter.Fuzzy取值：true/false，是否支持模糊匹配
     public $TagFilters;
 
     /**
+     * @var boolean 是否同时返回模型版本列表
+     */
+    public $WithModelVersions;
+
+    /**
      * @param array $Filters 过滤器
 Filter.Name: 枚举值:
-    keyword (模型名称)
-    TrainingModelId (模型ID)
-    ModelVersionType (模型版本类型) 其值Filter.Values支持: NORMAL(通用) ACCELERATE (加速)
-    TrainingModelSource (模型来源)  其值Filter.Values支持： JOB/COS/AUTO_ML
-    AlgorithmFramework (算法框架) 其值Filter.Values支持：TENSORFLOW/PYTORCH/DETECTRON2
-    ModelFormat（模型格式）其值Filter.Values支持：
-TORCH_SCRIPT/PYTORCH/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML
+keyword (模型名称)
+TrainingModelId (模型ID)
+ModelVersionType (模型版本类型) 其值Filter.Values支持: NORMAL(通用) ACCELERATE (加速)
+TrainingModelSource (模型来源) 其值Filter.Values支持： JOB/COS
+ModelFormat（模型格式）其值Filter.Values支持：
+PYTORCH/TORCH_SCRIPT/DETECTRON2/SAVED_MODEL/FROZEN_GRAPH/PMML/MMDETECTION/ONNX/HUGGING_FACE
 Filter.Values: 当长度为1时，支持模糊查询; 不为1时，精确查询
 每次请求的Filters的上限为10，Filter.Values的上限为100
 Filter.Fuzzy取值：true/false，是否支持模糊匹配
@@ -116,6 +119,7 @@ Filter.Fuzzy取值：true/false，是否支持模糊匹配
      * @param integer $Offset 偏移量
      * @param integer $Limit 返回结果数量
      * @param array $TagFilters 标签过滤
+     * @param boolean $WithModelVersions 是否同时返回模型版本列表
      */
     function __construct()
     {
@@ -162,6 +166,10 @@ Filter.Fuzzy取值：true/false，是否支持模糊匹配
                 $obj->deserialize($value);
                 array_push($this->TagFilters, $obj);
             }
+        }
+
+        if (array_key_exists("WithModelVersions",$param) and $param["WithModelVersions"] !== null) {
+            $this->WithModelVersions = $param["WithModelVersions"];
         }
     }
 }

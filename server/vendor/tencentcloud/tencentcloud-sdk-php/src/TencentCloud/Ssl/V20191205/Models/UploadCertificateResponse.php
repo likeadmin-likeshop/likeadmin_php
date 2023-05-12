@@ -22,6 +22,10 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getCertificateId() 获取证书 ID。
  * @method void setCertificateId(string $CertificateId) 设置证书 ID。
+ * @method string getRepeatCertId() 获取重复证书的ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setRepeatCertId(string $RepeatCertId) 设置重复证书的ID
+注意：此字段可能返回 null，表示取不到有效值。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -33,12 +37,20 @@ class UploadCertificateResponse extends AbstractModel
     public $CertificateId;
 
     /**
+     * @var string 重复证书的ID
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $RepeatCertId;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
 
     /**
      * @param string $CertificateId 证书 ID。
+     * @param string $RepeatCertId 重复证书的ID
+注意：此字段可能返回 null，表示取不到有效值。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -56,6 +68,10 @@ class UploadCertificateResponse extends AbstractModel
         }
         if (array_key_exists("CertificateId",$param) and $param["CertificateId"] !== null) {
             $this->CertificateId = $param["CertificateId"];
+        }
+
+        if (array_key_exists("RepeatCertId",$param) and $param["RepeatCertId"] !== null) {
+            $this->RepeatCertId = $param["RepeatCertId"];
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

@@ -32,8 +32,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setNearExpiryLicenseCnt(integer $NearExpiryLicenseCnt) 设置即将到期授权数 (15天内到期的)
  * @method integer getExpireLicenseCnt() 获取已到期授权数(不包含已删除的记录)
  * @method void setExpireLicenseCnt(integer $ExpireLicenseCnt) 设置已到期授权数(不包含已删除的记录)
- * @method boolean getAutoOpenStatus() 获取自动升级开关状态,默认 false,  ture 开启, false 关闭
- * @method void setAutoOpenStatus(boolean $AutoOpenStatus) 设置自动升级开关状态,默认 false,  ture 开启, false 关闭
+ * @method boolean getAutoOpenStatus() 获取自动升级开关状态,默认 false,  true 开启, false 关闭
+ * @method void setAutoOpenStatus(boolean $AutoOpenStatus) 设置自动升级开关状态,默认 false,  true 开启, false 关闭
  * @method string getProtectType() 获取PROVERSION_POSTPAY 专业版-后付费, PROVERSION_PREPAY 专业版-预付费, FLAGSHIP_PREPAY 旗舰版-预付费
  * @method void setProtectType(string $ProtectType) 设置PROVERSION_POSTPAY 专业版-后付费, PROVERSION_PREPAY 专业版-预付费, FLAGSHIP_PREPAY 旗舰版-预付费
  * @method boolean getIsOpenStatusHistory() 获取历史是否开通过自动升级开关
@@ -50,6 +50,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setCwpVersionLicenseCnt(integer $CwpVersionLicenseCnt) 设置普惠版总授权数(有效订单的授权数)
  * @method integer getAvailableLHLicenseCnt() 获取可用惠普版授权数
  * @method void setAvailableLHLicenseCnt(integer $AvailableLHLicenseCnt) 设置可用惠普版授权数
+ * @method boolean getAutoRepurchaseSwitch() 获取自动加购开关, true 开启, false 关闭
+ * @method void setAutoRepurchaseSwitch(boolean $AutoRepurchaseSwitch) 设置自动加购开关, true 开启, false 关闭
+ * @method boolean getAutoRepurchaseRenewSwitch() 获取自动加购订单是否自动续费 ,true 开启, false 关闭
+ * @method void setAutoRepurchaseRenewSwitch(boolean $AutoRepurchaseRenewSwitch) 设置自动加购订单是否自动续费 ,true 开启, false 关闭
+ * @method integer getDestroyOrderNum() 获取已销毁订单数
+ * @method void setDestroyOrderNum(integer $DestroyOrderNum) 设置已销毁订单数
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -86,7 +92,7 @@ class DescribeLicenseGeneralResponse extends AbstractModel
     public $ExpireLicenseCnt;
 
     /**
-     * @var boolean 自动升级开关状态,默认 false,  ture 开启, false 关闭
+     * @var boolean 自动升级开关状态,默认 false,  true 开启, false 关闭
      */
     public $AutoOpenStatus;
 
@@ -131,6 +137,21 @@ class DescribeLicenseGeneralResponse extends AbstractModel
     public $AvailableLHLicenseCnt;
 
     /**
+     * @var boolean 自动加购开关, true 开启, false 关闭
+     */
+    public $AutoRepurchaseSwitch;
+
+    /**
+     * @var boolean 自动加购订单是否自动续费 ,true 开启, false 关闭
+     */
+    public $AutoRepurchaseRenewSwitch;
+
+    /**
+     * @var integer 已销毁订单数
+     */
+    public $DestroyOrderNum;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
@@ -142,7 +163,7 @@ class DescribeLicenseGeneralResponse extends AbstractModel
      * @param integer $AvailableFlagshipVersionLicenseCnt 可用旗舰版授权数
      * @param integer $NearExpiryLicenseCnt 即将到期授权数 (15天内到期的)
      * @param integer $ExpireLicenseCnt 已到期授权数(不包含已删除的记录)
-     * @param boolean $AutoOpenStatus 自动升级开关状态,默认 false,  ture 开启, false 关闭
+     * @param boolean $AutoOpenStatus 自动升级开关状态,默认 false,  true 开启, false 关闭
      * @param string $ProtectType PROVERSION_POSTPAY 专业版-后付费, PROVERSION_PREPAY 专业版-预付费, FLAGSHIP_PREPAY 旗舰版-预付费
      * @param boolean $IsOpenStatusHistory 历史是否开通过自动升级开关
      * @param integer $UsedLicenseCnt 已使用授权数
@@ -151,6 +172,9 @@ class DescribeLicenseGeneralResponse extends AbstractModel
      * @param integer $ProVersionLicenseCnt 专业版总授权数(有效订单)
      * @param integer $CwpVersionLicenseCnt 普惠版总授权数(有效订单的授权数)
      * @param integer $AvailableLHLicenseCnt 可用惠普版授权数
+     * @param boolean $AutoRepurchaseSwitch 自动加购开关, true 开启, false 关闭
+     * @param boolean $AutoRepurchaseRenewSwitch 自动加购订单是否自动续费 ,true 开启, false 关闭
+     * @param integer $DestroyOrderNum 已销毁订单数
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -224,6 +248,18 @@ class DescribeLicenseGeneralResponse extends AbstractModel
 
         if (array_key_exists("AvailableLHLicenseCnt",$param) and $param["AvailableLHLicenseCnt"] !== null) {
             $this->AvailableLHLicenseCnt = $param["AvailableLHLicenseCnt"];
+        }
+
+        if (array_key_exists("AutoRepurchaseSwitch",$param) and $param["AutoRepurchaseSwitch"] !== null) {
+            $this->AutoRepurchaseSwitch = $param["AutoRepurchaseSwitch"];
+        }
+
+        if (array_key_exists("AutoRepurchaseRenewSwitch",$param) and $param["AutoRepurchaseRenewSwitch"] !== null) {
+            $this->AutoRepurchaseRenewSwitch = $param["AutoRepurchaseRenewSwitch"];
+        }
+
+        if (array_key_exists("DestroyOrderNum",$param) and $param["DestroyOrderNum"] !== null) {
+            $this->DestroyOrderNum = $param["DestroyOrderNum"];
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Logical;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Operations
 {
@@ -32,23 +33,9 @@ class Operations
      */
     public static function logicalAnd(...$args)
     {
-        $args = Functions::flattenArray($args);
-
-        if (count($args) == 0) {
-            return Functions::VALUE();
-        }
-
-        $args = array_filter($args, function ($value) {
-            return $value !== null || (is_string($value) && trim($value) == '');
+        return self::countTrueValues($args, function (int $trueValueCount, int $count): bool {
+            return $trueValueCount === $count;
         });
-
-        $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
-            return $returnValue;
-        }
-        $argCount = count($args);
-
-        return ($returnValue > 0) && ($returnValue == $argCount);
     }
 
     /**
@@ -73,22 +60,9 @@ class Operations
      */
     public static function logicalOr(...$args)
     {
-        $args = Functions::flattenArray($args);
-
-        if (count($args) == 0) {
-            return Functions::VALUE();
-        }
-
-        $args = array_filter($args, function ($value) {
-            return $value !== null || (is_string($value) && trim($value) == '');
+        return self::countTrueValues($args, function (int $trueValueCount): bool {
+            return $trueValueCount > 0;
         });
-
-        $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
-            return $returnValue;
-        }
-
-        return $returnValue > 0;
     }
 
     /**
@@ -115,22 +89,9 @@ class Operations
      */
     public static function logicalXor(...$args)
     {
-        $args = Functions::flattenArray($args);
-
-        if (count($args) == 0) {
-            return Functions::VALUE();
-        }
-
-        $args = array_filter($args, function ($value) {
-            return $value !== null || (is_string($value) && trim($value) == '');
+        return self::countTrueValues($args, function (int $trueValueCount): bool {
+            return $trueValueCount % 2 === 1;
         });
-
-        $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
-            return $returnValue;
-        }
-
-        return $returnValue % 2 == 1;
     }
 
     /**
@@ -169,38 +130,43 @@ class Operations
                 return true;
             }
 
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         return !$logical;
     }
 
     /**
-     * @return int|string
+     * @return bool|string
      */
-    private static function countTrueValues(array $args)
+    private static function countTrueValues(array $args, callable $func)
     {
         $trueValueCount = 0;
+        $count = 0;
 
-        foreach ($args as $arg) {
+        $aArgs = Functions::flattenArrayIndexed($args);
+        foreach ($aArgs as $k => $arg) {
+            ++$count;
             // Is it a boolean value?
             if (is_bool($arg)) {
                 $trueValueCount += $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $trueValueCount += ((int) $arg != 0);
             } elseif (is_string($arg)) {
+                $isLiteral = !Functions::isCellValue($k);
                 $arg = mb_strtoupper($arg, 'UTF-8');
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
-                    $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
-                    $arg = false;
+                if ($isLiteral && ($arg == 'TRUE' || $arg == Calculation::getTRUE())) {
+                    ++$trueValueCount;
+                } elseif ($isLiteral && ($arg == 'FALSE' || $arg == Calculation::getFALSE())) {
+                    //$trueValueCount += 0;
                 } else {
-                    return Functions::VALUE();
+                    --$count;
                 }
-                $trueValueCount += ($arg != 0);
+            } elseif (is_int($arg) || is_float($arg)) {
+                $trueValueCount += (int) ($arg != 0);
+            } else {
+                --$count;
             }
         }
 
-        return $trueValueCount;
+        return ($count === 0) ? ExcelError::VALUE() : $func($trueValueCount, $count);
     }
 }

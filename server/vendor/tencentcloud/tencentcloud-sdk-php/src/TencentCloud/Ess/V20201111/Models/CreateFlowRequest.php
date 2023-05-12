@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * CreateFlow请求参数结构体
  *
- * @method UserInfo getOperator() 获取调用方用户信息，userId 必填
- * @method void setOperator(UserInfo $Operator) 设置调用方用户信息，userId 必填
+ * @method UserInfo getOperator() 获取调用方用户信息，userId 必填。支持填入集团子公司经办人 userId代发合同。
+ * @method void setOperator(UserInfo $Operator) 设置调用方用户信息，userId 必填。支持填入集团子公司经办人 userId代发合同。
  * @method string getFlowName() 获取签署流程名称,最大长度200个字符
  * @method void setFlowName(string $FlowName) 设置签署流程名称,最大长度200个字符
  * @method array getApprovers() 获取签署流程参与者信息，最大限制50方
@@ -30,14 +30,14 @@ use TencentCloud\Common\AbstractModel;
  * @method void setFlowType(string $FlowType) 设置签署流程的类型(如销售合同/入职合同等)，最大长度200个字符
  * @method string getClientToken() 获取客户端Token，保持接口幂等性,最大长度64个字符
  * @method void setClientToken(string $ClientToken) 设置客户端Token，保持接口幂等性,最大长度64个字符
- * @method string getCallbackUrl() 获取暂未开放
- * @method void setCallbackUrl(string $CallbackUrl) 设置暂未开放
+ * @method string getRelatedFlowId() 获取暂未开放
+ * @method void setRelatedFlowId(string $RelatedFlowId) 设置暂未开放
  * @method integer getDeadLine() 获取签署流程的签署截止时间。
 值为unix时间戳,精确到秒,不传默认为当前时间一年后
  * @method void setDeadLine(integer $DeadLine) 设置签署流程的签署截止时间。
 值为unix时间戳,精确到秒,不传默认为当前时间一年后
- * @method string getUserData() 获取用户自定义字段(需进行base64 encode),回调的时候会进行透传, 长度需要小于20480
- * @method void setUserData(string $UserData) 设置用户自定义字段(需进行base64 encode),回调的时候会进行透传, 长度需要小于20480
+ * @method string getUserData() 获取用户自定义字段，回调的时候会进行透传，长度需要小于20480
+ * @method void setUserData(string $UserData) 设置用户自定义字段，回调的时候会进行透传，长度需要小于20480
  * @method string getFlowDescription() 获取签署流程描述,最大长度1000个字符
  * @method void setFlowDescription(string $FlowDescription) 设置签署流程描述,最大长度1000个字符
  * @method boolean getUnordered() 获取发送类型：
@@ -50,23 +50,27 @@ false：有序签
 注：默认为false（有序签），请和模板中的配置保持一致
  * @method string getCustomShowMap() 获取合同显示的页卡模板，说明：只支持{合同名称}, {发起方企业}, {发起方姓名}, {签署方N企业}, {签署方N姓名}，且N不能超过签署人的数量，N从1开始
  * @method void setCustomShowMap(string $CustomShowMap) 设置合同显示的页卡模板，说明：只支持{合同名称}, {发起方企业}, {发起方姓名}, {签署方N企业}, {签署方N姓名}，且N不能超过签署人的数量，N从1开始
- * @method boolean getNeedSignReview() 获取发起方企业的签署人进行签署操作是否需要企业内部审批。
-若设置为true,审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+ * @method boolean getNeedSignReview() 获取发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
 
 注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
- * @method void setNeedSignReview(boolean $NeedSignReview) 设置发起方企业的签署人进行签署操作是否需要企业内部审批。
-若设置为true,审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+ * @method void setNeedSignReview(boolean $NeedSignReview) 设置发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
 
 注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
- * @method string getRelatedFlowId() 获取暂未开放
- * @method void setRelatedFlowId(string $RelatedFlowId) 设置暂未开放
- * @method Agent getAgent() 获取应用相关信息
- * @method void setAgent(Agent $Agent) 设置应用相关信息
+ * @method string getCallbackUrl() 获取暂未开放
+ * @method void setCallbackUrl(string $CallbackUrl) 设置暂未开放
+ * @method Agent getAgent() 获取代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+ * @method void setAgent(Agent $Agent) 设置代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+ * @method array getCcInfos() 获取被抄送人的信息列表。
+注: 此功能为白名单功能，若有需要，请联系电子签客服开白使用。
+ * @method void setCcInfos(array $CcInfos) 设置被抄送人的信息列表。
+注: 此功能为白名单功能，若有需要，请联系电子签客服开白使用。
  */
 class CreateFlowRequest extends AbstractModel
 {
     /**
-     * @var UserInfo 调用方用户信息，userId 必填
+     * @var UserInfo 调用方用户信息，userId 必填。支持填入集团子公司经办人 userId代发合同。
      */
     public $Operator;
 
@@ -93,7 +97,7 @@ class CreateFlowRequest extends AbstractModel
     /**
      * @var string 暂未开放
      */
-    public $CallbackUrl;
+    public $RelatedFlowId;
 
     /**
      * @var integer 签署流程的签署截止时间。
@@ -102,7 +106,7 @@ class CreateFlowRequest extends AbstractModel
     public $DeadLine;
 
     /**
-     * @var string 用户自定义字段(需进行base64 encode),回调的时候会进行透传, 长度需要小于20480
+     * @var string 用户自定义字段，回调的时候会进行透传，长度需要小于20480
      */
     public $UserData;
 
@@ -125,8 +129,8 @@ false：有序签
     public $CustomShowMap;
 
     /**
-     * @var boolean 发起方企业的签署人进行签署操作是否需要企业内部审批。
-若设置为true,审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+     * @var boolean 发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
 
 注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
      */
@@ -135,35 +139,43 @@ false：有序签
     /**
      * @var string 暂未开放
      */
-    public $RelatedFlowId;
+    public $CallbackUrl;
 
     /**
-     * @var Agent 应用相关信息
+     * @var Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
      */
     public $Agent;
 
     /**
-     * @param UserInfo $Operator 调用方用户信息，userId 必填
+     * @var array 被抄送人的信息列表。
+注: 此功能为白名单功能，若有需要，请联系电子签客服开白使用。
+     */
+    public $CcInfos;
+
+    /**
+     * @param UserInfo $Operator 调用方用户信息，userId 必填。支持填入集团子公司经办人 userId代发合同。
      * @param string $FlowName 签署流程名称,最大长度200个字符
      * @param array $Approvers 签署流程参与者信息，最大限制50方
      * @param string $FlowType 签署流程的类型(如销售合同/入职合同等)，最大长度200个字符
      * @param string $ClientToken 客户端Token，保持接口幂等性,最大长度64个字符
-     * @param string $CallbackUrl 暂未开放
+     * @param string $RelatedFlowId 暂未开放
      * @param integer $DeadLine 签署流程的签署截止时间。
 值为unix时间戳,精确到秒,不传默认为当前时间一年后
-     * @param string $UserData 用户自定义字段(需进行base64 encode),回调的时候会进行透传, 长度需要小于20480
+     * @param string $UserData 用户自定义字段，回调的时候会进行透传，长度需要小于20480
      * @param string $FlowDescription 签署流程描述,最大长度1000个字符
      * @param boolean $Unordered 发送类型：
 true：无序签
 false：有序签
 注：默认为false（有序签），请和模板中的配置保持一致
      * @param string $CustomShowMap 合同显示的页卡模板，说明：只支持{合同名称}, {发起方企业}, {发起方姓名}, {签署方N企业}, {签署方N姓名}，且N不能超过签署人的数量，N从1开始
-     * @param boolean $NeedSignReview 发起方企业的签署人进行签署操作是否需要企业内部审批。
-若设置为true,审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+     * @param boolean $NeedSignReview 发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
 
 注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
-     * @param string $RelatedFlowId 暂未开放
-     * @param Agent $Agent 应用相关信息
+     * @param string $CallbackUrl 暂未开放
+     * @param Agent $Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+     * @param array $CcInfos 被抄送人的信息列表。
+注: 此功能为白名单功能，若有需要，请联系电子签客服开白使用。
      */
     function __construct()
     {
@@ -204,8 +216,8 @@ false：有序签
             $this->ClientToken = $param["ClientToken"];
         }
 
-        if (array_key_exists("CallbackUrl",$param) and $param["CallbackUrl"] !== null) {
-            $this->CallbackUrl = $param["CallbackUrl"];
+        if (array_key_exists("RelatedFlowId",$param) and $param["RelatedFlowId"] !== null) {
+            $this->RelatedFlowId = $param["RelatedFlowId"];
         }
 
         if (array_key_exists("DeadLine",$param) and $param["DeadLine"] !== null) {
@@ -232,13 +244,22 @@ false：有序签
             $this->NeedSignReview = $param["NeedSignReview"];
         }
 
-        if (array_key_exists("RelatedFlowId",$param) and $param["RelatedFlowId"] !== null) {
-            $this->RelatedFlowId = $param["RelatedFlowId"];
+        if (array_key_exists("CallbackUrl",$param) and $param["CallbackUrl"] !== null) {
+            $this->CallbackUrl = $param["CallbackUrl"];
         }
 
         if (array_key_exists("Agent",$param) and $param["Agent"] !== null) {
             $this->Agent = new Agent();
             $this->Agent->deserialize($param["Agent"]);
+        }
+
+        if (array_key_exists("CcInfos",$param) and $param["CcInfos"] !== null) {
+            $this->CcInfos = [];
+            foreach ($param["CcInfos"] as $key => $value){
+                $obj = new CcInfo();
+                $obj->deserialize($value);
+                array_push($this->CcInfos, $obj);
+            }
         }
     }
 }

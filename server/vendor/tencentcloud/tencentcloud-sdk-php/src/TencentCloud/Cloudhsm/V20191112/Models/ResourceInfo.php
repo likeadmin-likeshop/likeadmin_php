@@ -28,9 +28,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setResourceName(string $ResourceName) 设置资源名称
 注意：此字段可能返回 null，表示取不到有效值。
- * @method integer getStatus() 获取资源状态
+ * @method integer getStatus() 获取资源状态，1-正常，2-隔离，3-销毁
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setStatus(integer $Status) 设置资源状态
+ * @method void setStatus(integer $Status) 设置资源状态，1-正常，2-隔离，3-销毁
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getVip() 获取资源IP
 注意：此字段可能返回 null，表示取不到有效值。
@@ -48,9 +48,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setModel(string $Model) 设置资源所属HSM规格
 注意：此字段可能返回 null，表示取不到有效值。
- * @method integer getVsmType() 获取资源类型
+ * @method integer getVsmType() 获取云加密机类型id
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setVsmType(integer $VsmType) 设置资源类型
+ * @method void setVsmType(integer $VsmType) 设置云加密机类型id
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getRegionId() 获取地域Id
 注意：此字段可能返回 null，表示取不到有效值。
@@ -60,9 +60,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setZoneId(integer $ZoneId) 设置区域Id
 注意：此字段可能返回 null，表示取不到有效值。
- * @method integer getExpireTime() 获取过期时间
+ * @method integer getExpireTime() 获取过期时间（Epoch Unix Timestamp）
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setExpireTime(integer $ExpireTime) 设置过期时间
+ * @method void setExpireTime(integer $ExpireTime) 设置过期时间（Epoch Unix Timestamp）
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getRegionName() 获取地域名
 注意：此字段可能返回 null，表示取不到有效值。
@@ -108,6 +108,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setManufacturer(string $Manufacturer) 设置厂商
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getAlarmStatus() 获取告警状态，0：停用，1：启用
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAlarmStatus(integer $AlarmStatus) 设置告警状态，0：停用，1：启用
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class ResourceInfo extends AbstractModel
 {
@@ -124,7 +128,7 @@ class ResourceInfo extends AbstractModel
     public $ResourceName;
 
     /**
-     * @var integer 资源状态
+     * @var integer 资源状态，1-正常，2-隔离，3-销毁
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Status;
@@ -154,7 +158,7 @@ class ResourceInfo extends AbstractModel
     public $Model;
 
     /**
-     * @var integer 资源类型
+     * @var integer 云加密机类型id
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $VsmType;
@@ -172,7 +176,7 @@ class ResourceInfo extends AbstractModel
     public $ZoneId;
 
     /**
-     * @var integer 过期时间
+     * @var integer 过期时间（Epoch Unix Timestamp）
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ExpireTime;
@@ -244,11 +248,17 @@ class ResourceInfo extends AbstractModel
     public $Manufacturer;
 
     /**
+     * @var integer 告警状态，0：停用，1：启用
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AlarmStatus;
+
+    /**
      * @param string $ResourceId 资源Id
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $ResourceName 资源名称
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param integer $Status 资源状态
+     * @param integer $Status 资源状态，1-正常，2-隔离，3-销毁
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Vip 资源IP
 注意：此字段可能返回 null，表示取不到有效值。
@@ -258,13 +268,13 @@ class ResourceInfo extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Model 资源所属HSM规格
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param integer $VsmType 资源类型
+     * @param integer $VsmType 云加密机类型id
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $RegionId 地域Id
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $ZoneId 区域Id
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param integer $ExpireTime 过期时间
+     * @param integer $ExpireTime 过期时间（Epoch Unix Timestamp）
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $RegionName 地域名
 注意：此字段可能返回 null，表示取不到有效值。
@@ -287,6 +297,8 @@ class ResourceInfo extends AbstractModel
      * @param array $Tags 标签列表
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Manufacturer 厂商
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $AlarmStatus 告警状态，0：停用，1：启用
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -398,6 +410,10 @@ class ResourceInfo extends AbstractModel
 
         if (array_key_exists("Manufacturer",$param) and $param["Manufacturer"] !== null) {
             $this->Manufacturer = $param["Manufacturer"];
+        }
+
+        if (array_key_exists("AlarmStatus",$param) and $param["AlarmStatus"] !== null) {
+            $this->AlarmStatus = $param["AlarmStatus"];
         }
     }
 }

@@ -42,6 +42,10 @@ use TencentCloud\Common\AbstractModel;
  * @method void setMariaDBConnectParam(MariaDBConnectParam $MariaDBConnectParam) 设置MariaDB配置，Type为MARIADB时必填
  * @method SQLServerConnectParam getSQLServerConnectParam() 获取SQLServer配置，Type为SQLSERVER时必填
  * @method void setSQLServerConnectParam(SQLServerConnectParam $SQLServerConnectParam) 设置SQLServer配置，Type为SQLSERVER时必填
+ * @method DorisConnectParam getDorisConnectParam() 获取Doris 配置，Type为 DORIS 时必填
+ * @method void setDorisConnectParam(DorisConnectParam $DorisConnectParam) 设置Doris 配置，Type为 DORIS 时必填
+ * @method KafkaConnectParam getKafkaConnectParam() 获取Kafka配置，Type为 KAFKA 时必填
+ * @method void setKafkaConnectParam(KafkaConnectParam $KafkaConnectParam) 设置Kafka配置，Type为 KAFKA 时必填
  */
 class CreateConnectResourceRequest extends AbstractModel
 {
@@ -101,6 +105,16 @@ class CreateConnectResourceRequest extends AbstractModel
     public $SQLServerConnectParam;
 
     /**
+     * @var DorisConnectParam Doris 配置，Type为 DORIS 时必填
+     */
+    public $DorisConnectParam;
+
+    /**
+     * @var KafkaConnectParam Kafka配置，Type为 KAFKA 时必填
+     */
+    public $KafkaConnectParam;
+
+    /**
      * @param string $ResourceName 连接源名称
      * @param string $Type 连接源类型
      * @param string $Description 连接源描述
@@ -112,6 +126,8 @@ class CreateConnectResourceRequest extends AbstractModel
      * @param PostgreSQLConnectParam $PostgreSQLConnectParam PostgreSQL配置，Type为POSTGRESQL或TDSQL_C_POSTGRESQL时必填
      * @param MariaDBConnectParam $MariaDBConnectParam MariaDB配置，Type为MARIADB时必填
      * @param SQLServerConnectParam $SQLServerConnectParam SQLServer配置，Type为SQLSERVER时必填
+     * @param DorisConnectParam $DorisConnectParam Doris 配置，Type为 DORIS 时必填
+     * @param KafkaConnectParam $KafkaConnectParam Kafka配置，Type为 KAFKA 时必填
      */
     function __construct()
     {
@@ -176,6 +192,16 @@ class CreateConnectResourceRequest extends AbstractModel
         if (array_key_exists("SQLServerConnectParam",$param) and $param["SQLServerConnectParam"] !== null) {
             $this->SQLServerConnectParam = new SQLServerConnectParam();
             $this->SQLServerConnectParam->deserialize($param["SQLServerConnectParam"]);
+        }
+
+        if (array_key_exists("DorisConnectParam",$param) and $param["DorisConnectParam"] !== null) {
+            $this->DorisConnectParam = new DorisConnectParam();
+            $this->DorisConnectParam->deserialize($param["DorisConnectParam"]);
+        }
+
+        if (array_key_exists("KafkaConnectParam",$param) and $param["KafkaConnectParam"] !== null) {
+            $this->KafkaConnectParam = new KafkaConnectParam();
+            $this->KafkaConnectParam->deserialize($param["KafkaConnectParam"]);
         }
     }
 }

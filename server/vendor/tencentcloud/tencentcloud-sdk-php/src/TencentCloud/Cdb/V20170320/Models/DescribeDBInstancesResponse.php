@@ -22,8 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method integer getTotalCount() 获取符合查询条件的实例总数。
  * @method void setTotalCount(integer $TotalCount) 设置符合查询条件的实例总数。
- * @method array getItems() 获取实例详细信息。
- * @method void setItems(array $Items) 设置实例详细信息。
+ * @method array getItems() 获取实例详细信息列表。
+ * @method void setItems(array $Items) 设置实例详细信息列表。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -35,7 +35,7 @@ class DescribeDBInstancesResponse extends AbstractModel
     public $TotalCount;
 
     /**
-     * @var array 实例详细信息。
+     * @var array 实例详细信息列表。
      */
     public $Items;
 
@@ -46,7 +46,7 @@ class DescribeDBInstancesResponse extends AbstractModel
 
     /**
      * @param integer $TotalCount 符合查询条件的实例总数。
-     * @param array $Items 实例详细信息。
+     * @param array $Items 实例详细信息列表。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

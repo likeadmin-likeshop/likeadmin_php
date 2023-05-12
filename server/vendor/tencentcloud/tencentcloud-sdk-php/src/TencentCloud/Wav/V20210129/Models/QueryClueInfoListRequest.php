@@ -24,6 +24,10 @@ use TencentCloud\Common\AbstractModel;
  * @method void setCursor(string $Cursor) 设置用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
  * @method integer getLimit() 获取返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值
  * @method void setLimit(integer $Limit) 设置返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值
+ * @method integer getBeginTime() 获取查询开始时间， 单位秒
+ * @method void setBeginTime(integer $BeginTime) 设置查询开始时间， 单位秒
+ * @method integer getEndTime() 获取查询结束时间， 单位秒
+ * @method void setEndTime(integer $EndTime) 设置查询结束时间， 单位秒
  */
 class QueryClueInfoListRequest extends AbstractModel
 {
@@ -38,8 +42,20 @@ class QueryClueInfoListRequest extends AbstractModel
     public $Limit;
 
     /**
+     * @var integer 查询开始时间， 单位秒
+     */
+    public $BeginTime;
+
+    /**
+     * @var integer 查询结束时间， 单位秒
+     */
+    public $EndTime;
+
+    /**
      * @param string $Cursor 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
      * @param integer $Limit 返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值
+     * @param integer $BeginTime 查询开始时间， 单位秒
+     * @param integer $EndTime 查询结束时间， 单位秒
      */
     function __construct()
     {
@@ -60,6 +76,14 @@ class QueryClueInfoListRequest extends AbstractModel
 
         if (array_key_exists("Limit",$param) and $param["Limit"] !== null) {
             $this->Limit = $param["Limit"];
+        }
+
+        if (array_key_exists("BeginTime",$param) and $param["BeginTime"] !== null) {
+            $this->BeginTime = $param["BeginTime"];
+        }
+
+        if (array_key_exists("EndTime",$param) and $param["EndTime"] !== null) {
+            $this->EndTime = $param["EndTime"];
         }
     }
 }

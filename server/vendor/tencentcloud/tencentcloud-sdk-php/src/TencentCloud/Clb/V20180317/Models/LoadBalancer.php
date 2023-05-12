@@ -30,9 +30,9 @@ OPEN：公网属性， INTERNAL：内网属性。
 OPEN：公网属性， INTERNAL：内网属性。
  * @method integer getForward() 获取负载均衡类型标识，1：负载均衡，0：传统型负载均衡。
  * @method void setForward(integer $Forward) 设置负载均衡类型标识，1：负载均衡，0：传统型负载均衡。
- * @method string getDomain() 获取负载均衡实例的域名，仅公网传统型负载均衡实例才提供该字段
+ * @method string getDomain() 获取负载均衡实例的域名，仅公网传统型负载均衡实例才提供该字段。逐步下线中，建议用LoadBalancerDomain替代。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setDomain(string $Domain) 设置负载均衡实例的域名，仅公网传统型负载均衡实例才提供该字段
+ * @method void setDomain(string $Domain) 设置负载均衡实例的域名，仅公网传统型负载均衡实例才提供该字段。逐步下线中，建议用LoadBalancerDomain替代。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method array getLoadBalancerVips() 获取负载均衡实例的 VIP 列表。
 注意：此字段可能返回 null，表示取不到有效值。
@@ -178,9 +178,9 @@ OPEN：公网属性， INTERNAL：内网属性。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setSnatIps(array $SnatIps) 设置开启SnatPro负载均衡后，SnatIp列表。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getSlaType() 获取性能保障规格
+ * @method string getSlaType() 获取性能容量型规格
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setSlaType(string $SlaType) 设置性能保障规格
+ * @method void setSlaType(string $SlaType) 设置性能容量型规格
 注意：此字段可能返回 null，表示取不到有效值。
  * @method boolean getIsBlock() 获取vip是否被封堵
 注意：此字段可能返回 null，表示取不到有效值。
@@ -218,13 +218,17 @@ OPEN：公网属性， INTERNAL：内网属性。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setHealthLogTopicId(string $HealthLogTopicId) 设置负载均衡日志服务(CLS)的健康检查日志主题ID
 注意：此字段可能返回 null，表示取不到有效值。
- * @method array getClusterIds() 获取集群ID.
+ * @method array getClusterIds() 获取集群ID
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setClusterIds(array $ClusterIds) 设置集群ID.
+ * @method void setClusterIds(array $ClusterIds) 设置集群ID
 注意：此字段可能返回 null，表示取不到有效值。
  * @method array getAttributeFlags() 获取负载均衡的属性
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setAttributeFlags(array $AttributeFlags) 设置负载均衡的属性
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getLoadBalancerDomain() 获取负载均衡实例的域名。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setLoadBalancerDomain(string $LoadBalancerDomain) 设置负载均衡实例的域名。
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class LoadBalancer extends AbstractModel
@@ -251,7 +255,7 @@ OPEN：公网属性， INTERNAL：内网属性。
     public $Forward;
 
     /**
-     * @var string 负载均衡实例的域名，仅公网传统型负载均衡实例才提供该字段
+     * @var string 负载均衡实例的域名，仅公网传统型负载均衡实例才提供该字段。逐步下线中，建议用LoadBalancerDomain替代。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Domain;
@@ -473,7 +477,7 @@ OPEN：公网属性， INTERNAL：内网属性。
     public $SnatIps;
 
     /**
-     * @var string 性能保障规格
+     * @var string 性能容量型规格
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $SlaType;
@@ -533,7 +537,7 @@ OPEN：公网属性， INTERNAL：内网属性。
     public $HealthLogTopicId;
 
     /**
-     * @var array 集群ID.
+     * @var array 集群ID
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ClusterIds;
@@ -545,12 +549,18 @@ OPEN：公网属性， INTERNAL：内网属性。
     public $AttributeFlags;
 
     /**
+     * @var string 负载均衡实例的域名。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $LoadBalancerDomain;
+
+    /**
      * @param string $LoadBalancerId 负载均衡实例 ID。
      * @param string $LoadBalancerName 负载均衡实例的名称。
      * @param string $LoadBalancerType 负载均衡实例的网络类型：
 OPEN：公网属性， INTERNAL：内网属性。
      * @param integer $Forward 负载均衡类型标识，1：负载均衡，0：传统型负载均衡。
-     * @param string $Domain 负载均衡实例的域名，仅公网传统型负载均衡实例才提供该字段
+     * @param string $Domain 负载均衡实例的域名，仅公网传统型负载均衡实例才提供该字段。逐步下线中，建议用LoadBalancerDomain替代。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $LoadBalancerVips 负载均衡实例的 VIP 列表。
 注意：此字段可能返回 null，表示取不到有效值。
@@ -624,7 +634,7 @@ OPEN：公网属性， INTERNAL：内网属性。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $SnatIps 开启SnatPro负载均衡后，SnatIp列表。
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $SlaType 性能保障规格
+     * @param string $SlaType 性能容量型规格
 注意：此字段可能返回 null，表示取不到有效值。
      * @param boolean $IsBlock vip是否被封堵
 注意：此字段可能返回 null，表示取不到有效值。
@@ -644,9 +654,11 @@ OPEN：公网属性， INTERNAL：内网属性。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $HealthLogTopicId 负载均衡日志服务(CLS)的健康检查日志主题ID
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param array $ClusterIds 集群ID.
+     * @param array $ClusterIds 集群ID
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $AttributeFlags 负载均衡的属性
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $LoadBalancerDomain 负载均衡实例的域名。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -893,6 +905,10 @@ OPEN：公网属性， INTERNAL：内网属性。
 
         if (array_key_exists("AttributeFlags",$param) and $param["AttributeFlags"] !== null) {
             $this->AttributeFlags = $param["AttributeFlags"];
+        }
+
+        if (array_key_exists("LoadBalancerDomain",$param) and $param["LoadBalancerDomain"] !== null) {
+            $this->LoadBalancerDomain = $param["LoadBalancerDomain"];
         }
     }
 }

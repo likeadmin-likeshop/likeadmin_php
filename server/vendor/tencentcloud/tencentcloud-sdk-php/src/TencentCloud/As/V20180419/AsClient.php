@@ -32,7 +32,6 @@ use TencentCloud\As\V20180419\Models as Models;
  * @method Models\CompleteLifecycleActionResponse CompleteLifecycleAction(Models\CompleteLifecycleActionRequest $req) 本接口（CompleteLifecycleAction）用于完成生命周期动作。
 
 * 用户通过调用本接口，指定一个具体的生命周期挂钩的结果（“CONITNUE”或者“ABANDON”）。如果一直不调用本接口，则生命周期挂钩会在超时后按照“DefaultResult”进行处理。
-
  * @method Models\CreateAutoScalingGroupResponse CreateAutoScalingGroup(Models\CreateAutoScalingGroupRequest $req) 本接口（CreateAutoScalingGroup）用于创建伸缩组
  * @method Models\CreateAutoScalingGroupFromInstanceResponse CreateAutoScalingGroupFromInstance(Models\CreateAutoScalingGroupFromInstanceRequest $req) 本接口（CreateAutoScalingGroupFromInstance）用于根据实例创建启动配置及伸缩组。
 
@@ -42,7 +41,6 @@ use TencentCloud\As\V20180419\Models as Models;
 * 启动配置，可以通过 `ModifyLaunchConfigurationAttributes` 修改少量字段。如需使用新的启动配置，建议重新创建启动配置。
 
 * 每个项目最多只能创建20个启动配置，详见[使用限制](https://cloud.tencent.com/document/product/377/3120)。
-
  * @method Models\CreateLifecycleHookResponse CreateLifecycleHook(Models\CreateLifecycleHookRequest $req) 本接口（CreateLifecycleHook）用于创建生命周期挂钩。
 
 * 您可以为生命周期挂钩配置消息通知或执行自动化助手命令。
@@ -94,7 +92,7 @@ use TencentCloud\As\V20180419\Models as Models;
 ```
  * @method Models\CreateScalingPolicyResponse CreateScalingPolicy(Models\CreateScalingPolicyRequest $req) 本接口（CreateScalingPolicy）用于创建告警触发策略。
  * @method Models\CreateScheduledActionResponse CreateScheduledAction(Models\CreateScheduledActionRequest $req) 本接口（CreateScheduledAction）用于创建定时任务。
- * @method Models\DeleteAutoScalingGroupResponse DeleteAutoScalingGroup(Models\DeleteAutoScalingGroupRequest $req) 本接口（DeleteAutoScalingGroup）用于删除指定伸缩组，删除前提是伸缩组内无实例且当前未在执行伸缩活动。
+ * @method Models\DeleteAutoScalingGroupResponse DeleteAutoScalingGroup(Models\DeleteAutoScalingGroupRequest $req) 本接口（DeleteAutoScalingGroup）用于删除指定伸缩组，删除前提是伸缩组内无运行中（IN_SERVICE）状态的实例且当前未在执行伸缩活动。删除伸缩组后，创建失败（CREATION_FAILED）、中止失败（TERMINATION_FAILED）、解绑失败（DETACH_FAILED）等非运行中状态的实例不会被销毁。
  * @method Models\DeleteLaunchConfigurationResponse DeleteLaunchConfiguration(Models\DeleteLaunchConfigurationRequest $req) 本接口（DeleteLaunchConfiguration）用于删除启动配置。
 
 * 若启动配置在伸缩组中属于生效状态，则该启动配置不允许删除。
@@ -156,6 +154,7 @@ use TencentCloud\As\V20180419\Models as Models;
 
 * 可以根据伸缩策略ID执行伸缩策略。
 * 伸缩策略所属伸缩组处于伸缩活动时，会拒绝执行伸缩策略。
+* 本接口不支持执行目标追踪策略。
  * @method Models\ModifyAutoScalingGroupResponse ModifyAutoScalingGroup(Models\ModifyAutoScalingGroupRequest $req) 本接口（ModifyAutoScalingGroup）用于修改伸缩组。
  * @method Models\ModifyDesiredCapacityResponse ModifyDesiredCapacity(Models\ModifyDesiredCapacityRequest $req) 本接口（ModifyDesiredCapacity）用于修改指定伸缩组的期望实例数
  * @method Models\ModifyLaunchConfigurationAttributesResponse ModifyLaunchConfigurationAttributes(Models\ModifyLaunchConfigurationAttributesRequest $req) 本接口（ModifyLaunchConfigurationAttributes）用于修改启动配置部分属性。
