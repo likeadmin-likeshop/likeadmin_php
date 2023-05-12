@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeAccessIndex返回参数结构体
  *
- * @method boolean getStatus() 获取是否生效
- * @method void setStatus(boolean $Status) 设置是否生效
+ * @method boolean getStatus() 获取是否生效，true表示生效，false表示未生效
+ * @method void setStatus(boolean $Status) 设置是否生效，true表示生效，false表示未生效
  * @method AccessRuleInfo getRule() 获取索引配置信息
 注意：此字段可能返回 null，表示取不到有效值。
 注意：此字段可能返回 null，表示取不到有效值。
@@ -36,7 +36,7 @@ use TencentCloud\Common\AbstractModel;
 class DescribeAccessIndexResponse extends AbstractModel
 {
     /**
-     * @var boolean 是否生效
+     * @var boolean 是否生效，true表示生效，false表示未生效
      */
     public $Status;
 
@@ -58,7 +58,7 @@ class DescribeAccessIndexResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param boolean $Status 是否生效
+     * @param boolean $Status 是否生效，true表示生效，false表示未生效
      * @param AccessRuleInfo $Rule 索引配置信息
 注意：此字段可能返回 null，表示取不到有效值。
 注意：此字段可能返回 null，表示取不到有效值。

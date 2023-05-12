@@ -28,16 +28,20 @@ use TencentCloud\Common\AbstractModel;
  * @method void setMachineIp(string $MachineIp) 设置机器内网IP
  * @method string getQuuid() 获取云服务器UUID
  * @method void setQuuid(string $Quuid) 设置云服务器UUID
- * @method string getUuid() 获取云镜客户端UUID
- * @method void setUuid(string $Uuid) 设置云镜客户端UUID
+ * @method string getUuid() 获取主机安全客户端UUID
+ * @method void setUuid(string $Uuid) 设置主机安全客户端UUID
  * @method array getTags() 获取标签信息
  * @method void setTags(array $Tags) 设置标签信息
- * @method string getAgentStatus() 获取云镜客户端状态,OFFLINE 离线,ONLINE 在线,UNINSTALL 未安装
- * @method void setAgentStatus(string $AgentStatus) 设置云镜客户端状态,OFFLINE 离线,ONLINE 在线,UNINSTALL 未安装
+ * @method string getAgentStatus() 获取主机安全客户端状态,OFFLINE 离线,ONLINE 在线,UNINSTALL 未安装
+ * @method void setAgentStatus(string $AgentStatus) 设置主机安全客户端状态,OFFLINE 离线,ONLINE 在线,UNINSTALL 未安装
  * @method boolean getIsUnBind() 获取是否允许解绑,false 不允许解绑
  * @method void setIsUnBind(boolean $IsUnBind) 设置是否允许解绑,false 不允许解绑
  * @method boolean getIsSwitchBind() 获取是否允许换绑,false 不允许换绑
  * @method void setIsSwitchBind(boolean $IsSwitchBind) 设置是否允许换绑,false 不允许换绑
+ * @method MachineExtraInfo getMachineExtraInfo() 获取主机额外信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setMachineExtraInfo(MachineExtraInfo $MachineExtraInfo) 设置主机额外信息
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class LicenseBindDetail extends AbstractModel
 {
@@ -62,7 +66,7 @@ class LicenseBindDetail extends AbstractModel
     public $Quuid;
 
     /**
-     * @var string 云镜客户端UUID
+     * @var string 主机安全客户端UUID
      */
     public $Uuid;
 
@@ -72,7 +76,7 @@ class LicenseBindDetail extends AbstractModel
     public $Tags;
 
     /**
-     * @var string 云镜客户端状态,OFFLINE 离线,ONLINE 在线,UNINSTALL 未安装
+     * @var string 主机安全客户端状态,OFFLINE 离线,ONLINE 在线,UNINSTALL 未安装
      */
     public $AgentStatus;
 
@@ -87,15 +91,23 @@ class LicenseBindDetail extends AbstractModel
     public $IsSwitchBind;
 
     /**
+     * @var MachineExtraInfo 主机额外信息
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $MachineExtraInfo;
+
+    /**
      * @param string $MachineName 机器别名
      * @param string $MachineWanIp 机器公网IP
      * @param string $MachineIp 机器内网IP
      * @param string $Quuid 云服务器UUID
-     * @param string $Uuid 云镜客户端UUID
+     * @param string $Uuid 主机安全客户端UUID
      * @param array $Tags 标签信息
-     * @param string $AgentStatus 云镜客户端状态,OFFLINE 离线,ONLINE 在线,UNINSTALL 未安装
+     * @param string $AgentStatus 主机安全客户端状态,OFFLINE 离线,ONLINE 在线,UNINSTALL 未安装
      * @param boolean $IsUnBind 是否允许解绑,false 不允许解绑
      * @param boolean $IsSwitchBind 是否允许换绑,false 不允许换绑
+     * @param MachineExtraInfo $MachineExtraInfo 主机额外信息
+注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
     {
@@ -144,6 +156,11 @@ class LicenseBindDetail extends AbstractModel
 
         if (array_key_exists("IsSwitchBind",$param) and $param["IsSwitchBind"] !== null) {
             $this->IsSwitchBind = $param["IsSwitchBind"];
+        }
+
+        if (array_key_exists("MachineExtraInfo",$param) and $param["MachineExtraInfo"] !== null) {
+            $this->MachineExtraInfo = new MachineExtraInfo();
+            $this->MachineExtraInfo->deserialize($param["MachineExtraInfo"]);
         }
     }
 }

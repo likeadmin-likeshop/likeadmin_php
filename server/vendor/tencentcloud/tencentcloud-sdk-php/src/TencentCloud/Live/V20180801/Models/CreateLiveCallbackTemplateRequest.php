@@ -48,9 +48,9 @@ use TencentCloud\Common\AbstractModel;
 相关协议文档：[事件消息通知](/document/product/267/32744)。
  * @method void setSnapshotNotifyUrl(string $SnapshotNotifyUrl) 设置截图回调 URL，
 相关协议文档：[事件消息通知](/document/product/267/32744)。
- * @method string getPornCensorshipNotifyUrl() 获取鉴黄回调 URL，
+ * @method string getPornCensorshipNotifyUrl() 获取鉴黄回调 URL ，
 相关协议文档：[事件消息通知](/document/product/267/32741)。
- * @method void setPornCensorshipNotifyUrl(string $PornCensorshipNotifyUrl) 设置鉴黄回调 URL，
+ * @method void setPornCensorshipNotifyUrl(string $PornCensorshipNotifyUrl) 设置鉴黄回调 URL ，
 相关协议文档：[事件消息通知](/document/product/267/32741)。
  * @method string getCallbackKey() 获取回调 Key，回调 URL 公用，回调签名详见事件消息通知文档。
 [事件消息通知](/document/product/267/32744)。
@@ -58,6 +58,10 @@ use TencentCloud\Common\AbstractModel;
 [事件消息通知](/document/product/267/32744)。
  * @method string getStreamMixNotifyUrl() 获取参数已弃用。
  * @method void setStreamMixNotifyUrl(string $StreamMixNotifyUrl) 设置参数已弃用。
+ * @method string getPushExceptionNotifyUrl() 获取推流异常回调 URL。
+ * @method void setPushExceptionNotifyUrl(string $PushExceptionNotifyUrl) 设置推流异常回调 URL。
+ * @method string getAudioAuditNotifyUrl() 获取音频审核回调 URL。
+ * @method void setAudioAuditNotifyUrl(string $AudioAuditNotifyUrl) 设置音频审核回调 URL。
  */
 class CreateLiveCallbackTemplateRequest extends AbstractModel
 {
@@ -100,7 +104,7 @@ class CreateLiveCallbackTemplateRequest extends AbstractModel
     public $SnapshotNotifyUrl;
 
     /**
-     * @var string 鉴黄回调 URL，
+     * @var string 鉴黄回调 URL ，
 相关协议文档：[事件消息通知](/document/product/267/32741)。
      */
     public $PornCensorshipNotifyUrl;
@@ -117,6 +121,16 @@ class CreateLiveCallbackTemplateRequest extends AbstractModel
     public $StreamMixNotifyUrl;
 
     /**
+     * @var string 推流异常回调 URL。
+     */
+    public $PushExceptionNotifyUrl;
+
+    /**
+     * @var string 音频审核回调 URL。
+     */
+    public $AudioAuditNotifyUrl;
+
+    /**
      * @param string $TemplateName 模板名称。
 长度上限：255字节。
 仅支持中文、英文、数字、_、-。
@@ -131,11 +145,13 @@ class CreateLiveCallbackTemplateRequest extends AbstractModel
 相关协议文档：[事件消息通知](/document/product/267/32744)。
      * @param string $SnapshotNotifyUrl 截图回调 URL，
 相关协议文档：[事件消息通知](/document/product/267/32744)。
-     * @param string $PornCensorshipNotifyUrl 鉴黄回调 URL，
+     * @param string $PornCensorshipNotifyUrl 鉴黄回调 URL ，
 相关协议文档：[事件消息通知](/document/product/267/32741)。
      * @param string $CallbackKey 回调 Key，回调 URL 公用，回调签名详见事件消息通知文档。
 [事件消息通知](/document/product/267/32744)。
      * @param string $StreamMixNotifyUrl 参数已弃用。
+     * @param string $PushExceptionNotifyUrl 推流异常回调 URL。
+     * @param string $AudioAuditNotifyUrl 音频审核回调 URL。
      */
     function __construct()
     {
@@ -184,6 +200,14 @@ class CreateLiveCallbackTemplateRequest extends AbstractModel
 
         if (array_key_exists("StreamMixNotifyUrl",$param) and $param["StreamMixNotifyUrl"] !== null) {
             $this->StreamMixNotifyUrl = $param["StreamMixNotifyUrl"];
+        }
+
+        if (array_key_exists("PushExceptionNotifyUrl",$param) and $param["PushExceptionNotifyUrl"] !== null) {
+            $this->PushExceptionNotifyUrl = $param["PushExceptionNotifyUrl"];
+        }
+
+        if (array_key_exists("AudioAuditNotifyUrl",$param) and $param["AudioAuditNotifyUrl"] !== null) {
+            $this->AudioAuditNotifyUrl = $param["AudioAuditNotifyUrl"];
         }
     }
 }

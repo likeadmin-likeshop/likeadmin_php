@@ -66,6 +66,34 @@ FAILED:已失败
  * @method void setPayeeId(string $PayeeId) 设置收款用户ID
  * @method string getOutUserId() 获取外部用户ID
  * @method void setOutUserId(string $OutUserId) 设置外部用户ID
+ * @method string getChannelOrderId() 获取渠道支付订单号
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setChannelOrderId(string $ChannelOrderId) 设置渠道支付订单号
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getVat() 获取增值税
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setVat(string $Vat) 设置增值税
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getIndividualIncomeTax() 获取个人所得税
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setIndividualIncomeTax(string $IndividualIncomeTax) 设置个人所得税
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getAdditionalTaxSum() 获取附加税总税额
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAdditionalTaxSum(string $AdditionalTaxSum) 设置附加税总税额
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getAdditionalTaxItem() 获取附加税税项。格式为JSON格式
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAdditionalTaxItem(string $AdditionalTaxItem) 设置附加税税项。格式为JSON格式
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getFailReason() 获取失败原因。当Status为FAILED时，改字段为失败的原因。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setFailReason(string $FailReason) 设置失败原因。当Status为FAILED时，改字段为失败的原因。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getFundingAccountSubType() 获取资金账户字类型: WECHATPAY_ACCOUNT 微信零钱, BANK_ACCOUNT 银行卡
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setFundingAccountSubType(string $FundingAccountSubType) 设置资金账户字类型: WECHATPAY_ACCOUNT 微信零钱, BANK_ACCOUNT 银行卡
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class PaymentOrderResult extends AbstractModel
 {
@@ -145,6 +173,48 @@ FAILED:已失败
     public $OutUserId;
 
     /**
+     * @var string 渠道支付订单号
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ChannelOrderId;
+
+    /**
+     * @var string 增值税
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Vat;
+
+    /**
+     * @var string 个人所得税
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $IndividualIncomeTax;
+
+    /**
+     * @var string 附加税总税额
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AdditionalTaxSum;
+
+    /**
+     * @var string 附加税税项。格式为JSON格式
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AdditionalTaxItem;
+
+    /**
+     * @var string 失败原因。当Status为FAILED时，改字段为失败的原因。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $FailReason;
+
+    /**
+     * @var string 资金账户字类型: WECHATPAY_ACCOUNT 微信零钱, BANK_ACCOUNT 银行卡
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $FundingAccountSubType;
+
+    /**
      * @param string $IncomeType 收入类型
 LABOR:劳务所得
 OCCASION:偶然所得
@@ -168,6 +238,20 @@ FAILED:已失败
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $PayeeId 收款用户ID
      * @param string $OutUserId 外部用户ID
+     * @param string $ChannelOrderId 渠道支付订单号
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Vat 增值税
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $IndividualIncomeTax 个人所得税
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $AdditionalTaxSum 附加税总税额
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $AdditionalTaxItem 附加税税项。格式为JSON格式
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $FailReason 失败原因。当Status为FAILED时，改字段为失败的原因。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $FundingAccountSubType 资金账户字类型: WECHATPAY_ACCOUNT 微信零钱, BANK_ACCOUNT 银行卡
+注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
     {
@@ -232,6 +316,34 @@ FAILED:已失败
 
         if (array_key_exists("OutUserId",$param) and $param["OutUserId"] !== null) {
             $this->OutUserId = $param["OutUserId"];
+        }
+
+        if (array_key_exists("ChannelOrderId",$param) and $param["ChannelOrderId"] !== null) {
+            $this->ChannelOrderId = $param["ChannelOrderId"];
+        }
+
+        if (array_key_exists("Vat",$param) and $param["Vat"] !== null) {
+            $this->Vat = $param["Vat"];
+        }
+
+        if (array_key_exists("IndividualIncomeTax",$param) and $param["IndividualIncomeTax"] !== null) {
+            $this->IndividualIncomeTax = $param["IndividualIncomeTax"];
+        }
+
+        if (array_key_exists("AdditionalTaxSum",$param) and $param["AdditionalTaxSum"] !== null) {
+            $this->AdditionalTaxSum = $param["AdditionalTaxSum"];
+        }
+
+        if (array_key_exists("AdditionalTaxItem",$param) and $param["AdditionalTaxItem"] !== null) {
+            $this->AdditionalTaxItem = $param["AdditionalTaxItem"];
+        }
+
+        if (array_key_exists("FailReason",$param) and $param["FailReason"] !== null) {
+            $this->FailReason = $param["FailReason"];
+        }
+
+        if (array_key_exists("FundingAccountSubType",$param) and $param["FundingAccountSubType"] !== null) {
+            $this->FundingAccountSubType = $param["FundingAccountSubType"];
         }
     }
 }

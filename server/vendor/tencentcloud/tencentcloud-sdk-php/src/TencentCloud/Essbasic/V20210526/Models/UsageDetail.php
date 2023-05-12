@@ -20,11 +20,11 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 用量明细
  *
- * @method string getProxyOrganizationOpenId() 获取渠道侧合作企业唯一标识
- * @method void setProxyOrganizationOpenId(string $ProxyOrganizationOpenId) 设置渠道侧合作企业唯一标识
- * @method string getProxyOrganizationName() 获取渠道侧合作企业名
+ * @method string getProxyOrganizationOpenId() 获取子客企业唯一标识
+ * @method void setProxyOrganizationOpenId(string $ProxyOrganizationOpenId) 设置子客企业唯一标识
+ * @method string getProxyOrganizationName() 获取子客企业名
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setProxyOrganizationName(string $ProxyOrganizationName) 设置渠道侧合作企业名
+ * @method void setProxyOrganizationName(string $ProxyOrganizationName) 设置子客企业名
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getDate() 获取日期，当需要汇总数据时日期为空
 注意：此字段可能返回 null，表示取不到有效值。
@@ -36,16 +36,20 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setCancel(integer $Cancel) 设置撤回数量
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getFlowChannel() 获取消耗渠道
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setFlowChannel(string $FlowChannel) 设置消耗渠道
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class UsageDetail extends AbstractModel
 {
     /**
-     * @var string 渠道侧合作企业唯一标识
+     * @var string 子客企业唯一标识
      */
     public $ProxyOrganizationOpenId;
 
     /**
-     * @var string 渠道侧合作企业名
+     * @var string 子客企业名
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ProxyOrganizationName;
@@ -68,13 +72,21 @@ class UsageDetail extends AbstractModel
     public $Cancel;
 
     /**
-     * @param string $ProxyOrganizationOpenId 渠道侧合作企业唯一标识
-     * @param string $ProxyOrganizationName 渠道侧合作企业名
+     * @var string 消耗渠道
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $FlowChannel;
+
+    /**
+     * @param string $ProxyOrganizationOpenId 子客企业唯一标识
+     * @param string $ProxyOrganizationName 子客企业名
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Date 日期，当需要汇总数据时日期为空
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $Usage 消耗数量
      * @param integer $Cancel 撤回数量
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $FlowChannel 消耗渠道
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -108,6 +120,10 @@ class UsageDetail extends AbstractModel
 
         if (array_key_exists("Cancel",$param) and $param["Cancel"] !== null) {
             $this->Cancel = $param["Cancel"];
+        }
+
+        if (array_key_exists("FlowChannel",$param) and $param["FlowChannel"] !== null) {
+            $this->FlowChannel = $param["FlowChannel"];
         }
     }
 }

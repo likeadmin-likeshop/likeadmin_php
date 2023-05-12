@@ -33,7 +33,9 @@ use TencentCloud\Common\AbstractModel;
  * @method Environment getEnvironment() 获取函数的环境变量
  * @method void setEnvironment(Environment $Environment) 设置函数的环境变量
  * @method string getNamespace() 获取函数所属命名空间
+默认值: default
  * @method void setNamespace(string $Namespace) 设置函数所属命名空间
+默认值: default
  * @method VpcConfig getVpcConfig() 获取函数的私有网络配置
  * @method void setVpcConfig(VpcConfig $VpcConfig) 设置函数的私有网络配置
  * @method string getRole() 获取函数绑定的角色
@@ -60,6 +62,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setInitTimeout(integer $InitTimeout) 设置函数初始化执行超时时间
  * @method ProtocolParams getProtocolParams() 获取HTTP函数配置ProtocolType访问协议，当前协议可配置的参数
  * @method void setProtocolParams(ProtocolParams $ProtocolParams) 设置HTTP函数配置ProtocolType访问协议，当前协议可配置的参数
+ * @method InstanceConcurrencyConfig getInstanceConcurrencyConfig() 获取单实例多并发配置。只支持Web函数。
+ * @method void setInstanceConcurrencyConfig(InstanceConcurrencyConfig $InstanceConcurrencyConfig) 设置单实例多并发配置。只支持Web函数。
  */
 class UpdateFunctionConfigurationRequest extends AbstractModel
 {
@@ -95,6 +99,7 @@ class UpdateFunctionConfigurationRequest extends AbstractModel
 
     /**
      * @var string 函数所属命名空间
+默认值: default
      */
     public $Namespace;
 
@@ -164,6 +169,11 @@ class UpdateFunctionConfigurationRequest extends AbstractModel
     public $ProtocolParams;
 
     /**
+     * @var InstanceConcurrencyConfig 单实例多并发配置。只支持Web函数。
+     */
+    public $InstanceConcurrencyConfig;
+
+    /**
      * @param string $FunctionName 要修改的函数名称
      * @param string $Description 函数描述。最大支持 1000 个英文字母、数字、空格、逗号和英文句号，支持中文
      * @param integer $MemorySize 函数运行时内存大小，默认为 128 M，可选范64M、128 M-3072 M，以 128MB 为阶梯。
@@ -171,6 +181,7 @@ class UpdateFunctionConfigurationRequest extends AbstractModel
      * @param string $Runtime 函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， PHP5， PHP7，Go1 ， Java8和CustomRuntime
      * @param Environment $Environment 函数的环境变量
      * @param string $Namespace 函数所属命名空间
+默认值: default
      * @param VpcConfig $VpcConfig 函数的私有网络配置
      * @param string $Role 函数绑定的角色
      * @param string $InstallDependency [在线依赖安装](https://cloud.tencent.com/document/product/583/37920)，TRUE 表示安装，默认值为 FALSE。仅支持 Node.js 函数。
@@ -184,6 +195,7 @@ class UpdateFunctionConfigurationRequest extends AbstractModel
      * @param CfsConfig $CfsConfig 文件系统配置入参，用于云函数绑定CFS文件系统
      * @param integer $InitTimeout 函数初始化执行超时时间
      * @param ProtocolParams $ProtocolParams HTTP函数配置ProtocolType访问协议，当前协议可配置的参数
+     * @param InstanceConcurrencyConfig $InstanceConcurrencyConfig 单实例多并发配置。只支持Web函数。
      */
     function __construct()
     {
@@ -287,6 +299,11 @@ class UpdateFunctionConfigurationRequest extends AbstractModel
         if (array_key_exists("ProtocolParams",$param) and $param["ProtocolParams"] !== null) {
             $this->ProtocolParams = new ProtocolParams();
             $this->ProtocolParams->deserialize($param["ProtocolParams"]);
+        }
+
+        if (array_key_exists("InstanceConcurrencyConfig",$param) and $param["InstanceConcurrencyConfig"] !== null) {
+            $this->InstanceConcurrencyConfig = new InstanceConcurrencyConfig();
+            $this->InstanceConcurrencyConfig->deserialize($param["InstanceConcurrencyConfig"]);
         }
     }
 }

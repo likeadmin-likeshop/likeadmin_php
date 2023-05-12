@@ -36,6 +36,7 @@ use TencentCloud\Cvm\V20170312\Models as Models;
  * @method Models\ConfigureChcAssistVpcResponse ConfigureChcAssistVpc(Models\ConfigureChcAssistVpcRequest $req) 配置CHC物理服务器的带外和部署网络。传入带外网络和部署网络信息
  * @method Models\ConfigureChcDeployVpcResponse ConfigureChcDeployVpc(Models\ConfigureChcDeployVpcRequest $req) 配置CHC物理服务器部署网络
  * @method Models\CreateDisasterRecoverGroupResponse CreateDisasterRecoverGroup(Models\CreateDisasterRecoverGroupRequest $req) 本接口 (CreateDisasterRecoverGroup)用于创建[分散置放群组](https://cloud.tencent.com/document/product/213/15486)。创建好的置放群组，可在[创建实例](https://cloud.tencent.com/document/api/213/15730)时指定。
+ * @method Models\CreateHpcClusterResponse CreateHpcCluster(Models\CreateHpcClusterRequest $req) 创建高性能计算集群
  * @method Models\CreateImageResponse CreateImage(Models\CreateImageRequest $req) 本接口(CreateImage)用于将实例的系统盘制作为新镜像，创建后的镜像可以用于创建实例。
  * @method Models\CreateKeyPairResponse CreateKeyPair(Models\CreateKeyPairRequest $req) 本接口 (CreateKeyPair) 用于创建一个 `OpenSSH RSA` 密钥对，可以用于登录 `Linux` 实例。
 
@@ -50,6 +51,7 @@ use TencentCloud\Cvm\V20170312\Models as Models;
 初次创建实例模板后，其模板版本为默认版本1，新版本的创建可使用CreateLaunchTemplateVersion创建，版本号递增。默认情况下，在RunInstances中指定实例启动模板，若不指定模板版本号，则使用默认版本。
  * @method Models\CreateLaunchTemplateVersionResponse CreateLaunchTemplateVersion(Models\CreateLaunchTemplateVersionRequest $req) 本接口（CreateLaunchTemplateVersion）根据指定的实例模板ID以及对应的模板版本号创建新的实例启动模板，若未指定模板版本号则使用默认版本号。每个实例启动模板最多创建30个版本。
  * @method Models\DeleteDisasterRecoverGroupsResponse DeleteDisasterRecoverGroups(Models\DeleteDisasterRecoverGroupsRequest $req) 本接口 (DeleteDisasterRecoverGroups)用于删除[分散置放群组](https://cloud.tencent.com/document/product/213/15486)。只有空的置放群组才能被删除，非空的群组需要先销毁组内所有云服务器，才能执行删除操作，不然会产生删除置放群组失败的错误。
+ * @method Models\DeleteHpcClustersResponse DeleteHpcClusters(Models\DeleteHpcClustersRequest $req) 当高性能计算集群为空, 即集群内没有任何设备时候, 可以删除该集群。
  * @method Models\DeleteImagesResponse DeleteImages(Models\DeleteImagesRequest $req) 本接口（DeleteImages）用于删除一个或多个镜像。
 
 * 当[镜像状态](https://cloud.tencent.com/document/product/213/15753#Image)为`创建中`和`使用中`时, 不允许删除。镜像状态可以通过[DescribeImages](https://cloud.tencent.com/document/api/213/9418)获取。
@@ -70,6 +72,7 @@ use TencentCloud\Cvm\V20170312\Models as Models;
  * @method Models\DescribeDisasterRecoverGroupQuotaResponse DescribeDisasterRecoverGroupQuota(Models\DescribeDisasterRecoverGroupQuotaRequest $req) 本接口 (DescribeDisasterRecoverGroupQuota)用于查询[分散置放群组](https://cloud.tencent.com/document/product/213/15486)配额。
  * @method Models\DescribeDisasterRecoverGroupsResponse DescribeDisasterRecoverGroups(Models\DescribeDisasterRecoverGroupsRequest $req) 本接口 (DescribeDisasterRecoverGroups)用于查询[分散置放群组](https://cloud.tencent.com/document/product/213/15486)信息。
  * @method Models\DescribeHostsResponse DescribeHosts(Models\DescribeHostsRequest $req) 本接口 (DescribeHosts) 用于获取一个或多个CDH实例的详细信息。
+ * @method Models\DescribeHpcClustersResponse DescribeHpcClusters(Models\DescribeHpcClustersRequest $req) 查询高性能集群信息
  * @method Models\DescribeImageQuotaResponse DescribeImageQuota(Models\DescribeImageQuotaRequest $req) 本接口(DescribeImageQuota)用于查询用户帐号的镜像配额。
  * @method Models\DescribeImageSharePermissionResponse DescribeImageSharePermission(Models\DescribeImageSharePermissionRequest $req) 本接口（DescribeImageSharePermission）用于查询镜像分享信息。
  * @method Models\DescribeImagesResponse DescribeImages(Models\DescribeImagesRequest $req) 本接口(DescribeImages) 用于查看镜像列表。
@@ -121,10 +124,14 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
 * 密钥对是通过一种算法生成的一对密钥，在生成的密钥对中，一个向外界公开，称为公钥；另一个用户自己保留，称为私钥。密钥对的公钥内容可以通过这个接口查询，但私钥内容系统不保留。
  * @method Models\DescribeLaunchTemplateVersionsResponse DescribeLaunchTemplateVersions(Models\DescribeLaunchTemplateVersionsRequest $req) 本接口（DescribeLaunchTemplateVersions）用于查询实例模板版本信息。
  * @method Models\DescribeLaunchTemplatesResponse DescribeLaunchTemplates(Models\DescribeLaunchTemplatesRequest $req) 本接口（DescribeLaunchTemplates）用于查询一个或者多个实例启动模板。
- * @method Models\DescribeRegionsResponse DescribeRegions(Models\DescribeRegionsRequest $req) 本接口(DescribeRegions)用于查询地域信息。因平台策略原因，该接口暂时停止更新，为确保您正常调用，可切换至新链接：https://cloud.tencent.com/document/product/1278/55255。
+ * @method Models\DescribeRegionsResponse DescribeRegions(Models\DescribeRegionsRequest $req) 本接口(DescribeRegions)用于查询地域信息。因平台策略原因，该接口暂时停止更新，为确保您正常调用，可切换至新链接：https://cloud.tencent.com/document/product/1596/77930。
  * @method Models\DescribeReservedInstancesResponse DescribeReservedInstances(Models\DescribeReservedInstancesRequest $req) 本接口(DescribeReservedInstances)可提供列出用户已购买的预留实例
  * @method Models\DescribeReservedInstancesConfigInfosResponse DescribeReservedInstancesConfigInfos(Models\DescribeReservedInstancesConfigInfosRequest $req) 本接口(DescribeReservedInstancesConfigInfos)供用户列出可购买预留实例机型配置。预留实例当前只针对国际站白名单用户开放。
  * @method Models\DescribeReservedInstancesOfferingsResponse DescribeReservedInstancesOfferings(Models\DescribeReservedInstancesOfferingsRequest $req) 本接口(DescribeReservedInstancesOfferings)供用户列出可购买的预留实例配置
+ * @method Models\DescribeTaskInfoResponse DescribeTaskInfo(Models\DescribeTaskInfoRequest $req) 本接口 (DescribeTaskInfo) 用于查询云服务器维修任务列表及详细信息。
+
+- 可以根据实例ID、实例名称或任务状态等信息来查询维修任务列表。过滤信息详情可参考入参说明。
+- 如果参数为空，返回当前用户一定数量（`Limit`所指定的数量，默认为20）的维修任务列表。
  * @method Models\DescribeZoneInstanceConfigInfosResponse DescribeZoneInstanceConfigInfos(Models\DescribeZoneInstanceConfigInfosRequest $req) 本接口(DescribeZoneInstanceConfigInfos) 获取可用区的机型信息。
  * @method Models\DescribeZonesResponse DescribeZones(Models\DescribeZonesRequest $req) 本接口(DescribeZones)用于查询可用区信息。
  * @method Models\DisassociateInstancesKeyPairsResponse DisassociateInstancesKeyPairs(Models\DisassociateInstancesKeyPairsRequest $req) 本接口 (DisassociateInstancesKeyPairs) 用于解除实例的密钥绑定关系。
@@ -147,6 +154,8 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
 
 * 只支持从 `POSTPAID_BY_HOUR` 计费模式切换为`PREPAID`计费模式。
 * 关机不收费的实例、`BC1`和`BS1`机型族的实例、设置定时销毁的实例、竞价实例不支持该操作。
+ * @method Models\InquiryPriceRenewHostsResponse InquiryPriceRenewHosts(Models\InquiryPriceRenewHostsRequest $req) 本接口 (InquiryPriceRenewHosts) 用于续费包年包月`CDH`实例询价。
+* 只支持查询包年包月`CDH`实例的续费价格。
  * @method Models\InquiryPriceRenewInstancesResponse InquiryPriceRenewInstances(Models\InquiryPriceRenewInstancesRequest $req) 本接口 (InquiryPriceRenewInstances) 用于续费包年包月实例询价。
 
 * 只支持查询包年包月实例的续费价格。
@@ -167,7 +176,6 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
 
 * 目前只支持[系统盘类型](https://cloud.tencent.com/document/product/213/15753#SystemDisk)是`CLOUD_BASIC`、`CLOUD_PREMIUM`、`CLOUD_SSD`类型的实例使用该接口进行调整机型询价。
 * 目前不支持[CDH](https://cloud.tencent.com/document/product/416)实例使用该接口调整机型询价。
-* 对于包年包月实例，使用该接口会涉及扣费，请确保账户余额充足。可通过[`DescribeAccountBalance`](https://cloud.tencent.com/document/product/555/20253)接口查询账户余额。
  * @method Models\InquiryPriceResizeInstanceDisksResponse InquiryPriceResizeInstanceDisks(Models\InquiryPriceResizeInstanceDisksRequest $req) 本接口 (InquiryPriceResizeInstanceDisks) 用于扩容实例的数据盘询价。
 
 * 目前只支持扩容非弹性数据盘（[`DescribeDisks`](https://cloud.tencent.com/document/api/362/16315)接口返回值中的`Portable`为`false`表示非弹性）询价，且[数据盘类型](https://cloud.tencent.com/document/product/213/15753#DataDisk)为：`CLOUD_BASIC`、`CLOUD_PREMIUM`、`CLOUD_SSD`。
@@ -176,10 +184,12 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
  * @method Models\InquiryPriceTerminateInstancesResponse InquiryPriceTerminateInstances(Models\InquiryPriceTerminateInstancesRequest $req) 本接口 (InquiryPriceTerminateInstances) 用于退还实例询价。
 
 * 查询退还实例可以返还的费用。
-* 支持批量操作，每次请求批量实例的上限为100。如果批量实例存在不允许操作的实例，操作会以特定[错误码](#4.-.E9.94.99.E8.AF.AF.E7.A0.81)返回。
+* 在退还包年包月实例时，使用ReleasePrepaidDataDisks参数，会在返回值中包含退还挂载的包年包月数据盘返还的费用。
+* 支持批量操作，每次请求批量实例的上限为100。如果批量实例存在不允许操作的实例，操作会以特定错误码返回。
  * @method Models\ModifyChcAttributeResponse ModifyChcAttribute(Models\ModifyChcAttributeRequest $req) 修改CHC物理服务器的属性
  * @method Models\ModifyDisasterRecoverGroupAttributeResponse ModifyDisasterRecoverGroupAttribute(Models\ModifyDisasterRecoverGroupAttributeRequest $req) 本接口 (ModifyDisasterRecoverGroupAttribute)用于修改[分散置放群组](https://cloud.tencent.com/document/product/213/15486)属性。
  * @method Models\ModifyHostsAttributeResponse ModifyHostsAttribute(Models\ModifyHostsAttributeRequest $req) 本接口（ModifyHostsAttribute）用于修改CDH实例的属性，如实例名称和续费标记等。参数HostName和RenewFlag必须设置其中一个，但不能同时设置。
+ * @method Models\ModifyHpcClusterAttributeResponse ModifyHpcClusterAttribute(Models\ModifyHpcClusterAttributeRequest $req) 修改高性能计算集群属性。
  * @method Models\ModifyImageAttributeResponse ModifyImageAttribute(Models\ModifyImageAttributeRequest $req) 本接口（ModifyImageAttribute）用于修改镜像属性。
 
 * 已分享的镜像无法修改属性。
@@ -195,6 +205,7 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
 * 只支持实例的本地系统盘、本地数据盘转化成指定云硬盘介质。
 * 只支持实例在关机状态下转换成指定云硬盘介质。
 * 不支持竞价实例类型。
+* 若实例同时存在本地系统盘和本地数据盘，需同时调整系统盘和数据盘的介质类型，不支持单独针对本地系统盘或本地数据盘修改介质类型。
 * 修改前请确保账户余额充足。可通过[`DescribeAccountBalance`](https://cloud.tencent.com/document/product/378/4397)接口查询账户余额。
  * @method Models\ModifyInstancesAttributeResponse ModifyInstancesAttribute(Models\ModifyInstancesAttributeRequest $req) 本接口 (ModifyInstancesAttribute) 用于修改实例的属性（目前只支持修改实例的名称和关联的安全组）。
 
@@ -218,7 +229,7 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
 * 实例被标识为自动续费后，每次在实例到期时，会自动续费一个月。
 * 支持批量操作。每次请求批量实例的上限为100。
 * 实例操作结果可以通过调用 [DescribeInstances](https://cloud.tencent.com/document/api/213/15728#.E7.A4.BA.E4.BE.8B3-.E6.9F.A5.E8.AF.A2.E5.AE.9E.E4.BE.8B.E7.9A.84.E6.9C.80.E6.96.B0.E6.93.8D.E4.BD.9C.E6.83.85.E5.86.B5) 接口查询，如果实例的最新操作状态(LatestOperationState)为“SUCCESS”，则代表操作成功。
- * @method Models\ModifyInstancesVpcAttributeResponse ModifyInstancesVpcAttribute(Models\ModifyInstancesVpcAttributeRequest $req) 本接口(ModifyInstancesVpcAttribute)用于修改实例vpc属性，如私有网络ip。
+ * @method Models\ModifyInstancesVpcAttributeResponse ModifyInstancesVpcAttribute(Models\ModifyInstancesVpcAttributeRequest $req) 本接口(ModifyInstancesVpcAttribute)用于修改实例vpc属性，如私有网络IP。
 * 此操作默认会关闭实例，完成后再启动。
 * 当指定私有网络ID和子网ID（子网必须在实例所在的可用区）与指定实例所在私有网络不一致时，会将实例迁移至指定的私有网络的子网下。执行此操作前请确保指定的实例上没有绑定[弹性网卡](https://cloud.tencent.com/document/product/576)和[负载均衡](https://cloud.tencent.com/document/product/214)。
 * 实例操作结果可以通过调用 [DescribeInstances](https://cloud.tencent.com/document/api/213/15728#.E7.A4.BA.E4.BE.8B3-.E6.9F.A5.E8.AF.A2.E5.AE.9E.E4.BE.8B.E7.9A.84.E6.9C.80.E6.96.B0.E6.93.8D.E4.BD.9C.E6.83.85.E5.86.B5) 接口查询，如果实例的最新操作状态(LatestOperationState)为“SUCCESS”，则代表操作成功。
@@ -250,6 +261,12 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
 * 只支持操作包年包月实例。
 * 续费时请确保账户余额充足。可通过[`DescribeAccountBalance`](https://cloud.tencent.com/document/product/555/20253)接口查询账户余额。
 * 实例操作结果可以通过调用 [DescribeInstances](https://cloud.tencent.com/document/api/213/15728#.E7.A4.BA.E4.BE.8B3-.E6.9F.A5.E8.AF.A2.E5.AE.9E.E4.BE.8B.E7.9A.84.E6.9C.80.E6.96.B0.E6.93.8D.E4.BD.9C.E6.83.85.E5.86.B5) 接口查询，如果实例的最新操作状态(LatestOperationState)为“SUCCESS”，则代表操作成功。
+ * @method Models\RepairTaskControlResponse RepairTaskControl(Models\RepairTaskControlRequest $req) 本接口（RepairTaskControl）用于对待授权状态的维修任务进行授权操作。
+
+- 仅当任务状态处于`待授权`状态时，可通过此接口对待授权的维修任务进行授权。
+- 调用时需指定产品类型、实例ID、维修任务ID、操作类型。
+- 可授权立即处理，或提前预约计划维护时间之前的指定时间进行处理（预约时间需晚于当前时间至少5分钟，且在48小时之内）。
+- 针对不同类型的维修任务，提供的可选授权处理策略可参见 [维修任务类型与处理策略](https://cloud.tencent.com/document/product/213/67789)。
  * @method Models\ResetInstanceResponse ResetInstance(Models\ResetInstanceRequest $req) 本接口 (ResetInstance) 用于重装指定实例上的操作系统。
 
 * 如果指定了`ImageId`参数，则使用指定的镜像重装；否则按照当前实例使用的镜像进行重装。
@@ -287,7 +304,7 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
 * 实例操作结果可以通过调用 [DescribeInstances](https://cloud.tencent.com/document/api/213/15728#.E7.A4.BA.E4.BE.8B3-.E6.9F.A5.E8.AF.A2.E5.AE.9E.E4.BE.8B.E7.9A.84.E6.9C.80.E6.96.B0.E6.93.8D.E4.BD.9C.E6.83.85.E5.86.B5) 接口查询，如果实例的最新操作状态(LatestOperationState)为“SUCCESS”，则代表操作成功。
 * 如果是系统盘，目前只支持扩容，不支持缩容。
  * @method Models\RunInstancesResponse RunInstances(Models\RunInstancesRequest $req) 本接口 (RunInstances) 用于创建一个或多个指定配置的实例。
-
+ 
 * 实例创建成功后将自动开机启动，[实例状态](https://cloud.tencent.com/document/product/213/15753#InstanceStatus)变为“运行中”。
 * 预付费实例的购买会预先扣除本次实例购买所需金额，按小时后付费实例购买会预先冻结本次实例购买一小时内所需金额，在调用本接口前请确保账户余额充足。
 * 调用本接口创建实例，支持代金券自动抵扣（注意，代金券不可用于抵扣后付费冻结金额），详情请参考[代金券选用规则](https://cloud.tencent.com/document/product/555/7428)。
@@ -316,6 +333,7 @@ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F
 * 不再使用的实例，可通过本接口主动退还。
 * 按量计费的实例通过本接口可直接退还；包年包月实例如符合[退还规则](https://cloud.tencent.com/document/product/213/9711)，也可通过本接口主动退还。
 * 包年包月实例首次调用本接口，实例将被移至回收站，再次调用本接口，实例将被销毁，且不可恢复。按量计费实例调用本接口将被直接销毁。
+* 包年包月实例首次调用本接口，入参中包含ReleasePrepaidDataDisks时，包年包月数据盘同时也会被移至回收站。
 * 支持批量操作，每次请求批量实例的上限为100。
 * 批量操作时，所有实例的付费类型必须一致。
  */

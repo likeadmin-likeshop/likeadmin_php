@@ -20,22 +20,22 @@ use TencentCloud\Common\AbstractModel;
 /**
  * ModifyUserMicStatus返回参数结构体
  *
- * @method integer getResult() 获取返回结果：0为成功，非0为失败
- * @method void setResult(integer $Result) 设置返回结果：0为成功，非0为失败
- * @method string getErrMsg() 获取错误信息
- * @method void setErrMsg(string $ErrMsg) 设置错误信息
+ * @method integer getResult() 获取返回结果：0为成功，非0为失败。
+ * @method void setResult(integer $Result) 设置返回结果：0为成功，非0为失败。
+ * @method string getErrMsg() 获取错误信息。
+ * @method void setErrMsg(string $ErrMsg) 设置错误信息。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class ModifyUserMicStatusResponse extends AbstractModel
 {
     /**
-     * @var integer 返回结果：0为成功，非0为失败
+     * @var integer 返回结果：0为成功，非0为失败。
      */
     public $Result;
 
     /**
-     * @var string 错误信息
+     * @var string 错误信息。
      */
     public $ErrMsg;
 
@@ -45,8 +45,8 @@ class ModifyUserMicStatusResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param integer $Result 返回结果：0为成功，非0为失败
-     * @param string $ErrMsg 错误信息
+     * @param integer $Result 返回结果：0为成功，非0为失败。
+     * @param string $ErrMsg 错误信息。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

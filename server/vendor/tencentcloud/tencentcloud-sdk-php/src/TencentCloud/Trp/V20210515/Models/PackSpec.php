@@ -18,7 +18,7 @@ namespace TencentCloud\Trp\V20210515\Models;
 use TencentCloud\Common\AbstractModel;
 
 /**
- * 数组
+ * 层级码配置
  *
  * @method integer getLevel() 获取层级
  * @method void setLevel(integer $Level) 设置层级
@@ -26,6 +26,14 @@ use TencentCloud\Common\AbstractModel;
  * @method void setRate(integer $Rate) 设置比例
  * @method integer getAmount() 获取数量
  * @method void setAmount(integer $Amount) 设置数量
+ * @method string getCustomId() 获取码规则ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setCustomId(string $CustomId) 设置码规则ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getCodeParts() 获取码段配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setCodeParts(array $CodeParts) 设置码段配置
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class PackSpec extends AbstractModel
 {
@@ -45,9 +53,25 @@ class PackSpec extends AbstractModel
     public $Amount;
 
     /**
+     * @var string 码规则ID
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $CustomId;
+
+    /**
+     * @var array 码段配置
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $CodeParts;
+
+    /**
      * @param integer $Level 层级
      * @param integer $Rate 比例
      * @param integer $Amount 数量
+     * @param string $CustomId 码规则ID
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $CodeParts 码段配置
+注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
     {
@@ -72,6 +96,19 @@ class PackSpec extends AbstractModel
 
         if (array_key_exists("Amount",$param) and $param["Amount"] !== null) {
             $this->Amount = $param["Amount"];
+        }
+
+        if (array_key_exists("CustomId",$param) and $param["CustomId"] !== null) {
+            $this->CustomId = $param["CustomId"];
+        }
+
+        if (array_key_exists("CodeParts",$param) and $param["CodeParts"] !== null) {
+            $this->CodeParts = [];
+            foreach ($param["CodeParts"] as $key => $value){
+                $obj = new CodePart();
+                $obj->deserialize($value);
+                array_push($this->CodeParts, $obj);
+            }
         }
     }
 }

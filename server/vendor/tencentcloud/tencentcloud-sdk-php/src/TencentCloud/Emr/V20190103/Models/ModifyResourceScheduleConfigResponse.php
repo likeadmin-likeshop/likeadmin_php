@@ -26,6 +26,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setErrorMsg(string $ErrorMsg) 设置校验错误信息，如果不为空，则说明校验失败，配置没有成功
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getData() 获取返回数据
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setData(string $Data) 设置返回数据
+注意：此字段可能返回 null，表示取不到有效值。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -43,6 +47,12 @@ class ModifyResourceScheduleConfigResponse extends AbstractModel
     public $ErrorMsg;
 
     /**
+     * @var string 返回数据
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Data;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
@@ -50,6 +60,8 @@ class ModifyResourceScheduleConfigResponse extends AbstractModel
     /**
      * @param boolean $IsDraft true为草稿，表示还没有刷新资源池
      * @param string $ErrorMsg 校验错误信息，如果不为空，则说明校验失败，配置没有成功
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Data 返回数据
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
@@ -72,6 +84,10 @@ class ModifyResourceScheduleConfigResponse extends AbstractModel
 
         if (array_key_exists("ErrorMsg",$param) and $param["ErrorMsg"] !== null) {
             $this->ErrorMsg = $param["ErrorMsg"];
+        }
+
+        if (array_key_exists("Data",$param) and $param["Data"] !== null) {
+            $this->Data = $param["Data"];
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

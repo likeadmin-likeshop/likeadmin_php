@@ -2,9 +2,11 @@
 
 namespace Overtrue\Socialite\Providers;
 
+use GuzzleHttp\Utils;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
-use Overtrue\Socialite\Contracts\UserInterface;
+use Overtrue\Socialite\Contracts;
+use Overtrue\Socialite\Exceptions\AuthorizeFailedException;
 use Overtrue\Socialite\User;
 
 /**
@@ -13,8 +15,11 @@ use Overtrue\Socialite\User;
 class QQ extends Base
 {
     public const NAME = 'qq';
+
     protected string $baseUrl = 'https://graph.qq.com';
+
     protected array $scopes = ['get_user_info'];
+
     protected bool $withUnionId = false;
 
     protected function getAuthUrl(): string
@@ -28,34 +33,29 @@ class QQ extends Base
     }
 
     #[ArrayShape([
-        'client_id' => "\null|string",
-        'client_secret' => "\null|string",
-        'code' => "string",
-        'redirect_uri' => "mixed"
+        Contracts\RFC6749_ABNF_CLIENT_ID => 'null|string',
+        Contracts\RFC6749_ABNF_CLIENT_SECRET => 'null|string',
+        Contracts\RFC6749_ABNF_CODE => 'string',
+        Contracts\RFC6749_ABNF_REDIRECT_URI => 'null|string',
+        Contracts\RFC6749_ABNF_GRANT_TYPE => 'string',
     ])]
     protected function getTokenFields(string $code): array
     {
-        return parent::getTokenFields($code) + [
-            'grant_type' => 'authorization_code',
-        ];
+        return parent::getTokenFields($code) + [Contracts\RFC6749_ABNF_GRANT_TYPE => Contracts\RFC6749_ABNF_AUTHORATION_CODE];
     }
 
-    /**
-     * @throws \Overtrue\Socialite\Exceptions\AuthorizeFailedException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function tokenFromCode(string $code): array
     {
         $response = $this->getHttpClient()->get($this->getTokenUrl(), [
             'query' => $this->getTokenFields($code),
         ]);
 
-        \parse_str($response->getBody()->getContents(), $token);
+        \parse_str((string) $response->getBody(), $token);
 
         return $this->normalizeAccessTokenResponse($token);
     }
 
-    public function withUnionId(): static
+    public function withUnionId(): self
     {
         $this->withUnionId = true;
 
@@ -64,40 +64,49 @@ class QQ extends Base
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Overtrue\Socialite\Exceptions\AuthorizeFailedException
      */
     protected function getUserByToken(string $token): array
     {
-        $url = $this->baseUrl.'/oauth2.0/me?fmt=json&access_token='.$token;
-        $this->withUnionId && $url .= '&unionid=1';
+        $response = $this->getHttpClient()->get($this->baseUrl.'/oauth2.0/me', [
+            'query' => [
+                Contracts\RFC6749_ABNF_ACCESS_TOKEN => $token,
+                'fmt' => 'json',
+            ] + ($this->withUnionId ? ['unionid' => 1] : []),
+        ]);
 
-        $response = $this->getHttpClient()->get($url);
+        $me = $this->fromJsonBody($response);
 
-        $me = \json_decode($response->getBody()->getContents(), true);
+        $response = $this->getHttpClient()->get($this->baseUrl.'/user/get_user_info', [
+            'query' => [
+                Contracts\RFC6749_ABNF_ACCESS_TOKEN => $token,
+                'fmt' => 'json',
+                'openid' => $me['openid'],
+                'oauth_consumer_key' => $this->getClientId(),
+            ],
+        ]);
 
-        $queries = [
-            'access_token' => $token,
-            'fmt' => 'json',
-            'openid' => $me['openid'],
-            'oauth_consumer_key' => $this->getClientId(),
-        ];
+        $user = $this->fromJsonBody($response);
 
-        $response = $this->getHttpClient()->get($this->baseUrl.'/user/get_user_info?'.http_build_query($queries));
+        if (! array_key_exists('ret', $user) || $user['ret'] !== 0) {
+            throw new AuthorizeFailedException('Authorize Failed: '.Utils::jsonEncode($user, \JSON_UNESCAPED_UNICODE), $user);
+        }
 
-        return (\json_decode($response->getBody()->getContents(), true) ?? []) + [
+        return $user + [
             'unionid' => $me['unionid'] ?? null,
             'openid' => $me['openid'] ?? null,
         ];
     }
 
     #[Pure]
-    protected function mapUserToObject(array $user): UserInterface
+    protected function mapUserToObject(array $user): Contracts\UserInterface
     {
         return new User([
-            'id' => $user['openid'] ?? null,
-            'name' => $user['nickname'] ?? null,
-            'nickname' => $user['nickname'] ?? null,
-            'email' => $user['email'] ?? null,
-            'avatar' => $user['figureurl_qq_2'] ?? null,
+            Contracts\ABNF_ID => $user['openid'] ?? null,
+            Contracts\ABNF_NAME => $user['nickname'] ?? null,
+            Contracts\ABNF_NICKNAME => $user['nickname'] ?? null,
+            Contracts\ABNF_EMAIL => $user['email'] ?? null,
+            Contracts\ABNF_AVATAR => $user['figureurl_qq_2'] ?? null,
         ]);
     }
 }

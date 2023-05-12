@@ -96,6 +96,22 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setQuuid(string $Quuid) 设置主机quuid
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getDesc() 获取高危信息说明：
+ABROAD - 海外IP；
+XTI - 威胁情报
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDesc(string $Desc) 设置高危信息说明：
+ABROAD - 海外IP；
+XTI - 威胁情报
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method MachineExtraInfo getMachineExtraInfo() 获取附加信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setMachineExtraInfo(MachineExtraInfo $MachineExtraInfo) 设置附加信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getPort() 获取请求目的端口
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setPort(integer $Port) 设置请求目的端口
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class HostLoginList extends AbstractModel
 {
@@ -214,6 +230,26 @@ class HostLoginList extends AbstractModel
     public $Quuid;
 
     /**
+     * @var string 高危信息说明：
+ABROAD - 海外IP；
+XTI - 威胁情报
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Desc;
+
+    /**
+     * @var MachineExtraInfo 附加信息
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $MachineExtraInfo;
+
+    /**
+     * @var integer 请求目的端口
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Port;
+
+    /**
      * @param integer $Id 记录Id
      * @param string $Uuid Uuid串
 注意：此字段可能返回 null，表示取不到有效值。
@@ -251,6 +287,14 @@ class HostLoginList extends AbstractModel
      * @param string $Location 位置名称
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Quuid 主机quuid
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Desc 高危信息说明：
+ABROAD - 海外IP；
+XTI - 威胁情报
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param MachineExtraInfo $MachineExtraInfo 附加信息
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $Port 请求目的端口
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -340,6 +384,19 @@ class HostLoginList extends AbstractModel
 
         if (array_key_exists("Quuid",$param) and $param["Quuid"] !== null) {
             $this->Quuid = $param["Quuid"];
+        }
+
+        if (array_key_exists("Desc",$param) and $param["Desc"] !== null) {
+            $this->Desc = $param["Desc"];
+        }
+
+        if (array_key_exists("MachineExtraInfo",$param) and $param["MachineExtraInfo"] !== null) {
+            $this->MachineExtraInfo = new MachineExtraInfo();
+            $this->MachineExtraInfo->deserialize($param["MachineExtraInfo"]);
+        }
+
+        if (array_key_exists("Port",$param) and $param["Port"] !== null) {
+            $this->Port = $param["Port"];
         }
     }
 }

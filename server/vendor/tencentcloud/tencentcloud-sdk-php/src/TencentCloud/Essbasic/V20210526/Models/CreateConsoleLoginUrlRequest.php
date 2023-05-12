@@ -24,20 +24,26 @@ use TencentCloud\Common\AbstractModel;
 此接口Agent.AppId、Agent.ProxyOrganizationOpenId 和 Agent. ProxyOperator.OpenId 必填
  * @method void setAgent(Agent $Agent) 设置应用信息
 此接口Agent.AppId、Agent.ProxyOrganizationOpenId 和 Agent. ProxyOperator.OpenId 必填
- * @method string getProxyOrganizationName() 获取渠道侧合作企业名称，最大长度64个字符
- * @method void setProxyOrganizationName(string $ProxyOrganizationName) 设置渠道侧合作企业名称，最大长度64个字符
- * @method string getProxyOperatorName() 获取渠道侧合作企业经办人的姓名，最大长度50个字符
- * @method void setProxyOperatorName(string $ProxyOperatorName) 设置渠道侧合作企业经办人的姓名，最大长度50个字符
- * @method string getModule() 获取控制台指定模块，文件/合同管理:"DOCUMENT"，模板管理:"TEMPLATE"，印章管理:"SEAL"，组织架构/人员:"OPERATOR"，空字符串："账号信息"
- * @method void setModule(string $Module) 设置控制台指定模块，文件/合同管理:"DOCUMENT"，模板管理:"TEMPLATE"，印章管理:"SEAL"，组织架构/人员:"OPERATOR"，空字符串："账号信息"
+ * @method string getProxyOrganizationName() 获取子客企业名称，最大长度64个字符
+ * @method void setProxyOrganizationName(string $ProxyOrganizationName) 设置子客企业名称，最大长度64个字符
+ * @method string getProxyOperatorName() 获取子客企业经办人的姓名，最大长度50个字符
+ * @method void setProxyOperatorName(string $ProxyOperatorName) 设置子客企业经办人的姓名，最大长度50个字符
+ * @method string getModule() 获取PC控制台指定模块，文件/合同管理:"DOCUMENT"，模板管理:"TEMPLATE"，印章管理:"SEAL"，组织架构/人员:"OPERATOR"，空字符串："账号信息"。 EndPoint为"CHANNEL"/"APP"只支持"SEAL"-印章管理
+ * @method void setModule(string $Module) 设置PC控制台指定模块，文件/合同管理:"DOCUMENT"，模板管理:"TEMPLATE"，印章管理:"SEAL"，组织架构/人员:"OPERATOR"，空字符串："账号信息"。 EndPoint为"CHANNEL"/"APP"只支持"SEAL"-印章管理
  * @method string getModuleId() 获取控制台指定模块Id
  * @method void setModuleId(string $ModuleId) 设置控制台指定模块Id
- * @method string getUniformSocialCreditCode() 获取渠道侧合作企业统一社会信用代码，最大长度200个字符
- * @method void setUniformSocialCreditCode(string $UniformSocialCreditCode) 设置渠道侧合作企业统一社会信用代码，最大长度200个字符
+ * @method string getUniformSocialCreditCode() 获取子客企业统一社会信用代码，最大长度200个字符
+ * @method void setUniformSocialCreditCode(string $UniformSocialCreditCode) 设置子客企业统一社会信用代码，最大长度200个字符
  * @method string getMenuStatus() 获取是否展示左侧菜单栏 是：ENABLE（默认） 否：DISABLE
  * @method void setMenuStatus(string $MenuStatus) 设置是否展示左侧菜单栏 是：ENABLE（默认） 否：DISABLE
- * @method UserInfo getOperator() 获取操作者的信息
- * @method void setOperator(UserInfo $Operator) 设置操作者的信息
+ * @method string getEndpoint() 获取链接跳转类型："PC"-PC控制台，“CHANNEL”-H5跳转到电子签小程序；“APP”-第三方APP或小程序跳转电子签小程序，默认为PC控制台
+ * @method void setEndpoint(string $Endpoint) 设置链接跳转类型："PC"-PC控制台，“CHANNEL”-H5跳转到电子签小程序；“APP”-第三方APP或小程序跳转电子签小程序，默认为PC控制台
+ * @method string getAutoJumpBackEvent() 获取触发自动跳转事件，仅对App类型有效，"VERIFIED":企业认证完成/员工认证完成后跳回原App/小程序
+ * @method void setAutoJumpBackEvent(string $AutoJumpBackEvent) 设置触发自动跳转事件，仅对App类型有效，"VERIFIED":企业认证完成/员工认证完成后跳回原App/小程序
+ * @method array getAuthorizationTypes() 获取支持的授权方式,授权方式: "1" - 上传授权书认证  "2" - 法定代表人认证
+ * @method void setAuthorizationTypes(array $AuthorizationTypes) 设置支持的授权方式,授权方式: "1" - 上传授权书认证  "2" - 法定代表人认证
+ * @method UserInfo getOperator() 获取暂未开放
+ * @method void setOperator(UserInfo $Operator) 设置暂未开放
  */
 class CreateConsoleLoginUrlRequest extends AbstractModel
 {
@@ -48,17 +54,17 @@ class CreateConsoleLoginUrlRequest extends AbstractModel
     public $Agent;
 
     /**
-     * @var string 渠道侧合作企业名称，最大长度64个字符
+     * @var string 子客企业名称，最大长度64个字符
      */
     public $ProxyOrganizationName;
 
     /**
-     * @var string 渠道侧合作企业经办人的姓名，最大长度50个字符
+     * @var string 子客企业经办人的姓名，最大长度50个字符
      */
     public $ProxyOperatorName;
 
     /**
-     * @var string 控制台指定模块，文件/合同管理:"DOCUMENT"，模板管理:"TEMPLATE"，印章管理:"SEAL"，组织架构/人员:"OPERATOR"，空字符串："账号信息"
+     * @var string PC控制台指定模块，文件/合同管理:"DOCUMENT"，模板管理:"TEMPLATE"，印章管理:"SEAL"，组织架构/人员:"OPERATOR"，空字符串："账号信息"。 EndPoint为"CHANNEL"/"APP"只支持"SEAL"-印章管理
      */
     public $Module;
 
@@ -68,7 +74,7 @@ class CreateConsoleLoginUrlRequest extends AbstractModel
     public $ModuleId;
 
     /**
-     * @var string 渠道侧合作企业统一社会信用代码，最大长度200个字符
+     * @var string 子客企业统一社会信用代码，最大长度200个字符
      */
     public $UniformSocialCreditCode;
 
@@ -78,20 +84,38 @@ class CreateConsoleLoginUrlRequest extends AbstractModel
     public $MenuStatus;
 
     /**
-     * @var UserInfo 操作者的信息
+     * @var string 链接跳转类型："PC"-PC控制台，“CHANNEL”-H5跳转到电子签小程序；“APP”-第三方APP或小程序跳转电子签小程序，默认为PC控制台
+     */
+    public $Endpoint;
+
+    /**
+     * @var string 触发自动跳转事件，仅对App类型有效，"VERIFIED":企业认证完成/员工认证完成后跳回原App/小程序
+     */
+    public $AutoJumpBackEvent;
+
+    /**
+     * @var array 支持的授权方式,授权方式: "1" - 上传授权书认证  "2" - 法定代表人认证
+     */
+    public $AuthorizationTypes;
+
+    /**
+     * @var UserInfo 暂未开放
      */
     public $Operator;
 
     /**
      * @param Agent $Agent 应用信息
 此接口Agent.AppId、Agent.ProxyOrganizationOpenId 和 Agent. ProxyOperator.OpenId 必填
-     * @param string $ProxyOrganizationName 渠道侧合作企业名称，最大长度64个字符
-     * @param string $ProxyOperatorName 渠道侧合作企业经办人的姓名，最大长度50个字符
-     * @param string $Module 控制台指定模块，文件/合同管理:"DOCUMENT"，模板管理:"TEMPLATE"，印章管理:"SEAL"，组织架构/人员:"OPERATOR"，空字符串："账号信息"
+     * @param string $ProxyOrganizationName 子客企业名称，最大长度64个字符
+     * @param string $ProxyOperatorName 子客企业经办人的姓名，最大长度50个字符
+     * @param string $Module PC控制台指定模块，文件/合同管理:"DOCUMENT"，模板管理:"TEMPLATE"，印章管理:"SEAL"，组织架构/人员:"OPERATOR"，空字符串："账号信息"。 EndPoint为"CHANNEL"/"APP"只支持"SEAL"-印章管理
      * @param string $ModuleId 控制台指定模块Id
-     * @param string $UniformSocialCreditCode 渠道侧合作企业统一社会信用代码，最大长度200个字符
+     * @param string $UniformSocialCreditCode 子客企业统一社会信用代码，最大长度200个字符
      * @param string $MenuStatus 是否展示左侧菜单栏 是：ENABLE（默认） 否：DISABLE
-     * @param UserInfo $Operator 操作者的信息
+     * @param string $Endpoint 链接跳转类型："PC"-PC控制台，“CHANNEL”-H5跳转到电子签小程序；“APP”-第三方APP或小程序跳转电子签小程序，默认为PC控制台
+     * @param string $AutoJumpBackEvent 触发自动跳转事件，仅对App类型有效，"VERIFIED":企业认证完成/员工认证完成后跳回原App/小程序
+     * @param array $AuthorizationTypes 支持的授权方式,授权方式: "1" - 上传授权书认证  "2" - 法定代表人认证
+     * @param UserInfo $Operator 暂未开放
      */
     function __construct()
     {
@@ -133,6 +157,18 @@ class CreateConsoleLoginUrlRequest extends AbstractModel
 
         if (array_key_exists("MenuStatus",$param) and $param["MenuStatus"] !== null) {
             $this->MenuStatus = $param["MenuStatus"];
+        }
+
+        if (array_key_exists("Endpoint",$param) and $param["Endpoint"] !== null) {
+            $this->Endpoint = $param["Endpoint"];
+        }
+
+        if (array_key_exists("AutoJumpBackEvent",$param) and $param["AutoJumpBackEvent"] !== null) {
+            $this->AutoJumpBackEvent = $param["AutoJumpBackEvent"];
+        }
+
+        if (array_key_exists("AuthorizationTypes",$param) and $param["AuthorizationTypes"] !== null) {
+            $this->AuthorizationTypes = $param["AuthorizationTypes"];
         }
 
         if (array_key_exists("Operator",$param) and $param["Operator"] !== null) {

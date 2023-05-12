@@ -79,10 +79,6 @@ class HasManyThrough extends Relation
 
         $this->baseQuery();
 
-        if ($this->withLimit) {
-            $this->query->limit($this->withLimit);
-        }
-
         return $this->query->relation($subRelation)
             ->select()
             ->setParent(clone $this->parent);
@@ -258,19 +254,30 @@ class HasManyThrough extends Relation
             $closure($this->getClosureType($closure));
         }
 
+        $throughKey = $this->throughKey;
+
+        if ($this->baseQuery) {
+            $throughKey = Str::snake(class_basename($this->model)) . "." . $this->throughKey;
+        }
+
+        $withLimit = $this->query->getOptions('limit');
+        if ($withLimit) {
+            $this->query->removeOption('limit');
+        }
+
         $list = $this->query
-            ->where($this->throughKey, 'in', $keys)
+            ->where($throughKey, 'in', $keys)
             ->cache($cache[0] ?? false, $cache[1] ?? null, $cache[2] ?? null)
             ->select();
 
         // 组装模型数据
-        $data = [];
-        $keys = $throughList->column($this->foreignKey, $this->throughPk);
+        $data  = [];
+        $keys  = $throughList->column($this->foreignKey, $this->throughPk);
 
         foreach ($list as $set) {
             $key = $keys[$set->{$this->throughKey}];
 
-            if ($this->withLimit && isset($data[$key]) && count($data[$key]) >= $this->withLimit) {
+            if ($withLimit && isset($data[$key]) && count($data[$key]) >= $withLimit) {
                 continue;
             }
 

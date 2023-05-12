@@ -30,17 +30,17 @@ use TencentCloud\Common\AbstractModel;
  * @method void setSubUin(string $SubUin) 设置子账号uin
  * @method string getRegion() 获取地域
  * @method void setRegion(string $Region) 设置地域
- * @method string getFrameworkName() 获取训练框架名称，eg：SPARK、TENSORFLOW、PYTORCH、LIGHT
+ * @method string getFrameworkName() 获取训练框架名称，eg：SPARK、PYSARK、TENSORFLOW、PYTORCH
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setFrameworkName(string $FrameworkName) 设置训练框架名称，eg：SPARK、TENSORFLOW、PYTORCH、LIGHT
+ * @method void setFrameworkName(string $FrameworkName) 设置训练框架名称，eg：SPARK、PYSARK、TENSORFLOW、PYTORCH
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getFrameworkVersion() 获取训练框架版本
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setFrameworkVersion(string $FrameworkVersion) 设置训练框架版本
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getTrainingMode() 获取训练模式，eg：PS_WORKER、DDP、MPI、HOROVOD
+ * @method string getFrameworkEnvironment() 获取框架运行环境
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setTrainingMode(string $TrainingMode) 设置训练模式，eg：PS_WORKER、DDP、MPI、HOROVOD
+ * @method void setFrameworkEnvironment(string $FrameworkEnvironment) 设置框架运行环境
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getChargeType() 获取计费模式
  * @method void setChargeType(string $ChargeType) 设置计费模式
@@ -54,9 +54,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setTags(array $Tags) 设置标签
 注意：此字段可能返回 null，表示取不到有效值。
- * @method ImageInfo getImageInfo() 获取自定义镜像信息
+ * @method string getTrainingMode() 获取训练模式，eg：PS_WORKER、DDP、MPI、HOROVOD
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setImageInfo(ImageInfo $ImageInfo) 设置自定义镜像信息
+ * @method void setTrainingMode(string $TrainingMode) 设置训练模式，eg：PS_WORKER、DDP、MPI、HOROVOD
 注意：此字段可能返回 null，表示取不到有效值。
  * @method CosPathInfo getCodePackagePath() 获取代码包
  * @method void setCodePackagePath(CosPathInfo $CodePackagePath) 设置代码包
@@ -90,8 +90,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setSubnetId(string $SubnetId) 设置子网ID
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getStatus() 获取任务状态
- * @method void setStatus(string $Status) 设置任务状态
+ * @method ImageInfo getImageInfo() 获取自定义镜像信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setImageInfo(ImageInfo $ImageInfo) 设置自定义镜像信息
+注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getRuntimeInSeconds() 获取运行时长
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setRuntimeInSeconds(integer $RuntimeInSeconds) 设置运行时长
@@ -126,9 +128,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setEndTime(string $EndTime) 设置训练结束时间
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getBillingInfo() 获取计费金额信息，eg：2.00元/小时 (for后付费)
+ * @method string getBillingInfo() 获取计费金额信息，eg：2.00元/小时 (按量计费)
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setBillingInfo(string $BillingInfo) 设置计费金额信息，eg：2.00元/小时 (for后付费)
+ * @method void setBillingInfo(string $BillingInfo) 设置计费金额信息，eg：2.00元/小时 (按量计费)
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getResourceGroupName() 获取预付费专用资源组名称
 注意：此字段可能返回 null，表示取不到有效值。
@@ -137,6 +139,12 @@ use TencentCloud\Common\AbstractModel;
  * @method string getMessage() 获取任务信息
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setMessage(string $Message) 设置任务信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getStatus() 获取任务状态，eg：STARTING启动中、RUNNING运行中、STOPPING停止中、STOPPED已停止、FAILED异常、SUCCEED已完成
+ * @method void setStatus(string $Status) 设置任务状态，eg：STARTING启动中、RUNNING运行中、STOPPING停止中、STOPPED已停止、FAILED异常、SUCCEED已完成
+ * @method string getCallbackUrl() 获取回调地址
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setCallbackUrl(string $CallbackUrl) 设置回调地址
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class TrainingTaskDetail extends AbstractModel
@@ -167,7 +175,7 @@ class TrainingTaskDetail extends AbstractModel
     public $Region;
 
     /**
-     * @var string 训练框架名称，eg：SPARK、TENSORFLOW、PYTORCH、LIGHT
+     * @var string 训练框架名称，eg：SPARK、PYSARK、TENSORFLOW、PYTORCH
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $FrameworkName;
@@ -179,10 +187,10 @@ class TrainingTaskDetail extends AbstractModel
     public $FrameworkVersion;
 
     /**
-     * @var string 训练模式，eg：PS_WORKER、DDP、MPI、HOROVOD
+     * @var string 框架运行环境
 注意：此字段可能返回 null，表示取不到有效值。
      */
-    public $TrainingMode;
+    public $FrameworkEnvironment;
 
     /**
      * @var string 计费模式
@@ -207,10 +215,10 @@ class TrainingTaskDetail extends AbstractModel
     public $Tags;
 
     /**
-     * @var ImageInfo 自定义镜像信息
+     * @var string 训练模式，eg：PS_WORKER、DDP、MPI、HOROVOD
 注意：此字段可能返回 null，表示取不到有效值。
      */
-    public $ImageInfo;
+    public $TrainingMode;
 
     /**
      * @var CosPathInfo 代码包
@@ -269,9 +277,10 @@ class TrainingTaskDetail extends AbstractModel
     public $SubnetId;
 
     /**
-     * @var string 任务状态
+     * @var ImageInfo 自定义镜像信息
+注意：此字段可能返回 null，表示取不到有效值。
      */
-    public $Status;
+    public $ImageInfo;
 
     /**
      * @var integer 运行时长
@@ -331,7 +340,7 @@ class TrainingTaskDetail extends AbstractModel
     public $EndTime;
 
     /**
-     * @var string 计费金额信息，eg：2.00元/小时 (for后付费)
+     * @var string 计费金额信息，eg：2.00元/小时 (按量计费)
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $BillingInfo;
@@ -349,16 +358,27 @@ class TrainingTaskDetail extends AbstractModel
     public $Message;
 
     /**
+     * @var string 任务状态，eg：STARTING启动中、RUNNING运行中、STOPPING停止中、STOPPED已停止、FAILED异常、SUCCEED已完成
+     */
+    public $Status;
+
+    /**
+     * @var string 回调地址
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $CallbackUrl;
+
+    /**
      * @param string $Id 训练任务ID
      * @param string $Name 训练任务名称
      * @param string $Uin 主账号uin
      * @param string $SubUin 子账号uin
      * @param string $Region 地域
-     * @param string $FrameworkName 训练框架名称，eg：SPARK、TENSORFLOW、PYTORCH、LIGHT
+     * @param string $FrameworkName 训练框架名称，eg：SPARK、PYSARK、TENSORFLOW、PYTORCH
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $FrameworkVersion 训练框架版本
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $TrainingMode 训练模式，eg：PS_WORKER、DDP、MPI、HOROVOD
+     * @param string $FrameworkEnvironment 框架运行环境
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $ChargeType 计费模式
      * @param string $ResourceGroupId 预付费专用资源组
@@ -366,7 +386,7 @@ class TrainingTaskDetail extends AbstractModel
      * @param array $ResourceConfigInfos 资源配置
      * @param array $Tags 标签
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param ImageInfo $ImageInfo 自定义镜像信息
+     * @param string $TrainingMode 训练模式，eg：PS_WORKER、DDP、MPI、HOROVOD
 注意：此字段可能返回 null，表示取不到有效值。
      * @param CosPathInfo $CodePackagePath 代码包
      * @param StartCmdInfo $StartCmdInfo 启动命令信息
@@ -384,7 +404,8 @@ class TrainingTaskDetail extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $SubnetId 子网ID
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $Status 任务状态
+     * @param ImageInfo $ImageInfo 自定义镜像信息
+注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $RuntimeInSeconds 运行时长
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $CreateTime 创建时间
@@ -402,11 +423,14 @@ class TrainingTaskDetail extends AbstractModel
      * @param string $UpdateTime 更新时间
      * @param string $EndTime 训练结束时间
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $BillingInfo 计费金额信息，eg：2.00元/小时 (for后付费)
+     * @param string $BillingInfo 计费金额信息，eg：2.00元/小时 (按量计费)
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $ResourceGroupName 预付费专用资源组名称
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Message 任务信息
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Status 任务状态，eg：STARTING启动中、RUNNING运行中、STOPPING停止中、STOPPED已停止、FAILED异常、SUCCEED已完成
+     * @param string $CallbackUrl 回调地址
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -450,8 +474,8 @@ class TrainingTaskDetail extends AbstractModel
             $this->FrameworkVersion = $param["FrameworkVersion"];
         }
 
-        if (array_key_exists("TrainingMode",$param) and $param["TrainingMode"] !== null) {
-            $this->TrainingMode = $param["TrainingMode"];
+        if (array_key_exists("FrameworkEnvironment",$param) and $param["FrameworkEnvironment"] !== null) {
+            $this->FrameworkEnvironment = $param["FrameworkEnvironment"];
         }
 
         if (array_key_exists("ChargeType",$param) and $param["ChargeType"] !== null) {
@@ -480,9 +504,8 @@ class TrainingTaskDetail extends AbstractModel
             }
         }
 
-        if (array_key_exists("ImageInfo",$param) and $param["ImageInfo"] !== null) {
-            $this->ImageInfo = new ImageInfo();
-            $this->ImageInfo->deserialize($param["ImageInfo"]);
+        if (array_key_exists("TrainingMode",$param) and $param["TrainingMode"] !== null) {
+            $this->TrainingMode = $param["TrainingMode"];
         }
 
         if (array_key_exists("CodePackagePath",$param) and $param["CodePackagePath"] !== null) {
@@ -534,8 +557,9 @@ class TrainingTaskDetail extends AbstractModel
             $this->SubnetId = $param["SubnetId"];
         }
 
-        if (array_key_exists("Status",$param) and $param["Status"] !== null) {
-            $this->Status = $param["Status"];
+        if (array_key_exists("ImageInfo",$param) and $param["ImageInfo"] !== null) {
+            $this->ImageInfo = new ImageInfo();
+            $this->ImageInfo->deserialize($param["ImageInfo"]);
         }
 
         if (array_key_exists("RuntimeInSeconds",$param) and $param["RuntimeInSeconds"] !== null) {
@@ -588,6 +612,14 @@ class TrainingTaskDetail extends AbstractModel
 
         if (array_key_exists("Message",$param) and $param["Message"] !== null) {
             $this->Message = $param["Message"];
+        }
+
+        if (array_key_exists("Status",$param) and $param["Status"] !== null) {
+            $this->Status = $param["Status"];
+        }
+
+        if (array_key_exists("CallbackUrl",$param) and $param["CallbackUrl"] !== null) {
+            $this->CallbackUrl = $param["CallbackUrl"];
         }
     }
 }

@@ -20,14 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DeleteAuditTrack请求参数结构体
  *
-
+ * @method integer getTrackId() 获取跟踪集 ID
+ * @method void setTrackId(integer $TrackId) 设置跟踪集 ID
  */
 class DeleteAuditTrackRequest extends AbstractModel
 {
-
+    /**
+     * @var integer 跟踪集 ID
+     */
+    public $TrackId;
 
     /**
-
+     * @param integer $TrackId 跟踪集 ID
      */
     function __construct()
     {
@@ -42,6 +46,8 @@ class DeleteAuditTrackRequest extends AbstractModel
         if ($param === null) {
             return;
         }
-
+        if (array_key_exists("TrackId",$param) and $param["TrackId"] !== null) {
+            $this->TrackId = $param["TrackId"];
+        }
     }
 }

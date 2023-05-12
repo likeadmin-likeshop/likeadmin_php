@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeSecurityGroupReferences请求参数结构体
  *
- * @method array getSecurityGroupIds() 获取安全组实例ID数组。格式如：['sg-12345678']
- * @method void setSecurityGroupIds(array $SecurityGroupIds) 设置安全组实例ID数组。格式如：['sg-12345678']
+ * @method array getSecurityGroupIds() 获取安全组实例ID数组。格式如：['sg-12345678']。
+ * @method void setSecurityGroupIds(array $SecurityGroupIds) 设置安全组实例ID数组。格式如：['sg-12345678']。
  */
 class DescribeSecurityGroupReferencesRequest extends AbstractModel
 {
     /**
-     * @var array 安全组实例ID数组。格式如：['sg-12345678']
+     * @var array 安全组实例ID数组。格式如：['sg-12345678']。
      */
     public $SecurityGroupIds;
 
     /**
-     * @param array $SecurityGroupIds 安全组实例ID数组。格式如：['sg-12345678']
+     * @param array $SecurityGroupIds 安全组实例ID数组。格式如：['sg-12345678']。
      */
     function __construct()
     {

@@ -32,17 +32,17 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setLoad(Load $Load) 设置任务的施压配置
 注意：此字段可能返回 null，表示取不到有效值。
- * @method array getConfigs() 获取deprecated
+ * @method array getConfigs() 获取此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setConfigs(array $Configs) 设置deprecated
+ * @method void setConfigs(array $Configs) 设置此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
  * @method array getDatasets() 获取任务的数据集文件
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setDatasets(array $Datasets) 设置任务的数据集文件
 注意：此字段可能返回 null，表示取不到有效值。
- * @method array getExtensions() 获取deprecated
+ * @method array getExtensions() 获取此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setExtensions(array $Extensions) 设置deprecated
+ * @method void setExtensions(array $Extensions) 设置此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getStatus() 获取任务的运行状态, JobUnknown: 0,JobCreated:1,JobPending:2, JobPreparing:3,JobSelectClustering:4,JobCreateTasking:5,JobSyncTasking:6
 JobRunning:11,JobFinished:12,JobPrepareException:13,JobFinishException:14,JobAborting:15,JobAborted:16,JobAbortException:17,JobDeleted:18,
@@ -76,9 +76,9 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setJobOwner(string $JobOwner) 设置任务发起人
 注意：此字段可能返回 null，表示取不到有效值。
- * @method LoadSource getLoadSources() 获取deprecated
+ * @method LoadSource getLoadSources() 获取此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setLoadSources(LoadSource $LoadSources) 设置deprecated
+ * @method void setLoadSources(LoadSource $LoadSources) 设置此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getDuration() 获取任务时长
 注意：此字段可能返回 null，表示取不到有效值。
@@ -112,9 +112,9 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setResponseTimeP90(float $ResponseTimeP90) 设置响应时间第90百分位
 注意：此字段可能返回 null，表示取不到有效值。
- * @method array getScripts() 获取deprecated
+ * @method array getScripts() 获取此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setScripts(array $Scripts) 设置deprecated
+ * @method void setScripts(array $Scripts) 设置此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
  * @method float getResponseTimeMax() 获取最大响应时间
 注意：此字段可能返回 null，表示取不到有效值。
@@ -148,6 +148,54 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setCronId(string $CronId) 设置定时任务ID
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getType() 获取场景类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setType(string $Type) 设置场景类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method DomainNameConfig getDomainNameConfig() 获取域名绑定配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDomainNameConfig(DomainNameConfig $DomainNameConfig) 设置域名绑定配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method boolean getDebug() 获取false
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDebug(boolean $Debug) 设置false
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getAbortReason() 获取中断原因
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAbortReason(integer $AbortReason) 设置中断原因
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getCreatedAt() 获取任务的创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setCreatedAt(string $CreatedAt) 设置任务的创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getProjectId() 获取项目ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setProjectId(string $ProjectId) 设置项目ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getNotificationHooks() 获取通知事件回调
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setNotificationHooks(array $NotificationHooks) 设置通知事件回调
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method float getNetworkReceiveRate() 获取每秒接收字节数
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setNetworkReceiveRate(float $NetworkReceiveRate) 设置每秒接收字节数
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method float getNetworkSendRate() 获取每秒发送字节数
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setNetworkSendRate(float $NetworkSendRate) 设置每秒发送字节数
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getMessage() 获取任务状态描述
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setMessage(string $Message) 设置任务状态描述
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getProjectName() 获取test-project
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setProjectName(string $ProjectName) 设置test-project
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getScenarioName() 获取test-scenario
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setScenarioName(string $ScenarioName) 设置test-scenario
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class Job extends AbstractModel
 {
@@ -170,7 +218,7 @@ class Job extends AbstractModel
     public $Load;
 
     /**
-     * @var array deprecated
+     * @var array 此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Configs;
@@ -182,7 +230,7 @@ class Job extends AbstractModel
     public $Datasets;
 
     /**
-     * @var array deprecated
+     * @var array 此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Extensions;
@@ -232,7 +280,7 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
     public $JobOwner;
 
     /**
-     * @var LoadSource deprecated
+     * @var LoadSource 此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $LoadSources;
@@ -286,7 +334,7 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
     public $ResponseTimeP90;
 
     /**
-     * @var array deprecated
+     * @var array 此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Scripts;
@@ -340,17 +388,89 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
     public $CronId;
 
     /**
+     * @var string 场景类型
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Type;
+
+    /**
+     * @var DomainNameConfig 域名绑定配置
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DomainNameConfig;
+
+    /**
+     * @var boolean false
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Debug;
+
+    /**
+     * @var integer 中断原因
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AbortReason;
+
+    /**
+     * @var string 任务的创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $CreatedAt;
+
+    /**
+     * @var string 项目ID
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ProjectId;
+
+    /**
+     * @var array 通知事件回调
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $NotificationHooks;
+
+    /**
+     * @var float 每秒接收字节数
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $NetworkReceiveRate;
+
+    /**
+     * @var float 每秒发送字节数
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $NetworkSendRate;
+
+    /**
+     * @var string 任务状态描述
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Message;
+
+    /**
+     * @var string test-project
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ProjectName;
+
+    /**
+     * @var string test-scenario
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ScenarioName;
+
+    /**
      * @param string $JobId 任务的JobID
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $ScenarioId 任务的场景ID
 注意：此字段可能返回 null，表示取不到有效值。
      * @param Load $Load 任务的施压配置
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param array $Configs deprecated
+     * @param array $Configs 此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $Datasets 任务的数据集文件
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param array $Extensions deprecated
+     * @param array $Extensions 此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $Status 任务的运行状态, JobUnknown: 0,JobCreated:1,JobPending:2, JobPreparing:3,JobSelectClustering:4,JobCreateTasking:5,JobSyncTasking:6
 JobRunning:11,JobFinished:12,JobPrepareException:13,JobFinishException:14,JobAborting:15,JobAborted:16,JobAbortException:17,JobDeleted:18,
@@ -368,7 +488,7 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $JobOwner 任务发起人
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param LoadSource $LoadSources deprecated
+     * @param LoadSource $LoadSources 此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $Duration 任务时长
 注意：此字段可能返回 null，表示取不到有效值。
@@ -386,7 +506,7 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
 注意：此字段可能返回 null，表示取不到有效值。
      * @param float $ResponseTimeP90 响应时间第90百分位
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param array $Scripts deprecated
+     * @param array $Scripts 此字段不再使用
 注意：此字段可能返回 null，表示取不到有效值。
      * @param float $ResponseTimeMax 最大响应时间
 注意：此字段可能返回 null，表示取不到有效值。
@@ -403,6 +523,30 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
      * @param array $Plugins 拓展包文件信息
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $CronId 定时任务ID
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Type 场景类型
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param DomainNameConfig $DomainNameConfig 域名绑定配置
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param boolean $Debug false
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $AbortReason 中断原因
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $CreatedAt 任务的创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ProjectId 项目ID
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $NotificationHooks 通知事件回调
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param float $NetworkReceiveRate 每秒接收字节数
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param float $NetworkSendRate 每秒发送字节数
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Message 任务状态描述
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ProjectName test-project
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ScenarioName test-scenario
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -572,6 +716,60 @@ JobSelectClusterException:19,JobCreateTaskException:20,JobSyncTaskException:21
 
         if (array_key_exists("CronId",$param) and $param["CronId"] !== null) {
             $this->CronId = $param["CronId"];
+        }
+
+        if (array_key_exists("Type",$param) and $param["Type"] !== null) {
+            $this->Type = $param["Type"];
+        }
+
+        if (array_key_exists("DomainNameConfig",$param) and $param["DomainNameConfig"] !== null) {
+            $this->DomainNameConfig = new DomainNameConfig();
+            $this->DomainNameConfig->deserialize($param["DomainNameConfig"]);
+        }
+
+        if (array_key_exists("Debug",$param) and $param["Debug"] !== null) {
+            $this->Debug = $param["Debug"];
+        }
+
+        if (array_key_exists("AbortReason",$param) and $param["AbortReason"] !== null) {
+            $this->AbortReason = $param["AbortReason"];
+        }
+
+        if (array_key_exists("CreatedAt",$param) and $param["CreatedAt"] !== null) {
+            $this->CreatedAt = $param["CreatedAt"];
+        }
+
+        if (array_key_exists("ProjectId",$param) and $param["ProjectId"] !== null) {
+            $this->ProjectId = $param["ProjectId"];
+        }
+
+        if (array_key_exists("NotificationHooks",$param) and $param["NotificationHooks"] !== null) {
+            $this->NotificationHooks = [];
+            foreach ($param["NotificationHooks"] as $key => $value){
+                $obj = new NotificationHook();
+                $obj->deserialize($value);
+                array_push($this->NotificationHooks, $obj);
+            }
+        }
+
+        if (array_key_exists("NetworkReceiveRate",$param) and $param["NetworkReceiveRate"] !== null) {
+            $this->NetworkReceiveRate = $param["NetworkReceiveRate"];
+        }
+
+        if (array_key_exists("NetworkSendRate",$param) and $param["NetworkSendRate"] !== null) {
+            $this->NetworkSendRate = $param["NetworkSendRate"];
+        }
+
+        if (array_key_exists("Message",$param) and $param["Message"] !== null) {
+            $this->Message = $param["Message"];
+        }
+
+        if (array_key_exists("ProjectName",$param) and $param["ProjectName"] !== null) {
+            $this->ProjectName = $param["ProjectName"];
+        }
+
+        if (array_key_exists("ScenarioName",$param) and $param["ScenarioName"] !== null) {
+            $this->ScenarioName = $param["ScenarioName"];
         }
     }
 }

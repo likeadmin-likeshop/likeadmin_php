@@ -361,9 +361,7 @@ trait WhereQuery
             $field = $this->options['via'] . '.' . $field;
         }
 
-        if ($field instanceof Raw) {
-            return $this->whereRaw($field, is_array($op) ? $op : [], $logic);
-        } elseif ($strict) {
+        if ($strict) {
             // 使用严格模式查询
             if ('=' == $op) {
                 $where = $this->whereEq($field, $condition);
@@ -376,7 +374,9 @@ trait WhereQuery
         } elseif ($field instanceof Closure) {
             $where = $field;
         } elseif (is_string($field)) {
-            if (preg_match('/[,=\<\'\"\(\s]/', $field)) {
+            if ($condition instanceof Raw) {
+
+            } elseif (preg_match('/[,=\<\'\"\(\s]/', $field)) {
                 return $this->whereRaw($field, is_array($op) ? $op : [], $logic);
             } elseif (is_string($op) && strtolower($op) == 'exp' && !is_null($condition)) {
                 $bind = isset($param[2]) && is_array($param[2]) ? $param[2] : [];
@@ -455,18 +455,15 @@ trait WhereQuery
      */
     protected function parseArrayWhereItems(array $field, string $logic)
     {
-        if (key($field) !== 0) {
-            $where = [];
-            foreach ($field as $key => $val) {
-                if ($val instanceof Raw) {
-                    $where[] = [$key, 'exp', $val];
-                } else {
-                    $where[] = is_null($val) ? [$key, 'NULL', ''] : [$key, is_array($val) ? 'IN' : '=', $val];
-                }
+        $where = [];
+        foreach ($field as $key => $val) {
+            if (is_int($key)) {
+                $where[] = $val;
+            } elseif ($val instanceof Raw) {
+                $where[] = [$key, 'exp', $val];
+            } else {
+                $where[] = is_null($val) ? [$key, 'NULL', ''] : [$key, is_array($val) ? 'IN' : '=', $val];
             }
-        } else {
-            // 数组批量查询
-            $where = $field;
         }
 
         if (!empty($where)) {

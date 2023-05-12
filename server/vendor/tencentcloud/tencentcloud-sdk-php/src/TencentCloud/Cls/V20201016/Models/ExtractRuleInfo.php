@@ -68,6 +68,36 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setJsonStandard(integer $JsonStandard) 设置是否为标准json.   0: 否, 1: 是
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getProtocol() 获取syslog传输协议，取值为tcp或者udp。
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setProtocol(string $Protocol) 设置syslog传输协议，取值为tcp或者udp。
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getAddress() 获取syslog系统日志采集指定采集器监听的地址和端口 ，形式：[ip]:[port]。举例：127.0.0.1:9000
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAddress(string $Address) 设置syslog系统日志采集指定采集器监听的地址和端口 ，形式：[ip]:[port]。举例：127.0.0.1:9000
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getParseProtocol() 获取rfc3164：指定系统日志采集使用RFC3164协议解析日志。
+rfc5424：指定系统日志采集使用RFC5424协议解析日志。
+auto：自动匹配rfc3164或者rfc5424其中一种协议
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setParseProtocol(string $ParseProtocol) 设置rfc3164：指定系统日志采集使用RFC3164协议解析日志。
+rfc5424：指定系统日志采集使用RFC5424协议解析日志。
+auto：自动匹配rfc3164或者rfc5424其中一种协议
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getMetadataType() 获取元数据类型，0: 不使用元数据信息，1:使用机器组元数据，2:使用用户自定义元数据，3:使用采集配置路径，
+ * @method void setMetadataType(integer $MetadataType) 设置元数据类型，0: 不使用元数据信息，1:使用机器组元数据，2:使用用户自定义元数据，3:使用采集配置路径，
+ * @method string getPathRegex() 获取采集配置路径正则表达式，MetadataType为1时必填
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setPathRegex(string $PathRegex) 设置采集配置路径正则表达式，MetadataType为1时必填
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getMetaTags() 获取用户自定义元数据信息，MetadataType为2时必填
+ * @method void setMetaTags(array $MetaTags) 设置用户自定义元数据信息，MetadataType为2时必填
  */
 class ExtractRuleInfo extends AbstractModel
 {
@@ -144,6 +174,45 @@ class ExtractRuleInfo extends AbstractModel
     public $JsonStandard;
 
     /**
+     * @var string syslog传输协议，取值为tcp或者udp。
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Protocol;
+
+    /**
+     * @var string syslog系统日志采集指定采集器监听的地址和端口 ，形式：[ip]:[port]。举例：127.0.0.1:9000
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Address;
+
+    /**
+     * @var string rfc3164：指定系统日志采集使用RFC3164协议解析日志。
+rfc5424：指定系统日志采集使用RFC5424协议解析日志。
+auto：自动匹配rfc3164或者rfc5424其中一种协议
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ParseProtocol;
+
+    /**
+     * @var integer 元数据类型，0: 不使用元数据信息，1:使用机器组元数据，2:使用用户自定义元数据，3:使用采集配置路径，
+     */
+    public $MetadataType;
+
+    /**
+     * @var string 采集配置路径正则表达式，MetadataType为1时必填
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $PathRegex;
+
+    /**
+     * @var array 用户自定义元数据信息，MetadataType为2时必填
+     */
+    public $MetaTags;
+
+    /**
      * @param string $TimeKey 时间字段的key名字，time_key和time_format必须成对出现
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $TimeFormat 时间字段的格式，参考c语言的strftime函数对于时间的格式说明输出参数
@@ -168,6 +237,21 @@ class ExtractRuleInfo extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $JsonStandard 是否为标准json.   0: 否, 1: 是
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Protocol syslog传输协议，取值为tcp或者udp。
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Address syslog系统日志采集指定采集器监听的地址和端口 ，形式：[ip]:[port]。举例：127.0.0.1:9000
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ParseProtocol rfc3164：指定系统日志采集使用RFC3164协议解析日志。
+rfc5424：指定系统日志采集使用RFC5424协议解析日志。
+auto：自动匹配rfc3164或者rfc5424其中一种协议
+该字段适用于：创建采集规则配置、修改采集规则配置
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $MetadataType 元数据类型，0: 不使用元数据信息，1:使用机器组元数据，2:使用用户自定义元数据，3:使用采集配置路径，
+     * @param string $PathRegex 采集配置路径正则表达式，MetadataType为1时必填
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $MetaTags 用户自定义元数据信息，MetadataType为2时必填
      */
     function __construct()
     {
@@ -233,6 +317,35 @@ class ExtractRuleInfo extends AbstractModel
 
         if (array_key_exists("JsonStandard",$param) and $param["JsonStandard"] !== null) {
             $this->JsonStandard = $param["JsonStandard"];
+        }
+
+        if (array_key_exists("Protocol",$param) and $param["Protocol"] !== null) {
+            $this->Protocol = $param["Protocol"];
+        }
+
+        if (array_key_exists("Address",$param) and $param["Address"] !== null) {
+            $this->Address = $param["Address"];
+        }
+
+        if (array_key_exists("ParseProtocol",$param) and $param["ParseProtocol"] !== null) {
+            $this->ParseProtocol = $param["ParseProtocol"];
+        }
+
+        if (array_key_exists("MetadataType",$param) and $param["MetadataType"] !== null) {
+            $this->MetadataType = $param["MetadataType"];
+        }
+
+        if (array_key_exists("PathRegex",$param) and $param["PathRegex"] !== null) {
+            $this->PathRegex = $param["PathRegex"];
+        }
+
+        if (array_key_exists("MetaTags",$param) and $param["MetaTags"] !== null) {
+            $this->MetaTags = [];
+            foreach ($param["MetaTags"] as $key => $value){
+                $obj = new MetaTagInfo();
+                $obj->deserialize($value);
+                array_push($this->MetaTags, $obj);
+            }
         }
     }
 }

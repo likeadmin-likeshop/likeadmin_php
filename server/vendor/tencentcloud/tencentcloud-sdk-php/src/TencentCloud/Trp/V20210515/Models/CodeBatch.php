@@ -28,9 +28,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setCorpId(integer $CorpId) 设置企业ID
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getBatchCode() 获取码
+ * @method string getBatchCode() 获取批次编码(未使用)
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setBatchCode(string $BatchCode) 设置码
+ * @method void setBatchCode(string $BatchCode) 设置批次编码(未使用)
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getCodeCnt() 获取码数量
 注意：此字段可能返回 null，表示取不到有效值。
@@ -56,9 +56,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setMpTpl(string $MpTpl) 设置微信模板
 注意：此字段可能返回 null，表示取不到有效值。
- * @method integer getStatus() 获取状态
+ * @method integer getStatus() 获取批次状态 0: 未激活 1: 已激活 -1: 已冻结
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setStatus(integer $Status) 设置状态
+ * @method void setStatus(integer $Status) 设置批次状态 0: 未激活 1: 已激活 -1: 已冻结
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getCreateTime() 获取创建时间
 注意：此字段可能返回 null，表示取不到有效值。
@@ -84,6 +84,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setTplName(string $TplName) 设置模板名称
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method Job getJob() 获取调度任务
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setJob(Job $Job) 设置调度任务
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class CodeBatch extends AbstractModel
 {
@@ -100,7 +104,7 @@ class CodeBatch extends AbstractModel
     public $CorpId;
 
     /**
-     * @var string 码
+     * @var string 批次编码(未使用)
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $BatchCode;
@@ -142,7 +146,7 @@ class CodeBatch extends AbstractModel
     public $MpTpl;
 
     /**
-     * @var integer 状态
+     * @var integer 批次状态 0: 未激活 1: 已激活 -1: 已冻结
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Status;
@@ -184,11 +188,17 @@ class CodeBatch extends AbstractModel
     public $TplName;
 
     /**
+     * @var Job 调度任务
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Job;
+
+    /**
      * @param string $BatchId 批次号
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $CorpId 企业ID
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $BatchCode 码
+     * @param string $BatchCode 批次编码(未使用)
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $CodeCnt 码数量
 注意：此字段可能返回 null，表示取不到有效值。
@@ -202,7 +212,7 @@ class CodeBatch extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $MpTpl 微信模板
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param integer $Status 状态
+     * @param integer $Status 批次状态 0: 未激活 1: 已激活 -1: 已冻结
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $CreateTime 创建时间
 注意：此字段可能返回 null，表示取不到有效值。
@@ -215,6 +225,8 @@ class CodeBatch extends AbstractModel
      * @param Ext $Ext 未使用
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $TplName 模板名称
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param Job $Job 调度任务
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -293,6 +305,11 @@ class CodeBatch extends AbstractModel
 
         if (array_key_exists("TplName",$param) and $param["TplName"] !== null) {
             $this->TplName = $param["TplName"];
+        }
+
+        if (array_key_exists("Job",$param) and $param["Job"] !== null) {
+            $this->Job = new Job();
+            $this->Job->deserialize($param["Job"]);
         }
     }
 }

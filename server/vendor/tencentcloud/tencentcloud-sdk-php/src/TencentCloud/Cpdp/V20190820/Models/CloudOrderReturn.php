@@ -98,6 +98,30 @@ wechat:微信支付
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setSceneInfo(string $SceneInfo) 设置场景扩展信息
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getSubAppId() 获取子应用ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSubAppId(string $SubAppId) 设置子应用ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getPayScene() 获取支付场景
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setPayScene(string $PayScene) 设置支付场景
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getPaymentMethod() 获取支付方式
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setPaymentMethod(string $PaymentMethod) 设置支付方式
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getTotalPlatformIncome() 获取平台应收金额
+单位：分，需要注意的是，TotalAmt=TotalPlatformIncome+TotalMchIncome
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTotalPlatformIncome(integer $TotalPlatformIncome) 设置平台应收金额
+单位：分，需要注意的是，TotalAmt=TotalPlatformIncome+TotalMchIncome
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getTotalMchIncome() 获取商户应收金额
+单位：分，需要注意的是，TotalAmt=TotalPlatformIncome+TotalMchIncome
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTotalMchIncome(integer $TotalMchIncome) 设置商户应收金额
+单位：分，需要注意的是，TotalAmt=TotalPlatformIncome+TotalMchIncome
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class CloudOrderReturn extends AbstractModel
 {
@@ -241,6 +265,38 @@ wechat:微信支付
     public $SceneInfo;
 
     /**
+     * @var string 子应用ID
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SubAppId;
+
+    /**
+     * @var string 支付场景
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $PayScene;
+
+    /**
+     * @var string 支付方式
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $PaymentMethod;
+
+    /**
+     * @var integer 平台应收金额
+单位：分，需要注意的是，TotalAmt=TotalPlatformIncome+TotalMchIncome
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TotalPlatformIncome;
+
+    /**
+     * @var integer 商户应收金额
+单位：分，需要注意的是，TotalAmt=TotalPlatformIncome+TotalMchIncome
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TotalMchIncome;
+
+    /**
      * @param string $AppId 米大师分配的支付主MidasAppId
      * @param string $OutTradeNo 开发者支付订单号
      * @param array $SubOrderList 调用下单接口传进来的子单列表
@@ -279,6 +335,18 @@ wechat:微信支付
      * @param array $ExternalReturnPromptGroupList 渠道扩展促销列表
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $SceneInfo 场景扩展信息
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $SubAppId 子应用ID
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $PayScene 支付场景
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $PaymentMethod 支付方式
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $TotalPlatformIncome 平台应收金额
+单位：分，需要注意的是，TotalAmt=TotalPlatformIncome+TotalMchIncome
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $TotalMchIncome 商户应收金额
+单位：分，需要注意的是，TotalAmt=TotalPlatformIncome+TotalMchIncome
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -413,6 +481,26 @@ wechat:微信支付
 
         if (array_key_exists("SceneInfo",$param) and $param["SceneInfo"] !== null) {
             $this->SceneInfo = $param["SceneInfo"];
+        }
+
+        if (array_key_exists("SubAppId",$param) and $param["SubAppId"] !== null) {
+            $this->SubAppId = $param["SubAppId"];
+        }
+
+        if (array_key_exists("PayScene",$param) and $param["PayScene"] !== null) {
+            $this->PayScene = $param["PayScene"];
+        }
+
+        if (array_key_exists("PaymentMethod",$param) and $param["PaymentMethod"] !== null) {
+            $this->PaymentMethod = $param["PaymentMethod"];
+        }
+
+        if (array_key_exists("TotalPlatformIncome",$param) and $param["TotalPlatformIncome"] !== null) {
+            $this->TotalPlatformIncome = $param["TotalPlatformIncome"];
+        }
+
+        if (array_key_exists("TotalMchIncome",$param) and $param["TotalMchIncome"] !== null) {
+            $this->TotalMchIncome = $param["TotalMchIncome"];
         }
     }
 }

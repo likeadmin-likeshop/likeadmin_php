@@ -22,8 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method integer getAreaId() 获取片区Id，(至少大于0)
  * @method void setAreaId(integer $AreaId) 设置片区Id，(至少大于0)
- * @method integer getChargeType() 获取计费类型, (1=后付费，2=预付费)
- * @method void setChargeType(integer $ChargeType) 设置计费类型, (1=后付费，2=预付费)
+ * @method integer getChargeType() 获取计费类型, (1=后付费)
+ * @method void setChargeType(integer $ChargeType) 设置计费类型, (1=后付费)
  * @method integer getDataRetentionDays() 获取数据保存时间，(至少大于0)
  * @method void setDataRetentionDays(integer $DataRetentionDays) 设置数据保存时间，(至少大于0)
  * @method string getInstanceName() 获取实例名称，(最大长度不超过255字节)
@@ -38,6 +38,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setPeriodRetain(string $PeriodRetain) 设置数据存储时长计费
  * @method string getBuyingChannel() 获取实例购买渠道("cdn" 等)
  * @method void setBuyingChannel(string $BuyingChannel) 设置实例购买渠道("cdn" 等)
+ * @method integer getResourcePackageType() 获取预付费资源包类型(仅预付费需要)
+ * @method void setResourcePackageType(integer $ResourcePackageType) 设置预付费资源包类型(仅预付费需要)
+ * @method integer getResourcePackageNum() 获取预付费资源包数量(仅预付费需要)
+ * @method void setResourcePackageNum(integer $ResourcePackageNum) 设置预付费资源包数量(仅预付费需要)
+ * @method integer getInstanceType() 获取实例类型 1:原web相关类型 2:app端类型
+ * @method void setInstanceType(integer $InstanceType) 设置实例类型 1:原web相关类型 2:app端类型
  */
 class CreateTawInstanceRequest extends AbstractModel
 {
@@ -47,7 +53,7 @@ class CreateTawInstanceRequest extends AbstractModel
     public $AreaId;
 
     /**
-     * @var integer 计费类型, (1=后付费，2=预付费)
+     * @var integer 计费类型, (1=后付费)
      */
     public $ChargeType;
 
@@ -87,8 +93,23 @@ class CreateTawInstanceRequest extends AbstractModel
     public $BuyingChannel;
 
     /**
+     * @var integer 预付费资源包类型(仅预付费需要)
+     */
+    public $ResourcePackageType;
+
+    /**
+     * @var integer 预付费资源包数量(仅预付费需要)
+     */
+    public $ResourcePackageNum;
+
+    /**
+     * @var integer 实例类型 1:原web相关类型 2:app端类型
+     */
+    public $InstanceType;
+
+    /**
      * @param integer $AreaId 片区Id，(至少大于0)
-     * @param integer $ChargeType 计费类型, (1=后付费，2=预付费)
+     * @param integer $ChargeType 计费类型, (1=后付费)
      * @param integer $DataRetentionDays 数据保存时间，(至少大于0)
      * @param string $InstanceName 实例名称，(最大长度不超过255字节)
      * @param array $Tags 标签列表
@@ -96,6 +117,9 @@ class CreateTawInstanceRequest extends AbstractModel
      * @param string $CountNum 每天数据上报量
      * @param string $PeriodRetain 数据存储时长计费
      * @param string $BuyingChannel 实例购买渠道("cdn" 等)
+     * @param integer $ResourcePackageType 预付费资源包类型(仅预付费需要)
+     * @param integer $ResourcePackageNum 预付费资源包数量(仅预付费需要)
+     * @param integer $InstanceType 实例类型 1:原web相关类型 2:app端类型
      */
     function __construct()
     {
@@ -149,6 +173,18 @@ class CreateTawInstanceRequest extends AbstractModel
 
         if (array_key_exists("BuyingChannel",$param) and $param["BuyingChannel"] !== null) {
             $this->BuyingChannel = $param["BuyingChannel"];
+        }
+
+        if (array_key_exists("ResourcePackageType",$param) and $param["ResourcePackageType"] !== null) {
+            $this->ResourcePackageType = $param["ResourcePackageType"];
+        }
+
+        if (array_key_exists("ResourcePackageNum",$param) and $param["ResourcePackageNum"] !== null) {
+            $this->ResourcePackageNum = $param["ResourcePackageNum"];
+        }
+
+        if (array_key_exists("InstanceType",$param) and $param["InstanceType"] !== null) {
+            $this->InstanceType = $param["InstanceType"];
         }
     }
 }

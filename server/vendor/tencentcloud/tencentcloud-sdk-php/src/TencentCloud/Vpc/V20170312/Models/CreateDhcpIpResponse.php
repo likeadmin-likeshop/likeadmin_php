@@ -20,15 +20,15 @@ use TencentCloud\Common\AbstractModel;
 /**
  * CreateDhcpIp返回参数结构体
  *
- * @method array getDhcpIpSet() 获取新创建的`DhcpIp`信息
- * @method void setDhcpIpSet(array $DhcpIpSet) 设置新创建的`DhcpIp`信息
+ * @method array getDhcpIpSet() 获取新创建的`DhcpIp`信息。
+ * @method void setDhcpIpSet(array $DhcpIpSet) 设置新创建的`DhcpIp`信息。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class CreateDhcpIpResponse extends AbstractModel
 {
     /**
-     * @var array 新创建的`DhcpIp`信息
+     * @var array 新创建的`DhcpIp`信息。
      */
     public $DhcpIpSet;
 
@@ -38,7 +38,7 @@ class CreateDhcpIpResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param array $DhcpIpSet 新创建的`DhcpIp`信息
+     * @param array $DhcpIpSet 新创建的`DhcpIp`信息。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

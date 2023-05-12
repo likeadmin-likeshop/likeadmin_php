@@ -40,10 +40,22 @@ use TencentCloud\Common\AbstractModel;
  * @method void setFilterBoundStatus(string $FilterBoundStatus) 设置高防包绑定状态搜索，bounding：绑定中； failed：绑定失败
  * @method array getFilterInstanceIdList() 获取实例id数组
  * @method void setFilterInstanceIdList(array $FilterInstanceIdList) 设置实例id数组
- * @method integer getFilterEnterpriseFlag() 获取企业版搜索
- * @method void setFilterEnterpriseFlag(integer $FilterEnterpriseFlag) 设置企业版搜索
+ * @method integer getFilterEnterpriseFlag() 获取企业版搜索,  1：包含重保护航套餐下的企业版列表, 2: 不包含重保护航套餐的企业版列表
+ * @method void setFilterEnterpriseFlag(integer $FilterEnterpriseFlag) 设置企业版搜索,  1：包含重保护航套餐下的企业版列表, 2: 不包含重保护航套餐的企业版列表
+ * @method integer getFilterLightFlag() 获取轻量版搜索
+ * @method void setFilterLightFlag(integer $FilterLightFlag) 设置轻量版搜索
+ * @method integer getFilterChannelFlag() 获取定制版搜索
+ * @method void setFilterChannelFlag(integer $FilterChannelFlag) 设置定制版搜索
  * @method TagFilter getFilterTag() 获取标签搜索
  * @method void setFilterTag(TagFilter $FilterTag) 设置标签搜索
+ * @method integer getFilterTrialFlag() 获取试用资源搜索，1: 应急防护资源；2：PLG试用资源
+ * @method void setFilterTrialFlag(integer $FilterTrialFlag) 设置试用资源搜索，1: 应急防护资源；2：PLG试用资源
+ * @method integer getFilterConvoy() 获取重保护航搜索
+ * @method void setFilterConvoy(integer $FilterConvoy) 设置重保护航搜索
+ * @method boolean getExcludeAdvancedInfo() 获取默认false；接口传true，返回数据中不包含高级信息，高级信息包含：InstanceList[0].Usage。
+ * @method void setExcludeAdvancedInfo(boolean $ExcludeAdvancedInfo) 设置默认false；接口传true，返回数据中不包含高级信息，高级信息包含：InstanceList[0].Usage。
+ * @method array getFilterAssetIpList() 获取资产IP数组
+ * @method void setFilterAssetIpList(array $FilterAssetIpList) 设置资产IP数组
  */
 class DescribeListBGPInstancesRequest extends AbstractModel
 {
@@ -98,14 +110,44 @@ class DescribeListBGPInstancesRequest extends AbstractModel
     public $FilterInstanceIdList;
 
     /**
-     * @var integer 企业版搜索
+     * @var integer 企业版搜索,  1：包含重保护航套餐下的企业版列表, 2: 不包含重保护航套餐的企业版列表
      */
     public $FilterEnterpriseFlag;
+
+    /**
+     * @var integer 轻量版搜索
+     */
+    public $FilterLightFlag;
+
+    /**
+     * @var integer 定制版搜索
+     */
+    public $FilterChannelFlag;
 
     /**
      * @var TagFilter 标签搜索
      */
     public $FilterTag;
+
+    /**
+     * @var integer 试用资源搜索，1: 应急防护资源；2：PLG试用资源
+     */
+    public $FilterTrialFlag;
+
+    /**
+     * @var integer 重保护航搜索
+     */
+    public $FilterConvoy;
+
+    /**
+     * @var boolean 默认false；接口传true，返回数据中不包含高级信息，高级信息包含：InstanceList[0].Usage。
+     */
+    public $ExcludeAdvancedInfo;
+
+    /**
+     * @var array 资产IP数组
+     */
+    public $FilterAssetIpList;
 
     /**
      * @param integer $Offset 页起始偏移，取值为(页码-1)*一页条数
@@ -118,8 +160,14 @@ class DescribeListBGPInstancesRequest extends AbstractModel
      * @param string $FilterStatus 状态搜索，idle：运行中；attacking：攻击中；blocking：封堵中
      * @param string $FilterBoundStatus 高防包绑定状态搜索，bounding：绑定中； failed：绑定失败
      * @param array $FilterInstanceIdList 实例id数组
-     * @param integer $FilterEnterpriseFlag 企业版搜索
+     * @param integer $FilterEnterpriseFlag 企业版搜索,  1：包含重保护航套餐下的企业版列表, 2: 不包含重保护航套餐的企业版列表
+     * @param integer $FilterLightFlag 轻量版搜索
+     * @param integer $FilterChannelFlag 定制版搜索
      * @param TagFilter $FilterTag 标签搜索
+     * @param integer $FilterTrialFlag 试用资源搜索，1: 应急防护资源；2：PLG试用资源
+     * @param integer $FilterConvoy 重保护航搜索
+     * @param boolean $ExcludeAdvancedInfo 默认false；接口传true，返回数据中不包含高级信息，高级信息包含：InstanceList[0].Usage。
+     * @param array $FilterAssetIpList 资产IP数组
      */
     function __construct()
     {
@@ -178,9 +226,33 @@ class DescribeListBGPInstancesRequest extends AbstractModel
             $this->FilterEnterpriseFlag = $param["FilterEnterpriseFlag"];
         }
 
+        if (array_key_exists("FilterLightFlag",$param) and $param["FilterLightFlag"] !== null) {
+            $this->FilterLightFlag = $param["FilterLightFlag"];
+        }
+
+        if (array_key_exists("FilterChannelFlag",$param) and $param["FilterChannelFlag"] !== null) {
+            $this->FilterChannelFlag = $param["FilterChannelFlag"];
+        }
+
         if (array_key_exists("FilterTag",$param) and $param["FilterTag"] !== null) {
             $this->FilterTag = new TagFilter();
             $this->FilterTag->deserialize($param["FilterTag"]);
+        }
+
+        if (array_key_exists("FilterTrialFlag",$param) and $param["FilterTrialFlag"] !== null) {
+            $this->FilterTrialFlag = $param["FilterTrialFlag"];
+        }
+
+        if (array_key_exists("FilterConvoy",$param) and $param["FilterConvoy"] !== null) {
+            $this->FilterConvoy = $param["FilterConvoy"];
+        }
+
+        if (array_key_exists("ExcludeAdvancedInfo",$param) and $param["ExcludeAdvancedInfo"] !== null) {
+            $this->ExcludeAdvancedInfo = $param["ExcludeAdvancedInfo"];
+        }
+
+        if (array_key_exists("FilterAssetIpList",$param) and $param["FilterAssetIpList"] !== null) {
+            $this->FilterAssetIpList = $param["FilterAssetIpList"];
         }
     }
 }

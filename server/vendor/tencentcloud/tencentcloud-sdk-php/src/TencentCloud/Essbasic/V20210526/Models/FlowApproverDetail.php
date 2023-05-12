@@ -22,14 +22,14 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getReceiptId() 获取模板配置时候的签署人id,与控件绑定
  * @method void setReceiptId(string $ReceiptId) 设置模板配置时候的签署人id,与控件绑定
- * @method string getProxyOrganizationOpenId() 获取渠道侧企业的第三方id
+ * @method string getProxyOrganizationOpenId() 获取平台企业的第三方id
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setProxyOrganizationOpenId(string $ProxyOrganizationOpenId) 设置渠道侧企业的第三方id
+ * @method void setProxyOrganizationOpenId(string $ProxyOrganizationOpenId) 设置平台企业的第三方id
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getProxyOperatorOpenId() 获取渠道侧企业操作人的第三方id
- * @method void setProxyOperatorOpenId(string $ProxyOperatorOpenId) 设置渠道侧企业操作人的第三方id
- * @method string getProxyOrganizationName() 获取渠道侧企业名称
- * @method void setProxyOrganizationName(string $ProxyOrganizationName) 设置渠道侧企业名称
+ * @method string getProxyOperatorOpenId() 获取平台企业操作人的第三方id
+ * @method void setProxyOperatorOpenId(string $ProxyOperatorOpenId) 设置平台企业操作人的第三方id
+ * @method string getProxyOrganizationName() 获取平台企业名称
+ * @method void setProxyOrganizationName(string $ProxyOrganizationName) 设置平台企业名称
  * @method string getMobile() 获取签署人手机号
  * @method void setMobile(string $Mobile) 设置签署人手机号
  * @method integer getSignOrder() 获取签署人签署顺序
@@ -38,9 +38,37 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setApproveName(string $ApproveName) 设置签署人姓名
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getApproveStatus() 获取当前签署人的状态
+ * @method string getApproveStatus() 获取当前签署人的状态, 状态如下
+
+PENDING 流程等待中 
+FILLPENDING 待填写状态
+FILLACCEPT 参与人已经填写
+FILLREJECT 参与人解决填写
+WAITPICKUP 待签收
+ACCEPT 签收 
+REJECT 拒签 
+DEADLINE 过期没有处理 
+CANCEL 取消
+FORWARD 已经转他人处理
+STOP 流程因为其他原因终止
+RELIEVED 已经解除
+
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setApproveStatus(string $ApproveStatus) 设置当前签署人的状态
+ * @method void setApproveStatus(string $ApproveStatus) 设置当前签署人的状态, 状态如下
+
+PENDING 流程等待中 
+FILLPENDING 待填写状态
+FILLACCEPT 参与人已经填写
+FILLREJECT 参与人解决填写
+WAITPICKUP 待签收
+ACCEPT 签收 
+REJECT 拒签 
+DEADLINE 过期没有处理 
+CANCEL 取消
+FORWARD 已经转他人处理
+STOP 流程因为其他原因终止
+RELIEVED 已经解除
+
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getApproveMessage() 获取签署人信息
 注意：此字段可能返回 null，表示取不到有效值。
@@ -61,18 +89,18 @@ class FlowApproverDetail extends AbstractModel
     public $ReceiptId;
 
     /**
-     * @var string 渠道侧企业的第三方id
+     * @var string 平台企业的第三方id
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ProxyOrganizationOpenId;
 
     /**
-     * @var string 渠道侧企业操作人的第三方id
+     * @var string 平台企业操作人的第三方id
      */
     public $ProxyOperatorOpenId;
 
     /**
-     * @var string 渠道侧企业名称
+     * @var string 平台企业名称
      */
     public $ProxyOrganizationName;
 
@@ -93,7 +121,21 @@ class FlowApproverDetail extends AbstractModel
     public $ApproveName;
 
     /**
-     * @var string 当前签署人的状态
+     * @var string 当前签署人的状态, 状态如下
+
+PENDING 流程等待中 
+FILLPENDING 待填写状态
+FILLACCEPT 参与人已经填写
+FILLREJECT 参与人解决填写
+WAITPICKUP 待签收
+ACCEPT 签收 
+REJECT 拒签 
+DEADLINE 过期没有处理 
+CANCEL 取消
+FORWARD 已经转他人处理
+STOP 流程因为其他原因终止
+RELIEVED 已经解除
+
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ApproveStatus;
@@ -117,15 +159,29 @@ class FlowApproverDetail extends AbstractModel
 
     /**
      * @param string $ReceiptId 模板配置时候的签署人id,与控件绑定
-     * @param string $ProxyOrganizationOpenId 渠道侧企业的第三方id
+     * @param string $ProxyOrganizationOpenId 平台企业的第三方id
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $ProxyOperatorOpenId 渠道侧企业操作人的第三方id
-     * @param string $ProxyOrganizationName 渠道侧企业名称
+     * @param string $ProxyOperatorOpenId 平台企业操作人的第三方id
+     * @param string $ProxyOrganizationName 平台企业名称
      * @param string $Mobile 签署人手机号
      * @param integer $SignOrder 签署人签署顺序
      * @param string $ApproveName 签署人姓名
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $ApproveStatus 当前签署人的状态
+     * @param string $ApproveStatus 当前签署人的状态, 状态如下
+
+PENDING 流程等待中 
+FILLPENDING 待填写状态
+FILLACCEPT 参与人已经填写
+FILLREJECT 参与人解决填写
+WAITPICKUP 待签收
+ACCEPT 签收 
+REJECT 拒签 
+DEADLINE 过期没有处理 
+CANCEL 取消
+FORWARD 已经转他人处理
+STOP 流程因为其他原因终止
+RELIEVED 已经解除
+
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $ApproveMessage 签署人信息
 注意：此字段可能返回 null，表示取不到有效值。

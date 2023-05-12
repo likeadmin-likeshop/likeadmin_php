@@ -40,6 +40,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setAudioTemplate(AudioTemplateInfoForUpdate $AudioTemplate) 设置音频流配置参数。
  * @method TEHDConfigForUpdate getTEHDConfig() 获取极速高清转码参数。
  * @method void setTEHDConfig(TEHDConfigForUpdate $TEHDConfig) 设置极速高清转码参数。
+ * @method SubtitleTemplate getSubtitleTemplate() 获取字幕流配置参数。
+ * @method void setSubtitleTemplate(SubtitleTemplate $SubtitleTemplate) 设置字幕流配置参数。
+ * @method array getAddonAudioStream() 获取外挂音轨参数。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAddonAudioStream(array $AddonAudioStream) 设置外挂音轨参数。
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class OverrideTranscodeParameter extends AbstractModel
 {
@@ -78,6 +84,17 @@ class OverrideTranscodeParameter extends AbstractModel
     public $TEHDConfig;
 
     /**
+     * @var SubtitleTemplate 字幕流配置参数。
+     */
+    public $SubtitleTemplate;
+
+    /**
+     * @var array 外挂音轨参数。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AddonAudioStream;
+
+    /**
      * @param string $Container 封装格式，可选值：mp4、flv、hls、mp3、flac、ogg、m4a。其中，mp3、flac、ogg、m4a 为纯音频文件。
      * @param integer $RemoveVideo 是否去除视频数据，取值：
 <li>0：保留；</li>
@@ -88,6 +105,9 @@ class OverrideTranscodeParameter extends AbstractModel
      * @param VideoTemplateInfoForUpdate $VideoTemplate 视频流配置参数。
      * @param AudioTemplateInfoForUpdate $AudioTemplate 音频流配置参数。
      * @param TEHDConfigForUpdate $TEHDConfig 极速高清转码参数。
+     * @param SubtitleTemplate $SubtitleTemplate 字幕流配置参数。
+     * @param array $AddonAudioStream 外挂音轨参数。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
     {
@@ -127,6 +147,20 @@ class OverrideTranscodeParameter extends AbstractModel
         if (array_key_exists("TEHDConfig",$param) and $param["TEHDConfig"] !== null) {
             $this->TEHDConfig = new TEHDConfigForUpdate();
             $this->TEHDConfig->deserialize($param["TEHDConfig"]);
+        }
+
+        if (array_key_exists("SubtitleTemplate",$param) and $param["SubtitleTemplate"] !== null) {
+            $this->SubtitleTemplate = new SubtitleTemplate();
+            $this->SubtitleTemplate->deserialize($param["SubtitleTemplate"]);
+        }
+
+        if (array_key_exists("AddonAudioStream",$param) and $param["AddonAudioStream"] !== null) {
+            $this->AddonAudioStream = [];
+            foreach ($param["AddonAudioStream"] as $key => $value){
+                $obj = new MediaInputInfo();
+                $obj->deserialize($value);
+                array_push($this->AddonAudioStream, $obj);
+            }
         }
     }
 }

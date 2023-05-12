@@ -4,7 +4,7 @@ namespace Overtrue\Socialite\Providers;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
-use Overtrue\Socialite\Contracts\UserInterface;
+use Overtrue\Socialite\Contracts;
 use Overtrue\Socialite\User;
 
 /**
@@ -13,13 +13,17 @@ use Overtrue\Socialite\User;
 class Line extends Base
 {
     public const NAME = 'line';
+
     protected string $baseUrl = 'https://api.line.me/oauth2/';
+
     protected string $version = 'v2.1';
+
     protected array $scopes = ['profile'];
 
     protected function getAuthUrl(): string
     {
-        $this->state = $this->state ?: \md5(\uniqid('state', true));
+        $this->state = $this->state ?: \md5(\uniqid(Contracts\RFC6749_ABNF_STATE, true));
+
         return $this->buildAuthUrlFromBase('https://access.line.me/oauth2/'.$this->version.'/authorize');
     }
 
@@ -29,26 +33,17 @@ class Line extends Base
     }
 
     #[ArrayShape([
-        'client_id' => "null|string",
-        'client_secret' => "null|string",
-        'code' => "string",
-        'grant_type' => "string",
-        'redirect_uri' => "mixed"
+        Contracts\RFC6749_ABNF_CLIENT_ID => 'null|string',
+        Contracts\RFC6749_ABNF_CLIENT_SECRET => 'null|string',
+        Contracts\RFC6749_ABNF_CODE => 'string',
+        Contracts\RFC6749_ABNF_REDIRECT_URI => 'null|string',
+        Contracts\RFC6749_ABNF_GRANT_TYPE => 'string',
     ])]
     protected function getTokenFields(string $code): array
     {
-        return [
-            'client_id' => $this->getClientId(),
-            'client_secret' => $this->getClientSecret(),
-            'code' => $code,
-            'grant_type' => 'authorization_code',
-            'redirect_uri' => $this->redirectUrl,
-        ];
+        return parent::getTokenFields($code) + [Contracts\RFC6749_ABNF_GRANT_TYPE => Contracts\RFC6749_ABNF_AUTHORATION_CODE];
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     protected function getUserByToken(string $token): array
     {
         $response = $this->getHttpClient()->get(
@@ -61,20 +56,18 @@ class Line extends Base
             ]
         );
 
-        return \json_decode($response->getBody(), true) ?? [];
+        return $this->fromJsonBody($response);
     }
 
     #[Pure]
-    protected function mapUserToObject(array $user): UserInterface
+    protected function mapUserToObject(array $user): Contracts\UserInterface
     {
-        return new User(
-            [
-                'id' => $user['userId'] ?? null,
-                'name' => $user['displayName'] ?? null,
-                'nickname' => $user['displayName'] ?? null,
-                'avatar' => $user['pictureUrl'] ?? null,
-                'email' => null,
-            ]
-        );
+        return new User([
+            Contracts\ABNF_ID => $user['userId'] ?? null,
+            Contracts\ABNF_NAME => $user['displayName'] ?? null,
+            Contracts\ABNF_NICKNAME => $user['displayName'] ?? null,
+            Contracts\ABNF_AVATAR => $user['pictureUrl'] ?? null,
+            Contracts\ABNF_EMAIL => null,
+        ]);
     }
 }

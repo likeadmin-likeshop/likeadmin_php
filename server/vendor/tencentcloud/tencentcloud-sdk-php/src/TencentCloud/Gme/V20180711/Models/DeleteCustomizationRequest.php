@@ -20,15 +20,15 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DeleteCustomization请求参数结构体
  *
- * @method string getModelId() 获取要删除的模型ID
- * @method void setModelId(string $ModelId) 设置要删除的模型ID
+ * @method string getModelId() 获取删除的模型ID
+ * @method void setModelId(string $ModelId) 设置删除的模型ID
  * @method integer getBizId() 获取应用 ID，登录控制台创建应用得到的AppID
  * @method void setBizId(integer $BizId) 设置应用 ID，登录控制台创建应用得到的AppID
  */
 class DeleteCustomizationRequest extends AbstractModel
 {
     /**
-     * @var string 要删除的模型ID
+     * @var string 删除的模型ID
      */
     public $ModelId;
 
@@ -38,7 +38,7 @@ class DeleteCustomizationRequest extends AbstractModel
     public $BizId;
 
     /**
-     * @param string $ModelId 要删除的模型ID
+     * @param string $ModelId 删除的模型ID
      * @param integer $BizId 应用 ID，登录控制台创建应用得到的AppID
      */
     function __construct()

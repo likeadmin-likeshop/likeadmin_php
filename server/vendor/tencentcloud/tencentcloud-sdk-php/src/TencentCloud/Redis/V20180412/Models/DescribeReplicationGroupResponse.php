@@ -20,22 +20,22 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeReplicationGroup返回参数结构体
  *
- * @method integer getTotalCount() 获取复制组数
- * @method void setTotalCount(integer $TotalCount) 设置复制组数
- * @method array getGroups() 获取复制组信息
- * @method void setGroups(array $Groups) 设置复制组信息
+ * @method integer getTotalCount() 获取复制组数量。
+ * @method void setTotalCount(integer $TotalCount) 设置复制组数量。
+ * @method array getGroups() 获取复制组信息。
+ * @method void setGroups(array $Groups) 设置复制组信息。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class DescribeReplicationGroupResponse extends AbstractModel
 {
     /**
-     * @var integer 复制组数
+     * @var integer 复制组数量。
      */
     public $TotalCount;
 
     /**
-     * @var array 复制组信息
+     * @var array 复制组信息。
      */
     public $Groups;
 
@@ -45,8 +45,8 @@ class DescribeReplicationGroupResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param integer $TotalCount 复制组数
-     * @param array $Groups 复制组信息
+     * @param integer $TotalCount 复制组数量。
+     * @param array $Groups 复制组信息。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

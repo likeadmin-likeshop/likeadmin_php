@@ -20,26 +20,26 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 时间范围
  *
- * @method string getStartTime() 获取开始时间，使用 ISO 日期格式。
- * @method void setStartTime(string $StartTime) 设置开始时间，使用 ISO 日期格式。
- * @method string getEndTime() 获取结束时间，使用 ISO 日期格式。
- * @method void setEndTime(string $EndTime) 设置结束时间，使用 ISO 日期格式。
+ * @method string getStartTime() 获取开始时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+ * @method void setStartTime(string $StartTime) 设置开始时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+ * @method string getEndTime() 获取结束时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+ * @method void setEndTime(string $EndTime) 设置结束时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
  */
 class TimeRange extends AbstractModel
 {
     /**
-     * @var string 开始时间，使用 ISO 日期格式。
+     * @var string 开始时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
      */
     public $StartTime;
 
     /**
-     * @var string 结束时间，使用 ISO 日期格式。
+     * @var string 结束时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
      */
     public $EndTime;
 
     /**
-     * @param string $StartTime 开始时间，使用 ISO 日期格式。
-     * @param string $EndTime 结束时间，使用 ISO 日期格式。
+     * @param string $StartTime 开始时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+     * @param string $EndTime 结束时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
      */
     function __construct()
     {

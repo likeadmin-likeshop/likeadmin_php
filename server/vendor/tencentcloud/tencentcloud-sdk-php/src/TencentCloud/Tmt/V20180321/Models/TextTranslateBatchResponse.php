@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * TextTranslateBatch返回参数结构体
  *
- * @method string getSource() 获取源语言，详见入参Target
- * @method void setSource(string $Source) 设置源语言，详见入参Target
+ * @method string getSource() 获取源语言，详见入参Source
+ * @method void setSource(string $Source) 设置源语言，详见入参Source
  * @method string getTarget() 获取目标语言，详见入参Target
  * @method void setTarget(string $Target) 设置目标语言，详见入参Target
  * @method array getTargetTextList() 获取翻译后的文本列表
@@ -32,7 +32,7 @@ use TencentCloud\Common\AbstractModel;
 class TextTranslateBatchResponse extends AbstractModel
 {
     /**
-     * @var string 源语言，详见入参Target
+     * @var string 源语言，详见入参Source
      */
     public $Source;
 
@@ -52,7 +52,7 @@ class TextTranslateBatchResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param string $Source 源语言，详见入参Target
+     * @param string $Source 源语言，详见入参Source
      * @param string $Target 目标语言，详见入参Target
      * @param array $TargetTextList 翻译后的文本列表
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。

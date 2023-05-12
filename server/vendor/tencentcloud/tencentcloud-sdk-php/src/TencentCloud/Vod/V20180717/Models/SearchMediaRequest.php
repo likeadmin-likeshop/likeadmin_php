@@ -29,16 +29,16 @@ use TencentCloud\Common\AbstractModel;
 <li>数组长度限制：10。</li>
 <li>单个 ID 长度限制：40个字符。</li>
  * @method array getNames() 获取文件名集合，模糊匹配媒体文件的文件名，匹配度越高，排序越优先。
-<li>单个文件名长度限制：40个字符。</li>
+<li>单个文件名长度限制：100个字符。</li>
 <li>数组长度限制：10。</li>
  * @method void setNames(array $Names) 设置文件名集合，模糊匹配媒体文件的文件名，匹配度越高，排序越优先。
-<li>单个文件名长度限制：40个字符。</li>
+<li>单个文件名长度限制：100个字符。</li>
 <li>数组长度限制：10。</li>
  * @method array getNamePrefixes() 获取文件名前缀，前缀匹配媒体文件的文件名。
-<li>单个文件名前缀长度限制：20个字符。</li>
+<li>单个文件名前缀长度限制：100个字符。</li>
 <li>数组长度限制：10。</li>
  * @method void setNamePrefixes(array $NamePrefixes) 设置文件名前缀，前缀匹配媒体文件的文件名。
-<li>单个文件名前缀长度限制：20个字符。</li>
+<li>单个文件名前缀长度限制：100个字符。</li>
 <li>数组长度限制：10。</li>
  * @method array getDescriptions() 获取文件描述集合，模糊匹配媒体文件的描述，匹配度越高，排序越优先。
 <li>单个描述长度限制：100个字符。</li>
@@ -51,11 +51,11 @@ use TencentCloud\Common\AbstractModel;
  * @method void setClassIds(array $ClassIds) 设置分类 ID 集合，匹配集合指定 ID 的分类及其所有子类。
 <li>数组长度限制：10。</li>
  * @method array getTags() 获取标签集合，匹配集合中任意元素。
-<li>单个标签长度限制：16个字符。</li>
-<li>数组长度限制：10。</li>
+<li>单个标签长度限制：32个字符。</li>
+<li>数组长度限制：16。</li>
  * @method void setTags(array $Tags) 设置标签集合，匹配集合中任意元素。
-<li>单个标签长度限制：16个字符。</li>
-<li>数组长度限制：10。</li>
+<li>单个标签长度限制：32个字符。</li>
+<li>数组长度限制：16。</li>
  * @method array getCategories() 获取文件类型。匹配集合中的任意元素：
 <li>Video: 视频文件</li>
 <li>Audio: 音频文件</li>
@@ -71,10 +71,6 @@ use TencentCloud\Common\AbstractModel;
  * @method array getStreamIds() 获取推流直播码集合。匹配集合中的任意元素。
 <li>数组长度限制：10。</li>
  * @method void setStreamIds(array $StreamIds) 设置推流直播码集合。匹配集合中的任意元素。
-<li>数组长度限制：10。</li>
- * @method array getVids() 获取直播录制文件的唯一标识。匹配集合中的任意元素。
-<li>数组长度限制：10。</li>
- * @method void setVids(array $Vids) 设置直播录制文件的唯一标识。匹配集合中的任意元素。
 <li>数组长度限制：10。</li>
  * @method TimeRange getCreateTime() 获取匹配创建时间在此时间段内的文件。
 <li>包含所指定的头尾时间点。</li>
@@ -136,6 +132,28 @@ use TencentCloud\Common\AbstractModel;
 <li> STANDARD_IA：低频存储。</li>
 <li> ARCHIVE：归档存储。</li>
 <li> DEEP_ARCHIVE：深度归档存储。</li>
+ * @method array getMediaTypes() 获取媒体文件封装格式集合，匹配集合中任意元素。
+<li>数组长度限制：10。</li>
+ * @method void setMediaTypes(array $MediaTypes) 设置媒体文件封装格式集合，匹配集合中任意元素。
+<li>数组长度限制：10。</li>
+ * @method array getStatus() 获取媒体文件状态，匹配集合中任意元素。
+<li> Normal：正常；</li>
+<li> SystemForbidden：平台封禁；</li>
+<li> Forbidden：主动封禁。</li>
+ * @method void setStatus(array $Status) 设置媒体文件状态，匹配集合中任意元素。
+<li> Normal：正常；</li>
+<li> SystemForbidden：平台封禁；</li>
+<li> Forbidden：主动封禁。</li>
+ * @method array getReviewResults() 获取媒体文件审核结果，匹配集合中任意元素。
+<li> pass：审核通过；</li>
+<li> review：疑似违规，建议复审；</li>
+<li> block：确认违规，建议封禁；</li>
+<li> notModerated：未审核。</li>
+ * @method void setReviewResults(array $ReviewResults) 设置媒体文件审核结果，匹配集合中任意元素。
+<li> pass：审核通过；</li>
+<li> review：疑似违规，建议复审；</li>
+<li> block：确认违规，建议封禁；</li>
+<li> notModerated：未审核。</li>
  * @method array getTrtcSdkAppIds() 获取TRTC 应用 ID 集合。匹配集合中的任意元素。
 <li>数组长度限制：10。</li>
  * @method void setTrtcSdkAppIds(array $TrtcSdkAppIds) 设置TRTC 应用 ID 集合。匹配集合中的任意元素。
@@ -158,10 +176,6 @@ use TencentCloud\Common\AbstractModel;
 推流直播码。
  * @method void setStreamId(string $StreamId) 设置（不推荐：应使用 StreamIds 替代）
 推流直播码。
- * @method string getVid() 获取（不推荐：应使用 Vids 替代）
-直播录制文件的唯一标识。
- * @method void setVid(string $Vid) 设置（不推荐：应使用 Vids 替代）
-直播录制文件的唯一标识。
  * @method string getStartTime() 获取（不推荐：应使用 CreateTime 替代）
 创建时间的开始时间。
 <li>大于等于开始时间。</li>
@@ -182,6 +196,10 @@ use TencentCloud\Common\AbstractModel;
 <li>小于结束时间。</li>
 <li>当 CreateTime.Before 也存在时，将优先使用 CreateTime.Before。</li>
 <li>格式按照 ISO 8601标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。</li>
+ * @method array getVids() 获取该字段已无效。
+ * @method void setVids(array $Vids) 设置该字段已无效。
+ * @method string getVid() 获取该字段已无效。
+ * @method void setVid(string $Vid) 设置该字段已无效。
  */
 class SearchMediaRequest extends AbstractModel
 {
@@ -199,14 +217,14 @@ class SearchMediaRequest extends AbstractModel
 
     /**
      * @var array 文件名集合，模糊匹配媒体文件的文件名，匹配度越高，排序越优先。
-<li>单个文件名长度限制：40个字符。</li>
+<li>单个文件名长度限制：100个字符。</li>
 <li>数组长度限制：10。</li>
      */
     public $Names;
 
     /**
      * @var array 文件名前缀，前缀匹配媒体文件的文件名。
-<li>单个文件名前缀长度限制：20个字符。</li>
+<li>单个文件名前缀长度限制：100个字符。</li>
 <li>数组长度限制：10。</li>
      */
     public $NamePrefixes;
@@ -226,8 +244,8 @@ class SearchMediaRequest extends AbstractModel
 
     /**
      * @var array 标签集合，匹配集合中任意元素。
-<li>单个标签长度限制：16个字符。</li>
-<li>数组长度限制：10。</li>
+<li>单个标签长度限制：32个字符。</li>
+<li>数组长度限制：16。</li>
      */
     public $Tags;
 
@@ -250,12 +268,6 @@ class SearchMediaRequest extends AbstractModel
 <li>数组长度限制：10。</li>
      */
     public $StreamIds;
-
-    /**
-     * @var array 直播录制文件的唯一标识。匹配集合中的任意元素。
-<li>数组长度限制：10。</li>
-     */
-    public $Vids;
 
     /**
      * @var TimeRange 匹配创建时间在此时间段内的文件。
@@ -320,6 +332,29 @@ class SearchMediaRequest extends AbstractModel
     public $StorageClasses;
 
     /**
+     * @var array 媒体文件封装格式集合，匹配集合中任意元素。
+<li>数组长度限制：10。</li>
+     */
+    public $MediaTypes;
+
+    /**
+     * @var array 媒体文件状态，匹配集合中任意元素。
+<li> Normal：正常；</li>
+<li> SystemForbidden：平台封禁；</li>
+<li> Forbidden：主动封禁。</li>
+     */
+    public $Status;
+
+    /**
+     * @var array 媒体文件审核结果，匹配集合中任意元素。
+<li> pass：审核通过；</li>
+<li> review：疑似违规，建议复审；</li>
+<li> block：确认违规，建议封禁；</li>
+<li> notModerated：未审核。</li>
+     */
+    public $ReviewResults;
+
+    /**
      * @var array TRTC 应用 ID 集合。匹配集合中的任意元素。
 <li>数组长度限制：10。</li>
      */
@@ -351,12 +386,6 @@ class SearchMediaRequest extends AbstractModel
     public $StreamId;
 
     /**
-     * @var string （不推荐：应使用 Vids 替代）
-直播录制文件的唯一标识。
-     */
-    public $Vid;
-
-    /**
      * @var string （不推荐：应使用 CreateTime 替代）
 创建时间的开始时间。
 <li>大于等于开始时间。</li>
@@ -375,15 +404,25 @@ class SearchMediaRequest extends AbstractModel
     public $EndTime;
 
     /**
+     * @var array 该字段已无效。
+     */
+    public $Vids;
+
+    /**
+     * @var string 该字段已无效。
+     */
+    public $Vid;
+
+    /**
      * @param integer $SubAppId <b>点播[子应用](/document/product/266/14574) ID。如果要访问子应用中的资源，则将该字段填写为子应用 ID；否则无需填写该字段。</b>
      * @param array $FileIds 文件 ID 集合，匹配集合中的任意元素。
 <li>数组长度限制：10。</li>
 <li>单个 ID 长度限制：40个字符。</li>
      * @param array $Names 文件名集合，模糊匹配媒体文件的文件名，匹配度越高，排序越优先。
-<li>单个文件名长度限制：40个字符。</li>
+<li>单个文件名长度限制：100个字符。</li>
 <li>数组长度限制：10。</li>
      * @param array $NamePrefixes 文件名前缀，前缀匹配媒体文件的文件名。
-<li>单个文件名前缀长度限制：20个字符。</li>
+<li>单个文件名前缀长度限制：100个字符。</li>
 <li>数组长度限制：10。</li>
      * @param array $Descriptions 文件描述集合，模糊匹配媒体文件的描述，匹配度越高，排序越优先。
 <li>单个描述长度限制：100个字符。</li>
@@ -391,8 +430,8 @@ class SearchMediaRequest extends AbstractModel
      * @param array $ClassIds 分类 ID 集合，匹配集合指定 ID 的分类及其所有子类。
 <li>数组长度限制：10。</li>
      * @param array $Tags 标签集合，匹配集合中任意元素。
-<li>单个标签长度限制：16个字符。</li>
-<li>数组长度限制：10。</li>
+<li>单个标签长度限制：32个字符。</li>
+<li>数组长度限制：16。</li>
      * @param array $Categories 文件类型。匹配集合中的任意元素：
 <li>Video: 视频文件</li>
 <li>Audio: 音频文件</li>
@@ -400,8 +439,6 @@ class SearchMediaRequest extends AbstractModel
      * @param array $SourceTypes 媒体文件来源集合，来源取值参见 [SourceType](https://cloud.tencent.com/document/product/266/31773#MediaSourceData)。
 <li>数组长度限制：10。</li>
      * @param array $StreamIds 推流直播码集合。匹配集合中的任意元素。
-<li>数组长度限制：10。</li>
-     * @param array $Vids 直播录制文件的唯一标识。匹配集合中的任意元素。
 <li>数组长度限制：10。</li>
      * @param TimeRange $CreateTime 匹配创建时间在此时间段内的文件。
 <li>包含所指定的头尾时间点。</li>
@@ -433,6 +470,17 @@ class SearchMediaRequest extends AbstractModel
 <li> STANDARD_IA：低频存储。</li>
 <li> ARCHIVE：归档存储。</li>
 <li> DEEP_ARCHIVE：深度归档存储。</li>
+     * @param array $MediaTypes 媒体文件封装格式集合，匹配集合中任意元素。
+<li>数组长度限制：10。</li>
+     * @param array $Status 媒体文件状态，匹配集合中任意元素。
+<li> Normal：正常；</li>
+<li> SystemForbidden：平台封禁；</li>
+<li> Forbidden：主动封禁。</li>
+     * @param array $ReviewResults 媒体文件审核结果，匹配集合中任意元素。
+<li> pass：审核通过；</li>
+<li> review：疑似违规，建议复审；</li>
+<li> block：确认违规，建议封禁；</li>
+<li> notModerated：未审核。</li>
      * @param array $TrtcSdkAppIds TRTC 应用 ID 集合。匹配集合中的任意元素。
 <li>数组长度限制：10。</li>
      * @param array $TrtcRoomIds TRTC 房间 ID 集合。匹配集合中的任意元素。
@@ -444,8 +492,6 @@ class SearchMediaRequest extends AbstractModel
 媒体文件来源，来源取值参见 [SourceType](https://cloud.tencent.com/document/product/266/31773#MediaSourceData)。
      * @param string $StreamId （不推荐：应使用 StreamIds 替代）
 推流直播码。
-     * @param string $Vid （不推荐：应使用 Vids 替代）
-直播录制文件的唯一标识。
      * @param string $StartTime （不推荐：应使用 CreateTime 替代）
 创建时间的开始时间。
 <li>大于等于开始时间。</li>
@@ -456,6 +502,8 @@ class SearchMediaRequest extends AbstractModel
 <li>小于结束时间。</li>
 <li>当 CreateTime.Before 也存在时，将优先使用 CreateTime.Before。</li>
 <li>格式按照 ISO 8601标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。</li>
+     * @param array $Vids 该字段已无效。
+     * @param string $Vid 该字段已无效。
      */
     function __construct()
     {
@@ -510,10 +558,6 @@ class SearchMediaRequest extends AbstractModel
             $this->StreamIds = $param["StreamIds"];
         }
 
-        if (array_key_exists("Vids",$param) and $param["Vids"] !== null) {
-            $this->Vids = $param["Vids"];
-        }
-
         if (array_key_exists("CreateTime",$param) and $param["CreateTime"] !== null) {
             $this->CreateTime = new TimeRange();
             $this->CreateTime->deserialize($param["CreateTime"]);
@@ -549,6 +593,18 @@ class SearchMediaRequest extends AbstractModel
             $this->StorageClasses = $param["StorageClasses"];
         }
 
+        if (array_key_exists("MediaTypes",$param) and $param["MediaTypes"] !== null) {
+            $this->MediaTypes = $param["MediaTypes"];
+        }
+
+        if (array_key_exists("Status",$param) and $param["Status"] !== null) {
+            $this->Status = $param["Status"];
+        }
+
+        if (array_key_exists("ReviewResults",$param) and $param["ReviewResults"] !== null) {
+            $this->ReviewResults = $param["ReviewResults"];
+        }
+
         if (array_key_exists("TrtcSdkAppIds",$param) and $param["TrtcSdkAppIds"] !== null) {
             $this->TrtcSdkAppIds = $param["TrtcSdkAppIds"];
         }
@@ -569,16 +625,20 @@ class SearchMediaRequest extends AbstractModel
             $this->StreamId = $param["StreamId"];
         }
 
-        if (array_key_exists("Vid",$param) and $param["Vid"] !== null) {
-            $this->Vid = $param["Vid"];
-        }
-
         if (array_key_exists("StartTime",$param) and $param["StartTime"] !== null) {
             $this->StartTime = $param["StartTime"];
         }
 
         if (array_key_exists("EndTime",$param) and $param["EndTime"] !== null) {
             $this->EndTime = $param["EndTime"];
+        }
+
+        if (array_key_exists("Vids",$param) and $param["Vids"] !== null) {
+            $this->Vids = $param["Vids"];
+        }
+
+        if (array_key_exists("Vid",$param) and $param["Vid"] !== null) {
+            $this->Vid = $param["Vid"];
         }
     }
 }

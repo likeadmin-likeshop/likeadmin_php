@@ -28,8 +28,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setTagSpecification(TagSpecification $TagSpecification) 设置云标签描述
  * @method integer getRegistryChargeType() 获取实例计费类型，0表示按量计费，1表示预付费，默认为按量计费
  * @method void setRegistryChargeType(integer $RegistryChargeType) 设置实例计费类型，0表示按量计费，1表示预付费，默认为按量计费
+ * @method RegistryChargePrepaid getRegistryChargePrepaid() 获取预付费自动续费标识和购买时长
+ * @method void setRegistryChargePrepaid(RegistryChargePrepaid $RegistryChargePrepaid) 设置预付费自动续费标识和购买时长
  * @method boolean getSyncTag() 获取是否同步TCR云标签至生成的COS Bucket
  * @method void setSyncTag(boolean $SyncTag) 设置是否同步TCR云标签至生成的COS Bucket
+ * @method boolean getEnableCosMAZ() 获取是否开启Cos桶多AZ特性
+ * @method void setEnableCosMAZ(boolean $EnableCosMAZ) 设置是否开启Cos桶多AZ特性
  */
 class CreateInstanceRequest extends AbstractModel
 {
@@ -54,16 +58,28 @@ class CreateInstanceRequest extends AbstractModel
     public $RegistryChargeType;
 
     /**
+     * @var RegistryChargePrepaid 预付费自动续费标识和购买时长
+     */
+    public $RegistryChargePrepaid;
+
+    /**
      * @var boolean 是否同步TCR云标签至生成的COS Bucket
      */
     public $SyncTag;
+
+    /**
+     * @var boolean 是否开启Cos桶多AZ特性
+     */
+    public $EnableCosMAZ;
 
     /**
      * @param string $RegistryName 企业版实例名称
      * @param string $RegistryType 企业版实例类型（basic 基础版；standard 标准版；premium 高级版）
      * @param TagSpecification $TagSpecification 云标签描述
      * @param integer $RegistryChargeType 实例计费类型，0表示按量计费，1表示预付费，默认为按量计费
+     * @param RegistryChargePrepaid $RegistryChargePrepaid 预付费自动续费标识和购买时长
      * @param boolean $SyncTag 是否同步TCR云标签至生成的COS Bucket
+     * @param boolean $EnableCosMAZ 是否开启Cos桶多AZ特性
      */
     function __construct()
     {
@@ -95,8 +111,17 @@ class CreateInstanceRequest extends AbstractModel
             $this->RegistryChargeType = $param["RegistryChargeType"];
         }
 
+        if (array_key_exists("RegistryChargePrepaid",$param) and $param["RegistryChargePrepaid"] !== null) {
+            $this->RegistryChargePrepaid = new RegistryChargePrepaid();
+            $this->RegistryChargePrepaid->deserialize($param["RegistryChargePrepaid"]);
+        }
+
         if (array_key_exists("SyncTag",$param) and $param["SyncTag"] !== null) {
             $this->SyncTag = $param["SyncTag"];
+        }
+
+        if (array_key_exists("EnableCosMAZ",$param) and $param["EnableCosMAZ"] !== null) {
+            $this->EnableCosMAZ = $param["EnableCosMAZ"];
         }
     }
 }

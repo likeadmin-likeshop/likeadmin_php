@@ -34,60 +34,22 @@ use TencentCloud\Common\AbstractModel;
 <li>block：确认违规，建议封禁。</li>
  * @method string getLabel() 获取嫌疑片段最可能的违规的标签，取值范围：
 <li>Porn：色情；</li>
-<li>Terrorism：暴恐；</li>
-<li>Political：令人不适宜的信息。</li>
+<li>Terror：暴力；</li>
+<li>Polity：不适宜的信息；</li>
+<li>Ad：广告；</li>
+<li>Illegal：违法；</li>
+<li>Abuse：谩骂；</li>
+<li>Moan：娇喘。</li>
  * @method void setLabel(string $Label) 设置嫌疑片段最可能的违规的标签，取值范围：
 <li>Porn：色情；</li>
-<li>Terrorism：暴恐；</li>
-<li>Political：令人不适宜的信息。</li>
- * @method string getSubLabel() 获取当 Form 为 Image 或 Voice 时有效，表示当前标签（Label）下的二级标签。
-当 Form 为 Image 且 Label 为 Porn 时，取值范围：
-<li>porn：色情；</li>
-<li>vulgar：低俗。</li>
-
-当 Form 为 Image 且 Label 为 Terrorism 时，取值范围：
-<li>guns：武器枪支；</li>
-<li>bloody：血腥画面；</li>
-<li>banners：暴恐旗帜；</li>
-<li> scenario：暴恐画面；</li>
-<li>explosion：爆炸火灾。</li>
-
-当 Form 为 Image 且 Label 为 Political 时，取值范围：
-<li>violation_photo：违规图标；</li>
-<li>nation_politician：国家领导人；</li>
-<li>province_politician：省部级领导人；</li>
-<li>county_politician：市/县级领导人；</li>
-<li>sensitive_politician：敏感相关人物；</li>
-<li>foreign_politician：国外政治人物；</li>
-<li>sensitive_entertainment：敏感娱乐明星；</li>
-<li>sensitive_military：敏感军事人物。</li>
-
-当 Form 为 Voice 且 Label 为 Porn 时，取值范围：
-<li>moan：娇喘。</li>
- * @method void setSubLabel(string $SubLabel) 设置当 Form 为 Image 或 Voice 时有效，表示当前标签（Label）下的二级标签。
-当 Form 为 Image 且 Label 为 Porn 时，取值范围：
-<li>porn：色情；</li>
-<li>vulgar：低俗。</li>
-
-当 Form 为 Image 且 Label 为 Terrorism 时，取值范围：
-<li>guns：武器枪支；</li>
-<li>bloody：血腥画面；</li>
-<li>banners：暴恐旗帜；</li>
-<li> scenario：暴恐画面；</li>
-<li>explosion：爆炸火灾。</li>
-
-当 Form 为 Image 且 Label 为 Political 时，取值范围：
-<li>violation_photo：违规图标；</li>
-<li>nation_politician：国家领导人；</li>
-<li>province_politician：省部级领导人；</li>
-<li>county_politician：市/县级领导人；</li>
-<li>sensitive_politician：敏感相关人物；</li>
-<li>foreign_politician：国外政治人物；</li>
-<li>sensitive_entertainment：敏感娱乐明星；</li>
-<li>sensitive_military：敏感军事人物。</li>
-
-当 Form 为 Voice 且 Label 为 Porn 时，取值范围：
-<li>moan：娇喘。</li>
+<li>Terror：暴力；</li>
+<li>Polity：不适宜的信息；</li>
+<li>Ad：广告；</li>
+<li>Illegal：违法；</li>
+<li>Abuse：谩骂；</li>
+<li>Moan：娇喘。</li>
+ * @method string getSubLabel() 获取违规子标签。
+ * @method void setSubLabel(string $SubLabel) 设置违规子标签。
  * @method string getForm() 获取嫌疑片段违禁的形式，取值范围：
 <li>Image：画面上的人物或图标；</li>
 <li>OCR：画面上的文字；</li>
@@ -104,6 +66,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setText(string $Text) 设置当 Form 为 OCR 或 ASR 时有效，表示识别出来的 OCR 或 ASR 文本内容。
  * @method array getKeywordSet() 获取当 Form 为 OCR 或 ASR 时有效，表示嫌疑片段命中的违规关键词列表。
  * @method void setKeywordSet(array $KeywordSet) 设置当 Form 为 OCR 或 ASR 时有效，表示嫌疑片段命中的违规关键词列表。
+ * @method string getUrl() 获取嫌疑图片 URL （图片不会永久存储，到达
+ PicUrlExpireTime 时间点后图片将被删除）。
+ * @method void setUrl(string $Url) 设置嫌疑图片 URL （图片不会永久存储，到达
+ PicUrlExpireTime 时间点后图片将被删除）。
+ * @method string getPicUrlExpireTime() 获取嫌疑图片 URL 失效时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+ * @method void setPicUrlExpireTime(string $PicUrlExpireTime) 设置嫌疑图片 URL 失效时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
  */
 class ReviewAudioVideoSegmentItem extends AbstractModel
 {
@@ -132,36 +100,17 @@ class ReviewAudioVideoSegmentItem extends AbstractModel
     /**
      * @var string 嫌疑片段最可能的违规的标签，取值范围：
 <li>Porn：色情；</li>
-<li>Terrorism：暴恐；</li>
-<li>Political：令人不适宜的信息。</li>
+<li>Terror：暴力；</li>
+<li>Polity：不适宜的信息；</li>
+<li>Ad：广告；</li>
+<li>Illegal：违法；</li>
+<li>Abuse：谩骂；</li>
+<li>Moan：娇喘。</li>
      */
     public $Label;
 
     /**
-     * @var string 当 Form 为 Image 或 Voice 时有效，表示当前标签（Label）下的二级标签。
-当 Form 为 Image 且 Label 为 Porn 时，取值范围：
-<li>porn：色情；</li>
-<li>vulgar：低俗。</li>
-
-当 Form 为 Image 且 Label 为 Terrorism 时，取值范围：
-<li>guns：武器枪支；</li>
-<li>bloody：血腥画面；</li>
-<li>banners：暴恐旗帜；</li>
-<li> scenario：暴恐画面；</li>
-<li>explosion：爆炸火灾。</li>
-
-当 Form 为 Image 且 Label 为 Political 时，取值范围：
-<li>violation_photo：违规图标；</li>
-<li>nation_politician：国家领导人；</li>
-<li>province_politician：省部级领导人；</li>
-<li>county_politician：市/县级领导人；</li>
-<li>sensitive_politician：敏感相关人物；</li>
-<li>foreign_politician：国外政治人物；</li>
-<li>sensitive_entertainment：敏感娱乐明星；</li>
-<li>sensitive_military：敏感军事人物。</li>
-
-当 Form 为 Voice 且 Label 为 Porn 时，取值范围：
-<li>moan：娇喘。</li>
+     * @var string 违规子标签。
      */
     public $SubLabel;
 
@@ -190,6 +139,17 @@ class ReviewAudioVideoSegmentItem extends AbstractModel
     public $KeywordSet;
 
     /**
+     * @var string 嫌疑图片 URL （图片不会永久存储，到达
+ PicUrlExpireTime 时间点后图片将被删除）。
+     */
+    public $Url;
+
+    /**
+     * @var string 嫌疑图片 URL 失效时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+     */
+    public $PicUrlExpireTime;
+
+    /**
      * @param float $StartTimeOffset 嫌疑片段起始的偏移时间，单位：秒。
      * @param float $EndTimeOffset 嫌疑片段结束的偏移时间，单位：秒。
      * @param float $Confidence 嫌疑片段涉及令人反感的信息的分数。
@@ -198,32 +158,13 @@ class ReviewAudioVideoSegmentItem extends AbstractModel
 <li>block：确认违规，建议封禁。</li>
      * @param string $Label 嫌疑片段最可能的违规的标签，取值范围：
 <li>Porn：色情；</li>
-<li>Terrorism：暴恐；</li>
-<li>Political：令人不适宜的信息。</li>
-     * @param string $SubLabel 当 Form 为 Image 或 Voice 时有效，表示当前标签（Label）下的二级标签。
-当 Form 为 Image 且 Label 为 Porn 时，取值范围：
-<li>porn：色情；</li>
-<li>vulgar：低俗。</li>
-
-当 Form 为 Image 且 Label 为 Terrorism 时，取值范围：
-<li>guns：武器枪支；</li>
-<li>bloody：血腥画面；</li>
-<li>banners：暴恐旗帜；</li>
-<li> scenario：暴恐画面；</li>
-<li>explosion：爆炸火灾。</li>
-
-当 Form 为 Image 且 Label 为 Political 时，取值范围：
-<li>violation_photo：违规图标；</li>
-<li>nation_politician：国家领导人；</li>
-<li>province_politician：省部级领导人；</li>
-<li>county_politician：市/县级领导人；</li>
-<li>sensitive_politician：敏感相关人物；</li>
-<li>foreign_politician：国外政治人物；</li>
-<li>sensitive_entertainment：敏感娱乐明星；</li>
-<li>sensitive_military：敏感军事人物。</li>
-
-当 Form 为 Voice 且 Label 为 Porn 时，取值范围：
-<li>moan：娇喘。</li>
+<li>Terror：暴力；</li>
+<li>Polity：不适宜的信息；</li>
+<li>Ad：广告；</li>
+<li>Illegal：违法；</li>
+<li>Abuse：谩骂；</li>
+<li>Moan：娇喘。</li>
+     * @param string $SubLabel 违规子标签。
      * @param string $Form 嫌疑片段违禁的形式，取值范围：
 <li>Image：画面上的人物或图标；</li>
 <li>OCR：画面上的文字；</li>
@@ -232,6 +173,9 @@ class ReviewAudioVideoSegmentItem extends AbstractModel
      * @param array $AreaCoordSet 当 Form 为 Image 或 OCR 时有效，表示嫌疑人物、图标或文字出现的区域坐标 (像素级)，[x1, y1, x2, y2]，即左上角坐标、右下角坐标。
      * @param string $Text 当 Form 为 OCR 或 ASR 时有效，表示识别出来的 OCR 或 ASR 文本内容。
      * @param array $KeywordSet 当 Form 为 OCR 或 ASR 时有效，表示嫌疑片段命中的违规关键词列表。
+     * @param string $Url 嫌疑图片 URL （图片不会永久存储，到达
+ PicUrlExpireTime 时间点后图片将被删除）。
+     * @param string $PicUrlExpireTime 嫌疑图片 URL 失效时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
      */
     function __construct()
     {
@@ -284,6 +228,14 @@ class ReviewAudioVideoSegmentItem extends AbstractModel
 
         if (array_key_exists("KeywordSet",$param) and $param["KeywordSet"] !== null) {
             $this->KeywordSet = $param["KeywordSet"];
+        }
+
+        if (array_key_exists("Url",$param) and $param["Url"] !== null) {
+            $this->Url = $param["Url"];
+        }
+
+        if (array_key_exists("PicUrlExpireTime",$param) and $param["PicUrlExpireTime"] !== null) {
+            $this->PicUrlExpireTime = $param["PicUrlExpireTime"];
         }
     }
 }

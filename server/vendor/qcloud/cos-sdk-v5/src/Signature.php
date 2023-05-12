@@ -11,13 +11,19 @@ class Signature {
     // string: secret key.
     private $secretKey;
 
-    // bool: host trigger
-    private $signHost;
+    // array: cos config.
+    private $options;
 
-    public function __construct( $accessKey, $secretKey, $signHost, $token = null ) {
+    // string: token.
+    private $token;
+
+    // array: sign header.
+    private $signHeader;
+
+    public function __construct( $accessKey, $secretKey, $options, $token = null ) {
         $this->accessKey = $accessKey;
         $this->secretKey = $secretKey;
-        $this->signHost = $signHost;
+        $this->options = $options;
         $this->token = $token;
         $this->signHeader = [
             'cache-control',
@@ -35,16 +41,9 @@ class Signature {
             'if-unmodified-since',
             'origin',
             'range',
-            'response-cache-control',
-            'response-content-disposition',
-            'response-content-encoding',
-            'response-content-language',
-            'response-content-type',
-            'response-expires',
             'transfer-encoding',
-            'versionid',
         ];
-        date_default_timezone_set( 'PRC' );
+        date_default_timezone_set($this->options['timezone']);
     }
 
     public function __destruct() {
@@ -82,7 +81,7 @@ class Signature {
                     $value = "";
                 }
                 //host开关
-                if (!$this->signHost && $key == 'host') {
+                if (!$this->options['signHost'] && $key == 'host') {
                     continue;
                 }
                 $urlParamListArray[$key] = $key. '='. $value;
@@ -96,7 +95,7 @@ class Signature {
         foreach ( $request->getHeaders() as $key => $value ) {
             $key = strtolower( urlencode( $key ) );
             $value = rawurlencode( $value[0] );
-            if ( !$this->signHost && $key == 'host' ) {
+            if ( !$this->options['signHost'] && $key == 'host' ) {
                 continue;
             }
             if ( $this->needCheckHeader( $key ) ) {

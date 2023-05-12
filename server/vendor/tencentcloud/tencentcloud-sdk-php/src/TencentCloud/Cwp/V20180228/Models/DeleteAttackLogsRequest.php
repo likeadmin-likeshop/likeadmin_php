@@ -22,6 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method array getIds() 获取日志ID数组，最大100条。
  * @method void setIds(array $Ids) 设置日志ID数组，最大100条。
+ * @method boolean getIsAll() 获取是否全部删除
+ * @method void setIsAll(boolean $IsAll) 设置是否全部删除
  */
 class DeleteAttackLogsRequest extends AbstractModel
 {
@@ -31,7 +33,13 @@ class DeleteAttackLogsRequest extends AbstractModel
     public $Ids;
 
     /**
+     * @var boolean 是否全部删除
+     */
+    public $IsAll;
+
+    /**
      * @param array $Ids 日志ID数组，最大100条。
+     * @param boolean $IsAll 是否全部删除
      */
     function __construct()
     {
@@ -48,6 +56,10 @@ class DeleteAttackLogsRequest extends AbstractModel
         }
         if (array_key_exists("Ids",$param) and $param["Ids"] !== null) {
             $this->Ids = $param["Ids"];
+        }
+
+        if (array_key_exists("IsAll",$param) and $param["IsAll"] !== null) {
+            $this->IsAll = $param["IsAll"];
         }
     }
 }

@@ -20,14 +20,14 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeDBInstances请求参数结构体
  *
- * @method integer getProjectId() 获取项目 ID，可使用 [查询项目列表](https://cloud.tencent.com/document/product/378/4400) 接口查询项目 ID。
- * @method void setProjectId(integer $ProjectId) 设置项目 ID，可使用 [查询项目列表](https://cloud.tencent.com/document/product/378/4400) 接口查询项目 ID。
+ * @method integer getProjectId() 获取项目 ID。
+ * @method void setProjectId(integer $ProjectId) 设置项目 ID。
  * @method array getInstanceTypes() 获取实例类型，可取值：1 - 主实例，2 - 灾备实例，3 - 只读实例。
  * @method void setInstanceTypes(array $InstanceTypes) 设置实例类型，可取值：1 - 主实例，2 - 灾备实例，3 - 只读实例。
  * @method array getVips() 获取实例的内网 IP 地址。
  * @method void setVips(array $Vips) 设置实例的内网 IP 地址。
- * @method array getStatus() 获取实例状态，可取值：<br>0 - 创建中<br>1 - 运行中<br>4 - 正在进行隔离操作<br>5 - 隔离中（可在回收站恢复开机）
- * @method void setStatus(array $Status) 设置实例状态，可取值：<br>0 - 创建中<br>1 - 运行中<br>4 - 正在进行隔离操作<br>5 - 隔离中（可在回收站恢复开机）
+ * @method array getStatus() 获取实例状态，可取值：<br>0 - 创建中<br>1 - 运行中<br>4 - 正在进行隔离操作<br>5 - 已隔离（可在回收站恢复开机）
+ * @method void setStatus(array $Status) 设置实例状态，可取值：<br>0 - 创建中<br>1 - 运行中<br>4 - 正在进行隔离操作<br>5 - 已隔离（可在回收站恢复开机）
  * @method integer getOffset() 获取偏移量，默认值为 0。
  * @method void setOffset(integer $Offset) 设置偏移量，默认值为 0。
  * @method integer getLimit() 获取单次请求返回的数量，默认值为 20，最大值为 2000。
@@ -84,11 +84,17 @@ use TencentCloud\Common\AbstractModel;
  * @method void setUniqSubnetIds(array $UniqSubnetIds) 设置私有网络字符型subnetId
  * @method array getTags() 获取标签键值
  * @method void setTags(array $Tags) 设置标签键值
+ * @method array getProxyVips() 获取数据库代理 IP 。
+ * @method void setProxyVips(array $ProxyVips) 设置数据库代理 IP 。
+ * @method array getProxyIds() 获取数据库代理 ID 。
+ * @method void setProxyIds(array $ProxyIds) 设置数据库代理 ID 。
+ * @method array getEngineTypes() 获取数据库引擎类型。
+ * @method void setEngineTypes(array $EngineTypes) 设置数据库引擎类型。
  */
 class DescribeDBInstancesRequest extends AbstractModel
 {
     /**
-     * @var integer 项目 ID，可使用 [查询项目列表](https://cloud.tencent.com/document/product/378/4400) 接口查询项目 ID。
+     * @var integer 项目 ID。
      */
     public $ProjectId;
 
@@ -103,7 +109,7 @@ class DescribeDBInstancesRequest extends AbstractModel
     public $Vips;
 
     /**
-     * @var array 实例状态，可取值：<br>0 - 创建中<br>1 - 运行中<br>4 - 正在进行隔离操作<br>5 - 隔离中（可在回收站恢复开机）
+     * @var array 实例状态，可取值：<br>0 - 创建中<br>1 - 运行中<br>4 - 正在进行隔离操作<br>5 - 已隔离（可在回收站恢复开机）
      */
     public $Status;
 
@@ -248,10 +254,25 @@ class DescribeDBInstancesRequest extends AbstractModel
     public $Tags;
 
     /**
-     * @param integer $ProjectId 项目 ID，可使用 [查询项目列表](https://cloud.tencent.com/document/product/378/4400) 接口查询项目 ID。
+     * @var array 数据库代理 IP 。
+     */
+    public $ProxyVips;
+
+    /**
+     * @var array 数据库代理 ID 。
+     */
+    public $ProxyIds;
+
+    /**
+     * @var array 数据库引擎类型。
+     */
+    public $EngineTypes;
+
+    /**
+     * @param integer $ProjectId 项目 ID。
      * @param array $InstanceTypes 实例类型，可取值：1 - 主实例，2 - 灾备实例，3 - 只读实例。
      * @param array $Vips 实例的内网 IP 地址。
-     * @param array $Status 实例状态，可取值：<br>0 - 创建中<br>1 - 运行中<br>4 - 正在进行隔离操作<br>5 - 隔离中（可在回收站恢复开机）
+     * @param array $Status 实例状态，可取值：<br>0 - 创建中<br>1 - 运行中<br>4 - 正在进行隔离操作<br>5 - 已隔离（可在回收站恢复开机）
      * @param integer $Offset 偏移量，默认值为 0。
      * @param integer $Limit 单次请求返回的数量，默认值为 20，最大值为 2000。
      * @param string $SecurityGroupId 安全组 ID。当使用安全组 ID 为过滤条件时，需指定 WithSecurityGroup 参数为 1。
@@ -280,6 +301,9 @@ class DescribeDBInstancesRequest extends AbstractModel
      * @param array $UniqueVpcIds 私有网络字符型vpcId
      * @param array $UniqSubnetIds 私有网络字符型subnetId
      * @param array $Tags 标签键值
+     * @param array $ProxyVips 数据库代理 IP 。
+     * @param array $ProxyIds 数据库代理 ID 。
+     * @param array $EngineTypes 数据库引擎类型。
      */
     function __construct()
     {
@@ -425,6 +449,18 @@ class DescribeDBInstancesRequest extends AbstractModel
                 $obj->deserialize($value);
                 array_push($this->Tags, $obj);
             }
+        }
+
+        if (array_key_exists("ProxyVips",$param) and $param["ProxyVips"] !== null) {
+            $this->ProxyVips = $param["ProxyVips"];
+        }
+
+        if (array_key_exists("ProxyIds",$param) and $param["ProxyIds"] !== null) {
+            $this->ProxyIds = $param["ProxyIds"];
+        }
+
+        if (array_key_exists("EngineTypes",$param) and $param["EngineTypes"] !== null) {
+            $this->EngineTypes = $param["EngineTypes"];
         }
     }
 }

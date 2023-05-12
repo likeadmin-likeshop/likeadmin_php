@@ -20,10 +20,10 @@ use TencentCloud\Common\AbstractModel;
 /**
  * InquiryPriceCreateDBInstances返回参数结构体
  *
- * @method integer getOriginalPrice() 获取原始价格，单位：分
- * @method void setOriginalPrice(integer $OriginalPrice) 设置原始价格，单位：分
- * @method integer getPrice() 获取折后价格，单位：分
- * @method void setPrice(integer $Price) 设置折后价格，单位：分
+ * @method integer getOriginalPrice() 获取刊例价，单位：分
+ * @method void setOriginalPrice(integer $OriginalPrice) 设置刊例价，单位：分
+ * @method integer getPrice() 获取折后实际付款金额，单位：分
+ * @method void setPrice(integer $Price) 设置折后实际付款金额，单位：分
  * @method string getCurrency() 获取币种。例如，CNY：人民币。
  * @method void setCurrency(string $Currency) 设置币种。例如，CNY：人民币。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -32,12 +32,12 @@ use TencentCloud\Common\AbstractModel;
 class InquiryPriceCreateDBInstancesResponse extends AbstractModel
 {
     /**
-     * @var integer 原始价格，单位：分
+     * @var integer 刊例价，单位：分
      */
     public $OriginalPrice;
 
     /**
-     * @var integer 折后价格，单位：分
+     * @var integer 折后实际付款金额，单位：分
      */
     public $Price;
 
@@ -52,8 +52,8 @@ class InquiryPriceCreateDBInstancesResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param integer $OriginalPrice 原始价格，单位：分
-     * @param integer $Price 折后价格，单位：分
+     * @param integer $OriginalPrice 刊例价，单位：分
+     * @param integer $Price 折后实际付款金额，单位：分
      * @param string $Currency 币种。例如，CNY：人民币。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */

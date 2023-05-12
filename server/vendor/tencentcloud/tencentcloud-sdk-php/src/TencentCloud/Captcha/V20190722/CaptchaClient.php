@@ -30,11 +30,15 @@ use TencentCloud\Captcha\V20190722\Models as Models;
  * @method Models\DescribeCaptchaMiniDataSumResponse DescribeCaptchaMiniDataSum(Models\DescribeCaptchaMiniDataSumRequest $req) 安全验证码小程序插件查询请求数据概况
  * @method Models\DescribeCaptchaMiniOperDataResponse DescribeCaptchaMiniOperData(Models\DescribeCaptchaMiniOperDataRequest $req) 安全验证码小程序插件用户操作数据查询
  * @method Models\DescribeCaptchaMiniResultResponse DescribeCaptchaMiniResult(Models\DescribeCaptchaMiniResultRequest $req) 核查验证码票据结果(小程序插件) 
- * @method Models\DescribeCaptchaMiniRiskResultResponse DescribeCaptchaMiniRiskResult(Models\DescribeCaptchaMiniRiskResultRequest $req) 核查验证码小程序插件票据接入风控结果(Beta)
+ * @method Models\DescribeCaptchaMiniRiskResultResponse DescribeCaptchaMiniRiskResult(Models\DescribeCaptchaMiniRiskResultRequest $req) 核查验证码小程序插件票据接入风控结果(已停用)
  * @method Models\DescribeCaptchaOperDataResponse DescribeCaptchaOperData(Models\DescribeCaptchaOperDataRequest $req) 安全验证码用户操作数据查询，验证码加载耗时type = 1 、拦截情况type = 2、 一周通过平均尝试次数 type = 3、尝试次数分布 type = 4
  * @method Models\DescribeCaptchaResultResponse DescribeCaptchaResult(Models\DescribeCaptchaResultRequest $req) 核查验证码票据结果(Web及APP)
  * @method Models\DescribeCaptchaTicketDataResponse DescribeCaptchaTicketData(Models\DescribeCaptchaTicketDataRequest $req) 安全验证码用户操作票据数据查询
  * @method Models\DescribeCaptchaUserAllAppIdResponse DescribeCaptchaUserAllAppId(Models\DescribeCaptchaUserAllAppIdRequest $req) 安全验证码获取用户注册所有APPId和应用名称
+ * @method Models\GetRequestStatisticsResponse GetRequestStatistics(Models\GetRequestStatisticsRequest $req) 查询单个CaptchaAppID验证的统计数据，包括：请求量、验证量、验证通过量、验证拦截量。
+ * @method Models\GetTicketStatisticsResponse GetTicketStatistics(Models\GetTicketStatisticsRequest $req) 查询单个CaptchaAppID票据校验数据，包括：票据校验量、票据校验通过量、票据校验拦截量。
+ * @method Models\GetTotalRequestStatisticsResponse GetTotalRequestStatistics(Models\GetTotalRequestStatisticsRequest $req) 查询全部验证的统计数据，包括：总请求量、总验证量、总验证通过量、总验证拦截量等数据。
+ * @method Models\GetTotalTicketStatisticsResponse GetTotalTicketStatistics(Models\GetTotalTicketStatisticsRequest $req) 查询全部票据校验的统计数据，包括：总票据校验量、总票据校验通过量、总票据校验拦截量。
  * @method Models\UpdateCaptchaAppIdInfoResponse UpdateCaptchaAppIdInfo(Models\UpdateCaptchaAppIdInfoRequest $req) 更新验证码应用APPId信息
  */
 

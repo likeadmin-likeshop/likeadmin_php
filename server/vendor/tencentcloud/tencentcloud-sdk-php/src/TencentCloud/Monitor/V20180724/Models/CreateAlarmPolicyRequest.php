@@ -48,6 +48,16 @@ use TencentCloud\Common\AbstractModel;
  * @method void setFilter(AlarmPolicyFilter $Filter) 设置全局过滤条件
  * @method array getGroupBy() 获取聚合维度列表，指定按哪些维度 key 来做 group by
  * @method void setGroupBy(array $GroupBy) 设置聚合维度列表，指定按哪些维度 key 来做 group by
+ * @method array getTags() 获取模板绑定的标签
+ * @method void setTags(array $Tags) 设置模板绑定的标签
+ * @method LogAlarmReq getLogAlarmReqInfo() 获取日志告警信息
+ * @method void setLogAlarmReqInfo(LogAlarmReq $LogAlarmReqInfo) 设置日志告警信息
+ * @method array getHierarchicalNotices() 获取告警分级通知规则配置
+ * @method void setHierarchicalNotices(array $HierarchicalNotices) 设置告警分级通知规则配置
+ * @method integer getMigrateFlag() 获取迁移策略专用字段，0-走鉴权逻辑，1-跳过鉴权逻辑
+ * @method void setMigrateFlag(integer $MigrateFlag) 设置迁移策略专用字段，0-走鉴权逻辑，1-跳过鉴权逻辑
+ * @method string getEbSubject() 获取事件配置的告警
+ * @method void setEbSubject(string $EbSubject) 设置事件配置的告警
  */
 class CreateAlarmPolicyRequest extends AbstractModel
 {
@@ -122,6 +132,31 @@ class CreateAlarmPolicyRequest extends AbstractModel
     public $GroupBy;
 
     /**
+     * @var array 模板绑定的标签
+     */
+    public $Tags;
+
+    /**
+     * @var LogAlarmReq 日志告警信息
+     */
+    public $LogAlarmReqInfo;
+
+    /**
+     * @var array 告警分级通知规则配置
+     */
+    public $HierarchicalNotices;
+
+    /**
+     * @var integer 迁移策略专用字段，0-走鉴权逻辑，1-跳过鉴权逻辑
+     */
+    public $MigrateFlag;
+
+    /**
+     * @var string 事件配置的告警
+     */
+    public $EbSubject;
+
+    /**
      * @param string $Module 固定值，为"monitor"
      * @param string $PolicyName 策略名称，不超过20字符
      * @param string $MonitorType 监控类型 MT_QCE=云产品监控
@@ -136,6 +171,11 @@ class CreateAlarmPolicyRequest extends AbstractModel
      * @param array $TriggerTasks 触发任务列表
      * @param AlarmPolicyFilter $Filter 全局过滤条件
      * @param array $GroupBy 聚合维度列表，指定按哪些维度 key 来做 group by
+     * @param array $Tags 模板绑定的标签
+     * @param LogAlarmReq $LogAlarmReqInfo 日志告警信息
+     * @param array $HierarchicalNotices 告警分级通知规则配置
+     * @param integer $MigrateFlag 迁移策略专用字段，0-走鉴权逻辑，1-跳过鉴权逻辑
+     * @param string $EbSubject 事件配置的告警
      */
     function __construct()
     {
@@ -212,6 +252,37 @@ class CreateAlarmPolicyRequest extends AbstractModel
 
         if (array_key_exists("GroupBy",$param) and $param["GroupBy"] !== null) {
             $this->GroupBy = $param["GroupBy"];
+        }
+
+        if (array_key_exists("Tags",$param) and $param["Tags"] !== null) {
+            $this->Tags = [];
+            foreach ($param["Tags"] as $key => $value){
+                $obj = new Tag();
+                $obj->deserialize($value);
+                array_push($this->Tags, $obj);
+            }
+        }
+
+        if (array_key_exists("LogAlarmReqInfo",$param) and $param["LogAlarmReqInfo"] !== null) {
+            $this->LogAlarmReqInfo = new LogAlarmReq();
+            $this->LogAlarmReqInfo->deserialize($param["LogAlarmReqInfo"]);
+        }
+
+        if (array_key_exists("HierarchicalNotices",$param) and $param["HierarchicalNotices"] !== null) {
+            $this->HierarchicalNotices = [];
+            foreach ($param["HierarchicalNotices"] as $key => $value){
+                $obj = new AlarmHierarchicalNotice();
+                $obj->deserialize($value);
+                array_push($this->HierarchicalNotices, $obj);
+            }
+        }
+
+        if (array_key_exists("MigrateFlag",$param) and $param["MigrateFlag"] !== null) {
+            $this->MigrateFlag = $param["MigrateFlag"];
+        }
+
+        if (array_key_exists("EbSubject",$param) and $param["EbSubject"] !== null) {
+            $this->EbSubject = $param["EbSubject"];
         }
     }
 }
