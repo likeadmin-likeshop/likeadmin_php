@@ -24,20 +24,22 @@ use TencentCloud\Common\AbstractModel;
  * @method void setName(string $Name) 设置规则名称
  * @method string getSortId() 获取优先级
  * @method void setSortId(string $SortId) 设置优先级
- * @method string getExpireTime() 获取过期时间
- * @method void setExpireTime(string $ExpireTime) 设置过期时间
+ * @method string getExpireTime() 获取过期时间，单位为秒级时间戳，例如1677254399表示过期时间为2023-02-24 23:59:59. 0表示永不过期
+ * @method void setExpireTime(string $ExpireTime) 设置过期时间，单位为秒级时间戳，例如1677254399表示过期时间为2023-02-24 23:59:59. 0表示永不过期
  * @method array getStrategies() 获取策略详情
  * @method void setStrategies(array $Strategies) 设置策略详情
  * @method string getDomain() 获取需要添加策略的域名
  * @method void setDomain(string $Domain) 设置需要添加策略的域名
- * @method string getActionType() 获取动作类型
- * @method void setActionType(string $ActionType) 设置动作类型
+ * @method string getActionType() 获取动作类型，1代表阻断，2代表人机识别，3代表观察，4代表重定向
+ * @method void setActionType(string $ActionType) 设置动作类型，1代表阻断，2代表人机识别，3代表观察，4代表重定向
  * @method string getRedirect() 获取如果动作是重定向，则表示重定向的地址；其他情况可以为空
  * @method void setRedirect(string $Redirect) 设置如果动作是重定向，则表示重定向的地址；其他情况可以为空
- * @method string getEdition() 获取"clb-waf"或者"sparta-waf"
- * @method void setEdition(string $Edition) 设置"clb-waf"或者"sparta-waf"
+ * @method string getEdition() 获取WAF实例类型，sparta-waf表示SAAS型WAF，clb-waf表示负载均衡型WAF
+ * @method void setEdition(string $Edition) 设置WAF实例类型，sparta-waf表示SAAS型WAF，clb-waf表示负载均衡型WAF
  * @method string getBypass() 获取放行的详情
  * @method void setBypass(string $Bypass) 设置放行的详情
+ * @method string getEventId() 获取添加规则的来源，默认为空
+ * @method void setEventId(string $EventId) 设置添加规则的来源，默认为空
  */
 class AddCustomRuleRequest extends AbstractModel
 {
@@ -52,7 +54,7 @@ class AddCustomRuleRequest extends AbstractModel
     public $SortId;
 
     /**
-     * @var string 过期时间
+     * @var string 过期时间，单位为秒级时间戳，例如1677254399表示过期时间为2023-02-24 23:59:59. 0表示永不过期
      */
     public $ExpireTime;
 
@@ -67,7 +69,7 @@ class AddCustomRuleRequest extends AbstractModel
     public $Domain;
 
     /**
-     * @var string 动作类型
+     * @var string 动作类型，1代表阻断，2代表人机识别，3代表观察，4代表重定向
      */
     public $ActionType;
 
@@ -77,7 +79,7 @@ class AddCustomRuleRequest extends AbstractModel
     public $Redirect;
 
     /**
-     * @var string "clb-waf"或者"sparta-waf"
+     * @var string WAF实例类型，sparta-waf表示SAAS型WAF，clb-waf表示负载均衡型WAF
      */
     public $Edition;
 
@@ -87,15 +89,21 @@ class AddCustomRuleRequest extends AbstractModel
     public $Bypass;
 
     /**
+     * @var string 添加规则的来源，默认为空
+     */
+    public $EventId;
+
+    /**
      * @param string $Name 规则名称
      * @param string $SortId 优先级
-     * @param string $ExpireTime 过期时间
+     * @param string $ExpireTime 过期时间，单位为秒级时间戳，例如1677254399表示过期时间为2023-02-24 23:59:59. 0表示永不过期
      * @param array $Strategies 策略详情
      * @param string $Domain 需要添加策略的域名
-     * @param string $ActionType 动作类型
+     * @param string $ActionType 动作类型，1代表阻断，2代表人机识别，3代表观察，4代表重定向
      * @param string $Redirect 如果动作是重定向，则表示重定向的地址；其他情况可以为空
-     * @param string $Edition "clb-waf"或者"sparta-waf"
+     * @param string $Edition WAF实例类型，sparta-waf表示SAAS型WAF，clb-waf表示负载均衡型WAF
      * @param string $Bypass 放行的详情
+     * @param string $EventId 添加规则的来源，默认为空
      */
     function __construct()
     {
@@ -149,6 +157,10 @@ class AddCustomRuleRequest extends AbstractModel
 
         if (array_key_exists("Bypass",$param) and $param["Bypass"] !== null) {
             $this->Bypass = $param["Bypass"];
+        }
+
+        if (array_key_exists("EventId",$param) and $param["EventId"] !== null) {
+            $this->EventId = $param["EventId"];
         }
     }
 }

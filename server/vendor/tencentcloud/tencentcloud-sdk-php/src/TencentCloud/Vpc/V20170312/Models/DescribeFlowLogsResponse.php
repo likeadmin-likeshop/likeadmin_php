@@ -20,22 +20,22 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeFlowLogs返回参数结构体
  *
- * @method array getFlowLog() 获取流日志实例集合
- * @method void setFlowLog(array $FlowLog) 设置流日志实例集合
- * @method integer getTotalNum() 获取流日志总数目
- * @method void setTotalNum(integer $TotalNum) 设置流日志总数目
+ * @method array getFlowLog() 获取流日志实例集合。
+ * @method void setFlowLog(array $FlowLog) 设置流日志实例集合。
+ * @method integer getTotalNum() 获取流日志总数目。
+ * @method void setTotalNum(integer $TotalNum) 设置流日志总数目。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class DescribeFlowLogsResponse extends AbstractModel
 {
     /**
-     * @var array 流日志实例集合
+     * @var array 流日志实例集合。
      */
     public $FlowLog;
 
     /**
-     * @var integer 流日志总数目
+     * @var integer 流日志总数目。
      */
     public $TotalNum;
 
@@ -45,8 +45,8 @@ class DescribeFlowLogsResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param array $FlowLog 流日志实例集合
-     * @param integer $TotalNum 流日志总数目
+     * @param array $FlowLog 流日志实例集合。
+     * @param integer $TotalNum 流日志总数目。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

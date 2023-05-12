@@ -22,6 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getMsg() 获取消息
  * @method void setMsg(string $Msg) 设置消息
+ * @method integer getID() 获取白名单ID
+ * @method void setID(integer $ID) 设置白名单ID
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -33,12 +35,18 @@ class CreateWhitelistResponse extends AbstractModel
     public $Msg;
 
     /**
+     * @var integer 白名单ID
+     */
+    public $ID;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
 
     /**
      * @param string $Msg 消息
+     * @param integer $ID 白名单ID
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -56,6 +64,10 @@ class CreateWhitelistResponse extends AbstractModel
         }
         if (array_key_exists("Msg",$param) and $param["Msg"] !== null) {
             $this->Msg = $param["Msg"];
+        }
+
+        if (array_key_exists("ID",$param) and $param["ID"] !== null) {
+            $this->ID = $param["ID"];
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

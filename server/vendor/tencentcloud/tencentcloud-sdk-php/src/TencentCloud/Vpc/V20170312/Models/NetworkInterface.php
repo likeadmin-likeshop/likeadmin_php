@@ -76,6 +76,22 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setAttachType(integer $AttachType) 设置弹性网卡类型：0:标准型/1:扩展型。默认值为0。
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getResourceId() 获取用于保留网卡主IP的资源ID用于保留网卡主IP的资源ID。用于删除网卡时作为入参数。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setResourceId(string $ResourceId) 设置用于保留网卡主IP的资源ID用于保留网卡主IP的资源ID。用于删除网卡时作为入参数。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getQosLevel() 获取服务质量级别：
+<li>`DEFAULT`：默认</li>
+<li>`PT`：云金</li>
+<li>`AU`：云银</li>
+<li>`AG`：云铜</li>
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setQosLevel(string $QosLevel) 设置服务质量级别：
+<li>`DEFAULT`：默认</li>
+<li>`PT`：云金</li>
+<li>`AU`：云银</li>
+<li>`AG`：云铜</li>
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class NetworkInterface extends AbstractModel
 {
@@ -184,6 +200,22 @@ class NetworkInterface extends AbstractModel
     public $AttachType;
 
     /**
+     * @var string 用于保留网卡主IP的资源ID用于保留网卡主IP的资源ID。用于删除网卡时作为入参数。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ResourceId;
+
+    /**
+     * @var string 服务质量级别：
+<li>`DEFAULT`：默认</li>
+<li>`PT`：云金</li>
+<li>`AU`：云银</li>
+<li>`AG`：云铜</li>
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $QosLevel;
+
+    /**
      * @param string $NetworkInterfaceId 弹性网卡实例ID，例如：eni-f1xjkw1b。
      * @param string $NetworkInterfaceName 弹性网卡名称。
      * @param string $NetworkInterfaceDescription 弹性网卡描述。
@@ -211,6 +243,14 @@ class NetworkInterface extends AbstractModel
      * @param string $CdcId 网卡所关联的CDC实例ID。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $AttachType 弹性网卡类型：0:标准型/1:扩展型。默认值为0。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ResourceId 用于保留网卡主IP的资源ID用于保留网卡主IP的资源ID。用于删除网卡时作为入参数。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $QosLevel 服务质量级别：
+<li>`DEFAULT`：默认</li>
+<li>`PT`：云金</li>
+<li>`AU`：云银</li>
+<li>`AG`：云铜</li>
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -316,6 +356,14 @@ class NetworkInterface extends AbstractModel
 
         if (array_key_exists("AttachType",$param) and $param["AttachType"] !== null) {
             $this->AttachType = $param["AttachType"];
+        }
+
+        if (array_key_exists("ResourceId",$param) and $param["ResourceId"] !== null) {
+            $this->ResourceId = $param["ResourceId"];
+        }
+
+        if (array_key_exists("QosLevel",$param) and $param["QosLevel"] !== null) {
+            $this->QosLevel = $param["QosLevel"];
         }
     }
 }

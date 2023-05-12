@@ -36,37 +36,43 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setName(string $Name) 设置本次验证使用的姓名。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getOcrNation() 获取Ocr识别结果。民族。
+ * @method string getOcrNation() 获取身份校验环节识别结果：民族。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setOcrNation(string $OcrNation) 设置Ocr识别结果。民族。
+ * @method void setOcrNation(string $OcrNation) 设置身份校验环节识别结果：民族。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getOcrAddress() 获取Ocr识别结果。家庭住址。
+ * @method string getOcrAddress() 获取身份校验环节识别结果：家庭住址。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setOcrAddress(string $OcrAddress) 设置Ocr识别结果。家庭住址。
+ * @method void setOcrAddress(string $OcrAddress) 设置身份校验环节识别结果：家庭住址。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getOcrBirth() 获取Ocr识别结果。生日。
+ * @method string getOcrBirth() 获取身份校验环节识别结果：生日。格式为：YYYY/M/D
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setOcrBirth(string $OcrBirth) 设置Ocr识别结果。生日。
+ * @method void setOcrBirth(string $OcrBirth) 设置身份校验环节识别结果：生日。格式为：YYYY/M/D
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getOcrAuthority() 获取Ocr识别结果。签发机关。
+ * @method string getOcrAuthority() 获取身份校验环节识别结果：签发机关。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setOcrAuthority(string $OcrAuthority) 设置Ocr识别结果。签发机关。
+ * @method void setOcrAuthority(string $OcrAuthority) 设置身份校验环节识别结果：签发机关。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getOcrValidDate() 获取Ocr识别结果。有效日期。
+ * @method string getOcrValidDate() 获取身份校验环节识别结果：有效日期。格式为：YYYY.MM.DD-YYYY.MM.DD
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setOcrValidDate(string $OcrValidDate) 设置Ocr识别结果。有效日期。
+ * @method void setOcrValidDate(string $OcrValidDate) 设置身份校验环节识别结果：有效日期。格式为：YYYY.MM.DD-YYYY.MM.DD
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getOcrName() 获取Ocr识别结果。姓名。
+ * @method string getOcrName() 获取身份校验环节识别结果：姓名。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setOcrName(string $OcrName) 设置Ocr识别结果。姓名。
+ * @method void setOcrName(string $OcrName) 设置身份校验环节识别结果：姓名。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getOcrIdCard() 获取Ocr识别结果。身份证号。
+ * @method string getOcrIdCard() 获取身份校验环节识别结果：身份证号。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setOcrIdCard(string $OcrIdCard) 设置Ocr识别结果。身份证号。
+ * @method void setOcrIdCard(string $OcrIdCard) 设置身份校验环节识别结果：身份证号。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getOcrGender() 获取Ocr识别结果。性别。
+ * @method string getOcrGender() 获取身份校验环节识别结果：性别。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setOcrGender(string $OcrGender) 设置Ocr识别结果。性别。
+ * @method void setOcrGender(string $OcrGender) 设置身份校验环节识别结果：性别。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getIdInfoFrom() 获取身份校验环节采用的信息上传方式。
+取值有"NFC"、"OCR"、"手动输入"、"其他"
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setIdInfoFrom(string $IdInfoFrom) 设置身份校验环节采用的信息上传方式。
+取值有"NFC"、"OCR"、"手动输入"、"其他"
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getLiveStatus() 获取本次流程最终活体结果。0为成功
 注意：此字段可能返回 null，表示取不到有效值。
@@ -116,6 +122,36 @@ use TencentCloud\Common\AbstractModel;
 二次验证库；
 人工审核库；
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getLivenessMode() 获取本次流程最终活体类型。包括：
+0：未知
+1：数字活体
+2：动作活体
+3：静默活体
+4：一闪活体（动作+光线）
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setLivenessMode(integer $LivenessMode) 设置本次流程最终活体类型。包括：
+0：未知
+1：数字活体
+2：动作活体
+3：静默活体
+4：一闪活体（动作+光线）
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getNFCRequestIds() 获取nfc重复计费requestId列表
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setNFCRequestIds(array $NFCRequestIds) 设置nfc重复计费requestId列表
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getNFCBillingCounts() 获取nfc重复计费计数
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setNFCBillingCounts(integer $NFCBillingCounts) 设置nfc重复计费计数
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getPassNo() 获取港澳台居住证通行证号码
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setPassNo(string $PassNo) 设置港澳台居住证通行证号码
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getVisaNum() 获取港澳台居住证签发次数
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setVisaNum(string $VisaNum) 设置港澳台居住证签发次数
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class DetectInfoText extends AbstractModel
 {
@@ -144,52 +180,59 @@ class DetectInfoText extends AbstractModel
     public $Name;
 
     /**
-     * @var string Ocr识别结果。民族。
+     * @var string 身份校验环节识别结果：民族。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OcrNation;
 
     /**
-     * @var string Ocr识别结果。家庭住址。
+     * @var string 身份校验环节识别结果：家庭住址。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OcrAddress;
 
     /**
-     * @var string Ocr识别结果。生日。
+     * @var string 身份校验环节识别结果：生日。格式为：YYYY/M/D
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OcrBirth;
 
     /**
-     * @var string Ocr识别结果。签发机关。
+     * @var string 身份校验环节识别结果：签发机关。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OcrAuthority;
 
     /**
-     * @var string Ocr识别结果。有效日期。
+     * @var string 身份校验环节识别结果：有效日期。格式为：YYYY.MM.DD-YYYY.MM.DD
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OcrValidDate;
 
     /**
-     * @var string Ocr识别结果。姓名。
+     * @var string 身份校验环节识别结果：姓名。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OcrName;
 
     /**
-     * @var string Ocr识别结果。身份证号。
+     * @var string 身份校验环节识别结果：身份证号。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OcrIdCard;
 
     /**
-     * @var string Ocr识别结果。性别。
+     * @var string 身份校验环节识别结果：性别。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OcrGender;
+
+    /**
+     * @var string 身份校验环节采用的信息上传方式。
+取值有"NFC"、"OCR"、"手动输入"、"其他"
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $IdInfoFrom;
 
     /**
      * @var integer 本次流程最终活体结果。0为成功
@@ -256,6 +299,41 @@ class DetectInfoText extends AbstractModel
     public $CompareLibType;
 
     /**
+     * @var integer 本次流程最终活体类型。包括：
+0：未知
+1：数字活体
+2：动作活体
+3：静默活体
+4：一闪活体（动作+光线）
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $LivenessMode;
+
+    /**
+     * @var array nfc重复计费requestId列表
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $NFCRequestIds;
+
+    /**
+     * @var integer nfc重复计费计数
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $NFCBillingCounts;
+
+    /**
+     * @var string 港澳台居住证通行证号码
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $PassNo;
+
+    /**
+     * @var string 港澳台居住证签发次数
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $VisaNum;
+
+    /**
      * @param integer $ErrCode 本次流程最终验证结果。0为成功
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $ErrMsg 本次流程最终验证结果描述。（仅描述用，文案更新时不会通知。）
@@ -264,21 +342,24 @@ class DetectInfoText extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Name 本次验证使用的姓名。
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $OcrNation Ocr识别结果。民族。
+     * @param string $OcrNation 身份校验环节识别结果：民族。
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $OcrAddress Ocr识别结果。家庭住址。
+     * @param string $OcrAddress 身份校验环节识别结果：家庭住址。
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $OcrBirth Ocr识别结果。生日。
+     * @param string $OcrBirth 身份校验环节识别结果：生日。格式为：YYYY/M/D
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $OcrAuthority Ocr识别结果。签发机关。
+     * @param string $OcrAuthority 身份校验环节识别结果：签发机关。
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $OcrValidDate Ocr识别结果。有效日期。
+     * @param string $OcrValidDate 身份校验环节识别结果：有效日期。格式为：YYYY.MM.DD-YYYY.MM.DD
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $OcrName Ocr识别结果。姓名。
+     * @param string $OcrName 身份校验环节识别结果：姓名。
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $OcrIdCard Ocr识别结果。身份证号。
+     * @param string $OcrIdCard 身份校验环节识别结果：身份证号。
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $OcrGender Ocr识别结果。性别。
+     * @param string $OcrGender 身份校验环节识别结果：性别。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $IdInfoFrom 身份校验环节采用的信息上传方式。
+取值有"NFC"、"OCR"、"手动输入"、"其他"
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $LiveStatus 本次流程最终活体结果。0为成功
 注意：此字段可能返回 null，表示取不到有效值。
@@ -303,6 +384,21 @@ class DetectInfoText extends AbstractModel
 业务方自有库（用户上传照片、客户的混合库、混合部署库）；
 二次验证库；
 人工审核库；
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $LivenessMode 本次流程最终活体类型。包括：
+0：未知
+1：数字活体
+2：动作活体
+3：静默活体
+4：一闪活体（动作+光线）
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $NFCRequestIds nfc重复计费requestId列表
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $NFCBillingCounts nfc重复计费计数
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $PassNo 港澳台居住证通行证号码
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $VisaNum 港澳台居住证签发次数
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -366,6 +462,10 @@ class DetectInfoText extends AbstractModel
             $this->OcrGender = $param["OcrGender"];
         }
 
+        if (array_key_exists("IdInfoFrom",$param) and $param["IdInfoFrom"] !== null) {
+            $this->IdInfoFrom = $param["IdInfoFrom"];
+        }
+
         if (array_key_exists("LiveStatus",$param) and $param["LiveStatus"] !== null) {
             $this->LiveStatus = $param["LiveStatus"];
         }
@@ -409,6 +509,26 @@ class DetectInfoText extends AbstractModel
 
         if (array_key_exists("CompareLibType",$param) and $param["CompareLibType"] !== null) {
             $this->CompareLibType = $param["CompareLibType"];
+        }
+
+        if (array_key_exists("LivenessMode",$param) and $param["LivenessMode"] !== null) {
+            $this->LivenessMode = $param["LivenessMode"];
+        }
+
+        if (array_key_exists("NFCRequestIds",$param) and $param["NFCRequestIds"] !== null) {
+            $this->NFCRequestIds = $param["NFCRequestIds"];
+        }
+
+        if (array_key_exists("NFCBillingCounts",$param) and $param["NFCBillingCounts"] !== null) {
+            $this->NFCBillingCounts = $param["NFCBillingCounts"];
+        }
+
+        if (array_key_exists("PassNo",$param) and $param["PassNo"] !== null) {
+            $this->PassNo = $param["PassNo"];
+        }
+
+        if (array_key_exists("VisaNum",$param) and $param["VisaNum"] !== null) {
+            $this->VisaNum = $param["VisaNum"];
         }
     }
 }

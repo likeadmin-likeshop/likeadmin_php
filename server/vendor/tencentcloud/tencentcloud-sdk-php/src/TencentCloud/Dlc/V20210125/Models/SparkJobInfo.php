@@ -18,7 +18,7 @@ namespace TencentCloud\Dlc\V20210125\Models;
 use TencentCloud\Common\AbstractModel;
 
 /**
- * spark作业详情
+ * spark作业详情。
  *
  * @method string getJobId() 获取spark作业ID
  * @method void setJobId(string $JobId) 设置spark作业ID
@@ -92,6 +92,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setJobArchives(string $JobArchives) 设置archives：依赖资源
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getSparkImage() 获取Spark Image 版本
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSparkImage(string $SparkImage) 设置Spark Image 版本
+注意：此字段可能返回 null，表示取不到有效值。
  * @method string getJobPythonFiles() 获取pyspark：python依赖, 除py文件外，还支持zip/egg等归档格式，多文件以逗号分隔
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setJobPythonFiles(string $JobPythonFiles) 设置pyspark：python依赖, 除py文件外，还支持zip/egg等归档格式，多文件以逗号分隔
@@ -103,6 +107,26 @@ use TencentCloud\Common\AbstractModel;
  * @method integer getDataEngineStatus() 获取引擎状态：-100（默认：未知状态），-2~11：引擎正常状态；
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setDataEngineStatus(integer $DataEngineStatus) 设置引擎状态：-100（默认：未知状态），-2~11：引擎正常状态；
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getJobExecutorMaxNumbers() 获取指定的Executor数量（最大值），默认为1，当开启动态分配有效，若未开启，则该值等于JobExecutorNums
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setJobExecutorMaxNumbers(integer $JobExecutorMaxNumbers) 设置指定的Executor数量（最大值），默认为1，当开启动态分配有效，若未开启，则该值等于JobExecutorNums
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getSparkImageVersion() 获取镜像版本
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSparkImageVersion(string $SparkImageVersion) 设置镜像版本
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getSessionId() 获取查询脚本关联id
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSessionId(string $SessionId) 设置查询脚本关联id
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getDataEngineClusterType() 获取spark_emr_livy
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDataEngineClusterType(string $DataEngineClusterType) 设置spark_emr_livy
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getDataEngineImageVersion() 获取Spark 3.2-EMR
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDataEngineImageVersion(string $DataEngineImageVersion) 设置Spark 3.2-EMR
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class SparkJobInfo extends AbstractModel
@@ -264,6 +288,12 @@ class SparkJobInfo extends AbstractModel
     public $JobArchives;
 
     /**
+     * @var string Spark Image 版本
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SparkImage;
+
+    /**
      * @var string pyspark：python依赖, 除py文件外，还支持zip/egg等归档格式，多文件以逗号分隔
 注意：此字段可能返回 null，表示取不到有效值。
      */
@@ -280,6 +310,36 @@ class SparkJobInfo extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $DataEngineStatus;
+
+    /**
+     * @var integer 指定的Executor数量（最大值），默认为1，当开启动态分配有效，若未开启，则该值等于JobExecutorNums
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $JobExecutorMaxNumbers;
+
+    /**
+     * @var string 镜像版本
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SparkImageVersion;
+
+    /**
+     * @var string 查询脚本关联id
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SessionId;
+
+    /**
+     * @var string spark_emr_livy
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DataEngineClusterType;
+
+    /**
+     * @var string Spark 3.2-EMR
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DataEngineImageVersion;
 
     /**
      * @param string $JobId spark作业ID
@@ -318,11 +378,23 @@ class SparkJobInfo extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $JobArchives archives：依赖资源
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $SparkImage Spark Image 版本
+注意：此字段可能返回 null，表示取不到有效值。
      * @param string $JobPythonFiles pyspark：python依赖, 除py文件外，还支持zip/egg等归档格式，多文件以逗号分隔
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $TaskNum 当前job正在运行或准备运行的任务个数
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $DataEngineStatus 引擎状态：-100（默认：未知状态），-2~11：引擎正常状态；
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $JobExecutorMaxNumbers 指定的Executor数量（最大值），默认为1，当开启动态分配有效，若未开启，则该值等于JobExecutorNums
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $SparkImageVersion 镜像版本
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $SessionId 查询脚本关联id
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $DataEngineClusterType spark_emr_livy
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $DataEngineImageVersion Spark 3.2-EMR
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -459,6 +531,10 @@ class SparkJobInfo extends AbstractModel
             $this->JobArchives = $param["JobArchives"];
         }
 
+        if (array_key_exists("SparkImage",$param) and $param["SparkImage"] !== null) {
+            $this->SparkImage = $param["SparkImage"];
+        }
+
         if (array_key_exists("JobPythonFiles",$param) and $param["JobPythonFiles"] !== null) {
             $this->JobPythonFiles = $param["JobPythonFiles"];
         }
@@ -469,6 +545,26 @@ class SparkJobInfo extends AbstractModel
 
         if (array_key_exists("DataEngineStatus",$param) and $param["DataEngineStatus"] !== null) {
             $this->DataEngineStatus = $param["DataEngineStatus"];
+        }
+
+        if (array_key_exists("JobExecutorMaxNumbers",$param) and $param["JobExecutorMaxNumbers"] !== null) {
+            $this->JobExecutorMaxNumbers = $param["JobExecutorMaxNumbers"];
+        }
+
+        if (array_key_exists("SparkImageVersion",$param) and $param["SparkImageVersion"] !== null) {
+            $this->SparkImageVersion = $param["SparkImageVersion"];
+        }
+
+        if (array_key_exists("SessionId",$param) and $param["SessionId"] !== null) {
+            $this->SessionId = $param["SessionId"];
+        }
+
+        if (array_key_exists("DataEngineClusterType",$param) and $param["DataEngineClusterType"] !== null) {
+            $this->DataEngineClusterType = $param["DataEngineClusterType"];
+        }
+
+        if (array_key_exists("DataEngineImageVersion",$param) and $param["DataEngineImageVersion"] !== null) {
+            $this->DataEngineImageVersion = $param["DataEngineImageVersion"];
         }
     }
 }

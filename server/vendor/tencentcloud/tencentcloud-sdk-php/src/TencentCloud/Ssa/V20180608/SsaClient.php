@@ -24,6 +24,7 @@ use TencentCloud\Ssa\V20180608\Models as Models;
 
 /**
  * @method Models\DescribeAssetDetailResponse DescribeAssetDetail(Models\DescribeAssetDetailRequest $req) 资产安全页资产详情
+ * @method Models\DescribeAssetDetailListResponse DescribeAssetDetailList(Models\DescribeAssetDetailListRequest $req) 资产条件查询
  * @method Models\DescribeAssetListResponse DescribeAssetList(Models\DescribeAssetListRequest $req) 资产安全资产列表
  * @method Models\DescribeAssetsMappingListResponse DescribeAssetsMappingList(Models\DescribeAssetsMappingListRequest $req) 资产测绘-测绘列表
  * @method Models\DescribeCheckConfigAssetListResponse DescribeCheckConfigAssetList(Models\DescribeCheckConfigAssetListRequest $req) 云安全配置管理资产组列表
@@ -44,6 +45,7 @@ use TencentCloud\Ssa\V20180608\Models as Models;
  * @method Models\DescribeVulDetailResponse DescribeVulDetail(Models\DescribeVulDetailRequest $req) 漏洞列表页，获取漏洞详情信息
  * @method Models\DescribeVulListResponse DescribeVulList(Models\DescribeVulListRequest $req) 漏洞管理页，获取漏洞列表
  * @method Models\SaDivulgeDataQueryPubResponse SaDivulgeDataQueryPub(Models\SaDivulgeDataQueryPubRequest $req) 查询【通用字段】【泄露监测数据列表】
+ * @method Models\SaEventPubResponse SaEventPub(Models\SaEventPubRequest $req) 安全事件通用字段
  */
 
 class SsaClient extends AbstractClient

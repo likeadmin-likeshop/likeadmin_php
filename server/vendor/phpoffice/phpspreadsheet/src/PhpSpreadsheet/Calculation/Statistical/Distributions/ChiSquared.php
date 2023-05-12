@@ -5,12 +5,11 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ChiSquared
 {
     use ArrayEnabled;
-
-    private const MAX_ITERATIONS = 256;
 
     private const EPS = 2.22e-16;
 
@@ -42,14 +41,14 @@ class ChiSquared
         }
 
         if ($degrees < 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         if ($value < 0) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
                 return 1;
             }
 
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return 1 - (Gamma::incompleteGamma($degrees / 2, $value / 2) / Gamma::gammaValue($degrees / 2));
@@ -86,21 +85,21 @@ class ChiSquared
         }
 
         if ($degrees < 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         if ($value < 0) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
                 return 1;
             }
 
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($cumulative === true) {
             return 1 - self::distributionRightTail($value, $degrees);
         }
 
-        return (($value ** (($degrees / 2) - 1) * exp(-$value / 2))) /
+        return ($value ** (($degrees / 2) - 1) * exp(-$value / 2)) /
             ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
     }
 
@@ -132,7 +131,7 @@ class ChiSquared
         }
 
         if ($degrees < 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $callback = function ($value) use ($degrees) {
@@ -173,7 +172,7 @@ class ChiSquared
         }
 
         if ($degrees < 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return self::inverseLeftTailCalculation($probability, $degrees);
@@ -196,20 +195,20 @@ class ChiSquared
         $rows = count($actual);
         $actual = Functions::flattenArray($actual);
         $expected = Functions::flattenArray($expected);
-        $columns = count($actual) / $rows;
+        $columns = intdiv(count($actual), $rows);
 
         $countActuals = count($actual);
         $countExpected = count($expected);
         if ($countActuals !== $countExpected || $countActuals === 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $result = 0.0;
         for ($i = 0; $i < $countActuals; ++$i) {
             if ($expected[$i] == 0.0) {
-                return Functions::DIV0();
+                return ExcelError::DIV0();
             } elseif ($expected[$i] < 0.0) {
-                return Functions::NAN();
+                return ExcelError::NAN();
             }
             $result += (($actual[$i] - $expected[$i]) ** 2) / $expected[$i];
         }
@@ -260,12 +259,12 @@ class ChiSquared
         return $chi2;
     }
 
-    private static function pchisq($chi2, $degrees)
+    private static function pchisq(float $chi2, int $degrees): float
     {
         return self::gammp($degrees, 0.5 * $chi2);
     }
 
-    private static function gammp($n, $x)
+    private static function gammp(int $n, float $x): float
     {
         if ($x < 0.5 * $n + 1) {
             return self::gser($n, $x);
@@ -278,8 +277,9 @@ class ChiSquared
     // series representation. Algorithm from numerical recipe.
     // Assume that n is a positive integer and x>0, won't check arguments.
     // Relative error controlled by the eps parameter
-    private static function gser($n, $x)
+    private static function gser(int $n, float $x): float
     {
+        /** @var float */
         $gln = Gamma::ln($n / 2);
         $a = 0.5 * $n;
         $ap = $a;
@@ -301,8 +301,9 @@ class ChiSquared
     // its continued fraction representation. Algorithm from numerical recipe.
     // Assume that n is a postive integer and x>0, won't check arguments.
     // Relative error controlled by the eps parameter
-    private static function gcf($n, $x)
+    private static function gcf(int $n, float $x): float
     {
+        /** @var float */
         $gln = Gamma::ln($n / 2);
         $a = 0.5 * $n;
         $b = $x + 1 - $a;

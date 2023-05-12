@@ -20,15 +20,30 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeTLogInfo返回参数结构体
  *
- * @method TLogInfo getData() 获取无
- * @method void setData(TLogInfo $Data) 设置无
+ * @method TLogInfo getData() 获取"NetworkNum":网络扫描探测
+ "HandleNum": 待处理事件
+"BanNum": 
+  "VulNum": 漏洞利用
+  "OutNum": 失陷主机
+"BruteForceNum": 0
+ * @method void setData(TLogInfo $Data) 设置"NetworkNum":网络扫描探测
+ "HandleNum": 待处理事件
+"BanNum": 
+  "VulNum": 漏洞利用
+  "OutNum": 失陷主机
+"BruteForceNum": 0
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class DescribeTLogInfoResponse extends AbstractModel
 {
     /**
-     * @var TLogInfo 无
+     * @var TLogInfo "NetworkNum":网络扫描探测
+ "HandleNum": 待处理事件
+"BanNum": 
+  "VulNum": 漏洞利用
+  "OutNum": 失陷主机
+"BruteForceNum": 0
      */
     public $Data;
 
@@ -38,7 +53,12 @@ class DescribeTLogInfoResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param TLogInfo $Data 无
+     * @param TLogInfo $Data "NetworkNum":网络扫描探测
+ "HandleNum": 待处理事件
+"BanNum": 
+  "VulNum": 漏洞利用
+  "OutNum": 失陷主机
+"BruteForceNum": 0
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

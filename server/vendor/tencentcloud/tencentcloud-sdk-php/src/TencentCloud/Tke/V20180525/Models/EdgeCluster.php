@@ -48,6 +48,26 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setClusterAdvancedSettings(EdgeClusterAdvancedSettings $ClusterAdvancedSettings) 设置集群高级设置
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getLevel() 获取边缘容器集群级别
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setLevel(string $Level) 设置边缘容器集群级别
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method boolean getAutoUpgradeClusterLevel() 获取是否支持自动提升集群配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAutoUpgradeClusterLevel(boolean $AutoUpgradeClusterLevel) 设置是否支持自动提升集群配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getChargeType() 获取集群付费模式，支持POSTPAID_BY_HOUR或者PREPAID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setChargeType(string $ChargeType) 设置集群付费模式，支持POSTPAID_BY_HOUR或者PREPAID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getEdgeVersion() 获取边缘集群组件的版本
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setEdgeVersion(string $EdgeVersion) 设置边缘集群组件的版本
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method TagSpecification getTagSpecification() 获取集群绑定的云标签
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTagSpecification(TagSpecification $TagSpecification) 设置集群绑定的云标签
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class EdgeCluster extends AbstractModel
 {
@@ -114,6 +134,36 @@ class EdgeCluster extends AbstractModel
     public $ClusterAdvancedSettings;
 
     /**
+     * @var string 边缘容器集群级别
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Level;
+
+    /**
+     * @var boolean 是否支持自动提升集群配置
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AutoUpgradeClusterLevel;
+
+    /**
+     * @var string 集群付费模式，支持POSTPAID_BY_HOUR或者PREPAID
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ChargeType;
+
+    /**
+     * @var string 边缘集群组件的版本
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $EdgeVersion;
+
+    /**
+     * @var TagSpecification 集群绑定的云标签
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TagSpecification;
+
+    /**
      * @param string $ClusterId 集群Id
      * @param string $ClusterName 集群名称
      * @param string $VpcId Vpc Id
@@ -127,6 +177,16 @@ class EdgeCluster extends AbstractModel
      * @param integer $MaxNodePodNum 节点最大Pod数
 注意：此字段可能返回 null，表示取不到有效值。
      * @param EdgeClusterAdvancedSettings $ClusterAdvancedSettings 集群高级设置
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Level 边缘容器集群级别
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param boolean $AutoUpgradeClusterLevel 是否支持自动提升集群配置
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ChargeType 集群付费模式，支持POSTPAID_BY_HOUR或者PREPAID
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $EdgeVersion 边缘集群组件的版本
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param TagSpecification $TagSpecification 集群绑定的云标签
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -189,6 +249,27 @@ class EdgeCluster extends AbstractModel
         if (array_key_exists("ClusterAdvancedSettings",$param) and $param["ClusterAdvancedSettings"] !== null) {
             $this->ClusterAdvancedSettings = new EdgeClusterAdvancedSettings();
             $this->ClusterAdvancedSettings->deserialize($param["ClusterAdvancedSettings"]);
+        }
+
+        if (array_key_exists("Level",$param) and $param["Level"] !== null) {
+            $this->Level = $param["Level"];
+        }
+
+        if (array_key_exists("AutoUpgradeClusterLevel",$param) and $param["AutoUpgradeClusterLevel"] !== null) {
+            $this->AutoUpgradeClusterLevel = $param["AutoUpgradeClusterLevel"];
+        }
+
+        if (array_key_exists("ChargeType",$param) and $param["ChargeType"] !== null) {
+            $this->ChargeType = $param["ChargeType"];
+        }
+
+        if (array_key_exists("EdgeVersion",$param) and $param["EdgeVersion"] !== null) {
+            $this->EdgeVersion = $param["EdgeVersion"];
+        }
+
+        if (array_key_exists("TagSpecification",$param) and $param["TagSpecification"] !== null) {
+            $this->TagSpecification = new TagSpecification();
+            $this->TagSpecification->deserialize($param["TagSpecification"]);
         }
     }
 }

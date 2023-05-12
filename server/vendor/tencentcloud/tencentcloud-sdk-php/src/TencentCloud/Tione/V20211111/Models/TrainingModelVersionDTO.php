@@ -53,8 +53,10 @@ use TencentCloud\Common\AbstractModel;
  * @method string getCreateTime() 获取模型版本创建时间
  * @method void setCreateTime(string $CreateTime) 设置模型版本创建时间
  * @method string getTrainingModelStatus() 获取模型处理状态
+STATUS_SUCCESS：导入成功，STATUS_FAILED：导入失败 ，STATUS_RUNNING：导入中
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setTrainingModelStatus(string $TrainingModelStatus) 设置模型处理状态
+STATUS_SUCCESS：导入成功，STATUS_FAILED：导入失败 ，STATUS_RUNNING：导入中
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getTrainingModelProgress() 获取模型处理进度
 注意：此字段可能返回 null，表示取不到有效值。
@@ -91,6 +93,26 @@ use TencentCloud\Common\AbstractModel;
  * @method CosPathInfo getModelHotUpdatePath() 获取模型热更新目录
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setModelHotUpdatePath(CosPathInfo $ModelHotUpdatePath) 设置模型热更新目录
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getReasoningEnvironmentId() 获取推理环境id
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setReasoningEnvironmentId(string $ReasoningEnvironmentId) 设置推理环境id
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getTrainingJobVersion() 获取训练任务版本
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTrainingJobVersion(string $TrainingJobVersion) 设置训练任务版本
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getTrainingPreference() 获取训练偏好
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTrainingPreference(string $TrainingPreference) 设置训练偏好
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getAutoMLTaskId() 获取自动学习任务id
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAutoMLTaskId(string $AutoMLTaskId) 设置自动学习任务id
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method boolean getIsQAT() 获取是否QAT模型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setIsQAT(boolean $IsQAT) 设置是否QAT模型
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class TrainingModelVersionDTO extends AbstractModel
@@ -177,6 +199,7 @@ class TrainingModelVersionDTO extends AbstractModel
 
     /**
      * @var string 模型处理状态
+STATUS_SUCCESS：导入成功，STATUS_FAILED：导入失败 ，STATUS_RUNNING：导入中
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $TrainingModelStatus;
@@ -236,6 +259,36 @@ class TrainingModelVersionDTO extends AbstractModel
     public $ModelHotUpdatePath;
 
     /**
+     * @var string 推理环境id
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ReasoningEnvironmentId;
+
+    /**
+     * @var string 训练任务版本
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TrainingJobVersion;
+
+    /**
+     * @var string 训练偏好
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TrainingPreference;
+
+    /**
+     * @var string 自动学习任务id
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AutoMLTaskId;
+
+    /**
+     * @var boolean 是否QAT模型
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $IsQAT;
+
+    /**
      * @param string $TrainingModelId 模型id
      * @param string $TrainingModelVersionId 模型版本id
      * @param string $TrainingModelVersion 模型版本
@@ -253,6 +306,7 @@ class TrainingModelVersionDTO extends AbstractModel
      * @param ImageInfo $ReasoningImageInfo 自定义推理环境
      * @param string $CreateTime 模型版本创建时间
      * @param string $TrainingModelStatus 模型处理状态
+STATUS_SUCCESS：导入成功，STATUS_FAILED：导入失败 ，STATUS_RUNNING：导入中
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $TrainingModelProgress 模型处理进度
 注意：此字段可能返回 null，表示取不到有效值。
@@ -271,6 +325,16 @@ class TrainingModelVersionDTO extends AbstractModel
      * @param integer $MaxReservedModels 模型数量保留上限
 注意：此字段可能返回 null，表示取不到有效值。
      * @param CosPathInfo $ModelHotUpdatePath 模型热更新目录
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ReasoningEnvironmentId 推理环境id
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $TrainingJobVersion 训练任务版本
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $TrainingPreference 训练偏好
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $AutoMLTaskId 自动学习任务id
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param boolean $IsQAT 是否QAT模型
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -391,6 +455,26 @@ class TrainingModelVersionDTO extends AbstractModel
         if (array_key_exists("ModelHotUpdatePath",$param) and $param["ModelHotUpdatePath"] !== null) {
             $this->ModelHotUpdatePath = new CosPathInfo();
             $this->ModelHotUpdatePath->deserialize($param["ModelHotUpdatePath"]);
+        }
+
+        if (array_key_exists("ReasoningEnvironmentId",$param) and $param["ReasoningEnvironmentId"] !== null) {
+            $this->ReasoningEnvironmentId = $param["ReasoningEnvironmentId"];
+        }
+
+        if (array_key_exists("TrainingJobVersion",$param) and $param["TrainingJobVersion"] !== null) {
+            $this->TrainingJobVersion = $param["TrainingJobVersion"];
+        }
+
+        if (array_key_exists("TrainingPreference",$param) and $param["TrainingPreference"] !== null) {
+            $this->TrainingPreference = $param["TrainingPreference"];
+        }
+
+        if (array_key_exists("AutoMLTaskId",$param) and $param["AutoMLTaskId"] !== null) {
+            $this->AutoMLTaskId = $param["AutoMLTaskId"];
+        }
+
+        if (array_key_exists("IsQAT",$param) and $param["IsQAT"] !== null) {
+            $this->IsQAT = $param["IsQAT"];
         }
     }
 }

@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeClientConnections返回参数结构体
  *
- * @method array getClients() 获取客户端连接信息，包括客户端IP和对应IP的连接数量。
- * @method void setClients(array $Clients) 设置客户端连接信息，包括客户端IP和对应IP的连接数量。
+ * @method array getClients() 获取客户端连接信息，包括客户端 IP 和对应 IP 的连接数量。
+ * @method void setClients(array $Clients) 设置客户端连接信息，包括客户端 IP 和对应 IP 的连接数量。
  * @method integer getTotalCount() 获取满足条件的记录总条数，可用于分页查询。
  * @method void setTotalCount(integer $TotalCount) 设置满足条件的记录总条数，可用于分页查询。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -30,7 +30,7 @@ use TencentCloud\Common\AbstractModel;
 class DescribeClientConnectionsResponse extends AbstractModel
 {
     /**
-     * @var array 客户端连接信息，包括客户端IP和对应IP的连接数量。
+     * @var array 客户端连接信息，包括客户端 IP 和对应 IP 的连接数量。
      */
     public $Clients;
 
@@ -45,7 +45,7 @@ class DescribeClientConnectionsResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param array $Clients 客户端连接信息，包括客户端IP和对应IP的连接数量。
+     * @param array $Clients 客户端连接信息，包括客户端 IP 和对应 IP 的连接数量。
      * @param integer $TotalCount 满足条件的记录总条数，可用于分页查询。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */

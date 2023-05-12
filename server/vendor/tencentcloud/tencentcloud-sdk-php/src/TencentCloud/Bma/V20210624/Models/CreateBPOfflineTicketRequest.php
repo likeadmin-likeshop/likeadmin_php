@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * CreateBPOfflineTicket请求参数结构体
  *
- * @method integer getFakeURLId() 获取xxx
- * @method void setFakeURLId(integer $FakeURLId) 设置xxx
+ * @method integer getFakeURLId() 获取仿冒网址ID
+ * @method void setFakeURLId(integer $FakeURLId) 设置仿冒网址ID
  */
 class CreateBPOfflineTicketRequest extends AbstractModel
 {
     /**
-     * @var integer xxx
+     * @var integer 仿冒网址ID
      */
     public $FakeURLId;
 
     /**
-     * @param integer $FakeURLId xxx
+     * @param integer $FakeURLId 仿冒网址ID
      */
     function __construct()
     {

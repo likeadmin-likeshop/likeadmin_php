@@ -1,5 +1,5 @@
 # 简介
-欢迎使用腾讯云开发者工具套件（SDK）3.0，SDK3.0是云 API3.0 平台的配套工具。目前已经支持cvm、vpc、cbs等产品，后续所有的云服务产品都会接入进来。新版SDK实现了统一化，具有各个语言版本的SDK使用方法相同，接口调用方式相同，统一的错误码和返回包格式这些优点。
+欢迎使用腾讯云开发者工具套件（SDK）3.0，SDK3.0是云 API3.0 平台的配套工具。
 为方便 PHP 开发者调试和接入腾讯云产品 API，这里向您介绍适用于 PHP 的腾讯云开发工具包，并提供首次使用开发工具包的简单示例。让您快速获取腾讯云 PHP SDK 并开始调用。
 # 依赖环境
 1. PHP 5.6.0 版本及以上
@@ -43,7 +43,11 @@ use TencentCloud\Common\Exception\TencentCloudSDKException;
 use TencentCloud\Common\Credential;
 
 try {
-    $cred = new Credential("secretId", "secretKey");
+    // 为了保护密钥安全，建议将密钥设置在环境变量中或者配置文件中。
+    // 硬编码密钥到代码中有可能随代码泄露而暴露，有安全隐患，并不推荐。
+    // $cred = new Credential("SecretId", "SecretKey");
+    $cred = new Credential(getenv("TENCENTCLOUD_SECRET_ID"),
+                           getenv("TENCENTCLOUD_SECRET_KEY"));
     $client = new CvmClient($cred, "ap-guangzhou");
     $req = new DescribeInstancesRequest();
     $resp = $client->DescribeInstances($req);
@@ -71,8 +75,12 @@ use TencentCloud\Common\Profile\ClientProfile;
 use TencentCloud\Common\Profile\HttpProfile;
 
 try {
-    // 实例化一个证书对象，入参需要传入腾讯云账户secretId，secretKey
-    $cred = new Credential("secretId", "secretKey");
+    // 实例化一个证书对象，入参需要传入腾讯云账户 SecretId，SecretKey
+    // 为了保护密钥安全，建议将密钥设置在环境变量中或者配置文件中。
+    // 硬编码密钥到代码中有可能随代码泄露而暴露，有安全隐患，并不推荐。
+    // $cred = new Credential("SecretId", "SecretKey");
+    $cred = new Credential(getenv("TENCENTCLOUD_SECRET_ID"),
+                           getenv("TENCENTCLOUD_SECRET_KEY"));
 
     // 实例化一个http选项，可选的，没有特殊需求可以跳过
     $httpProfile = new HttpProfile();
@@ -116,6 +124,13 @@ catch(TencentCloudSDKException $e) {
 }
 ```
 
+## Common Client
+
+从 3.0.839 版本起，支持通用请求方式 Common Client，可以发起 SDK 中未定义的接口请求。
+
+注意：目前仅支持 POST 方法，签名方法仅支持签名方法 v3。
+
+请参考 [调用示例](https://github.com/TencentCloud/tencentcloud-sdk-php/tree/master/examples/common/CommonClient.php)
 
 
 # 常见问题
@@ -126,8 +141,6 @@ catch(TencentCloudSDKException $e) {
 
 或者使用 GuzzleHttp 代理配置:
 ```php
-$cred = new Credential("secretId", "secretKey");
-
 $httpProfile = new HttpProfile();
 $httpProfile->setProxy('https://ip:port');
 

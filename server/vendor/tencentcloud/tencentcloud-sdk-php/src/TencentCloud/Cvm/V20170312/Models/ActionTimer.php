@@ -20,34 +20,46 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 定时任务
  *
+ * @method string getTimerAction() 获取定时器动作，目前仅支持销毁一个值：TerminateInstances。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTimerAction(string $TimerAction) 设置定时器动作，目前仅支持销毁一个值：TerminateInstances。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getActionTime() 获取执行时间，按照ISO8601标准表示，并且使用UTC时间。格式为 YYYY-MM-DDThh:mm:ssZ。例如 2018-05-29T11:26:40Z，执行时间必须大于当前时间5分钟。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setActionTime(string $ActionTime) 设置执行时间，按照ISO8601标准表示，并且使用UTC时间。格式为 YYYY-MM-DDThh:mm:ssZ。例如 2018-05-29T11:26:40Z，执行时间必须大于当前时间5分钟。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method Externals getExternals() 获取扩展数据
+注意：此字段可能返回 null，表示取不到有效值。
  * @method void setExternals(Externals $Externals) 设置扩展数据
- * @method string getTimerAction() 获取定时器名称，目前仅支持销毁一个值：TerminateInstances。
- * @method void setTimerAction(string $TimerAction) 设置定时器名称，目前仅支持销毁一个值：TerminateInstances。
- * @method string getActionTime() 获取执行时间，格式形如：2018-5-29 11:26:40,执行时间必须大于当前时间5分钟。
- * @method void setActionTime(string $ActionTime) 设置执行时间，格式形如：2018-5-29 11:26:40,执行时间必须大于当前时间5分钟。
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class ActionTimer extends AbstractModel
 {
     /**
-     * @var Externals 扩展数据
-     */
-    public $Externals;
-
-    /**
-     * @var string 定时器名称，目前仅支持销毁一个值：TerminateInstances。
+     * @var string 定时器动作，目前仅支持销毁一个值：TerminateInstances。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     public $TimerAction;
 
     /**
-     * @var string 执行时间，格式形如：2018-5-29 11:26:40,执行时间必须大于当前时间5分钟。
+     * @var string 执行时间，按照ISO8601标准表示，并且使用UTC时间。格式为 YYYY-MM-DDThh:mm:ssZ。例如 2018-05-29T11:26:40Z，执行时间必须大于当前时间5分钟。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ActionTime;
 
     /**
+     * @var Externals 扩展数据
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Externals;
+
+    /**
+     * @param string $TimerAction 定时器动作，目前仅支持销毁一个值：TerminateInstances。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ActionTime 执行时间，按照ISO8601标准表示，并且使用UTC时间。格式为 YYYY-MM-DDThh:mm:ssZ。例如 2018-05-29T11:26:40Z，执行时间必须大于当前时间5分钟。
+注意：此字段可能返回 null，表示取不到有效值。
      * @param Externals $Externals 扩展数据
-     * @param string $TimerAction 定时器名称，目前仅支持销毁一个值：TerminateInstances。
-     * @param string $ActionTime 执行时间，格式形如：2018-5-29 11:26:40,执行时间必须大于当前时间5分钟。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
     {
@@ -62,17 +74,17 @@ class ActionTimer extends AbstractModel
         if ($param === null) {
             return;
         }
-        if (array_key_exists("Externals",$param) and $param["Externals"] !== null) {
-            $this->Externals = new Externals();
-            $this->Externals->deserialize($param["Externals"]);
-        }
-
         if (array_key_exists("TimerAction",$param) and $param["TimerAction"] !== null) {
             $this->TimerAction = $param["TimerAction"];
         }
 
         if (array_key_exists("ActionTime",$param) and $param["ActionTime"] !== null) {
             $this->ActionTime = $param["ActionTime"];
+        }
+
+        if (array_key_exists("Externals",$param) and $param["Externals"] !== null) {
+            $this->Externals = new Externals();
+            $this->Externals->deserialize($param["Externals"]);
         }
     }
 }

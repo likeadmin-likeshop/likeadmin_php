@@ -22,8 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getStatus() 获取实时语音服务开关，取值：open/close
  * @method void setStatus(string $Status) 设置实时语音服务开关，取值：open/close
- * @method string getQuality() 获取实时语音音质类型，取值：high-高音质
- * @method void setQuality(string $Quality) 设置实时语音音质类型，取值：high-高音质
+ * @method string getQuality() 获取实时语音音质类型，取值：high-高音质 ordinary-普通音质
+ * @method void setQuality(string $Quality) 设置实时语音音质类型，取值：high-高音质 ordinary-普通音质
  */
 class RealtimeSpeechConf extends AbstractModel
 {
@@ -33,13 +33,13 @@ class RealtimeSpeechConf extends AbstractModel
     public $Status;
 
     /**
-     * @var string 实时语音音质类型，取值：high-高音质
+     * @var string 实时语音音质类型，取值：high-高音质 ordinary-普通音质
      */
     public $Quality;
 
     /**
      * @param string $Status 实时语音服务开关，取值：open/close
-     * @param string $Quality 实时语音音质类型，取值：high-高音质
+     * @param string $Quality 实时语音音质类型，取值：high-高音质 ordinary-普通音质
      */
     function __construct()
     {

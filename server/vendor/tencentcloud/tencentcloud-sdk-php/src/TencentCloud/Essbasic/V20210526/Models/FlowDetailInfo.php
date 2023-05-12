@@ -26,8 +26,26 @@ use TencentCloud\Common\AbstractModel;
  * @method void setFlowName(string $FlowName) 设置合同(流程)的名字
  * @method string getFlowType() 获取合同(流程)的类型
  * @method void setFlowType(string $FlowType) 设置合同(流程)的类型
- * @method string getFlowStatus() 获取合同(流程)的状态
- * @method void setFlowStatus(string $FlowStatus) 设置合同(流程)的状态
+ * @method string getFlowStatus() 获取合同(流程)的状态, 状态如下
+
+INIT 还没发起
+PART 部分签署
+REJECT 拒签
+ALL 全部签署
+DEADLINE 流签
+CANCEL 取消
+RELIEVED 解除
+ 
+ * @method void setFlowStatus(string $FlowStatus) 设置合同(流程)的状态, 状态如下
+
+INIT 还没发起
+PART 部分签署
+REJECT 拒签
+ALL 全部签署
+DEADLINE 流签
+CANCEL 取消
+RELIEVED 解除
+ 
  * @method string getFlowMessage() 获取合同(流程)的信息
  * @method void setFlowMessage(string $FlowMessage) 设置合同(流程)的信息
  * @method integer getCreateOn() 获取合同(流程)的创建时间戳
@@ -38,6 +56,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setCustomData(string $CustomData) 设置用户自定义数据
  * @method array getFlowApproverInfos() 获取合同(流程)的签署人数组
  * @method void setFlowApproverInfos(array $FlowApproverInfos) 设置合同(流程)的签署人数组
+ * @method array getCcInfos() 获取合同(流程)关注方信息列表
+ * @method void setCcInfos(array $CcInfos) 设置合同(流程)关注方信息列表
  */
 class FlowDetailInfo extends AbstractModel
 {
@@ -57,7 +77,16 @@ class FlowDetailInfo extends AbstractModel
     public $FlowType;
 
     /**
-     * @var string 合同(流程)的状态
+     * @var string 合同(流程)的状态, 状态如下
+
+INIT 还没发起
+PART 部分签署
+REJECT 拒签
+ALL 全部签署
+DEADLINE 流签
+CANCEL 取消
+RELIEVED 解除
+ 
      */
     public $FlowStatus;
 
@@ -87,15 +116,30 @@ class FlowDetailInfo extends AbstractModel
     public $FlowApproverInfos;
 
     /**
+     * @var array 合同(流程)关注方信息列表
+     */
+    public $CcInfos;
+
+    /**
      * @param string $FlowId 合同(流程)的Id
      * @param string $FlowName 合同(流程)的名字
      * @param string $FlowType 合同(流程)的类型
-     * @param string $FlowStatus 合同(流程)的状态
+     * @param string $FlowStatus 合同(流程)的状态, 状态如下
+
+INIT 还没发起
+PART 部分签署
+REJECT 拒签
+ALL 全部签署
+DEADLINE 流签
+CANCEL 取消
+RELIEVED 解除
+ 
      * @param string $FlowMessage 合同(流程)的信息
      * @param integer $CreateOn 合同(流程)的创建时间戳
      * @param integer $DeadLine 合同(流程)的签署截止时间戳
      * @param string $CustomData 用户自定义数据
      * @param array $FlowApproverInfos 合同(流程)的签署人数组
+     * @param array $CcInfos 合同(流程)关注方信息列表
      */
     function __construct()
     {
@@ -148,6 +192,15 @@ class FlowDetailInfo extends AbstractModel
                 $obj = new FlowApproverDetail();
                 $obj->deserialize($value);
                 array_push($this->FlowApproverInfos, $obj);
+            }
+        }
+
+        if (array_key_exists("CcInfos",$param) and $param["CcInfos"] !== null) {
+            $this->CcInfos = [];
+            foreach ($param["CcInfos"] as $key => $value){
+                $obj = new FlowApproverDetail();
+                $obj->deserialize($value);
+                array_push($this->CcInfos, $obj);
             }
         }
     }

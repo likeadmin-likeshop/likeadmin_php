@@ -88,9 +88,9 @@ Public：公网属性， Private：内网属性。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setExtraInfo(ExtraInfo $ExtraInfo) 设置暂做保留，一般用户无需关注。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getConfigId() 获取负载均衡维度的个性化配置ID。
+ * @method string getConfigId() 获取负载均衡维度的个性化配置ID，多个配置用逗号隔开。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setConfigId(string $ConfigId) 设置负载均衡维度的个性化配置ID。
+ * @method void setConfigId(string $ConfigId) 设置负载均衡维度的个性化配置ID，多个配置用逗号隔开。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method array getTags() 获取负载均衡实例的标签信息。
 注意：此字段可能返回 null，表示取不到有效值。
@@ -155,6 +155,22 @@ Public：公网属性， Private：内网属性。
  * @method string getDomains() 获取转发规则的域名列表。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setDomains(string $Domains) 设置转发规则的域名列表。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getSlaveZone() 获取多可用区负载均衡实例所选备区
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSlaveZone(array $SlaveZone) 设置多可用区负载均衡实例所选备区
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getZones() 获取内网负载均衡实例所在可用区，由白名单CLB_Internal_Zone控制
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setZones(array $Zones) 设置内网负载均衡实例所在可用区，由白名单CLB_Internal_Zone控制
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getSniSwitch() 获取是否开启SNI特性（本参数仅对于HTTPS监听器有意义）。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSniSwitch(integer $SniSwitch) 设置是否开启SNI特性（本参数仅对于HTTPS监听器有意义）。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getLoadBalancerDomain() 获取负载均衡实例的域名。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setLoadBalancerDomain(string $LoadBalancerDomain) 设置负载均衡实例的域名。
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class LoadBalancerDetail extends AbstractModel
@@ -262,7 +278,7 @@ Public：公网属性， Private：内网属性。
     public $ExtraInfo;
 
     /**
-     * @var string 负载均衡维度的个性化配置ID。
+     * @var string 负载均衡维度的个性化配置ID，多个配置用逗号隔开。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ConfigId;
@@ -364,6 +380,30 @@ Public：公网属性， Private：内网属性。
     public $Domains;
 
     /**
+     * @var array 多可用区负载均衡实例所选备区
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SlaveZone;
+
+    /**
+     * @var array 内网负载均衡实例所在可用区，由白名单CLB_Internal_Zone控制
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Zones;
+
+    /**
+     * @var integer 是否开启SNI特性（本参数仅对于HTTPS监听器有意义）。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SniSwitch;
+
+    /**
+     * @var string 负载均衡实例的域名。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $LoadBalancerDomain;
+
+    /**
      * @param string $LoadBalancerId 负载均衡实例 ID。
      * @param string $LoadBalancerName 负载均衡实例的名称。
      * @param string $LoadBalancerType 负载均衡实例的网络类型：
@@ -398,7 +438,7 @@ Public：公网属性， Private：内网属性。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param ExtraInfo $ExtraInfo 暂做保留，一般用户无需关注。
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $ConfigId 负载均衡维度的个性化配置ID。
+     * @param string $ConfigId 负载均衡维度的个性化配置ID，多个配置用逗号隔开。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $Tags 负载均衡实例的标签信息。
 注意：此字段可能返回 null，表示取不到有效值。
@@ -431,6 +471,14 @@ Public：公网属性， Private：内网属性。
      * @param string $TargetHealth 后端目标健康状态。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Domains 转发规则的域名列表。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $SlaveZone 多可用区负载均衡实例所选备区
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $Zones 内网负载均衡实例所在可用区，由白名单CLB_Internal_Zone控制
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $SniSwitch 是否开启SNI特性（本参数仅对于HTTPS监听器有意义）。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $LoadBalancerDomain 负载均衡实例的域名。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -588,6 +636,22 @@ Public：公网属性， Private：内网属性。
 
         if (array_key_exists("Domains",$param) and $param["Domains"] !== null) {
             $this->Domains = $param["Domains"];
+        }
+
+        if (array_key_exists("SlaveZone",$param) and $param["SlaveZone"] !== null) {
+            $this->SlaveZone = $param["SlaveZone"];
+        }
+
+        if (array_key_exists("Zones",$param) and $param["Zones"] !== null) {
+            $this->Zones = $param["Zones"];
+        }
+
+        if (array_key_exists("SniSwitch",$param) and $param["SniSwitch"] !== null) {
+            $this->SniSwitch = $param["SniSwitch"];
+        }
+
+        if (array_key_exists("LoadBalancerDomain",$param) and $param["LoadBalancerDomain"] !== null) {
+            $this->LoadBalancerDomain = $param["LoadBalancerDomain"];
         }
     }
 }

@@ -24,6 +24,7 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
 
 /**
  * @method Models\AddContractResponse AddContract(Models\AddContractRequest $req) 云支付-添加合同接口
+ * @method Models\AddFlexFundingAccountResponse AddFlexFundingAccount(Models\AddFlexFundingAccountRequest $req) 灵云V2-绑定收款用户资金账号信息
  * @method Models\AddFlexIdInfoResponse AddFlexIdInfo(Models\AddFlexIdInfoRequest $req) 灵云V2-补充证件信息
  * @method Models\AddFlexPhoneNoResponse AddFlexPhoneNo(Models\AddFlexPhoneNoRequest $req) 灵云V2-补充手机号信息
  * @method Models\AddMerchantResponse AddMerchant(Models\AddMerchantRequest $req) 云支付-添加商户接口
@@ -31,8 +32,9 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
  * @method Models\ApplyApplicationMaterialResponse ApplyApplicationMaterial(Models\ApplyApplicationMaterialRequest $req) 跨境-提交申报材料。申报材料的主体是付款人，需要提前调用【跨境-付款人申请】接口提交付款人信息且审核通过后调用。
  * @method Models\ApplyFlexPaymentResponse ApplyFlexPayment(Models\ApplyFlexPaymentRequest $req) 灵云V2-付款
  * @method Models\ApplyFlexSettlementResponse ApplyFlexSettlement(Models\ApplyFlexSettlementRequest $req) 灵云V2-结算
+ * @method Models\ApplyFlexWechatPreAuthResponse ApplyFlexWechatPreAuth(Models\ApplyFlexWechatPreAuthRequest $req) 微工卡开通预核身接口
  * @method Models\ApplyOpenBankOrderDetailReceiptResponse ApplyOpenBankOrderDetailReceipt(Models\ApplyOpenBankOrderDetailReceiptRequest $req) 云企付-申请单笔交易回单
- * @method Models\ApplyOpenBankSettleOrderResponse ApplyOpenBankSettleOrder(Models\ApplyOpenBankSettleOrderRequest $req) 云企付结算申请接口
+ * @method Models\ApplyOpenBankSettleOrderResponse ApplyOpenBankSettleOrder(Models\ApplyOpenBankSettleOrderRequest $req) 云企付-结算申请接口
  * @method Models\ApplyOpenBankSubMerchantSignOnlineResponse ApplyOpenBankSubMerchantSignOnline(Models\ApplyOpenBankSubMerchantSignOnlineRequest $req) 子商户在线签约
  * @method Models\ApplyOutwardOrderResponse ApplyOutwardOrder(Models\ApplyOutwardOrderRequest $req) 跨境-汇出指令申请。通过该接口可将对接方账户中的人民币余额汇兑成外币，再汇出至指定银行账户。
  * @method Models\ApplyPayerInfoResponse ApplyPayerInfo(Models\ApplyPayerInfoRequest $req) 跨境-付款人申请。通过该接口提交付款人信息并进行 kyc 审核。
@@ -43,6 +45,7 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
  * @method Models\BindAccountResponse BindAccount(Models\BindAccountRequest $req) 灵云-绑定账号
  * @method Models\BindAcctResponse BindAcct(Models\BindAcctRequest $req) 商户绑定提现银行卡，每个商户只能绑定一张提现银行卡
  * @method Models\BindOpenBankExternalSubMerchantBankAccountResponse BindOpenBankExternalSubMerchantBankAccount(Models\BindOpenBankExternalSubMerchantBankAccountRequest $req) 云企付-子商户银行卡绑定
+ * @method Models\BindOpenBankProfitSharePayeeResponse BindOpenBankProfitSharePayee(Models\BindOpenBankProfitSharePayeeRequest $req) 云企付-绑定分账收款方
  * @method Models\BindRelateAccReUnionPayResponse BindRelateAccReUnionPay(Models\BindRelateAccReUnionPayRequest $req) 会员绑定提现账户-回填银联鉴权短信码。用于会员填写动态验证码后，发往银行进行验证，验证成功则完成绑定。
  * @method Models\BindRelateAcctSmallAmountResponse BindRelateAcctSmallAmount(Models\BindRelateAcctSmallAmountRequest $req) 会员绑定提现账户-小额鉴权。会员申请绑定提现账户，绑定后从会员子账户中提现到绑定账户。
 转账鉴权有两种形式：往账鉴权和来账鉴权。
@@ -75,6 +78,7 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
  * @method Models\CreateOpenBankAggregatedSubMerchantRegistrationResponse CreateOpenBankAggregatedSubMerchantRegistration(Models\CreateOpenBankAggregatedSubMerchantRegistrationRequest $req) 云企付-子商户进件V2
  * @method Models\CreateOpenBankExternalSubMerchantAccountBookResponse CreateOpenBankExternalSubMerchantAccountBook(Models\CreateOpenBankExternalSubMerchantAccountBookRequest $req) 第三方子商户电子记账本创建接口
  * @method Models\CreateOpenBankExternalSubMerchantRegistrationResponse CreateOpenBankExternalSubMerchantRegistration(Models\CreateOpenBankExternalSubMerchantRegistrationRequest $req) 云企付-子商户进件
+ * @method Models\CreateOpenBankGlobalPaymentOrderResponse CreateOpenBankGlobalPaymentOrder(Models\CreateOpenBankGlobalPaymentOrderRequest $req) 云企付-跨境支付下单
  * @method Models\CreateOpenBankMerchantResponse CreateOpenBankMerchant(Models\CreateOpenBankMerchantRequest $req) 云企付-创建商户
  * @method Models\CreateOpenBankPaymentOrderResponse CreateOpenBankPaymentOrder(Models\CreateOpenBankPaymentOrderRequest $req) 云企付-创建支付订单。支持B2B网关支付，B2C转账下单。
  * @method Models\CreateOpenBankRechargeOrderResponse CreateOpenBankRechargeOrder(Models\CreateOpenBankRechargeOrderRequest $req) 云企付-创建充值订单
@@ -119,6 +123,7 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
  * @method Models\MigrateOrderRefundQueryResponse MigrateOrderRefundQuery(Models\MigrateOrderRefundQueryRequest $req) 提交退款申请后，通过调用该接口查询退款状态。退款可能有一定延时。
  * @method Models\ModifyAgentTaxPaymentInfoResponse ModifyAgentTaxPaymentInfo(Models\ModifyAgentTaxPaymentInfoRequest $req) 直播平台-修改代理商完税信息
  * @method Models\ModifyBindedAccountResponse ModifyBindedAccount(Models\ModifyBindedAccountRequest $req) 灵云-重新绑定账号
+ * @method Models\ModifyFlexFundingAccountResponse ModifyFlexFundingAccount(Models\ModifyFlexFundingAccountRequest $req) 灵云V2-修改收款用户资金账号信息
  * @method Models\ModifyFlexPayeeAccountRightStatusResponse ModifyFlexPayeeAccountRightStatus(Models\ModifyFlexPayeeAccountRightStatusRequest $req) 灵云V2-收款用户账户权益状态修改
  * @method Models\ModifyMerchantResponse ModifyMerchant(Models\ModifyMerchantRequest $req) 云鉴-商户信息修改的接口
  * @method Models\ModifyMntMbrBindRelateAcctBankCodeResponse ModifyMntMbrBindRelateAcctBankCode(Models\ModifyMntMbrBindRelateAcctBankCodeRequest $req) 维护会员绑定提现账户联行号。此接口可以支持市场修改会员的提现账户的开户行信息，具体包括开户行行名、开户行的银行联行号（大小额联行号）和超级网银行号。
@@ -141,6 +146,7 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
  * @method Models\QueryCloudOrderResponse QueryCloudOrder(Models\QueryCloudOrderRequest $req) 根据订单号或用户ID，查询支付订单状态。
  * @method Models\QueryCloudRefundOrderResponse QueryCloudRefundOrder(Models\QueryCloudRefundOrderRequest $req) 提交退款申请后，通过调用该接口查询退款状态。退款可能有一定延时，用微信零钱支付的退款约20分钟内到账，银行卡支付的退款约3个工作日后到账。
  * @method Models\QueryCommonTransferRechargeResponse QueryCommonTransferRecharge(Models\QueryCommonTransferRechargeRequest $req) 查询普通转账充值明细。接口用于查询会员主动转账进资金汇总账户的明细情况。若会员使用绑定账号转入，则直接入账到会员子账户。若未使用绑定账号转入，则系统无法自动清分到对应子账户，则转入挂账子账户由平台自行清分。若是 “见证+收单充值”T0充值记录时备注Note为“见证+收单充值,订单号” 此接口可以查到T0到账的“见证+收单充值”充值记录。
+ * @method Models\QueryCompanyTitleResponse QueryCompanyTitle(Models\QueryCompanyTitleRequest $req) 智慧零售-查询公司抬头
  * @method Models\QueryContractResponse QueryContract(Models\QueryContractRequest $req) 通过此接口查询签约数据
  * @method Models\QueryContractPayFeeResponse QueryContractPayFee(Models\QueryContractPayFeeRequest $req) 云支付-查询支付方式费率及自定义表单项接口
  * @method Models\QueryContractPayWayListResponse QueryContractPayWayList(Models\QueryContractPayWayListRequest $req) 云支付-查询合同支付方式列表接口
@@ -149,6 +155,7 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
  * @method Models\QueryDownloadBillURLResponse QueryDownloadBillURL(Models\QueryDownloadBillURLRequest $req) 云鉴-查询对账单下载地址的接口
  * @method Models\QueryExceedingInfoResponse QueryExceedingInfo(Models\QueryExceedingInfoRequest $req) 灵云-查询超额信息
  * @method Models\QueryExchangeRateResponse QueryExchangeRate(Models\QueryExchangeRateRequest $req) 跨境-查询汇率
+ * @method Models\QueryFinancialDataUrlResponse QueryFinancialDataUrl(Models\QueryFinancialDataUrlRequest $req) 财税-查询金融数据文件下载链接
  * @method Models\QueryFlexAmountBeforeTaxResponse QueryFlexAmountBeforeTax(Models\QueryFlexAmountBeforeTaxRequest $req) 灵云V2-查询税前金额
  * @method Models\QueryFlexBillDownloadUrlResponse QueryFlexBillDownloadUrl(Models\QueryFlexBillDownloadUrlRequest $req) 灵云V2-查询对账单文件下载链接
  * @method Models\QueryFlexFreezeOrderListResponse QueryFlexFreezeOrderList(Models\QueryFlexFreezeOrderListRequest $req) 灵云V2-查询冻结订单列表
@@ -159,7 +166,10 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
  * @method Models\QueryFlexPayeeInfoResponse QueryFlexPayeeInfo(Models\QueryFlexPayeeInfoRequest $req) 灵云V2-收款用户信息查询
  * @method Models\QueryFlexPaymentOrderListResponse QueryFlexPaymentOrderList(Models\QueryFlexPaymentOrderListRequest $req) 灵云V2-查询付款订单列表
  * @method Models\QueryFlexPaymentOrderStatusResponse QueryFlexPaymentOrderStatus(Models\QueryFlexPaymentOrderStatusRequest $req) 灵云V2-查询付款订单状态
+ * @method Models\QueryFlexPlatformAccountBalanceResponse QueryFlexPlatformAccountBalance(Models\QueryFlexPlatformAccountBalanceRequest $req) 灵云V2-平台账户余额查询
+ * @method Models\QueryFlexServiceProviderAccountBalanceResponse QueryFlexServiceProviderAccountBalance(Models\QueryFlexServiceProviderAccountBalanceRequest $req) 灵云V2-查询服务商账户余额
  * @method Models\QueryFlexSettlementOrderListResponse QueryFlexSettlementOrderList(Models\QueryFlexSettlementOrderListRequest $req) 灵云V2-查询结算订单列表
+ * @method Models\QueryFlexWechatAuthResultResponse QueryFlexWechatAuthResult(Models\QueryFlexWechatAuthResultRequest $req) 查询微工卡核身结果
  * @method Models\QueryFundsTransactionDetailsResponse QueryFundsTransactionDetails(Models\QueryFundsTransactionDetailsRequest $req) 聚鑫-查询会员资金交易信息列表
  * @method Models\QueryInvoiceResponse QueryInvoice(Models\QueryInvoiceRequest $req) 智慧零售-发票查询
  * @method Models\QueryInvoiceV2Response QueryInvoiceV2(Models\QueryInvoiceV2Request $req) 智慧零售-发票查询V2
@@ -185,8 +195,9 @@ use TencentCloud\Cpdp\V20190820\Models as Models;
  * @method Models\QueryOpenBankExternalSubMerchantRegistrationResponse QueryOpenBankExternalSubMerchantRegistration(Models\QueryOpenBankExternalSubMerchantRegistrationRequest $req) 云企付-子商户进件结果查询
  * @method Models\QueryOpenBankOrderDetailReceiptInfoResponse QueryOpenBankOrderDetailReceiptInfo(Models\QueryOpenBankOrderDetailReceiptInfoRequest $req) 云企付-单笔交易回单申请结果查询
  * @method Models\QueryOpenBankPaymentOrderResponse QueryOpenBankPaymentOrder(Models\QueryOpenBankPaymentOrderRequest $req) 云企付-查询订单支付结果
+ * @method Models\QueryOpenBankProfitSharePayeeResponse QueryOpenBankProfitSharePayee(Models\QueryOpenBankProfitSharePayeeRequest $req) 云企付-绑定分账收款方查询
  * @method Models\QueryOpenBankRefundOrderResponse QueryOpenBankRefundOrder(Models\QueryOpenBankRefundOrderRequest $req) 云企付-退款结果查询
- * @method Models\QueryOpenBankSettleOrderResponse QueryOpenBankSettleOrder(Models\QueryOpenBankSettleOrderRequest $req) 云企付结算单查询结果
+ * @method Models\QueryOpenBankSettleOrderResponse QueryOpenBankSettleOrder(Models\QueryOpenBankSettleOrderRequest $req) 云企付-结算单查询结果
  * @method Models\QueryOpenBankSubMerchantCredentialResponse QueryOpenBankSubMerchantCredential(Models\QueryOpenBankSubMerchantCredentialRequest $req) 云企付-子商户资质文件查询
  * @method Models\QueryOpenBankSubMerchantRateConfigureResponse QueryOpenBankSubMerchantRateConfigure(Models\QueryOpenBankSubMerchantRateConfigureRequest $req) 云企付-子商户费率配置结果查询
  * @method Models\QueryOpenBankSubMerchantSignOnlineResponse QueryOpenBankSubMerchantSignOnline(Models\QueryOpenBankSubMerchantSignOnlineRequest $req) 子商户在线签约查询

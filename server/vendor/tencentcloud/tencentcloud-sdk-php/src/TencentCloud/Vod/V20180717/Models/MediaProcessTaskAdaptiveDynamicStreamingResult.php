@@ -28,10 +28,16 @@ use TencentCloud\Common\AbstractModel;
  * @method void setErrCode(integer $ErrCode) 设置错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。
  * @method string getMessage() 获取错误信息。
  * @method void setMessage(string $Message) 设置错误信息。
+ * @method integer getProgress() 获取转自适应码流任务进度，取值范围 [0-100] 。
+ * @method void setProgress(integer $Progress) 设置转自适应码流任务进度，取值范围 [0-100] 。
  * @method AdaptiveDynamicStreamingTaskInput getInput() 获取对视频转自适应码流任务的输入。
  * @method void setInput(AdaptiveDynamicStreamingTaskInput $Input) 设置对视频转自适应码流任务的输入。
  * @method AdaptiveDynamicStreamingInfoItem getOutput() 获取对视频转自适应码流任务的输出。
  * @method void setOutput(AdaptiveDynamicStreamingInfoItem $Output) 设置对视频转自适应码流任务的输出。
+ * @method string getBeginProcessTime() 获取转自适应码流任务开始执行的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+ * @method void setBeginProcessTime(string $BeginProcessTime) 设置转自适应码流任务开始执行的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+ * @method string getFinishTime() 获取转自适应码流任务执行完毕的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+ * @method void setFinishTime(string $FinishTime) 设置转自适应码流任务执行完毕的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
  */
 class MediaProcessTaskAdaptiveDynamicStreamingResult extends AbstractModel
 {
@@ -56,6 +62,11 @@ class MediaProcessTaskAdaptiveDynamicStreamingResult extends AbstractModel
     public $Message;
 
     /**
+     * @var integer 转自适应码流任务进度，取值范围 [0-100] 。
+     */
+    public $Progress;
+
+    /**
      * @var AdaptiveDynamicStreamingTaskInput 对视频转自适应码流任务的输入。
      */
     public $Input;
@@ -66,12 +77,25 @@ class MediaProcessTaskAdaptiveDynamicStreamingResult extends AbstractModel
     public $Output;
 
     /**
+     * @var string 转自适应码流任务开始执行的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+     */
+    public $BeginProcessTime;
+
+    /**
+     * @var string 转自适应码流任务执行完毕的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+     */
+    public $FinishTime;
+
+    /**
      * @param string $Status 任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。
      * @param string $ErrCodeExt 错误码，空字符串表示成功，其他值表示失败，取值请参考 [视频处理类错误码](https://cloud.tencent.com/document/product/266/50368#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81) 列表。
      * @param integer $ErrCode 错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。
      * @param string $Message 错误信息。
+     * @param integer $Progress 转自适应码流任务进度，取值范围 [0-100] 。
      * @param AdaptiveDynamicStreamingTaskInput $Input 对视频转自适应码流任务的输入。
      * @param AdaptiveDynamicStreamingInfoItem $Output 对视频转自适应码流任务的输出。
+     * @param string $BeginProcessTime 转自适应码流任务开始执行的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+     * @param string $FinishTime 转自适应码流任务执行完毕的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
      */
     function __construct()
     {
@@ -102,6 +126,10 @@ class MediaProcessTaskAdaptiveDynamicStreamingResult extends AbstractModel
             $this->Message = $param["Message"];
         }
 
+        if (array_key_exists("Progress",$param) and $param["Progress"] !== null) {
+            $this->Progress = $param["Progress"];
+        }
+
         if (array_key_exists("Input",$param) and $param["Input"] !== null) {
             $this->Input = new AdaptiveDynamicStreamingTaskInput();
             $this->Input->deserialize($param["Input"]);
@@ -110,6 +138,14 @@ class MediaProcessTaskAdaptiveDynamicStreamingResult extends AbstractModel
         if (array_key_exists("Output",$param) and $param["Output"] !== null) {
             $this->Output = new AdaptiveDynamicStreamingInfoItem();
             $this->Output->deserialize($param["Output"]);
+        }
+
+        if (array_key_exists("BeginProcessTime",$param) and $param["BeginProcessTime"] !== null) {
+            $this->BeginProcessTime = $param["BeginProcessTime"];
+        }
+
+        if (array_key_exists("FinishTime",$param) and $param["FinishTime"] !== null) {
+            $this->FinishTime = $param["FinishTime"];
         }
     }
 }

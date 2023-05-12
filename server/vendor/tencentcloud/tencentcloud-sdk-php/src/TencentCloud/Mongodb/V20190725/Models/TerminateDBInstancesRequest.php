@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * TerminateDBInstances请求参数结构体
  *
- * @method string getInstanceId() 获取实例Id列表
- * @method void setInstanceId(string $InstanceId) 设置实例Id列表
+ * @method string getInstanceId() 获取指定预隔离实例ID。格式如：cmgo-p8vnipr5。
+ * @method void setInstanceId(string $InstanceId) 设置指定预隔离实例ID。格式如：cmgo-p8vnipr5。
  */
 class TerminateDBInstancesRequest extends AbstractModel
 {
     /**
-     * @var string 实例Id列表
+     * @var string 指定预隔离实例ID。格式如：cmgo-p8vnipr5。
      */
     public $InstanceId;
 
     /**
-     * @param string $InstanceId 实例Id列表
+     * @param string $InstanceId 指定预隔离实例ID。格式如：cmgo-p8vnipr5。
      */
     function __construct()
     {

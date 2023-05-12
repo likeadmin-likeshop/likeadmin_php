@@ -20,15 +20,15 @@ use TencentCloud\Common\AbstractModel;
 /**
  * AllocateHosts返回参数结构体
  *
- * @method array getHostIdSet() 获取新创建云子机的实例id列表。
- * @method void setHostIdSet(array $HostIdSet) 设置新创建云子机的实例id列表。
+ * @method array getHostIdSet() 获取新创建云子机的实例ID列表。
+ * @method void setHostIdSet(array $HostIdSet) 设置新创建云子机的实例ID列表。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class AllocateHostsResponse extends AbstractModel
 {
     /**
-     * @var array 新创建云子机的实例id列表。
+     * @var array 新创建云子机的实例ID列表。
      */
     public $HostIdSet;
 
@@ -38,7 +38,7 @@ class AllocateHostsResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param array $HostIdSet 新创建云子机的实例id列表。
+     * @param array $HostIdSet 新创建云子机的实例ID列表。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

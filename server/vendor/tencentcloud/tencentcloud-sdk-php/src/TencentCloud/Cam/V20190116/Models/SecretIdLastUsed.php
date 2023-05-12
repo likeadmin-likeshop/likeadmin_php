@@ -26,6 +26,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setLastUsedDate(string $LastUsedDate) 设置最后访问日期(有1天延迟)
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getLastSecretUsedDate() 获取最后密钥访问日期
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setLastSecretUsedDate(integer $LastSecretUsedDate) 设置最后密钥访问日期
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class SecretIdLastUsed extends AbstractModel
 {
@@ -41,8 +45,16 @@ class SecretIdLastUsed extends AbstractModel
     public $LastUsedDate;
 
     /**
+     * @var integer 最后密钥访问日期
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $LastSecretUsedDate;
+
+    /**
      * @param string $SecretId 密钥ID
      * @param string $LastUsedDate 最后访问日期(有1天延迟)
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $LastSecretUsedDate 最后密钥访问日期
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -64,6 +76,10 @@ class SecretIdLastUsed extends AbstractModel
 
         if (array_key_exists("LastUsedDate",$param) and $param["LastUsedDate"] !== null) {
             $this->LastUsedDate = $param["LastUsedDate"];
+        }
+
+        if (array_key_exists("LastSecretUsedDate",$param) and $param["LastSecretUsedDate"] !== null) {
+            $this->LastSecretUsedDate = $param["LastSecretUsedDate"];
         }
     }
 }

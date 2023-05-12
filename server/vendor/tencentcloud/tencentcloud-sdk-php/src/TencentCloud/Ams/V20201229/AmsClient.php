@@ -31,12 +31,12 @@ use TencentCloud\Ams\V20201229\Models as Models;
 - 该接口为收费接口，计费方式敬请参见 [腾讯云音频内容安全定价](https://cloud.tencent.com/product/ams/pricing)。
 
 ### 接口调用说明：
-- 音频文件大小支持：**文件 < 5M**;
-- 音频文件**时长小于60s**，超过60s音频调用则报错；
-- 音频文件支持格式：**wav (PCM编码)** 、**mp3**、**m4a** (采样率：16kHz~48kHz，位深：16bit 小端，声道数：单声道/双声道，建议格式：**16kHz/16bit/单声道**)；
+- 音频文件大小支持：**文件 <= 4M**;
+- 音频文件**时长不超过60s**，超过60s音频调用则报错；
+- 音频文件支持格式：**wav (PCM编码)** 、**mp3**、**aac**、**m4a** (采样率：16kHz~48kHz，位深：16bit 小端，声道数：单声道/双声道，建议格式：**16kHz/16bit/单声道**)；
 - 接口仅限音频文件传入，视频文件传入请调用长音频异步接口；
 - 接口**默认QPS为20**，如需自定义配置并发或请求频率，请工单咨询；
-- 接口**默认超时为5s**，请求如超过该时长则接口会报错。
+- 接口**默认超时为10s**，请求如超过该时长则接口会报错。
 
  * @method Models\CreateAudioModerationTaskResponse CreateAudioModerationTask(Models\CreateAudioModerationTaskRequest $req) 本接口（Audio Moderation）用于提交音频内容（包括音频文件或流地址）进行智能审核任务，使用前请您使用腾讯云主账号登录控制台[开通音频内容安全服务](https://console.cloud.tencent.com/cms/audio/package)并调整好对应的业务配置。<br>
 
@@ -63,6 +63,13 @@ use TencentCloud\Ams\V20201229\Models as Models;
 - 音频流支持的传输协议：RTMP、HTTP、HTTPS；
 - 音频流格式支持的类型：rtp、srtp、rtmp、rtmps、mmsh、 mmst、hls、http、tcp、https、m3u8；
 - （**当输入为视频流时**）支持提取视频流音轨，并对音频内容进行独立审核。
+
+### 直播断流处理说明：
+- 请确认已对接[取消任务](https://cloud.tencent.com/document/product/1219/53258)。
+- 如果直播任务取消/结束，则终止直播拉流并退出审核。
+- 如果直播任务没有取消/结束，直播视频推流因故中断，产品将在将在10分钟内持续拉流重试。如果10分钟检测到音频切片数据，则恢复正常审核，反之，则终止拉流并退出审核。在拉流终止后，用户如有审核需求，需重新送审。
+
+默认接口请求频率限制：20次/秒。
  * @method Models\DescribeTaskDetailResponse DescribeTaskDetail(Models\DescribeTaskDetailRequest $req) 通过该接口可查看音频审核任务的详情信息，包括任务状态、检测结果、音频文件识别出的对应文本内容、检测结果所对应的恶意标签及推荐的后续操作等，具体输出内容可查看输出参数示例。<br>默认接口请求频率限制：**100次/秒**。
  * @method Models\DescribeTasksResponse DescribeTasks(Models\DescribeTasksRequest $req) 通过该接口可查看审核任务列表；您也可根据多种业务信息（业务类型、审核结果、任务状态等）筛选审核任务列表。任务列表输出内容包括当前查询的任务总量、任务名称、任务状态、音频审核类型、基于检测结果的恶意标签及其后续操作等，具体输出内容可查看输出参数示例。<br>默认接口请求频率限制：**20次/秒**。
  */

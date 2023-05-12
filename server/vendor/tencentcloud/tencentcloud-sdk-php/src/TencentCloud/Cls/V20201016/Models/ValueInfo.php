@@ -23,18 +23,18 @@ use TencentCloud\Common\AbstractModel;
  * @method string getType() 获取字段类型，目前支持的类型有：long、text、double
  * @method void setType(string $Type) 设置字段类型，目前支持的类型有：long、text、double
  * @method string getTokenizer() 获取字段的分词符，其中的每个字符代表一个分词符；
-仅支持英文符号及\n\t\r；
+仅支持英文符号、\n\t\r及转义符\；
 long及double类型字段需为空；
-text类型字段推荐使用 @&?|#()='",;:<>[]{}/ \n\t\r\\ 作为分词符；
+注意：\n\t\r本身已被转义，直接使用双引号包裹即可作为入参，无需再次转义。使用API Explorer进行调试时请使用JSON参数输入方式，以避免\n\t\r被重复转义
  * @method void setTokenizer(string $Tokenizer) 设置字段的分词符，其中的每个字符代表一个分词符；
-仅支持英文符号及\n\t\r；
+仅支持英文符号、\n\t\r及转义符\；
 long及double类型字段需为空；
-text类型字段推荐使用 @&?|#()='",;:<>[]{}/ \n\t\r\\ 作为分词符；
+注意：\n\t\r本身已被转义，直接使用双引号包裹即可作为入参，无需再次转义。使用API Explorer进行调试时请使用JSON参数输入方式，以避免\n\t\r被重复转义
  * @method boolean getSqlFlag() 获取字段是否开启分析功能
  * @method void setSqlFlag(boolean $SqlFlag) 设置字段是否开启分析功能
- * @method boolean getContainZH() 获取是否包含中文
+ * @method boolean getContainZH() 获取是否包含中文，long及double类型字段需为false
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setContainZH(boolean $ContainZH) 设置是否包含中文
+ * @method void setContainZH(boolean $ContainZH) 设置是否包含中文，long及double类型字段需为false
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class ValueInfo extends AbstractModel
@@ -46,9 +46,9 @@ class ValueInfo extends AbstractModel
 
     /**
      * @var string 字段的分词符，其中的每个字符代表一个分词符；
-仅支持英文符号及\n\t\r；
+仅支持英文符号、\n\t\r及转义符\；
 long及double类型字段需为空；
-text类型字段推荐使用 @&?|#()='",;:<>[]{}/ \n\t\r\\ 作为分词符；
+注意：\n\t\r本身已被转义，直接使用双引号包裹即可作为入参，无需再次转义。使用API Explorer进行调试时请使用JSON参数输入方式，以避免\n\t\r被重复转义
      */
     public $Tokenizer;
 
@@ -58,7 +58,7 @@ text类型字段推荐使用 @&?|#()='",;:<>[]{}/ \n\t\r\\ 作为分词符；
     public $SqlFlag;
 
     /**
-     * @var boolean 是否包含中文
+     * @var boolean 是否包含中文，long及double类型字段需为false
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ContainZH;
@@ -66,11 +66,11 @@ text类型字段推荐使用 @&?|#()='",;:<>[]{}/ \n\t\r\\ 作为分词符；
     /**
      * @param string $Type 字段类型，目前支持的类型有：long、text、double
      * @param string $Tokenizer 字段的分词符，其中的每个字符代表一个分词符；
-仅支持英文符号及\n\t\r；
+仅支持英文符号、\n\t\r及转义符\；
 long及double类型字段需为空；
-text类型字段推荐使用 @&?|#()='",;:<>[]{}/ \n\t\r\\ 作为分词符；
+注意：\n\t\r本身已被转义，直接使用双引号包裹即可作为入参，无需再次转义。使用API Explorer进行调试时请使用JSON参数输入方式，以避免\n\t\r被重复转义
      * @param boolean $SqlFlag 字段是否开启分析功能
-     * @param boolean $ContainZH 是否包含中文
+     * @param boolean $ContainZH 是否包含中文，long及double类型字段需为false
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()

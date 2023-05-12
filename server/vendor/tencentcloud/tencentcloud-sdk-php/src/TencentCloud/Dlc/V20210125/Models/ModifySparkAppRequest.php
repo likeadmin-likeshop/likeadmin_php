@@ -68,6 +68,14 @@ use TencentCloud\Common\AbstractModel;
  * @method void setIsLocalArchives(string $IsLocalArchives) 设置archives：依赖上传方式，1、cos；2、lakefs（控制台使用，该方式不支持直接接口调用）
  * @method string getAppArchives() 获取archives：依赖资源
  * @method void setAppArchives(string $AppArchives) 设置archives：依赖资源
+ * @method string getSparkImage() 获取Spark Image 版本
+ * @method void setSparkImage(string $SparkImage) 设置Spark Image 版本
+ * @method string getSparkImageVersion() 获取Spark Image 版本名称
+ * @method void setSparkImageVersion(string $SparkImageVersion) 设置Spark Image 版本名称
+ * @method integer getAppExecutorMaxNumbers() 获取指定的Executor数量（最大值），默认为1，当开启动态分配有效，若未开启，则该值等于AppExecutorNums
+ * @method void setAppExecutorMaxNumbers(integer $AppExecutorMaxNumbers) 设置指定的Executor数量（最大值），默认为1，当开启动态分配有效，若未开启，则该值等于AppExecutorNums
+ * @method string getSessionId() 获取关联dlc查询脚本
+ * @method void setSessionId(string $SessionId) 设置关联dlc查询脚本
  */
 class ModifySparkAppRequest extends AbstractModel
 {
@@ -192,6 +200,26 @@ class ModifySparkAppRequest extends AbstractModel
     public $AppArchives;
 
     /**
+     * @var string Spark Image 版本
+     */
+    public $SparkImage;
+
+    /**
+     * @var string Spark Image 版本名称
+     */
+    public $SparkImageVersion;
+
+    /**
+     * @var integer 指定的Executor数量（最大值），默认为1，当开启动态分配有效，若未开启，则该值等于AppExecutorNums
+     */
+    public $AppExecutorMaxNumbers;
+
+    /**
+     * @var string 关联dlc查询脚本
+     */
+    public $SessionId;
+
+    /**
      * @param string $AppName spark应用名
      * @param integer $AppType 1代表spark jar应用，2代表spark streaming应用
      * @param string $DataEngine 执行spark作业的数据引擎
@@ -216,6 +244,10 @@ class ModifySparkAppRequest extends AbstractModel
      * @param string $DataSource 数据源名
      * @param string $IsLocalArchives archives：依赖上传方式，1、cos；2、lakefs（控制台使用，该方式不支持直接接口调用）
      * @param string $AppArchives archives：依赖资源
+     * @param string $SparkImage Spark Image 版本
+     * @param string $SparkImageVersion Spark Image 版本名称
+     * @param integer $AppExecutorMaxNumbers 指定的Executor数量（最大值），默认为1，当开启动态分配有效，若未开启，则该值等于AppExecutorNums
+     * @param string $SessionId 关联dlc查询脚本
      */
     function __construct()
     {
@@ -324,6 +356,22 @@ class ModifySparkAppRequest extends AbstractModel
 
         if (array_key_exists("AppArchives",$param) and $param["AppArchives"] !== null) {
             $this->AppArchives = $param["AppArchives"];
+        }
+
+        if (array_key_exists("SparkImage",$param) and $param["SparkImage"] !== null) {
+            $this->SparkImage = $param["SparkImage"];
+        }
+
+        if (array_key_exists("SparkImageVersion",$param) and $param["SparkImageVersion"] !== null) {
+            $this->SparkImageVersion = $param["SparkImageVersion"];
+        }
+
+        if (array_key_exists("AppExecutorMaxNumbers",$param) and $param["AppExecutorMaxNumbers"] !== null) {
+            $this->AppExecutorMaxNumbers = $param["AppExecutorMaxNumbers"];
+        }
+
+        if (array_key_exists("SessionId",$param) and $param["SessionId"] !== null) {
+            $this->SessionId = $param["SessionId"];
         }
     }
 }

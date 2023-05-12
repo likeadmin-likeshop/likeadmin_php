@@ -134,14 +134,16 @@ cpu最大值，可选范围参考DescribeServerlessInstanceSpecs接口返回
  * @method void setSecurityGroupIds(array $SecurityGroupIds) 设置安全组id数组
  * @method array getAlarmPolicyIds() 获取告警策略Id数组
  * @method void setAlarmPolicyIds(array $AlarmPolicyIds) 设置告警策略Id数组
- * @method array getClusterParams() 获取参数数组
- * @method void setClusterParams(array $ClusterParams) 设置参数数组
+ * @method array getClusterParams() 获取参数数组，暂时支持character_set_server （utf8｜latin1｜gbk｜utf8mb4） ，lower_case_table_names，1-大小写不敏感，0-大小写敏感
+ * @method void setClusterParams(array $ClusterParams) 设置参数数组，暂时支持character_set_server （utf8｜latin1｜gbk｜utf8mb4） ，lower_case_table_names，1-大小写不敏感，0-大小写敏感
  * @method integer getDealMode() 获取交易模式，0-下单且支付，1-下单
  * @method void setDealMode(integer $DealMode) 设置交易模式，0-下单且支付，1-下单
  * @method integer getParamTemplateId() 获取参数模版ID，可以通过查询参数模板信息DescribeParamTemplates获得参数模板ID
  * @method void setParamTemplateId(integer $ParamTemplateId) 设置参数模版ID，可以通过查询参数模板信息DescribeParamTemplates获得参数模板ID
  * @method string getSlaveZone() 获取多可用区地址
  * @method void setSlaveZone(string $SlaveZone) 设置多可用区地址
+ * @method array getInstanceInitInfos() 获取实例初始化配置信息，主要用于购买集群时选不同规格实例
+ * @method void setInstanceInitInfos(array $InstanceInitInfos) 设置实例初始化配置信息，主要用于购买集群时选不同规格实例
  */
 class CreateClustersRequest extends AbstractModel
 {
@@ -347,7 +349,7 @@ cpu最大值，可选范围参考DescribeServerlessInstanceSpecs接口返回
     public $AlarmPolicyIds;
 
     /**
-     * @var array 参数数组
+     * @var array 参数数组，暂时支持character_set_server （utf8｜latin1｜gbk｜utf8mb4） ，lower_case_table_names，1-大小写不敏感，0-大小写敏感
      */
     public $ClusterParams;
 
@@ -365,6 +367,11 @@ cpu最大值，可选范围参考DescribeServerlessInstanceSpecs接口返回
      * @var string 多可用区地址
      */
     public $SlaveZone;
+
+    /**
+     * @var array 实例初始化配置信息，主要用于购买集群时选不同规格实例
+     */
+    public $InstanceInitInfos;
 
     /**
      * @param string $Zone 可用区
@@ -424,10 +431,11 @@ cpu最大值，可选范围参考DescribeServerlessInstanceSpecs接口返回
 回档与克隆均不支持包年包月存储
      * @param array $SecurityGroupIds 安全组id数组
      * @param array $AlarmPolicyIds 告警策略Id数组
-     * @param array $ClusterParams 参数数组
+     * @param array $ClusterParams 参数数组，暂时支持character_set_server （utf8｜latin1｜gbk｜utf8mb4） ，lower_case_table_names，1-大小写不敏感，0-大小写敏感
      * @param integer $DealMode 交易模式，0-下单且支付，1-下单
      * @param integer $ParamTemplateId 参数模版ID，可以通过查询参数模板信息DescribeParamTemplates获得参数模板ID
      * @param string $SlaveZone 多可用区地址
+     * @param array $InstanceInitInfos 实例初始化配置信息，主要用于购买集群时选不同规格实例
      */
     function __construct()
     {
@@ -610,6 +618,15 @@ cpu最大值，可选范围参考DescribeServerlessInstanceSpecs接口返回
 
         if (array_key_exists("SlaveZone",$param) and $param["SlaveZone"] !== null) {
             $this->SlaveZone = $param["SlaveZone"];
+        }
+
+        if (array_key_exists("InstanceInitInfos",$param) and $param["InstanceInitInfos"] !== null) {
+            $this->InstanceInitInfos = [];
+            foreach ($param["InstanceInitInfos"] as $key => $value){
+                $obj = new InstanceInitInfo();
+                $obj->deserialize($value);
+                array_push($this->InstanceInitInfos, $obj);
+            }
         }
     }
 }

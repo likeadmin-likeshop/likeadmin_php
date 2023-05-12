@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 媒资文件视频元信息，包括分辨率，帧率，码率等
  *
- * @method integer getFileSize() 获取媒资视频文件大小
- * @method void setFileSize(integer $FileSize) 设置媒资视频文件大小
+ * @method integer getFileSize() 获取媒资视频文件大小，单位为字节
+ * @method void setFileSize(integer $FileSize) 设置媒资视频文件大小，单位为字节
  * @method string getMD5() 获取媒资视频文件MD5
  * @method void setMD5(string $MD5) 设置媒资视频文件MD5
  * @method float getDuration() 获取媒资视频时长，单位为秒
@@ -52,7 +52,7 @@ use TencentCloud\Common\AbstractModel;
 class MediaMetadata extends AbstractModel
 {
     /**
-     * @var integer 媒资视频文件大小
+     * @var integer 媒资视频文件大小，单位为字节
      */
     public $FileSize;
 
@@ -98,7 +98,7 @@ class MediaMetadata extends AbstractModel
     public $BitRate;
 
     /**
-     * @param integer $FileSize 媒资视频文件大小
+     * @param integer $FileSize 媒资视频文件大小，单位为字节
      * @param string $MD5 媒资视频文件MD5
      * @param float $Duration 媒资视频时长，单位为秒
 注意：此字段可能返回 null，表示取不到有效值。

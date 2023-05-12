@@ -20,26 +20,26 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 网络详细信息
  *
- * @method string getTime() 获取时间点，单位：s
- * @method void setTime(string $Time) 设置时间点，单位：s
  * @method float getCurrent() 获取流量值（bit）
  * @method void setCurrent(float $Current) 设置流量值（bit）
+ * @method string getTime() 获取时间点，单位：s
+ * @method void setTime(string $Time) 设置时间点，单位：s
  */
 class NetDetails extends AbstractModel
 {
-    /**
-     * @var string 时间点，单位：s
-     */
-    public $Time;
-
     /**
      * @var float 流量值（bit）
      */
     public $Current;
 
     /**
-     * @param string $Time 时间点，单位：s
+     * @var string 时间点，单位：s
+     */
+    public $Time;
+
+    /**
      * @param float $Current 流量值（bit）
+     * @param string $Time 时间点，单位：s
      */
     function __construct()
     {
@@ -54,12 +54,12 @@ class NetDetails extends AbstractModel
         if ($param === null) {
             return;
         }
-        if (array_key_exists("Time",$param) and $param["Time"] !== null) {
-            $this->Time = $param["Time"];
-        }
-
         if (array_key_exists("Current",$param) and $param["Current"] !== null) {
             $this->Current = $param["Current"];
+        }
+
+        if (array_key_exists("Time",$param) and $param["Time"] !== null) {
+            $this->Time = $param["Time"];
         }
     }
 }

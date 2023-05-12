@@ -193,7 +193,7 @@ class CellMatcher
         }
 
         if (!empty($matches[4])) {
-            $worksheet = $this->worksheet->getParent()->getSheetByName(trim($matches[4], "'"));
+            $worksheet = $this->worksheet->getParentOrThrow()->getSheetByName(trim($matches[4], "'"));
             if ($worksheet === null) {
                 return $this->wrapValue(null);
             }
@@ -218,8 +218,9 @@ class CellMatcher
         $i = false;
         foreach ($splitCondition as &$value) {
             //    Only count/replace in alternating array entries (ie. not in quoted strings)
-            if ($i = !$i) {
-                $value = preg_replace_callback(
+            $i = $i === false;
+            if ($i) {
+                $value = (string) preg_replace_callback(
                     '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
                     [$this, 'conditionCellAdjustment'],
                     $value
@@ -287,7 +288,7 @@ class CellMatcher
         $conditions = $this->adjustConditionsForCellReferences($conditional->getConditions());
         $expression = array_pop($conditions);
 
-        $expression = preg_replace(
+        $expression = (string) preg_replace(
             '/\b' . $this->referenceCell . '\b/i',
             (string) $this->wrapCellValue(),
             $expression

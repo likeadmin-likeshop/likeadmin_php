@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeCRWorkInfo请求参数结构体
  *
- * @method integer getWorkId() 获取xxx
- * @method void setWorkId(integer $WorkId) 设置xxx
+ * @method integer getWorkId() 获取作品ID
+ * @method void setWorkId(integer $WorkId) 设置作品ID
  */
 class DescribeCRWorkInfoRequest extends AbstractModel
 {
     /**
-     * @var integer xxx
+     * @var integer 作品ID
      */
     public $WorkId;
 
     /**
-     * @param integer $WorkId xxx
+     * @param integer $WorkId 作品ID
      */
     function __construct()
     {

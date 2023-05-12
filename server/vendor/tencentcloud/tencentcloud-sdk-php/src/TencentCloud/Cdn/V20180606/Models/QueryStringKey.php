@@ -28,9 +28,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setReorder(string $Reorder) 设置是否重新排序
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getAction() 获取includeAll | excludeAll | includeCustom | excludeAll 使用/排除部分url参数
+ * @method string getAction() 获取includeAll | excludeAll | includeCustom | excludeCustom 使用/排除部分url参数
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setAction(string $Action) 设置includeAll | excludeAll | includeCustom | excludeAll 使用/排除部分url参数
+ * @method void setAction(string $Action) 设置includeAll | excludeAll | includeCustom | excludeCustom 使用/排除部分url参数
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getValue() 获取使用/排除的url参数数组，';' 分割
 注意：此字段可能返回 null，表示取不到有效值。
@@ -52,7 +52,7 @@ class QueryStringKey extends AbstractModel
     public $Reorder;
 
     /**
-     * @var string includeAll | excludeAll | includeCustom | excludeAll 使用/排除部分url参数
+     * @var string includeAll | excludeAll | includeCustom | excludeCustom 使用/排除部分url参数
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Action;
@@ -68,7 +68,7 @@ class QueryStringKey extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Reorder 是否重新排序
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $Action includeAll | excludeAll | includeCustom | excludeAll 使用/排除部分url参数
+     * @param string $Action includeAll | excludeAll | includeCustom | excludeCustom 使用/排除部分url参数
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Value 使用/排除的url参数数组，';' 分割
 注意：此字段可能返回 null，表示取不到有效值。

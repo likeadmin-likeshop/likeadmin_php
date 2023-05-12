@@ -18,7 +18,7 @@ class Legend
     const POSITION_TOP = 't';
     const POSITION_TOPRIGHT = 'tr';
 
-    private static $positionXLref = [
+    const POSITION_XLREF = [
         self::XL_LEGEND_POSITION_BOTTOM => self::POSITION_BOTTOM,
         self::XL_LEGEND_POSITION_CORNER => self::POSITION_TOPRIGHT,
         self::XL_LEGEND_POSITION_CUSTOM => '??',
@@ -44,7 +44,7 @@ class Legend
     /**
      * Legend Layout.
      *
-     * @var Layout
+     * @var ?Layout
      */
     private $layout;
 
@@ -52,6 +52,7 @@ class Legend
      * Create a new Legend.
      *
      * @param string $position
+     * @param ?Layout $layout
      * @param bool $overlay
      */
     public function __construct($position = self::POSITION_RIGHT, ?Layout $layout = null, $overlay = false)
@@ -80,7 +81,7 @@ class Legend
      */
     public function setPosition($position)
     {
-        if (!in_array($position, self::$positionXLref)) {
+        if (!in_array($position, self::POSITION_XLREF)) {
             return false;
         }
 
@@ -92,11 +93,12 @@ class Legend
     /**
      * Get legend position as an Excel internal numeric value.
      *
-     * @return int
+     * @return false|int
      */
     public function getPositionXL()
     {
-        return array_search($this->position, self::$positionXLref);
+        // Scrutinizer thinks the following could return string. It is wrong.
+        return array_search($this->position, self::POSITION_XLREF);
     }
 
     /**
@@ -108,11 +110,11 @@ class Legend
      */
     public function setPositionXL($positionXL)
     {
-        if (!isset(self::$positionXLref[$positionXL])) {
+        if (!isset(self::POSITION_XLREF[$positionXL])) {
             return false;
         }
 
-        $this->position = self::$positionXLref[$positionXL];
+        $this->position = self::POSITION_XLREF[$positionXL];
 
         return true;
     }
@@ -140,7 +142,7 @@ class Legend
     /**
      * Get Layout.
      *
-     * @return Layout
+     * @return ?Layout
      */
     public function getLayout()
     {

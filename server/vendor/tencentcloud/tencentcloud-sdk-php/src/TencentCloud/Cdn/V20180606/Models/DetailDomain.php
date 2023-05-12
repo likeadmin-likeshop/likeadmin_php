@@ -33,11 +33,13 @@ use TencentCloud\Common\AbstractModel;
  * @method string getStatus() 获取加速服务状态
 rejected：域名审核未通过，域名备案过期/被注销导致
 processing：部署中
+closing：关闭中
 online：已启动
 offline：已关闭
  * @method void setStatus(string $Status) 设置加速服务状态
 rejected：域名审核未通过，域名备案过期/被注销导致
 processing：部署中
+closing：关闭中
 online：已启动
 offline：已关闭
  * @method integer getProjectId() 获取项目 ID，可前往腾讯云项目管理页面查看
@@ -310,6 +312,14 @@ off：不支持
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setQnPrivateAccess(QnPrivateAccess $QnPrivateAccess) 设置七牛云对象存储回源鉴权
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method HttpsBilling getHttpsBilling() 获取HTTPS服务，缺省时默认开启
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setHttpsBilling(HttpsBilling $HttpsBilling) 设置HTTPS服务，缺省时默认开启
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method OthersPrivateAccess getOthersPrivateAccess() 获取其他厂商对象存储回源鉴权
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setOthersPrivateAccess(OthersPrivateAccess $OthersPrivateAccess) 设置其他厂商对象存储回源鉴权
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class DetailDomain extends AbstractModel
 {
@@ -338,6 +348,7 @@ class DetailDomain extends AbstractModel
      * @var string 加速服务状态
 rejected：域名审核未通过，域名备案过期/被注销导致
 processing：部署中
+closing：关闭中
 online：已启动
 offline：已关闭
      */
@@ -715,6 +726,18 @@ off：不支持
     public $QnPrivateAccess;
 
     /**
+     * @var HttpsBilling HTTPS服务，缺省时默认开启
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $HttpsBilling;
+
+    /**
+     * @var OthersPrivateAccess 其他厂商对象存储回源鉴权
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $OthersPrivateAccess;
+
+    /**
      * @param string $ResourceId 域名 ID
      * @param integer $AppId 腾讯云账号ID
      * @param string $Domain 加速域名
@@ -723,6 +746,7 @@ off：不支持
      * @param string $Status 加速服务状态
 rejected：域名审核未通过，域名备案过期/被注销导致
 processing：部署中
+closing：关闭中
 online：已启动
 offline：已关闭
      * @param integer $ProjectId 项目 ID，可前往腾讯云项目管理页面查看
@@ -859,6 +883,10 @@ off：不支持
      * @param HwPrivateAccess $HwPrivateAccess 华为云对象存储回源鉴权
 注意：此字段可能返回 null，表示取不到有效值。
      * @param QnPrivateAccess $QnPrivateAccess 七牛云对象存储回源鉴权
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param HttpsBilling $HttpsBilling HTTPS服务，缺省时默认开启
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param OthersPrivateAccess $OthersPrivateAccess 其他厂商对象存储回源鉴权
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -1185,6 +1213,16 @@ off：不支持
         if (array_key_exists("QnPrivateAccess",$param) and $param["QnPrivateAccess"] !== null) {
             $this->QnPrivateAccess = new QnPrivateAccess();
             $this->QnPrivateAccess->deserialize($param["QnPrivateAccess"]);
+        }
+
+        if (array_key_exists("HttpsBilling",$param) and $param["HttpsBilling"] !== null) {
+            $this->HttpsBilling = new HttpsBilling();
+            $this->HttpsBilling->deserialize($param["HttpsBilling"]);
+        }
+
+        if (array_key_exists("OthersPrivateAccess",$param) and $param["OthersPrivateAccess"] !== null) {
+            $this->OthersPrivateAccess = new OthersPrivateAccess();
+            $this->OthersPrivateAccess->deserialize($param["OthersPrivateAccess"]);
         }
     }
 }

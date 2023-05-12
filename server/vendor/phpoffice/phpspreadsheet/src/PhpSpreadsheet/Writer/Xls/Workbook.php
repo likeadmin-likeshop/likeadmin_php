@@ -55,13 +55,13 @@ class Workbook extends BIFFwriter
     private $parser;
 
     /**
-     * The BIFF file size for the workbook.
+     * The BIFF file size for the workbook. Not currently used.
      *
      * @var int
      *
      * @see calcSheetOffsets()
      */
-    private $biffSize;
+    private $biffSize; // @phpstan-ignore-line
 
     /**
      * XF Writers.
@@ -163,6 +163,8 @@ class Workbook extends BIFFwriter
 
     /**
      * Color cache.
+     *
+     * @var array
      */
     private $colors;
 
@@ -172,6 +174,9 @@ class Workbook extends BIFFwriter
      * @var null|\PhpOffice\PhpSpreadsheet\Shared\Escher
      */
     private $escher;
+
+    /** @var mixed */
+    private static $scrutinizerFalse = false;
 
     /**
      * Class constructor.
@@ -249,7 +254,7 @@ class Workbook extends BIFFwriter
         $xfWriter->setDiagColor($this->addColor($style->getBorders()->getDiagonal()->getColor()->getRGB()));
 
         // Add the number format if it is not a built-in one and not already added
-        if ($style->getNumberFormat()->getBuiltInFormatCode() === false) {
+        if ($style->getNumberFormat()->getBuiltInFormatCode() === self::$scrutinizerFalse) {
             $numberFormatHashCode = $style->getNumberFormat()->getHashCode();
 
             if (isset($this->addedNumberFormats[$numberFormatHashCode])) {
@@ -578,7 +583,7 @@ class Workbook extends BIFFwriter
      * Writes all the DEFINEDNAME records (BIFF8).
      * So far this is only used for repeating rows/columns (print titles) and print areas.
      */
-    private function writeAllDefinedNamesBiff8()
+    private function writeAllDefinedNamesBiff8(): string
     {
         $chunk = '';
 
@@ -591,7 +596,7 @@ class Workbook extends BIFFwriter
 
                 // parse formula
                 try {
-                    $error = $this->parser->parse($range);
+                    $this->parser->parse($range);
                     $formulaData = $this->parser->toReversePolish();
 
                     // make sure tRef3d is of type tRef3dR (0x3A)
@@ -600,12 +605,9 @@ class Workbook extends BIFFwriter
                     }
 
                     if ($definedName->getLocalOnly()) {
-                        /**
-                         * local scope.
-                         *
-                         * @phpstan-ignore-next-line
-                         */
-                        $scope = $this->spreadsheet->getIndex($definedName->getScope()) + 1;
+                        // local scope
+                        $scopeWs = $definedName->getScope();
+                        $scope = ($scopeWs === null) ? 0 : ($this->spreadsheet->getIndex($scopeWs) + 1);
                     } else {
                         // global scope
                         $scope = 0;
@@ -873,7 +875,7 @@ class Workbook extends BIFFwriter
         // sheet type
         $st = 0x00;
 
-        $grbit = 0x0000; // Visibility and sheet type
+        //$grbit = 0x0000; // Visibility and sheet type
 
         $data = pack('VCC', $offset, $ss, $st);
         $data .= StringHelper::UTF8toBIFF8UnicodeShort($sheetname);
@@ -886,7 +888,7 @@ class Workbook extends BIFFwriter
     /**
      * Write Internal SUPBOOK record.
      */
-    private function writeSupbookInternal()
+    private function writeSupbookInternal(): string
     {
         $record = 0x01AE; // Record identifier
         $length = 0x0004; // Bytes to follow
@@ -901,13 +903,13 @@ class Workbook extends BIFFwriter
      * Writes the Excel BIFF EXTERNSHEET record. These references are used by
      * formulas.
      */
-    private function writeExternalsheetBiff8()
+    private function writeExternalsheetBiff8(): string
     {
         $totalReferences = count($this->parser->references);
         $record = 0x0017; // Record identifier
         $length = 2 + 6 * $totalReferences; // Number of bytes to follow
 
-        $supbook_index = 0; // FIXME: only using internal SUPBOOK record
+        //$supbook_index = 0; // FIXME: only using internal SUPBOOK record
         $header = pack('vv', $record, $length);
         $data = pack('v', $totalReferences);
         for ($i = 0; $i < $totalReferences; ++$i) {
@@ -1060,7 +1062,7 @@ class Workbook extends BIFFwriter
             $headerinfo = unpack('vlength/Cencoding', $string);
 
             // currently, this is always 1 = uncompressed
-            $encoding = $headerinfo['encoding'];
+            $encoding = $headerinfo['encoding'] ?? 1;
 
             // initialize finished writing current $string
             $finished = false;
@@ -1155,7 +1157,7 @@ class Workbook extends BIFFwriter
     /**
      * Writes the MSODRAWINGGROUP record if needed. Possibly split using CONTINUE records.
      */
-    private function writeMsoDrawingGroup()
+    private function writeMsoDrawingGroup(): string
     {
         // write the Escher stream if necessary
         if (isset($this->escher)) {

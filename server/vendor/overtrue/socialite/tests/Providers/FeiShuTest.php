@@ -2,11 +2,11 @@
 
 namespace Providers;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Client;
-use Overtrue\Socialite\Exceptions\Feishu\InvalidTicketException;
+use Overtrue\Socialite\Exceptions\FeiShu\InvalidTicketException;
 use Overtrue\Socialite\Exceptions\InvalidTokenException;
 use Overtrue\Socialite\Providers\FeiShu;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ class FeiShuTest extends TestCase
         $config = [
             'app_id' => 'xxxxx',
             'app_secret' => 'yyyyy',
-            'app_mode' => 'internal'
+            'app_mode' => 'internal',
         ];
         $f = new FeiShu($config);
         $rf = new \ReflectionObject($f);
@@ -35,7 +35,7 @@ class FeiShuTest extends TestCase
         $config = [
             'client_id' => 'xxxxx',
             'client_secret' => 'yyyyy',
-            'mode' => 'internal'
+            'mode' => 'internal',
         ];
 
         $f = new FeiShu($config);
@@ -110,9 +110,9 @@ class FeiShuTest extends TestCase
 
         $mock = new MockHandler([
             new Response(403, []),
-            new Response(200, [], json_encode([
-                'app_access_token' => 'app_access_token'
-            ]))
+            new Response(200, [], \json_encode([
+                'app_access_token' => 'app_access_token',
+            ])),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -146,7 +146,7 @@ class FeiShuTest extends TestCase
         $ff = new \ReflectionMethod(FeiShu::class, 'configAppAccessToken');
 
         $mock = new MockHandler([
-            new Response(200, []),
+            new Response(200, [], '{}'),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -172,9 +172,9 @@ class FeiShuTest extends TestCase
         $ff = new \ReflectionMethod(FeiShu::class, 'configAppAccessToken');
 
         $mock = new MockHandler([
-            new Response(200, [], json_encode([
-                'app_access_token' => 'app_access_token'
-            ]))
+            new Response(200, [], \json_encode([
+                'app_access_token' => 'app_access_token',
+            ])),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -192,7 +192,7 @@ class FeiShuTest extends TestCase
         $config = [
             'client_id' => 'xxxxx',
             'client_secret' => 'yyyyy',
-            'mode' => 'internal'
+            'mode' => 'internal',
         ];
 
         $f = new FeiShu($config);
@@ -202,7 +202,7 @@ class FeiShuTest extends TestCase
         $ff = new \ReflectionMethod(FeiShu::class, 'configAppAccessToken');
 
         $mock = new MockHandler([
-            new Response(200, []),
+            new Response(200, [], '{}'),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -219,7 +219,7 @@ class FeiShuTest extends TestCase
         $config = [
             'client_id' => 'xxxxx',
             'client_secret' => 'yyyyy',
-            'mode' => 'internal'
+            'mode' => 'internal',
         ];
 
         $f = new FeiShu($config);
@@ -229,9 +229,9 @@ class FeiShuTest extends TestCase
         $ff = new \ReflectionMethod(FeiShu::class, 'configAppAccessToken');
 
         $mock = new MockHandler([
-            new Response(200, [], json_encode([
-                'app_access_token' => 'app_access_token'
-            ]))
+            new Response(200, [], \json_encode([
+                'app_access_token' => 'app_access_token',
+            ])),
         ]);
 
         $handler = HandlerStack::create($mock);

@@ -1,5 +1,15 @@
 # ChangeLog - Aliyun OSS SDK for PHP
 
+## v2.6.0 / 2022-08-03
+* Added: support credentials provider.
+* Fixed: compatible with swoole curl handler.
+* Added: support more bucket stat info.
+
+## v2.5.0 / 2022-05-13
+* Added: support bucket transfer acceleration.
+* Added: support bucket cname token.
+* Added: support listobjectsV2.
+
 ## v2.4.3 / 2021-08-25
 * Fixed: integer overflow in PHP5.x.
 

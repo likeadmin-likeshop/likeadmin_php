@@ -104,6 +104,26 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setDescription(string $Description) 设置Api描述信息
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getApiMatchType() 获取API路径匹配类型。normal：普通API；wildcard：通配API。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setApiMatchType(string $ApiMatchType) 设置API路径匹配类型。normal：普通API；wildcard：通配API。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getRpcExt() 获取RPC 额外信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setRpcExt(string $RpcExt) 设置RPC 额外信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getGatewayDeployGroupId() 获取部署组id
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setGatewayDeployGroupId(string $GatewayDeployGroupId) 设置部署组id
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getMd5() 获取md5
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setMd5(string $Md5) 设置md5
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getRpcType() 获取RPC 类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setRpcType(string $RpcType) 设置RPC 类型
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class ApiDetailInfo extends AbstractModel
 {
@@ -234,6 +254,36 @@ class ApiDetailInfo extends AbstractModel
     public $Description;
 
     /**
+     * @var string API路径匹配类型。normal：普通API；wildcard：通配API。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ApiMatchType;
+
+    /**
+     * @var string RPC 额外信息
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $RpcExt;
+
+    /**
+     * @var string 部署组id
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $GatewayDeployGroupId;
+
+    /**
+     * @var string md5
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Md5;
+
+    /**
+     * @var string RPC 类型
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $RpcType;
+
+    /**
      * @param string $ApiId API ID
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $NamespaceId 命名空间ID
@@ -275,6 +325,16 @@ class ApiDetailInfo extends AbstractModel
      * @param string $ApiType API类型。 ms ： 微服务API； external :外部服务Api
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Description Api描述信息
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ApiMatchType API路径匹配类型。normal：普通API；wildcard：通配API。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $RpcExt RPC 额外信息
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $GatewayDeployGroupId 部署组id
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Md5 md5
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $RpcType RPC 类型
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -372,6 +432,26 @@ class ApiDetailInfo extends AbstractModel
 
         if (array_key_exists("Description",$param) and $param["Description"] !== null) {
             $this->Description = $param["Description"];
+        }
+
+        if (array_key_exists("ApiMatchType",$param) and $param["ApiMatchType"] !== null) {
+            $this->ApiMatchType = $param["ApiMatchType"];
+        }
+
+        if (array_key_exists("RpcExt",$param) and $param["RpcExt"] !== null) {
+            $this->RpcExt = $param["RpcExt"];
+        }
+
+        if (array_key_exists("GatewayDeployGroupId",$param) and $param["GatewayDeployGroupId"] !== null) {
+            $this->GatewayDeployGroupId = $param["GatewayDeployGroupId"];
+        }
+
+        if (array_key_exists("Md5",$param) and $param["Md5"] !== null) {
+            $this->Md5 = $param["Md5"];
+        }
+
+        if (array_key_exists("RpcType",$param) and $param["RpcType"] !== null) {
+            $this->RpcType = $param["RpcType"];
         }
     }
 }
