@@ -150,8 +150,8 @@ class WechatUserService
         $this->user->channel = $this->terminal;
         $this->user->is_new_user = YesNoEnum::YES;
 
-        if (empty($this->nickname)) {
-            $this->user->nickname = '用户' . $this->user->sn;
+        if ($this->terminal != UserTerminalEnum::WECHAT_MMP && !empty($this->nickname)) {
+            $this->user->nickname = $this->nickname;
         }
 
         $this->user->save();
