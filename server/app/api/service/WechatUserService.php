@@ -190,6 +190,11 @@ class WechatUserService
             $userAuth->unionid = $this->unionid;
             $userAuth->terminal = $this->terminal;
             $userAuth->save();
+        } else {
+            if (empty($userAuth['unionid']) && !empty($this->unionid)) {
+                $userAuth->unionid = $this->unionid;
+                $userAuth->save();
+            }
         }
     }
 
