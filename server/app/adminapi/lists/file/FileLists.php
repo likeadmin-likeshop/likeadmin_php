@@ -37,7 +37,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
     public function setSearch(): array
     {
         return [
-            '=' => ['type', 'cid'],
+            '=' => ['type', 'cid', 'source'],
             '%like%' => ['name']
         ];
     }
@@ -57,7 +57,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
         $lists = (new File())->field(['id,cid,type,name,uri,create_time'])
             ->order('id', 'desc')
             ->where($this->searchWhere)
-            ->where('source', FileEnum::SOURCE_ADMIN)
+//            ->where('source', FileEnum::SOURCE_ADMIN)
             ->limit($this->limitOffset, $this->limitLength)
             ->select()
             ->toArray();
@@ -80,7 +80,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
     public function count(): int
     {
         return (new File())->where($this->searchWhere)
-            ->where('source', FileEnum::SOURCE_ADMIN)
+//            ->where('source', FileEnum::SOURCE_ADMIN)
             ->count();
     }
 }

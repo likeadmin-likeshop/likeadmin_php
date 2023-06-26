@@ -32,6 +32,10 @@ const tabsMap = [
     {
         type: 'video',
         name: '视频'
+    },
+    {
+        type: 'file',
+        name: '文件'
     }
 ]
 const activeTab = ref('image')

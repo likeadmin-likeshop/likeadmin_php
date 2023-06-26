@@ -42,7 +42,7 @@ abstract class Server
         }
 
         // 校验上传文件后缀
-        $limit = array_merge(config('project.file_image'), config('project.file_video'));
+        $limit = array_merge(config('project.file_image'), config('project.file_video'),config('project.file_file'));
         if (!in_array(strtolower($this->file->extension()), $limit)) {
             throw new Exception('不允许上传' . $this->file->extension() . '后缀文件');
         }

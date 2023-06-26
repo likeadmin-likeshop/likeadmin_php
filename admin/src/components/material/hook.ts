@@ -55,6 +55,15 @@ export function useCate(type: number) {
         getCateLists()
     }
 
+    const handleAddChildCate = async (value: string, pid: number) => {
+        await fileCateAdd({
+            type,
+            name: value,
+            pid: pid
+        })
+        getCateLists()
+    }
+
     // 编辑分组
     const handleEditCate = async (value: string, id: number) => {
         await fileCateEdit({
@@ -82,6 +91,7 @@ export function useCate(type: number) {
         cateId,
         cateLists,
         handleAddCate,
+        handleAddChildCate,
         handleEditCate,
         handleDeleteCate,
         getCateLists,
@@ -105,7 +115,8 @@ export function useFile(
     const fileParams = reactive({
         name: '',
         type: type,
-        cid: cateId
+        cid: cateId,
+        source: ''
     })
     const { pager, getLists, resetPage } = usePaging({
         fetchFun: fileList,
