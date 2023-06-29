@@ -184,7 +184,7 @@ class OfficialAccountMenuLogic extends BaseLogic
                 return true;
             }
 
-            self::setError('保存发布菜单失败' . json_encode($result));
+            self::setError('保存发布菜单失败' . json_encode($result->getContent()));
             return false;
 
         } catch (\Exception $e) {
