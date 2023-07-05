@@ -1,7 +1,6 @@
 <?php
 // 应用公共文件
 use app\common\service\FileService;
-use think\facade\Db;
 use think\helper\Str;
 
 /**
@@ -27,7 +26,9 @@ function create_password(string $plaintext, string $salt) : string
  */
 function create_token(string $extra = '') : string
 {
-    return md5($extra . time());
+    $salt = env('project.unique_identification', 'likeadmin');
+    $encryptSalt = md5( $salt . uniqid());
+    return md5($salt . $extra . time() . $encryptSalt);
 }
 
 
