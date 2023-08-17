@@ -88,7 +88,8 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
 
         // 下单时间
         if (!empty($this->params['start_time']) && !empty($this->params['end_time'])) {
-            $where[] = ['ro.create_time', 'between', [$this->params['start_time'], $this->params['end_time']]];
+            $time = [strtotime($this->params['start_time']), strtotime($this->params['end_time'])];
+            $where[] = ['ro.create_time', 'between', $time];
         }
 
         return $where;
