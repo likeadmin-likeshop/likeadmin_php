@@ -20,19 +20,21 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeUserAutoSignStatus请求参数结构体
  *
- * @method UserInfo getOperator() 获取操作人信息
- * @method void setOperator(UserInfo $Operator) 设置操作人信息
+ * @method UserInfo getOperator() 获取操作人信息，UserId必填
+ * @method void setOperator(UserInfo $Operator) 设置操作人信息，UserId必填
  * @method string getSceneKey() 获取自动签场景:
 E_PRESCRIPTION_AUTO_SIGN 电子处方
  * @method void setSceneKey(string $SceneKey) 设置自动签场景:
 E_PRESCRIPTION_AUTO_SIGN 电子处方
- * @method UserThreeFactor getUserInfo() 获取查询开启状态的用户信息
- * @method void setUserInfo(UserThreeFactor $UserInfo) 设置查询开启状态的用户信息
+ * @method UserThreeFactor getUserInfo() 获取要查询开启状态的用户信息
+ * @method void setUserInfo(UserThreeFactor $UserInfo) 设置要查询开启状态的用户信息
+ * @method Agent getAgent() 获取代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+ * @method void setAgent(Agent $Agent) 设置代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
  */
 class DescribeUserAutoSignStatusRequest extends AbstractModel
 {
     /**
-     * @var UserInfo 操作人信息
+     * @var UserInfo 操作人信息，UserId必填
      */
     public $Operator;
 
@@ -43,15 +45,21 @@ E_PRESCRIPTION_AUTO_SIGN 电子处方
     public $SceneKey;
 
     /**
-     * @var UserThreeFactor 查询开启状态的用户信息
+     * @var UserThreeFactor 要查询开启状态的用户信息
      */
     public $UserInfo;
 
     /**
-     * @param UserInfo $Operator 操作人信息
+     * @var Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+     */
+    public $Agent;
+
+    /**
+     * @param UserInfo $Operator 操作人信息，UserId必填
      * @param string $SceneKey 自动签场景:
 E_PRESCRIPTION_AUTO_SIGN 电子处方
-     * @param UserThreeFactor $UserInfo 查询开启状态的用户信息
+     * @param UserThreeFactor $UserInfo 要查询开启状态的用户信息
+     * @param Agent $Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
      */
     function __construct()
     {
@@ -78,6 +86,11 @@ E_PRESCRIPTION_AUTO_SIGN 电子处方
         if (array_key_exists("UserInfo",$param) and $param["UserInfo"] !== null) {
             $this->UserInfo = new UserThreeFactor();
             $this->UserInfo->deserialize($param["UserInfo"]);
+        }
+
+        if (array_key_exists("Agent",$param) and $param["Agent"] !== null) {
+            $this->Agent = new Agent();
+            $this->Agent->deserialize($param["Agent"]);
         }
     }
 }

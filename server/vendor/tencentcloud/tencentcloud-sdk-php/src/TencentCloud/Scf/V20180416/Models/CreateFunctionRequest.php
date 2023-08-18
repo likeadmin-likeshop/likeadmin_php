@@ -34,8 +34,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setTimeout(integer $Timeout) 设置函数最长执行时间，单位为秒，可选值范围 1-900 秒，默认为 3 秒
  * @method Environment getEnvironment() 获取函数的环境变量
  * @method void setEnvironment(Environment $Environment) 设置函数的环境变量
- * @method string getRuntime() 获取函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， Php5， Php7，Go1，Java8 和 CustomRuntime，默认Python2.7
- * @method void setRuntime(string $Runtime) 设置函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， Php5， Php7，Go1，Java8 和 CustomRuntime，默认Python2.7
+ * @method string getRuntime() 获取函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， Php5.2， Php7.4，Go1，Java8 和 CustomRuntime，默认Python2.7
+ * @method void setRuntime(string $Runtime) 设置函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， Php5.2， Php7.4，Go1，Java8 和 CustomRuntime，默认Python2.7
  * @method VpcConfig getVpcConfig() 获取函数的私有网络配置
  * @method void setVpcConfig(VpcConfig $VpcConfig) 设置函数的私有网络配置
  * @method string getNamespace() 获取函数所属命名空间
@@ -68,6 +68,10 @@ use TencentCloud\Common\AbstractModel;
  * @method void setAsyncRunEnable(string $AsyncRunEnable) 设置是否开启异步属性，TRUE 为开启，FALSE为关闭
  * @method string getTraceEnable() 获取是否开启事件追踪，TRUE 为开启，FALSE为关闭
  * @method void setTraceEnable(string $TraceEnable) 设置是否开启事件追踪，TRUE 为开启，FALSE为关闭
+ * @method string getAutoDeployClsTopicIndex() 获取是否自动创建cls索引，TRUE 为开启，FALSE为关闭
+ * @method void setAutoDeployClsTopicIndex(string $AutoDeployClsTopicIndex) 设置是否自动创建cls索引，TRUE 为开启，FALSE为关闭
+ * @method string getAutoCreateClsTopic() 获取是否自动创建cls主题，TRUE 为开启，FALSE为关闭
+ * @method void setAutoCreateClsTopic(string $AutoCreateClsTopic) 设置是否自动创建cls主题，TRUE 为开启，FALSE为关闭
  * @method string getProtocolType() 获取HTTP函数支持的访问协议。当前支持WebSockets协议，值为WS
  * @method void setProtocolType(string $ProtocolType) 设置HTTP函数支持的访问协议。当前支持WebSockets协议，值为WS
  * @method ProtocolParams getProtocolParams() 获取HTTP函数配置ProtocolType访问协议，当前协议可配置的参数
@@ -113,7 +117,7 @@ class CreateFunctionRequest extends AbstractModel
     public $Environment;
 
     /**
-     * @var string 函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， Php5， Php7，Go1，Java8 和 CustomRuntime，默认Python2.7
+     * @var string 函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， Php5.2， Php7.4，Go1，Java8 和 CustomRuntime，默认Python2.7
      */
     public $Runtime;
 
@@ -198,6 +202,16 @@ class CreateFunctionRequest extends AbstractModel
     public $TraceEnable;
 
     /**
+     * @var string 是否自动创建cls索引，TRUE 为开启，FALSE为关闭
+     */
+    public $AutoDeployClsTopicIndex;
+
+    /**
+     * @var string 是否自动创建cls主题，TRUE 为开启，FALSE为关闭
+     */
+    public $AutoCreateClsTopic;
+
+    /**
      * @var string HTTP函数支持的访问协议。当前支持WebSockets协议，值为WS
      */
     public $ProtocolType;
@@ -220,7 +234,7 @@ class CreateFunctionRequest extends AbstractModel
      * @param integer $MemorySize 函数运行时内存大小，默认为 128M，可选范围 64、128MB-3072MB，并且以 128MB 为阶梯
      * @param integer $Timeout 函数最长执行时间，单位为秒，可选值范围 1-900 秒，默认为 3 秒
      * @param Environment $Environment 函数的环境变量
-     * @param string $Runtime 函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， Php5， Php7，Go1，Java8 和 CustomRuntime，默认Python2.7
+     * @param string $Runtime 函数运行环境，目前仅支持 Python2.7，Python3.6，Nodejs6.10，Nodejs8.9，Nodejs10.15，Nodejs12.16， Php5.2， Php7.4，Go1，Java8 和 CustomRuntime，默认Python2.7
      * @param VpcConfig $VpcConfig 函数的私有网络配置
      * @param string $Namespace 函数所属命名空间
      * @param string $Role 函数绑定的角色
@@ -237,6 +251,8 @@ class CreateFunctionRequest extends AbstractModel
      * @param array $Tags 函数 Tag 参数，以键值对数组形式传入
      * @param string $AsyncRunEnable 是否开启异步属性，TRUE 为开启，FALSE为关闭
      * @param string $TraceEnable 是否开启事件追踪，TRUE 为开启，FALSE为关闭
+     * @param string $AutoDeployClsTopicIndex 是否自动创建cls索引，TRUE 为开启，FALSE为关闭
+     * @param string $AutoCreateClsTopic 是否自动创建cls主题，TRUE 为开启，FALSE为关闭
      * @param string $ProtocolType HTTP函数支持的访问协议。当前支持WebSockets协议，值为WS
      * @param ProtocolParams $ProtocolParams HTTP函数配置ProtocolType访问协议，当前协议可配置的参数
      * @param InstanceConcurrencyConfig $InstanceConcurrencyConfig 单实例多并发配置。只支持Web函数。
@@ -364,6 +380,14 @@ class CreateFunctionRequest extends AbstractModel
 
         if (array_key_exists("TraceEnable",$param) and $param["TraceEnable"] !== null) {
             $this->TraceEnable = $param["TraceEnable"];
+        }
+
+        if (array_key_exists("AutoDeployClsTopicIndex",$param) and $param["AutoDeployClsTopicIndex"] !== null) {
+            $this->AutoDeployClsTopicIndex = $param["AutoDeployClsTopicIndex"];
+        }
+
+        if (array_key_exists("AutoCreateClsTopic",$param) and $param["AutoCreateClsTopic"] !== null) {
+            $this->AutoCreateClsTopic = $param["AutoCreateClsTopic"];
         }
 
         if (array_key_exists("ProtocolType",$param) and $param["ProtocolType"] !== null) {

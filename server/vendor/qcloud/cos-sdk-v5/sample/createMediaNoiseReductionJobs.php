@@ -10,18 +10,22 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', //协议头部，默认为http
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
+    // 提交一个音频降噪任务 https://cloud.tencent.com/document/product/460/84796
     $result = $cosClient->createMediaNoiseReductionJobs(array(
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'NoiseReduction',
-        'QueueId' => 'p81e648af2aee4968857xxxxxxxxxxxxxxxx',
-        'CallBack' => '',
         'Input' => array(
             'Object' => 'sound01.mp3',
         ),
         'Operation' => array(
+            'TemplateId' => '',
+//            'NoiseReduction' => array(
+//                'Format' => '',
+//                'SampleRate' => '',
+//            ),
             'Output' => array(
                 'Region' => $region,
                 'Bucket' => 'examplebucket-125000000',
@@ -30,6 +34,14 @@ try {
 //            'UserData' => 'xxx', // 透传用户信息
 //            'JobLevel' => '0', // 任务优先级，级别限制：0 、1 、2。级别越大任务优先级越高，默认为0
         ),
+//        'CallBack' => '',
+//        'CallBackFormat' => '',
+//        'CallBackType' => '',
+//        'CallBackMqConfig' => array(
+//            'MqRegion' => '',
+//            'MqMode' => '',
+//            'MqName' => '',
+//        ),
     ));
     // 请求成功
     print_r($result);

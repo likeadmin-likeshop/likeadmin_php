@@ -21,41 +21,57 @@ use TencentCloud\Common\AbstractModel;
  * 健康检查配置，包括TsfHealthCheckConf和TargetServicesHealthCheckConf
  *
  * @method boolean getIsHealthCheck() 获取是否开启健康检查。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method void setIsHealthCheck(boolean $IsHealthCheck) 设置是否开启健康检查。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getRequestVolumeThreshold() 获取健康检查阈值。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method void setRequestVolumeThreshold(integer $RequestVolumeThreshold) 设置健康检查阈值。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getSleepWindowInMilliseconds() 获取窗口大小。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method void setSleepWindowInMilliseconds(integer $SleepWindowInMilliseconds) 设置窗口大小。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getErrorThresholdPercentage() 获取阈值百分比。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method void setErrorThresholdPercentage(integer $ErrorThresholdPercentage) 设置阈值百分比。
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class HealthCheckConf extends AbstractModel
 {
     /**
      * @var boolean 是否开启健康检查。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     public $IsHealthCheck;
 
     /**
      * @var integer 健康检查阈值。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     public $RequestVolumeThreshold;
 
     /**
      * @var integer 窗口大小。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     public $SleepWindowInMilliseconds;
 
     /**
      * @var integer 阈值百分比。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     public $ErrorThresholdPercentage;
 
     /**
      * @param boolean $IsHealthCheck 是否开启健康检查。
+注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $RequestVolumeThreshold 健康检查阈值。
+注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $SleepWindowInMilliseconds 窗口大小。
+注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $ErrorThresholdPercentage 阈值百分比。
+注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
     {

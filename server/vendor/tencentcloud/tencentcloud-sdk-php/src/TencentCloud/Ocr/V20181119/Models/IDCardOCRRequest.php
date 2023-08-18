@@ -40,7 +40,7 @@ CropPortrait，人像照片裁剪（自动抠取身份证头像区域）
 CopyWarn，复印件告警
 BorderCheckWarn，边框和框内遮挡告警
 ReshootWarn，翻拍告警
-DetectPsWarn，PS检测告警
+DetectPsWarn，疑似存在PS痕迹告警
 TempIdWarn，临时身份证告警
 InvalidDateWarn，身份证有效日期不合法告警
 Quality，图片质量分数（评价图片的模糊程度）
@@ -57,7 +57,7 @@ CropPortrait，人像照片裁剪（自动抠取身份证头像区域）
 CopyWarn，复印件告警
 BorderCheckWarn，边框和框内遮挡告警
 ReshootWarn，翻拍告警
-DetectPsWarn，PS检测告警
+DetectPsWarn，疑似存在PS痕迹告警
 TempIdWarn，临时身份证告警
 InvalidDateWarn，身份证有效日期不合法告警
 Quality，图片质量分数（评价图片的模糊程度）
@@ -68,6 +68,8 @@ SDK 设置方式参考：
 Config = Json.stringify({"CropIdCard":true,"CropPortrait":true})
 API 3.0 Explorer 设置方式参考：
 Config = {"CropIdCard":true,"CropPortrait":true}
+ * @method boolean getEnableRecognitionRectify() 获取默认值为true，打开识别结果纠正开关。开关开启后，身份证号、出生日期、性别，三个字段会进行矫正补齐，统一结果输出；若关闭此开关，以上三个字段不会进行矫正补齐，保持原始识别结果输出，若原图出现篡改情况，这三个字段的识别结果可能会不统一。
+ * @method void setEnableRecognitionRectify(boolean $EnableRecognitionRectify) 设置默认值为true，打开识别结果纠正开关。开关开启后，身份证号、出生日期、性别，三个字段会进行矫正补齐，统一结果输出；若关闭此开关，以上三个字段不会进行矫正补齐，保持原始识别结果输出，若原图出现篡改情况，这三个字段的识别结果可能会不统一。
  */
 class IDCardOCRRequest extends AbstractModel
 {
@@ -97,7 +99,7 @@ CropPortrait，人像照片裁剪（自动抠取身份证头像区域）
 CopyWarn，复印件告警
 BorderCheckWarn，边框和框内遮挡告警
 ReshootWarn，翻拍告警
-DetectPsWarn，PS检测告警
+DetectPsWarn，疑似存在PS痕迹告警
 TempIdWarn，临时身份证告警
 InvalidDateWarn，身份证有效日期不合法告警
 Quality，图片质量分数（评价图片的模糊程度）
@@ -110,6 +112,11 @@ API 3.0 Explorer 设置方式参考：
 Config = {"CropIdCard":true,"CropPortrait":true}
      */
     public $Config;
+
+    /**
+     * @var boolean 默认值为true，打开识别结果纠正开关。开关开启后，身份证号、出生日期、性别，三个字段会进行矫正补齐，统一结果输出；若关闭此开关，以上三个字段不会进行矫正补齐，保持原始识别结果输出，若原图出现篡改情况，这三个字段的识别结果可能会不统一。
+     */
+    public $EnableRecognitionRectify;
 
     /**
      * @param string $ImageBase64 图片的 Base64 值。要求图片经Base64编码后不超过 7M，分辨率建议500*800以上，支持PNG、JPG、JPEG、BMP格式。建议卡片部分占据图片2/3以上。
@@ -125,7 +132,7 @@ CropPortrait，人像照片裁剪（自动抠取身份证头像区域）
 CopyWarn，复印件告警
 BorderCheckWarn，边框和框内遮挡告警
 ReshootWarn，翻拍告警
-DetectPsWarn，PS检测告警
+DetectPsWarn，疑似存在PS痕迹告警
 TempIdWarn，临时身份证告警
 InvalidDateWarn，身份证有效日期不合法告警
 Quality，图片质量分数（评价图片的模糊程度）
@@ -136,6 +143,7 @@ SDK 设置方式参考：
 Config = Json.stringify({"CropIdCard":true,"CropPortrait":true})
 API 3.0 Explorer 设置方式参考：
 Config = {"CropIdCard":true,"CropPortrait":true}
+     * @param boolean $EnableRecognitionRectify 默认值为true，打开识别结果纠正开关。开关开启后，身份证号、出生日期、性别，三个字段会进行矫正补齐，统一结果输出；若关闭此开关，以上三个字段不会进行矫正补齐，保持原始识别结果输出，若原图出现篡改情况，这三个字段的识别结果可能会不统一。
      */
     function __construct()
     {
@@ -164,6 +172,10 @@ Config = {"CropIdCard":true,"CropPortrait":true}
 
         if (array_key_exists("Config",$param) and $param["Config"] !== null) {
             $this->Config = $param["Config"];
+        }
+
+        if (array_key_exists("EnableRecognitionRectify",$param) and $param["EnableRecognitionRectify"] !== null) {
+            $this->EnableRecognitionRectify = $param["EnableRecognitionRectify"];
         }
     }
 }

@@ -212,6 +212,18 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setOs(string $Os) 设置os全称
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getRiskExposure() 获取风险服务暴露
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setRiskExposure(integer $RiskExposure) 设置风险服务暴露
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getBASAgentStatus() 获取模拟攻击工具状态。0代表未安装，1代表已安装，2代表已离线
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setBASAgentStatus(integer $BASAgentStatus) 设置模拟攻击工具状态。0代表未安装，1代表已安装，2代表已离线
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getIsNewAsset() 获取1新资产；0 非新资产
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setIsNewAsset(integer $IsNewAsset) 设置1新资产；0 非新资产
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class CVMAssetVO extends AbstractModel
 {
@@ -504,6 +516,24 @@ class CVMAssetVO extends AbstractModel
     public $Os;
 
     /**
+     * @var integer 风险服务暴露
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $RiskExposure;
+
+    /**
+     * @var integer 模拟攻击工具状态。0代表未安装，1代表已安装，2代表已离线
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $BASAgentStatus;
+
+    /**
+     * @var integer 1新资产；0 非新资产
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $IsNewAsset;
+
+    /**
      * @param string $AssetId 资产id
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $AssetName 资产名
@@ -599,6 +629,12 @@ class CVMAssetVO extends AbstractModel
      * @param string $MemberId memberId
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Os os全称
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $RiskExposure 风险服务暴露
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $BASAgentStatus 模拟攻击工具状态。0代表未安装，1代表已安装，2代表已离线
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $IsNewAsset 1新资产；0 非新资产
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -809,6 +845,18 @@ class CVMAssetVO extends AbstractModel
 
         if (array_key_exists("Os",$param) and $param["Os"] !== null) {
             $this->Os = $param["Os"];
+        }
+
+        if (array_key_exists("RiskExposure",$param) and $param["RiskExposure"] !== null) {
+            $this->RiskExposure = $param["RiskExposure"];
+        }
+
+        if (array_key_exists("BASAgentStatus",$param) and $param["BASAgentStatus"] !== null) {
+            $this->BASAgentStatus = $param["BASAgentStatus"];
+        }
+
+        if (array_key_exists("IsNewAsset",$param) and $param["IsNewAsset"] !== null) {
+            $this->IsNewAsset = $param["IsNewAsset"];
         }
     }
 }

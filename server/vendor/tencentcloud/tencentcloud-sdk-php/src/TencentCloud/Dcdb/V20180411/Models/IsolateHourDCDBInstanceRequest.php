@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * IsolateHourDCDBInstance请求参数结构体
  *
- * @method array getInstanceIds() 获取实例uuid列表
- * @method void setInstanceIds(array $InstanceIds) 设置实例uuid列表
+ * @method array getInstanceIds() 获取待升级的实例ID列表。形如：["dcdbt-ow728lmc"]，可以通过 DescribeDCDBInstances 查询实例详情获得。
+ * @method void setInstanceIds(array $InstanceIds) 设置待升级的实例ID列表。形如：["dcdbt-ow728lmc"]，可以通过 DescribeDCDBInstances 查询实例详情获得。
  */
 class IsolateHourDCDBInstanceRequest extends AbstractModel
 {
     /**
-     * @var array 实例uuid列表
+     * @var array 待升级的实例ID列表。形如：["dcdbt-ow728lmc"]，可以通过 DescribeDCDBInstances 查询实例详情获得。
      */
     public $InstanceIds;
 
     /**
-     * @param array $InstanceIds 实例uuid列表
+     * @param array $InstanceIds 待升级的实例ID列表。形如：["dcdbt-ow728lmc"]，可以通过 DescribeDCDBInstances 查询实例详情获得。
      */
     function __construct()
     {

@@ -20,17 +20,25 @@ use TencentCloud\Common\AbstractModel;
 /**
  * CreateAssetImageRegistryScanTaskOneKey返回参数结构体
  *
+ * @method integer getTaskID() 获取扫描任务id
+ * @method void setTaskID(integer $TaskID) 设置扫描任务id
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class CreateAssetImageRegistryScanTaskOneKeyResponse extends AbstractModel
 {
     /**
+     * @var integer 扫描任务id
+     */
+    public $TaskID;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
 
     /**
+     * @param integer $TaskID 扫描任务id
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -46,6 +54,10 @@ class CreateAssetImageRegistryScanTaskOneKeyResponse extends AbstractModel
         if ($param === null) {
             return;
         }
+        if (array_key_exists("TaskID",$param) and $param["TaskID"] !== null) {
+            $this->TaskID = $param["TaskID"];
+        }
+
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {
             $this->RequestId = $param["RequestId"];
         }

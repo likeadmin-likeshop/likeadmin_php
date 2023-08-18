@@ -21,11 +21,11 @@ use TencentCloud\Common\AbstractModel;
  * 混贴票据单张发票识别信息
  *
  * @method string getCode() 获取识别结果。
-OK：表示识别成功；FailedOperation.UnsupportedInvioce：表示不支持识别；
+OK：表示识别成功；FailedOperation.UnsupportedInvoice：表示不支持识别；
 FailedOperation.UnKnowError：表示识别失败；
 其它错误码见各个票据接口的定义。
  * @method void setCode(string $Code) 设置识别结果。
-OK：表示识别成功；FailedOperation.UnsupportedInvioce：表示不支持识别；
+OK：表示识别成功；FailedOperation.UnsupportedInvoice：表示不支持识别；
 FailedOperation.UnKnowError：表示识别失败；
 其它错误码见各个票据接口的定义。
  * @method integer getType() 获取识别出的图片所属的票据类型。
@@ -43,6 +43,7 @@ FailedOperation.UnKnowError：表示识别失败；
 13：过路过桥费发票
 15：非税发票
 16：全电发票
+17：医疗发票
  * @method void setType(integer $Type) 设置识别出的图片所属的票据类型。
 -1：未知类型
 0：出租车发票
@@ -58,28 +59,29 @@ FailedOperation.UnKnowError：表示识别失败；
 13：过路过桥费发票
 15：非税发票
 16：全电发票
- * @method Polygon getPolygon() 获取旋转后的图片四点坐标。
- * @method void setPolygon(Polygon $Polygon) 设置旋转后的图片四点坐标。
+17：医疗发票
+ * @method Polygon getPolygon() 获取该发票在原图片中的四点坐标。
+ * @method void setPolygon(Polygon $Polygon) 设置该发票在原图片中的四点坐标。
  * @method float getAngle() 获取识别出的图片在混贴票据图片中的旋转角度。
  * @method void setAngle(float $Angle) 设置识别出的图片在混贴票据图片中的旋转角度。
  * @method SingleInvoiceItem getSingleInvoiceInfos() 获取识别到的内容。
  * @method void setSingleInvoiceInfos(SingleInvoiceItem $SingleInvoiceInfos) 设置识别到的内容。
  * @method integer getPage() 获取发票处于识别图片或PDF文件中的页教，默认从1开始。
  * @method void setPage(integer $Page) 设置发票处于识别图片或PDF文件中的页教，默认从1开始。
- * @method string getSubType() 获取发票详细类型，详见下方 SubType 返回值说明
- * @method void setSubType(string $SubType) 设置发票详细类型，详见下方 SubType 返回值说明
- * @method string getTypeDescription() 获取发票类型描述，详见下方 TypeDescription  返回值说明
- * @method void setTypeDescription(string $TypeDescription) 设置发票类型描述，详见下方 TypeDescription  返回值说明
+ * @method string getSubType() 获取发票详细类型，详见上方 SubType 返回值说明
+ * @method void setSubType(string $SubType) 设置发票详细类型，详见上方 SubType 返回值说明
+ * @method string getTypeDescription() 获取发票类型描述，详见上方 TypeDescription  返回值说明
+ * @method void setTypeDescription(string $TypeDescription) 设置发票类型描述，详见上方 TypeDescription  返回值说明
  * @method string getCutImage() 获取切割单图文件，Base64编码后的切图后的图片文件，开启 EnableCutImage 后进行返回
  * @method void setCutImage(string $CutImage) 设置切割单图文件，Base64编码后的切图后的图片文件，开启 EnableCutImage 后进行返回
- * @method string getSubTypeDescription() 获取发票详细类型描述，详见下方 SubType 返回值说明
- * @method void setSubTypeDescription(string $SubTypeDescription) 设置发票详细类型描述，详见下方 SubType 返回值说明
+ * @method string getSubTypeDescription() 获取发票详细类型描述，详见上方 SubType 返回值说明
+ * @method void setSubTypeDescription(string $SubTypeDescription) 设置发票详细类型描述，详见上方 SubType 返回值说明
  */
 class InvoiceItem extends AbstractModel
 {
     /**
      * @var string 识别结果。
-OK：表示识别成功；FailedOperation.UnsupportedInvioce：表示不支持识别；
+OK：表示识别成功；FailedOperation.UnsupportedInvoice：表示不支持识别；
 FailedOperation.UnKnowError：表示识别失败；
 其它错误码见各个票据接口的定义。
      */
@@ -101,11 +103,12 @@ FailedOperation.UnKnowError：表示识别失败；
 13：过路过桥费发票
 15：非税发票
 16：全电发票
+17：医疗发票
      */
     public $Type;
 
     /**
-     * @var Polygon 旋转后的图片四点坐标。
+     * @var Polygon 该发票在原图片中的四点坐标。
      */
     public $Polygon;
 
@@ -125,12 +128,12 @@ FailedOperation.UnKnowError：表示识别失败；
     public $Page;
 
     /**
-     * @var string 发票详细类型，详见下方 SubType 返回值说明
+     * @var string 发票详细类型，详见上方 SubType 返回值说明
      */
     public $SubType;
 
     /**
-     * @var string 发票类型描述，详见下方 TypeDescription  返回值说明
+     * @var string 发票类型描述，详见上方 TypeDescription  返回值说明
      */
     public $TypeDescription;
 
@@ -140,13 +143,13 @@ FailedOperation.UnKnowError：表示识别失败；
     public $CutImage;
 
     /**
-     * @var string 发票详细类型描述，详见下方 SubType 返回值说明
+     * @var string 发票详细类型描述，详见上方 SubType 返回值说明
      */
     public $SubTypeDescription;
 
     /**
      * @param string $Code 识别结果。
-OK：表示识别成功；FailedOperation.UnsupportedInvioce：表示不支持识别；
+OK：表示识别成功；FailedOperation.UnsupportedInvoice：表示不支持识别；
 FailedOperation.UnKnowError：表示识别失败；
 其它错误码见各个票据接口的定义。
      * @param integer $Type 识别出的图片所属的票据类型。
@@ -164,14 +167,15 @@ FailedOperation.UnKnowError：表示识别失败；
 13：过路过桥费发票
 15：非税发票
 16：全电发票
-     * @param Polygon $Polygon 旋转后的图片四点坐标。
+17：医疗发票
+     * @param Polygon $Polygon 该发票在原图片中的四点坐标。
      * @param float $Angle 识别出的图片在混贴票据图片中的旋转角度。
      * @param SingleInvoiceItem $SingleInvoiceInfos 识别到的内容。
      * @param integer $Page 发票处于识别图片或PDF文件中的页教，默认从1开始。
-     * @param string $SubType 发票详细类型，详见下方 SubType 返回值说明
-     * @param string $TypeDescription 发票类型描述，详见下方 TypeDescription  返回值说明
+     * @param string $SubType 发票详细类型，详见上方 SubType 返回值说明
+     * @param string $TypeDescription 发票类型描述，详见上方 TypeDescription  返回值说明
      * @param string $CutImage 切割单图文件，Base64编码后的切图后的图片文件，开启 EnableCutImage 后进行返回
-     * @param string $SubTypeDescription 发票详细类型描述，详见下方 SubType 返回值说明
+     * @param string $SubTypeDescription 发票详细类型描述，详见上方 SubType 返回值说明
      */
     function __construct()
     {

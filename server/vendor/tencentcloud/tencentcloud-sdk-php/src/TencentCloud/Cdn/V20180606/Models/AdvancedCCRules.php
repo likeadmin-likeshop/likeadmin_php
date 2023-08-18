@@ -30,9 +30,13 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setFrequencyLimit(integer $FrequencyLimit) 设置限频阈值
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getPunishmentSwitch() 获取IP 惩罚开关，可选on|off
+ * @method string getPunishmentSwitch() 获取IP 惩罚配置开关，取值有：
+on：开启
+off：关闭
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setPunishmentSwitch(string $PunishmentSwitch) 设置IP 惩罚开关，可选on|off
+ * @method void setPunishmentSwitch(string $PunishmentSwitch) 设置IP 惩罚配置开关，取值有：
+on：开启
+off：关闭
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getPunishmentTime() 获取IP 惩罚时长
 注意：此字段可能返回 null，表示取不到有效值。
@@ -50,9 +54,13 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setConfigure(array $Configure) 设置七层限频具体配置
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getSwitch() 获取是否开启改规则 on 开启，off关闭
+ * @method string getSwitch() 获取自定义cc规则配置开关，取值有：
+on：开启
+off：关闭
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setSwitch(string $Switch) 设置是否开启改规则 on 开启，off关闭
+ * @method void setSwitch(string $Switch) 设置自定义cc规则配置开关，取值有：
+on：开启
+off：关闭
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class AdvancedCCRules extends AbstractModel
@@ -75,7 +83,9 @@ class AdvancedCCRules extends AbstractModel
     public $FrequencyLimit;
 
     /**
-     * @var string IP 惩罚开关，可选on|off
+     * @var string IP 惩罚配置开关，取值有：
+on：开启
+off：关闭
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $PunishmentSwitch;
@@ -105,7 +115,9 @@ class AdvancedCCRules extends AbstractModel
     public $Configure;
 
     /**
-     * @var string 是否开启改规则 on 开启，off关闭
+     * @var string 自定义cc规则配置开关，取值有：
+on：开启
+off：关闭
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Switch;
@@ -116,7 +128,9 @@ class AdvancedCCRules extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $FrequencyLimit 限频阈值
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $PunishmentSwitch IP 惩罚开关，可选on|off
+     * @param string $PunishmentSwitch IP 惩罚配置开关，取值有：
+on：开启
+off：关闭
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $PunishmentTime IP 惩罚时长
 注意：此字段可能返回 null，表示取不到有效值。
@@ -126,7 +140,9 @@ class AdvancedCCRules extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $Configure 七层限频具体配置
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $Switch 是否开启改规则 on 开启，off关闭
+     * @param string $Switch 自定义cc规则配置开关，取值有：
+on：开启
+off：关闭
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()

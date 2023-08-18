@@ -32,16 +32,18 @@ RecipientId参数：
  *
  * @method string getName() 获取签署人姓名，最大长度50个字符
  * @method void setName(string $Name) 设置签署人姓名，最大长度50个字符
- * @method string getIdCardType() 获取签署人身份证件类型
+ * @method string getIdCardType() 获取签署人的证件类型
 1.ID_CARD 居民身份证
 2.HONGKONG_MACAO_AND_TAIWAN 港澳台居民居住证
 3.HONGKONG_AND_MACAO 港澳居民来往内地通行证
- * @method void setIdCardType(string $IdCardType) 设置签署人身份证件类型
+4.OTHER_CARD_TYPE 其他（需要使用该类型请先联系运营经理）
+ * @method void setIdCardType(string $IdCardType) 设置签署人的证件类型
 1.ID_CARD 居民身份证
 2.HONGKONG_MACAO_AND_TAIWAN 港澳台居民居住证
 3.HONGKONG_AND_MACAO 港澳居民来往内地通行证
- * @method string getIdCardNumber() 获取签署人证件号
- * @method void setIdCardNumber(string $IdCardNumber) 设置签署人证件号
+4.OTHER_CARD_TYPE 其他（需要使用该类型请先联系运营经理）
+ * @method string getIdCardNumber() 获取签署人证件号（长度不超过18位）
+ * @method void setIdCardNumber(string $IdCardNumber) 设置签署人证件号（长度不超过18位）
  * @method string getMobile() 获取签署人手机号，脱敏显示。大陆手机号为11位，暂不支持海外手机号。
  * @method void setMobile(string $Mobile) 设置签署人手机号，脱敏显示。大陆手机号为11位，暂不支持海外手机号。
  * @method string getOrganizationName() 获取企业签署方工商营业执照上的企业名称，签署方为非发起方企业场景下必传，最大长度64个字符；
@@ -58,30 +60,38 @@ RecipientId参数：
  * @method void setOrganizationOpenId(string $OrganizationOpenId) 设置企业签署方在同一第三方平台应用下的其他合作企业OpenId，签署方为非发起方企业场景下必传，最大长度64个字符；
  * @method string getApproverType() 获取签署人类型
 PERSON-个人/自然人；
-PERSON_AUTO_SIGN-个人自动签（定制化场景下使用）；
+PERSON_AUTO_SIGN-个人自动签署，适用于个人自动签场景
+注: 个人自动签场景为白名单功能, 使用前请联系对接的客户经理沟通。
 ORGANIZATION-企业（企业签署方或模板发起时的企业静默签）；
 ENTERPRISESERVER-企业静默签（文件发起时的企业静默签字）。
  * @method void setApproverType(string $ApproverType) 设置签署人类型
 PERSON-个人/自然人；
-PERSON_AUTO_SIGN-个人自动签（定制化场景下使用）；
+PERSON_AUTO_SIGN-个人自动签署，适用于个人自动签场景
+注: 个人自动签场景为白名单功能, 使用前请联系对接的客户经理沟通。
 ORGANIZATION-企业（企业签署方或模板发起时的企业静默签）；
 ENTERPRISESERVER-企业静默签（文件发起时的企业静默签字）。
  * @method string getRecipientId() 获取签署流程签署人在模板中对应的签署人Id；在非单方签署、以及非B2C签署的场景下必传，用于指定当前签署方在签署流程中的位置；
  * @method void setRecipientId(string $RecipientId) 设置签署流程签署人在模板中对应的签署人Id；在非单方签署、以及非B2C签署的场景下必传，用于指定当前签署方在签署流程中的位置；
- * @method integer getDeadline() 获取签署截止时间，默认一年
- * @method void setDeadline(integer $Deadline) 设置签署截止时间，默认一年
+ * @method integer getDeadline() 获取签署截止时间戳，默认一年
+ * @method void setDeadline(integer $Deadline) 设置签署截止时间戳，默认一年
  * @method string getCallbackUrl() 获取签署完回调url，最大长度1000个字符
  * @method void setCallbackUrl(string $CallbackUrl) 设置签署完回调url，最大长度1000个字符
- * @method array getSignComponents() 获取使用PDF文件直接发起合同时，签署人指定的签署控件
- * @method void setSignComponents(array $SignComponents) 设置使用PDF文件直接发起合同时，签署人指定的签署控件
- * @method array getComponentLimitType() 获取个人签署方指定签署控件类型，目前支持：OCR_ESIGN -AI智慧手写签名
-HANDWRITE -手写签名
- * @method void setComponentLimitType(array $ComponentLimitType) 设置个人签署方指定签署控件类型，目前支持：OCR_ESIGN -AI智慧手写签名
-HANDWRITE -手写签名
+ * @method array getSignComponents() 获取使用PDF文件直接发起合同时，签署人指定的签署控件；<br/>使用模板发起合同时，指定本企业印章签署控件的印章ID: <br/>通过ComponentId或ComponenetName指定签署控件，ComponentValue为印章ID。
+ * @method void setSignComponents(array $SignComponents) 设置使用PDF文件直接发起合同时，签署人指定的签署控件；<br/>使用模板发起合同时，指定本企业印章签署控件的印章ID: <br/>通过ComponentId或ComponenetName指定签署控件，ComponentValue为印章ID。
+ * @method array getComponentLimitType() 获取签署方控件类型为 SIGN_SIGNATURE时，可以指定签署方签名方式
+	HANDWRITE – 手写签名
+	OCR_ESIGN -- AI智能识别手写签名
+	ESIGN -- 个人印章类型
+	SYSTEM_ESIGN -- 系统签名（该类型可以在用户签署时根据用户姓名一键生成一个签名来进行签署）
+ * @method void setComponentLimitType(array $ComponentLimitType) 设置签署方控件类型为 SIGN_SIGNATURE时，可以指定签署方签名方式
+	HANDWRITE – 手写签名
+	OCR_ESIGN -- AI智能识别手写签名
+	ESIGN -- 个人印章类型
+	SYSTEM_ESIGN -- 系统签名（该类型可以在用户签署时根据用户姓名一键生成一个签名来进行签署）
  * @method integer getPreReadTime() 获取合同的强制预览时间：3~300s，未指定则按合同页数计算
  * @method void setPreReadTime(integer $PreReadTime) 设置合同的强制预览时间：3~300s，未指定则按合同页数计算
- * @method string getJumpUrl() 获取签署完前端跳转的url，暂未使用
- * @method void setJumpUrl(string $JumpUrl) 设置签署完前端跳转的url，暂未使用
+ * @method string getJumpUrl() 获取签署完前端跳转的url，此字段的用法场景请联系客户经理确认
+ * @method void setJumpUrl(string $JumpUrl) 设置签署完前端跳转的url，此字段的用法场景请联系客户经理确认
  * @method ApproverOption getApproverOption() 获取签署人个性化能力值
  * @method void setApproverOption(ApproverOption $ApproverOption) 设置签署人个性化能力值
  * @method boolean getApproverNeedSignReview() 获取当前签署方进行签署操作是否需要企业内部审批，true 则为需要
@@ -94,6 +104,16 @@ HANDWRITE -手写签名
 1-人脸认证 2-签署密码 3-运营商三要素(默认为1,2)
  * @method void setApproverSignTypes(array $ApproverSignTypes) 设置签署人签署合同时的认证方式
 1-人脸认证 2-签署密码 3-运营商三要素(默认为1,2)
+ * @method string getSignId() 获取签署ID
+- 发起流程时系统自动补充
+- 创建签署链接时，可以通过查询详情接口获得签署人的SignId，然后可传入此值为该签署人创建签署链接，无需再传姓名、手机号、证件号等其他信息
+ * @method void setSignId(string $SignId) 设置签署ID
+- 发起流程时系统自动补充
+- 创建签署链接时，可以通过查询详情接口获得签署人的SignId，然后可传入此值为该签署人创建签署链接，无需再传姓名、手机号、证件号等其他信息
+ * @method string getNotifyType() 获取SMS: 短信(需确保“电子签短信通知签署方”功能是开启状态才能生效); NONE: 不发信息
+默认为SMS(签署方为子客时该字段不生效)
+ * @method void setNotifyType(string $NotifyType) 设置SMS: 短信(需确保“电子签短信通知签署方”功能是开启状态才能生效); NONE: 不发信息
+默认为SMS(签署方为子客时该字段不生效)
  */
 class FlowApproverInfo extends AbstractModel
 {
@@ -103,15 +123,16 @@ class FlowApproverInfo extends AbstractModel
     public $Name;
 
     /**
-     * @var string 签署人身份证件类型
+     * @var string 签署人的证件类型
 1.ID_CARD 居民身份证
 2.HONGKONG_MACAO_AND_TAIWAN 港澳台居民居住证
 3.HONGKONG_AND_MACAO 港澳居民来往内地通行证
+4.OTHER_CARD_TYPE 其他（需要使用该类型请先联系运营经理）
      */
     public $IdCardType;
 
     /**
-     * @var string 签署人证件号
+     * @var string 签署人证件号（长度不超过18位）
      */
     public $IdCardNumber;
 
@@ -145,7 +166,8 @@ class FlowApproverInfo extends AbstractModel
     /**
      * @var string 签署人类型
 PERSON-个人/自然人；
-PERSON_AUTO_SIGN-个人自动签（定制化场景下使用）；
+PERSON_AUTO_SIGN-个人自动签署，适用于个人自动签场景
+注: 个人自动签场景为白名单功能, 使用前请联系对接的客户经理沟通。
 ORGANIZATION-企业（企业签署方或模板发起时的企业静默签）；
 ENTERPRISESERVER-企业静默签（文件发起时的企业静默签字）。
      */
@@ -157,23 +179,27 @@ ENTERPRISESERVER-企业静默签（文件发起时的企业静默签字）。
     public $RecipientId;
 
     /**
-     * @var integer 签署截止时间，默认一年
+     * @var integer 签署截止时间戳，默认一年
      */
     public $Deadline;
 
     /**
      * @var string 签署完回调url，最大长度1000个字符
+     * @deprecated
      */
     public $CallbackUrl;
 
     /**
-     * @var array 使用PDF文件直接发起合同时，签署人指定的签署控件
+     * @var array 使用PDF文件直接发起合同时，签署人指定的签署控件；<br/>使用模板发起合同时，指定本企业印章签署控件的印章ID: <br/>通过ComponentId或ComponenetName指定签署控件，ComponentValue为印章ID。
      */
     public $SignComponents;
 
     /**
-     * @var array 个人签署方指定签署控件类型，目前支持：OCR_ESIGN -AI智慧手写签名
-HANDWRITE -手写签名
+     * @var array 签署方控件类型为 SIGN_SIGNATURE时，可以指定签署方签名方式
+	HANDWRITE – 手写签名
+	OCR_ESIGN -- AI智能识别手写签名
+	ESIGN -- 个人印章类型
+	SYSTEM_ESIGN -- 系统签名（该类型可以在用户签署时根据用户姓名一键生成一个签名来进行签署）
      */
     public $ComponentLimitType;
 
@@ -183,7 +209,7 @@ HANDWRITE -手写签名
     public $PreReadTime;
 
     /**
-     * @var string 签署完前端跳转的url，暂未使用
+     * @var string 签署完前端跳转的url，此字段的用法场景请联系客户经理确认
      */
     public $JumpUrl;
 
@@ -210,12 +236,26 @@ HANDWRITE -手写签名
     public $ApproverSignTypes;
 
     /**
+     * @var string 签署ID
+- 发起流程时系统自动补充
+- 创建签署链接时，可以通过查询详情接口获得签署人的SignId，然后可传入此值为该签署人创建签署链接，无需再传姓名、手机号、证件号等其他信息
+     */
+    public $SignId;
+
+    /**
+     * @var string SMS: 短信(需确保“电子签短信通知签署方”功能是开启状态才能生效); NONE: 不发信息
+默认为SMS(签署方为子客时该字段不生效)
+     */
+    public $NotifyType;
+
+    /**
      * @param string $Name 签署人姓名，最大长度50个字符
-     * @param string $IdCardType 签署人身份证件类型
+     * @param string $IdCardType 签署人的证件类型
 1.ID_CARD 居民身份证
 2.HONGKONG_MACAO_AND_TAIWAN 港澳台居民居住证
 3.HONGKONG_AND_MACAO 港澳居民来往内地通行证
-     * @param string $IdCardNumber 签署人证件号
+4.OTHER_CARD_TYPE 其他（需要使用该类型请先联系运营经理）
+     * @param string $IdCardNumber 签署人证件号（长度不超过18位）
      * @param string $Mobile 签署人手机号，脱敏显示。大陆手机号为11位，暂不支持海外手机号。
      * @param string $OrganizationName 企业签署方工商营业执照上的企业名称，签署方为非发起方企业场景下必传，最大长度64个字符；
      * @param boolean $NotChannelOrganization 指定签署人非第三方平台子客企业下员工，在ApproverType为ORGANIZATION时指定。
@@ -225,23 +265,32 @@ HANDWRITE -手写签名
      * @param string $OrganizationOpenId 企业签署方在同一第三方平台应用下的其他合作企业OpenId，签署方为非发起方企业场景下必传，最大长度64个字符；
      * @param string $ApproverType 签署人类型
 PERSON-个人/自然人；
-PERSON_AUTO_SIGN-个人自动签（定制化场景下使用）；
+PERSON_AUTO_SIGN-个人自动签署，适用于个人自动签场景
+注: 个人自动签场景为白名单功能, 使用前请联系对接的客户经理沟通。
 ORGANIZATION-企业（企业签署方或模板发起时的企业静默签）；
 ENTERPRISESERVER-企业静默签（文件发起时的企业静默签字）。
      * @param string $RecipientId 签署流程签署人在模板中对应的签署人Id；在非单方签署、以及非B2C签署的场景下必传，用于指定当前签署方在签署流程中的位置；
-     * @param integer $Deadline 签署截止时间，默认一年
+     * @param integer $Deadline 签署截止时间戳，默认一年
      * @param string $CallbackUrl 签署完回调url，最大长度1000个字符
-     * @param array $SignComponents 使用PDF文件直接发起合同时，签署人指定的签署控件
-     * @param array $ComponentLimitType 个人签署方指定签署控件类型，目前支持：OCR_ESIGN -AI智慧手写签名
-HANDWRITE -手写签名
+     * @param array $SignComponents 使用PDF文件直接发起合同时，签署人指定的签署控件；<br/>使用模板发起合同时，指定本企业印章签署控件的印章ID: <br/>通过ComponentId或ComponenetName指定签署控件，ComponentValue为印章ID。
+     * @param array $ComponentLimitType 签署方控件类型为 SIGN_SIGNATURE时，可以指定签署方签名方式
+	HANDWRITE – 手写签名
+	OCR_ESIGN -- AI智能识别手写签名
+	ESIGN -- 个人印章类型
+	SYSTEM_ESIGN -- 系统签名（该类型可以在用户签署时根据用户姓名一键生成一个签名来进行签署）
      * @param integer $PreReadTime 合同的强制预览时间：3~300s，未指定则按合同页数计算
-     * @param string $JumpUrl 签署完前端跳转的url，暂未使用
+     * @param string $JumpUrl 签署完前端跳转的url，此字段的用法场景请联系客户经理确认
      * @param ApproverOption $ApproverOption 签署人个性化能力值
      * @param boolean $ApproverNeedSignReview 当前签署方进行签署操作是否需要企业内部审批，true 则为需要
      * @param array $ApproverVerifyTypes 签署人查看合同时认证方式, 1-实名查看 2-短信验证码查看(企业签署方不支持该方式) 如果不传默认为1
 查看合同的认证方式 Flow层级的优先于approver层级的
      * @param array $ApproverSignTypes 签署人签署合同时的认证方式
 1-人脸认证 2-签署密码 3-运营商三要素(默认为1,2)
+     * @param string $SignId 签署ID
+- 发起流程时系统自动补充
+- 创建签署链接时，可以通过查询详情接口获得签署人的SignId，然后可传入此值为该签署人创建签署链接，无需再传姓名、手机号、证件号等其他信息
+     * @param string $NotifyType SMS: 短信(需确保“电子签短信通知签署方”功能是开启状态才能生效); NONE: 不发信息
+默认为SMS(签署方为子客时该字段不生效)
      */
     function __construct()
     {
@@ -340,6 +389,14 @@ HANDWRITE -手写签名
 
         if (array_key_exists("ApproverSignTypes",$param) and $param["ApproverSignTypes"] !== null) {
             $this->ApproverSignTypes = $param["ApproverSignTypes"];
+        }
+
+        if (array_key_exists("SignId",$param) and $param["SignId"] !== null) {
+            $this->SignId = $param["SignId"];
+        }
+
+        if (array_key_exists("NotifyType",$param) and $param["NotifyType"] !== null) {
+            $this->NotifyType = $param["NotifyType"];
         }
     }
 }

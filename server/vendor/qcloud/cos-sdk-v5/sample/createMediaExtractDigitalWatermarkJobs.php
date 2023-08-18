@@ -10,14 +10,13 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', //协议头部，默认为http
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // 提取数字水印任务 https://cloud.tencent.com/document/product/436/66007
     $result = $cosClient->createMediaExtractDigitalWatermarkJobs(array(
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'ExtractDigitalWatermark',
-        'QueueId' => 'p81e648af2aee496885707caxxxxxxxxx',
         'Input' => array(
             'Object' => 'DigitalWatermark.mp4'
         ),

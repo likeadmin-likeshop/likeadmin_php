@@ -20,10 +20,10 @@ use TencentCloud\Common\AbstractModel;
 /**
  * InquiryPriceRenewInstance请求参数结构体
  *
- * @method integer getTimeSpan() 获取实例续费的时长。需要结合TimeUnit一起使用。1表示续费1一个月
- * @method void setTimeSpan(integer $TimeSpan) 设置实例续费的时长。需要结合TimeUnit一起使用。1表示续费1一个月
- * @method array getResourceIds() 获取待续费节点的资源ID列表。资源ID形如：emr-vm-xxxxxxxx。有效的资源ID可通过登录[控制台](https://console.cloud.tencent.com/emr/static/hardware)查询。
- * @method void setResourceIds(array $ResourceIds) 设置待续费节点的资源ID列表。资源ID形如：emr-vm-xxxxxxxx。有效的资源ID可通过登录[控制台](https://console.cloud.tencent.com/emr/static/hardware)查询。
+ * @method integer getTimeSpan() 获取实例续费的时长。需要结合TimeUnit一起使用。1表示续费一个月
+ * @method void setTimeSpan(integer $TimeSpan) 设置实例续费的时长。需要结合TimeUnit一起使用。1表示续费一个月
+ * @method array getResourceIds() 获取待续费节点的资源ID列表。资源ID形如：emr-vm-xxxxxxxx。有效的资源ID可通过登录[控制台](https://console.cloud.tencent.com/emr)查询。
+ * @method void setResourceIds(array $ResourceIds) 设置待续费节点的资源ID列表。资源ID形如：emr-vm-xxxxxxxx。有效的资源ID可通过登录[控制台](https://console.cloud.tencent.com/emr)查询。
  * @method Placement getPlacement() 获取实例所在的位置。通过该参数可以指定实例所属可用区，所属项目等属性。
  * @method void setPlacement(Placement $Placement) 设置实例所在的位置。通过该参数可以指定实例所属可用区，所属项目等属性。
  * @method integer getPayMode() 获取实例计费模式。此处只支持取值为1，表示包年包月。
@@ -33,21 +33,21 @@ use TencentCloud\Common\AbstractModel;
  * @method void setTimeUnit(string $TimeUnit) 设置实例续费的时间单位。取值范围：
 <li>m：表示月份。</li>
  * @method string getCurrency() 获取货币种类。取值范围：
-<li>CNY：表示人民币。</li>
+<li>CNY：表示人民币。</li>
  * @method void setCurrency(string $Currency) 设置货币种类。取值范围：
-<li>CNY：表示人民币。</li>
+<li>CNY：表示人民币。</li>
  * @method integer getModifyPayMode() 获取是否按量转包年包月。0：否，1：是。
  * @method void setModifyPayMode(integer $ModifyPayMode) 设置是否按量转包年包月。0：否，1：是。
  */
 class InquiryPriceRenewInstanceRequest extends AbstractModel
 {
     /**
-     * @var integer 实例续费的时长。需要结合TimeUnit一起使用。1表示续费1一个月
+     * @var integer 实例续费的时长。需要结合TimeUnit一起使用。1表示续费一个月
      */
     public $TimeSpan;
 
     /**
-     * @var array 待续费节点的资源ID列表。资源ID形如：emr-vm-xxxxxxxx。有效的资源ID可通过登录[控制台](https://console.cloud.tencent.com/emr/static/hardware)查询。
+     * @var array 待续费节点的资源ID列表。资源ID形如：emr-vm-xxxxxxxx。有效的资源ID可通过登录[控制台](https://console.cloud.tencent.com/emr)查询。
      */
     public $ResourceIds;
 
@@ -69,7 +69,7 @@ class InquiryPriceRenewInstanceRequest extends AbstractModel
 
     /**
      * @var string 货币种类。取值范围：
-<li>CNY：表示人民币。</li>
+<li>CNY：表示人民币。</li>
      */
     public $Currency;
 
@@ -79,14 +79,14 @@ class InquiryPriceRenewInstanceRequest extends AbstractModel
     public $ModifyPayMode;
 
     /**
-     * @param integer $TimeSpan 实例续费的时长。需要结合TimeUnit一起使用。1表示续费1一个月
-     * @param array $ResourceIds 待续费节点的资源ID列表。资源ID形如：emr-vm-xxxxxxxx。有效的资源ID可通过登录[控制台](https://console.cloud.tencent.com/emr/static/hardware)查询。
+     * @param integer $TimeSpan 实例续费的时长。需要结合TimeUnit一起使用。1表示续费一个月
+     * @param array $ResourceIds 待续费节点的资源ID列表。资源ID形如：emr-vm-xxxxxxxx。有效的资源ID可通过登录[控制台](https://console.cloud.tencent.com/emr)查询。
      * @param Placement $Placement 实例所在的位置。通过该参数可以指定实例所属可用区，所属项目等属性。
      * @param integer $PayMode 实例计费模式。此处只支持取值为1，表示包年包月。
      * @param string $TimeUnit 实例续费的时间单位。取值范围：
 <li>m：表示月份。</li>
      * @param string $Currency 货币种类。取值范围：
-<li>CNY：表示人民币。</li>
+<li>CNY：表示人民币。</li>
      * @param integer $ModifyPayMode 是否按量转包年包月。0：否，1：是。
      */
     function __construct()

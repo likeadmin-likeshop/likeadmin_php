@@ -34,12 +34,17 @@ use TencentCloud\Common\AbstractModel;
 大陆手机号直接填写，如果是其他国家、地区号码,按照"国家地区代码|手机号"的格式输入。如: "+852|xxxxxxxx"
  * @method void setPhone(string $Phone) 设置精确查询，IdSet、UserName为空时才生效。
 大陆手机号直接填写，如果是其他国家、地区号码,按照"国家地区代码|手机号"的格式输入。如: "+852|xxxxxxxx"
+ * @method string getEmail() 获取邮箱，精确查询
+ * @method void setEmail(string $Email) 设置邮箱，精确查询
  * @method array getAuthorizedDeviceIdSet() 获取查询具有指定资产ID访问权限的用户
  * @method void setAuthorizedDeviceIdSet(array $AuthorizedDeviceIdSet) 设置查询具有指定资产ID访问权限的用户
  * @method array getAuthTypeSet() 获取认证方式，0 - 本地, 1 - LDAP, 2 - OAuth, 不传为全部
  * @method void setAuthTypeSet(array $AuthTypeSet) 设置认证方式，0 - 本地, 1 - LDAP, 2 - OAuth, 不传为全部
  * @method string getDepartmentId() 获取部门ID，用于过滤属于某个部门的用户
  * @method void setDepartmentId(string $DepartmentId) 设置部门ID，用于过滤属于某个部门的用户
+ * @method array getFilters() 获取参数过滤数组
+
+ * @method void setFilters(array $Filters) 设置参数过滤数组
  */
 class DescribeUsersRequest extends AbstractModel
 {
@@ -75,6 +80,11 @@ class DescribeUsersRequest extends AbstractModel
     public $Phone;
 
     /**
+     * @var string 邮箱，精确查询
+     */
+    public $Email;
+
+    /**
      * @var array 查询具有指定资产ID访问权限的用户
      */
     public $AuthorizedDeviceIdSet;
@@ -90,6 +100,12 @@ class DescribeUsersRequest extends AbstractModel
     public $DepartmentId;
 
     /**
+     * @var array 参数过滤数组
+
+     */
+    public $Filters;
+
+    /**
      * @param array $IdSet 如果IdSet不为空，则忽略其他参数
      * @param string $Name 模糊查询，IdSet、UserName、Phone为空时才生效，对用户名和姓名进行模糊查询
      * @param integer $Offset 分页偏移位置，默认值为0
@@ -97,9 +113,11 @@ class DescribeUsersRequest extends AbstractModel
      * @param string $UserName 精确查询，IdSet为空时才生效
      * @param string $Phone 精确查询，IdSet、UserName为空时才生效。
 大陆手机号直接填写，如果是其他国家、地区号码,按照"国家地区代码|手机号"的格式输入。如: "+852|xxxxxxxx"
+     * @param string $Email 邮箱，精确查询
      * @param array $AuthorizedDeviceIdSet 查询具有指定资产ID访问权限的用户
      * @param array $AuthTypeSet 认证方式，0 - 本地, 1 - LDAP, 2 - OAuth, 不传为全部
      * @param string $DepartmentId 部门ID，用于过滤属于某个部门的用户
+     * @param array $Filters 参数过滤数组
      */
     function __construct()
     {
@@ -138,6 +156,10 @@ class DescribeUsersRequest extends AbstractModel
             $this->Phone = $param["Phone"];
         }
 
+        if (array_key_exists("Email",$param) and $param["Email"] !== null) {
+            $this->Email = $param["Email"];
+        }
+
         if (array_key_exists("AuthorizedDeviceIdSet",$param) and $param["AuthorizedDeviceIdSet"] !== null) {
             $this->AuthorizedDeviceIdSet = $param["AuthorizedDeviceIdSet"];
         }
@@ -148,6 +170,15 @@ class DescribeUsersRequest extends AbstractModel
 
         if (array_key_exists("DepartmentId",$param) and $param["DepartmentId"] !== null) {
             $this->DepartmentId = $param["DepartmentId"];
+        }
+
+        if (array_key_exists("Filters",$param) and $param["Filters"] !== null) {
+            $this->Filters = [];
+            foreach ($param["Filters"] as $key => $value){
+                $obj = new Filter();
+                $obj->deserialize($value);
+                array_push($this->Filters, $obj);
+            }
         }
     }
 }

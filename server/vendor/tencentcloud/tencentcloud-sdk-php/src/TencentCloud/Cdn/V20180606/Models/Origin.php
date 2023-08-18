@@ -28,16 +28,19 @@ use TencentCloud\Common\AbstractModel;
 + 热备源站回源域名配置
  *
  * @method array getOrigins() 获取主源站列表
-修改源站时，需要同时填充对应的 OriginType
+<font color=red>修改源站时，需要同时填充对应的 OriginType</font>
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setOrigins(array $Origins) 设置主源站列表
-修改源站时，需要同时填充对应的 OriginType
+<font color=red>修改源站时，需要同时填充对应的 OriginType</font>
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getOriginType() 获取主源站类型
+<font color=red>当源站列表 Origins 不为空时必填</font>
 入参支持以下几种类型：
 domain：域名类型
 domainv6：域名解析V6类型
 cos：对象存储源站
+third_party: 第三方存储源站
+igtm: IGTM多活源
 ip：IP 列表作为源站
 ipv6：源站列表为一个单独的 IPv6 地址
 ip_ipv6：源站列表为多个 IPv4 地址和IPv6 地址
@@ -58,10 +61,13 @@ ftp：历史 FTP 托管源源站，现已不维护
 IPv6 功能目前尚未全量，需要先申请试用
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setOriginType(string $OriginType) 设置主源站类型
+<font color=red>当源站列表 Origins 不为空时必填</font>
 入参支持以下几种类型：
 domain：域名类型
 domainv6：域名解析V6类型
 cos：对象存储源站
+third_party: 第三方存储源站
+igtm: IGTM多活源
 ip：IP 列表作为源站
 ipv6：源站列表为一个单独的 IPv6 地址
 ip_ipv6：源站列表为多个 IPv4 地址和IPv6 地址
@@ -81,12 +87,14 @@ ftp：历史 FTP 托管源源站，现已不维护
 修改 Origins 时需要同时填充对应的 OriginType
 IPv6 功能目前尚未全量，需要先申请试用
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getServerName() 获取当源站类型为cos或者第三方存储加速时,ServerName字段必填
-回主源站时 Host 头部，不填充则默认为加速域名
+ * @method string getServerName() 获取回主源站时 Host 头部
+<font color=red>当源站类型为cos或者第三方存储加速时,ServerName字段必填</font>
+不填充则默认为加速域名
 若接入的是泛域名，则回源 Host 默认为访问时的子域名
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setServerName(string $ServerName) 设置当源站类型为cos或者第三方存储加速时,ServerName字段必填
-回主源站时 Host 头部，不填充则默认为加速域名
+ * @method void setServerName(string $ServerName) 设置回主源站时 Host 头部
+<font color=red>当源站类型为cos或者第三方存储加速时,ServerName字段必填</font>
+不填充则默认为加速域名
 若接入的是泛域名，则回源 Host 默认为访问时的子域名
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getCosPrivateAccess() 获取OriginType 为对象存储（COS）时，可以指定是否允许访问私有 bucket
@@ -106,25 +114,27 @@ follow：协议跟随回源
 https：强制 https 回源，https 回源时仅支持源站 443 端口
 注意：此字段可能返回 null，表示取不到有效值。
  * @method array getBackupOrigins() 获取备源站列表
-修改备源站时，需要同时填充对应的 BackupOriginType
+<font color=red>修改备源站时，需要同时填充对应的 BackupOriginType</font>
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setBackupOrigins(array $BackupOrigins) 设置备源站列表
-修改备源站时，需要同时填充对应的 BackupOriginType
+<font color=red>修改备源站时，需要同时填充对应的 BackupOriginType</font>
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getBackupOriginType() 获取备源站类型，支持以下类型：
+ * @method string getBackupOriginType() 获取备源站类型
+<font color=red>备源站列表BackupOrigins 不为空时必填</font>
+支持以下类型：
 domain：域名类型
 ip：IP 列表作为源站
-修改 BackupOrigins 时需要同时填充对应的 BackupOriginType
 以下备源源站类型尚未全量支持，需要申请试用：
 ipv6_domain: 源站列表为多个 IPv6 地址以及域名
 ip_ipv6：源站列表为多个 IPv4 地址和IPv6 地址
 ipv6_domain: 源站列表为多个 IPv6 地址以及域名
 ip_ipv6_domain：源站列表为多个 IPv4 地址IPv6 地址以及域名
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setBackupOriginType(string $BackupOriginType) 设置备源站类型，支持以下类型：
+ * @method void setBackupOriginType(string $BackupOriginType) 设置备源站类型
+<font color=red>备源站列表BackupOrigins 不为空时必填</font>
+支持以下类型：
 domain：域名类型
 ip：IP 列表作为源站
-修改 BackupOrigins 时需要同时填充对应的 BackupOriginType
 以下备源源站类型尚未全量支持，需要申请试用：
 ipv6_domain: 源站列表为多个 IPv6 地址以及域名
 ip_ipv6：源站列表为多个 IPv4 地址和IPv6 地址
@@ -147,30 +157,51 @@ ip_ipv6_domain：源站列表为多个 IPv4 地址IPv6 地址以及域名
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setPathBasedOrigin(array $PathBasedOrigin) 设置分路径回源配置
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method OriginSni getSni() 获取HTTPS回源SNI配置
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSni(OriginSni $Sni) 设置HTTPS回源SNI配置
+注意：此字段可能返回 null，表示取不到有效值。
  * @method AdvanceHttps getAdvanceHttps() 获取HTTPS回源高级配置
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setAdvanceHttps(AdvanceHttps $AdvanceHttps) 设置HTTPS回源高级配置
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getOriginCompany() 获取对象存储回源厂商
+<font color=red>当源站类型为第三方存储源站(third_party)时必填</font>
+可选值包括以下:
+aws_s3: AWS S3
+ali_oss: 阿里云 OSS
+hw_obs: 华为 OBS
+qiniu_kodo: 七牛云 kodo
+others: 其它厂商对象存储,仅支持兼容以AWS签名算法的对象存储，如腾讯云金融专区COS
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setOriginCompany(string $OriginCompany) 设置对象存储回源厂商
+<font color=red>当源站类型为第三方存储源站(third_party)时必填</font>
+可选值包括以下:
+aws_s3: AWS S3
+ali_oss: 阿里云 OSS
+hw_obs: 华为 OBS
+qiniu_kodo: 七牛云 kodo
+others: 其它厂商对象存储,仅支持兼容以AWS签名算法的对象存储，如腾讯云金融专区COS
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class Origin extends AbstractModel
 {
     /**
      * @var array 主源站列表
-修改源站时，需要同时填充对应的 OriginType
+<font color=red>修改源站时，需要同时填充对应的 OriginType</font>
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Origins;
 
     /**
      * @var string 主源站类型
+<font color=red>当源站列表 Origins 不为空时必填</font>
 入参支持以下几种类型：
 domain：域名类型
 domainv6：域名解析V6类型
 cos：对象存储源站
+third_party: 第三方存储源站
+igtm: IGTM多活源
 ip：IP 列表作为源站
 ipv6：源站列表为一个单独的 IPv6 地址
 ip_ipv6：源站列表为多个 IPv4 地址和IPv6 地址
@@ -194,8 +225,9 @@ IPv6 功能目前尚未全量，需要先申请试用
     public $OriginType;
 
     /**
-     * @var string 当源站类型为cos或者第三方存储加速时,ServerName字段必填
-回主源站时 Host 头部，不填充则默认为加速域名
+     * @var string 回主源站时 Host 头部
+<font color=red>当源站类型为cos或者第三方存储加速时,ServerName字段必填</font>
+不填充则默认为加速域名
 若接入的是泛域名，则回源 Host 默认为访问时的子域名
 注意：此字段可能返回 null，表示取不到有效值。
      */
@@ -219,16 +251,17 @@ https：强制 https 回源，https 回源时仅支持源站 443 端口
 
     /**
      * @var array 备源站列表
-修改备源站时，需要同时填充对应的 BackupOriginType
+<font color=red>修改备源站时，需要同时填充对应的 BackupOriginType</font>
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $BackupOrigins;
 
     /**
-     * @var string 备源站类型，支持以下类型：
+     * @var string 备源站类型
+<font color=red>备源站列表BackupOrigins 不为空时必填</font>
+支持以下类型：
 domain：域名类型
 ip：IP 列表作为源站
-修改 BackupOrigins 时需要同时填充对应的 BackupOriginType
 以下备源源站类型尚未全量支持，需要申请试用：
 ipv6_domain: 源站列表为多个 IPv6 地址以及域名
 ip_ipv6：源站列表为多个 IPv4 地址和IPv6 地址
@@ -263,6 +296,12 @@ ip_ipv6_domain：源站列表为多个 IPv4 地址IPv6 地址以及域名
     public $PathBasedOrigin;
 
     /**
+     * @var OriginSni HTTPS回源SNI配置
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Sni;
+
+    /**
      * @var AdvanceHttps HTTPS回源高级配置
 注意：此字段可能返回 null，表示取不到有效值。
      */
@@ -270,19 +309,29 @@ ip_ipv6_domain：源站列表为多个 IPv4 地址IPv6 地址以及域名
 
     /**
      * @var string 对象存储回源厂商
+<font color=red>当源站类型为第三方存储源站(third_party)时必填</font>
+可选值包括以下:
+aws_s3: AWS S3
+ali_oss: 阿里云 OSS
+hw_obs: 华为 OBS
+qiniu_kodo: 七牛云 kodo
+others: 其它厂商对象存储,仅支持兼容以AWS签名算法的对象存储，如腾讯云金融专区COS
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $OriginCompany;
 
     /**
      * @param array $Origins 主源站列表
-修改源站时，需要同时填充对应的 OriginType
+<font color=red>修改源站时，需要同时填充对应的 OriginType</font>
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $OriginType 主源站类型
+<font color=red>当源站列表 Origins 不为空时必填</font>
 入参支持以下几种类型：
 domain：域名类型
 domainv6：域名解析V6类型
 cos：对象存储源站
+third_party: 第三方存储源站
+igtm: IGTM多活源
 ip：IP 列表作为源站
 ipv6：源站列表为一个单独的 IPv6 地址
 ip_ipv6：源站列表为多个 IPv4 地址和IPv6 地址
@@ -302,8 +351,9 @@ ftp：历史 FTP 托管源源站，现已不维护
 修改 Origins 时需要同时填充对应的 OriginType
 IPv6 功能目前尚未全量，需要先申请试用
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $ServerName 当源站类型为cos或者第三方存储加速时,ServerName字段必填
-回主源站时 Host 头部，不填充则默认为加速域名
+     * @param string $ServerName 回主源站时 Host 头部
+<font color=red>当源站类型为cos或者第三方存储加速时,ServerName字段必填</font>
+不填充则默认为加速域名
 若接入的是泛域名，则回源 Host 默认为访问时的子域名
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $CosPrivateAccess OriginType 为对象存储（COS）时，可以指定是否允许访问私有 bucket
@@ -315,12 +365,13 @@ follow：协议跟随回源
 https：强制 https 回源，https 回源时仅支持源站 443 端口
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $BackupOrigins 备源站列表
-修改备源站时，需要同时填充对应的 BackupOriginType
+<font color=red>修改备源站时，需要同时填充对应的 BackupOriginType</font>
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $BackupOriginType 备源站类型，支持以下类型：
+     * @param string $BackupOriginType 备源站类型
+<font color=red>备源站列表BackupOrigins 不为空时必填</font>
+支持以下类型：
 domain：域名类型
 ip：IP 列表作为源站
-修改 BackupOrigins 时需要同时填充对应的 BackupOriginType
 以下备源源站类型尚未全量支持，需要申请试用：
 ipv6_domain: 源站列表为多个 IPv6 地址以及域名
 ip_ipv6：源站列表为多个 IPv4 地址和IPv6 地址
@@ -335,9 +386,18 @@ ip_ipv6_domain：源站列表为多个 IPv4 地址IPv6 地址以及域名
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $PathBasedOrigin 分路径回源配置
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param OriginSni $Sni HTTPS回源SNI配置
+注意：此字段可能返回 null，表示取不到有效值。
      * @param AdvanceHttps $AdvanceHttps HTTPS回源高级配置
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $OriginCompany 对象存储回源厂商
+<font color=red>当源站类型为第三方存储源站(third_party)时必填</font>
+可选值包括以下:
+aws_s3: AWS S3
+ali_oss: 阿里云 OSS
+hw_obs: 华为 OBS
+qiniu_kodo: 七牛云 kodo
+others: 其它厂商对象存储,仅支持兼容以AWS签名算法的对象存储，如腾讯云金融专区COS
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -405,6 +465,11 @@ ip_ipv6_domain：源站列表为多个 IPv4 地址IPv6 地址以及域名
                 $obj->deserialize($value);
                 array_push($this->PathBasedOrigin, $obj);
             }
+        }
+
+        if (array_key_exists("Sni",$param) and $param["Sni"] !== null) {
+            $this->Sni = new OriginSni();
+            $this->Sni->deserialize($param["Sni"]);
         }
 
         if (array_key_exists("AdvanceHttps",$param) and $param["AdvanceHttps"] !== null) {

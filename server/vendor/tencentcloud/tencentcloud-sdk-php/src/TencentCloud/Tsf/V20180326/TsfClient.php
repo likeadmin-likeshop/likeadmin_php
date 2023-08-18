@@ -58,6 +58,7 @@ use TencentCloud\Tsf\V20180326\Models as Models;
  * @method Models\CreateRepositoryResponse CreateRepository(Models\CreateRepositoryRequest $req) 创建仓库
  * @method Models\CreateTaskResponse CreateTask(Models\CreateTaskRequest $req) 创建任务
  * @method Models\CreateTaskFlowResponse CreateTaskFlow(Models\CreateTaskFlowRequest $req) 创建工作流
+ * @method Models\CreateUnitNamespacesResponse CreateUnitNamespaces(Models\CreateUnitNamespacesRequest $req) 批量创建单元化命名空间
  * @method Models\CreateUnitRuleResponse CreateUnitRule(Models\CreateUnitRuleRequest $req) 创建单元化规则
  * @method Models\CreateUnitRuleWithDetailRespResponse CreateUnitRuleWithDetailResp(Models\CreateUnitRuleWithDetailRespRequest $req) 创建单元化规则, 并返回详细信息
  * @method Models\DeleteApiGroupResponse DeleteApiGroup(Models\DeleteApiGroupRequest $req) 删除Api分组
@@ -108,6 +109,7 @@ use TencentCloud\Tsf\V20180326\Models as Models;
  * @method Models\DescribeConfigTemplateResponse DescribeConfigTemplate(Models\DescribeConfigTemplateRequest $req) 导入配置
  * @method Models\DescribeConfigsResponse DescribeConfigs(Models\DescribeConfigsRequest $req) 查询配置项列表
  * @method Models\DescribeContainerEventsResponse DescribeContainerEvents(Models\DescribeContainerEventsRequest $req) 获取容器事件列表
+ * @method Models\DescribeContainerGroupAttributeResponse DescribeContainerGroupAttribute(Models\DescribeContainerGroupAttributeRequest $req) 获取部署组其他字段-用于前端并发调用
  * @method Models\DescribeContainerGroupDeployInfoResponse DescribeContainerGroupDeployInfo(Models\DescribeContainerGroupDeployInfoRequest $req)  获取部署组详情
  * @method Models\DescribeContainerGroupDetailResponse DescribeContainerGroupDetail(Models\DescribeContainerGroupDetailRequest $req)  容器部署组详情（已废弃，请使用  DescribeContainerGroupDeployInfo）
  * @method Models\DescribeContainerGroupsResponse DescribeContainerGroups(Models\DescribeContainerGroupsRequest $req) 容器部署组列表
@@ -136,7 +138,7 @@ COS相关文档请查阅：https://cloud.tencent.com/document/product/436
  * @method Models\DescribeGroupsWithPluginResponse DescribeGroupsWithPlugin(Models\DescribeGroupsWithPluginRequest $req) 查询某个插件下绑定或未绑定的API分组
  * @method Models\DescribeImageRepositoryResponse DescribeImageRepository(Models\DescribeImageRepositoryRequest $req) 镜像仓库列表 
  * @method Models\DescribeImageTagsResponse DescribeImageTags(Models\DescribeImageTagsRequest $req) 镜像版本列表
- * @method Models\DescribeInovcationIndicatorsResponse DescribeInovcationIndicators(Models\DescribeInovcationIndicatorsRequest $req) 查询调用监控指标
+ * @method Models\DescribeInovcationIndicatorsResponse DescribeInovcationIndicators(Models\DescribeInovcationIndicatorsRequest $req) 废弃
  * @method Models\DescribeInstancesResponse DescribeInstances(Models\DescribeInstancesRequest $req) 无
  * @method Models\DescribeInvocationMetricDataCurveResponse DescribeInvocationMetricDataCurve(Models\DescribeInvocationMetricDataCurveRequest $req) 查询调用指标数据变化曲线
  * @method Models\DescribeInvocationMetricDataDimensionResponse DescribeInvocationMetricDataDimension(Models\DescribeInvocationMetricDataDimensionRequest $req) 查询维度

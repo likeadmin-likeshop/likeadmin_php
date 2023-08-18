@@ -22,6 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method integer getTaskId() 获取任务ID
  * @method void setTaskId(integer $TaskId) 设置任务ID
+ * @method string getNewTaskID() 获取新任务ID
+ * @method void setNewTaskID(string $NewTaskID) 设置新任务ID
  */
 class DescribeRefreshTaskRequest extends AbstractModel
 {
@@ -31,7 +33,13 @@ class DescribeRefreshTaskRequest extends AbstractModel
     public $TaskId;
 
     /**
+     * @var string 新任务ID
+     */
+    public $NewTaskID;
+
+    /**
      * @param integer $TaskId 任务ID
+     * @param string $NewTaskID 新任务ID
      */
     function __construct()
     {
@@ -48,6 +56,10 @@ class DescribeRefreshTaskRequest extends AbstractModel
         }
         if (array_key_exists("TaskId",$param) and $param["TaskId"] !== null) {
             $this->TaskId = $param["TaskId"];
+        }
+
+        if (array_key_exists("NewTaskID",$param) and $param["NewTaskID"] !== null) {
+            $this->NewTaskID = $param["NewTaskID"];
         }
     }
 }

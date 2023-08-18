@@ -32,8 +32,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setOutputPath(string $OutputPath) 设置任务输出路径。
  * @method string getCreateTime() 获取任务创建时间。
  * @method void setCreateTime(string $CreateTime) 设置任务创建时间。
- * @method integer getState() 获取任务状态：0 初始化， 1 执行中， 2 执行成功，-1 执行失败，-3 已取消。
- * @method void setState(integer $State) 设置任务状态：0 初始化， 1 执行中， 2 执行成功，-1 执行失败，-3 已取消。
+ * @method integer getState() 获取任务状态：0 初始化， 1 执行中， 2 执行成功，3 数据写入中，4 排队中。-1 执行失败，-3 已取消。
+ * @method void setState(integer $State) 设置任务状态：0 初始化， 1 执行中， 2 执行成功，3 数据写入中，4 排队中。-1 执行失败，-3 已取消。
  * @method string getSQLType() 获取任务SQL类型，DDL|DML等
  * @method void setSQLType(string $SQLType) 设置任务SQL类型，DDL|DML等
  * @method string getSQL() 获取任务SQL语句
@@ -118,6 +118,38 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setCmdArgs(string $CmdArgs) 设置spark app job执行task的程序入口参数
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getImageVersion() 获取集群镜像大版本名称
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setImageVersion(string $ImageVersion) 设置集群镜像大版本名称
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getDriverSize() 获取driver规格：small,medium,large,xlarge；内存型(引擎类型)：m.small,m.medium,m.large,m.xlarge
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDriverSize(string $DriverSize) 设置driver规格：small,medium,large,xlarge；内存型(引擎类型)：m.small,m.medium,m.large,m.xlarge
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getExecutorSize() 获取executor规格：small,medium,large,xlarge；内存型(引擎类型)：m.small,m.medium,m.large,m.xlarge
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setExecutorSize(string $ExecutorSize) 设置executor规格：small,medium,large,xlarge；内存型(引擎类型)：m.small,m.medium,m.large,m.xlarge
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getExecutorNums() 获取指定executor数量，最小值为1，最大值小于集群规格
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setExecutorNums(integer $ExecutorNums) 设置指定executor数量，最小值为1，最大值小于集群规格
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getExecutorMaxNumbers() 获取指定executor max数量（动态配置场景下），最小值为1，最大值小于集群规格（当ExecutorMaxNumbers小于ExecutorNums时，改值设定为ExecutorNums）
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setExecutorMaxNumbers(integer $ExecutorMaxNumbers) 设置指定executor max数量（动态配置场景下），最小值为1，最大值小于集群规格（当ExecutorMaxNumbers小于ExecutorNums时，改值设定为ExecutorNums）
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method CommonMetrics getCommonMetrics() 获取任务公共指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setCommonMetrics(CommonMetrics $CommonMetrics) 设置任务公共指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method SparkMonitorMetrics getSparkMonitorMetrics() 获取spark任务指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSparkMonitorMetrics(SparkMonitorMetrics $SparkMonitorMetrics) 设置spark任务指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method PrestoMonitorMetrics getPrestoMonitorMetrics() 获取presto任务指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setPrestoMonitorMetrics(PrestoMonitorMetrics $PrestoMonitorMetrics) 设置presto任务指标数据
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class TaskResponseInfo extends AbstractModel
 {
@@ -152,7 +184,7 @@ class TaskResponseInfo extends AbstractModel
     public $CreateTime;
 
     /**
-     * @var integer 任务状态：0 初始化， 1 执行中， 2 执行成功，-1 执行失败，-3 已取消。
+     * @var integer 任务状态：0 初始化， 1 执行中， 2 执行成功，3 数据写入中，4 排队中。-1 执行失败，-3 已取消。
      */
     public $State;
 
@@ -299,13 +331,61 @@ class TaskResponseInfo extends AbstractModel
     public $CmdArgs;
 
     /**
+     * @var string 集群镜像大版本名称
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ImageVersion;
+
+    /**
+     * @var string driver规格：small,medium,large,xlarge；内存型(引擎类型)：m.small,m.medium,m.large,m.xlarge
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $DriverSize;
+
+    /**
+     * @var string executor规格：small,medium,large,xlarge；内存型(引擎类型)：m.small,m.medium,m.large,m.xlarge
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ExecutorSize;
+
+    /**
+     * @var integer 指定executor数量，最小值为1，最大值小于集群规格
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ExecutorNums;
+
+    /**
+     * @var integer 指定executor max数量（动态配置场景下），最小值为1，最大值小于集群规格（当ExecutorMaxNumbers小于ExecutorNums时，改值设定为ExecutorNums）
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ExecutorMaxNumbers;
+
+    /**
+     * @var CommonMetrics 任务公共指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $CommonMetrics;
+
+    /**
+     * @var SparkMonitorMetrics spark任务指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SparkMonitorMetrics;
+
+    /**
+     * @var PrestoMonitorMetrics presto任务指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $PrestoMonitorMetrics;
+
+    /**
      * @param string $DatabaseName 任务所属Database的名称。
      * @param integer $DataAmount 任务数据量。
      * @param string $Id 任务Id。
      * @param integer $UsedTime 计算耗时，单位： ms
      * @param string $OutputPath 任务输出路径。
      * @param string $CreateTime 任务创建时间。
-     * @param integer $State 任务状态：0 初始化， 1 执行中， 2 执行成功，-1 执行失败，-3 已取消。
+     * @param integer $State 任务状态：0 初始化， 1 执行中， 2 执行成功，3 数据写入中，4 排队中。-1 执行失败，-3 已取消。
      * @param string $SQLType 任务SQL类型，DDL|DML等
      * @param string $SQL 任务SQL语句
      * @param boolean $ResultExpired 结果是否过期。
@@ -347,6 +427,22 @@ class TaskResponseInfo extends AbstractModel
      * @param integer $TotalTime 任务耗时，单位： ms
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $CmdArgs spark app job执行task的程序入口参数
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ImageVersion 集群镜像大版本名称
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $DriverSize driver规格：small,medium,large,xlarge；内存型(引擎类型)：m.small,m.medium,m.large,m.xlarge
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ExecutorSize executor规格：small,medium,large,xlarge；内存型(引擎类型)：m.small,m.medium,m.large,m.xlarge
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $ExecutorNums 指定executor数量，最小值为1，最大值小于集群规格
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $ExecutorMaxNumbers 指定executor max数量（动态配置场景下），最小值为1，最大值小于集群规格（当ExecutorMaxNumbers小于ExecutorNums时，改值设定为ExecutorNums）
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param CommonMetrics $CommonMetrics 任务公共指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param SparkMonitorMetrics $SparkMonitorMetrics spark任务指标数据
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param PrestoMonitorMetrics $PrestoMonitorMetrics presto任务指标数据
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -488,6 +584,41 @@ class TaskResponseInfo extends AbstractModel
 
         if (array_key_exists("CmdArgs",$param) and $param["CmdArgs"] !== null) {
             $this->CmdArgs = $param["CmdArgs"];
+        }
+
+        if (array_key_exists("ImageVersion",$param) and $param["ImageVersion"] !== null) {
+            $this->ImageVersion = $param["ImageVersion"];
+        }
+
+        if (array_key_exists("DriverSize",$param) and $param["DriverSize"] !== null) {
+            $this->DriverSize = $param["DriverSize"];
+        }
+
+        if (array_key_exists("ExecutorSize",$param) and $param["ExecutorSize"] !== null) {
+            $this->ExecutorSize = $param["ExecutorSize"];
+        }
+
+        if (array_key_exists("ExecutorNums",$param) and $param["ExecutorNums"] !== null) {
+            $this->ExecutorNums = $param["ExecutorNums"];
+        }
+
+        if (array_key_exists("ExecutorMaxNumbers",$param) and $param["ExecutorMaxNumbers"] !== null) {
+            $this->ExecutorMaxNumbers = $param["ExecutorMaxNumbers"];
+        }
+
+        if (array_key_exists("CommonMetrics",$param) and $param["CommonMetrics"] !== null) {
+            $this->CommonMetrics = new CommonMetrics();
+            $this->CommonMetrics->deserialize($param["CommonMetrics"]);
+        }
+
+        if (array_key_exists("SparkMonitorMetrics",$param) and $param["SparkMonitorMetrics"] !== null) {
+            $this->SparkMonitorMetrics = new SparkMonitorMetrics();
+            $this->SparkMonitorMetrics->deserialize($param["SparkMonitorMetrics"]);
+        }
+
+        if (array_key_exists("PrestoMonitorMetrics",$param) and $param["PrestoMonitorMetrics"] !== null) {
+            $this->PrestoMonitorMetrics = new PrestoMonitorMetrics();
+            $this->PrestoMonitorMetrics->deserialize($param["PrestoMonitorMetrics"]);
         }
     }
 }

@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 授权用户
  *
- * @method string getUserId() 获取用户id
- * @method void setUserId(string $UserId) 设置用户id
+ * @method string getUserId() 获取电子签系统中的用户id
+ * @method void setUserId(string $UserId) 设置电子签系统中的用户id
  */
 class AuthorizedUser extends AbstractModel
 {
     /**
-     * @var string 用户id
+     * @var string 电子签系统中的用户id
      */
     public $UserId;
 
     /**
-     * @param string $UserId 用户id
+     * @param string $UserId 电子签系统中的用户id
      */
     function __construct()
     {

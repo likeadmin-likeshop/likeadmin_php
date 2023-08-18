@@ -22,14 +22,16 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getName() 获取房间名称。
  * @method void setName(string $Name) 设置房间名称。
- * @method integer getStartTime() 获取预定的房间开始时间，unix时间戳。
- * @method void setStartTime(integer $StartTime) 设置预定的房间开始时间，unix时间戳。
- * @method integer getEndTime() 获取预定的房间结束时间，unix时间戳。
- * @method void setEndTime(integer $EndTime) 设置预定的房间结束时间，unix时间戳。
+ * @method integer getStartTime() 获取预定的房间开始时间，unix时间戳（秒）。
+ * @method void setStartTime(integer $StartTime) 设置预定的房间开始时间，unix时间戳（秒）。
+ * @method integer getEndTime() 获取预定的房间结束时间，unix时间戳（秒）。
+ * @method void setEndTime(integer $EndTime) 设置预定的房间结束时间，unix时间戳（秒）。
  * @method string getTeacherId() 获取老师的UserId。
  * @method void setTeacherId(string $TeacherId) 设置老师的UserId。
  * @method integer getSdkAppId() 获取低代码互动课堂的SdkAppId。
  * @method void setSdkAppId(integer $SdkAppId) 设置低代码互动课堂的SdkAppId。
+ * @method integer getAudienceType() 获取观看类型。互动观看 （默认）	
+ * @method void setAudienceType(integer $AudienceType) 设置观看类型。互动观看 （默认）	
  * @method integer getResolution() 获取分辨率。可以有如下取值：
 1 标清
 2 高清
@@ -84,6 +86,20 @@ video 纯视频
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getEnableDirectControl() 获取打开学生麦克风/摄像头的授权开关
  * @method void setEnableDirectControl(integer $EnableDirectControl) 设置打开学生麦克风/摄像头的授权开关
+ * @method integer getInteractionMode() 获取开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+ * @method void setInteractionMode(integer $InteractionMode) 设置开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+ * @method integer getVideoOrientation() 获取横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+ * @method void setVideoOrientation(integer $VideoOrientation) 设置横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+ * @method integer getIsGradingRequiredPostClass() 获取开启课后评分。 0：不开启(默认)  1：开启
+ * @method void setIsGradingRequiredPostClass(integer $IsGradingRequiredPostClass) 设置开启课后评分。 0：不开启(默认)  1：开启
+ * @method integer getRoomType() 获取房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
+ * @method void setRoomType(integer $RoomType) 设置房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
+ * @method integer getVideoDuration() 获取录制时长
+ * @method void setVideoDuration(integer $VideoDuration) 设置录制时长
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -95,12 +111,12 @@ class DescribeRoomResponse extends AbstractModel
     public $Name;
 
     /**
-     * @var integer 预定的房间开始时间，unix时间戳。
+     * @var integer 预定的房间开始时间，unix时间戳（秒）。
      */
     public $StartTime;
 
     /**
-     * @var integer 预定的房间结束时间，unix时间戳。
+     * @var integer 预定的房间结束时间，unix时间戳（秒）。
      */
     public $EndTime;
 
@@ -113,6 +129,11 @@ class DescribeRoomResponse extends AbstractModel
      * @var integer 低代码互动课堂的SdkAppId。
      */
     public $SdkAppId;
+
+    /**
+     * @var integer 观看类型。互动观看 （默认）	
+     */
+    public $AudienceType;
 
     /**
      * @var integer 分辨率。可以有如下取值：
@@ -186,16 +207,44 @@ video 纯视频
     public $EnableDirectControl;
 
     /**
+     * @var integer 开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+     */
+    public $InteractionMode;
+
+    /**
+     * @var integer 横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+     */
+    public $VideoOrientation;
+
+    /**
+     * @var integer 开启课后评分。 0：不开启(默认)  1：开启
+     */
+    public $IsGradingRequiredPostClass;
+
+    /**
+     * @var integer 房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
+     */
+    public $RoomType;
+
+    /**
+     * @var integer 录制时长
+     */
+    public $VideoDuration;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
 
     /**
      * @param string $Name 房间名称。
-     * @param integer $StartTime 预定的房间开始时间，unix时间戳。
-     * @param integer $EndTime 预定的房间结束时间，unix时间戳。
+     * @param integer $StartTime 预定的房间开始时间，unix时间戳（秒）。
+     * @param integer $EndTime 预定的房间结束时间，unix时间戳（秒）。
      * @param string $TeacherId 老师的UserId。
      * @param integer $SdkAppId 低代码互动课堂的SdkAppId。
+     * @param integer $AudienceType 观看类型。互动观看 （默认）	
      * @param integer $Resolution 分辨率。可以有如下取值：
 1 标清
 2 高清
@@ -223,6 +272,13 @@ video 纯视频
      * @param string $GroupId 房间绑定的群组ID
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $EnableDirectControl 打开学生麦克风/摄像头的授权开关
+     * @param integer $InteractionMode 开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+     * @param integer $VideoOrientation 横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+     * @param integer $IsGradingRequiredPostClass 开启课后评分。 0：不开启(默认)  1：开启
+     * @param integer $RoomType 房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
+     * @param integer $VideoDuration 录制时长
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -256,6 +312,10 @@ video 纯视频
 
         if (array_key_exists("SdkAppId",$param) and $param["SdkAppId"] !== null) {
             $this->SdkAppId = $param["SdkAppId"];
+        }
+
+        if (array_key_exists("AudienceType",$param) and $param["AudienceType"] !== null) {
+            $this->AudienceType = $param["AudienceType"];
         }
 
         if (array_key_exists("Resolution",$param) and $param["Resolution"] !== null) {
@@ -300,6 +360,26 @@ video 纯视频
 
         if (array_key_exists("EnableDirectControl",$param) and $param["EnableDirectControl"] !== null) {
             $this->EnableDirectControl = $param["EnableDirectControl"];
+        }
+
+        if (array_key_exists("InteractionMode",$param) and $param["InteractionMode"] !== null) {
+            $this->InteractionMode = $param["InteractionMode"];
+        }
+
+        if (array_key_exists("VideoOrientation",$param) and $param["VideoOrientation"] !== null) {
+            $this->VideoOrientation = $param["VideoOrientation"];
+        }
+
+        if (array_key_exists("IsGradingRequiredPostClass",$param) and $param["IsGradingRequiredPostClass"] !== null) {
+            $this->IsGradingRequiredPostClass = $param["IsGradingRequiredPostClass"];
+        }
+
+        if (array_key_exists("RoomType",$param) and $param["RoomType"] !== null) {
+            $this->RoomType = $param["RoomType"];
+        }
+
+        if (array_key_exists("VideoDuration",$param) and $param["VideoDuration"] !== null) {
+            $this->VideoDuration = $param["VideoDuration"];
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

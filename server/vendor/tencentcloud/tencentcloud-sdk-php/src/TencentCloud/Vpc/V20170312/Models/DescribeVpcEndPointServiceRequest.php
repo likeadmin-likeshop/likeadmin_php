@@ -20,12 +20,12 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeVpcEndPointService请求参数结构体
  *
- * @method array getFilters() 获取过滤条件。
+ * @method array getFilters() 获取过滤条件。不支持同时传入参数 EndPointServiceIds and Filters。
 <li> service-id - String - （过滤条件）终端节点服务唯一ID。</li>
 <li>service-name - String - （过滤条件）终端节点实例名称。</li>
 <li>service-instance-id - String - （过滤条件）后端服务的唯一ID，比如lb-xxx。</li>
 <li>service-type - String - （过滤条件）后端PAAS服务类型，CLB,CDB,CRS，不填默认查询类型为CLB。</li>
- * @method void setFilters(array $Filters) 设置过滤条件。
+ * @method void setFilters(array $Filters) 设置过滤条件。不支持同时传入参数 EndPointServiceIds and Filters。
 <li> service-id - String - （过滤条件）终端节点服务唯一ID。</li>
 <li>service-name - String - （过滤条件）终端节点实例名称。</li>
 <li>service-instance-id - String - （过滤条件）后端服务的唯一ID，比如lb-xxx。</li>
@@ -34,13 +34,15 @@ use TencentCloud\Common\AbstractModel;
  * @method void setOffset(integer $Offset) 设置偏移量，默认为0。
  * @method integer getLimit() 获取单页返回数量，默认为20，最大值为100。
  * @method void setLimit(integer $Limit) 设置单页返回数量，默认为20，最大值为100。
- * @method array getEndPointServiceIds() 获取终端节点服务ID。
- * @method void setEndPointServiceIds(array $EndPointServiceIds) 设置终端节点服务ID。
+ * @method array getEndPointServiceIds() 获取终端节点服务ID。不支持同时传入参数 EndPointServiceIds and Filters。
+ * @method void setEndPointServiceIds(array $EndPointServiceIds) 设置终端节点服务ID。不支持同时传入参数 EndPointServiceIds and Filters。
+ * @method boolean getIsListAuthorizedEndPointService() 获取<li>不支持同时传入参数 Filters 。</li> <li>列出授权给当前账号的的终端节点服务信息。可以配合EndPointServiceIds参数进行过滤，那些终端节点服务授权了该账户。</li>
+ * @method void setIsListAuthorizedEndPointService(boolean $IsListAuthorizedEndPointService) 设置<li>不支持同时传入参数 Filters 。</li> <li>列出授权给当前账号的的终端节点服务信息。可以配合EndPointServiceIds参数进行过滤，那些终端节点服务授权了该账户。</li>
  */
 class DescribeVpcEndPointServiceRequest extends AbstractModel
 {
     /**
-     * @var array 过滤条件。
+     * @var array 过滤条件。不支持同时传入参数 EndPointServiceIds and Filters。
 <li> service-id - String - （过滤条件）终端节点服务唯一ID。</li>
 <li>service-name - String - （过滤条件）终端节点实例名称。</li>
 <li>service-instance-id - String - （过滤条件）后端服务的唯一ID，比如lb-xxx。</li>
@@ -59,19 +61,25 @@ class DescribeVpcEndPointServiceRequest extends AbstractModel
     public $Limit;
 
     /**
-     * @var array 终端节点服务ID。
+     * @var array 终端节点服务ID。不支持同时传入参数 EndPointServiceIds and Filters。
      */
     public $EndPointServiceIds;
 
     /**
-     * @param array $Filters 过滤条件。
+     * @var boolean <li>不支持同时传入参数 Filters 。</li> <li>列出授权给当前账号的的终端节点服务信息。可以配合EndPointServiceIds参数进行过滤，那些终端节点服务授权了该账户。</li>
+     */
+    public $IsListAuthorizedEndPointService;
+
+    /**
+     * @param array $Filters 过滤条件。不支持同时传入参数 EndPointServiceIds and Filters。
 <li> service-id - String - （过滤条件）终端节点服务唯一ID。</li>
 <li>service-name - String - （过滤条件）终端节点实例名称。</li>
 <li>service-instance-id - String - （过滤条件）后端服务的唯一ID，比如lb-xxx。</li>
 <li>service-type - String - （过滤条件）后端PAAS服务类型，CLB,CDB,CRS，不填默认查询类型为CLB。</li>
      * @param integer $Offset 偏移量，默认为0。
      * @param integer $Limit 单页返回数量，默认为20，最大值为100。
-     * @param array $EndPointServiceIds 终端节点服务ID。
+     * @param array $EndPointServiceIds 终端节点服务ID。不支持同时传入参数 EndPointServiceIds and Filters。
+     * @param boolean $IsListAuthorizedEndPointService <li>不支持同时传入参数 Filters 。</li> <li>列出授权给当前账号的的终端节点服务信息。可以配合EndPointServiceIds参数进行过滤，那些终端节点服务授权了该账户。</li>
      */
     function __construct()
     {
@@ -105,6 +113,10 @@ class DescribeVpcEndPointServiceRequest extends AbstractModel
 
         if (array_key_exists("EndPointServiceIds",$param) and $param["EndPointServiceIds"] !== null) {
             $this->EndPointServiceIds = $param["EndPointServiceIds"];
+        }
+
+        if (array_key_exists("IsListAuthorizedEndPointService",$param) and $param["IsListAuthorizedEndPointService"] !== null) {
+            $this->IsListAuthorizedEndPointService = $param["IsListAuthorizedEndPointService"];
         }
     }
 }

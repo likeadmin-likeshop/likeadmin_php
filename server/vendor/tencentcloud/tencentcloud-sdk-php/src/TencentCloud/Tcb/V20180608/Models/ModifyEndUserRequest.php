@@ -24,10 +24,10 @@ use TencentCloud\Common\AbstractModel;
  * @method void setEnvId(string $EnvId) 设置环境ID
  * @method string getUUId() 获取C端用户端的唯一ID
  * @method void setUUId(string $UUId) 设置C端用户端的唯一ID
- * @method string getStatus() 获取帐号的状态
+ * @method string getStatus() 获取账号的状态
 <li>ENABLE</li>
 <li>DISABLE</li>
- * @method void setStatus(string $Status) 设置帐号的状态
+ * @method void setStatus(string $Status) 设置账号的状态
 <li>ENABLE</li>
 <li>DISABLE</li>
  */
@@ -44,7 +44,7 @@ class ModifyEndUserRequest extends AbstractModel
     public $UUId;
 
     /**
-     * @var string 帐号的状态
+     * @var string 账号的状态
 <li>ENABLE</li>
 <li>DISABLE</li>
      */
@@ -53,7 +53,7 @@ class ModifyEndUserRequest extends AbstractModel
     /**
      * @param string $EnvId 环境ID
      * @param string $UUId C端用户端的唯一ID
-     * @param string $Status 帐号的状态
+     * @param string $Status 账号的状态
 <li>ENABLE</li>
 <li>DISABLE</li>
      */

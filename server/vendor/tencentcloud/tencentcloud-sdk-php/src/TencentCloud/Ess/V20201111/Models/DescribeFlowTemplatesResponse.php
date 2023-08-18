@@ -22,8 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method array getTemplates() 获取模板详情列表
  * @method void setTemplates(array $Templates) 设置模板详情列表
- * @method integer getTotalCount() 获取查询到的总个数
- * @method void setTotalCount(integer $TotalCount) 设置查询到的总个数
+ * @method integer getTotalCount() 获取查询到的总数
+ * @method void setTotalCount(integer $TotalCount) 设置查询到的总数
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -35,7 +35,7 @@ class DescribeFlowTemplatesResponse extends AbstractModel
     public $Templates;
 
     /**
-     * @var integer 查询到的总个数
+     * @var integer 查询到的总数
      */
     public $TotalCount;
 
@@ -46,7 +46,7 @@ class DescribeFlowTemplatesResponse extends AbstractModel
 
     /**
      * @param array $Templates 模板详情列表
-     * @param integer $TotalCount 查询到的总个数
+     * @param integer $TotalCount 查询到的总数
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

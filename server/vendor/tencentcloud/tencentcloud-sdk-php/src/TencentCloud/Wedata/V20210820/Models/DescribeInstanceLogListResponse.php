@@ -22,6 +22,10 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getData() 获取日志列表
  * @method void setData(string $Data) 设置日志列表
+ * @method array getInstanceLogList() 获取日志列表
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setInstanceLogList(array $InstanceLogList) 设置日志列表
+注意：此字段可能返回 null，表示取不到有效值。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -33,12 +37,20 @@ class DescribeInstanceLogListResponse extends AbstractModel
     public $Data;
 
     /**
+     * @var array 日志列表
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $InstanceLogList;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
 
     /**
      * @param string $Data 日志列表
+     * @param array $InstanceLogList 日志列表
+注意：此字段可能返回 null，表示取不到有效值。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -56,6 +68,15 @@ class DescribeInstanceLogListResponse extends AbstractModel
         }
         if (array_key_exists("Data",$param) and $param["Data"] !== null) {
             $this->Data = $param["Data"];
+        }
+
+        if (array_key_exists("InstanceLogList",$param) and $param["InstanceLogList"] !== null) {
+            $this->InstanceLogList = [];
+            foreach ($param["InstanceLogList"] as $key => $value){
+                $obj = new InstanceLogList();
+                $obj->deserialize($value);
+                array_push($this->InstanceLogList, $obj);
+            }
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

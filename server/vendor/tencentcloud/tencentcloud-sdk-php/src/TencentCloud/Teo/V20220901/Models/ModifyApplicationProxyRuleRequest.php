@@ -70,12 +70,16 @@ use TencentCloud\Common\AbstractModel;
  * @method void setSessionPersist(boolean $SessionPersist) 设置是否开启会话保持，取值有：
 <li>true：开启；</li>
 <li>false：关闭。</li>不填为false。
+ * @method integer getSessionPersistTime() 获取会话保持的时间，只有当SessionPersist为true时，该值才会生效。
+ * @method void setSessionPersistTime(integer $SessionPersistTime) 设置会话保持的时间，只有当SessionPersist为true时，该值才会生效。
  * @method string getOriginPort() 获取源站端口，支持格式：
 <li>单端口：80；</li>
 <li>端口段：81-90，81至90端口。</li>
  * @method void setOriginPort(string $OriginPort) 设置源站端口，支持格式：
 <li>单端口：80；</li>
 <li>端口段：81-90，81至90端口。</li>
+ * @method string getRuleTag() 获取规则标签。不填保持原有值。
+ * @method void setRuleTag(string $RuleTag) 设置规则标签。不填保持原有值。
  */
 class ModifyApplicationProxyRuleRequest extends AbstractModel
 {
@@ -141,11 +145,21 @@ class ModifyApplicationProxyRuleRequest extends AbstractModel
     public $SessionPersist;
 
     /**
+     * @var integer 会话保持的时间，只有当SessionPersist为true时，该值才会生效。
+     */
+    public $SessionPersistTime;
+
+    /**
      * @var string 源站端口，支持格式：
 <li>单端口：80；</li>
 <li>端口段：81-90，81至90端口。</li>
      */
     public $OriginPort;
+
+    /**
+     * @var string 规则标签。不填保持原有值。
+     */
+    public $RuleTag;
 
     /**
      * @param string $ZoneId 站点ID。
@@ -173,9 +187,11 @@ class ModifyApplicationProxyRuleRequest extends AbstractModel
      * @param boolean $SessionPersist 是否开启会话保持，取值有：
 <li>true：开启；</li>
 <li>false：关闭。</li>不填为false。
+     * @param integer $SessionPersistTime 会话保持的时间，只有当SessionPersist为true时，该值才会生效。
      * @param string $OriginPort 源站端口，支持格式：
 <li>单端口：80；</li>
 <li>端口段：81-90，81至90端口。</li>
+     * @param string $RuleTag 规则标签。不填保持原有值。
      */
     function __construct()
     {
@@ -226,8 +242,16 @@ class ModifyApplicationProxyRuleRequest extends AbstractModel
             $this->SessionPersist = $param["SessionPersist"];
         }
 
+        if (array_key_exists("SessionPersistTime",$param) and $param["SessionPersistTime"] !== null) {
+            $this->SessionPersistTime = $param["SessionPersistTime"];
+        }
+
         if (array_key_exists("OriginPort",$param) and $param["OriginPort"] !== null) {
             $this->OriginPort = $param["OriginPort"];
+        }
+
+        if (array_key_exists("RuleTag",$param) and $param["RuleTag"] !== null) {
+            $this->RuleTag = $param["RuleTag"];
         }
     }
 }

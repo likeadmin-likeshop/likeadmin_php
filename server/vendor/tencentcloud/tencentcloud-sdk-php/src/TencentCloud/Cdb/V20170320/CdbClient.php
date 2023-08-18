@@ -62,6 +62,7 @@ use TencentCloud\Cdb\V20170320\Models as Models;
 3. 支持创建 MySQL 5.5、MySQL 5.6 、MySQL 5.7 和 MySQL 8.0 版本；
 4. 支持创建主实例、灾备实例和只读实例；
 5. 当入参指定 Port，ParamList 或 Password 时，该实例会进行初始化操作；
+ * @method Models\CreateDatabaseResponse CreateDatabase(Models\CreateDatabaseRequest $req) 本接口(CreateDatabase)用于在云数据库实例中创建数据库。
  * @method Models\CreateDeployGroupResponse CreateDeployGroup(Models\CreateDeployGroupRequest $req) 本接口(CreateDeployGroup)用于创建放置实例的置放群组
  * @method Models\CreateParamTemplateResponse CreateParamTemplate(Models\CreateParamTemplateRequest $req) 该接口（CreateParamTemplate）用于创建参数模板，全地域公共参数Region均为ap-guangzhou。
  * @method Models\CreateRoInstanceIpResponse CreateRoInstanceIp(Models\CreateRoInstanceIpRequest $req) 本接口(CreateRoInstanceIp)用于创建云数据库只读实例的独立VIP。
@@ -78,28 +79,27 @@ use TencentCloud\Cdb\V20170320\Models as Models;
  * @method Models\DescribeAsyncRequestInfoResponse DescribeAsyncRequestInfo(Models\DescribeAsyncRequestInfoRequest $req) 本接口(DescribeAsyncRequestInfo)用于查询云数据库实例异步任务的执行结果。
  * @method Models\DescribeAuditConfigResponse DescribeAuditConfig(Models\DescribeAuditConfigRequest $req) 本接口(DescribeAuditConfig)用于查询云数据库审计策略的服务配置，包括审计日志保存时长等。
  * @method Models\DescribeAuditLogFilesResponse DescribeAuditLogFiles(Models\DescribeAuditLogFilesRequest $req) 本接口(DescribeAuditLogFiles)用于查询云数据库实例的审计日志文件。
+ * @method Models\DescribeAuditLogsResponse DescribeAuditLogs(Models\DescribeAuditLogsRequest $req) 本接口(DescribeAuditLogs)用于查询数据库审计日志。
  * @method Models\DescribeAuditPoliciesResponse DescribeAuditPolicies(Models\DescribeAuditPoliciesRequest $req) 本接口(DescribeAuditPolicies)用于查询云数据库实例的审计策略。
  * @method Models\DescribeAuditRulesResponse DescribeAuditRules(Models\DescribeAuditRulesRequest $req) 本接口(DescribeAuditRules)用于查询用户在当前地域的审计规则。
  * @method Models\DescribeBackupConfigResponse DescribeBackupConfig(Models\DescribeBackupConfigRequest $req) 本接口(DescribeBackupConfig)用于查询数据库备份配置信息。
- * @method Models\DescribeBackupDatabasesResponse DescribeBackupDatabases(Models\DescribeBackupDatabasesRequest $req) 本接口(DescribeBackupDatabases)用于查询备份文件包含的库 (已废弃)。
+ * @method Models\DescribeBackupDatabasesResponse DescribeBackupDatabases(Models\DescribeBackupDatabasesRequest $req) 接口已废弃，需要下线
+
+本接口(DescribeBackupDatabases)用于查询备份文件包含的库 (已废弃)。
 旧版本支持全量备份后，用户如果分库表下载逻辑备份文件，需要用到此接口。
 新版本支持(CreateBackup)创建逻辑备份的时候，直接发起指定库表备份，用户直接下载该备份文件即可。
+ * @method Models\DescribeBackupDecryptionKeyResponse DescribeBackupDecryptionKey(Models\DescribeBackupDecryptionKeyRequest $req) 本接口(DescribeBackupDecryptionKey)用于查询备份文件解密密钥。
  * @method Models\DescribeBackupDownloadRestrictionResponse DescribeBackupDownloadRestriction(Models\DescribeBackupDownloadRestrictionRequest $req) 该接口用户查询当前地域用户设置的默认备份下载来源限制。
  * @method Models\DescribeBackupEncryptionStatusResponse DescribeBackupEncryptionStatus(Models\DescribeBackupEncryptionStatusRequest $req) 本接口(DescribeBackupEncryptionStatus)用于查询实例默认备份加密状态。
  * @method Models\DescribeBackupOverviewResponse DescribeBackupOverview(Models\DescribeBackupOverviewRequest $req) 本接口(DescribeBackupOverview)用于查询用户的备份概览。返回用户当前备份总个数、备份总的占用容量、赠送的免费容量、计费容量（容量单位为字节）。
  * @method Models\DescribeBackupSummariesResponse DescribeBackupSummaries(Models\DescribeBackupSummariesRequest $req) 本接口(DescribeBackupSummaries)用于查询备份的统计情况，返回以实例为维度的备份占用容量，以及每个实例的数据备份和日志备份的个数和容量（容量单位为字节）。
- * @method Models\DescribeBackupTablesResponse DescribeBackupTables(Models\DescribeBackupTablesRequest $req) 本接口(DescribeBackupTables)用于查询指定的数据库的备份数据表名 (已废弃)。
-旧版本支持全量备份后，用户如果分库表下载逻辑备份文件，需要用到此接口。
-新版本支持(CreateBackup)创建逻辑备份的时候，直接发起指定库表备份，用户直接下载该备份文件即可。
  * @method Models\DescribeBackupsResponse DescribeBackups(Models\DescribeBackupsRequest $req) 本接口(DescribeBackups)用于查询云数据库实例的备份数据。
  * @method Models\DescribeBinlogBackupOverviewResponse DescribeBinlogBackupOverview(Models\DescribeBinlogBackupOverviewRequest $req) 本接口(DescribeBinlogBackupOverview)用于查询用户在当前地域总的日志备份概览。
  * @method Models\DescribeBinlogsResponse DescribeBinlogs(Models\DescribeBinlogsRequest $req) 本接口(DescribeBinlogs)用于查询云数据库实例的 binlog 文件列表。
- * @method Models\DescribeCDBProxyResponse DescribeCDBProxy(Models\DescribeCDBProxyRequest $req) 接口已经废弃，请使用+DescribeCdbProxyInfo+进行替换。
-
-查询数据库代理（待下线，替换接口QueryCDBProxy）
  * @method Models\DescribeCdbProxyInfoResponse DescribeCdbProxyInfo(Models\DescribeCdbProxyInfoRequest $req) 查询数据库代理详情信息
  * @method Models\DescribeCdbZoneConfigResponse DescribeCdbZoneConfig(Models\DescribeCdbZoneConfigRequest $req) 本接口(DescribeCdbZoneConfig)用于查询云数据库各地域可售卖的规格配置。
  * @method Models\DescribeCloneListResponse DescribeCloneList(Models\DescribeCloneListRequest $req) 本接口(DescribeCloneList) 用于查询用户实例的克隆任务列表。
+ * @method Models\DescribeCpuExpandStrategyResponse DescribeCpuExpandStrategy(Models\DescribeCpuExpandStrategyRequest $req) 通过该 API 可以查询实例的 CPU 弹性扩容策略
  * @method Models\DescribeDBFeaturesResponse DescribeDBFeatures(Models\DescribeDBFeaturesRequest $req) 本接口(DescribeDBFeatures)用于查询云数据库版本属性，包括是否支持数据库加密、数据库审计等功能。
  * @method Models\DescribeDBImportRecordsResponse DescribeDBImportRecords(Models\DescribeDBImportRecordsRequest $req) 本接口(DescribeDBImportRecords)用于查询云数据库导入任务操作日志。
  * @method Models\DescribeDBInstanceCharsetResponse DescribeDBInstanceCharset(Models\DescribeDBInstanceCharsetRequest $req) 本接口(DescribeDBInstanceCharset)用于查询云数据库实例的字符集，获取字符集的名称。
@@ -126,9 +126,6 @@ use TencentCloud\Cdb\V20170320\Models as Models;
  * @method Models\DescribeParamTemplateInfoResponse DescribeParamTemplateInfo(Models\DescribeParamTemplateInfoRequest $req) 该接口（DescribeParamTemplateInfo）用于查询参数模板详情，全地域公共参数Region均为ap-guangzhou。
  * @method Models\DescribeParamTemplatesResponse DescribeParamTemplates(Models\DescribeParamTemplatesRequest $req) 该接口（DescribeParamTemplates）查询参数模板列表，全地域公共参数Region均为ap-guangzhou。
  * @method Models\DescribeProjectSecurityGroupsResponse DescribeProjectSecurityGroups(Models\DescribeProjectSecurityGroupsRequest $req) 本接口(DescribeProjectSecurityGroups)用于查询项目的安全组详情。
- * @method Models\DescribeProxyConnectionPoolConfResponse DescribeProxyConnectionPoolConf(Models\DescribeProxyConnectionPoolConfRequest $req) 当前接口已经废弃，请使用+DescribeCdbProxyInfo+替代。
-
-获取数据库代理连接池相关规格配置
  * @method Models\DescribeProxyCustomConfResponse DescribeProxyCustomConf(Models\DescribeProxyCustomConfRequest $req) 查询代理规格配置
  * @method Models\DescribeProxySupportParamResponse DescribeProxySupportParam(Models\DescribeProxySupportParamRequest $req) 查询实例支持代理版本和参数
  * @method Models\DescribeRemoteBackupConfigResponse DescribeRemoteBackupConfig(Models\DescribeRemoteBackupConfigRequest $req) 本接口(DescribeRemoteBackupConfig)用于查询数据库异地备份配置信息。
@@ -164,16 +161,7 @@ use TencentCloud\Cdb\V20170320\Models as Models;
  * @method Models\ModifyAutoRenewFlagResponse ModifyAutoRenewFlag(Models\ModifyAutoRenewFlagRequest $req) 本接口(ModifyAutoRenewFlag)用于修改云数据库实例的自动续费标记。仅支持包年包月的实例设置自动续费标记。
  * @method Models\ModifyBackupConfigResponse ModifyBackupConfig(Models\ModifyBackupConfigRequest $req) 本接口(ModifyBackupConfig)用于修改数据库备份配置信息。
  * @method Models\ModifyBackupDownloadRestrictionResponse ModifyBackupDownloadRestriction(Models\ModifyBackupDownloadRestrictionRequest $req) 该接口用于修改用户当前地域的备份文件限制下载来源，可以设置内外网均可下载、仅内网可下载，或内网指定的vpc、ip可以下载。
- * @method Models\ModifyBackupEncryptionStatusResponse ModifyBackupEncryptionStatus(Models\ModifyBackupEncryptionStatusRequest $req) 本接口(ModifyBackupEncryptionStatus)用于设置实例备份文件是否加密。 
- * @method Models\ModifyCDBProxyConnectionPoolResponse ModifyCDBProxyConnectionPool(Models\ModifyCDBProxyConnectionPoolRequest $req) 当前接口已经废弃，请使用+AdjustCdbProxyAddress+进行替代。
-
-请求该接口配置数据库连接池；支持的连接池配置请求DescribeProxyConnectionPoolConf接口获取。
- * @method Models\ModifyCDBProxyDescResponse ModifyCDBProxyDesc(Models\ModifyCDBProxyDescRequest $req) 当前接口已经废弃，请使用+ModifyCdbProxyAddressDesc+进行替代。
-
-修改数据库代理描述
- * @method Models\ModifyCDBProxyVipVPortResponse ModifyCDBProxyVipVPort(Models\ModifyCDBProxyVipVPortRequest $req) 当前接口已经废弃，请使用+ModifyCdbProxyAddressVipAndVPort+进行替代。
-
-修改数据库代理VIP或端口
+ * @method Models\ModifyBackupEncryptionStatusResponse ModifyBackupEncryptionStatus(Models\ModifyBackupEncryptionStatusRequest $req) 本接口(ModifyBackupEncryptionStatus)用于设置实例备份文件是否加密。
  * @method Models\ModifyCdbProxyAddressDescResponse ModifyCdbProxyAddressDesc(Models\ModifyCdbProxyAddressDescRequest $req) 修改代理地址描述信息
  * @method Models\ModifyCdbProxyAddressVipAndVPortResponse ModifyCdbProxyAddressVipAndVPort(Models\ModifyCdbProxyAddressVipAndVPortRequest $req) 修改数据库代理地址VPC信息
  * @method Models\ModifyCdbProxyParamResponse ModifyCdbProxyParam(Models\ModifyCdbProxyParamRequest $req) 配置数据库代理参数
@@ -211,9 +199,6 @@ use TencentCloud\Cdb\V20170320\Models as Models;
  * @method Models\OpenWanServiceResponse OpenWanService(Models\OpenWanServiceRequest $req) 本接口(OpenWanService)用于开通实例外网访问。
 
 注意，实例开通外网访问之前，需要先将实例进行 [实例初始化](https://cloud.tencent.com/document/api/236/15873) 操作。
- * @method Models\QueryCDBProxyResponse QueryCDBProxy(Models\QueryCDBProxyRequest $req) 当前接口已经废弃，请使用+DescribeCdbProxyInfo+进行替代。
-
-查询代理详情
  * @method Models\ReleaseIsolatedDBInstancesResponse ReleaseIsolatedDBInstances(Models\ReleaseIsolatedDBInstancesRequest $req) 本接口（ReleaseIsolatedDBInstances）用于恢复已隔离云数据库实例。
  * @method Models\ReloadBalanceProxyNodeResponse ReloadBalanceProxyNode(Models\ReloadBalanceProxyNodeRequest $req) 重新负载均衡数据库代理
  * @method Models\RenewDBInstanceResponse RenewDBInstance(Models\RenewDBInstanceRequest $req) 本接口(RenewDBInstance)用于续费云数据库实例，支持付费模式为包年包月的实例。按量计费实例可通过该接口续费为包年包月的实例。
@@ -224,7 +209,9 @@ use TencentCloud\Cdb\V20170320\Models as Models;
 1、本接口只支持主实例进行重启操作；
 2、实例状态必须为正常，并且没有其他异步任务在执行中。
  * @method Models\StartBatchRollbackResponse StartBatchRollback(Models\StartBatchRollbackRequest $req) 该接口（StartBatchRollback）用于批量回档云数据库实例的库表。
+ * @method Models\StartCpuExpandResponse StartCpuExpand(Models\StartCpuExpandRequest $req) 通过该API，可以开启CPU弹性扩容，包括一次性的手动扩容以及自动弹性扩容。
  * @method Models\StartReplicationResponse StartReplication(Models\StartReplicationRequest $req) 开启 RO 复制，从主实例同步数据。
+ * @method Models\StopCpuExpandResponse StopCpuExpand(Models\StopCpuExpandRequest $req) 通过该API，可以关闭 CPU 弹性扩容。
  * @method Models\StopDBImportJobResponse StopDBImportJob(Models\StopDBImportJobRequest $req) 本接口(StopDBImportJob)用于终止数据导入任务。
  * @method Models\StopReplicationResponse StopReplication(Models\StopReplicationRequest $req) 停止 RO 复制，中断从主实例同步数据。
  * @method Models\StopRollbackResponse StopRollback(Models\StopRollbackRequest $req) 本接口(StopRollback) 用于撤销实例正在进行的回档任务，该接口返回一个异步任务id。 撤销结果可以通过 DescribeAsyncRequestInfo 查询任务的执行情况。

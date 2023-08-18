@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * ChannelCreateFlowSignReview请求参数结构体
  *
- * @method Agent getAgent() 获取应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
- * @method void setAgent(Agent $Agent) 设置应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+ * @method Agent getAgent() 获取应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
+ * @method void setAgent(Agent $Agent) 设置应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
  * @method string getFlowId() 获取签署流程编号
  * @method void setFlowId(string $FlowId) 设置签署流程编号
  * @method string getReviewType() 获取企业内部审核结果
@@ -36,13 +36,23 @@ SIGN_REJECT:拒签(流程结束)
 当ReviewType 是REJECT 时此字段必填,字符串长度不超过200
  * @method void setReviewMessage(string $ReviewMessage) 设置审核原因 
 当ReviewType 是REJECT 时此字段必填,字符串长度不超过200
- * @method string getRecipientId() 获取签署节点审核时需要指定
- * @method void setRecipientId(string $RecipientId) 设置签署节点审核时需要指定
+ * @method string getRecipientId() 获取签署节点审核时需要指定，给个人审核时必填。
+ * @method void setRecipientId(string $RecipientId) 设置签署节点审核时需要指定，给个人审核时必填。
+ * @method string getOperateType() 获取操作类型，默认：SignReview；SignReview:签署审核，CreateReview：发起审核
+注：接口通过该字段区分操作类型
+该字段不传或者为空，则默认为SignReview签署审核，走签署审核流程
+若想使用发起审核，请指定该字段为：CreateReview
+若发起个人审核，则指定该字段为：SignReview
+ * @method void setOperateType(string $OperateType) 设置操作类型，默认：SignReview；SignReview:签署审核，CreateReview：发起审核
+注：接口通过该字段区分操作类型
+该字段不传或者为空，则默认为SignReview签署审核，走签署审核流程
+若想使用发起审核，请指定该字段为：CreateReview
+若发起个人审核，则指定该字段为：SignReview
  */
 class ChannelCreateFlowSignReviewRequest extends AbstractModel
 {
     /**
-     * @var Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+     * @var Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
      */
     public $Agent;
 
@@ -66,12 +76,21 @@ SIGN_REJECT:拒签(流程结束)
     public $ReviewMessage;
 
     /**
-     * @var string 签署节点审核时需要指定
+     * @var string 签署节点审核时需要指定，给个人审核时必填。
      */
     public $RecipientId;
 
     /**
-     * @param Agent $Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+     * @var string 操作类型，默认：SignReview；SignReview:签署审核，CreateReview：发起审核
+注：接口通过该字段区分操作类型
+该字段不传或者为空，则默认为SignReview签署审核，走签署审核流程
+若想使用发起审核，请指定该字段为：CreateReview
+若发起个人审核，则指定该字段为：SignReview
+     */
+    public $OperateType;
+
+    /**
+     * @param Agent $Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
      * @param string $FlowId 签署流程编号
      * @param string $ReviewType 企业内部审核结果
 PASS: 通过
@@ -79,7 +98,12 @@ REJECT: 拒绝
 SIGN_REJECT:拒签(流程结束)
      * @param string $ReviewMessage 审核原因 
 当ReviewType 是REJECT 时此字段必填,字符串长度不超过200
-     * @param string $RecipientId 签署节点审核时需要指定
+     * @param string $RecipientId 签署节点审核时需要指定，给个人审核时必填。
+     * @param string $OperateType 操作类型，默认：SignReview；SignReview:签署审核，CreateReview：发起审核
+注：接口通过该字段区分操作类型
+该字段不传或者为空，则默认为SignReview签署审核，走签署审核流程
+若想使用发起审核，请指定该字段为：CreateReview
+若发起个人审核，则指定该字段为：SignReview
      */
     function __construct()
     {
@@ -113,6 +137,10 @@ SIGN_REJECT:拒签(流程结束)
 
         if (array_key_exists("RecipientId",$param) and $param["RecipientId"] !== null) {
             $this->RecipientId = $param["RecipientId"];
+        }
+
+        if (array_key_exists("OperateType",$param) and $param["OperateType"] !== null) {
+            $this->OperateType = $param["OperateType"];
         }
     }
 }

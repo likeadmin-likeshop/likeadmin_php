@@ -20,14 +20,24 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 时间戳防盗链配置
  *
- * @method string getSwitch() 获取防盗链配置开关
+ * @method string getSwitch() 获取防盗链配置开关，取值有：
 on：开启
 off：关闭
 开启时必须且只配置一种模式，其余模式需要设置为 null
- * @method void setSwitch(string $Switch) 设置防盗链配置开关
+ * @method void setSwitch(string $Switch) 设置防盗链配置开关，取值有：
 on：开启
 off：关闭
 开启时必须且只配置一种模式，其余模式需要设置为 null
+ * @method string getAuthAlgorithm() 获取鉴权算法，取值有：
+md5：按MD5算法取hash值
+sha256：按SHA-256算法取hash值
+默认为 md5
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAuthAlgorithm(string $AuthAlgorithm) 设置鉴权算法，取值有：
+md5：按MD5算法取hash值
+sha256：按SHA-256算法取hash值
+默认为 md5
+注意：此字段可能返回 null，表示取不到有效值。
  * @method AuthenticationTypeA getTypeA() 获取时间戳防盗链模式 A 配置
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setTypeA(AuthenticationTypeA $TypeA) 设置时间戳防盗链模式 A 配置
@@ -48,12 +58,21 @@ off：关闭
 class Authentication extends AbstractModel
 {
     /**
-     * @var string 防盗链配置开关
+     * @var string 防盗链配置开关，取值有：
 on：开启
 off：关闭
 开启时必须且只配置一种模式，其余模式需要设置为 null
      */
     public $Switch;
+
+    /**
+     * @var string 鉴权算法，取值有：
+md5：按MD5算法取hash值
+sha256：按SHA-256算法取hash值
+默认为 md5
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AuthAlgorithm;
 
     /**
      * @var AuthenticationTypeA 时间戳防盗链模式 A 配置
@@ -80,10 +99,15 @@ off：关闭
     public $TypeD;
 
     /**
-     * @param string $Switch 防盗链配置开关
+     * @param string $Switch 防盗链配置开关，取值有：
 on：开启
 off：关闭
 开启时必须且只配置一种模式，其余模式需要设置为 null
+     * @param string $AuthAlgorithm 鉴权算法，取值有：
+md5：按MD5算法取hash值
+sha256：按SHA-256算法取hash值
+默认为 md5
+注意：此字段可能返回 null，表示取不到有效值。
      * @param AuthenticationTypeA $TypeA 时间戳防盗链模式 A 配置
 注意：此字段可能返回 null，表示取不到有效值。
      * @param AuthenticationTypeB $TypeB 时间戳防盗链模式 B 配置（模式 B 后台升级中，暂时不支持配置）
@@ -108,6 +132,10 @@ off：关闭
         }
         if (array_key_exists("Switch",$param) and $param["Switch"] !== null) {
             $this->Switch = $param["Switch"];
+        }
+
+        if (array_key_exists("AuthAlgorithm",$param) and $param["AuthAlgorithm"] !== null) {
+            $this->AuthAlgorithm = $param["AuthAlgorithm"];
         }
 
         if (array_key_exists("TypeA",$param) and $param["TypeA"] !== null) {

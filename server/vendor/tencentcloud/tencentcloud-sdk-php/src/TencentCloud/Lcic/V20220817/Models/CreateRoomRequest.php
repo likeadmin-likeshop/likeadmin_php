@@ -22,10 +22,10 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getName() 获取房间名称。
  * @method void setName(string $Name) 设置房间名称。
- * @method integer getStartTime() 获取预定的房间开始时间，unix时间戳。
- * @method void setStartTime(integer $StartTime) 设置预定的房间开始时间，unix时间戳。
- * @method integer getEndTime() 获取预定的房间结束时间，unix时间戳。
- * @method void setEndTime(integer $EndTime) 设置预定的房间结束时间，unix时间戳。
+ * @method integer getStartTime() 获取预定的房间开始时间，unix时间戳（秒）。
+ * @method void setStartTime(integer $StartTime) 设置预定的房间开始时间，unix时间戳（秒）。
+ * @method integer getEndTime() 获取预定的房间结束时间，unix时间戳（秒）。
+ * @method void setEndTime(integer $EndTime) 设置预定的房间结束时间，unix时间戳（秒）。
  * @method integer getSdkAppId() 获取低代码互动课堂的SdkAppId。
  * @method void setSdkAppId(integer $SdkAppId) 设置低代码互动课堂的SdkAppId。
  * @method integer getResolution() 获取分辨率。可以有如下取值：
@@ -58,12 +58,12 @@ video 纯视频
  * @method void setTurnOffMic(integer $TurnOffMic) 设置释放音视频权限后是否自动取消连麦。可以有以下取值：
 0 自动取消连麦（默认值）
 1 保持连麦状态
- * @method integer getAudioQuality() 获取高音质模式。可以有以下取值：
-0 不开启高音质（默认值）
-1 开启高音质
- * @method void setAudioQuality(integer $AudioQuality) 设置高音质模式。可以有以下取值：
-0 不开启高音质（默认值）
-1 开启高音质
+ * @method integer getAudioQuality() 获取声音音质。可以有以下取值：
+0：流畅模式（默认值），占用更小的带宽、拥有更好的降噪效果，适用于1对1、小班教学、多人音视频会议等场景。
+1：高音质模式，适合需要高保真传输音乐的场景，但降噪效果会被削弱，适用于音乐教学场景。
+ * @method void setAudioQuality(integer $AudioQuality) 设置声音音质。可以有以下取值：
+0：流畅模式（默认值），占用更小的带宽、拥有更好的降噪效果，适用于1对1、小班教学、多人音视频会议等场景。
+1：高音质模式，适合需要高保真传输音乐的场景，但降噪效果会被削弱，适用于音乐教学场景。
  * @method integer getDisableRecord() 获取上课后是否禁止自动录制。可以有以下取值：
 0 不禁止录制（自动开启录制，默认值）
 1 禁止录制
@@ -76,10 +76,10 @@ video 纯视频
  * @method void setAssistants(array $Assistants) 设置助教Id列表。通过[注册用户]接口获取的UserId。指定后该用户在房间内拥有助教权限。
  * @method integer getRTCAudienceNumber() 获取rtc人数。
  * @method void setRTCAudienceNumber(integer $RTCAudienceNumber) 设置rtc人数。
- * @method integer getAudienceType() 获取观看类型，互动直播（默认）。
- * @method void setAudienceType(integer $AudienceType) 设置观看类型，互动直播（默认）。
- * @method integer getRecordLayout() 获取录制布局。录制模板枚举值参考：https://cloud.tencent.com/document/product/1639/89744
- * @method void setRecordLayout(integer $RecordLayout) 设置录制布局。录制模板枚举值参考：https://cloud.tencent.com/document/product/1639/89744
+ * @method integer getAudienceType() 获取观看类型。互动观看 （默认）
+ * @method void setAudienceType(integer $AudienceType) 设置观看类型。互动观看 （默认）
+ * @method integer getRecordLayout() 获取录制模板。录制模板枚举值参考：https://cloud.tencent.com/document/product/1639/89744
+ * @method void setRecordLayout(integer $RecordLayout) 设置录制模板。录制模板枚举值参考：https://cloud.tencent.com/document/product/1639/89744
  * @method string getGroupId() 获取房间绑定的群组ID,非空时限制组成员进入
  * @method void setGroupId(string $GroupId) 设置房间绑定的群组ID,非空时限制组成员进入
  * @method integer getEnableDirectControl() 获取是否允许老师/助教直接控制学生的摄像头/麦克风。可以有以下取值：
@@ -88,6 +88,18 @@ video 纯视频
  * @method void setEnableDirectControl(integer $EnableDirectControl) 设置是否允许老师/助教直接控制学生的摄像头/麦克风。可以有以下取值：
 0 不允许直接控制（需同意，默认值）
 1 允许直接控制（无需同意）
+ * @method integer getInteractionMode() 获取开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+ * @method void setInteractionMode(integer $InteractionMode) 设置开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+ * @method integer getVideoOrientation() 获取横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+ * @method void setVideoOrientation(integer $VideoOrientation) 设置横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+ * @method integer getIsGradingRequiredPostClass() 获取开启课后评分。 0：不开启(默认)  1：开启
+ * @method void setIsGradingRequiredPostClass(integer $IsGradingRequiredPostClass) 设置开启课后评分。 0：不开启(默认)  1：开启
+ * @method integer getRoomType() 获取房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
+ * @method void setRoomType(integer $RoomType) 设置房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
  */
 class CreateRoomRequest extends AbstractModel
 {
@@ -97,12 +109,12 @@ class CreateRoomRequest extends AbstractModel
     public $Name;
 
     /**
-     * @var integer 预定的房间开始时间，unix时间戳。
+     * @var integer 预定的房间开始时间，unix时间戳（秒）。
      */
     public $StartTime;
 
     /**
-     * @var integer 预定的房间结束时间，unix时间戳。
+     * @var integer 预定的房间结束时间，unix时间戳（秒）。
      */
     public $EndTime;
 
@@ -151,9 +163,9 @@ video 纯视频
     public $TurnOffMic;
 
     /**
-     * @var integer 高音质模式。可以有以下取值：
-0 不开启高音质（默认值）
-1 开启高音质
+     * @var integer 声音音质。可以有以下取值：
+0：流畅模式（默认值），占用更小的带宽、拥有更好的降噪效果，适用于1对1、小班教学、多人音视频会议等场景。
+1：高音质模式，适合需要高保真传输音乐的场景，但降噪效果会被削弱，适用于音乐教学场景。
      */
     public $AudioQuality;
 
@@ -176,12 +188,12 @@ video 纯视频
     public $RTCAudienceNumber;
 
     /**
-     * @var integer 观看类型，互动直播（默认）。
+     * @var integer 观看类型。互动观看 （默认）
      */
     public $AudienceType;
 
     /**
-     * @var integer 录制布局。录制模板枚举值参考：https://cloud.tencent.com/document/product/1639/89744
+     * @var integer 录制模板。录制模板枚举值参考：https://cloud.tencent.com/document/product/1639/89744
      */
     public $RecordLayout;
 
@@ -198,9 +210,31 @@ video 纯视频
     public $EnableDirectControl;
 
     /**
+     * @var integer 开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+     */
+    public $InteractionMode;
+
+    /**
+     * @var integer 横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+     */
+    public $VideoOrientation;
+
+    /**
+     * @var integer 开启课后评分。 0：不开启(默认)  1：开启
+     */
+    public $IsGradingRequiredPostClass;
+
+    /**
+     * @var integer 房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
+     */
+    public $RoomType;
+
+    /**
      * @param string $Name 房间名称。
-     * @param integer $StartTime 预定的房间开始时间，unix时间戳。
-     * @param integer $EndTime 预定的房间结束时间，unix时间戳。
+     * @param integer $StartTime 预定的房间开始时间，unix时间戳（秒）。
+     * @param integer $EndTime 预定的房间结束时间，unix时间戳（秒）。
      * @param integer $SdkAppId 低代码互动课堂的SdkAppId。
      * @param integer $Resolution 分辨率。可以有如下取值：
 1 标清
@@ -217,21 +251,27 @@ video 纯视频
      * @param integer $TurnOffMic 释放音视频权限后是否自动取消连麦。可以有以下取值：
 0 自动取消连麦（默认值）
 1 保持连麦状态
-     * @param integer $AudioQuality 高音质模式。可以有以下取值：
-0 不开启高音质（默认值）
-1 开启高音质
+     * @param integer $AudioQuality 声音音质。可以有以下取值：
+0：流畅模式（默认值），占用更小的带宽、拥有更好的降噪效果，适用于1对1、小班教学、多人音视频会议等场景。
+1：高音质模式，适合需要高保真传输音乐的场景，但降噪效果会被削弱，适用于音乐教学场景。
      * @param integer $DisableRecord 上课后是否禁止自动录制。可以有以下取值：
 0 不禁止录制（自动开启录制，默认值）
 1 禁止录制
 注：如果该配置取值为0，录制将从上课后开始，课堂结束后停止。
      * @param array $Assistants 助教Id列表。通过[注册用户]接口获取的UserId。指定后该用户在房间内拥有助教权限。
      * @param integer $RTCAudienceNumber rtc人数。
-     * @param integer $AudienceType 观看类型，互动直播（默认）。
-     * @param integer $RecordLayout 录制布局。录制模板枚举值参考：https://cloud.tencent.com/document/product/1639/89744
+     * @param integer $AudienceType 观看类型。互动观看 （默认）
+     * @param integer $RecordLayout 录制模板。录制模板枚举值参考：https://cloud.tencent.com/document/product/1639/89744
      * @param string $GroupId 房间绑定的群组ID,非空时限制组成员进入
      * @param integer $EnableDirectControl 是否允许老师/助教直接控制学生的摄像头/麦克风。可以有以下取值：
 0 不允许直接控制（需同意，默认值）
 1 允许直接控制（无需同意）
+     * @param integer $InteractionMode 开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+     * @param integer $VideoOrientation 横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+     * @param integer $IsGradingRequiredPostClass 开启课后评分。 0：不开启(默认)  1：开启
+     * @param integer $RoomType 房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
      */
     function __construct()
     {
@@ -316,6 +356,22 @@ video 纯视频
 
         if (array_key_exists("EnableDirectControl",$param) and $param["EnableDirectControl"] !== null) {
             $this->EnableDirectControl = $param["EnableDirectControl"];
+        }
+
+        if (array_key_exists("InteractionMode",$param) and $param["InteractionMode"] !== null) {
+            $this->InteractionMode = $param["InteractionMode"];
+        }
+
+        if (array_key_exists("VideoOrientation",$param) and $param["VideoOrientation"] !== null) {
+            $this->VideoOrientation = $param["VideoOrientation"];
+        }
+
+        if (array_key_exists("IsGradingRequiredPostClass",$param) and $param["IsGradingRequiredPostClass"] !== null) {
+            $this->IsGradingRequiredPostClass = $param["IsGradingRequiredPostClass"];
+        }
+
+        if (array_key_exists("RoomType",$param) and $param["RoomType"] !== null) {
+            $this->RoomType = $param["RoomType"];
         }
     }
 }

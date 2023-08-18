@@ -18,36 +18,28 @@ namespace TencentCloud\Ckafka\V20190819\Models;
 use TencentCloud\Common\AbstractModel;
 
 /**
- * RenewCkafkaInstance接口出参bigDealIds
+ * RenewCkafkaInstance返回参数结构体
  *
- * @method string getBigDealId() 获取订单号
-注意：此字段可能返回 null，表示取不到有效值。
- * @method void setBigDealId(string $BigDealId) 设置订单号
-注意：此字段可能返回 null，表示取不到有效值。
- * @method string getDealName() 获取子订单号
-注意：此字段可能返回 null，表示取不到有效值。
- * @method void setDealName(string $DealName) 设置子订单号
-注意：此字段可能返回 null，表示取不到有效值。
+ * @method RenewCkafkaInstanceResp getResult() 获取返回值
+ * @method void setResult(RenewCkafkaInstanceResp $Result) 设置返回值
+ * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+ * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
 class RenewCkafkaInstanceResponse extends AbstractModel
 {
     /**
-     * @var string 订单号
-注意：此字段可能返回 null，表示取不到有效值。
+     * @var RenewCkafkaInstanceResp 返回值
      */
-    public $BigDealId;
+    public $Result;
 
     /**
-     * @var string 子订单号
-注意：此字段可能返回 null，表示取不到有效值。
+     * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
-    public $DealName;
+    public $RequestId;
 
     /**
-     * @param string $BigDealId 订单号
-注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $DealName 子订单号
-注意：此字段可能返回 null，表示取不到有效值。
+     * @param RenewCkafkaInstanceResp $Result 返回值
+     * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
     {
@@ -62,12 +54,13 @@ class RenewCkafkaInstanceResponse extends AbstractModel
         if ($param === null) {
             return;
         }
-        if (array_key_exists("BigDealId",$param) and $param["BigDealId"] !== null) {
-            $this->BigDealId = $param["BigDealId"];
+        if (array_key_exists("Result",$param) and $param["Result"] !== null) {
+            $this->Result = new RenewCkafkaInstanceResp();
+            $this->Result->deserialize($param["Result"]);
         }
 
-        if (array_key_exists("DealName",$param) and $param["DealName"] !== null) {
-            $this->DealName = $param["DealName"];
+        if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {
+            $this->RequestId = $param["RequestId"];
         }
     }
 }

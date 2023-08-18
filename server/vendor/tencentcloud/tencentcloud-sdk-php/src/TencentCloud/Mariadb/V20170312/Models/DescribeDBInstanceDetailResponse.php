@@ -168,6 +168,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setRsAccessStrategy(integer $RsAccessStrategy) 设置VPC就近访问
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method array getReservedNetResources() 获取尚未回收的网络资源
+ * @method void setReservedNetResources(array $ReservedNetResources) 设置尚未回收的网络资源
+ * @method boolean getIsPhysicalReplicationSupported() 获取是否支持物理复制
+ * @method void setIsPhysicalReplicationSupported(boolean $IsPhysicalReplicationSupported) 设置是否支持物理复制
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -468,6 +472,16 @@ class DescribeDBInstanceDetailResponse extends AbstractModel
     public $RsAccessStrategy;
 
     /**
+     * @var array 尚未回收的网络资源
+     */
+    public $ReservedNetResources;
+
+    /**
+     * @var boolean 是否支持物理复制
+     */
+    public $IsPhysicalReplicationSupported;
+
+    /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     public $RequestId;
@@ -547,6 +561,8 @@ class DescribeDBInstanceDetailResponse extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $RsAccessStrategy VPC就近访问
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param array $ReservedNetResources 尚未回收的网络资源
+     * @param boolean $IsPhysicalReplicationSupported 是否支持物理复制
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()
@@ -792,6 +808,19 @@ class DescribeDBInstanceDetailResponse extends AbstractModel
 
         if (array_key_exists("RsAccessStrategy",$param) and $param["RsAccessStrategy"] !== null) {
             $this->RsAccessStrategy = $param["RsAccessStrategy"];
+        }
+
+        if (array_key_exists("ReservedNetResources",$param) and $param["ReservedNetResources"] !== null) {
+            $this->ReservedNetResources = [];
+            foreach ($param["ReservedNetResources"] as $key => $value){
+                $obj = new ReservedNetResource();
+                $obj->deserialize($value);
+                array_push($this->ReservedNetResources, $obj);
+            }
+        }
+
+        if (array_key_exists("IsPhysicalReplicationSupported",$param) and $param["IsPhysicalReplicationSupported"] !== null) {
+            $this->IsPhysicalReplicationSupported = $param["IsPhysicalReplicationSupported"];
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 签署人个性化能力信息
  *
- * @method boolean getHideOneKeySign() 获取是否隐藏一键签署 false-不隐藏,默认 true-隐藏
- * @method void setHideOneKeySign(boolean $HideOneKeySign) 设置是否隐藏一键签署 false-不隐藏,默认 true-隐藏
+ * @method boolean getHideOneKeySign() 获取是否隐藏一键签署 默认false-不隐藏true-隐藏
+ * @method void setHideOneKeySign(boolean $HideOneKeySign) 设置是否隐藏一键签署 默认false-不隐藏true-隐藏
  */
 class ApproverOption extends AbstractModel
 {
     /**
-     * @var boolean 是否隐藏一键签署 false-不隐藏,默认 true-隐藏
+     * @var boolean 是否隐藏一键签署 默认false-不隐藏true-隐藏
      */
     public $HideOneKeySign;
 
     /**
-     * @param boolean $HideOneKeySign 是否隐藏一键签署 false-不隐藏,默认 true-隐藏
+     * @param boolean $HideOneKeySign 是否隐藏一键签署 默认false-不隐藏true-隐藏
      */
     function __construct()
     {

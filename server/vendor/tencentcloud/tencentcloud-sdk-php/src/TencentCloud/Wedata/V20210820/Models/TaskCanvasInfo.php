@@ -208,6 +208,56 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setDelayTime(integer $DelayTime) 设置延迟时间
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getExecutionStartTime() 获取执行开始时间
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setExecutionStartTime(string $ExecutionStartTime) 设置执行开始时间
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getExecutionEndTime() 获取执行结束时间
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setExecutionEndTime(string $ExecutionEndTime) 设置执行结束时间
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getLayer() 获取层级
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setLayer(string $Layer) 设置层级
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getSourceServiceId() 获取来源数据源ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSourceServiceId(string $SourceServiceId) 设置来源数据源ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getSourceServiceType() 获取来源数据源类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSourceServiceType(string $SourceServiceType) 设置来源数据源类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getTargetServiceId() 获取目标数据源ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTargetServiceId(string $TargetServiceId) 设置目标数据源ID
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getTargetServiceType() 获取目标数据源类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTargetServiceType(string $TargetServiceType) 设置目标数据源类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getAlarmType() 获取任务告警类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setAlarmType(string $AlarmType) 设置任务告警类型
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getCreateTime() 获取任务创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setCreateTime(string $CreateTime) 设置任务创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getUserId() 获取UserId
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setUserId(string $UserId) 设置UserId
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getOwnerId() 获取OwnerId
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setOwnerId(string $OwnerId) 设置OwnerId
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getTenantId() 获取TenantId
+
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setTenantId(string $TenantId) 设置TenantId
+
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class TaskCanvasInfo extends AbstractModel
 {
@@ -394,6 +444,79 @@ class TaskCanvasInfo extends AbstractModel
     public $DelayTime;
 
     /**
+     * @var string 执行开始时间
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ExecutionStartTime;
+
+    /**
+     * @var string 执行结束时间
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ExecutionEndTime;
+
+    /**
+     * @var string 层级
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Layer;
+
+    /**
+     * @var string 来源数据源ID
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SourceServiceId;
+
+    /**
+     * @var string 来源数据源类型
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SourceServiceType;
+
+    /**
+     * @var string 目标数据源ID
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TargetServiceId;
+
+    /**
+     * @var string 目标数据源类型
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TargetServiceType;
+
+    /**
+     * @var string 任务告警类型
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $AlarmType;
+
+    /**
+     * @var string 任务创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $CreateTime;
+
+    /**
+     * @var string UserId
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $UserId;
+
+    /**
+     * @var string OwnerId
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $OwnerId;
+
+    /**
+     * @var string TenantId
+
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $TenantId;
+
+    /**
      * @param string $TaskId 任务Id
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $TaskName 任务名称
@@ -487,6 +610,31 @@ class TaskCanvasInfo extends AbstractModel
      * @param string $TaskAction 弹性周期配置
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $DelayTime 延迟时间
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ExecutionStartTime 执行开始时间
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $ExecutionEndTime 执行结束时间
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $Layer 层级
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $SourceServiceId 来源数据源ID
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $SourceServiceType 来源数据源类型
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $TargetServiceId 目标数据源ID
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $TargetServiceType 目标数据源类型
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $AlarmType 任务告警类型
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $CreateTime 任务创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $UserId UserId
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $OwnerId OwnerId
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $TenantId TenantId
+
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -588,6 +736,54 @@ class TaskCanvasInfo extends AbstractModel
 
         if (array_key_exists("DelayTime",$param) and $param["DelayTime"] !== null) {
             $this->DelayTime = $param["DelayTime"];
+        }
+
+        if (array_key_exists("ExecutionStartTime",$param) and $param["ExecutionStartTime"] !== null) {
+            $this->ExecutionStartTime = $param["ExecutionStartTime"];
+        }
+
+        if (array_key_exists("ExecutionEndTime",$param) and $param["ExecutionEndTime"] !== null) {
+            $this->ExecutionEndTime = $param["ExecutionEndTime"];
+        }
+
+        if (array_key_exists("Layer",$param) and $param["Layer"] !== null) {
+            $this->Layer = $param["Layer"];
+        }
+
+        if (array_key_exists("SourceServiceId",$param) and $param["SourceServiceId"] !== null) {
+            $this->SourceServiceId = $param["SourceServiceId"];
+        }
+
+        if (array_key_exists("SourceServiceType",$param) and $param["SourceServiceType"] !== null) {
+            $this->SourceServiceType = $param["SourceServiceType"];
+        }
+
+        if (array_key_exists("TargetServiceId",$param) and $param["TargetServiceId"] !== null) {
+            $this->TargetServiceId = $param["TargetServiceId"];
+        }
+
+        if (array_key_exists("TargetServiceType",$param) and $param["TargetServiceType"] !== null) {
+            $this->TargetServiceType = $param["TargetServiceType"];
+        }
+
+        if (array_key_exists("AlarmType",$param) and $param["AlarmType"] !== null) {
+            $this->AlarmType = $param["AlarmType"];
+        }
+
+        if (array_key_exists("CreateTime",$param) and $param["CreateTime"] !== null) {
+            $this->CreateTime = $param["CreateTime"];
+        }
+
+        if (array_key_exists("UserId",$param) and $param["UserId"] !== null) {
+            $this->UserId = $param["UserId"];
+        }
+
+        if (array_key_exists("OwnerId",$param) and $param["OwnerId"] !== null) {
+            $this->OwnerId = $param["OwnerId"];
+        }
+
+        if (array_key_exists("TenantId",$param) and $param["TenantId"] !== null) {
+            $this->TenantId = $param["TenantId"];
         }
     }
 }

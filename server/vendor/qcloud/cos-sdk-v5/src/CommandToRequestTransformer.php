@@ -2,6 +2,7 @@
 
 namespace Qcloud\Cos;
 
+use http\Exception\BadUrlException;
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Psr7\Uri;
@@ -70,7 +71,8 @@ class CommandToRequestTransformer {
             || $action == 'PutBucketGuetzli' || $action == 'GetBucketGuetzli' || $action == 'DeleteBucketGuetzli'
             || $action == 'BindCiService' || $action == 'GetCiService' || $action == 'UnBindCiService'
             || $action == 'GetHotLink' || $action == 'AddHotLink'
-            || $action == 'OpenOriginProtect' || $action == 'GetOriginProtect' || $action == 'CloseOriginProtect') {
+            || $action == 'OpenOriginProtect' || $action == 'GetOriginProtect' || $action == 'CloseOriginProtect'
+            || $action == 'OpenImageSlim' || $action == 'GetImageSlim' || $action == 'CloseImageSlim' ) {
             $domain_type = '.pic.';
         }
 
@@ -120,10 +122,9 @@ class CommandToRequestTransformer {
         if ( null !== $body ) {
             return $request;
         } else {
-            throw new InvalidArgumentException(
-                "You must specify a non-null value for the {$bodyParameter} or {$sourceParameter} parameters." );
-            }
+            throw new InvalidArgumentException("You must specify a non-null value for the {$bodyParameter} or {$sourceParameter} parameters.");
         }
+    }
 
         // update md5
 
@@ -240,6 +241,8 @@ class CommandToRequestTransformer {
             if(key_exists($action, array(
                 'DescribeMediaBuckets' => 1,
                 'DescribeDocProcessBuckets' =>1,
+                'GetPicBucketList' =>1,
+                'GetAiBucketList' =>1,
             ))) {
                 $origin_host = "ci.{$this->config['region']}.myqcloud.com";
                 $host = $origin_host;
@@ -346,8 +349,36 @@ class CommandToRequestTransformer {
                 'GetFileUncompressResult' => 1,
                 'CreateFileCompressJobs' => 1,
                 'GetFileCompressResult' => 1,
+                'CreateM3U8PlayListJobs' => 1,
+                'GetPicQueueList' => 1,
+                'UpdatePicQueue' => 1,
+                'OpenAiService' => 1,
+                'GetAiQueueList' => 1,
+                'UpdateAiQueue' => 1,
+                'CreateMediaTranscodeProTemplate' => 1,
+                'UpdateMediaTranscodeProTemplate' => 1,
+                'CreateVoiceTtsTemplate' => 1,
+                'UpdateVoiceTtsTemplate' => 1,
+                'CreateMediaSmartCoverTemplate' => 1,
+                'UpdateMediaSmartCoverTemplate' => 1,
+                'CreateVoiceSpeechRecognitionTemplate' => 1,
+                'UpdateVoiceSpeechRecognitionTemplate' => 1,
+                'CreateVoiceTtsJobs' => 1,
+                'CreateAiTranslationJobs' => 1,
+                'CreateVoiceSpeechRecognitionJobs' => 1,
+                'CreateAiWordsGeneralizeJobs' => 1,
+                'CreateMediaVideoEnhanceJobs' => 1,
+                'CreateMediaVideoEnhanceTemplate' => 1,
+                'UpdateMediaVideoEnhanceTemplate' => 1,
             );
             if (key_exists($action, $ciActions)) {
+                // 万象接口需要https，http方式报错
+                if($this->config['schema'] !== 'https') {
+                    $e = new Exception\CosException('CI request schema must be "https", instead of "http"');
+                    $e->setExceptionCode('Invalid Argument');
+                    throw $e;
+                }
+
                 $bucketname = $command['Bucket'];
                 $appId = $this->config['appId'];
                 if ( $appId != null && endWith( $bucketname, '-'.$appId ) == false ) {

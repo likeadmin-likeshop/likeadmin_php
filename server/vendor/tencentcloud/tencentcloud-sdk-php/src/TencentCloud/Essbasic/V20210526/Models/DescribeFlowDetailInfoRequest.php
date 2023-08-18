@@ -20,45 +20,50 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeFlowDetailInfo请求参数结构体
  *
- * @method Agent getAgent() 获取应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
- * @method void setAgent(Agent $Agent) 设置应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+ * @method Agent getAgent() 获取应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
+ * @method void setAgent(Agent $Agent) 设置应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
  * @method array getFlowIds() 获取合同(流程)编号数组，最多支持100个。
-（备注：该参数和合同组编号必须二选一）
+<br/>备注：该参数和合同组编号必须二选一, 如果填写FlowGroupId则忽略此FlowIds的入参
  * @method void setFlowIds(array $FlowIds) 设置合同(流程)编号数组，最多支持100个。
-（备注：该参数和合同组编号必须二选一）
- * @method string getFlowGroupId() 获取合同组编号（备注：该参数和合同(流程)编号数组必须二选一）
- * @method void setFlowGroupId(string $FlowGroupId) 设置合同组编号（备注：该参数和合同(流程)编号数组必须二选一）
+<br/>备注：该参数和合同组编号必须二选一, 如果填写FlowGroupId则忽略此FlowIds的入参
+ * @method string getFlowGroupId() 获取合同组编号
+<br/>备注：该参数和合同(流程)编号数组必须二选一
+ * @method void setFlowGroupId(string $FlowGroupId) 设置合同组编号
+<br/>备注：该参数和合同(流程)编号数组必须二选一
  * @method UserInfo getOperator() 获取暂未开放
  * @method void setOperator(UserInfo $Operator) 设置暂未开放
  */
 class DescribeFlowDetailInfoRequest extends AbstractModel
 {
     /**
-     * @var Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+     * @var Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
      */
     public $Agent;
 
     /**
      * @var array 合同(流程)编号数组，最多支持100个。
-（备注：该参数和合同组编号必须二选一）
+<br/>备注：该参数和合同组编号必须二选一, 如果填写FlowGroupId则忽略此FlowIds的入参
      */
     public $FlowIds;
 
     /**
-     * @var string 合同组编号（备注：该参数和合同(流程)编号数组必须二选一）
+     * @var string 合同组编号
+<br/>备注：该参数和合同(流程)编号数组必须二选一
      */
     public $FlowGroupId;
 
     /**
      * @var UserInfo 暂未开放
+     * @deprecated
      */
     public $Operator;
 
     /**
-     * @param Agent $Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+     * @param Agent $Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
      * @param array $FlowIds 合同(流程)编号数组，最多支持100个。
-（备注：该参数和合同组编号必须二选一）
-     * @param string $FlowGroupId 合同组编号（备注：该参数和合同(流程)编号数组必须二选一）
+<br/>备注：该参数和合同组编号必须二选一, 如果填写FlowGroupId则忽略此FlowIds的入参
+     * @param string $FlowGroupId 合同组编号
+<br/>备注：该参数和合同(流程)编号数组必须二选一
      * @param UserInfo $Operator 暂未开放
      */
     function __construct()

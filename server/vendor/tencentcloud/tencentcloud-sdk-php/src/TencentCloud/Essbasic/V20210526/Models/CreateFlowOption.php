@@ -18,20 +18,60 @@ namespace TencentCloud\Essbasic\V20210526\Models;
 use TencentCloud\Common\AbstractModel;
 
 /**
- * 创建合同配置信息
+ * 创建合同个性化参数
  *
- * @method boolean getCanEditFlow() 获取是否允许修改合同信息
- * @method void setCanEditFlow(boolean $CanEditFlow) 设置是否允许修改合同信息
+ * @method boolean getCanEditFlow() 获取是否允许修改合同信息，true-是，false-否
+ * @method void setCanEditFlow(boolean $CanEditFlow) 设置是否允许修改合同信息，true-是，false-否
+ * @method boolean getHideShowFlowName() 获取是否允许发起合同弹窗隐藏合同名称，true-允许，false-不允许
+ * @method void setHideShowFlowName(boolean $HideShowFlowName) 设置是否允许发起合同弹窗隐藏合同名称，true-允许，false-不允许
+ * @method boolean getHideShowFlowType() 获取是否允许发起合同弹窗隐藏合同类型，true-允许，false-不允许
+ * @method void setHideShowFlowType(boolean $HideShowFlowType) 设置是否允许发起合同弹窗隐藏合同类型，true-允许，false-不允许
+ * @method boolean getHideShowDeadline() 获取是否允许发起合同弹窗隐藏合同到期时间，true-允许，false-不允许
+ * @method void setHideShowDeadline(boolean $HideShowDeadline) 设置是否允许发起合同弹窗隐藏合同到期时间，true-允许，false-不允许
+ * @method boolean getCanSkipAddApprover() 获取是否允许发起合同步骤跳过指定签署方步骤，true-允许，false-不允许
+ * @method void setCanSkipAddApprover(boolean $CanSkipAddApprover) 设置是否允许发起合同步骤跳过指定签署方步骤，true-允许，false-不允许
+ * @method string getCustomCreateFlowDescription() 获取定制化发起合同弹窗的描述信息，描述信息最长500
+ * @method void setCustomCreateFlowDescription(string $CustomCreateFlowDescription) 设置定制化发起合同弹窗的描述信息，描述信息最长500
  */
 class CreateFlowOption extends AbstractModel
 {
     /**
-     * @var boolean 是否允许修改合同信息
+     * @var boolean 是否允许修改合同信息，true-是，false-否
      */
     public $CanEditFlow;
 
     /**
-     * @param boolean $CanEditFlow 是否允许修改合同信息
+     * @var boolean 是否允许发起合同弹窗隐藏合同名称，true-允许，false-不允许
+     */
+    public $HideShowFlowName;
+
+    /**
+     * @var boolean 是否允许发起合同弹窗隐藏合同类型，true-允许，false-不允许
+     */
+    public $HideShowFlowType;
+
+    /**
+     * @var boolean 是否允许发起合同弹窗隐藏合同到期时间，true-允许，false-不允许
+     */
+    public $HideShowDeadline;
+
+    /**
+     * @var boolean 是否允许发起合同步骤跳过指定签署方步骤，true-允许，false-不允许
+     */
+    public $CanSkipAddApprover;
+
+    /**
+     * @var string 定制化发起合同弹窗的描述信息，描述信息最长500
+     */
+    public $CustomCreateFlowDescription;
+
+    /**
+     * @param boolean $CanEditFlow 是否允许修改合同信息，true-是，false-否
+     * @param boolean $HideShowFlowName 是否允许发起合同弹窗隐藏合同名称，true-允许，false-不允许
+     * @param boolean $HideShowFlowType 是否允许发起合同弹窗隐藏合同类型，true-允许，false-不允许
+     * @param boolean $HideShowDeadline 是否允许发起合同弹窗隐藏合同到期时间，true-允许，false-不允许
+     * @param boolean $CanSkipAddApprover 是否允许发起合同步骤跳过指定签署方步骤，true-允许，false-不允许
+     * @param string $CustomCreateFlowDescription 定制化发起合同弹窗的描述信息，描述信息最长500
      */
     function __construct()
     {
@@ -48,6 +88,26 @@ class CreateFlowOption extends AbstractModel
         }
         if (array_key_exists("CanEditFlow",$param) and $param["CanEditFlow"] !== null) {
             $this->CanEditFlow = $param["CanEditFlow"];
+        }
+
+        if (array_key_exists("HideShowFlowName",$param) and $param["HideShowFlowName"] !== null) {
+            $this->HideShowFlowName = $param["HideShowFlowName"];
+        }
+
+        if (array_key_exists("HideShowFlowType",$param) and $param["HideShowFlowType"] !== null) {
+            $this->HideShowFlowType = $param["HideShowFlowType"];
+        }
+
+        if (array_key_exists("HideShowDeadline",$param) and $param["HideShowDeadline"] !== null) {
+            $this->HideShowDeadline = $param["HideShowDeadline"];
+        }
+
+        if (array_key_exists("CanSkipAddApprover",$param) and $param["CanSkipAddApprover"] !== null) {
+            $this->CanSkipAddApprover = $param["CanSkipAddApprover"];
+        }
+
+        if (array_key_exists("CustomCreateFlowDescription",$param) and $param["CustomCreateFlowDescription"] !== null) {
+            $this->CustomCreateFlowDescription = $param["CustomCreateFlowDescription"];
         }
     }
 }

@@ -20,59 +20,69 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 流程信息摘要
  *
- * @method string getFlowId() 获取流程的编号
- * @method void setFlowId(string $FlowId) 设置流程的编号
+ * @method string getFlowId() 获取流程的编号ID
+ * @method void setFlowId(string $FlowId) 设置流程的编号ID
  * @method string getFlowName() 获取流程的名称
  * @method void setFlowName(string $FlowName) 设置流程的名称
- * @method string getFlowDescription() 获取流程的描述
+ * @method string getFlowDescription() 获取流程的描述信息
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setFlowDescription(string $FlowDescription) 设置流程的描述
+ * @method void setFlowDescription(string $FlowDescription) 设置流程的描述信息
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getFlowType() 获取流程的类型
  * @method void setFlowType(string $FlowType) 设置流程的类型
  * @method integer getFlowStatus() 获取流程状态
-- `0`  还没有发起
-- `1`  未签署
-- `2`  部分签署
-- `3`  已退回
-- `4`  完成签署
-- `5`  已过期
-- `6`  已取消
-- `7`  还没有预发起
-- `8`  等待填写
-- `9`  部分填写
-- `10`  拒填
+- 0 还没有发起
+- 1 待签署
+- 2 部分签署
+- 3 已拒签
+- 4 已签署
+- 5 已过期
+- 6 已撤销
+- 7 还没有预发起
+- 8 等待填写
+- 9 部分填写
+- 10 拒填
+- 21 已解除
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setFlowStatus(integer $FlowStatus) 设置流程状态
-- `0`  还没有发起
-- `1`  未签署
-- `2`  部分签署
-- `3`  已退回
-- `4`  完成签署
-- `5`  已过期
-- `6`  已取消
-- `7`  还没有预发起
-- `8`  等待填写
-- `9`  部分填写
-- `10`  拒填
+- 0 还没有发起
+- 1 待签署
+- 2 部分签署
+- 3 已拒签
+- 4 已签署
+- 5 已过期
+- 6 已撤销
+- 7 还没有预发起
+- 8 等待填写
+- 9 部分填写
+- 10 拒填
+- 21 已解除
 注意：此字段可能返回 null，表示取不到有效值。
- * @method integer getCreatedOn() 获取流程创建的时间戳
+ * @method integer getCreatedOn() 获取流程创建的时间戳，单位秒
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setCreatedOn(integer $CreatedOn) 设置流程创建的时间戳
+ * @method void setCreatedOn(integer $CreatedOn) 设置流程创建的时间戳，单位秒
 注意：此字段可能返回 null，表示取不到有效值。
- * @method string getFlowMessage() 获取拒签或者取消的原因描述
+ * @method string getFlowMessage() 获取当合同被拒签或者取消后(当FlowStatus=3或者FlowStatus=6的时候)
+此字段展示拒签或者取消的原因描述
+
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setFlowMessage(string $FlowMessage) 设置拒签或者取消的原因描述
+ * @method void setFlowMessage(string $FlowMessage) 设置当合同被拒签或者取消后(当FlowStatus=3或者FlowStatus=6的时候)
+此字段展示拒签或者取消的原因描述
+
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getCreator() 获取 合同发起人userId
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setCreator(string $Creator) 设置 合同发起人userId
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method integer getDeadline() 获取合同过期时间，时间戳，单位秒
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setDeadline(integer $Deadline) 设置合同过期时间，时间戳，单位秒
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class FlowBrief extends AbstractModel
 {
     /**
-     * @var string 流程的编号
+     * @var string 流程的编号ID
      */
     public $FlowId;
 
@@ -82,7 +92,7 @@ class FlowBrief extends AbstractModel
     public $FlowName;
 
     /**
-     * @var string 流程的描述
+     * @var string 流程的描述信息
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $FlowDescription;
@@ -94,29 +104,32 @@ class FlowBrief extends AbstractModel
 
     /**
      * @var integer 流程状态
-- `0`  还没有发起
-- `1`  未签署
-- `2`  部分签署
-- `3`  已退回
-- `4`  完成签署
-- `5`  已过期
-- `6`  已取消
-- `7`  还没有预发起
-- `8`  等待填写
-- `9`  部分填写
-- `10`  拒填
+- 0 还没有发起
+- 1 待签署
+- 2 部分签署
+- 3 已拒签
+- 4 已签署
+- 5 已过期
+- 6 已撤销
+- 7 还没有预发起
+- 8 等待填写
+- 9 部分填写
+- 10 拒填
+- 21 已解除
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $FlowStatus;
 
     /**
-     * @var integer 流程创建的时间戳
+     * @var integer 流程创建的时间戳，单位秒
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $CreatedOn;
 
     /**
-     * @var string 拒签或者取消的原因描述
+     * @var string 当合同被拒签或者取消后(当FlowStatus=3或者FlowStatus=6的时候)
+此字段展示拒签或者取消的原因描述
+
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $FlowMessage;
@@ -128,29 +141,40 @@ class FlowBrief extends AbstractModel
     public $Creator;
 
     /**
-     * @param string $FlowId 流程的编号
+     * @var integer 合同过期时间，时间戳，单位秒
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $Deadline;
+
+    /**
+     * @param string $FlowId 流程的编号ID
      * @param string $FlowName 流程的名称
-     * @param string $FlowDescription 流程的描述
+     * @param string $FlowDescription 流程的描述信息
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $FlowType 流程的类型
      * @param integer $FlowStatus 流程状态
-- `0`  还没有发起
-- `1`  未签署
-- `2`  部分签署
-- `3`  已退回
-- `4`  完成签署
-- `5`  已过期
-- `6`  已取消
-- `7`  还没有预发起
-- `8`  等待填写
-- `9`  部分填写
-- `10`  拒填
+- 0 还没有发起
+- 1 待签署
+- 2 部分签署
+- 3 已拒签
+- 4 已签署
+- 5 已过期
+- 6 已撤销
+- 7 还没有预发起
+- 8 等待填写
+- 9 部分填写
+- 10 拒填
+- 21 已解除
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param integer $CreatedOn 流程创建的时间戳
+     * @param integer $CreatedOn 流程创建的时间戳，单位秒
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param string $FlowMessage 拒签或者取消的原因描述
+     * @param string $FlowMessage 当合同被拒签或者取消后(当FlowStatus=3或者FlowStatus=6的时候)
+此字段展示拒签或者取消的原因描述
+
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Creator  合同发起人userId
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param integer $Deadline 合同过期时间，时间戳，单位秒
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -196,6 +220,10 @@ class FlowBrief extends AbstractModel
 
         if (array_key_exists("Creator",$param) and $param["Creator"] !== null) {
             $this->Creator = $param["Creator"];
+        }
+
+        if (array_key_exists("Deadline",$param) and $param["Deadline"] !== null) {
+            $this->Deadline = $param["Deadline"];
         }
     }
 }

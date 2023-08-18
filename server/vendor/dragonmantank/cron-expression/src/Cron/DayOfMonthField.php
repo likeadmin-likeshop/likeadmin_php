@@ -49,7 +49,7 @@ class DayOfMonthField extends AbstractField
     private static function getNearestWeekday(int $currentYear, int $currentMonth, int $targetDay): ?DateTime
     {
         $tday = str_pad((string) $targetDay, 2, '0', STR_PAD_LEFT);
-        $target = DateTime::createFromFormat('Y-m-d', "${currentYear}-${currentMonth}-${tday}");
+        $target = DateTime::createFromFormat('Y-m-d', "{$currentYear}-{$currentMonth}-{$tday}");
 
         if ($target === false) {
             return null;
@@ -94,9 +94,9 @@ class DayOfMonthField extends AbstractField
         }
 
         // Check to see if this is the nearest weekday to a particular value
-        if (strpos($value, 'W')) {
+        if ($wPosition = strpos($value, 'W')) {
             // Parse the target day
-            $targetDay = (int) substr($value, 0, strpos($value, 'W'));
+            $targetDay = (int) substr($value, 0, $wPosition);
             // Find out if the current day is the nearest day of the week
             $nearest = self::getNearestWeekday(
                 (int) $date->format('Y'),

@@ -22,7 +22,7 @@ use Symfony\Component\Cache\Exception\InvalidArgumentException;
 class SodiumMarshaller implements MarshallerInterface
 {
     private $marshaller;
-    private $decryptionKeys;
+    private array $decryptionKeys;
 
     /**
      * @param string[] $decryptionKeys The key at index "0" is required and is used to decrypt and encrypt values;
@@ -66,7 +66,7 @@ class SodiumMarshaller implements MarshallerInterface
     /**
      * {@inheritdoc}
      */
-    public function unmarshall(string $value)
+    public function unmarshall(string $value): mixed
     {
         foreach ($this->decryptionKeys as $k) {
             if (false !== $decryptedValue = @sodium_crypto_box_seal_open($value, $k)) {

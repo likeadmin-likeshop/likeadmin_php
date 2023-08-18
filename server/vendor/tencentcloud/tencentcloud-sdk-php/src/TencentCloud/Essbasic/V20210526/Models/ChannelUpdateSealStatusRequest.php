@@ -20,21 +20,21 @@ use TencentCloud\Common\AbstractModel;
 /**
  * ChannelUpdateSealStatus请求参数结构体
  *
- * @method Agent getAgent() 获取应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
- * @method void setAgent(Agent $Agent) 设置应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+ * @method Agent getAgent() 获取应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
+ * @method void setAgent(Agent $Agent) 设置应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
  * @method string getStatus() 获取操作的印章状态，DISABLE-停用印章
  * @method void setStatus(string $Status) 设置操作的印章状态，DISABLE-停用印章
  * @method string getSealId() 获取印章ID
  * @method void setSealId(string $SealId) 设置印章ID
- * @method UserInfo getOperator() 获取操作者的信息
- * @method void setOperator(UserInfo $Operator) 设置操作者的信息
  * @method string getReason() 获取更新印章状态原因说明
  * @method void setReason(string $Reason) 设置更新印章状态原因说明
+ * @method UserInfo getOperator() 获取操作者的信息
+ * @method void setOperator(UserInfo $Operator) 设置操作者的信息
  */
 class ChannelUpdateSealStatusRequest extends AbstractModel
 {
     /**
-     * @var Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+     * @var Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
      */
     public $Agent;
 
@@ -49,21 +49,22 @@ class ChannelUpdateSealStatusRequest extends AbstractModel
     public $SealId;
 
     /**
-     * @var UserInfo 操作者的信息
-     */
-    public $Operator;
-
-    /**
      * @var string 更新印章状态原因说明
      */
     public $Reason;
 
     /**
-     * @param Agent $Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 和 Agent.ProxyAppId 均必填。
+     * @var UserInfo 操作者的信息
+     * @deprecated
+     */
+    public $Operator;
+
+    /**
+     * @param Agent $Agent 应用相关信息。 此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
      * @param string $Status 操作的印章状态，DISABLE-停用印章
      * @param string $SealId 印章ID
-     * @param UserInfo $Operator 操作者的信息
      * @param string $Reason 更新印章状态原因说明
+     * @param UserInfo $Operator 操作者的信息
      */
     function __construct()
     {
@@ -91,13 +92,13 @@ class ChannelUpdateSealStatusRequest extends AbstractModel
             $this->SealId = $param["SealId"];
         }
 
+        if (array_key_exists("Reason",$param) and $param["Reason"] !== null) {
+            $this->Reason = $param["Reason"];
+        }
+
         if (array_key_exists("Operator",$param) and $param["Operator"] !== null) {
             $this->Operator = new UserInfo();
             $this->Operator->deserialize($param["Operator"]);
-        }
-
-        if (array_key_exists("Reason",$param) and $param["Reason"] !== null) {
-            $this->Reason = $param["Reason"];
         }
     }
 }

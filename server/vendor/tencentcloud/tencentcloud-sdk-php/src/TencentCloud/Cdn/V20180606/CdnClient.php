@@ -33,6 +33,7 @@ use TencentCloud\Cdn\V20180606\Models as Models;
  * @method Models\CreateScdnLogTaskResponse CreateScdnLogTask(Models\CreateScdnLogTaskRequest $req) CreateScdnLogTask 用于创建事件日志任务
  * @method Models\CreateVerifyRecordResponse CreateVerifyRecord(Models\CreateVerifyRecordRequest $req) CreateVerifyRecord 用于生成一条子域名解析，提示客户添加到域名解析上，用于泛域名及域名取回校验归属权。
 生成的解析记录可通过 [VerifyDomainRecord](https://cloud.tencent.com/document/product/228/48117) 完成归属权校验。
+注意：生成的解析记录有效期为24小时，超过24小时后，需重新生成。
 具体流程可参考：[使用API接口进行域名归属校验](https://cloud.tencent.com/document/product/228/61702#.E6.96.B9.E6.B3.95.E4.B8.89.EF.BC.9Aapi-.E6.8E.A5.E5.8F.A3.E6.93.8D.E4.BD.9C)
  * @method Models\DeleteCdnDomainResponse DeleteCdnDomain(Models\DeleteCdnDomainRequest $req) DeleteCdnDomain 用于删除指定加速域名
  * @method Models\DeleteClsLogTopicResponse DeleteClsLogTopic(Models\DeleteClsLogTopicRequest $req) DeleteClsLogTopic 用于删除日志主题。注意：删除后，所有该日志主题下绑定域名的日志将不再继续投递至该主题，已经投递的日志将会被全部清空。生效时间约为 5~15 分钟。
@@ -60,7 +61,7 @@ use TencentCloud\Cdn\V20180606\Models as Models;
  * @method Models\DescribeDDoSDataResponse DescribeDDoSData(Models\DescribeDDoSDataRequest $req) DDoS统计数据查询
  * @method Models\DescribeDiagnoseReportResponse DescribeDiagnoseReport(Models\DescribeDiagnoseReportRequest $req) DescribeDiagnoseReport 用于获取指定报告id的内容， <font color=red>将于 **2023年5月31日** 下线</font><br>
  * @method Models\DescribeDistrictIspDataResponse DescribeDistrictIspData(Models\DescribeDistrictIspDataRequest $req) 查询指定域名的区域、运营商明细数据
-注意事项：接口尚未全量开放，未在内测名单中的账号不支持调用
+注意事项：接口尚未全面开放，未在内测名单中的账号不支持调用
  * @method Models\DescribeDomainsResponse DescribeDomains(Models\DescribeDomainsRequest $req) DescribeDomains 用于查询内容分发网络加速域名（含境内、境外）基本配置信息，包括项目ID、服务状态，业务类型、创建时间、更新时间等信息。
  * @method Models\DescribeDomainsConfigResponse DescribeDomainsConfig(Models\DescribeDomainsConfigRequest $req) DescribeDomainsConfig 用于查询内容分发网络加速域名（含境内、境外）的所有配置信息。
  * @method Models\DescribeEdgePackTaskStatusResponse DescribeEdgePackTaskStatus(Models\DescribeEdgePackTaskStatusRequest $req) DescribeEdgePackTaskStatus 用于查询动态打包任务状态列表
@@ -141,6 +142,11 @@ use TencentCloud\Cdn\V20180606\Models as Models;
 注意：仅支持 90 天内数据查询
  * @method Models\ListTopWafDataResponse ListTopWafData(Models\ListTopWafDataRequest $req) 获取Waf攻击Top数据
  * @method Models\ManageClsTopicDomainsResponse ManageClsTopicDomains(Models\ManageClsTopicDomainsRequest $req) ManageClsTopicDomains 用于管理某日志主题下绑定的域名列表。
+ * @method Models\ModifyDomainConfigResponse ModifyDomainConfig(Models\ModifyDomainConfigRequest $req) ModifyDomainConfig 用于修改内容分发网络加速域名配置信息
+注意：
+Route 字段，使用点分隔，最后一段称为叶子节点，非叶子节点配置保持不变；
+Value 字段，使用 json 进行序列化，其中固定 update 作为 key，配置路径值参考 https://cloud.tencent.com/document/product/228/41116 接口各配置项复杂类型，为配置路径对应复杂类型下的节点。
+云审计相关：接口的入参可能包含密钥等敏感信息，所以此接口的入参不会上报到云审计。
  * @method Models\ModifyPurgeFetchTaskStatusResponse ModifyPurgeFetchTaskStatus(Models\ModifyPurgeFetchTaskStatusRequest $req) ModifyPurgeFetchTaskStatus 用于上报定时刷新预热任务执行状态
  * @method Models\PurgePathCacheResponse PurgePathCache(Models\PurgePathCacheRequest $req) PurgePathCache 用于批量提交目录刷新，根据域名的加速区域进行对应区域的刷新。
 默认情况下境内、境外加速区域每日目录刷新额度为各 100 条，每次最多可提交 500 条。
@@ -154,14 +160,14 @@ use TencentCloud\Cdn\V20180606\Models as Models;
  * @method Models\StopCdnDomainResponse StopCdnDomain(Models\StopCdnDomainRequest $req) StopCdnDomain 用于停止域名的加速服务。
 注意：停止加速服务后，访问至加速节点的请求将会直接返回 404。为避免对您的业务造成影响，请在停止加速服务前将解析切走。
  * @method Models\StopScdnDomainResponse StopScdnDomain(Models\StopScdnDomainRequest $req) StopScdnDomain 用于关闭域名的安全防护配置
- * @method Models\UpdateDomainConfigResponse UpdateDomainConfig(Models\UpdateDomainConfigRequest $req) UpdateDomainConfig 用于修改内容分发网络加速域名配置信息
-注意：如果需要更新复杂类型的配置项，必须传递整个对象的所有属性，未传递的属性将使用默认值，建议通过查询接口获取配置属性后，直接修改后传递给本接口。Https配置由于证书的特殊性，更新时不用传递证书和密钥字段。
+ * @method Models\UpdateDomainConfigResponse UpdateDomainConfig(Models\UpdateDomainConfigRequest $req) UpdateDomainConfig 用于修改内容分发网络加速域名配置信息。
+注意：如果需要更新复杂类型的配置项，必须传递整个对象的所有属性，未传递的属性将使用默认值，建议通过查询接口获取配置属性后，直接修改后传递给本接口。
 云审计相关：接口的入参可能包含密钥等敏感信息，所以此接口的入参不会上报到云审计。
  * @method Models\UpdateImageConfigResponse UpdateImageConfig(Models\UpdateImageConfigRequest $req) UpdateImageConfig 用于更新控制台图片优化的相关配置，支持Webp、TPG、 Guetzli 和 Avif。 
  * @method Models\UpdatePayTypeResponse UpdatePayType(Models\UpdatePayTypeRequest $req) 本接口(UpdatePayType)用于修改账号计费类型，暂不支持月结用户或子账号修改。
  * @method Models\UpdateScdnDomainResponse UpdateScdnDomain(Models\UpdateScdnDomainRequest $req) UpdateScdnDomain 用于修改 SCDN 加速域名安全相关配置
  * @method Models\VerifyDomainRecordResponse VerifyDomainRecord(Models\VerifyDomainRecordRequest $req) VerifyDomainRecord 用于验证域名解析值。
-验证域名解析记录值前，您需要通过 [CreateVerifyRecord](https://cloud.tencent.com/document/product/228/48118) 生成校验解析值。
+验证域名解析记录值前，您需要通过 [CreateVerifyRecord](https://cloud.tencent.com/document/product/228/48118) 生成校验解析值，验证通过后，24小时有效。
 具体流程可参考：[使用API接口进行域名归属校验](https://cloud.tencent.com/document/product/228/61702#.E6.96.B9.E6.B3.95.E4.B8.89.EF.BC.9Aapi-.E6.8E.A5.E5.8F.A3.E6.93.8D.E4.BD.9C)
  */
 

@@ -41,23 +41,25 @@ use TencentCloud\Ocr\V20181119\Models as Models;
  * @method Models\BusInvoiceOCRResponse BusInvoiceOCR(Models\BusInvoiceOCRRequest $req) 本接口支持识别公路汽车客票关键字段的识别，包括发票代码、发票号码、日期、票价、始发地、目的地、姓名、时间、发票消费类型、身份证号、省、市、开票日期、乘车地点、检票口、客票类型、车型、座位号、车次等。
 
 默认接口请求频率限制：5次/秒。
- * @method Models\BusinessCardOCRResponse BusinessCardOCR(Models\BusinessCardOCRRequest $req) 本接口支持名片各字段的自动定位与识别，包含姓名、电话、手机号、邮箱、公司、部门、职位、网址、地址、QQ、微信、MSN等。
+ * @method Models\BusinessCardOCRResponse BusinessCardOCR(Models\BusinessCardOCRRequest $req) 本接口支持中英文名片各字段的自动定位与识别，包含姓名、电话、手机号、邮箱、公司、部门、职位、网址、地址、QQ、微信、MSN等。
 
 默认接口请求频率限制：10次/秒。
  * @method Models\CarInvoiceOCRResponse CarInvoiceOCR(Models\CarInvoiceOCRRequest $req) 本接口支持机动车销售统一发票和二手车销售统一发票的识别，包括发票号码、发票代码、合计金额、合计税额等二十多个字段。
+
+默认接口请求频率限制：5次/秒。
  * @method Models\ClassifyDetectOCRResponse ClassifyDetectOCR(Models\ClassifyDetectOCRRequest $req) 支持身份证、护照、名片、银行卡、行驶证、驾驶证、港澳台通行证、户口本、港澳台来往内地通行证、港澳台居住证、不动产证、营业执照的智能分类。
 
 默认接口请求频率限制：20次/秒。
  * @method Models\CreateAIFormTaskResponse CreateAIFormTask(Models\CreateAIFormTaskRequest $req) 本接口可创建智能表单录入任务，支持多个识别图片和PDF的URL上传，返回含有识别内容的操作页面URL。
 
-智能表单录入产品提供高准确率的表单识别技术和人工核对工具，支持自定义字段，将识别结果自动填入到自定义条目中，并提供人工操作工具，完成整个表单识别过程。适用性强，可对票据、合同、货单等文件的识别，适用于金融、货代、保险、档案等领域。本产品免费公测中，您可以点击demo（超连接：https://ocr.smartform.cloud.tencent.com/）试用，如需购买请与商务团队联系。
+智能表单录入产品提供高准确率的表单识别技术和人工核对工具，支持自定义字段，将识别结果自动填入到自定义条目中，并提供人工操作工具，完成整个表单识别过程。适用性强，可对票据、合同、货单等文件的识别，适用于金融、货代、保险、档案等领域。本产品免费公测中，您可以点击demo（超链接：https://ocr.smartform.cloud.tencent.com/）试用，如需购买请与商务团队联系。
  * @method Models\DriverLicenseOCRResponse DriverLicenseOCR(Models\DriverLicenseOCRRequest $req) 本接口支持驾驶证主页和副页所有字段的自动定位与识别，重点字段的识别准确度达到99%以上。
 
 驾驶证主页：包括证号、姓名、性别、国籍、住址、出生日期、初次领证日期、准驾车型、有效期限、发证单位
 
 驾驶证副页：包括证号、姓名、档案编号、记录。
 
-另外，本接口还支持复印件、翻拍和PS告警功能。同时支持识别交管12123APP发放的电子驾驶证正页。
+另外，本接口还支持复印件、翻拍告警功能。同时支持识别交管12123 APP发放的电子驾驶证正页。
 
 电子驾驶证正页：包括证号、姓名、性别、国籍、出生日期、初次领证日期、准驾车型、有效期开始时间、有效期截止时间、档案编号、状态、累积记分。
 
@@ -286,8 +288,8 @@ use TencentCloud\Ocr\V20181119\Models as Models;
  * @method Models\GeneralHandwritingOCRResponse GeneralHandwritingOCR(Models\GeneralHandwritingOCRRequest $req) 本接口支持图片内手写体文字的检测和识别，针对手写字体无规则、字迹潦草、模糊等特点进行了识别能力的增强。
 
 默认接口请求频率限制：10次/秒。
- * @method Models\GetTaskStateResponse GetTaskState(Models\GetTaskStateRequest $req) 支持查询智能表单录入任务的状态。本产品免费公测中，您可以点击demo（超连接：https://ocr.smartform.cloud.tencent.com/）试用，如需购买请与商务团队联系。
- * @method Models\HKIDCardOCRResponse HKIDCardOCR(Models\HKIDCardOCRRequest $req) 本接口支持中国香港身份证人像面中关键字段的识别，包括中文姓名、英文姓名、姓名电码、出生日期、性别、证件符号、首次签发日期、最近领用日期、身份证号、是否是永久性居民身份证；具备防伪识别、人像照片裁剪等扩展功能。
+ * @method Models\GetTaskStateResponse GetTaskState(Models\GetTaskStateRequest $req) 支持查询智能表单录入任务的状态。本产品免费公测中，您可以点击demo（超链接：https://ocr.smartform.cloud.tencent.com/）试用，如需购买请与商务团队联系。
+ * @method Models\HKIDCardOCRResponse HKIDCardOCR(Models\HKIDCardOCRRequest $req) 本接口支持中国香港身份证人像面中关键字段的识别，包括中文姓名、英文姓名、姓名电码、出生日期、性别、证件符号、首次签发日期、最近领用日期、身份证号、是否是永久性居民身份证；具备人像照片裁剪等扩展功能。
 
 默认接口请求频率限制：5次/秒。
  * @method Models\HmtResidentPermitOCRResponse HmtResidentPermitOCR(Models\HmtResidentPermitOCRRequest $req) 港澳台居住证OCR支持港澳台居住证正反面全字段内容检测识别功能，包括姓名、性别、出生日期、地址、身份证号、签发机关、有效期限、签发次数、通行证号码关键字段识别。可以应用于港澳台居住证信息识别场景，例如银行开户、用户注册等。
@@ -314,7 +316,9 @@ use TencentCloud\Ocr\V20181119\Models as Models;
         </tr>
         <tr>
           <td rowspan="9">告警功能</td>
-          <td>身份证有效日期不合法告警</td>
+          <td>身份证有效日期不合法，即有效日期不符合5年、10年、20年、长期期限
+
+</td>
         </tr>
         <tr>
           <td>身份证边框不完整告警</td>
@@ -331,8 +335,8 @@ use TencentCloud\Ocr\V20181119\Models as Models;
          <tr>
           <td>临时身份证告警</td>
         </tr>
-          <tr>
-          <td>身份证 PS 告警</td>
+         <tr>
+          <td>身份证疑似存在PS痕迹告警</td>
         </tr>
           <tr>
           <td>图片模糊告警（可根据图片质量分数判断）</td>
@@ -386,17 +390,12 @@ use TencentCloud\Ocr\V20181119\Models as Models;
  * @method Models\QrcodeOCRResponse QrcodeOCR(Models\QrcodeOCRRequest $req) 本接口支持条形码和二维码的识别（包括 DataMatrix 和 PDF417）。
 
 默认接口请求频率限制：5次/秒。
- * @method Models\QueryBarCodeResponse QueryBarCode(Models\QueryBarCodeRequest $req) 库源服务调整，该接口在2023年6月1日将正式下线。
-
-本接口支持条形码备案信息查询，返回条形码查询结果的相关信息，包括产品名称、产品英文名称、品牌名称、规格型号、宽度、高度、深度、关键字、产品描述、厂家名称、厂家地址、企业社会信用代码13个字段信息。
-
-产品优势：直联中国物品编码中心，查询结果更加准确、可靠。
  * @method Models\QuotaInvoiceOCRResponse QuotaInvoiceOCR(Models\QuotaInvoiceOCRRequest $req) 本接口支持定额发票的发票号码、发票代码、金额(大小写)、发票消费类型、地区及是否有公司印章等关键字段的识别。
 
 默认接口请求频率限制：5次/秒。
  * @method Models\RecognizeContainerOCRResponse RecognizeContainerOCR(Models\RecognizeContainerOCRRequest $req) 本接口支持集装箱箱门信息识别，识别字段包括集装箱箱号、类型、总重量、有效承重、容量、自身重量，具备集装箱箱号、类型不完整或者不清晰的告警功能。
 默认接口请求频率限制：5次/秒。
- * @method Models\RecognizeGeneralInvoiceResponse RecognizeGeneralInvoice(Models\RecognizeGeneralInvoiceRequest $req) 本接口支持 PDF多页（最多30页）、一页中单张、多张、类型票据的混合识别，同时支持单选识别某类票据，已支持票种包括：增值税发票（专票、普票、卷票、区块链发票、通行费发票）、全电发票（专票、普票）、非税发票（通用票据、统一缴纳书）、定额发票、通用机打发票、购车发票（机动车销售发票、二手车发票）、火车票、出租车发票、机票行程单、汽车票、轮船票、过路过桥费发票共14种标准报销发票，并支持非上述类型的其他发票的智能识别。
+ * @method Models\RecognizeGeneralInvoiceResponse RecognizeGeneralInvoice(Models\RecognizeGeneralInvoiceRequest $req) 本接口支持 PDF多页（最多30页）、一页中单张、多张、类型票据的混合识别，同时支持单选识别某类票据，已支持票种包括：增值税发票（专票、普票、卷票、区块链发票、通行费发票）、全电发票（专票、普票）、非税发票（通用票据、统一缴纳书）、定额发票、通用机打发票、购车发票（机动车销售发票、二手车发票）、火车票、出租车发票、机票行程单、汽车票、轮船票、过路过桥费发票共14种标准报销发票，并支持非上述类型的其他发票的智能识别，点击[立即试用](https://cloud.tencent.com/product/ocr)。
 
 默认接口请求频率限制：5次/秒。
 
@@ -437,8 +436,13 @@ use TencentCloud\Ocr\V20181119\Models as Models;
           <td> 3 </td>
         </tr>
         <tr>
-          <td> VatElectronicSpecialInvoiceFull</td>
+          <td> VatElectronicInvoiceToll</td>
           <td> 增值税电子普通发票(通行费)</td>
+          <td> 3 </td>
+        </tr>
+        <tr>
+          <td> VatSalesList</td>
+          <td> 增值税销货清单</td>
           <td> 3 </td>
         </tr>
         <tr>
@@ -447,7 +451,7 @@ use TencentCloud\Ocr\V20181119\Models as Models;
           <td> 16 </td>
         </tr>
         <tr>
-          <td> VatElectronicSpecialInvoiceFull</td>
+          <td> VatElectronicInvoiceFull</td>
           <td> 电子发票(普通发票) </td>
           <td> 16 </td>
         </tr>
@@ -517,6 +521,16 @@ use TencentCloud\Ocr\V20181119\Models as Models;
           <td> 13 </td>
         </tr>
         <tr>
+          <td> MedicalOutpatientInvoice </td>
+          <td> 医疗门诊收费票据（电子） </td>
+          <td> 17 </td>
+        </tr>
+        <tr>
+          <td> MedicalHospitalizedInvoice </td>
+          <td> 医疗住院收费票据（电子） </td>
+          <td> 17 </td>
+        </tr>
+        <tr>
           <td> OtherInvoice </td>
           <td> 其他发票 </td>
           <td> -1 </td>
@@ -538,15 +552,20 @@ use TencentCloud\Ocr\V20181119\Models as Models;
  * @method Models\RecognizePhilippinesDrivingLicenseOCRResponse RecognizePhilippinesDrivingLicenseOCR(Models\RecognizePhilippinesDrivingLicenseOCRRequest $req) 菲律宾驾驶证识别
  * @method Models\RecognizePhilippinesSssIDOCRResponse RecognizePhilippinesSssIDOCR(Models\RecognizePhilippinesSssIDOCRRequest $req) 菲律宾SSSID/UMID识别
  * @method Models\RecognizePhilippinesTinIDOCRResponse RecognizePhilippinesTinIDOCR(Models\RecognizePhilippinesTinIDOCRRequest $req) 菲律宾TinID识别
+ * @method Models\RecognizePhilippinesUMIDOCRResponse RecognizePhilippinesUMIDOCR(Models\RecognizePhilippinesUMIDOCRRequest $req) 菲律宾UMID识别
  * @method Models\RecognizePhilippinesVoteIDOCRResponse RecognizePhilippinesVoteIDOCR(Models\RecognizePhilippinesVoteIDOCRRequest $req) 本接口支持菲律宾VoteID识别，识别字段包括姓名、姓氏、出生日期、婚姻状况、国籍、地址、地区、菲律宾VoteID的VIN等。
 
 默认接口请求频率限制：20次/秒。
- * @method Models\RecognizeTableAccurateOCRResponse RecognizeTableAccurateOCR(Models\RecognizeTableAccurateOCRRequest $req) 本接口支持中英文图片/PDF内常规表格、无线表格、多表格的检测和识别，返回每个单元格的文字内容，支持旋转的表格图片识别，且支持将识别结果保存为 Excel 格式。识别效果比表格识别V2更好，覆盖场景更加广泛，对表格难例场景，如无线表格、嵌套表格（有线表格中包含无线表格）的识别效果均优于表格识别V2。
+ * @method Models\RecognizeTableAccurateOCRResponse RecognizeTableAccurateOCR(Models\RecognizeTableAccurateOCRRequest $req) 本接口支持中英文图片/PDF内常规表格、无线表格、多表格的检测和识别，返回每个单元格的文字内容，支持旋转的表格图片识别，且支持将识别结果保存为 Excel 格式。识别效果比表格识别V2更好，覆盖场景更加广泛，对表格难例场景，如无线表格、嵌套表格（有线表格中包含无线表格）的识别效果均优于表格识别V2。点击[立即体验](https://cloud.tencent.com/product/smart-ocr)。
+
+默认接口请求频率限制：2次/秒。
  * @method Models\RecognizeTableOCRResponse RecognizeTableOCR(Models\RecognizeTableOCRRequest $req) 本接口支持中英文图片/ PDF内常规表格、无线表格、多表格的检测和识别，支持日文有线表格识别，返回每个单元格的文字内容，支持旋转的表格图片识别，且支持将识别结果保存为 Excel 格式。
 
 默认接口请求频率限制：10次/秒。
  * @method Models\RecognizeThaiIDCardOCRResponse RecognizeThaiIDCardOCR(Models\RecognizeThaiIDCardOCRRequest $req) 本接口支持泰国身份证识别，识别字段包括泰文姓名、英文姓名、地址、出生日期、身份证号码、首次领用日期、签发日期等字段。
 本接口暂未完全对外开放，如需咨询，请[联系商务](https://cloud.tencent.com/about/connect)
+
+默认接口请求频率限制：10次/秒
  * @method Models\RecognizeTravelCardOCRResponse RecognizeTravelCardOCR(Models\RecognizeTravelCardOCRRequest $req) 本接口支持通信大数据行程卡识别，包括行程卡颜色、更新时间、途经地、存在中高风险地区的城市、电话号码，五个字段的识别结果输出。
 
 默认接口请求频率限制：20次/秒。
@@ -559,7 +578,7 @@ use TencentCloud\Ocr\V20181119\Models as Models;
  * @method Models\RideHailingTransportLicenseOCRResponse RideHailingTransportLicenseOCR(Models\RideHailingTransportLicenseOCRRequest $req) 本接口支持网约车运输证关键字段的识别，包括交运管许可字号、车辆所有人、车辆号牌、起始日期、截止日期、发证日期。
 
 默认接口请求频率限制：5次/秒。
- * @method Models\SealOCRResponse SealOCR(Models\SealOCRRequest $req) 本接口支持各类印章识别，包括发票章，财务章等，适用于公文，票据等场景。
+ * @method Models\SealOCRResponse SealOCR(Models\SealOCRRequest $req) 本接口支持各类印章主体内容、印章其他内容及形状识别，支持单图多印章识别，包括发票章、财务章等，适用于公文票据等场景。
 
 默认接口请求频率限制：5次/秒。
  * @method Models\ShipInvoiceOCRResponse ShipInvoiceOCR(Models\ShipInvoiceOCRRequest $req) 本接口支持识别轮船票的发票代码、发票号码、日期、姓名、票价、始发地、目的地、姓名、时间、发票消费类型、省、市、币种字段。
@@ -568,7 +587,7 @@ use TencentCloud\Ocr\V20181119\Models as Models;
  * @method Models\SmartStructuralOCRResponse SmartStructuralOCR(Models\SmartStructuralOCRRequest $req) 本接口支持识别并提取各类证照、票据、表单、合同等结构化场景的字段信息。无需任何配置，灵活高效。适用于各类结构化信息录入场景。
 
 默认接口请求频率限制：5次/秒。
- * @method Models\SmartStructuralOCRV2Response SmartStructuralOCRV2(Models\SmartStructuralOCRV2Request $req) 本接口支持识别并提取各类证照、票据、表单、合同等结构化场景的字段信息。无需任何配置，灵活高效。适用于各类结构化信息录入场景。
+ * @method Models\SmartStructuralOCRV2Response SmartStructuralOCRV2(Models\SmartStructuralOCRV2Request $req) 本接口支持智能提取各类证照、票据、表单、合同等结构化场景的key:value字段信息，并支持提取表格信息的key:value组的结构化，灵活高效，适用于各类非标准材料的信息录入场景，点击[立即体验](https://cloud.tencent.com/product/smart-ocr)。
 
 默认接口请求频率限制：10次/秒。
  * @method Models\TableOCRResponse TableOCR(Models\TableOCRRequest $req) <b>此接口为表格识别的旧版本服务，不再进行服务升级，建议您使用识别能力更强、服务性能更优的<a href="https://cloud.tencent.com/document/product/866/49525">新版表格识别</a>。</b>
@@ -586,7 +605,7 @@ use TencentCloud\Ocr\V20181119\Models as Models;
  * @method Models\TrainTicketOCRResponse TrainTicketOCR(Models\TrainTicketOCRRequest $req) 本接口支持火车票全字段的识别，包括编号、出发站、到达站、出发时间、车次、座位号、姓名、票价、席别、身份证号、发票消费类型、序列号、加收票价、手续费、大写金额、售票站、原票价、发票类型、收据号码、是否仅供报销使用等字段的识别。
 
 默认接口请求频率限制：5次/秒。
- * @method Models\VatInvoiceOCRResponse VatInvoiceOCR(Models\VatInvoiceOCRRequest $req) 本接口支持增值税专用发票、增值税普通发票、增值税电子发票全字段的内容检测和识别，包括发票代码、发票号码、打印发票代码、打印发票号码、开票日期、合计金额、校验码、税率、合计税额、价税合计、购买方识别号、复核、销售方识别号、开票人、密码区1、密码区2、密码区3、密码区4、发票名称、购买方名称、销售方名称、服务名称、备注、规格型号、数量、单价、金额、税额、收款人等字段。
+ * @method Models\VatInvoiceOCRResponse VatInvoiceOCR(Models\VatInvoiceOCRRequest $req) 本接口支持增值税专用发票、增值税普通发票、增值税电子专票、增值税电子普票、电子发票（普通发票）、电子发票（增值税专用发票）全字段的内容检测和识别，包括发票代码、发票号码、打印发票代码、打印发票号码、开票日期、合计金额、校验码、税率、合计税额、价税合计、购买方识别号、复核、销售方识别号、开票人、密码区1、密码区2、密码区3、密码区4、发票名称、购买方名称、销售方名称、服务名称、备注、规格型号、数量、单价、金额、税额、收款人等字段，点击[立即试用](https://cloud.tencent.com/product/ocr)。
 
 默认接口请求频率限制：10次/秒。
  * @method Models\VatInvoiceVerifyResponse VatInvoiceVerify(Models\VatInvoiceVerifyRequest $req) 本接口支持增值税发票的准确性核验，您可以通过输入增值税发票的关键字段提供所需的验证信息，接口返回真实的票面相关信息，包括发票代码、发票号码、开票日期、金额、消费类型、购方名称、购方税号、销方名称、销方税号等多个常用字段。支持多种发票类型核验，包括增值税专用发票、增值税普通发票（含电子普通发票、卷式发票、通行费发票）、全电发票、机动车销售统一发票、货物运输业增值税专用发票、二手车销售统一发票。
@@ -604,27 +623,12 @@ use TencentCloud\Ocr\V20181119\Models as Models;
 
 行驶证副页：号牌号码、档案编号、核定载人数、总质量、整备质量、核定载质量、外廓尺寸、准牵引总质量、备注、检验记录。
 
-另外，本接口还支持复印件、翻拍和PS告警功能。
+另外，本接口还支持复印件、翻拍告警功能。
 
 默认接口请求频率限制：10次/秒。
  * @method Models\VehicleRegCertOCRResponse VehicleRegCertOCR(Models\VehicleRegCertOCRRequest $req) 本接口支持国内机动车登记证书主要字段的结构化识别，包括机动车所有人、身份证明名称、号码、车辆型号、车辆识别代号、发动机号、制造厂名称等。
 
 默认接口请求频率限制：5次/秒。
- * @method Models\VerifyBasicBizLicenseResponse VerifyBasicBizLicense(Models\VerifyBasicBizLicenseRequest $req) 库源服务调整，该接口在2023年6月1日将正式下线。
-
-本接口支持营业执照信息的识别与准确性核验。
-
-您可以通过输入营业执照注册号或营业执照图片（若两者都输入则只用注册号做查询）进行核验，接口返回查询到的工商照面信息，并比对要校验的字段与查询结果的一致性。查询到工商信息包括：统一社会信用代码、经营期限、法人姓名、经营状态、经营业务范围、注册资本等。
- * @method Models\VerifyBizLicenseResponse VerifyBizLicense(Models\VerifyBizLicenseRequest $req) 库源服务调整，该接口在2023年6月1日将正式下线。
-
-本接口支持营业执照信息的识别与准确性核验，返回的真实工商照面信息比营业执照识别及核验（基础版）接口更详细。
-
-您可以输入营业执照注册号或营业执照图片（若两者都输入则只用注册号做查询），接口返回查询到的工商照面信息，并比对要校验的字段与查询结果的一致性。
-
-查询到工商信息包括：统一社会信用代码、组织机构代码、经营期限、法人姓名、经营状态、经营业务范围及方式、注册资金、注册币种、登记机关、开业日期、企业（机构）类型、注销日期、吊销日期、许可经营项目、一般经营项目、核准时间、省、地级市、区/县、住所所在行政区划代码、行业门类代码、行业门类名称、国民经济行业代码、国民经济行业名称、经营（业务）范围等。
- * @method Models\VerifyEnterpriseFourFactorsResponse VerifyEnterpriseFourFactors(Models\VerifyEnterpriseFourFactorsRequest $req) 库源服务调整，该接口在2023年6月1日将正式下线。
-
-此接口基于企业四要素授权“姓名、证件号码、企业标识、企业全称”，验证企业信息是否一致。
  * @method Models\VerifyOfdVatInvoiceOCRResponse VerifyOfdVatInvoiceOCR(Models\VerifyOfdVatInvoiceOCRRequest $req) 本接口支持OFD格式的增值税电子普通发票和增值税电子专用发票的识别，返回发票代码、发票号码、开票日期、验证码、机器编号、密码区，购买方和销售方信息，包括名称、纳税人识别号、地址电话、开户行及账号，以及价税合计、开票人、收款人、复核人、税额、不含税金额等字段信息。
  * @method Models\VinOCRResponse VinOCR(Models\VinOCRRequest $req) 本接口支持图片内车辆识别代号（VIN）的检测和识别。
  * @method Models\WaybillOCRResponse WaybillOCR(Models\WaybillOCRRequest $req) 本接口支持市面上主流版式电子运单的识别，包括收件人和寄件人的姓名、电话、地址以及运单号等字段。

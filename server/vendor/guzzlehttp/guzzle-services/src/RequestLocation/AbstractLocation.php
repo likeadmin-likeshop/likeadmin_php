@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle\RequestLocation;
 
 use GuzzleHttp\Command\CommandInterface;
@@ -13,8 +14,6 @@ abstract class AbstractLocation implements RequestLocationInterface
 
     /**
      * Set the name of the location
-     *
-     * @param $locationName
      */
     public function __construct($locationName)
     {
@@ -22,9 +21,6 @@ abstract class AbstractLocation implements RequestLocationInterface
     }
 
     /**
-     * @param CommandInterface $command
-     * @param RequestInterface $request
-     * @param Parameter $param
      * @return RequestInterface
      */
     public function visit(
@@ -36,9 +32,6 @@ abstract class AbstractLocation implements RequestLocationInterface
     }
 
     /**
-     * @param CommandInterface $command
-     * @param RequestInterface $request
-     * @param Operation $operation
      * @return RequestInterface
      */
     public function after(
@@ -53,8 +46,7 @@ abstract class AbstractLocation implements RequestLocationInterface
      * Prepare (filter and set desired name for request item) the value for
      * request.
      *
-     * @param mixed     $value
-     * @param Parameter $param
+     * @param mixed $value
      *
      * @return array|mixed
      */

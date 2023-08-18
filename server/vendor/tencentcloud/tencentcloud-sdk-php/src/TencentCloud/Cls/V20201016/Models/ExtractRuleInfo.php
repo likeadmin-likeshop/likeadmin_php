@@ -40,9 +40,9 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setBeginRegex(string $BeginRegex) 设置行首匹配规则，只有log_type为multiline_log或fullregex_log时有效
 注意：此字段可能返回 null，表示取不到有效值。
- * @method array getKeys() 获取取的每个字段的key名字，为空的key代表丢弃这个字段，只有log_type为delimiter_log时有效，json_log的日志使用json本身的key
+ * @method array getKeys() 获取取的每个字段的key名字，为空的key代表丢弃这个字段，只有log_type为delimiter_log时有效，json_log的日志使用json本身的key。限制100个。
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setKeys(array $Keys) 设置取的每个字段的key名字，为空的key代表丢弃这个字段，只有log_type为delimiter_log时有效，json_log的日志使用json本身的key
+ * @method void setKeys(array $Keys) 设置取的每个字段的key名字，为空的key代表丢弃这个字段，只有log_type为delimiter_log时有效，json_log的日志使用json本身的key。限制100个。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method array getFilterKeyRegex() 获取需要过滤日志的key，及其对应的regex
 注意：此字段可能返回 null，表示取不到有效值。
@@ -92,12 +92,14 @@ auto：自动匹配rfc3164或者rfc5424其中一种协议
 注意：此字段可能返回 null，表示取不到有效值。
  * @method integer getMetadataType() 获取元数据类型，0: 不使用元数据信息，1:使用机器组元数据，2:使用用户自定义元数据，3:使用采集配置路径，
  * @method void setMetadataType(integer $MetadataType) 设置元数据类型，0: 不使用元数据信息，1:使用机器组元数据，2:使用用户自定义元数据，3:使用采集配置路径，
- * @method string getPathRegex() 获取采集配置路径正则表达式，MetadataType为1时必填
+ * @method string getPathRegex() 获取采集配置路径正则表达式，MetadataType为3时必填
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setPathRegex(string $PathRegex) 设置采集配置路径正则表达式，MetadataType为1时必填
+ * @method void setPathRegex(string $PathRegex) 设置采集配置路径正则表达式，MetadataType为3时必填
 注意：此字段可能返回 null，表示取不到有效值。
  * @method array getMetaTags() 获取用户自定义元数据信息，MetadataType为2时必填
  * @method void setMetaTags(array $MetaTags) 设置用户自定义元数据信息，MetadataType为2时必填
+ * @method array getEventLogRules() 获取windows事件日志采集
+ * @method void setEventLogRules(array $EventLogRules) 设置windows事件日志采集
  */
 class ExtractRuleInfo extends AbstractModel
 {
@@ -132,7 +134,7 @@ class ExtractRuleInfo extends AbstractModel
     public $BeginRegex;
 
     /**
-     * @var array 取的每个字段的key名字，为空的key代表丢弃这个字段，只有log_type为delimiter_log时有效，json_log的日志使用json本身的key
+     * @var array 取的每个字段的key名字，为空的key代表丢弃这个字段，只有log_type为delimiter_log时有效，json_log的日志使用json本身的key。限制100个。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Keys;
@@ -202,7 +204,7 @@ auto：自动匹配rfc3164或者rfc5424其中一种协议
     public $MetadataType;
 
     /**
-     * @var string 采集配置路径正则表达式，MetadataType为1时必填
+     * @var string 采集配置路径正则表达式，MetadataType为3时必填
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $PathRegex;
@@ -211,6 +213,11 @@ auto：自动匹配rfc3164或者rfc5424其中一种协议
      * @var array 用户自定义元数据信息，MetadataType为2时必填
      */
     public $MetaTags;
+
+    /**
+     * @var array windows事件日志采集
+     */
+    public $EventLogRules;
 
     /**
      * @param string $TimeKey 时间字段的key名字，time_key和time_format必须成对出现
@@ -223,7 +230,7 @@ auto：自动匹配rfc3164或者rfc5424其中一种协议
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $BeginRegex 行首匹配规则，只有log_type为multiline_log或fullregex_log时有效
 注意：此字段可能返回 null，表示取不到有效值。
-     * @param array $Keys 取的每个字段的key名字，为空的key代表丢弃这个字段，只有log_type为delimiter_log时有效，json_log的日志使用json本身的key
+     * @param array $Keys 取的每个字段的key名字，为空的key代表丢弃这个字段，只有log_type为delimiter_log时有效，json_log的日志使用json本身的key。限制100个。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $FilterKeyRegex 需要过滤日志的key，及其对应的regex
 注意：此字段可能返回 null，表示取不到有效值。
@@ -249,9 +256,10 @@ auto：自动匹配rfc3164或者rfc5424其中一种协议
 该字段适用于：创建采集规则配置、修改采集规则配置
 注意：此字段可能返回 null，表示取不到有效值。
      * @param integer $MetadataType 元数据类型，0: 不使用元数据信息，1:使用机器组元数据，2:使用用户自定义元数据，3:使用采集配置路径，
-     * @param string $PathRegex 采集配置路径正则表达式，MetadataType为1时必填
+     * @param string $PathRegex 采集配置路径正则表达式，MetadataType为3时必填
 注意：此字段可能返回 null，表示取不到有效值。
      * @param array $MetaTags 用户自定义元数据信息，MetadataType为2时必填
+     * @param array $EventLogRules windows事件日志采集
      */
     function __construct()
     {
@@ -345,6 +353,15 @@ auto：自动匹配rfc3164或者rfc5424其中一种协议
                 $obj = new MetaTagInfo();
                 $obj->deserialize($value);
                 array_push($this->MetaTags, $obj);
+            }
+        }
+
+        if (array_key_exists("EventLogRules",$param) and $param["EventLogRules"] !== null) {
+            $this->EventLogRules = [];
+            foreach ($param["EventLogRules"] as $key => $value){
+                $obj = new EventLog();
+                $obj->deserialize($value);
+                array_push($this->EventLogRules, $obj);
             }
         }
     }

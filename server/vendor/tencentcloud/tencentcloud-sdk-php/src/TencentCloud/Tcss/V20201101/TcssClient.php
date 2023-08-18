@@ -235,6 +235,8 @@ use TencentCloud\Tcss\V20201101\Models as Models;
  * @method Models\DescribeReverseShellEventsExportResponse DescribeReverseShellEventsExport(Models\DescribeReverseShellEventsExportRequest $req) 查询运行时反弹shell事件列表信息导出
  * @method Models\DescribeReverseShellWhiteListDetailResponse DescribeReverseShellWhiteListDetail(Models\DescribeReverseShellWhiteListDetailRequest $req) 查询运行时反弹shell白名单详细信息
  * @method Models\DescribeReverseShellWhiteListsResponse DescribeReverseShellWhiteLists(Models\DescribeReverseShellWhiteListsRequest $req) 查询运行时运行时反弹shell白名单列表信息
+ * @method Models\DescribeRiskDnsEventDetailResponse DescribeRiskDnsEventDetail(Models\DescribeRiskDnsEventDetailRequest $req) 查询恶意请求事件详情
+ * @method Models\DescribeRiskDnsListResponse DescribeRiskDnsList(Models\DescribeRiskDnsListRequest $req) 查询恶意请求事件列表
  * @method Models\DescribeRiskListResponse DescribeRiskList(Models\DescribeRiskListRequest $req) 查询最近一次任务发现的风险项的信息列表，支持根据特殊字段进行过滤
  * @method Models\DescribeRiskSyscallDetailResponse DescribeRiskSyscallDetail(Models\DescribeRiskSyscallDetailRequest $req) 查询高危系统调用事件详细信息
  * @method Models\DescribeRiskSyscallEventsResponse DescribeRiskSyscallEvents(Models\DescribeRiskSyscallEventsRequest $req) 查询运行时运行时高危系统调用列表信息
@@ -294,6 +296,7 @@ use TencentCloud\Tcss\V20201101\Models as Models;
  * @method Models\DescribeVulImageSummaryResponse DescribeVulImageSummary(Models\DescribeVulImageSummaryRequest $req) 查询漏洞镜像统计
  * @method Models\DescribeVulLevelImageSummaryResponse DescribeVulLevelImageSummary(Models\DescribeVulLevelImageSummaryRequest $req) 查询应急漏洞各威胁等级统计镜像数
  * @method Models\DescribeVulLevelSummaryResponse DescribeVulLevelSummary(Models\DescribeVulLevelSummaryRequest $req) 查询漏洞各威胁等级统计数
+ * @method Models\DescribeVulRegistryImageListResponse DescribeVulRegistryImageList(Models\DescribeVulRegistryImageListRequest $req) 查询漏洞影响的仓库镜像列表
  * @method Models\DescribeVulScanAuthorizedImageSummaryResponse DescribeVulScanAuthorizedImageSummary(Models\DescribeVulScanAuthorizedImageSummaryRequest $req) 统计漏洞扫描页已授权和未扫描镜像数
  * @method Models\DescribeVulScanInfoResponse DescribeVulScanInfo(Models\DescribeVulScanInfoRequest $req) 查询漏洞扫描任务信息
  * @method Models\DescribeVulScanLocalImageListResponse DescribeVulScanLocalImageList(Models\DescribeVulScanLocalImageListRequest $req) 查询漏洞扫描任务的本地镜像列表

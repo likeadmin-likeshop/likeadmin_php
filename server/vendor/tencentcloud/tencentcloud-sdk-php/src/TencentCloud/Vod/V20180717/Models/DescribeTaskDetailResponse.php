@@ -33,7 +33,9 @@ use TencentCloud\Common\AbstractModel;
 <li>DescribeFileAttributesTask：获取文件属性任务；</li>
 <li>RebuildMedia：音画质重生任务；</li>
 <li>ReviewAudioVideo：音视频审核任务；</li>
-<li>ExtractTraceWatermark：提取溯源水印任务。</li>
+<li>ExtractTraceWatermark：提取溯源水印任务；</li>
+<li>ExtractCopyRightWatermark：提取版权水印任务；</li>
+<li>QualityInspect：音画质检测任务。</li>
  * @method void setTaskType(string $TaskType) 设置任务类型，取值：
 <li>Procedure：视频处理任务；</li>
 <li>EditMedia：视频编辑任务；</li>
@@ -47,7 +49,9 @@ use TencentCloud\Common\AbstractModel;
 <li>DescribeFileAttributesTask：获取文件属性任务；</li>
 <li>RebuildMedia：音画质重生任务；</li>
 <li>ReviewAudioVideo：音视频审核任务；</li>
-<li>ExtractTraceWatermark：提取溯源水印任务。</li>
+<li>ExtractTraceWatermark：提取溯源水印任务；</li>
+<li>ExtractCopyRightWatermark：提取版权水印任务；</li>
+<li>QualityInspect：音画质检测任务。</li>
  * @method string getStatus() 获取任务状态，取值：
 <li>WAITING：等待中；</li>
 <li>PROCESSING：处理中；</li>
@@ -122,6 +126,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setExtractTraceWatermarkTask(ExtractTraceWatermarkTask $ExtractTraceWatermarkTask) 设置提取溯源水印任务信息，仅当 TaskType 为 ExtractTraceWatermark，该字段有值。
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method ExtractCopyRightWatermarkTask getExtractCopyRightWatermarkTask() 获取提取版权水印任务信息，仅当 TaskType 为 ExtractCopyRightWatermark，该字段有值。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setExtractCopyRightWatermarkTask(ExtractCopyRightWatermarkTask $ExtractCopyRightWatermarkTask) 设置提取版权水印任务信息，仅当 TaskType 为 ExtractCopyRightWatermark，该字段有值。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method ReviewAudioVideoTask getReviewAudioVideoTask() 获取音视频审核任务信息，仅当 TaskType 为 ReviewAudioVideo，该字段有值。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setReviewAudioVideoTask(ReviewAudioVideoTask $ReviewAudioVideoTask) 设置音视频审核任务信息，仅当 TaskType 为 ReviewAudioVideo，该字段有值。
@@ -133,6 +141,10 @@ use TencentCloud\Common\AbstractModel;
  * @method DescribeFileAttributesTask getDescribeFileAttributesTask() 获取获取文件属性任务信息，仅当 TaskType 为 DescribeFileAttributes，该字段有值。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setDescribeFileAttributesTask(DescribeFileAttributesTask $DescribeFileAttributesTask) 设置获取文件属性任务信息，仅当 TaskType 为 DescribeFileAttributes，该字段有值。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method QualityInspectTask getQualityInspectTask() 获取音画质检测任务信息，仅当 TaskType 为 QualityInspect 时该字段有值。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setQualityInspectTask(QualityInspectTask $QualityInspectTask) 设置音画质检测任务信息，仅当 TaskType 为 QualityInspect 时该字段有值。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -153,7 +165,9 @@ class DescribeTaskDetailResponse extends AbstractModel
 <li>DescribeFileAttributesTask：获取文件属性任务；</li>
 <li>RebuildMedia：音画质重生任务；</li>
 <li>ReviewAudioVideo：音视频审核任务；</li>
-<li>ExtractTraceWatermark：提取溯源水印任务。</li>
+<li>ExtractTraceWatermark：提取溯源水印任务；</li>
+<li>ExtractCopyRightWatermark：提取版权水印任务；</li>
+<li>QualityInspect：音画质检测任务。</li>
      */
     public $TaskType;
 
@@ -271,6 +285,12 @@ class DescribeTaskDetailResponse extends AbstractModel
     public $ExtractTraceWatermarkTask;
 
     /**
+     * @var ExtractCopyRightWatermarkTask 提取版权水印任务信息，仅当 TaskType 为 ExtractCopyRightWatermark，该字段有值。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ExtractCopyRightWatermarkTask;
+
+    /**
      * @var ReviewAudioVideoTask 音视频审核任务信息，仅当 TaskType 为 ReviewAudioVideo，该字段有值。
 注意：此字段可能返回 null，表示取不到有效值。
      */
@@ -287,6 +307,12 @@ class DescribeTaskDetailResponse extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $DescribeFileAttributesTask;
+
+    /**
+     * @var QualityInspectTask 音画质检测任务信息，仅当 TaskType 为 QualityInspect 时该字段有值。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $QualityInspectTask;
 
     /**
      * @var string 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -307,7 +333,9 @@ class DescribeTaskDetailResponse extends AbstractModel
 <li>DescribeFileAttributesTask：获取文件属性任务；</li>
 <li>RebuildMedia：音画质重生任务；</li>
 <li>ReviewAudioVideo：音视频审核任务；</li>
-<li>ExtractTraceWatermark：提取溯源水印任务。</li>
+<li>ExtractTraceWatermark：提取溯源水印任务；</li>
+<li>ExtractCopyRightWatermark：提取版权水印任务；</li>
+<li>QualityInspect：音画质检测任务。</li>
      * @param string $Status 任务状态，取值：
 <li>WAITING：等待中；</li>
 <li>PROCESSING：处理中；</li>
@@ -345,11 +373,15 @@ class DescribeTaskDetailResponse extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param ExtractTraceWatermarkTask $ExtractTraceWatermarkTask 提取溯源水印任务信息，仅当 TaskType 为 ExtractTraceWatermark，该字段有值。
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param ExtractCopyRightWatermarkTask $ExtractCopyRightWatermarkTask 提取版权水印任务信息，仅当 TaskType 为 ExtractCopyRightWatermark，该字段有值。
+注意：此字段可能返回 null，表示取不到有效值。
      * @param ReviewAudioVideoTask $ReviewAudioVideoTask 音视频审核任务信息，仅当 TaskType 为 ReviewAudioVideo，该字段有值。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param ReduceMediaBitrateTask $ReduceMediaBitrateTask 该字段已无效。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param DescribeFileAttributesTask $DescribeFileAttributesTask 获取文件属性任务信息，仅当 TaskType 为 DescribeFileAttributes，该字段有值。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param QualityInspectTask $QualityInspectTask 音画质检测任务信息，仅当 TaskType 为 QualityInspect 时该字段有值。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
@@ -461,6 +493,11 @@ class DescribeTaskDetailResponse extends AbstractModel
             $this->ExtractTraceWatermarkTask->deserialize($param["ExtractTraceWatermarkTask"]);
         }
 
+        if (array_key_exists("ExtractCopyRightWatermarkTask",$param) and $param["ExtractCopyRightWatermarkTask"] !== null) {
+            $this->ExtractCopyRightWatermarkTask = new ExtractCopyRightWatermarkTask();
+            $this->ExtractCopyRightWatermarkTask->deserialize($param["ExtractCopyRightWatermarkTask"]);
+        }
+
         if (array_key_exists("ReviewAudioVideoTask",$param) and $param["ReviewAudioVideoTask"] !== null) {
             $this->ReviewAudioVideoTask = new ReviewAudioVideoTask();
             $this->ReviewAudioVideoTask->deserialize($param["ReviewAudioVideoTask"]);
@@ -474,6 +511,11 @@ class DescribeTaskDetailResponse extends AbstractModel
         if (array_key_exists("DescribeFileAttributesTask",$param) and $param["DescribeFileAttributesTask"] !== null) {
             $this->DescribeFileAttributesTask = new DescribeFileAttributesTask();
             $this->DescribeFileAttributesTask->deserialize($param["DescribeFileAttributesTask"]);
+        }
+
+        if (array_key_exists("QualityInspectTask",$param) and $param["QualityInspectTask"] !== null) {
+            $this->QualityInspectTask = new QualityInspectTask();
+            $this->QualityInspectTask->deserialize($param["QualityInspectTask"]);
         }
 
         if (array_key_exists("RequestId",$param) and $param["RequestId"] !== null) {

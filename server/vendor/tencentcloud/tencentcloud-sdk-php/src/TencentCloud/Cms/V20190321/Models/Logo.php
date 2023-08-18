@@ -18,36 +18,48 @@ namespace TencentCloud\Cms\V20190321\Models;
 use TencentCloud\Common\AbstractModel;
 
 /**
- * Logo
+ * Logo审核结果
  *
- * @method RrectF getRrectF() 获取logo图标坐标信息
- * @method void setRrectF(RrectF $RrectF) 设置logo图标坐标信息
  * @method float getConfidence() 获取logo图标置信度
+注意：此字段可能返回 null，表示取不到有效值。
  * @method void setConfidence(float $Confidence) 设置logo图标置信度
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method RrectF getRrectF() 获取logo图标坐标信息
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setRrectF(RrectF $RrectF) 设置logo图标坐标信息
+注意：此字段可能返回 null，表示取不到有效值。
  * @method string getName() 获取logo图标名称
+注意：此字段可能返回 null，表示取不到有效值。
  * @method void setName(string $Name) 设置logo图标名称
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class Logo extends AbstractModel
 {
     /**
-     * @var RrectF logo图标坐标信息
-     */
-    public $RrectF;
-
-    /**
      * @var float logo图标置信度
+注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Confidence;
 
     /**
+     * @var RrectF logo图标坐标信息
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $RrectF;
+
+    /**
      * @var string logo图标名称
+注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Name;
 
     /**
-     * @param RrectF $RrectF logo图标坐标信息
      * @param float $Confidence logo图标置信度
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param RrectF $RrectF logo图标坐标信息
+注意：此字段可能返回 null，表示取不到有效值。
      * @param string $Name logo图标名称
+注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
     {
@@ -62,13 +74,13 @@ class Logo extends AbstractModel
         if ($param === null) {
             return;
         }
+        if (array_key_exists("Confidence",$param) and $param["Confidence"] !== null) {
+            $this->Confidence = $param["Confidence"];
+        }
+
         if (array_key_exists("RrectF",$param) and $param["RrectF"] !== null) {
             $this->RrectF = new RrectF();
             $this->RrectF->deserialize($param["RrectF"]);
-        }
-
-        if (array_key_exists("Confidence",$param) and $param["Confidence"] !== null) {
-            $this->Confidence = $param["Confidence"];
         }
 
         if (array_key_exists("Name",$param) and $param["Name"] !== null) {

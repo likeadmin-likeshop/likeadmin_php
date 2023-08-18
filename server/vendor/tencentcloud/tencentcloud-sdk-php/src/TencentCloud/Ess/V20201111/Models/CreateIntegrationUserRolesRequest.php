@@ -20,29 +20,29 @@ use TencentCloud\Common\AbstractModel;
 /**
  * CreateIntegrationUserRoles请求参数结构体
  *
- * @method UserInfo getOperator() 获取操作人信息
- * @method void setOperator(UserInfo $Operator) 设置操作人信息
- * @method array getUserIds() 获取绑定角色的用户id列表
- * @method void setUserIds(array $UserIds) 设置绑定角色的用户id列表
- * @method array getRoleIds() 获取绑定角色的角色id列表
- * @method void setRoleIds(array $RoleIds) 设置绑定角色的角色id列表
+ * @method UserInfo getOperator() 获取操作人信息，UserId必填
+ * @method void setOperator(UserInfo $Operator) 设置操作人信息，UserId必填
+ * @method array getUserIds() 获取绑定角色的用户id列表，不能重复，不能大于 100 个
+ * @method void setUserIds(array $UserIds) 设置绑定角色的用户id列表，不能重复，不能大于 100 个
+ * @method array getRoleIds() 获取绑定角色的角色id列表，不能重复，不能大于 100，可以通过DescribeIntegrationRoles接口获取
+ * @method void setRoleIds(array $RoleIds) 设置绑定角色的角色id列表，不能重复，不能大于 100，可以通过DescribeIntegrationRoles接口获取
  * @method Agent getAgent() 获取代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
  * @method void setAgent(Agent $Agent) 设置代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
  */
 class CreateIntegrationUserRolesRequest extends AbstractModel
 {
     /**
-     * @var UserInfo 操作人信息
+     * @var UserInfo 操作人信息，UserId必填
      */
     public $Operator;
 
     /**
-     * @var array 绑定角色的用户id列表
+     * @var array 绑定角色的用户id列表，不能重复，不能大于 100 个
      */
     public $UserIds;
 
     /**
-     * @var array 绑定角色的角色id列表
+     * @var array 绑定角色的角色id列表，不能重复，不能大于 100，可以通过DescribeIntegrationRoles接口获取
      */
     public $RoleIds;
 
@@ -52,9 +52,9 @@ class CreateIntegrationUserRolesRequest extends AbstractModel
     public $Agent;
 
     /**
-     * @param UserInfo $Operator 操作人信息
-     * @param array $UserIds 绑定角色的用户id列表
-     * @param array $RoleIds 绑定角色的角色id列表
+     * @param UserInfo $Operator 操作人信息，UserId必填
+     * @param array $UserIds 绑定角色的用户id列表，不能重复，不能大于 100 个
+     * @param array $RoleIds 绑定角色的角色id列表，不能重复，不能大于 100，可以通过DescribeIntegrationRoles接口获取
      * @param Agent $Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
      */
     function __construct()

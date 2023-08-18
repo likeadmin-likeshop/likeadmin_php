@@ -20,15 +20,15 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 数据库地址
  *
- * @method string getIP() 获取IP
- * @method void setIP(string $IP) 设置IP
+ * @method string getIP() 获取IP地址
+ * @method void setIP(string $IP) 设置IP地址
  * @method integer getPort() 获取端口
  * @method void setPort(integer $Port) 设置端口
  */
 class Addr extends AbstractModel
 {
     /**
-     * @var string IP
+     * @var string IP地址
      */
     public $IP;
 
@@ -38,7 +38,7 @@ class Addr extends AbstractModel
     public $Port;
 
     /**
-     * @param string $IP IP
+     * @param string $IP IP地址
      * @param integer $Port 端口
      */
     function __construct()

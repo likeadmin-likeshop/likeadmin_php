@@ -20,8 +20,8 @@ use TencentCloud\Common\AbstractModel;
 /**
  * CreateBoundIP请求参数结构体
  *
- * @method string getBusiness() 获取大禹子产品代号（bgp表示独享包；bgp-multip表示共享包）
- * @method void setBusiness(string $Business) 设置大禹子产品代号（bgp表示独享包；bgp-multip表示共享包）
+ * @method string getBusiness() 获取DDoS防护子产品代号（bgp表示独享包；bgp-multip表示共享包）
+ * @method void setBusiness(string $Business) 设置DDoS防护子产品代号（bgp表示独享包；bgp-multip表示共享包）
  * @method string getId() 获取资源实例ID
  * @method void setId(string $Id) 设置资源实例ID
  * @method array getBoundDevList() 获取绑定到资源实例的IP数组，当资源实例为高防包(独享包)时，数组只允许填1个IP；当没有要绑定的IP时可以为空数组；但是BoundDevList和UnBoundDevList至少有一个不为空；
@@ -30,11 +30,13 @@ use TencentCloud\Common\AbstractModel;
  * @method void setUnBoundDevList(array $UnBoundDevList) 设置与资源实例解绑的IP数组，当资源实例为高防包(独享包)时，数组只允许填1个IP；当没有要解绑的IP时可以为空数组；但是BoundDevList和UnBoundDevList至少有一个不为空；
  * @method string getCopyPolicy() 获取已弃用，不填
  * @method void setCopyPolicy(string $CopyPolicy) 设置已弃用，不填
+ * @method string getFilterRegion() 获取如果该资源实例为域名化资产则，该参数必填
+ * @method void setFilterRegion(string $FilterRegion) 设置如果该资源实例为域名化资产则，该参数必填
  */
 class CreateBoundIPRequest extends AbstractModel
 {
     /**
-     * @var string 大禹子产品代号（bgp表示独享包；bgp-multip表示共享包）
+     * @var string DDoS防护子产品代号（bgp表示独享包；bgp-multip表示共享包）
      */
     public $Business;
 
@@ -59,11 +61,17 @@ class CreateBoundIPRequest extends AbstractModel
     public $CopyPolicy;
 
     /**
-     * @param string $Business 大禹子产品代号（bgp表示独享包；bgp-multip表示共享包）
+     * @var string 如果该资源实例为域名化资产则，该参数必填
+     */
+    public $FilterRegion;
+
+    /**
+     * @param string $Business DDoS防护子产品代号（bgp表示独享包；bgp-multip表示共享包）
      * @param string $Id 资源实例ID
      * @param array $BoundDevList 绑定到资源实例的IP数组，当资源实例为高防包(独享包)时，数组只允许填1个IP；当没有要绑定的IP时可以为空数组；但是BoundDevList和UnBoundDevList至少有一个不为空；
      * @param array $UnBoundDevList 与资源实例解绑的IP数组，当资源实例为高防包(独享包)时，数组只允许填1个IP；当没有要解绑的IP时可以为空数组；但是BoundDevList和UnBoundDevList至少有一个不为空；
      * @param string $CopyPolicy 已弃用，不填
+     * @param string $FilterRegion 如果该资源实例为域名化资产则，该参数必填
      */
     function __construct()
     {
@@ -106,6 +114,10 @@ class CreateBoundIPRequest extends AbstractModel
 
         if (array_key_exists("CopyPolicy",$param) and $param["CopyPolicy"] !== null) {
             $this->CopyPolicy = $param["CopyPolicy"];
+        }
+
+        if (array_key_exists("FilterRegion",$param) and $param["FilterRegion"] !== null) {
+            $this->FilterRegion = $param["FilterRegion"];
         }
     }
 }

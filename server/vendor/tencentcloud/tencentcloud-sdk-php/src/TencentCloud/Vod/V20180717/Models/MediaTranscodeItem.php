@@ -23,7 +23,9 @@ use TencentCloud\Common\AbstractModel;
  * @method string getUrl() 获取转码后的视频文件地址。
  * @method void setUrl(string $Url) 设置转码后的视频文件地址。
  * @method integer getDefinition() 获取转码规格 ID，参见[转码参数模板](https://cloud.tencent.com/document/product/266/33476)。
+<font color=red>注意：取值 0 表示原始文件。</font> 
  * @method void setDefinition(integer $Definition) 设置转码规格 ID，参见[转码参数模板](https://cloud.tencent.com/document/product/266/33476)。
+<font color=red>注意：取值 0 表示原始文件。</font> 
  * @method integer getBitrate() 获取视频流码率平均值与音频流码率平均值之和， 单位：bps。
  * @method void setBitrate(integer $Bitrate) 设置视频流码率平均值与音频流码率平均值之和， 单位：bps。
  * @method integer getHeight() 获取视频流高度的最大值，单位：px。
@@ -46,10 +48,14 @@ use TencentCloud\Common\AbstractModel;
  * @method void setAudioStreamSet(array $AudioStreamSet) 设置音频流信息。
  * @method string getDigitalWatermarkType() 获取数字水印类型。可选值：
 <li>Trace 表示经过溯源水印处理；</li>
+<li>CopyRight 表示经过版权水印处理；</li>
 <li>None 表示没有经过数字水印处理。</li>
  * @method void setDigitalWatermarkType(string $DigitalWatermarkType) 设置数字水印类型。可选值：
 <li>Trace 表示经过溯源水印处理；</li>
+<li>CopyRight 表示经过版权水印处理；</li>
 <li>None 表示没有经过数字水印处理。</li>
+ * @method string getCopyRightWatermarkText() 获取版权信息。
+ * @method void setCopyRightWatermarkText(string $CopyRightWatermarkText) 设置版权信息。
  */
 class MediaTranscodeItem extends AbstractModel
 {
@@ -60,6 +66,7 @@ class MediaTranscodeItem extends AbstractModel
 
     /**
      * @var integer 转码规格 ID，参见[转码参数模板](https://cloud.tencent.com/document/product/266/33476)。
+<font color=red>注意：取值 0 表示原始文件。</font> 
      */
     public $Definition;
 
@@ -112,13 +119,20 @@ class MediaTranscodeItem extends AbstractModel
     /**
      * @var string 数字水印类型。可选值：
 <li>Trace 表示经过溯源水印处理；</li>
+<li>CopyRight 表示经过版权水印处理；</li>
 <li>None 表示没有经过数字水印处理。</li>
      */
     public $DigitalWatermarkType;
 
     /**
+     * @var string 版权信息。
+     */
+    public $CopyRightWatermarkText;
+
+    /**
      * @param string $Url 转码后的视频文件地址。
      * @param integer $Definition 转码规格 ID，参见[转码参数模板](https://cloud.tencent.com/document/product/266/33476)。
+<font color=red>注意：取值 0 表示原始文件。</font> 
      * @param integer $Bitrate 视频流码率平均值与音频流码率平均值之和， 单位：bps。
      * @param integer $Height 视频流高度的最大值，单位：px。
      * @param integer $Width 视频流宽度的最大值，单位：px。
@@ -131,7 +145,9 @@ class MediaTranscodeItem extends AbstractModel
      * @param array $AudioStreamSet 音频流信息。
      * @param string $DigitalWatermarkType 数字水印类型。可选值：
 <li>Trace 表示经过溯源水印处理；</li>
+<li>CopyRight 表示经过版权水印处理；</li>
 <li>None 表示没有经过数字水印处理。</li>
+     * @param string $CopyRightWatermarkText 版权信息。
      */
     function __construct()
     {
@@ -202,6 +218,10 @@ class MediaTranscodeItem extends AbstractModel
 
         if (array_key_exists("DigitalWatermarkType",$param) and $param["DigitalWatermarkType"] !== null) {
             $this->DigitalWatermarkType = $param["DigitalWatermarkType"];
+        }
+
+        if (array_key_exists("CopyRightWatermarkText",$param) and $param["CopyRightWatermarkText"] !== null) {
+            $this->CopyRightWatermarkText = $param["CopyRightWatermarkText"];
         }
     }
 }

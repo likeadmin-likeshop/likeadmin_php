@@ -36,7 +36,9 @@ use TencentCloud\Common\AbstractModel;
 <li>RebuildMediaComplete：音画质重生完成事件。</li>
 <li>ReviewAudioVideoComplete：音视频审核完成；</li>
 <li>ExtractTraceWatermarkComplete：提取溯源水印完成；</li>
+<li>ExtractCopyRightWatermarkComplete：提取版权水印完成；</li>
 <li>DescribeFileAttributesComplete：获取文件属性完成；</li>
+<li>QualityInspectComplete：音画质检测完成。</li>
 <b>兼容 2017 版的事件类型：</b>
 <li>TranscodeComplete：视频转码完成；</li>
 <li>ConcatComplete：视频拼接完成；</li>
@@ -57,7 +59,9 @@ use TencentCloud\Common\AbstractModel;
 <li>RebuildMediaComplete：音画质重生完成事件。</li>
 <li>ReviewAudioVideoComplete：音视频审核完成；</li>
 <li>ExtractTraceWatermarkComplete：提取溯源水印完成；</li>
+<li>ExtractCopyRightWatermarkComplete：提取版权水印完成；</li>
 <li>DescribeFileAttributesComplete：获取文件属性完成；</li>
+<li>QualityInspectComplete：音画质检测完成。</li>
 <b>兼容 2017 版的事件类型：</b>
 <li>TranscodeComplete：视频转码完成；</li>
 <li>ConcatComplete：视频拼接完成；</li>
@@ -136,6 +140,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setExtractTraceWatermarkCompleteEvent(ExtractTraceWatermarkTask $ExtractTraceWatermarkCompleteEvent) 设置溯源水印提取完成事件，当事件类型为 ExtractTraceWatermarkComplete 时有效。
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method ExtractCopyRightWatermarkTask getExtractCopyRightWatermarkCompleteEvent() 获取版权水印提取完成事件，当事件类型为 ExtractCopyRightWatermarkComplete 时有效。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setExtractCopyRightWatermarkCompleteEvent(ExtractCopyRightWatermarkTask $ExtractCopyRightWatermarkCompleteEvent) 设置版权水印提取完成事件，当事件类型为 ExtractCopyRightWatermarkComplete 时有效。
+注意：此字段可能返回 null，表示取不到有效值。
  * @method ReviewAudioVideoTask getReviewAudioVideoCompleteEvent() 获取音视频审核完成事件，当事件类型为 ReviewAudioVideoComplete 时有效。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setReviewAudioVideoCompleteEvent(ReviewAudioVideoTask $ReviewAudioVideoCompleteEvent) 设置音视频审核完成事件，当事件类型为 ReviewAudioVideoComplete 时有效。
@@ -147,6 +155,10 @@ use TencentCloud\Common\AbstractModel;
  * @method DescribeFileAttributesTask getDescribeFileAttributesCompleteEvent() 获取获取文件属性完成事件，当事件类型为 DescribeFileAttributesComplete 时有效。
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setDescribeFileAttributesCompleteEvent(DescribeFileAttributesTask $DescribeFileAttributesCompleteEvent) 设置获取文件属性完成事件，当事件类型为 DescribeFileAttributesComplete 时有效。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method QualityInspectTask getQualityInspectCompleteEvent() 获取音画质检测完成事件，当事件类型为 QualityInspectComplete 时有效。
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setQualityInspectCompleteEvent(QualityInspectTask $QualityInspectCompleteEvent) 设置音画质检测完成事件，当事件类型为 QualityInspectComplete 时有效。
 注意：此字段可能返回 null，表示取不到有效值。
  */
 class EventContent extends AbstractModel
@@ -171,7 +183,9 @@ class EventContent extends AbstractModel
 <li>RebuildMediaComplete：音画质重生完成事件。</li>
 <li>ReviewAudioVideoComplete：音视频审核完成；</li>
 <li>ExtractTraceWatermarkComplete：提取溯源水印完成；</li>
+<li>ExtractCopyRightWatermarkComplete：提取版权水印完成；</li>
 <li>DescribeFileAttributesComplete：获取文件属性完成；</li>
+<li>QualityInspectComplete：音画质检测完成。</li>
 <b>兼容 2017 版的事件类型：</b>
 <li>TranscodeComplete：视频转码完成；</li>
 <li>ConcatComplete：视频拼接完成；</li>
@@ -290,6 +304,12 @@ class EventContent extends AbstractModel
     public $ExtractTraceWatermarkCompleteEvent;
 
     /**
+     * @var ExtractCopyRightWatermarkTask 版权水印提取完成事件，当事件类型为 ExtractCopyRightWatermarkComplete 时有效。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $ExtractCopyRightWatermarkCompleteEvent;
+
+    /**
      * @var ReviewAudioVideoTask 音视频审核完成事件，当事件类型为 ReviewAudioVideoComplete 时有效。
 注意：此字段可能返回 null，表示取不到有效值。
      */
@@ -308,6 +328,12 @@ class EventContent extends AbstractModel
     public $DescribeFileAttributesCompleteEvent;
 
     /**
+     * @var QualityInspectTask 音画质检测完成事件，当事件类型为 QualityInspectComplete 时有效。
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $QualityInspectCompleteEvent;
+
+    /**
      * @param string $EventHandle 事件句柄，调用方必须调用 ConfirmEvents 来确认消息已经收到，确认有效时间 30 秒。失效后，事件可重新被获取。
      * @param string $EventType <b>支持事件类型：</b>
 <li>NewFileUpload：视频上传完成；</li>
@@ -323,7 +349,9 @@ class EventContent extends AbstractModel
 <li>RebuildMediaComplete：音画质重生完成事件。</li>
 <li>ReviewAudioVideoComplete：音视频审核完成；</li>
 <li>ExtractTraceWatermarkComplete：提取溯源水印完成；</li>
+<li>ExtractCopyRightWatermarkComplete：提取版权水印完成；</li>
 <li>DescribeFileAttributesComplete：获取文件属性完成；</li>
+<li>QualityInspectComplete：音画质检测完成。</li>
 <b>兼容 2017 版的事件类型：</b>
 <li>TranscodeComplete：视频转码完成；</li>
 <li>ConcatComplete：视频拼接完成；</li>
@@ -366,11 +394,15 @@ class EventContent extends AbstractModel
 注意：此字段可能返回 null，表示取不到有效值。
      * @param ExtractTraceWatermarkTask $ExtractTraceWatermarkCompleteEvent 溯源水印提取完成事件，当事件类型为 ExtractTraceWatermarkComplete 时有效。
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param ExtractCopyRightWatermarkTask $ExtractCopyRightWatermarkCompleteEvent 版权水印提取完成事件，当事件类型为 ExtractCopyRightWatermarkComplete 时有效。
+注意：此字段可能返回 null，表示取不到有效值。
      * @param ReviewAudioVideoTask $ReviewAudioVideoCompleteEvent 音视频审核完成事件，当事件类型为 ReviewAudioVideoComplete 时有效。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param ReduceMediaBitrateTask $ReduceMediaBitrateCompleteEvent 该字段已无效。
 注意：此字段可能返回 null，表示取不到有效值。
      * @param DescribeFileAttributesTask $DescribeFileAttributesCompleteEvent 获取文件属性完成事件，当事件类型为 DescribeFileAttributesComplete 时有效。
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param QualityInspectTask $QualityInspectCompleteEvent 音画质检测完成事件，当事件类型为 QualityInspectComplete 时有效。
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -484,6 +516,11 @@ class EventContent extends AbstractModel
             $this->ExtractTraceWatermarkCompleteEvent->deserialize($param["ExtractTraceWatermarkCompleteEvent"]);
         }
 
+        if (array_key_exists("ExtractCopyRightWatermarkCompleteEvent",$param) and $param["ExtractCopyRightWatermarkCompleteEvent"] !== null) {
+            $this->ExtractCopyRightWatermarkCompleteEvent = new ExtractCopyRightWatermarkTask();
+            $this->ExtractCopyRightWatermarkCompleteEvent->deserialize($param["ExtractCopyRightWatermarkCompleteEvent"]);
+        }
+
         if (array_key_exists("ReviewAudioVideoCompleteEvent",$param) and $param["ReviewAudioVideoCompleteEvent"] !== null) {
             $this->ReviewAudioVideoCompleteEvent = new ReviewAudioVideoTask();
             $this->ReviewAudioVideoCompleteEvent->deserialize($param["ReviewAudioVideoCompleteEvent"]);
@@ -497,6 +534,11 @@ class EventContent extends AbstractModel
         if (array_key_exists("DescribeFileAttributesCompleteEvent",$param) and $param["DescribeFileAttributesCompleteEvent"] !== null) {
             $this->DescribeFileAttributesCompleteEvent = new DescribeFileAttributesTask();
             $this->DescribeFileAttributesCompleteEvent->deserialize($param["DescribeFileAttributesCompleteEvent"]);
+        }
+
+        if (array_key_exists("QualityInspectCompleteEvent",$param) and $param["QualityInspectCompleteEvent"] !== null) {
+            $this->QualityInspectCompleteEvent = new QualityInspectTask();
+            $this->QualityInspectCompleteEvent->deserialize($param["QualityInspectCompleteEvent"]);
         }
     }
 }

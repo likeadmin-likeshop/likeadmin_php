@@ -22,8 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method integer getTotalCount() 获取符合过滤条件的记录总数。
  * @method void setTotalCount(integer $TotalCount) 设置符合过滤条件的记录总数。
- * @method array getRebuildMediaTemplateSet() 获取音画质重生模板详情列表。
- * @method void setRebuildMediaTemplateSet(array $RebuildMediaTemplateSet) 设置音画质重生模板详情列表。
+ * @method array getRebuildMediaTemplateSet() 获取视频重生模板详情列表。
+ * @method void setRebuildMediaTemplateSet(array $RebuildMediaTemplateSet) 设置视频重生模板详情列表。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -35,7 +35,7 @@ class DescribeRebuildMediaTemplatesResponse extends AbstractModel
     public $TotalCount;
 
     /**
-     * @var array 音画质重生模板详情列表。
+     * @var array 视频重生模板详情列表。
      */
     public $RebuildMediaTemplateSet;
 
@@ -46,7 +46,7 @@ class DescribeRebuildMediaTemplatesResponse extends AbstractModel
 
     /**
      * @param integer $TotalCount 符合过滤条件的记录总数。
-     * @param array $RebuildMediaTemplateSet 音画质重生模板详情列表。
+     * @param array $RebuildMediaTemplateSet 视频重生模板详情列表。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

@@ -37,6 +37,7 @@ use TencentCloud\Oceanus\V20190422\Models as Models;
  * @method Models\DescribeClustersResponse DescribeClusters(Models\DescribeClustersRequest $req) 查询集群
  * @method Models\DescribeJobConfigsResponse DescribeJobConfigs(Models\DescribeJobConfigsRequest $req) 查询作业配置列表，一次最多查询100个
  * @method Models\DescribeJobSavepointResponse DescribeJobSavepoint(Models\DescribeJobSavepointRequest $req) 查找Savepoint列表
+ * @method Models\DescribeJobSubmissionLogResponse DescribeJobSubmissionLog(Models\DescribeJobSubmissionLogRequest $req) 查询作业实例启动日志
  * @method Models\DescribeJobsResponse DescribeJobs(Models\DescribeJobsRequest $req) 查询作业
  * @method Models\DescribeResourceConfigsResponse DescribeResourceConfigs(Models\DescribeResourceConfigsRequest $req) 描述资源配置接口
  * @method Models\DescribeResourceRelatedJobsResponse DescribeResourceRelatedJobs(Models\DescribeResourceRelatedJobsRequest $req) 获取资源关联作业信息
@@ -44,6 +45,7 @@ use TencentCloud\Oceanus\V20190422\Models as Models;
  * @method Models\DescribeSystemResourcesResponse DescribeSystemResources(Models\DescribeSystemResourcesRequest $req) 描述系统资源接口
  * @method Models\DescribeTreeJobsResponse DescribeTreeJobs(Models\DescribeTreeJobsRequest $req) 生成树状作业显示结构
  * @method Models\DescribeTreeResourcesResponse DescribeTreeResources(Models\DescribeTreeResourcesRequest $req) 查询树状结构资源列表
+ * @method Models\DescribeWorkSpacesResponse DescribeWorkSpaces(Models\DescribeWorkSpacesRequest $req) 授权工作空间列表
  * @method Models\ModifyJobResponse ModifyJob(Models\ModifyJobRequest $req) 更新作业属性，仅允许以下3种操作，不支持组合操作：
 (1)	更新作业名称
 (2)	更新作业备注 

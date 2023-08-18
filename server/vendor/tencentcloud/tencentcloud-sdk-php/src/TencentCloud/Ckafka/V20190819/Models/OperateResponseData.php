@@ -24,6 +24,10 @@ use TencentCloud\Common\AbstractModel;
 注意：此字段可能返回 null，表示取不到有效值。
  * @method void setFlowId(integer $FlowId) 设置FlowId11
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method RouteDTO getRouteDTO() 获取RouteIdDto
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setRouteDTO(RouteDTO $RouteDTO) 设置RouteIdDto
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class OperateResponseData extends AbstractModel
 {
@@ -34,7 +38,15 @@ class OperateResponseData extends AbstractModel
     public $FlowId;
 
     /**
+     * @var RouteDTO RouteIdDto
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $RouteDTO;
+
+    /**
      * @param integer $FlowId FlowId11
+注意：此字段可能返回 null，表示取不到有效值。
+     * @param RouteDTO $RouteDTO RouteIdDto
 注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
@@ -52,6 +64,11 @@ class OperateResponseData extends AbstractModel
         }
         if (array_key_exists("FlowId",$param) and $param["FlowId"] !== null) {
             $this->FlowId = $param["FlowId"];
+        }
+
+        if (array_key_exists("RouteDTO",$param) and $param["RouteDTO"] !== null) {
+            $this->RouteDTO = new RouteDTO();
+            $this->RouteDTO->deserialize($param["RouteDTO"]);
         }
     }
 }

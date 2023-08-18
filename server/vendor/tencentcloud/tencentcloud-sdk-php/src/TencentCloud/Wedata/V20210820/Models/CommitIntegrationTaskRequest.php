@@ -28,6 +28,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setCommitType(integer $CommitType) 设置0.仅提交，1.立即启动，2.停止线上作业，丢弃作业状态数据，重新启动运行，3.暂停线上作业，保留作业状态数据，继续运行，4.保留作业状态数据，继续运行
  * @method integer getTaskType() 获取实时任务 201   离线任务 202  默认实时任务
  * @method void setTaskType(integer $TaskType) 设置实时任务 201   离线任务 202  默认实时任务
+ * @method array getExtConfig() 获取额外参数
+ * @method void setExtConfig(array $ExtConfig) 设置额外参数
+ * @method string getVersionDesc() 获取提交版本描述
+ * @method void setVersionDesc(string $VersionDesc) 设置提交版本描述
+ * @method integer getInstanceVersion() 获取提交版本号
+ * @method void setInstanceVersion(integer $InstanceVersion) 设置提交版本号
  */
 class CommitIntegrationTaskRequest extends AbstractModel
 {
@@ -52,10 +58,28 @@ class CommitIntegrationTaskRequest extends AbstractModel
     public $TaskType;
 
     /**
+     * @var array 额外参数
+     */
+    public $ExtConfig;
+
+    /**
+     * @var string 提交版本描述
+     */
+    public $VersionDesc;
+
+    /**
+     * @var integer 提交版本号
+     */
+    public $InstanceVersion;
+
+    /**
      * @param string $TaskId 任务id
      * @param string $ProjectId 项目id
      * @param integer $CommitType 0.仅提交，1.立即启动，2.停止线上作业，丢弃作业状态数据，重新启动运行，3.暂停线上作业，保留作业状态数据，继续运行，4.保留作业状态数据，继续运行
      * @param integer $TaskType 实时任务 201   离线任务 202  默认实时任务
+     * @param array $ExtConfig 额外参数
+     * @param string $VersionDesc 提交版本描述
+     * @param integer $InstanceVersion 提交版本号
      */
     function __construct()
     {
@@ -84,6 +108,23 @@ class CommitIntegrationTaskRequest extends AbstractModel
 
         if (array_key_exists("TaskType",$param) and $param["TaskType"] !== null) {
             $this->TaskType = $param["TaskType"];
+        }
+
+        if (array_key_exists("ExtConfig",$param) and $param["ExtConfig"] !== null) {
+            $this->ExtConfig = [];
+            foreach ($param["ExtConfig"] as $key => $value){
+                $obj = new RecordField();
+                $obj->deserialize($value);
+                array_push($this->ExtConfig, $obj);
+            }
+        }
+
+        if (array_key_exists("VersionDesc",$param) and $param["VersionDesc"] !== null) {
+            $this->VersionDesc = $param["VersionDesc"];
+        }
+
+        if (array_key_exists("InstanceVersion",$param) and $param["InstanceVersion"] !== null) {
+            $this->InstanceVersion = $param["InstanceVersion"];
         }
     }
 }

@@ -22,11 +22,11 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getSourceType() 获取拉流源的类型：
 PullLivePushLive -直播，
-PullVodPushLive -点播。
+PullVodPushLive -点播，
 PullPicPushLive -图片。
  * @method void setSourceType(string $SourceType) 设置拉流源的类型：
 PullLivePushLive -直播，
-PullVodPushLive -点播。
+PullVodPushLive -点播，
 PullPicPushLive -图片。
  * @method array getSourceUrls() 获取拉流源 url 列表。
 SourceType 为直播（PullLivePushLive）只可以填1个，
@@ -40,6 +40,7 @@ SourceType 为点播（PullVodPushLive）可以填多个，上限30个。
 4. 视频编码格式仅支持: H264, H265。
 5. 音频编码格式仅支持: AAC。
 6. 点播源请使用小文件，尽量时长保持在1小时内，较大文件打开和续播耗时较久，耗时超过15秒会有无法正常转推风险。
+7. 避免使用低频存储的文件，该类文件因低频存储，拉取时容易出现慢速，影响拉转推质量。
  * @method void setSourceUrls(array $SourceUrls) 设置拉流源 url 列表。
 SourceType 为直播（PullLivePushLive）只可以填1个，
 SourceType 为点播（PullVodPushLive）可以填多个，上限30个。
@@ -52,6 +53,7 @@ SourceType 为点播（PullVodPushLive）可以填多个，上限30个。
 4. 视频编码格式仅支持: H264, H265。
 5. 音频编码格式仅支持: AAC。
 6. 点播源请使用小文件，尽量时长保持在1小时内，较大文件打开和续播耗时较久，耗时超过15秒会有无法正常转推风险。
+7. 避免使用低频存储的文件，该类文件因低频存储，拉取时容易出现慢速，影响拉转推质量。
  * @method string getDomainName() 获取推流域名。
 将拉取过来的流推到该域名。
 注意：如果目标地址为非云直播，且样式不同于云直播，请使用 ToUrl 传入完整推流地址，详细用法请参考 ToUrl 参数说明。
@@ -69,25 +71,25 @@ SourceType 为点播（PullVodPushLive）可以填多个，上限30个。
  * @method string getStartTime() 获取开始时间。
 使用 UTC 格式时间，
 例如：2019-01-08T10:00:00Z。
-注意：北京时间值为 UTC 时间值 + 8 小时，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+注意：北京时间值为 UTC 时间值 + 8 小时。
  * @method void setStartTime(string $StartTime) 设置开始时间。
 使用 UTC 格式时间，
 例如：2019-01-08T10:00:00Z。
-注意：北京时间值为 UTC 时间值 + 8 小时，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+注意：北京时间值为 UTC 时间值 + 8 小时。
  * @method string getEndTime() 获取结束时间，注意：
 1. 结束时间必须大于开始时间；
-2. 结束时间和开始时间必须大于当前时间；
+2. 结束时间必须大于当前时间；
 3. 结束时间 和 开始时间 间隔必须小于七天。
 使用 UTC 格式时间，
 例如：2019-01-08T10:00:00Z。
-注意：北京时间值为 UTC 时间值 + 8 小时，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+注意：北京时间值为 UTC 时间值 + 8 小时。
  * @method void setEndTime(string $EndTime) 设置结束时间，注意：
 1. 结束时间必须大于开始时间；
-2. 结束时间和开始时间必须大于当前时间；
+2. 结束时间必须大于当前时间；
 3. 结束时间 和 开始时间 间隔必须小于七天。
 使用 UTC 格式时间，
 例如：2019-01-08T10:00:00Z。
-注意：北京时间值为 UTC 时间值 + 8 小时，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+注意：北京时间值为 UTC 时间值 + 8 小时。
  * @method string getOperator() 获取任务操作人备注。
  * @method void setOperator(string $Operator) 设置任务操作人备注。
  * @method string getPushArgs() 获取推流参数。
@@ -157,9 +159,15 @@ ContinueBreakPoint：播放完当前正在播放的点播 url 后再使用新的
  * @method string getToUrl() 获取完整目标 URL 地址。
 用法注意：如果使用该参数来传完整目标地址，则 DomainName, AppName, StreamName 需要传入空字符串，任务将会使用该 ToUrl 参数指定的目标地址。
 
+使用该方式传入目标地址支持的协议有：
+rtmp、rtmps、rtsp、rtp、srt。
+
 注意：签名时间需要超过任务结束时间，避免因签名过期造成任务失败。
  * @method void setToUrl(string $ToUrl) 设置完整目标 URL 地址。
 用法注意：如果使用该参数来传完整目标地址，则 DomainName, AppName, StreamName 需要传入空字符串，任务将会使用该 ToUrl 参数指定的目标地址。
+
+使用该方式传入目标地址支持的协议有：
+rtmp、rtmps、rtsp、rtp、srt。
 
 注意：签名时间需要超过任务结束时间，避免因签名过期造成任务失败。
  * @method string getBackupSourceType() 获取备源的类型：
@@ -198,13 +206,15 @@ PullVodPushLive -点播。
 0 - 不启用。
 1 - 启用。
 注意：启用本地模式后，会将源列表中的 MP4 文件进行本地下载，优先使用本地已下载文件进行推流，提高点播源推流稳定性。使用本地下载文件推流时，会产生增值费用。
+ * @method string getRecordTemplateId() 获取录制模板 ID。
+ * @method void setRecordTemplateId(string $RecordTemplateId) 设置录制模板 ID。
  */
 class CreateLivePullStreamTaskRequest extends AbstractModel
 {
     /**
      * @var string 拉流源的类型：
 PullLivePushLive -直播，
-PullVodPushLive -点播。
+PullVodPushLive -点播，
 PullPicPushLive -图片。
      */
     public $SourceType;
@@ -222,6 +232,7 @@ SourceType 为点播（PullVodPushLive）可以填多个，上限30个。
 4. 视频编码格式仅支持: H264, H265。
 5. 音频编码格式仅支持: AAC。
 6. 点播源请使用小文件，尽量时长保持在1小时内，较大文件打开和续播耗时较久，耗时超过15秒会有无法正常转推风险。
+7. 避免使用低频存储的文件，该类文件因低频存储，拉取时容易出现慢速，影响拉转推质量。
      */
     public $SourceUrls;
 
@@ -248,18 +259,18 @@ SourceType 为点播（PullVodPushLive）可以填多个，上限30个。
      * @var string 开始时间。
 使用 UTC 格式时间，
 例如：2019-01-08T10:00:00Z。
-注意：北京时间值为 UTC 时间值 + 8 小时，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+注意：北京时间值为 UTC 时间值 + 8 小时。
      */
     public $StartTime;
 
     /**
      * @var string 结束时间，注意：
 1. 结束时间必须大于开始时间；
-2. 结束时间和开始时间必须大于当前时间；
+2. 结束时间必须大于当前时间；
 3. 结束时间 和 开始时间 间隔必须小于七天。
 使用 UTC 格式时间，
 例如：2019-01-08T10:00:00Z。
-注意：北京时间值为 UTC 时间值 + 8 小时，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+注意：北京时间值为 UTC 时间值 + 8 小时。
      */
     public $EndTime;
 
@@ -332,6 +343,9 @@ ContinueBreakPoint：播放完当前正在播放的点播 url 后再使用新的
      * @var string 完整目标 URL 地址。
 用法注意：如果使用该参数来传完整目标地址，则 DomainName, AppName, StreamName 需要传入空字符串，任务将会使用该 ToUrl 参数指定的目标地址。
 
+使用该方式传入目标地址支持的协议有：
+rtmp、rtmps、rtsp、rtp、srt。
+
 注意：签名时间需要超过任务结束时间，避免因签名过期造成任务失败。
      */
     public $ToUrl;
@@ -371,9 +385,14 @@ PullVodPushLive -点播。
     public $VodLocalMode;
 
     /**
+     * @var string 录制模板 ID。
+     */
+    public $RecordTemplateId;
+
+    /**
      * @param string $SourceType 拉流源的类型：
 PullLivePushLive -直播，
-PullVodPushLive -点播。
+PullVodPushLive -点播，
 PullPicPushLive -图片。
      * @param array $SourceUrls 拉流源 url 列表。
 SourceType 为直播（PullLivePushLive）只可以填1个，
@@ -387,6 +406,7 @@ SourceType 为点播（PullVodPushLive）可以填多个，上限30个。
 4. 视频编码格式仅支持: H264, H265。
 5. 音频编码格式仅支持: AAC。
 6. 点播源请使用小文件，尽量时长保持在1小时内，较大文件打开和续播耗时较久，耗时超过15秒会有无法正常转推风险。
+7. 避免使用低频存储的文件，该类文件因低频存储，拉取时容易出现慢速，影响拉转推质量。
      * @param string $DomainName 推流域名。
 将拉取过来的流推到该域名。
 注意：如果目标地址为非云直播，且样式不同于云直播，请使用 ToUrl 传入完整推流地址，详细用法请参考 ToUrl 参数说明。
@@ -397,14 +417,14 @@ SourceType 为点播（PullVodPushLive）可以填多个，上限30个。
      * @param string $StartTime 开始时间。
 使用 UTC 格式时间，
 例如：2019-01-08T10:00:00Z。
-注意：北京时间值为 UTC 时间值 + 8 小时，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+注意：北京时间值为 UTC 时间值 + 8 小时。
      * @param string $EndTime 结束时间，注意：
 1. 结束时间必须大于开始时间；
-2. 结束时间和开始时间必须大于当前时间；
+2. 结束时间必须大于当前时间；
 3. 结束时间 和 开始时间 间隔必须小于七天。
 使用 UTC 格式时间，
 例如：2019-01-08T10:00:00Z。
-注意：北京时间值为 UTC 时间值 + 8 小时，格式按照 ISO 8601 标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+注意：北京时间值为 UTC 时间值 + 8 小时。
      * @param string $Operator 任务操作人备注。
      * @param string $PushArgs 推流参数。
 推流时携带自定义参数。
@@ -441,6 +461,9 @@ ContinueBreakPoint：播放完当前正在播放的点播 url 后再使用新的
      * @param string $ToUrl 完整目标 URL 地址。
 用法注意：如果使用该参数来传完整目标地址，则 DomainName, AppName, StreamName 需要传入空字符串，任务将会使用该 ToUrl 参数指定的目标地址。
 
+使用该方式传入目标地址支持的协议有：
+rtmp、rtmps、rtsp、rtp、srt。
+
 注意：签名时间需要超过任务结束时间，避免因签名过期造成任务失败。
      * @param string $BackupSourceType 备源的类型：
 PullLivePushLive -直播，
@@ -460,6 +483,7 @@ PullVodPushLive -点播。
 0 - 不启用。
 1 - 启用。
 注意：启用本地模式后，会将源列表中的 MP4 文件进行本地下载，优先使用本地已下载文件进行推流，提高点播源推流稳定性。使用本地下载文件推流时，会产生增值费用。
+     * @param string $RecordTemplateId 录制模板 ID。
      */
     function __construct()
     {
@@ -557,6 +581,10 @@ PullVodPushLive -点播。
 
         if (array_key_exists("VodLocalMode",$param) and $param["VodLocalMode"] !== null) {
             $this->VodLocalMode = $param["VodLocalMode"];
+        }
+
+        if (array_key_exists("RecordTemplateId",$param) and $param["RecordTemplateId"] !== null) {
+            $this->RecordTemplateId = $param["RecordTemplateId"];
         }
     }
 }

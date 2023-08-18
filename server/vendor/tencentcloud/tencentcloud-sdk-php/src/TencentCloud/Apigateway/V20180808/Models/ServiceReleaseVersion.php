@@ -69,7 +69,7 @@ class ServiceReleaseVersion extends AbstractModel
         if (array_key_exists("VersionList",$param) and $param["VersionList"] !== null) {
             $this->VersionList = [];
             foreach ($param["VersionList"] as $key => $value){
-                $obj = new ServiceReleaseHistoryInfo();
+                $obj = new DescribeServiceReleaseVersionResultVersionListInfo();
                 $obj->deserialize($value);
                 array_push($this->VersionList, $obj);
             }

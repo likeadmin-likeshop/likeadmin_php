@@ -28,22 +28,54 @@ use TencentCloud\Common\AbstractModel;
  * @method void setName(string $Name) 设置姓名,最大长度50个字符
  * @method string getMobile() 获取手机号，大陆手机号11位
  * @method void setMobile(string $Mobile) 设置手机号，大陆手机号11位
- * @method string getEndPoint() 获取链接类型
-HTTP：跳转电子签小程序的http_url，
-APP：第三方APP或小程序跳转电子签小程序的path。
-默认为HTTP类型
- * @method void setEndPoint(string $EndPoint) 设置链接类型
-HTTP：跳转电子签小程序的http_url，
-APP：第三方APP或小程序跳转电子签小程序的path。
-默认为HTTP类型
+ * @method string getEndPoint() 获取要跳转的链接类型
+
+- HTTP：跳转电子签小程序的http_url, 短信通知或者H5跳转适合此类型  (默认)
+- APP： 第三方APP或小程序跳转电子签小程序的path,  APP或者小程序跳转适合此类型
+
+ * @method void setEndPoint(string $EndPoint) 设置要跳转的链接类型
+
+- HTTP：跳转电子签小程序的http_url, 短信通知或者H5跳转适合此类型  (默认)
+- APP： 第三方APP或小程序跳转电子签小程序的path,  APP或者小程序跳转适合此类型
+
  * @method string getFlowId() 获取签署流程编号 (PathType=1时必传)
  * @method void setFlowId(string $FlowId) 设置签署流程编号 (PathType=1时必传)
- * @method integer getPathType() 获取跳转页面 1: 小程序合同详情 2: 小程序合同列表页 0: 不传, 默认主页
- * @method void setPathType(integer $PathType) 设置跳转页面 1: 小程序合同详情 2: 小程序合同列表页 0: 不传, 默认主页
- * @method boolean getAutoJumpBack() 获取是否自动回跳 true：是， false：否。该参数只针对"APP" 类型的签署链接有效
- * @method void setAutoJumpBack(boolean $AutoJumpBack) 设置是否自动回跳 true：是， false：否。该参数只针对"APP" 类型的签署链接有效
+ * @method string getFlowGroupId() 获取合同组ID 
+ * @method void setFlowGroupId(string $FlowGroupId) 设置合同组ID 
+ * @method integer getPathType() 获取要跳转到的页面类型 
+
+- 0: 不传, 主页 (默认)
+- 1: 小程序合同详情 
+- 2: 小程序合同列表页 
+
+ * @method void setPathType(integer $PathType) 设置要跳转到的页面类型 
+
+- 0: 不传, 主页 (默认)
+- 1: 小程序合同详情 
+- 2: 小程序合同列表页 
+
+ * @method boolean getAutoJumpBack() 获取是否自动回跳
+true：是，
+false：否。
+该参数只针对"APP" 类型的签署链接有效
+ * @method void setAutoJumpBack(boolean $AutoJumpBack) 设置是否自动回跳
+true：是，
+false：否。
+该参数只针对"APP" 类型的签署链接有效
  * @method Agent getAgent() 获取代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
  * @method void setAgent(Agent $Agent) 设置代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+ * @method array getHides() 获取生成的签署链接在签署过程隐藏的按钮列表, 可以设置隐藏的按钮列表如下
+
+- 0:合同签署页面更多操作按钮
+- 1:合同签署页面更多操作的拒绝签署按钮
+- 2:合同签署页面更多操作的转他人处理按钮
+- 3:签署成功页的查看详情按钮
+ * @method void setHides(array $Hides) 设置生成的签署链接在签署过程隐藏的按钮列表, 可以设置隐藏的按钮列表如下
+
+- 0:合同签署页面更多操作按钮
+- 1:合同签署页面更多操作的拒绝签署按钮
+- 2:合同签署页面更多操作的转他人处理按钮
+- 3:签署成功页的查看详情按钮
  */
 class CreateSchemeUrlRequest extends AbstractModel
 {
@@ -68,10 +100,11 @@ class CreateSchemeUrlRequest extends AbstractModel
     public $Mobile;
 
     /**
-     * @var string 链接类型
-HTTP：跳转电子签小程序的http_url，
-APP：第三方APP或小程序跳转电子签小程序的path。
-默认为HTTP类型
+     * @var string 要跳转的链接类型
+
+- HTTP：跳转电子签小程序的http_url, 短信通知或者H5跳转适合此类型  (默认)
+- APP： 第三方APP或小程序跳转电子签小程序的path,  APP或者小程序跳转适合此类型
+
      */
     public $EndPoint;
 
@@ -81,12 +114,25 @@ APP：第三方APP或小程序跳转电子签小程序的path。
     public $FlowId;
 
     /**
-     * @var integer 跳转页面 1: 小程序合同详情 2: 小程序合同列表页 0: 不传, 默认主页
+     * @var string 合同组ID 
+     */
+    public $FlowGroupId;
+
+    /**
+     * @var integer 要跳转到的页面类型 
+
+- 0: 不传, 主页 (默认)
+- 1: 小程序合同详情 
+- 2: 小程序合同列表页 
+
      */
     public $PathType;
 
     /**
-     * @var boolean 是否自动回跳 true：是， false：否。该参数只针对"APP" 类型的签署链接有效
+     * @var boolean 是否自动回跳
+true：是，
+false：否。
+该参数只针对"APP" 类型的签署链接有效
      */
     public $AutoJumpBack;
 
@@ -96,18 +142,44 @@ APP：第三方APP或小程序跳转电子签小程序的path。
     public $Agent;
 
     /**
+     * @var array 生成的签署链接在签署过程隐藏的按钮列表, 可以设置隐藏的按钮列表如下
+
+- 0:合同签署页面更多操作按钮
+- 1:合同签署页面更多操作的拒绝签署按钮
+- 2:合同签署页面更多操作的转他人处理按钮
+- 3:签署成功页的查看详情按钮
+     */
+    public $Hides;
+
+    /**
      * @param UserInfo $Operator 调用方用户信息，userId 必填
      * @param string $OrganizationName 企业名称
      * @param string $Name 姓名,最大长度50个字符
      * @param string $Mobile 手机号，大陆手机号11位
-     * @param string $EndPoint 链接类型
-HTTP：跳转电子签小程序的http_url，
-APP：第三方APP或小程序跳转电子签小程序的path。
-默认为HTTP类型
+     * @param string $EndPoint 要跳转的链接类型
+
+- HTTP：跳转电子签小程序的http_url, 短信通知或者H5跳转适合此类型  (默认)
+- APP： 第三方APP或小程序跳转电子签小程序的path,  APP或者小程序跳转适合此类型
+
      * @param string $FlowId 签署流程编号 (PathType=1时必传)
-     * @param integer $PathType 跳转页面 1: 小程序合同详情 2: 小程序合同列表页 0: 不传, 默认主页
-     * @param boolean $AutoJumpBack 是否自动回跳 true：是， false：否。该参数只针对"APP" 类型的签署链接有效
+     * @param string $FlowGroupId 合同组ID 
+     * @param integer $PathType 要跳转到的页面类型 
+
+- 0: 不传, 主页 (默认)
+- 1: 小程序合同详情 
+- 2: 小程序合同列表页 
+
+     * @param boolean $AutoJumpBack 是否自动回跳
+true：是，
+false：否。
+该参数只针对"APP" 类型的签署链接有效
      * @param Agent $Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+     * @param array $Hides 生成的签署链接在签署过程隐藏的按钮列表, 可以设置隐藏的按钮列表如下
+
+- 0:合同签署页面更多操作按钮
+- 1:合同签署页面更多操作的拒绝签署按钮
+- 2:合同签署页面更多操作的转他人处理按钮
+- 3:签署成功页的查看详情按钮
      */
     function __construct()
     {
@@ -147,6 +219,10 @@ APP：第三方APP或小程序跳转电子签小程序的path。
             $this->FlowId = $param["FlowId"];
         }
 
+        if (array_key_exists("FlowGroupId",$param) and $param["FlowGroupId"] !== null) {
+            $this->FlowGroupId = $param["FlowGroupId"];
+        }
+
         if (array_key_exists("PathType",$param) and $param["PathType"] !== null) {
             $this->PathType = $param["PathType"];
         }
@@ -158,6 +234,10 @@ APP：第三方APP或小程序跳转电子签小程序的path。
         if (array_key_exists("Agent",$param) and $param["Agent"] !== null) {
             $this->Agent = new Agent();
             $this->Agent->deserialize($param["Agent"]);
+        }
+
+        if (array_key_exists("Hides",$param) and $param["Hides"] !== null) {
+            $this->Hides = $param["Hides"];
         }
     }
 }

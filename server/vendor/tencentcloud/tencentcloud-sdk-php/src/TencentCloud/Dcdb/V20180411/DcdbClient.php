@@ -23,7 +23,7 @@ use TencentCloud\Common\Credential;
 use TencentCloud\Dcdb\V20180411\Models as Models;
 
 /**
- * @method Models\ActiveHourDCDBInstanceResponse ActiveHourDCDBInstance(Models\ActiveHourDCDBInstanceRequest $req) 解隔离DCDB后付费实例
+ * @method Models\ActiveHourDCDBInstanceResponse ActiveHourDCDBInstance(Models\ActiveHourDCDBInstanceRequest $req) 解隔离TDSQL按量计费实例
  * @method Models\AssociateSecurityGroupsResponse AssociateSecurityGroups(Models\AssociateSecurityGroupsRequest $req) 本接口 (AssociateSecurityGroups) 用于安全组批量绑定云资源。
  * @method Models\CancelDcnJobResponse CancelDcnJob(Models\CancelDcnJobRequest $req) 取消DCN同步
  * @method Models\CloneAccountResponse CloneAccount(Models\CloneAccountRequest $req) 本接口（CloneAccount）用于克隆实例账户。
@@ -31,19 +31,23 @@ use TencentCloud\Dcdb\V20180411\Models as Models;
  * @method Models\CopyAccountPrivilegesResponse CopyAccountPrivileges(Models\CopyAccountPrivilegesRequest $req) 本接口（CopyAccountPrivileges）用于复制云数据库账号的权限。
 注意：相同用户名，不同Host是不同的账号，Readonly属性相同的账号之间才能复制权限。
  * @method Models\CreateAccountResponse CreateAccount(Models\CreateAccountRequest $req) 本接口（CreateAccount）用于创建云数据库账号。一个实例可以创建多个不同的账号，相同的用户名+不同的host是不同的账号。
- * @method Models\CreateDCDBInstanceResponse CreateDCDBInstance(Models\CreateDCDBInstanceRequest $req) 本接口（CreateDCDBInstance）用于创建包年包月的云数据库实例，可通过传入实例规格、数据库版本号、购买时长等信息创建云数据库实例。
- * @method Models\CreateHourDCDBInstanceResponse CreateHourDCDBInstance(Models\CreateHourDCDBInstanceRequest $req) 创建DCDB后付费实例
+ * @method Models\CreateDCDBInstanceResponse CreateDCDBInstance(Models\CreateDCDBInstanceRequest $req) 本接口（CreateDCDBInstance）用于创建包年包月的TDSQL实例，可通过传入实例规格、数据库版本号、购买时长等信息创建云数据库实例。
+ * @method Models\CreateDedicatedClusterDCDBInstanceResponse CreateDedicatedClusterDCDBInstance(Models\CreateDedicatedClusterDCDBInstanceRequest $req) 创建TDSQL独享集群实例
+ * @method Models\CreateHourDCDBInstanceResponse CreateHourDCDBInstance(Models\CreateHourDCDBInstanceRequest $req) 创建TDSQL按量计费实例
+ * @method Models\CreateTmpDCDBInstanceResponse CreateTmpDCDBInstance(Models\CreateTmpDCDBInstanceRequest $req) 回档TDSQL实例
  * @method Models\DeleteAccountResponse DeleteAccount(Models\DeleteAccountRequest $req) 本接口（DeleteAccount）用于删除云数据库账号。用户名+host唯一确定一个账号。
  * @method Models\DescribeAccountPrivilegesResponse DescribeAccountPrivileges(Models\DescribeAccountPrivilegesRequest $req) 本接口（DescribeAccountPrivileges）用于查询云数据库账号权限。
 注意：注意：相同用户名，不同Host是不同的账号。
  * @method Models\DescribeAccountsResponse DescribeAccounts(Models\DescribeAccountsRequest $req) 本接口（DescribeAccounts）用于查询指定云数据库实例的账号列表。
  * @method Models\DescribeBackupFilesResponse DescribeBackupFiles(Models\DescribeBackupFilesRequest $req) 本接口(DescribeBackupFiles)用于查看备份文件列表。
+ * @method Models\DescribeDBEncryptAttributesResponse DescribeDBEncryptAttributes(Models\DescribeDBEncryptAttributesRequest $req) 本接口(DescribeDBEncryptAttributes)用于查询实例数据加密状态。
  * @method Models\DescribeDBLogFilesResponse DescribeDBLogFiles(Models\DescribeDBLogFilesRequest $req) 本接口(DescribeDBLogFiles)用于获取数据库的各种日志列表，包括冷备、binlog、errlog和slowlog。
  * @method Models\DescribeDBParametersResponse DescribeDBParameters(Models\DescribeDBParametersRequest $req) 本接口(DescribeDBParameters)用于获取数据库的当前参数设置。
  * @method Models\DescribeDBSecurityGroupsResponse DescribeDBSecurityGroups(Models\DescribeDBSecurityGroupsRequest $req) 本接口（DescribeDBSecurityGroups）用于查询实例安全组信息
  * @method Models\DescribeDBSlowLogsResponse DescribeDBSlowLogs(Models\DescribeDBSlowLogsRequest $req) 本接口(DescribeDBSlowLogs)用于查询慢查询日志列表。
  * @method Models\DescribeDBSyncModeResponse DescribeDBSyncMode(Models\DescribeDBSyncModeRequest $req) 本接口（DescribeDBSyncMode）用于查询云数据库实例的同步模式。
- * @method Models\DescribeDCDBInstanceDetailResponse DescribeDCDBInstanceDetail(Models\DescribeDCDBInstanceDetailRequest $req) 本接口（DescribeDCDBInstanceDetail）用于获取DCDB实例详情
+ * @method Models\DescribeDBTmpInstancesResponse DescribeDBTmpInstances(Models\DescribeDBTmpInstancesRequest $req) 本接口（DescribeDBTmpInstances）用于获取实例回档生成的临时实例
+ * @method Models\DescribeDCDBInstanceDetailResponse DescribeDCDBInstanceDetail(Models\DescribeDCDBInstanceDetailRequest $req) 本接口（DescribeDCDBInstanceDetail）用于获取TDSQL实例详情
  * @method Models\DescribeDCDBInstanceNodeInfoResponse DescribeDCDBInstanceNodeInfo(Models\DescribeDCDBInstanceNodeInfoRequest $req) 本接口（DescribeDCDBInstanceNodeInfo）用于获取实例节点信息
  * @method Models\DescribeDCDBInstancesResponse DescribeDCDBInstances(Models\DescribeDCDBInstancesRequest $req) 查询云数据库实例列表，支持通过项目ID、实例ID、内网地址、实例名称等来筛选实例。
 如果不指定任何筛选条件，则默认返回10条实例记录，单次请求最多支持返回100条实例记录。
@@ -58,22 +62,27 @@ use TencentCloud\Dcdb\V20180411\Models as Models;
  * @method Models\DescribeDcnDetailResponse DescribeDcnDetail(Models\DescribeDcnDetailRequest $req) 获取实例灾备详情
  * @method Models\DescribeFileDownloadUrlResponse DescribeFileDownloadUrl(Models\DescribeFileDownloadUrlRequest $req) 本接口(DescribeFileDownloadUrl)用于获取数据库指定备份或日志文件的下载连接。
  * @method Models\DescribeFlowResponse DescribeFlow(Models\DescribeFlowRequest $req) 本接口（DescribeFlow）用于查询流程状态
+ * @method Models\DescribeLogFileRetentionPeriodResponse DescribeLogFileRetentionPeriod(Models\DescribeLogFileRetentionPeriodRequest $req) 本接口(DescribeLogFileRetentionPeriod)用于查看数据库备份日志的备份天数的设置情况。
  * @method Models\DescribeOrdersResponse DescribeOrders(Models\DescribeOrdersRequest $req) 本接口（DescribeOrders）用于查询分布式数据库订单信息。传入订单ID来查询订单关联的分布式数据库实例，和对应的任务流程ID。
  * @method Models\DescribeProjectSecurityGroupsResponse DescribeProjectSecurityGroups(Models\DescribeProjectSecurityGroupsRequest $req) 本接口（DescribeProjectSecurityGroups）用于查询项目安全组信息
  * @method Models\DescribeProjectsResponse DescribeProjects(Models\DescribeProjectsRequest $req) 本接口（DescribeProjects）用于查询项目列表
  * @method Models\DescribeShardSpecResponse DescribeShardSpec(Models\DescribeShardSpecRequest $req) 查询可创建的分布式数据库可售卖的分片规格配置。
- * @method Models\DescribeSqlLogsResponse DescribeSqlLogs(Models\DescribeSqlLogsRequest $req) 本接口（DescribeSqlLogs）用于获取实例SQL日志。
+ * @method Models\DescribeSqlLogsResponse DescribeSqlLogs(Models\DescribeSqlLogsRequest $req) 已废弃接口
+
+本接口（DescribeSqlLogs）用于获取实例SQL日志。
  * @method Models\DescribeUserTasksResponse DescribeUserTasks(Models\DescribeUserTasksRequest $req) 本接口（DescribeUserTasks）用于拉取用户任务列表
- * @method Models\DestroyDCDBInstanceResponse DestroyDCDBInstance(Models\DestroyDCDBInstanceRequest $req) 本接口(DestroyDCDBInstance)用于销毁已隔离的包年包月实例。
- * @method Models\DestroyHourDCDBInstanceResponse DestroyHourDCDBInstance(Models\DestroyHourDCDBInstanceRequest $req) 本接口（DestroyHourDCDBInstance）用于销毁按量计费实例。
+ * @method Models\DestroyDCDBInstanceResponse DestroyDCDBInstance(Models\DestroyDCDBInstanceRequest $req) 本接口(DestroyDCDBInstance)用于销毁已隔离的TDSQL包年包月实例。
+ * @method Models\DestroyHourDCDBInstanceResponse DestroyHourDCDBInstance(Models\DestroyHourDCDBInstanceRequest $req) 本接口（DestroyHourDCDBInstance）用于TDSQL销毁按量计费实例。
  * @method Models\DisassociateSecurityGroupsResponse DisassociateSecurityGroups(Models\DisassociateSecurityGroupsRequest $req) 本接口(DisassociateSecurityGroups)用于安全组批量解绑实例。
  * @method Models\FlushBinlogResponse FlushBinlog(Models\FlushBinlogRequest $req) 相当于在所有分片的mysqld中执行flush logs，完成切分的binlog将展示在各个分片控制台binlog列表里。
  * @method Models\GrantAccountPrivilegesResponse GrantAccountPrivileges(Models\GrantAccountPrivilegesRequest $req) 本接口（GrantAccountPrivileges）用于给云数据库账号赋权。
 注意：相同用户名，不同Host是不同的账号。
  * @method Models\InitDCDBInstancesResponse InitDCDBInstances(Models\InitDCDBInstancesRequest $req) 本接口(InitDCDBInstances)用于初始化云数据库实例，包括设置默认字符集、表名大小写敏感等。
+ * @method Models\IsolateDCDBInstanceResponse IsolateDCDBInstance(Models\IsolateDCDBInstanceRequest $req) 本接口(IsolateDCDBInstance)用于隔离分布式数据库TDSQL实例（包年包月），隔离后不能通过IP和端口访问数据库。隔离的实例可在回收站中进行开机。若为欠费隔离，请尽快进行充值。
  * @method Models\IsolateDedicatedDBInstanceResponse IsolateDedicatedDBInstance(Models\IsolateDedicatedDBInstanceRequest $req) 本接口（IsolateDedicatedDBInstance）用于隔离独享云数据库实例。
- * @method Models\IsolateHourDCDBInstanceResponse IsolateHourDCDBInstance(Models\IsolateHourDCDBInstanceRequest $req) 隔离DCDB后付费实例
+ * @method Models\IsolateHourDCDBInstanceResponse IsolateHourDCDBInstance(Models\IsolateHourDCDBInstanceRequest $req) 隔离TDSQL按量计费实例
  * @method Models\KillSessionResponse KillSession(Models\KillSessionRequest $req) 本接口（KillSession）用于杀死指定会话。
+ * @method Models\ModifyAccountConfigResponse ModifyAccountConfig(Models\ModifyAccountConfigRequest $req) 修改账号的一些配置，比如 max_user_connections
  * @method Models\ModifyAccountDescriptionResponse ModifyAccountDescription(Models\ModifyAccountDescriptionRequest $req) 本接口（ModifyAccountDescription）用于修改云数据库账号备注。
 注意：相同用户名，不同Host是不同的账号。
  * @method Models\ModifyAccountPrivilegesResponse ModifyAccountPrivileges(Models\ModifyAccountPrivilegesRequest $req) 本接口(ModifyAccountPrivileges)用于修改云数据库的账户的权限信息。
@@ -81,7 +90,7 @@ use TencentCloud\Dcdb\V20180411\Models as Models;
 **注意**
 - 系统保留库："mysql"，只开放["SELECT"]权限
 - 只读账号授予读写权限会报错
-- 不传该参数表示保留现有权限，如需清除，请在复杂类型Privileges字段传空数组
+- 不传权限参数表示保留现有权限，如需清除，请在复杂类型Privileges字段传空数组
  * @method Models\ModifyDBEncryptAttributesResponse ModifyDBEncryptAttributes(Models\ModifyDBEncryptAttributesRequest $req) 本接口(ModifyDBEncryptAttributes)用于修改实例数据加密。
  * @method Models\ModifyDBInstanceNameResponse ModifyDBInstanceName(Models\ModifyDBInstanceNameRequest $req) 本接口（ModifyDBInstanceName）用于修改实例名字
  * @method Models\ModifyDBInstanceSecurityGroupsResponse ModifyDBInstanceSecurityGroups(Models\ModifyDBInstanceSecurityGroupsRequest $req) 本接口（ModifyDBInstanceSecurityGroups）用于修改云数据库安全组
@@ -104,7 +113,8 @@ use TencentCloud\Dcdb\V20180411\Models as Models;
  * @method Models\SwitchDBInstanceHAResponse SwitchDBInstanceHA(Models\SwitchDBInstanceHARequest $req) 本接口(SwitchDBInstanceHA)用于实例主备切换。
  * @method Models\TerminateDedicatedDBInstanceResponse TerminateDedicatedDBInstance(Models\TerminateDedicatedDBInstanceRequest $req) 本接口（TerminateDedicatedDBInstance）用于销毁已隔离的独享分布式数据库实例。
  * @method Models\UpgradeDCDBInstanceResponse UpgradeDCDBInstance(Models\UpgradeDCDBInstanceRequest $req) 本接口（UpgradeDCDBInstance）用于升级分布式数据库实例。本接口完成下单和支付两个动作，如果发生支付失败的错误，调用用户账户相关接口中的支付订单接口（PayDeals）重新支付即可。
- * @method Models\UpgradeHourDCDBInstanceResponse UpgradeHourDCDBInstance(Models\UpgradeHourDCDBInstanceRequest $req) 本接口（UpgradeHourDCDBInstance）用于升级后付费分布式数据库实例。
+ * @method Models\UpgradeDedicatedDCDBInstanceResponse UpgradeDedicatedDCDBInstance(Models\UpgradeDedicatedDCDBInstanceRequest $req) 本接口（UpgradeDedicatedDCDBInstance）用于升级TDSQL独享集群实例
+ * @method Models\UpgradeHourDCDBInstanceResponse UpgradeHourDCDBInstance(Models\UpgradeHourDCDBInstanceRequest $req) 本接口（UpgradeHourDCDBInstance）用于升级分布式数据库TDSQL按量计费实例。
  */
 
 class DcdbClient extends AbstractClient

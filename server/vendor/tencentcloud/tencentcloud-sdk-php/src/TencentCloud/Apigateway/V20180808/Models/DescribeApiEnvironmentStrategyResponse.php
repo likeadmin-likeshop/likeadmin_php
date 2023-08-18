@@ -20,9 +20,9 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DescribeApiEnvironmentStrategy返回参数结构体
  *
- * @method ApiEnvironmentStrategyStataus getResult() 获取api绑定策略详情
+ * @method ApiEnvironmentStrategyStatus getResult() 获取api绑定策略详情
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setResult(ApiEnvironmentStrategyStataus $Result) 设置api绑定策略详情
+ * @method void setResult(ApiEnvironmentStrategyStatus $Result) 设置api绑定策略详情
 注意：此字段可能返回 null，表示取不到有效值。
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -30,7 +30,7 @@ use TencentCloud\Common\AbstractModel;
 class DescribeApiEnvironmentStrategyResponse extends AbstractModel
 {
     /**
-     * @var ApiEnvironmentStrategyStataus api绑定策略详情
+     * @var ApiEnvironmentStrategyStatus api绑定策略详情
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Result;
@@ -41,7 +41,7 @@ class DescribeApiEnvironmentStrategyResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param ApiEnvironmentStrategyStataus $Result api绑定策略详情
+     * @param ApiEnvironmentStrategyStatus $Result api绑定策略详情
 注意：此字段可能返回 null，表示取不到有效值。
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
@@ -59,7 +59,7 @@ class DescribeApiEnvironmentStrategyResponse extends AbstractModel
             return;
         }
         if (array_key_exists("Result",$param) and $param["Result"] !== null) {
-            $this->Result = new ApiEnvironmentStrategyStataus();
+            $this->Result = new ApiEnvironmentStrategyStatus();
             $this->Result->deserialize($param["Result"]);
         }
 

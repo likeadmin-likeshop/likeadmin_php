@@ -26,7 +26,7 @@ use TencentCloud\Asr\V20190614\Models as Models;
  * @method Models\CloseAsyncRecognitionTaskResponse CloseAsyncRecognitionTask(Models\CloseAsyncRecognitionTaskRequest $req) 本接口用于关闭语音流异步识别任务。
  * @method Models\CreateAsrVocabResponse CreateAsrVocab(Models\CreateAsrVocabRequest $req) 用户通过本接口进行热词表的创建。
 <br>•   默认最多可创建30个热词表。
-<br>•   每个热词表最多可添加128个词，每个词最长10个字，不能超出限制。
+<br>•   每个热词表最多可添加128个词，每个词最长10个汉字或30个英文字符，不能超出限制。
 <br>•   热词表可以通过数组或者本地文件形式上传。
 <br>•   本地文件必须为UTF-8编码格式，每行仅添加一个热词且不能包含标点和特殊字符。
 <br>•   热词权重取值范围为[1,10]之间的整数，权重越大代表该词被识别出来的概率越大。
@@ -40,14 +40,14 @@ use TencentCloud\Asr\V20190614\Models as Models;
 
 注意：调用该接口后，模型会自动训练。新建模型成功后，调用ModifyCustomizationState接口修改为上线状态，即可在识别请求中使用对应模型ID。
  * @method Models\CreateRecTaskResponse CreateRecTask(Models\CreateRecTaskRequest $req) 本接口服务对时长5小时以内的录音文件进行识别，异步返回识别全部结果。
-• 支持中文普通话、英语、粤语、日语、越南语、马来语、印度尼西亚语、菲律宾语、葡萄牙语、土耳其语、上海话、四川话、武汉话、贵阳话、昆明话、西安话、郑州话、太原话、兰州话、银川话、西宁话、南京话、合肥话、南昌话、长沙话、苏州话、杭州话、济南话、天津话、石家庄话、黑龙江话、吉林话、辽宁话。
+• 支持中文普通话、英语、粤语、日语、越南语、马来语、印度尼西亚语、菲律宾语、葡萄牙语、土耳其语、阿拉伯语、西班牙语、上海话、四川话、武汉话、贵阳话、昆明话、西安话、郑州话、太原话、兰州话、银川话、西宁话、南京话、合肥话、南昌话、长沙话、苏州话、杭州话、济南话、天津话、石家庄话、黑龙江话、吉林话、辽宁话。
 • 支持wav、mp3、m4a、flv、mp4、wma、3gp、amr、aac、ogg-opus、flac格式。
-• 支持语音 URL 和本地语音文件两种请求方式。语音 URL 的音频时长不能长于5小时，文件大小不超过1GB。本地语音文件调用不能大于5MB。
+• 支持语音 URL 和本地语音文件两种请求方式。语音 URL 的音频时长不能长于5小时，文件大小不超过1GB。本地语音文件调用不能大于5MB。推荐使用 [ 腾讯云COS](https://cloud.tencent.com/document/product/436/38484) 来存储&生成URL提交任务，无外网&流量下行费用，节约成本、提升任务速度。(COS桶权限需要设置公有读私有写，或URL设置外部可访问)
 • 提交录音文件识别请求后，在3小时内完成识别（大多数情况下1小时音频约3分钟以内完成识别，半小时内发送超过1000小时录音或者2万条识别任务的除外），识别结果在服务端可保存7天。
 • 支持回调或轮询的方式获取结果，结果获取请参考[ 录音文件识别结果查询](https://cloud.tencent.com/document/product/1093/37822)。
 •   生成字幕场景可设置参数ResTextFormat为3，解析ResultDetail结构生成字幕，可参考 [生成字幕最佳实践](https://cloud.tencent.com/document/product/1093/84291)。
 •   签名方法参考 [公共参数](https://cloud.tencent.com/document/api/1093/35640) 中签名方法v3。
-• 默认接口请求频率限制：20次/秒，如您有提高请求频率限制的需求，请提[工单](https://console.cloud.tencent.com/workorder/category)进行咨询。
+• 默认接口请求频率限制：20次/秒。
  * @method Models\DeleteAsrVocabResponse DeleteAsrVocab(Models\DeleteAsrVocabRequest $req) 用户通过本接口进行热词表的删除。
  * @method Models\DeleteCustomizationResponse DeleteCustomization(Models\DeleteCustomizationRequest $req) 用户通过该接口可以删除自学习模型
  * @method Models\DescribeAsyncRecognitionTasksResponse DescribeAsyncRecognitionTasks(Models\DescribeAsyncRecognitionTasksRequest $req) 本接口用于查询当前在运行的语音流异步识别任务列表。
@@ -66,9 +66,20 @@ use TencentCloud\Asr\V20190614\Models as Models;
  * @method Models\GetModelInfoResponse GetModelInfo(Models\GetModelInfoRequest $req) 通过自学习模型id获取自学习模型详细信息
  * @method Models\ModifyCustomizationResponse ModifyCustomization(Models\ModifyCustomizationRequest $req) 用户通过该接口可以更新自学习模型，如模型名称、模型类型、模型语料。
  * @method Models\ModifyCustomizationStateResponse ModifyCustomizationState(Models\ModifyCustomizationStateRequest $req) 通过该接口，用户可以修改自学习模型状态，上下线自学习模型
- * @method Models\SentenceRecognitionResponse SentenceRecognition(Models\SentenceRecognitionRequest $req) 本接口用于对60秒之内的短音频文件进行识别。<br>•   支持中文普通话、英语、粤语、日语、越南语、马来语、印度尼西亚语、菲律宾语、泰语、葡萄牙语、土耳其语、上海话、四川话、武汉话、贵阳话、昆明话、西安话、郑州话、太原话、兰州话、银川话、西宁话、南京话、合肥话、南昌话、长沙话、苏州话、杭州话、济南话、天津话、石家庄话、黑龙江话、吉林话、辽宁话。<br>•   支持本地语音文件上传和语音URL上传两种请求方式，音频时长不能超过60s，音频文件大小不能超过3MB。<br>•   音频格式支持wav、pcm、ogg-opus、speex、silk、mp3、m4a、aac。<br>•   请求方法为 HTTP POST , Content-Type为"application/json; charset=utf-8"<br>•   签名方法参考 [公共参数](https://cloud.tencent.com/document/api/1093/35640) 中签名方法v3。<br>•   默认接口请求频率限制：30次/秒，如您有提高请求频率限制的需求，请[前往购买](https://buy.cloud.tencent.com/asr)。
+ * @method Models\SentenceRecognitionResponse SentenceRecognition(Models\SentenceRecognitionRequest $req) 本接口用于对60秒之内的短音频文件进行识别。<br>•   支持中文普通话、英语、粤语、日语、越南语、马来语、印度尼西亚语、菲律宾语、泰语、葡萄牙语、土耳其语、阿拉伯语、上海话、四川话、武汉话、贵阳话、昆明话、西安话、郑州话、太原话、兰州话、银川话、西宁话、南京话、合肥话、南昌话、长沙话、苏州话、杭州话、济南话、天津话、石家庄话、黑龙江话、吉林话、辽宁话。<br>•   支持本地语音文件上传和语音URL上传两种请求方式，音频时长不能超过60s，音频文件大小不能超过3MB。<br>•   音频格式支持wav、pcm、ogg-opus、speex、silk、mp3、m4a、aac。<br>•   请求方法为 HTTP POST , Content-Type为"application/json; charset=utf-8"<br>•   签名方法参考 [公共参数](https://cloud.tencent.com/document/api/1093/35640) 中签名方法v3。<br>•   默认接口请求频率限制：30次/秒，如您有提高请求频率限制的需求，请[前往购买](https://buy.cloud.tencent.com/asr)。
  * @method Models\SetVocabStateResponse SetVocabState(Models\SetVocabStateRequest $req) 用户通过该接口可以设置热词表的默认状态。初始状态为0，用户可设置状态为1，即为默认状态。默认状态表示用户在请求识别时，如不设置热词表ID，则默认使用状态为1的热词表。
  * @method Models\UpdateAsrVocabResponse UpdateAsrVocab(Models\UpdateAsrVocabRequest $req) 用户通过本接口进行对应的词表信息更新。
+ * @method Models\VoicePrintCountResponse VoicePrintCount(Models\VoicePrintCountRequest $req) 统计并返回注册的说话人id总数
+ * @method Models\VoicePrintDeleteResponse VoicePrintDelete(Models\VoicePrintDeleteRequest $req) 本接口用于以删除已经注册的说话人信息（删除之后，原有的说话人ID和说话人音频数据都会失效）
+ * @method Models\VoicePrintEnrollResponse VoicePrintEnroll(Models\VoicePrintEnrollRequest $req) 说话人注册接口用于注册一个指定音频，生成一个唯一的说话人id，后续可通过说话人验证接口验证其它音频和已有的说话人ID匹配度，注册时可指定说话人昵称，方便标识说话人ID，  说话人昵称可重复配置。 
+（注: 一个appid最多可以注册1000个说话人ID，一个说话人ID仅支持一条音频注册，后续可通过更新接口进行更新）
+
+使用须知
+支持的输入格式：编码文件(PCM, WAV)、16 bit采样位数、单声道（mono）。
+
+支持的音频采样率：16000 Hz。
+ * @method Models\VoicePrintUpdateResponse VoicePrintUpdate(Models\VoicePrintUpdateRequest $req) 本接口用于更新和覆盖已注册的音频数据和说话人昵称，更新后原有的音频数据将失效。
+ * @method Models\VoicePrintVerifyResponse VoicePrintVerify(Models\VoicePrintVerifyRequest $req) 本接口用于校验传入音频与已注册音频的匹配程度，通过指定说话人ID（VoicePrintId）和一段音频进行音频和说话人的匹配度判断
  */
 
 class AsrClient extends AbstractClient

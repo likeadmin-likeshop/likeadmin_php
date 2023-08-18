@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * DeleteSparkApp请求参数结构体
  *
- * @method string getAppName() 获取spark应用名
- * @method void setAppName(string $AppName) 设置spark应用名
+ * @method string getAppName() 获取spark作业名
+ * @method void setAppName(string $AppName) 设置spark作业名
  */
 class DeleteSparkAppRequest extends AbstractModel
 {
     /**
-     * @var string spark应用名
+     * @var string spark作业名
      */
     public $AppName;
 
     /**
-     * @param string $AppName spark应用名
+     * @param string $AppName spark作业名
      */
     function __construct()
     {

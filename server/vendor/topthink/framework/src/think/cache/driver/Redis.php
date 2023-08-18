@@ -2,16 +2,18 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2021 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2023 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace think\cache\driver;
 
+use DateInterval;
+use DateTimeInterface;
 use think\cache\Driver;
 
 /**
@@ -97,7 +99,7 @@ class Redis extends Driver
      * @param string $name 缓存变量名
      * @return bool
      */
-    public function has($name): bool
+    public function has(string $name): bool
     {
         return $this->handler->exists($this->getCacheKey($name)) ? true : false;
     }
@@ -109,7 +111,7 @@ class Redis extends Driver
      * @param mixed  $default 默认值
      * @return mixed
      */
-    public function get($name, $default = null)
+    public function get(string $name, mixed $default = null): mixed
     {
         $this->readTimes++;
         $key   = $this->getCacheKey($name);
@@ -127,10 +129,10 @@ class Redis extends Driver
      * @access public
      * @param string            $name   缓存变量名
      * @param mixed             $value  存储数据
-     * @param integer|\DateTime $expire 有效时间（秒）
+     * @param integer|DateInterval|DateTimeInterface $expire 有效时间（秒）
      * @return bool
      */
-    public function set($name, $value, $expire = null): bool
+    public function set(string $name, mixed $value, int|DateInterval|DateTimeInterface $expire = null): bool
     {
         $this->writeTimes++;
 
@@ -187,7 +189,7 @@ class Redis extends Driver
      * @param string $name 缓存变量名
      * @return bool
      */
-    public function delete($name): bool
+    public function delete(string $name): bool
     {
         $this->writeTimes++;
 
@@ -245,5 +247,4 @@ class Redis extends Driver
         $key  = $this->getCacheKey($name);
         return $this->handler->sMembers($key);
     }
-
 }

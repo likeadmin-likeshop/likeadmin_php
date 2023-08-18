@@ -160,6 +160,8 @@ use TencentCloud\Cwp\V20180228\Models as Models;
  * @method Models\DescribeLicenseBindScheduleResponse DescribeLicenseBindSchedule(Models\DescribeLicenseBindScheduleRequest $req) 查询授权绑定任务的进度
  * @method Models\DescribeLicenseGeneralResponse DescribeLicenseGeneral(Models\DescribeLicenseGeneralRequest $req) 授权管理-授权概览信息
  * @method Models\DescribeLicenseListResponse DescribeLicenseList(Models\DescribeLicenseListRequest $req) 获取用户所有授权订单信息
+ * @method Models\DescribeLogStorageConfigResponse DescribeLogStorageConfig(Models\DescribeLogStorageConfigRequest $req) 获取日志存储配置
+ * @method Models\DescribeLogStorageRecordResponse DescribeLogStorageRecord(Models\DescribeLogStorageRecordRequest $req) 获取日志存储量记录
  * @method Models\DescribeLogStorageStatisticResponse DescribeLogStorageStatistic(Models\DescribeLogStorageStatisticRequest $req) 获取日志检索容量使用统计
  * @method Models\DescribeLoginWhiteCombinedListResponse DescribeLoginWhiteCombinedList(Models\DescribeLoginWhiteCombinedListRequest $req) 获取异地登录白名单合并后列表
  * @method Models\DescribeLoginWhiteListResponse DescribeLoginWhiteList(Models\DescribeLoginWhiteListRequest $req) 获取异地登录白名单列表
@@ -192,16 +194,12 @@ use TencentCloud\Cwp\V20180228\Models as Models;
  * @method Models\DescribeRiskDnsEventInfoResponse DescribeRiskDnsEventInfo(Models\DescribeRiskDnsEventInfoRequest $req) 查询恶意请求事件详情
  * @method Models\DescribeRiskDnsEventListResponse DescribeRiskDnsEventList(Models\DescribeRiskDnsEventListRequest $req) 获取恶意请求事件列表
  * @method Models\DescribeRiskDnsListResponse DescribeRiskDnsList(Models\DescribeRiskDnsListRequest $req) 入侵检测，获取恶意请求列表
- * @method Models\DescribeSaveOrUpdateWarningsResponse DescribeSaveOrUpdateWarnings(Models\DescribeSaveOrUpdateWarningsRequest $req) 更新或者插入用户告警设置(该接口废弃,请调用 ModifyWarningSetting )
  * @method Models\DescribeScanMalwareScheduleResponse DescribeScanMalwareSchedule(Models\DescribeScanMalwareScheduleRequest $req) 查询木马扫描进度
  * @method Models\DescribeScanScheduleResponse DescribeScanSchedule(Models\DescribeScanScheduleRequest $req) 根据taskid查询检测进度
  * @method Models\DescribeScanStateResponse DescribeScanState(Models\DescribeScanStateRequest $req) DescribeScanState 该接口能查询对应模块正在进行的扫描任务状态
  * @method Models\DescribeScanTaskDetailsResponse DescribeScanTaskDetails(Models\DescribeScanTaskDetailsRequest $req) DescribeScanTaskDetails 查询扫描任务详情 , 可以查询扫描进度信息/异常;
  * @method Models\DescribeScanTaskStatusResponse DescribeScanTaskStatus(Models\DescribeScanTaskStatusRequest $req) DescribeScanTaskStatus 查询机器扫描状态列表用于过滤筛选
  * @method Models\DescribeScanVulSettingResponse DescribeScanVulSetting(Models\DescribeScanVulSettingRequest $req) 查询定期检测的配置
- * @method Models\DescribeSearchExportListResponse DescribeSearchExportList(Models\DescribeSearchExportListRequest $req) 旧版日志下载接口下线
-
-导出ES查询文档列表
  * @method Models\DescribeSearchLogsResponse DescribeSearchLogs(Models\DescribeSearchLogsRequest $req) 获取历史搜索记录
  * @method Models\DescribeSearchTemplatesResponse DescribeSearchTemplates(Models\DescribeSearchTemplatesRequest $req) 获取快速检索列表
  * @method Models\DescribeSecurityDynamicsResponse DescribeSecurityDynamics(Models\DescribeSecurityDynamicsRequest $req) 本接口 (DescribeSecurityDynamics) 用于获取安全事件动态消息数据。
@@ -224,6 +222,7 @@ use TencentCloud\Cwp\V20180228\Models as Models;
  * @method Models\DescribeVulInfoCvssResponse DescribeVulInfoCvss(Models\DescribeVulInfoCvssRequest $req) 漏洞详情，带CVSS版本
  * @method Models\DescribeVulLevelCountResponse DescribeVulLevelCount(Models\DescribeVulLevelCountRequest $req) 漏洞数量等级分布统计
  * @method Models\DescribeVulListResponse DescribeVulList(Models\DescribeVulListRequest $req) 获取漏洞列表数据
+ * @method Models\DescribeVulStoreListResponse DescribeVulStoreList(Models\DescribeVulStoreListRequest $req) 获取漏洞库列表
  * @method Models\DescribeVulTopResponse DescribeVulTop(Models\DescribeVulTopRequest $req) 漏洞top统计
  * @method Models\DescribeWarningListResponse DescribeWarningList(Models\DescribeWarningListRequest $req) 获取当前用户告警列表
  * @method Models\DescribeWebPageEventListResponse DescribeWebPageEventList(Models\DescribeWebPageEventListRequest $req) 查询篡改事件列表
@@ -276,6 +275,7 @@ use TencentCloud\Cwp\V20180228\Models as Models;
  * @method Models\ModifyBruteAttackRulesResponse ModifyBruteAttackRules(Models\ModifyBruteAttackRulesRequest $req) 修改暴力破解规则
  * @method Models\ModifyLicenseBindsResponse ModifyLicenseBinds(Models\ModifyLicenseBindsRequest $req) 设置中心-授权管理 对某个授权批量绑定机器
  * @method Models\ModifyLicenseUnBindsResponse ModifyLicenseUnBinds(Models\ModifyLicenseUnBindsRequest $req) 设置中心-授权管理 对某个授权批量解绑机器
+ * @method Models\ModifyLogStorageConfigResponse ModifyLogStorageConfig(Models\ModifyLogStorageConfigRequest $req) 修改日志存储配置
  * @method Models\ModifyMachineRemarkResponse ModifyMachineRemark(Models\ModifyMachineRemarkRequest $req) 修改主机备注信息
  * @method Models\ModifyMalwareTimingScanSettingsResponse ModifyMalwareTimingScanSettings(Models\ModifyMalwareTimingScanSettingsRequest $req) 定时扫描设置
  * @method Models\ModifyOrderAttributeResponse ModifyOrderAttribute(Models\ModifyOrderAttributeRequest $req) 对订单属性编辑

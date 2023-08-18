@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', // 审核时必须为https
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // 存储桶文档审核
@@ -38,8 +38,16 @@ try {
 //            'BizType' => '',
 //            'DetectType' => 'Porn,Terrorism,Politics,Ads', // 选填，在只有BizType时走设定策略的审核场景
 //            'Callback' => '', // 回调URL 选填
+//            'Freeze' => array(
+//                'PornScore' => 90,
+//                'AdsScore' => 90,
+//                'PoliticsScore' => 90,
+//                'TerrorismScore' => 90,
+//            ), // 选填 可通过该字段，设置根据审核结果给出的不同分值，对文档进行自动冻结。仅当`input`中审核的文档为`object`时有效。
 //        ), // 选填 在DetectType/BizType都不传的情况下，走默认策略及默认审核场景。
     ));
+    // 请求成功
+    print_r($result);
 
     // 文档URL审核
     $result = $cosClient->detectDocument(array(

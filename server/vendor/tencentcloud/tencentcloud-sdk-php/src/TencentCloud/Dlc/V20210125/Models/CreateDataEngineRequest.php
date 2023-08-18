@@ -34,8 +34,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setMinClusters(integer $MinClusters) 设置最小资源
  * @method integer getMaxClusters() 获取最大资源
  * @method void setMaxClusters(integer $MaxClusters) 设置最大资源
- * @method boolean getDefaultDataEngine() 获取是否为默虚拟集群
- * @method void setDefaultDataEngine(boolean $DefaultDataEngine) 设置是否为默虚拟集群
+ * @method boolean getDefaultDataEngine() 获取是否为默认虚拟集群
+ * @method void setDefaultDataEngine(boolean $DefaultDataEngine) 设置是否为默认虚拟集群
  * @method string getCidrBlock() 获取VPC网段
  * @method void setCidrBlock(string $CidrBlock) 设置VPC网段
  * @method string getMessage() 获取描述信息
@@ -58,8 +58,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setCrontabResumeSuspend(integer $CrontabResumeSuspend) 设置定时启停集群策略：0（默认）：关闭定时策略、1：开启定时策略（注：定时启停策略与自动挂起策略互斥）
  * @method CrontabResumeSuspendStrategy getCrontabResumeSuspendStrategy() 获取定时启停策略，复杂类型：包含启停时间、挂起集群策略
  * @method void setCrontabResumeSuspendStrategy(CrontabResumeSuspendStrategy $CrontabResumeSuspendStrategy) 设置定时启停策略，复杂类型：包含启停时间、挂起集群策略
- * @method string getEngineExecType() 获取引擎执行任务类型，默认为SQL
- * @method void setEngineExecType(string $EngineExecType) 设置引擎执行任务类型，默认为SQL
+ * @method string getEngineExecType() 获取引擎执行任务类型，有效值：SQL/BATCH，默认为SQL
+ * @method void setEngineExecType(string $EngineExecType) 设置引擎执行任务类型，有效值：SQL/BATCH，默认为SQL
  * @method integer getMaxConcurrency() 获取单个集群最大并发任务数，默认5
  * @method void setMaxConcurrency(integer $MaxConcurrency) 设置单个集群最大并发任务数，默认5
  * @method integer getTolerableQueueTime() 获取可容忍的排队时间，默认0。当任务排队的时间超过可容忍的时间时可能会触发扩容。如果该参数为0，则表示一旦有任务排队就可能立即触发扩容。
@@ -72,12 +72,14 @@ use TencentCloud\Common\AbstractModel;
  * @method void setDataEngineConfigPairs(array $DataEngineConfigPairs) 设置集群高级配置
  * @method string getImageVersionName() 获取集群镜像版本名字。如SuperSQL-P 1.1;SuperSQL-S 3.2等,不传，默认创建最新镜像版本的集群
  * @method void setImageVersionName(string $ImageVersionName) 设置集群镜像版本名字。如SuperSQL-P 1.1;SuperSQL-S 3.2等,不传，默认创建最新镜像版本的集群
- * @method string getMainClusterName() 获取主集群名称
- * @method void setMainClusterName(string $MainClusterName) 设置主集群名称
+ * @method string getMainClusterName() 获取主集群名称，创建容灾集群时指定
+ * @method void setMainClusterName(string $MainClusterName) 设置主集群名称，创建容灾集群时指定
  * @method boolean getElasticSwitch() 获取spark jar 包年包月集群是否开启弹性
  * @method void setElasticSwitch(boolean $ElasticSwitch) 设置spark jar 包年包月集群是否开启弹性
  * @method integer getElasticLimit() 获取spark jar 包年包月集群弹性上限
  * @method void setElasticLimit(integer $ElasticLimit) 设置spark jar 包年包月集群弹性上限
+ * @method SessionResourceTemplate getSessionResourceTemplate() 获取spark作业集群session资源配置模板
+ * @method void setSessionResourceTemplate(SessionResourceTemplate $SessionResourceTemplate) 设置spark作业集群session资源配置模板
  */
 class CreateDataEngineRequest extends AbstractModel
 {
@@ -117,7 +119,8 @@ class CreateDataEngineRequest extends AbstractModel
     public $MaxClusters;
 
     /**
-     * @var boolean 是否为默虚拟集群
+     * @var boolean 是否为默认虚拟集群
+     * @deprecated
      */
     public $DefaultDataEngine;
 
@@ -177,7 +180,7 @@ class CreateDataEngineRequest extends AbstractModel
     public $CrontabResumeSuspendStrategy;
 
     /**
-     * @var string 引擎执行任务类型，默认为SQL
+     * @var string 引擎执行任务类型，有效值：SQL/BATCH，默认为SQL
      */
     public $EngineExecType;
 
@@ -212,7 +215,7 @@ class CreateDataEngineRequest extends AbstractModel
     public $ImageVersionName;
 
     /**
-     * @var string 主集群名称
+     * @var string 主集群名称，创建容灾集群时指定
      */
     public $MainClusterName;
 
@@ -227,6 +230,11 @@ class CreateDataEngineRequest extends AbstractModel
     public $ElasticLimit;
 
     /**
+     * @var SessionResourceTemplate spark作业集群session资源配置模板
+     */
+    public $SessionResourceTemplate;
+
+    /**
      * @param string $EngineType 引擎类型spark/presto
      * @param string $DataEngineName 虚拟集群名称
      * @param string $ClusterType 集群类型 spark_private/presto_private/presto_cu/spark_cu
@@ -234,7 +242,7 @@ class CreateDataEngineRequest extends AbstractModel
      * @param boolean $AutoResume 是否自动启动集群
      * @param integer $MinClusters 最小资源
      * @param integer $MaxClusters 最大资源
-     * @param boolean $DefaultDataEngine 是否为默虚拟集群
+     * @param boolean $DefaultDataEngine 是否为默认虚拟集群
      * @param string $CidrBlock VPC网段
      * @param string $Message 描述信息
      * @param integer $Size 集群规模
@@ -246,16 +254,17 @@ class CreateDataEngineRequest extends AbstractModel
      * @param boolean $AutoSuspend 是否自定挂起集群：false（默认）：不自动挂起、true：自动挂起
      * @param integer $CrontabResumeSuspend 定时启停集群策略：0（默认）：关闭定时策略、1：开启定时策略（注：定时启停策略与自动挂起策略互斥）
      * @param CrontabResumeSuspendStrategy $CrontabResumeSuspendStrategy 定时启停策略，复杂类型：包含启停时间、挂起集群策略
-     * @param string $EngineExecType 引擎执行任务类型，默认为SQL
+     * @param string $EngineExecType 引擎执行任务类型，有效值：SQL/BATCH，默认为SQL
      * @param integer $MaxConcurrency 单个集群最大并发任务数，默认5
      * @param integer $TolerableQueueTime 可容忍的排队时间，默认0。当任务排队的时间超过可容忍的时间时可能会触发扩容。如果该参数为0，则表示一旦有任务排队就可能立即触发扩容。
      * @param integer $AutoSuspendTime 集群自动挂起时间，默认10分钟
      * @param string $ResourceType 资源类型。Standard_CU：标准型；Memory_CU：内存型
      * @param array $DataEngineConfigPairs 集群高级配置
      * @param string $ImageVersionName 集群镜像版本名字。如SuperSQL-P 1.1;SuperSQL-S 3.2等,不传，默认创建最新镜像版本的集群
-     * @param string $MainClusterName 主集群名称
+     * @param string $MainClusterName 主集群名称，创建容灾集群时指定
      * @param boolean $ElasticSwitch spark jar 包年包月集群是否开启弹性
      * @param integer $ElasticLimit spark jar 包年包月集群弹性上限
+     * @param SessionResourceTemplate $SessionResourceTemplate spark作业集群session资源配置模板
      */
     function __construct()
     {
@@ -395,6 +404,11 @@ class CreateDataEngineRequest extends AbstractModel
 
         if (array_key_exists("ElasticLimit",$param) and $param["ElasticLimit"] !== null) {
             $this->ElasticLimit = $param["ElasticLimit"];
+        }
+
+        if (array_key_exists("SessionResourceTemplate",$param) and $param["SessionResourceTemplate"] !== null) {
+            $this->SessionResourceTemplate = new SessionResourceTemplate();
+            $this->SessionResourceTemplate->deserialize($param["SessionResourceTemplate"]);
         }
     }
 }

@@ -20,42 +20,51 @@ use TencentCloud\Common\AbstractModel;
 /**
  * ChannelDeleteRoleUsers请求参数结构体
  *
- * @method Agent getAgent() 获取代理信息
- * @method void setAgent(Agent $Agent) 设置代理信息
- * @method string getRoleId() 获取角色Id
- * @method void setRoleId(string $RoleId) 设置角色Id
- * @method array getUserIds() 获取用户列表
- * @method void setUserIds(array $UserIds) 设置用户列表
+ * @method Agent getAgent() 获取代理信息此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
+ * @method void setAgent(Agent $Agent) 设置代理信息此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
+ * @method string getRoleId() 获取角色Id（非超管或法人角色Id）
+ * @method void setRoleId(string $RoleId) 设置角色Id（非超管或法人角色Id）
+ * @method array getUserIds() 获取电子签用户ID列表，与OpenIds参数二选一,优先UserIds参数，最多两百
+ * @method void setUserIds(array $UserIds) 设置电子签用户ID列表，与OpenIds参数二选一,优先UserIds参数，最多两百
  * @method UserInfo getOperator() 获取操作人信息
  * @method void setOperator(UserInfo $Operator) 设置操作人信息
+ * @method array getOpenIds() 获取客户系统用户ID列表，与UserIds参数二选一,优先UserIds参数，最多两百
+ * @method void setOpenIds(array $OpenIds) 设置客户系统用户ID列表，与UserIds参数二选一,优先UserIds参数，最多两百
  */
 class ChannelDeleteRoleUsersRequest extends AbstractModel
 {
     /**
-     * @var Agent 代理信息
+     * @var Agent 代理信息此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
      */
     public $Agent;
 
     /**
-     * @var string 角色Id
+     * @var string 角色Id（非超管或法人角色Id）
      */
     public $RoleId;
 
     /**
-     * @var array 用户列表
+     * @var array 电子签用户ID列表，与OpenIds参数二选一,优先UserIds参数，最多两百
      */
     public $UserIds;
 
     /**
      * @var UserInfo 操作人信息
+     * @deprecated
      */
     public $Operator;
 
     /**
-     * @param Agent $Agent 代理信息
-     * @param string $RoleId 角色Id
-     * @param array $UserIds 用户列表
+     * @var array 客户系统用户ID列表，与UserIds参数二选一,优先UserIds参数，最多两百
+     */
+    public $OpenIds;
+
+    /**
+     * @param Agent $Agent 代理信息此接口Agent.ProxyOrganizationOpenId、Agent. ProxyOperator.OpenId、Agent.AppId 必填。
+     * @param string $RoleId 角色Id（非超管或法人角色Id）
+     * @param array $UserIds 电子签用户ID列表，与OpenIds参数二选一,优先UserIds参数，最多两百
      * @param UserInfo $Operator 操作人信息
+     * @param array $OpenIds 客户系统用户ID列表，与UserIds参数二选一,优先UserIds参数，最多两百
      */
     function __construct()
     {
@@ -86,6 +95,10 @@ class ChannelDeleteRoleUsersRequest extends AbstractModel
         if (array_key_exists("Operator",$param) and $param["Operator"] !== null) {
             $this->Operator = new UserInfo();
             $this->Operator->deserialize($param["Operator"]);
+        }
+
+        if (array_key_exists("OpenIds",$param) and $param["OpenIds"] !== null) {
+            $this->OpenIds = $param["OpenIds"];
         }
     }
 }

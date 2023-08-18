@@ -22,8 +22,13 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method UserInfo getOperator() 获取调用方用户信息，userId 必填
  * @method void setOperator(UserInfo $Operator) 设置调用方用户信息，userId 必填
- * @method array getFlowIds() 获取需要执行撤回的签署流程id数组，最多100个
- * @method void setFlowIds(array $FlowIds) 设置需要执行撤回的签署流程id数组，最多100个
+ * @method array getFlowIds() 获取需要执行撤回的流程(合同)的编号列表，最多100个.
+列表中的流程(合同)编号不要重复.
+ * @method void setFlowIds(array $FlowIds) 设置需要执行撤回的流程(合同)的编号列表，最多100个.
+列表中的流程(合同)编号不要重复.
+ * @method Agent getAgent() 获取代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+
+ * @method void setAgent(Agent $Agent) 设置代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
  */
 class CreateBatchCancelFlowUrlRequest extends AbstractModel
 {
@@ -33,13 +38,22 @@ class CreateBatchCancelFlowUrlRequest extends AbstractModel
     public $Operator;
 
     /**
-     * @var array 需要执行撤回的签署流程id数组，最多100个
+     * @var array 需要执行撤回的流程(合同)的编号列表，最多100个.
+列表中的流程(合同)编号不要重复.
      */
     public $FlowIds;
 
     /**
+     * @var Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
+
+     */
+    public $Agent;
+
+    /**
      * @param UserInfo $Operator 调用方用户信息，userId 必填
-     * @param array $FlowIds 需要执行撤回的签署流程id数组，最多100个
+     * @param array $FlowIds 需要执行撤回的流程(合同)的编号列表，最多100个.
+列表中的流程(合同)编号不要重复.
+     * @param Agent $Agent 代理相关应用信息，如集团主企业代子企业操作的场景中ProxyOrganizationId必填
      */
     function __construct()
     {
@@ -61,6 +75,11 @@ class CreateBatchCancelFlowUrlRequest extends AbstractModel
 
         if (array_key_exists("FlowIds",$param) and $param["FlowIds"] !== null) {
             $this->FlowIds = $param["FlowIds"];
+        }
+
+        if (array_key_exists("Agent",$param) and $param["Agent"] !== null) {
+            $this->Agent = new Agent();
+            $this->Agent->deserialize($param["Agent"]);
         }
     }
 }

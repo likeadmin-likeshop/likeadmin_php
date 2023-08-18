@@ -22,8 +22,8 @@ use TencentCloud\Common\AbstractModel;
  *
  * @method string getFileSystemId() 获取文件系统Id
  * @method void setFileSystemId(string $FileSystemId) 设置文件系统Id
- * @method integer getTargetCapacity() 获取扩容的目标容量
- * @method void setTargetCapacity(integer $TargetCapacity) 设置扩容的目标容量
+ * @method integer getTargetCapacity() 获取扩容的目标容量（单位GiB）
+ * @method void setTargetCapacity(integer $TargetCapacity) 设置扩容的目标容量（单位GiB）
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  * @method void setRequestId(string $RequestId) 设置唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
  */
@@ -35,7 +35,7 @@ class ScaleUpFileSystemResponse extends AbstractModel
     public $FileSystemId;
 
     /**
-     * @var integer 扩容的目标容量
+     * @var integer 扩容的目标容量（单位GiB）
      */
     public $TargetCapacity;
 
@@ -46,7 +46,7 @@ class ScaleUpFileSystemResponse extends AbstractModel
 
     /**
      * @param string $FileSystemId 文件系统Id
-     * @param integer $TargetCapacity 扩容的目标容量
+     * @param integer $TargetCapacity 扩容的目标容量（单位GiB）
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
     function __construct()

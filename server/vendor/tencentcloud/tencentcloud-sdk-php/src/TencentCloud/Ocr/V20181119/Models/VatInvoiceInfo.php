@@ -98,6 +98,20 @@ use TencentCloud\Common\AbstractModel;
  * @method void setCodeConfirm(string $CodeConfirm) 设置机打发票代码
  * @method string getReceiptor() 获取收款人
  * @method void setReceiptor(string $Receiptor) 设置收款人
+ * @method integer getElectronicFullMark() 获取是否有全电纸质票（0：没有，1：有）
+ * @method void setElectronicFullMark(integer $ElectronicFullMark) 设置是否有全电纸质票（0：没有，1：有）
+ * @method string getElectronicFullNumber() 获取全电号码
+ * @method void setElectronicFullNumber(string $ElectronicFullNumber) 设置全电号码
+ * @method string getFormName() 获取发票联名
+ * @method void setFormName(string $FormName) 设置发票联名
+ * @method integer getBlockChainMark() 获取是否有区块链标记（0：没有，1：有）	
+ * @method void setBlockChainMark(integer $BlockChainMark) 设置是否有区块链标记（0：没有，1：有）	
+ * @method integer getAcquisitionMark() 获取是否有收购标记（0：没有，1：有）	
+ * @method void setAcquisitionMark(integer $AcquisitionMark) 设置是否有收购标记（0：没有，1：有）	
+ * @method string getSubTotal() 获取小计金额
+ * @method void setSubTotal(string $SubTotal) 设置小计金额
+ * @method string getSubTax() 获取小计税额
+ * @method void setSubTax(string $SubTax) 设置小计税额
  */
 class VatInvoiceInfo extends AbstractModel
 {
@@ -297,6 +311,41 @@ class VatInvoiceInfo extends AbstractModel
     public $Receiptor;
 
     /**
+     * @var integer 是否有全电纸质票（0：没有，1：有）
+     */
+    public $ElectronicFullMark;
+
+    /**
+     * @var string 全电号码
+     */
+    public $ElectronicFullNumber;
+
+    /**
+     * @var string 发票联名
+     */
+    public $FormName;
+
+    /**
+     * @var integer 是否有区块链标记（0：没有，1：有）	
+     */
+    public $BlockChainMark;
+
+    /**
+     * @var integer 是否有收购标记（0：没有，1：有）	
+     */
+    public $AcquisitionMark;
+
+    /**
+     * @var string 小计金额
+     */
+    public $SubTotal;
+
+    /**
+     * @var string 小计税额
+     */
+    public $SubTax;
+
+    /**
      * @param string $CheckCode 校验码
      * @param string $FormType 发票联次
      * @param string $TravelTax 车船税
@@ -336,6 +385,13 @@ class VatInvoiceInfo extends AbstractModel
      * @param array $VatInvoiceItemInfos 增值税发票项目信息
      * @param string $CodeConfirm 机打发票代码
      * @param string $Receiptor 收款人
+     * @param integer $ElectronicFullMark 是否有全电纸质票（0：没有，1：有）
+     * @param string $ElectronicFullNumber 全电号码
+     * @param string $FormName 发票联名
+     * @param integer $BlockChainMark 是否有区块链标记（0：没有，1：有）	
+     * @param integer $AcquisitionMark 是否有收购标记（0：没有，1：有）	
+     * @param string $SubTotal 小计金额
+     * @param string $SubTax 小计税额
      */
     function __construct()
     {
@@ -509,6 +565,34 @@ class VatInvoiceInfo extends AbstractModel
 
         if (array_key_exists("Receiptor",$param) and $param["Receiptor"] !== null) {
             $this->Receiptor = $param["Receiptor"];
+        }
+
+        if (array_key_exists("ElectronicFullMark",$param) and $param["ElectronicFullMark"] !== null) {
+            $this->ElectronicFullMark = $param["ElectronicFullMark"];
+        }
+
+        if (array_key_exists("ElectronicFullNumber",$param) and $param["ElectronicFullNumber"] !== null) {
+            $this->ElectronicFullNumber = $param["ElectronicFullNumber"];
+        }
+
+        if (array_key_exists("FormName",$param) and $param["FormName"] !== null) {
+            $this->FormName = $param["FormName"];
+        }
+
+        if (array_key_exists("BlockChainMark",$param) and $param["BlockChainMark"] !== null) {
+            $this->BlockChainMark = $param["BlockChainMark"];
+        }
+
+        if (array_key_exists("AcquisitionMark",$param) and $param["AcquisitionMark"] !== null) {
+            $this->AcquisitionMark = $param["AcquisitionMark"];
+        }
+
+        if (array_key_exists("SubTotal",$param) and $param["SubTotal"] !== null) {
+            $this->SubTotal = $param["SubTotal"];
+        }
+
+        if (array_key_exists("SubTax",$param) and $param["SubTax"] !== null) {
+            $this->SubTax = $param["SubTax"];
         }
     }
 }

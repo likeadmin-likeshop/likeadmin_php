@@ -23,21 +23,41 @@ use TencentCloud\Common\AbstractModel;
  * @method string getFlowName() 获取合同流程名称
  * @method void setFlowName(string $FlowName) 设置合同流程名称
  * @method string getFlowType() 获取合同流程类型
+<br/>客户自定义，用于合同分类展示
  * @method void setFlowType(string $FlowType) 设置合同流程类型
+<br/>客户自定义，用于合同分类展示
  * @method string getFlowDescription() 获取合同流程描述信息
  * @method void setFlowDescription(string $FlowDescription) 设置合同流程描述信息
- * @method integer getDeadline() 获取合同流程截止时间，unix时间戳
- * @method void setDeadline(integer $Deadline) 设置合同流程截止时间，unix时间戳
+ * @method integer getDeadline() 获取合同流程截止时间，unix时间戳，单位秒
+ * @method void setDeadline(integer $Deadline) 设置合同流程截止时间，unix时间戳，单位秒
  * @method boolean getUnordered() 获取是否顺序签署(true:无序签,false:顺序签)
+<br/>默认false，有序签署合同
  * @method void setUnordered(boolean $Unordered) 设置是否顺序签署(true:无序签,false:顺序签)
- * @method string getIntelligentStatus() 获取打开智能添加填写区(默认开启，打开:"OPEN" 关闭："CLOSE")
- * @method void setIntelligentStatus(string $IntelligentStatus) 设置打开智能添加填写区(默认开启，打开:"OPEN" 关闭："CLOSE")
+<br/>默认false，有序签署合同
+ * @method string getIntelligentStatus() 获取是否打开智能添加填写区(默认开启，打开:"OPEN" 关闭："CLOSE")
+ * @method void setIntelligentStatus(string $IntelligentStatus) 设置是否打开智能添加填写区(默认开启，打开:"OPEN" 关闭："CLOSE")
  * @method array getFormFields() 获取填写控件内容
  * @method void setFormFields(array $FormFields) 设置填写控件内容
- * @method boolean getNeedSignReview() 获取本企业(发起方企业)是否需要签署审批，true：开启本企业签署审批
- * @method void setNeedSignReview(boolean $NeedSignReview) 设置本企业(发起方企业)是否需要签署审批，true：开启本企业签署审批
+ * @method boolean getNeedSignReview() 获取本企业(发起方企业)是否需要签署审批
+<br/>true：开启发起方签署审批
+<br/>false：不开启发起方签署审批
+<br/>开启后，使用ChannelCreateFlowSignReview接口提交审批结果，才能继续完成签署
+ * @method void setNeedSignReview(boolean $NeedSignReview) 设置本企业(发起方企业)是否需要签署审批
+<br/>true：开启发起方签署审批
+<br/>false：不开启发起方签署审批
+<br/>开启后，使用ChannelCreateFlowSignReview接口提交审批结果，才能继续完成签署
  * @method string getUserData() 获取用户流程自定义数据参数
  * @method void setUserData(string $UserData) 设置用户流程自定义数据参数
+ * @method array getCcInfos() 获取抄送人信息
+ * @method void setCcInfos(array $CcInfos) 设置抄送人信息
+ * @method boolean getNeedCreateReview() 获取是否需要开启发起方发起前审核
+<br/>true：开启发起方发起前审核
+<br/>false：不开启发起方发起前审核
+<br/>当指定NeedCreateReview=true，则提交审核后，需要使用接口：ChannelCreateFlowSignReview，来完成发起前审核，审核通过后，可以继续查看，签署合同
+ * @method void setNeedCreateReview(boolean $NeedCreateReview) 设置是否需要开启发起方发起前审核
+<br/>true：开启发起方发起前审核
+<br/>false：不开启发起方发起前审核
+<br/>当指定NeedCreateReview=true，则提交审核后，需要使用接口：ChannelCreateFlowSignReview，来完成发起前审核，审核通过后，可以继续查看，签署合同
  */
 class BaseFlowInfo extends AbstractModel
 {
@@ -48,6 +68,7 @@ class BaseFlowInfo extends AbstractModel
 
     /**
      * @var string 合同流程类型
+<br/>客户自定义，用于合同分类展示
      */
     public $FlowType;
 
@@ -57,17 +78,18 @@ class BaseFlowInfo extends AbstractModel
     public $FlowDescription;
 
     /**
-     * @var integer 合同流程截止时间，unix时间戳
+     * @var integer 合同流程截止时间，unix时间戳，单位秒
      */
     public $Deadline;
 
     /**
      * @var boolean 是否顺序签署(true:无序签,false:顺序签)
+<br/>默认false，有序签署合同
      */
     public $Unordered;
 
     /**
-     * @var string 打开智能添加填写区(默认开启，打开:"OPEN" 关闭："CLOSE")
+     * @var string 是否打开智能添加填写区(默认开启，打开:"OPEN" 关闭："CLOSE")
      */
     public $IntelligentStatus;
 
@@ -77,7 +99,10 @@ class BaseFlowInfo extends AbstractModel
     public $FormFields;
 
     /**
-     * @var boolean 本企业(发起方企业)是否需要签署审批，true：开启本企业签署审批
+     * @var boolean 本企业(发起方企业)是否需要签署审批
+<br/>true：开启发起方签署审批
+<br/>false：不开启发起方签署审批
+<br/>开启后，使用ChannelCreateFlowSignReview接口提交审批结果，才能继续完成签署
      */
     public $NeedSignReview;
 
@@ -87,15 +112,38 @@ class BaseFlowInfo extends AbstractModel
     public $UserData;
 
     /**
+     * @var array 抄送人信息
+     */
+    public $CcInfos;
+
+    /**
+     * @var boolean 是否需要开启发起方发起前审核
+<br/>true：开启发起方发起前审核
+<br/>false：不开启发起方发起前审核
+<br/>当指定NeedCreateReview=true，则提交审核后，需要使用接口：ChannelCreateFlowSignReview，来完成发起前审核，审核通过后，可以继续查看，签署合同
+     */
+    public $NeedCreateReview;
+
+    /**
      * @param string $FlowName 合同流程名称
      * @param string $FlowType 合同流程类型
+<br/>客户自定义，用于合同分类展示
      * @param string $FlowDescription 合同流程描述信息
-     * @param integer $Deadline 合同流程截止时间，unix时间戳
+     * @param integer $Deadline 合同流程截止时间，unix时间戳，单位秒
      * @param boolean $Unordered 是否顺序签署(true:无序签,false:顺序签)
-     * @param string $IntelligentStatus 打开智能添加填写区(默认开启，打开:"OPEN" 关闭："CLOSE")
+<br/>默认false，有序签署合同
+     * @param string $IntelligentStatus 是否打开智能添加填写区(默认开启，打开:"OPEN" 关闭："CLOSE")
      * @param array $FormFields 填写控件内容
-     * @param boolean $NeedSignReview 本企业(发起方企业)是否需要签署审批，true：开启本企业签署审批
+     * @param boolean $NeedSignReview 本企业(发起方企业)是否需要签署审批
+<br/>true：开启发起方签署审批
+<br/>false：不开启发起方签署审批
+<br/>开启后，使用ChannelCreateFlowSignReview接口提交审批结果，才能继续完成签署
      * @param string $UserData 用户流程自定义数据参数
+     * @param array $CcInfos 抄送人信息
+     * @param boolean $NeedCreateReview 是否需要开启发起方发起前审核
+<br/>true：开启发起方发起前审核
+<br/>false：不开启发起方发起前审核
+<br/>当指定NeedCreateReview=true，则提交审核后，需要使用接口：ChannelCreateFlowSignReview，来完成发起前审核，审核通过后，可以继续查看，签署合同
      */
     function __construct()
     {
@@ -149,6 +197,19 @@ class BaseFlowInfo extends AbstractModel
 
         if (array_key_exists("UserData",$param) and $param["UserData"] !== null) {
             $this->UserData = $param["UserData"];
+        }
+
+        if (array_key_exists("CcInfos",$param) and $param["CcInfos"] !== null) {
+            $this->CcInfos = [];
+            foreach ($param["CcInfos"] as $key => $value){
+                $obj = new CcInfo();
+                $obj->deserialize($value);
+                array_push($this->CcInfos, $obj);
+            }
+        }
+
+        if (array_key_exists("NeedCreateReview",$param) and $param["NeedCreateReview"] !== null) {
+            $this->NeedCreateReview = $param["NeedCreateReview"];
         }
     }
 }

@@ -26,10 +26,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setMobile(string $Mobile) 设置员工手机号
  * @method string getUserId() 获取员工在电子签平台的id
  * @method void setUserId(string $UserId) 设置员工在电子签平台的id
- * @method string getNote() 获取提示，当创建已存在未实名用户时，改字段有值
+ * @method string getNote() 获取提示，当创建已存在未实名用户时，该字段有值
 注意：此字段可能返回 null，表示取不到有效值。
- * @method void setNote(string $Note) 设置提示，当创建已存在未实名用户时，改字段有值
+ * @method void setNote(string $Note) 设置提示，当创建已存在未实名用户时，该字段有值
 注意：此字段可能返回 null，表示取不到有效值。
+ * @method string getWeworkOpenId() 获取传入的企微账号id
+ * @method void setWeworkOpenId(string $WeworkOpenId) 设置传入的企微账号id
  */
 class SuccessCreateStaffData extends AbstractModel
 {
@@ -49,17 +51,23 @@ class SuccessCreateStaffData extends AbstractModel
     public $UserId;
 
     /**
-     * @var string 提示，当创建已存在未实名用户时，改字段有值
+     * @var string 提示，当创建已存在未实名用户时，该字段有值
 注意：此字段可能返回 null，表示取不到有效值。
      */
     public $Note;
 
     /**
+     * @var string 传入的企微账号id
+     */
+    public $WeworkOpenId;
+
+    /**
      * @param string $DisplayName 员工名
      * @param string $Mobile 员工手机号
      * @param string $UserId 员工在电子签平台的id
-     * @param string $Note 提示，当创建已存在未实名用户时，改字段有值
+     * @param string $Note 提示，当创建已存在未实名用户时，该字段有值
 注意：此字段可能返回 null，表示取不到有效值。
+     * @param string $WeworkOpenId 传入的企微账号id
      */
     function __construct()
     {
@@ -88,6 +96,10 @@ class SuccessCreateStaffData extends AbstractModel
 
         if (array_key_exists("Note",$param) and $param["Note"] !== null) {
             $this->Note = $param["Note"];
+        }
+
+        if (array_key_exists("WeworkOpenId",$param) and $param["WeworkOpenId"] !== null) {
+            $this->WeworkOpenId = $param["WeworkOpenId"];
         }
     }
 }

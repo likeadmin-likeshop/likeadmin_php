@@ -23,7 +23,7 @@ use TencentCloud\Common\Credential;
 use TencentCloud\Mariadb\V20170312\Models as Models;
 
 /**
- * @method Models\ActivateHourDBInstanceResponse ActivateHourDBInstance(Models\ActivateHourDBInstanceRequest $req) 解隔离后付费实例
+ * @method Models\ActivateHourDBInstanceResponse ActivateHourDBInstance(Models\ActivateHourDBInstanceRequest $req) 解隔离MariaDB按量计费实例
  * @method Models\AssociateSecurityGroupsResponse AssociateSecurityGroups(Models\AssociateSecurityGroupsRequest $req) 本接口 (AssociateSecurityGroups) 用于安全组批量绑定云资源。
  * @method Models\CancelDcnJobResponse CancelDcnJob(Models\CancelDcnJobRequest $req) 取消DCN同步
  * @method Models\CloneAccountResponse CloneAccount(Models\CloneAccountRequest $req) 本接口（CloneAccount）用于克隆实例账户。
@@ -31,9 +31,9 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
  * @method Models\CopyAccountPrivilegesResponse CopyAccountPrivileges(Models\CopyAccountPrivilegesRequest $req) 本接口（CopyAccountPrivileges）用于复制云数据库账号的权限。
 注意：相同用户名，不同Host是不同的账号，Readonly属性相同的账号之间才能复制权限。
  * @method Models\CreateAccountResponse CreateAccount(Models\CreateAccountRequest $req) 本接口（CreateAccount）用于创建云数据库账号。一个实例可以创建多个不同的账号，相同的用户名+不同的host是不同的账号。
- * @method Models\CreateDBInstanceResponse CreateDBInstance(Models\CreateDBInstanceRequest $req) 本接口（CreateDBInstance）用于创建包年包月的云数据库实例，可通过传入实例规格、数据库版本号、购买时长和数量等信息创建云数据库实例。
- * @method Models\CreateDedicatedClusterDBInstanceResponse CreateDedicatedClusterDBInstance(Models\CreateDedicatedClusterDBInstanceRequest $req) 创建独享集群Mariadb实例
- * @method Models\CreateHourDBInstanceResponse CreateHourDBInstance(Models\CreateHourDBInstanceRequest $req) 创建后付费实例
+ * @method Models\CreateDBInstanceResponse CreateDBInstance(Models\CreateDBInstanceRequest $req) 本接口（CreateDBInstance）用于创建包年包月的MariaDB云数据库实例，可通过传入实例规格、数据库版本号、购买时长和数量等信息创建云数据库实例。
+ * @method Models\CreateDedicatedClusterDBInstanceResponse CreateDedicatedClusterDBInstance(Models\CreateDedicatedClusterDBInstanceRequest $req) 创建Mariadb独享集群实例
+ * @method Models\CreateHourDBInstanceResponse CreateHourDBInstance(Models\CreateHourDBInstanceRequest $req) 创建MariaDB按量计费实例
  * @method Models\CreateTmpInstancesResponse CreateTmpInstances(Models\CreateTmpInstancesRequest $req) 本接口（CreateTmpInstances）用于创建临时实例。
  * @method Models\DeleteAccountResponse DeleteAccount(Models\DeleteAccountRequest $req) 本接口（DeleteAccount）用于删除云数据库账号。用户名+host唯一确定一个账号。
  * @method Models\DescribeAccountPrivilegesResponse DescribeAccountPrivileges(Models\DescribeAccountPrivilegesRequest $req) 本接口（DescribeAccountPrivileges）用于查询云数据库账号权限。
@@ -50,6 +50,7 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
  * @method Models\DescribeDBParametersResponse DescribeDBParameters(Models\DescribeDBParametersRequest $req) 本接口(DescribeDBParameters)用于获取数据库的当前参数设置。
  * @method Models\DescribeDBSecurityGroupsResponse DescribeDBSecurityGroups(Models\DescribeDBSecurityGroupsRequest $req) 本接口（DescribeDBSecurityGroups）用于查询实例安全组信息
  * @method Models\DescribeDBSlowLogsResponse DescribeDBSlowLogs(Models\DescribeDBSlowLogsRequest $req) 本接口(DescribeDBSlowLogs)用于查询慢查询日志列表。
+ * @method Models\DescribeDBTmpInstancesResponse DescribeDBTmpInstances(Models\DescribeDBTmpInstancesRequest $req) 本接口（DescribeDBTmpInstances）用于获取实例回档生成的临时实例
  * @method Models\DescribeDatabaseObjectsResponse DescribeDatabaseObjects(Models\DescribeDatabaseObjectsRequest $req) 本接口（DescribeDatabaseObjects）用于查询云数据库实例的数据库中的对象列表，包含表、存储过程、视图和函数。
  * @method Models\DescribeDatabaseTableResponse DescribeDatabaseTable(Models\DescribeDatabaseTableRequest $req) 本接口（DescribeDatabaseTable）用于查询云数据库实例的表信息。
  * @method Models\DescribeDatabasesResponse DescribeDatabases(Models\DescribeDatabasesRequest $req) 本接口（DescribeDatabases）用于查询云数据库实例的数据库列表。
@@ -65,15 +66,15 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
  * @method Models\DescribeSaleInfoResponse DescribeSaleInfo(Models\DescribeSaleInfoRequest $req) 本接口(DescribeSaleInfo)用于查询云数据库可售卖的地域和可用区信息。
  * @method Models\DescribeUpgradePriceResponse DescribeUpgradePrice(Models\DescribeUpgradePriceRequest $req) 本接口（DescribeUpgradePrice）用于在扩容云数据库实例时，查询变配的价格。
  * @method Models\DestroyDBInstanceResponse DestroyDBInstance(Models\DestroyDBInstanceRequest $req) 本接口(DestroyDBInstance)用于销毁已隔离的包年包月实例。
- * @method Models\DestroyHourDBInstanceResponse DestroyHourDBInstance(Models\DestroyHourDBInstanceRequest $req) 本接口（DestroyHourDBInstance）用于销毁按量计费实例。
+ * @method Models\DestroyHourDBInstanceResponse DestroyHourDBInstance(Models\DestroyHourDBInstanceRequest $req) 本接口（DestroyHourDBInstance）用于销毁MariaDB按量计费实例。
  * @method Models\DisassociateSecurityGroupsResponse DisassociateSecurityGroups(Models\DisassociateSecurityGroupsRequest $req) 本接口(DisassociateSecurityGroups)用于安全组批量解绑实例。
  * @method Models\FlushBinlogResponse FlushBinlog(Models\FlushBinlogRequest $req) 相当于在mysqld中执行flush logs，完成切分的binlog将展示在实例控制台binlog列表里。
  * @method Models\GrantAccountPrivilegesResponse GrantAccountPrivileges(Models\GrantAccountPrivilegesRequest $req) 本接口（GrantAccountPrivileges）用于给云数据库账号赋权。
 注意：相同用户名，不同Host是不同的账号。
  * @method Models\InitDBInstancesResponse InitDBInstances(Models\InitDBInstancesRequest $req) 本接口(InitDBInstances)用于初始化云数据库实例，包括设置默认字符集、表名大小写敏感等。
- * @method Models\IsolateDBInstanceResponse IsolateDBInstance(Models\IsolateDBInstanceRequest $req) 本接口(IsolateDBInstance)用于隔离云数据库实例（包年包月），隔离后不能通过IP和端口访问数据库。隔离的实例可在回收站中进行开机。若为欠费隔离，请尽快进行充值。
+ * @method Models\IsolateDBInstanceResponse IsolateDBInstance(Models\IsolateDBInstanceRequest $req) 本接口(IsolateDBInstance)用于隔离云数据库MariaDB实例（包年包月），隔离后不能通过IP和端口访问数据库。隔离的实例可在回收站中进行开机。若为欠费隔离，请尽快进行充值。
  * @method Models\IsolateDedicatedDBInstanceResponse IsolateDedicatedDBInstance(Models\IsolateDedicatedDBInstanceRequest $req) 本接口（IsolateDedicatedDBInstance）用于隔离独享云数据库实例。
- * @method Models\IsolateHourDBInstanceResponse IsolateHourDBInstance(Models\IsolateHourDBInstanceRequest $req) 隔离后付费实例
+ * @method Models\IsolateHourDBInstanceResponse IsolateHourDBInstance(Models\IsolateHourDBInstanceRequest $req) 隔离MariaDB按量计费实例
  * @method Models\KillSessionResponse KillSession(Models\KillSessionRequest $req) 本接口（KillSession）用于杀死指定会话。
  * @method Models\ModifyAccountDescriptionResponse ModifyAccountDescription(Models\ModifyAccountDescriptionRequest $req) 本接口（ModifyAccountDescription）用于修改云数据库账号备注。
 注意：相同用户名，不同Host是不同的账号。
@@ -82,7 +83,7 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
 **注意**
 - 系统保留库："mysql"，只开放["SELECT"]权限
 - 只读账号授予读写权限会报错
-- 不传该参数表示保留现有权限，如需清除，请在复杂类型Privileges字段传空数组
+- 不传权限参数表示保留现有权限，如需清除，请在复杂类型Privileges字段传空数组
  * @method Models\ModifyBackupTimeResponse ModifyBackupTime(Models\ModifyBackupTimeRequest $req) 本接口（ModifyBackupTime）用于设置云数据库实例的备份时间。后台系统将根据此配置定期进行实例备份。
  * @method Models\ModifyDBEncryptAttributesResponse ModifyDBEncryptAttributes(Models\ModifyDBEncryptAttributesRequest $req) 本接口(ModifyDBEncryptAttributes)用于修改实例数据加密。
  * @method Models\ModifyDBInstanceNameResponse ModifyDBInstanceName(Models\ModifyDBInstanceNameRequest $req) 本接口（ModifyDBInstanceName）用于修改云数据库实例的名称。
@@ -109,6 +110,7 @@ use TencentCloud\Mariadb\V20170312\Models as Models;
  * @method Models\SwitchDBInstanceHAResponse SwitchDBInstanceHA(Models\SwitchDBInstanceHARequest $req) 本接口（SwitchDBInstanceHA）用于发起实例主备切换。
  * @method Models\TerminateDedicatedDBInstanceResponse TerminateDedicatedDBInstance(Models\TerminateDedicatedDBInstanceRequest $req) 本接口（TerminateDedicatedDBInstance）用于销毁已隔离的独享云数据库实例。
  * @method Models\UpgradeDBInstanceResponse UpgradeDBInstance(Models\UpgradeDBInstanceRequest $req) 本接口(UpgradeDBInstance)用于扩容云数据库实例。本接口完成下单和支付两个动作，如果发生支付失败的错误，调用用户账户相关接口中的支付订单接口（PayDeals）重新支付即可。
+ * @method Models\UpgradeDedicatedDBInstanceResponse UpgradeDedicatedDBInstance(Models\UpgradeDedicatedDBInstanceRequest $req) 本接口(UpgradeDedicatedDBInstance)用于扩容独享云数据库实例。
  */
 
 class MariadbClient extends AbstractClient

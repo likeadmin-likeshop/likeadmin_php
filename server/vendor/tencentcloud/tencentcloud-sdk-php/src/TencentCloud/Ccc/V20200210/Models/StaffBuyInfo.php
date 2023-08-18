@@ -24,8 +24,12 @@ use TencentCloud\Common\AbstractModel;
  * @method void setNum(integer $Num) 设置购买坐席数量
  * @method integer getBuyTime() 获取购买时间戳
  * @method void setBuyTime(integer $BuyTime) 设置购买时间戳
- * @method integer getEndTime() 获取截至时间戳
- * @method void setEndTime(integer $EndTime) 设置截至时间戳
+ * @method integer getEndTime() 获取截止时间戳
+ * @method void setEndTime(integer $EndTime) 设置截止时间戳
+ * @method integer getSipNum() 获取购买办公电话数量
+注意：此字段可能返回 null，表示取不到有效值。
+ * @method void setSipNum(integer $SipNum) 设置购买办公电话数量
+注意：此字段可能返回 null，表示取不到有效值。
  */
 class StaffBuyInfo extends AbstractModel
 {
@@ -40,14 +44,22 @@ class StaffBuyInfo extends AbstractModel
     public $BuyTime;
 
     /**
-     * @var integer 截至时间戳
+     * @var integer 截止时间戳
      */
     public $EndTime;
 
     /**
+     * @var integer 购买办公电话数量
+注意：此字段可能返回 null，表示取不到有效值。
+     */
+    public $SipNum;
+
+    /**
      * @param integer $Num 购买坐席数量
      * @param integer $BuyTime 购买时间戳
-     * @param integer $EndTime 截至时间戳
+     * @param integer $EndTime 截止时间戳
+     * @param integer $SipNum 购买办公电话数量
+注意：此字段可能返回 null，表示取不到有效值。
      */
     function __construct()
     {
@@ -72,6 +84,10 @@ class StaffBuyInfo extends AbstractModel
 
         if (array_key_exists("EndTime",$param) and $param["EndTime"] !== null) {
             $this->EndTime = $param["EndTime"];
+        }
+
+        if (array_key_exists("SipNum",$param) and $param["SipNum"] !== null) {
+            $this->SipNum = $param["SipNum"];
         }
     }
 }

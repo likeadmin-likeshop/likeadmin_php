@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', //协议头部，默认为http
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // https://cloud.tencent.com/document/product/436/54040 更新转码模板
@@ -69,6 +69,34 @@ try {
             'HlsEncrypt' => array(
                 'IsHlsEncrypt' => '',
                 'UriKey' => '',
+            ),
+        ),
+        'AudioMixArray' => array(
+            array(
+                'AudioSource' => '',
+                'MixMode' => '',
+                'Replace' => '',
+                'EffectConfig' => array(
+                    'EnableStartFadein' => '',
+                    'StartFadeinTime' => '',
+                    'EnableEndFadeout' => '',
+                    'EndFadeoutTime' => '',
+                    'EnableBgmFade' => '',
+                    'BgmFadeTime' => '',
+                ),
+            ),
+            array(
+                'AudioSource' => '',
+                'MixMode' => '',
+                'Replace' => '',
+                'EffectConfig' => array(
+                    'EnableStartFadein' => '',
+                    'StartFadeinTime' => '',
+                    'EnableEndFadeout' => '',
+                    'EndFadeoutTime' => '',
+                    'EnableBgmFade' => '',
+                    'BgmFadeTime' => '',
+                ),
             ),
         ),
     ));

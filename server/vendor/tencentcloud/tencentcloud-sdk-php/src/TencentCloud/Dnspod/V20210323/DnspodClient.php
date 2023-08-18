@@ -38,6 +38,7 @@ use TencentCloud\Dnspod\V20210323\Models as Models;
  * @method Models\DeleteDomainAliasResponse DeleteDomainAlias(Models\DeleteDomainAliasRequest $req) 删除域名别名
  * @method Models\DeleteDomainBatchResponse DeleteDomainBatch(Models\DeleteDomainBatchRequest $req) 批量删除域名
  * @method Models\DeleteRecordResponse DeleteRecord(Models\DeleteRecordRequest $req) 删除记录
+ * @method Models\DeleteRecordBatchResponse DeleteRecordBatch(Models\DeleteRecordBatchRequest $req) 批量删除解析记录
  * @method Models\DeleteRecordGroupResponse DeleteRecordGroup(Models\DeleteRecordGroupRequest $req) 删除记录分组
  * @method Models\DeleteShareDomainResponse DeleteShareDomain(Models\DeleteShareDomainRequest $req) 删除域名共享
  * @method Models\DeleteSnapshotResponse DeleteSnapshot(Models\DeleteSnapshotRequest $req) 删除快照
@@ -45,6 +46,7 @@ use TencentCloud\Dnspod\V20210323\Models as Models;
  * @method Models\DescribeDomainResponse DescribeDomain(Models\DescribeDomainRequest $req) 获取域名信息
  * @method Models\DescribeDomainAliasListResponse DescribeDomainAliasList(Models\DescribeDomainAliasListRequest $req) 获取域名别名列表
  * @method Models\DescribeDomainAnalyticsResponse DescribeDomainAnalytics(Models\DescribeDomainAnalyticsRequest $req) 统计各个域名的解析量，帮助您了解流量情况、时间段分布。支持查看近 3 个月内的统计情况
+ * @method Models\DescribeDomainFilterListResponse DescribeDomainFilterList(Models\DescribeDomainFilterListRequest $req) 获取域名筛选列表
  * @method Models\DescribeDomainGroupListResponse DescribeDomainGroupList(Models\DescribeDomainGroupListRequest $req) 获取域名分组列表
  * @method Models\DescribeDomainListResponse DescribeDomainList(Models\DescribeDomainListRequest $req) 获取域名列表
  * @method Models\DescribeDomainLogListResponse DescribeDomainLogList(Models\DescribeDomainLogListRequest $req) 获取域名日志
@@ -55,6 +57,7 @@ use TencentCloud\Dnspod\V20210323\Models as Models;
  * @method Models\DescribePackageDetailResponse DescribePackageDetail(Models\DescribePackageDetailRequest $req) 获取各套餐配置详情
  * @method Models\DescribeRecordResponse DescribeRecord(Models\DescribeRecordRequest $req) 获取记录信息
  * @method Models\DescribeRecordExistExceptDefaultNSResponse DescribeRecordExistExceptDefaultNS(Models\DescribeRecordExistExceptDefaultNSRequest $req) 判断是否有除系统默认的@-NS记录之外的记录存在
+ * @method Models\DescribeRecordFilterListResponse DescribeRecordFilterList(Models\DescribeRecordFilterListRequest $req) 获取某个域名下的解析记录列表
  * @method Models\DescribeRecordGroupListResponse DescribeRecordGroupList(Models\DescribeRecordGroupListRequest $req) 查询解析记录分组列表
  * @method Models\DescribeRecordLineListResponse DescribeRecordLineList(Models\DescribeRecordLineListRequest $req) 获取等级允许的线路
  * @method Models\DescribeRecordListResponse DescribeRecordList(Models\DescribeRecordListRequest $req) 获取某个域名下的解析记录列表

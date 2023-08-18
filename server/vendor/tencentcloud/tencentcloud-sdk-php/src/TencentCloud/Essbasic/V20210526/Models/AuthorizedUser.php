@@ -20,18 +20,18 @@ use TencentCloud\Common\AbstractModel;
 /**
  * 授权用户
  *
- * @method string getOpenId() 获取用户openid
- * @method void setOpenId(string $OpenId) 设置用户openid
+ * @method string getOpenId() 获取第三方应用平台的用户openid
+ * @method void setOpenId(string $OpenId) 设置第三方应用平台的用户openid
  */
 class AuthorizedUser extends AbstractModel
 {
     /**
-     * @var string 用户openid
+     * @var string 第三方应用平台的用户openid
      */
     public $OpenId;
 
     /**
-     * @param string $OpenId 用户openid
+     * @param string $OpenId 第三方应用平台的用户openid
      */
     function __construct()
     {

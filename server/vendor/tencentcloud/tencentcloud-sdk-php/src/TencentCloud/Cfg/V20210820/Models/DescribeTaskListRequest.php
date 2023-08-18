@@ -28,14 +28,16 @@ use TencentCloud\Common\AbstractModel;
  * @method void setTaskTitle(string $TaskTitle) 设置演练名称
  * @method array getTaskTag() 获取标签键
  * @method void setTaskTag(array $TaskTag) 设置标签键
- * @method integer getTaskStatus() 获取状态
- * @method void setTaskStatus(integer $TaskStatus) 设置状态
+ * @method integer getTaskStatus() 获取任务状态(1001 -- 未开始 1002 -- 进行中 1003 -- 暂停中 1004 -- 任务结束)
+ * @method void setTaskStatus(integer $TaskStatus) 设置任务状态(1001 -- 未开始 1002 -- 进行中 1003 -- 暂停中 1004 -- 任务结束)
  * @method string getTaskStartTime() 获取开始时间，固定格式%Y-%m-%d %H:%M:%S
  * @method void setTaskStartTime(string $TaskStartTime) 设置开始时间，固定格式%Y-%m-%d %H:%M:%S
  * @method string getTaskEndTime() 获取结束时间，固定格式%Y-%m-%d %H:%M:%S
  * @method void setTaskEndTime(string $TaskEndTime) 设置结束时间，固定格式%Y-%m-%d %H:%M:%S
  * @method array getTags() 获取标签对
  * @method void setTags(array $Tags) 设置标签对
+ * @method array getFilters() 获取筛选条件
+ * @method void setFilters(array $Filters) 设置筛选条件
  */
 class DescribeTaskListRequest extends AbstractModel
 {
@@ -60,7 +62,7 @@ class DescribeTaskListRequest extends AbstractModel
     public $TaskTag;
 
     /**
-     * @var integer 状态
+     * @var integer 任务状态(1001 -- 未开始 1002 -- 进行中 1003 -- 暂停中 1004 -- 任务结束)
      */
     public $TaskStatus;
 
@@ -80,14 +82,20 @@ class DescribeTaskListRequest extends AbstractModel
     public $Tags;
 
     /**
+     * @var array 筛选条件
+     */
+    public $Filters;
+
+    /**
      * @param integer $Limit 分页Limit
      * @param integer $Offset 分页Offset
      * @param string $TaskTitle 演练名称
      * @param array $TaskTag 标签键
-     * @param integer $TaskStatus 状态
+     * @param integer $TaskStatus 任务状态(1001 -- 未开始 1002 -- 进行中 1003 -- 暂停中 1004 -- 任务结束)
      * @param string $TaskStartTime 开始时间，固定格式%Y-%m-%d %H:%M:%S
      * @param string $TaskEndTime 结束时间，固定格式%Y-%m-%d %H:%M:%S
      * @param array $Tags 标签对
+     * @param array $Filters 筛选条件
      */
     function __construct()
     {
@@ -136,6 +144,15 @@ class DescribeTaskListRequest extends AbstractModel
                 $obj = new TagWithDescribe();
                 $obj->deserialize($value);
                 array_push($this->Tags, $obj);
+            }
+        }
+
+        if (array_key_exists("Filters",$param) and $param["Filters"] !== null) {
+            $this->Filters = [];
+            foreach ($param["Filters"] as $key => $value){
+                $obj = new ActionFilter();
+                $obj->deserialize($value);
+                array_push($this->Filters, $obj);
             }
         }
     }

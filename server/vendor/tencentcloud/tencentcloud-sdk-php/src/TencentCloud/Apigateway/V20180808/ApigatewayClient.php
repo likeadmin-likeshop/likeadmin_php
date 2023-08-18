@@ -41,8 +41,8 @@ API 网关中每个服务都会提供一个默认的域名供用户调用，但�
  * @method Models\CreateIPStrategyResponse CreateIPStrategy(Models\CreateIPStrategyRequest $req) 本接口（CreateIPStrategy）用于创建服务IP策略。
  * @method Models\CreatePluginResponse CreatePlugin(Models\CreatePluginRequest $req) 创建API网关插件。
  * @method Models\CreateServiceResponse CreateService(Models\CreateServiceRequest $req) 本接口（CreateService）用于创建服务。
-API 网关使用的最大单元为服务，每个服务中可创建多个 API 接口。每个服务有一个默认域名供客户调用，用户也可绑定自定义域名到此服务中。 
- * @method Models\CreateUpstreamResponse CreateUpstream(Models\CreateUpstreamRequest $req) 用于创建创建后端通道
+API 网关使用的最大单元为服务，每个服务中可创建多个 API 接口。每个服务有一个默认域名供客户调用，用户也可绑定自定义域名到此服务中。
+ * @method Models\CreateUpstreamResponse CreateUpstream(Models\CreateUpstreamRequest $req) 用于创建后端通道
  * @method Models\CreateUsagePlanResponse CreateUsagePlan(Models\CreateUsagePlanRequest $req) 本接口（CreateUsagePlan）用于创建使用计划。
 用户在使用 API 网关时，需要创建使用计划并将其绑定到服务的环境中使用。
  * @method Models\DeleteAPIDocResponse DeleteAPIDoc(Models\DeleteAPIDocRequest $req) 删除 API 文档
@@ -63,7 +63,7 @@ API 网关使用的最大单元为服务，每个服务中可创建多个 API �
  * @method Models\DescribeAPIDocsResponse DescribeAPIDocs(Models\DescribeAPIDocsRequest $req) 查询 API 文档列表
  * @method Models\DescribeAllPluginApisResponse DescribeAllPluginApis(Models\DescribeAllPluginApisRequest $req) 展示插件相关的API列表，包括已绑定的和未绑定的API信息。
  * @method Models\DescribeApiResponse DescribeApi(Models\DescribeApiRequest $req) 本接口（DescribeApi）用于查询用户 API 网关的 API 接口的详细信息。​
- * @method Models\DescribeApiAppResponse DescribeApiApp(Models\DescribeApiAppRequest $req) 本接口（DescribeApiApp）用于根据应用ID搜索应用。
+ * @method Models\DescribeApiAppResponse DescribeApiApp(Models\DescribeApiAppRequest $req) 本接口（DescribeApiApp）用于根据应用ID搜索应用。此接口已下线，如需使用功能请使用DescribeApiAppsStatus接口。
  * @method Models\DescribeApiAppBindApisStatusResponse DescribeApiAppBindApisStatus(Models\DescribeApiAppBindApisStatusRequest $req) 本接口（DescribeApiAppBindApisStatus）查询应用绑定的Api列表。
  * @method Models\DescribeApiAppsStatusResponse DescribeApiAppsStatus(Models\DescribeApiAppsStatusRequest $req) 本接口（DescribeApiAppsStatus）查询应用列表。
  * @method Models\DescribeApiBindApiAppsStatusResponse DescribeApiBindApiAppsStatus(Models\DescribeApiBindApiAppsStatusRequest $req) 本接口（DescribeApiBindApiAppsStatus）查询Api绑定的应用列表。
@@ -76,12 +76,12 @@ API 网关使用的最大单元为服务，每个服务中可创建多个 API �
  * @method Models\DescribeApiUsagePlanResponse DescribeApiUsagePlan(Models\DescribeApiUsagePlanRequest $req) 本接口（DescribeApiUsagePlan）用于查询服务中 API 使用计划详情。
 服务若需要鉴权限流生效，则需要绑定使用计划到此服务中，本接口用于查询绑定到一个服务及其中 API 的所有使用计划。
  * @method Models\DescribeApisStatusResponse DescribeApisStatus(Models\DescribeApisStatusRequest $req) 本接口（DescribeApisStatus）用于查看一个服务下的某个 API 或所有 API 列表及其相关信息。
- * @method Models\DescribeExclusiveInstanceDetailResponse DescribeExclusiveInstanceDetail(Models\DescribeExclusiveInstanceDetailRequest $req) 本接口（DescribeExclusiveInstanceDetail）用于查询独享实例详情信息。​
- * @method Models\DescribeExclusiveInstancesResponse DescribeExclusiveInstances(Models\DescribeExclusiveInstancesRequest $req) 本接口（DescribeExclusiveInstances）用于查询独享实例列表信息。​
+ * @method Models\DescribeExclusiveInstanceDetailResponse DescribeExclusiveInstanceDetail(Models\DescribeExclusiveInstanceDetailRequest $req) 本接口（DescribeExclusiveInstanceDetail）用于查询独享实例详情信息。
+ * @method Models\DescribeExclusiveInstancesResponse DescribeExclusiveInstances(Models\DescribeExclusiveInstancesRequest $req) 本接口（DescribeExclusiveInstances）用于查询独享实例列表信息。
  * @method Models\DescribeExclusiveInstancesStatusResponse DescribeExclusiveInstancesStatus(Models\DescribeExclusiveInstancesStatusRequest $req) 查询专享实例列表（新）
  * @method Models\DescribeIPStrategyResponse DescribeIPStrategy(Models\DescribeIPStrategyRequest $req) 本接口（DescribeIPStrategy）用于查询IP策略详情。
  * @method Models\DescribeIPStrategyApisStatusResponse DescribeIPStrategyApisStatus(Models\DescribeIPStrategyApisStatusRequest $req) 本接口（DescribeIPStrategyApisStatus）用于查询IP策略可以绑定的API列表。即服务下所有API和该策略已绑定API的差集。
- * @method Models\DescribeIPStrategysStatusResponse DescribeIPStrategysStatus(Models\DescribeIPStrategysStatusRequest $req) 本接口（DescribeIPStrategysStatus）用于查询服务IP策略列表。
+ * @method Models\DescribeIPStrategysStatusResponse DescribeIPStrategysStatus(Models\DescribeIPStrategysStatusRequest $req) 本接口（DescribeIPStrategysStatus）用于查询服务IP策略列表，因为接口名拼写错误，已不推荐使用，请优先使用DescribeIPStrategiesStatus接口。
  * @method Models\DescribeLogSearchResponse DescribeLogSearch(Models\DescribeLogSearchRequest $req) 本接口DescribeLogSearch用于搜索日志
  * @method Models\DescribePluginResponse DescribePlugin(Models\DescribePluginRequest $req) 展示插件详情，支持按照插件ID进行。
  * @method Models\DescribePluginApisResponse DescribePluginApis(Models\DescribePluginApisRequest $req) 查询指定插件下绑定的API信息
@@ -113,7 +113,6 @@ API 网关可绑定自定义域名到服务，用于服务调用。此接口用�
  * @method Models\DetachPluginResponse DetachPlugin(Models\DetachPluginRequest $req) 解除插件与API绑定
  * @method Models\DisableApiKeyResponse DisableApiKey(Models\DisableApiKeyRequest $req) 本接口（DisableApiKey）用于禁用一对 API 密钥。
  * @method Models\EnableApiKeyResponse EnableApiKey(Models\EnableApiKeyRequest $req) 本接口（EnableApiKey）用于启动一对被禁用的 API 密钥。
- * @method Models\GenerateApiDocumentResponse GenerateApiDocument(Models\GenerateApiDocumentRequest $req) 本接口（GenerateApiDocument）用于自动生成 API 文档和 SDK，一个服务的一个环境生成一份文档和 SDK。
  * @method Models\ImportOpenApiResponse ImportOpenApi(Models\ImportOpenApiRequest $req) 本接口（ImportOpenApi）用于将OpenAPI规范定义的API导入到API网关。 
  * @method Models\ModifyAPIDocResponse ModifyAPIDoc(Models\ModifyAPIDocRequest $req) 修改 API 文档
  * @method Models\ModifyApiResponse ModifyApi(Models\ModifyApiRequest $req) 本接口（ModifyApi）用于修改 API 接口，可调用此接口对已经配置的 API 接口进行编辑修改。修改后的 API 需要重新发布 API 所在的服务到对应环境方能生效。
@@ -141,7 +140,7 @@ API 网关的服务创建后，需要发布到某个环境方生效后，使用�
  * @method Models\UnbindApiAppResponse UnbindApiApp(Models\UnbindApiAppRequest $req) 本接口（UnbindApiApp）用于解除应用和API绑定。
  * @method Models\UpdateApiAppKeyResponse UpdateApiAppKey(Models\UpdateApiAppKeyRequest $req) 本接口（UpdateApiAppKey）用于更新应用密钥。
  * @method Models\UpdateApiKeyResponse UpdateApiKey(Models\UpdateApiKeyRequest $req) 本接口（UpdateApiKey）用于更换用户已创建的一对 API 密钥。
- * @method Models\UpdateServiceResponse UpdateService(Models\UpdateServiceRequest $req) 本接口（UpdateService）用于从服务发布的环境中运行版本切换到特定版本。用户在使用 API 网关创建服务并发布服务到某个环境后，多因为开发过程会产生多个版本，此时可调用本接口。
+ * @method Models\UpdateServiceResponse UpdateService(Models\UpdateServiceRequest $req) 本接口（UpdateService）用于从服务已发布的环境中将运行版本切换到特定版本。用户在使用 API 网关创建服务并发布服务到某个环境后，如在开发过程产生多个版本需要切换，此时可调用本接口。
  */
 
 class ApigatewayClient extends AbstractClient

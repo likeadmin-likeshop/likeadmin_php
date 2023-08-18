@@ -26,10 +26,10 @@ use TencentCloud\Common\AbstractModel;
  * @method void setVoiceName(string $VoiceName) 设置音色名称
  * @method integer getSampleRate() 获取音频采样率：
 
-16000：16k（默认）
+16000：16k
  * @method void setSampleRate(integer $SampleRate) 设置音频采样率：
 
-16000：16k（默认）
+16000：16k
  * @method integer getVoiceGender() 获取音色性别:
 
 1-male
@@ -42,18 +42,20 @@ use TencentCloud\Common\AbstractModel;
 2-female
  * @method integer getVoiceLanguage() 获取语言类型：
 
-1-中文（默认）
+1-中文
  * @method void setVoiceLanguage(integer $VoiceLanguage) 设置语言类型：
 
-1-中文（默认）
+1-中文
  * @method string getCodec() 获取音频格式，音频类型(wav,mp3,aac,m4a)
  * @method void setCodec(string $Codec) 设置音频格式，音频类型(wav,mp3,aac,m4a)
  * @method array getAudioIdList() 获取音频ID集合
  * @method void setAudioIdList(array $AudioIdList) 设置音频ID集合
  * @method string getCallbackUrl() 获取回调 URL，用户自行搭建的用于接收结果的服务URL。如果用户使用轮询方式获取识别结果，则无需提交该参数。
-回调采用POST请求方式，Content-Type为application/x-www-form-urlencoded，回调数据格式如下:callback_body=checksum=&data={"TaskId":"xxxxxxxxxxxxxx","Status":2,"StatusStr":"success","VoiceType":xxxxx,"ErrorMsg":""}
+回调采用POST请求方式，Content-Type为application/json，回调数据格式如下:{"TaskId":"xxxxxxxxxxxxxx","Status":2,"StatusStr":"success","VoiceType":xxxxx,"ErrorMsg":""}
  * @method void setCallbackUrl(string $CallbackUrl) 设置回调 URL，用户自行搭建的用于接收结果的服务URL。如果用户使用轮询方式获取识别结果，则无需提交该参数。
-回调采用POST请求方式，Content-Type为application/x-www-form-urlencoded，回调数据格式如下:callback_body=checksum=&data={"TaskId":"xxxxxxxxxxxxxx","Status":2,"StatusStr":"success","VoiceType":xxxxx,"ErrorMsg":""}
+回调采用POST请求方式，Content-Type为application/json，回调数据格式如下:{"TaskId":"xxxxxxxxxxxxxx","Status":2,"StatusStr":"success","VoiceType":xxxxx,"ErrorMsg":""}
+ * @method integer getModelType() 获取任务类型 1:在线 2:离线  默认为1
+ * @method void setModelType(integer $ModelType) 设置任务类型 1:在线 2:离线  默认为1
  */
 class CreateVRSTaskRequest extends AbstractModel
 {
@@ -70,7 +72,7 @@ class CreateVRSTaskRequest extends AbstractModel
     /**
      * @var integer 音频采样率：
 
-16000：16k（默认）
+16000：16k
      */
     public $SampleRate;
 
@@ -86,7 +88,7 @@ class CreateVRSTaskRequest extends AbstractModel
     /**
      * @var integer 语言类型：
 
-1-中文（默认）
+1-中文
      */
     public $VoiceLanguage;
 
@@ -102,16 +104,21 @@ class CreateVRSTaskRequest extends AbstractModel
 
     /**
      * @var string 回调 URL，用户自行搭建的用于接收结果的服务URL。如果用户使用轮询方式获取识别结果，则无需提交该参数。
-回调采用POST请求方式，Content-Type为application/x-www-form-urlencoded，回调数据格式如下:callback_body=checksum=&data={"TaskId":"xxxxxxxxxxxxxx","Status":2,"StatusStr":"success","VoiceType":xxxxx,"ErrorMsg":""}
+回调采用POST请求方式，Content-Type为application/json，回调数据格式如下:{"TaskId":"xxxxxxxxxxxxxx","Status":2,"StatusStr":"success","VoiceType":xxxxx,"ErrorMsg":""}
      */
     public $CallbackUrl;
+
+    /**
+     * @var integer 任务类型 1:在线 2:离线  默认为1
+     */
+    public $ModelType;
 
     /**
      * @param string $SessionId 唯一请求 ID
      * @param string $VoiceName 音色名称
      * @param integer $SampleRate 音频采样率：
 
-16000：16k（默认）
+16000：16k
      * @param integer $VoiceGender 音色性别:
 
 1-male
@@ -119,11 +126,12 @@ class CreateVRSTaskRequest extends AbstractModel
 2-female
      * @param integer $VoiceLanguage 语言类型：
 
-1-中文（默认）
+1-中文
      * @param string $Codec 音频格式，音频类型(wav,mp3,aac,m4a)
      * @param array $AudioIdList 音频ID集合
      * @param string $CallbackUrl 回调 URL，用户自行搭建的用于接收结果的服务URL。如果用户使用轮询方式获取识别结果，则无需提交该参数。
-回调采用POST请求方式，Content-Type为application/x-www-form-urlencoded，回调数据格式如下:callback_body=checksum=&data={"TaskId":"xxxxxxxxxxxxxx","Status":2,"StatusStr":"success","VoiceType":xxxxx,"ErrorMsg":""}
+回调采用POST请求方式，Content-Type为application/json，回调数据格式如下:{"TaskId":"xxxxxxxxxxxxxx","Status":2,"StatusStr":"success","VoiceType":xxxxx,"ErrorMsg":""}
+     * @param integer $ModelType 任务类型 1:在线 2:离线  默认为1
      */
     function __construct()
     {
@@ -168,6 +176,10 @@ class CreateVRSTaskRequest extends AbstractModel
 
         if (array_key_exists("CallbackUrl",$param) and $param["CallbackUrl"] !== null) {
             $this->CallbackUrl = $param["CallbackUrl"];
+        }
+
+        if (array_key_exists("ModelType",$param) and $param["ModelType"] !== null) {
+            $this->ModelType = $param["ModelType"];
         }
     }
 }

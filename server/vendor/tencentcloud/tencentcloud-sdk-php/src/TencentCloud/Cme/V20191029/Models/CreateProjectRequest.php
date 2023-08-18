@@ -36,14 +36,14 @@ use TencentCloud\Common\AbstractModel;
 <li>VIDEO_SEGMENTATION：视频拆条。</li>
 <li>STREAM_CONNECT：云转推。</li>
 <li>RECORD_REPLAY：录制回放。</li>
-<li>MEDIA_CAST：点播转直播。</li>
+<li>MEDIA_CAST：媒体转推。</li>
  * @method void setCategory(string $Category) 设置项目类别，取值有：
 <li>VIDEO_EDIT：视频编辑。</li>
 <li>SWITCHER：导播台。</li>
 <li>VIDEO_SEGMENTATION：视频拆条。</li>
 <li>STREAM_CONNECT：云转推。</li>
 <li>RECORD_REPLAY：录制回放。</li>
-<li>MEDIA_CAST：点播转直播。</li>
+<li>MEDIA_CAST：媒体转推。</li>
  * @method string getMode() 获取项目模式，一个项目可以有多种模式并相互切换。
 当 Category 为 VIDEO_EDIT 时，可选模式有：
 <li>Default：默认模式，即普通视频编辑项目。</li>
@@ -74,8 +74,8 @@ use TencentCloud\Common\AbstractModel;
  * @method void setStreamConnectProjectInput(StreamConnectProjectInput $StreamConnectProjectInput) 设置云转推项目输入信息，仅当项目类型为 STREAM_CONNECT 时必填。
  * @method RecordReplayProjectInput getRecordReplayProjectInput() 获取录制回放项目输入信息，仅当项目类型为 RECORD_REPLAY 时必填。
  * @method void setRecordReplayProjectInput(RecordReplayProjectInput $RecordReplayProjectInput) 设置录制回放项目输入信息，仅当项目类型为 RECORD_REPLAY 时必填。
- * @method MediaCastProjectInput getMediaCastProjectInput() 获取点播转直播项目输入信息，仅当项目类型为 MEDIA_CAST 时必填。
- * @method void setMediaCastProjectInput(MediaCastProjectInput $MediaCastProjectInput) 设置点播转直播项目输入信息，仅当项目类型为 MEDIA_CAST 时必填。
+ * @method MediaCastProjectInput getMediaCastProjectInput() 获取媒体转推项目输入信息，仅当项目类型为 MEDIA_CAST 时必填。
+ * @method void setMediaCastProjectInput(MediaCastProjectInput $MediaCastProjectInput) 设置媒体转推项目输入信息，仅当项目类型为 MEDIA_CAST 时必填。
  */
 class CreateProjectRequest extends AbstractModel
 {
@@ -103,7 +103,7 @@ class CreateProjectRequest extends AbstractModel
 <li>VIDEO_SEGMENTATION：视频拆条。</li>
 <li>STREAM_CONNECT：云转推。</li>
 <li>RECORD_REPLAY：录制回放。</li>
-<li>MEDIA_CAST：点播转直播。</li>
+<li>MEDIA_CAST：媒体转推。</li>
      */
     public $Category;
 
@@ -159,7 +159,7 @@ class CreateProjectRequest extends AbstractModel
     public $RecordReplayProjectInput;
 
     /**
-     * @var MediaCastProjectInput 点播转直播项目输入信息，仅当项目类型为 MEDIA_CAST 时必填。
+     * @var MediaCastProjectInput 媒体转推项目输入信息，仅当项目类型为 MEDIA_CAST 时必填。
      */
     public $MediaCastProjectInput;
 
@@ -175,7 +175,7 @@ class CreateProjectRequest extends AbstractModel
 <li>VIDEO_SEGMENTATION：视频拆条。</li>
 <li>STREAM_CONNECT：云转推。</li>
 <li>RECORD_REPLAY：录制回放。</li>
-<li>MEDIA_CAST：点播转直播。</li>
+<li>MEDIA_CAST：媒体转推。</li>
      * @param string $Mode 项目模式，一个项目可以有多种模式并相互切换。
 当 Category 为 VIDEO_EDIT 时，可选模式有：
 <li>Default：默认模式，即普通视频编辑项目。</li>
@@ -191,7 +191,7 @@ class CreateProjectRequest extends AbstractModel
      * @param VideoSegmentationProjectInput $VideoSegmentationProjectInput 视频拆条项目输入信息，仅当项目类型为 VIDEO_SEGMENTATION  时必填。
      * @param StreamConnectProjectInput $StreamConnectProjectInput 云转推项目输入信息，仅当项目类型为 STREAM_CONNECT 时必填。
      * @param RecordReplayProjectInput $RecordReplayProjectInput 录制回放项目输入信息，仅当项目类型为 RECORD_REPLAY 时必填。
-     * @param MediaCastProjectInput $MediaCastProjectInput 点播转直播项目输入信息，仅当项目类型为 MEDIA_CAST 时必填。
+     * @param MediaCastProjectInput $MediaCastProjectInput 媒体转推项目输入信息，仅当项目类型为 MEDIA_CAST 时必填。
      */
     function __construct()
     {

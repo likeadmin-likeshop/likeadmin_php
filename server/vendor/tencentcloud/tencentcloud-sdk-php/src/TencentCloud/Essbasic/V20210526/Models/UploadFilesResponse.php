@@ -20,10 +20,10 @@ use TencentCloud\Common\AbstractModel;
 /**
  * UploadFiles返回参数结构体
  *
- * @method array getFileIds() 获取文件id数组，有效期一个小时；有效期内此文件id可以反复使用
- * @method void setFileIds(array $FileIds) 设置文件id数组，有效期一个小时；有效期内此文件id可以反复使用
  * @method integer getTotalCount() 获取上传成功文件数量
  * @method void setTotalCount(integer $TotalCount) 设置上传成功文件数量
+ * @method array getFileIds() 获取文件id数组，有效期一个小时；有效期内此文件id可以反复使用
+ * @method void setFileIds(array $FileIds) 设置文件id数组，有效期一个小时；有效期内此文件id可以反复使用
  * @method array getFileUrls() 获取文件Url
  * @method void setFileUrls(array $FileUrls) 设置文件Url
  * @method string getRequestId() 获取唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -32,14 +32,14 @@ use TencentCloud\Common\AbstractModel;
 class UploadFilesResponse extends AbstractModel
 {
     /**
-     * @var array 文件id数组，有效期一个小时；有效期内此文件id可以反复使用
-     */
-    public $FileIds;
-
-    /**
      * @var integer 上传成功文件数量
      */
     public $TotalCount;
+
+    /**
+     * @var array 文件id数组，有效期一个小时；有效期内此文件id可以反复使用
+     */
+    public $FileIds;
 
     /**
      * @var array 文件Url
@@ -52,8 +52,8 @@ class UploadFilesResponse extends AbstractModel
     public $RequestId;
 
     /**
-     * @param array $FileIds 文件id数组，有效期一个小时；有效期内此文件id可以反复使用
      * @param integer $TotalCount 上传成功文件数量
+     * @param array $FileIds 文件id数组，有效期一个小时；有效期内此文件id可以反复使用
      * @param array $FileUrls 文件Url
      * @param string $RequestId 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
      */
@@ -70,12 +70,12 @@ class UploadFilesResponse extends AbstractModel
         if ($param === null) {
             return;
         }
-        if (array_key_exists("FileIds",$param) and $param["FileIds"] !== null) {
-            $this->FileIds = $param["FileIds"];
-        }
-
         if (array_key_exists("TotalCount",$param) and $param["TotalCount"] !== null) {
             $this->TotalCount = $param["TotalCount"];
+        }
+
+        if (array_key_exists("FileIds",$param) and $param["FileIds"] !== null) {
+            $this->FileIds = $param["FileIds"];
         }
 
         if (array_key_exists("FileUrls",$param) and $param["FileUrls"] !== null) {

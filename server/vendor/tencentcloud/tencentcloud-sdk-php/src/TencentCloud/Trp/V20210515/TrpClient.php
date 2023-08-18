@@ -39,6 +39,7 @@ use TencentCloud\Trp\V20210515\Models as Models;
  * @method Models\DeleteMerchantResponse DeleteMerchant(Models\DeleteMerchantRequest $req) 删除商户
  * @method Models\DeleteProductResponse DeleteProduct(Models\DeleteProductRequest $req) 删除商品，如果商品被使用，则不可删除
  * @method Models\DeleteTraceDataResponse DeleteTraceData(Models\DeleteTraceDataRequest $req) 删除溯源信息，如果已经上链则不可删除
+ * @method Models\DescribeAgentCorpsResponse DescribeAgentCorps(Models\DescribeAgentCorpsRequest $req) 查询渠道企业列表
  * @method Models\DescribeCodeBatchByIdResponse DescribeCodeBatchById(Models\DescribeCodeBatchByIdRequest $req) 查询批次信息
  * @method Models\DescribeCodeBatchsResponse DescribeCodeBatchs(Models\DescribeCodeBatchsRequest $req) 查询批次列表
  * @method Models\DescribeCodePackStatusResponse DescribeCodePackStatus(Models\DescribeCodePackStatusRequest $req) 查询码包状态
@@ -53,6 +54,7 @@ use TencentCloud\Trp\V20210515\Models as Models;
  * @method Models\DescribeMerchantsResponse DescribeMerchants(Models\DescribeMerchantsRequest $req) 查询商户列表
  * @method Models\DescribeProductByIdResponse DescribeProductById(Models\DescribeProductByIdRequest $req) 查询商品信息
  * @method Models\DescribeProductsResponse DescribeProducts(Models\DescribeProductsRequest $req) 查询商品列表
+ * @method Models\DescribeRawScanLogsResponse DescribeRawScanLogs(Models\DescribeRawScanLogsRequest $req) 支持增量查询扫码日志，通常提供给数据同步使用，调用时需要指定从哪一行开始查询数据
  * @method Models\DescribeScanLogsResponse DescribeScanLogs(Models\DescribeScanLogsRequest $req) 查询扫码日志明细
  * @method Models\DescribeScanStatsResponse DescribeScanStats(Models\DescribeScanStatsRequest $req) 查询扫码的统计信息列表，支持按照商户ID，产品ID，批次ID，安心码筛选，筛选条件至少有一个
 没有被扫过的不会返回

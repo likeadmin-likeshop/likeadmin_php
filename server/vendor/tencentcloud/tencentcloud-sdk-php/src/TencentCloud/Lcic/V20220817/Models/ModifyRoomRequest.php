@@ -24,10 +24,10 @@ use TencentCloud\Common\AbstractModel;
  * @method void setRoomId(integer $RoomId) 设置房间ID。
  * @method integer getSdkAppId() 获取低代码互动课堂的SdkAppId
  * @method void setSdkAppId(integer $SdkAppId) 设置低代码互动课堂的SdkAppId
- * @method integer getStartTime() 获取预定的房间开始时间，unix时间戳。直播开始后不允许修改。
- * @method void setStartTime(integer $StartTime) 设置预定的房间开始时间，unix时间戳。直播开始后不允许修改。
- * @method integer getEndTime() 获取预定的房间结束时间，unix时间戳。直播开始后不允许修改。
- * @method void setEndTime(integer $EndTime) 设置预定的房间结束时间，unix时间戳。直播开始后不允许修改。
+ * @method integer getStartTime() 获取预定的房间开始时间，unix时间戳（秒）。直播开始后不允许修改。
+ * @method void setStartTime(integer $StartTime) 设置预定的房间开始时间，unix时间戳（秒）。直播开始后不允许修改。
+ * @method integer getEndTime() 获取预定的房间结束时间，unix时间戳（秒）。直播开始后不允许修改。
+ * @method void setEndTime(integer $EndTime) 设置预定的房间结束时间，unix时间戳（秒）。直播开始后不允许修改。
  * @method string getTeacherId() 获取老师ID。直播开始后不允许修改。
  * @method void setTeacherId(string $TeacherId) 设置老师ID。直播开始后不允许修改。
  * @method string getName() 获取房间名称。
@@ -65,12 +65,10 @@ use TencentCloud\Common\AbstractModel;
  * @method string getSubType() 获取房间子类型，可以有以下取值：
 videodoc 文档+视频
 video 纯视频
-coteaching 双师
 直播开始后不允许修改。
  * @method void setSubType(string $SubType) 设置房间子类型，可以有以下取值：
 videodoc 文档+视频
 video 纯视频
-coteaching 双师
 直播开始后不允许修改。
  * @method integer getDisableRecord() 获取禁止录制。可以有以下取值：
 0 不禁止录制（默认值）
@@ -82,10 +80,22 @@ coteaching 双师
 直播开始后不允许修改。
  * @method array getAssistants() 获取助教Id列表。直播开始后不允许修改。
  * @method void setAssistants(array $Assistants) 设置助教Id列表。直播开始后不允许修改。
- * @method string getGroupId() 获取房间绑定的群组ID
- * @method void setGroupId(string $GroupId) 设置房间绑定的群组ID
- * @method integer getEnableDirectControl() 获取打开学生麦克风/摄像头的授权开关
- * @method void setEnableDirectControl(integer $EnableDirectControl) 设置打开学生麦克风/摄像头的授权开关
+ * @method string getGroupId() 获取房间绑定的群组ID。直播开始后不允许修改。
+ * @method void setGroupId(string $GroupId) 设置房间绑定的群组ID。直播开始后不允许修改。
+ * @method integer getEnableDirectControl() 获取打开学生麦克风/摄像头的授权开关。直播开始后不允许修改。
+ * @method void setEnableDirectControl(integer $EnableDirectControl) 设置打开学生麦克风/摄像头的授权开关。直播开始后不允许修改。
+ * @method integer getInteractionMode() 获取开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+ * @method void setInteractionMode(integer $InteractionMode) 设置开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+ * @method integer getVideoOrientation() 获取横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+ * @method void setVideoOrientation(integer $VideoOrientation) 设置横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+ * @method integer getIsGradingRequiredPostClass() 获取开启课后评分。 0：不开启(默认)  1：开启
+ * @method void setIsGradingRequiredPostClass(integer $IsGradingRequiredPostClass) 设置开启课后评分。 0：不开启(默认)  1：开启
+ * @method integer getRoomType() 获取房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
+ * @method void setRoomType(integer $RoomType) 设置房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
  */
 class ModifyRoomRequest extends AbstractModel
 {
@@ -100,12 +110,12 @@ class ModifyRoomRequest extends AbstractModel
     public $SdkAppId;
 
     /**
-     * @var integer 预定的房间开始时间，unix时间戳。直播开始后不允许修改。
+     * @var integer 预定的房间开始时间，unix时间戳（秒）。直播开始后不允许修改。
      */
     public $StartTime;
 
     /**
-     * @var integer 预定的房间结束时间，unix时间戳。直播开始后不允许修改。
+     * @var integer 预定的房间结束时间，unix时间戳（秒）。直播开始后不允许修改。
      */
     public $EndTime;
 
@@ -154,7 +164,6 @@ class ModifyRoomRequest extends AbstractModel
      * @var string 房间子类型，可以有以下取值：
 videodoc 文档+视频
 video 纯视频
-coteaching 双师
 直播开始后不允许修改。
      */
     public $SubType;
@@ -173,20 +182,42 @@ coteaching 双师
     public $Assistants;
 
     /**
-     * @var string 房间绑定的群组ID
+     * @var string 房间绑定的群组ID。直播开始后不允许修改。
      */
     public $GroupId;
 
     /**
-     * @var integer 打开学生麦克风/摄像头的授权开关
+     * @var integer 打开学生麦克风/摄像头的授权开关。直播开始后不允许修改。
      */
     public $EnableDirectControl;
 
     /**
+     * @var integer 开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+     */
+    public $InteractionMode;
+
+    /**
+     * @var integer 横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+     */
+    public $VideoOrientation;
+
+    /**
+     * @var integer 开启课后评分。 0：不开启(默认)  1：开启
+     */
+    public $IsGradingRequiredPostClass;
+
+    /**
+     * @var integer 房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
+     */
+    public $RoomType;
+
+    /**
      * @param integer $RoomId 房间ID。
      * @param integer $SdkAppId 低代码互动课堂的SdkAppId
-     * @param integer $StartTime 预定的房间开始时间，unix时间戳。直播开始后不允许修改。
-     * @param integer $EndTime 预定的房间结束时间，unix时间戳。直播开始后不允许修改。
+     * @param integer $StartTime 预定的房间开始时间，unix时间戳（秒）。直播开始后不允许修改。
+     * @param integer $EndTime 预定的房间结束时间，unix时间戳（秒）。直播开始后不允许修改。
      * @param string $TeacherId 老师ID。直播开始后不允许修改。
      * @param string $Name 房间名称。
      * @param integer $Resolution 分辨率。可以有如下取值：
@@ -207,15 +238,20 @@ coteaching 双师
      * @param string $SubType 房间子类型，可以有以下取值：
 videodoc 文档+视频
 video 纯视频
-coteaching 双师
 直播开始后不允许修改。
      * @param integer $DisableRecord 禁止录制。可以有以下取值：
 0 不禁止录制（默认值）
 1 禁止录制
 直播开始后不允许修改。
      * @param array $Assistants 助教Id列表。直播开始后不允许修改。
-     * @param string $GroupId 房间绑定的群组ID
-     * @param integer $EnableDirectControl 打开学生麦克风/摄像头的授权开关
+     * @param string $GroupId 房间绑定的群组ID。直播开始后不允许修改。
+     * @param integer $EnableDirectControl 打开学生麦克风/摄像头的授权开关。直播开始后不允许修改。
+     * @param integer $InteractionMode 开启专注模式。
+0 收看全部角色音视频(默认)
+1 只看老师和助教
+     * @param integer $VideoOrientation 横竖屏。0：横屏开播（默认值）; 1：竖屏开播，当前仅支持移动端的纯视频类型
+     * @param integer $IsGradingRequiredPostClass 开启课后评分。 0：不开启(默认)  1：开启
+     * @param integer $RoomType 房间类型: 0 小班课（默认值）; 1 大班课; 2 1V1 (后续扩展)
      */
     function __construct()
     {
@@ -288,6 +324,22 @@ coteaching 双师
 
         if (array_key_exists("EnableDirectControl",$param) and $param["EnableDirectControl"] !== null) {
             $this->EnableDirectControl = $param["EnableDirectControl"];
+        }
+
+        if (array_key_exists("InteractionMode",$param) and $param["InteractionMode"] !== null) {
+            $this->InteractionMode = $param["InteractionMode"];
+        }
+
+        if (array_key_exists("VideoOrientation",$param) and $param["VideoOrientation"] !== null) {
+            $this->VideoOrientation = $param["VideoOrientation"];
+        }
+
+        if (array_key_exists("IsGradingRequiredPostClass",$param) and $param["IsGradingRequiredPostClass"] !== null) {
+            $this->IsGradingRequiredPostClass = $param["IsGradingRequiredPostClass"];
+        }
+
+        if (array_key_exists("RoomType",$param) and $param["RoomType"] !== null) {
+            $this->RoomType = $param["RoomType"];
         }
     }
 }
