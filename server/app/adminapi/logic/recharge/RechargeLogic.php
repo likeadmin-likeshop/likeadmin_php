@@ -15,7 +15,6 @@
 namespace app\adminapi\logic\recharge;
 
 
-use app\common\enum\PayEnum;
 use app\common\enum\RefundEnum;
 use app\common\enum\user\AccountLogEnum;
 use app\common\enum\YesNoEnum;
