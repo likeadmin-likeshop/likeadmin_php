@@ -67,7 +67,7 @@ class DecorateTabbarLogic extends BaseLogic
                 'selected' => FileService::setFileUrl($item['selected']),
                 'unselected' => FileService::setFileUrl($item['unselected']),
                 'link' => $item['link'],
-                'is_show' => $item['is show'] ?? 0,
+                'is_show' => $item['is_show'] ?? 0,
             ];
         }
         $model->saveAll($data);
