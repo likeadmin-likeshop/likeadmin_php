@@ -10,16 +10,19 @@
             <el-form-item label="图片设置">
                 <div class="flex-1">
                     <div class="form-tips">最多添加5张，建议图片尺寸：750px*340px</div>
-                    <draggable class="draggable" v-model="content.data" animation="300">
+                    <draggable
+                        class="draggable"
+                        v-model="content.data"
+                        animation="300"
+                        handle=".drag-move"
+                    >
                         <template v-slot:item="{ element: item, index }">
                             <del-wrap
                                 :key="index"
                                 @close="handleDelete(index)"
                                 class="max-w-[400px]"
                             >
-                                <div
-                                    class="bg-fill-light flex items-center w-full p-4 mt-4 cursor-move"
-                                >
+                                <div class="bg-fill-light flex items-center w-full p-4 mt-4">
                                     <material-picker
                                         v-model="item.image"
                                         upload-class="bg-body"
@@ -42,6 +45,18 @@
                                                 placeholder="请输入链接"
                                                 v-model="item.link.path"
                                             />
+                                        </el-form-item>
+                                        <el-form-item label="是否显示" class="mt-[18px]">
+                                            <div class="flex-1 flex items-center">
+                                                <el-switch
+                                                    v-model="item.is_show"
+                                                    active-value="1"
+                                                    inactive-value="0"
+                                                />
+                                                <div class="drag-move cursor-move ml-auto">
+                                                    <icon name="el-icon-Rank" size="18" />
+                                                </div>
+                                            </div>
                                         </el-form-item>
                                     </div>
                                 </div>
@@ -81,6 +96,7 @@ const props = defineProps({
 const handleAdd = () => {
     if (props.content.data?.length < limit) {
         props.content.data.push({
+            is_show: '1',
             image: '',
             name: '',
             link: {}

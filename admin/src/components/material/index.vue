@@ -184,7 +184,7 @@
                         >
                             <del-wrap @close="batchFileDelete([item.id])">
                                 <file-item
-                                    :uri="item.uri"
+                                    :uri="item.url"
                                     :file-size="fileSize"
                                     :type="type"
                                     @click="selectFile(item)"
@@ -208,7 +208,7 @@
                                 >
                                     <el-button type="primary" link> 重命名 </el-button>
                                 </popover-input>
-                                <el-button type="primary" link @click="handlePreview(item.uri)">
+                                <el-button type="primary" link @click="handlePreview(item.url)">
                                     查看
                                 </el-button>
                             </div>
@@ -233,12 +233,12 @@
                     </el-table-column>
                     <el-table-column label="图片" width="100">
                         <template #default="{ row }">
-                            <file-item :uri="row.uri" file-size="50px" :type="type"></file-item>
+                            <file-item :uri="row.url" file-size="50px" :type="type"></file-item>
                         </template>
                     </el-table-column>
                     <el-table-column label="名称" min-width="100" show-overflow-tooltip>
                         <template #default="{ row }">
-                            <el-link @click.stop="handlePreview(row.uri)" :underline="false">
+                            <el-link @click.stop="handlePreview(row.url)" :underline="false">
                                 {{ row.name }}
                             </el-link>
                         </template>
@@ -260,7 +260,7 @@
                                 </popover-input>
                             </div>
                             <div class="inline-block">
-                                <el-button type="primary" link @click.stop="handlePreview(row.uri)">
+                                <el-button type="primary" link @click.stop="handlePreview(row.url)">
                                     查看
                                 </el-button>
                             </div>
@@ -347,7 +347,7 @@
                             <div class="select-item">
                                 <del-wrap @close="cancelSelete(item.id)">
                                     <file-item
-                                        :uri="item.uri"
+                                        :uri="item.url"
                                         file-size="100px"
                                         :type="type"
                                     ></file-item>

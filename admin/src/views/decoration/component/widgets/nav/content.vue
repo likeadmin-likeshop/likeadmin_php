@@ -2,7 +2,7 @@
     <div class="nav bg-white pt-[15px] pb-[8px]">
         <div class="flex flex-wrap">
             <div
-                v-for="(item, index) in content.data"
+                v-for="(item, index) in showList"
                 :key="index"
                 class="flex flex-col items-center w-1/5 mb-[15px]"
             >
@@ -26,6 +26,10 @@ const props = defineProps({
         type: Object as PropType<OptionsType['styles']>,
         default: () => ({})
     }
+})
+
+const showList = computed(() => {
+    return props.content.data?.filter((item: any) => item.is_show == '1') || []
 })
 </script>
 
