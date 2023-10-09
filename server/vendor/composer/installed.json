@@ -4264,18 +4264,18 @@
             "install-path": "../symfony/yaml"
         },
         {
-            "name": "tencentcloud/tencentcloud-sdk-php",
-            "version": "3.0.956",
-            "version_normalized": "3.0.956.0",
+            "name": "tencentcloud/common",
+            "version": "3.0.990",
+            "version_normalized": "3.0.990.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/TencentCloud/tencentcloud-sdk-php.git",
-                "reference": "b667e9faedfc3373338bd06ced405a52cb06c955"
+                "url": "https://github.com/tencentcloud-sdk-php/common.git",
+                "reference": "0c2705d31c42443ab54422aec7965561141e99ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TencentCloud/tencentcloud-sdk-php/zipball/b667e9faedfc3373338bd06ced405a52cb06c955",
-                "reference": "b667e9faedfc3373338bd06ced405a52cb06c955",
+                "url": "https://api.github.com/repos/tencentcloud-sdk-php/common/zipball/0c2705d31c42443ab54422aec7965561141e99ca",
+                "reference": "0c2705d31c42443ab54422aec7965561141e99ca",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -4285,22 +4285,16 @@
                 ]
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "guzzlehttp/guzzle": "^6.3||^7.0",
                 "php": ">=5.6.0"
             },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5"
-            },
-            "time": "2023-08-17T00:10:43+00:00",
+            "time": "2023-10-09T00:19:14+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "TencentCloud\\": "./src/TencentCloud"
-                },
-                "classmap": [
-                    "src/QcloudApi/QcloudApi.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4308,19 +4302,71 @@
             ],
             "authors": [
                 {
-                    "name": "coolli",
+                    "name": "tencentcloudapi",
                     "email": "tencentcloudapi@tencent.com",
                     "homepage": "https://cloud.tencent.com/document/sdk/PHP",
                     "role": "Developer"
                 }
             ],
             "description": "TencentCloudApi php sdk",
-            "homepage": "https://github.com/TencentCloud/tencentcloud-sdk-php",
+            "homepage": "https://github.com/tencentcloud-sdk-php/common",
             "support": {
-                "issues": "https://github.com/TencentCloud/tencentcloud-sdk-php/issues",
-                "source": "https://github.com/TencentCloud/tencentcloud-sdk-php/tree/3.0.956"
+                "issues": "https://github.com/tencentcloud-sdk-php/common/issues",
+                "source": "https://github.com/tencentcloud-sdk-php/common/tree/3.0.990"
             },
-            "install-path": "../tencentcloud/tencentcloud-sdk-php"
+            "install-path": "../tencentcloud/common"
+        },
+        {
+            "name": "tencentcloud/sms",
+            "version": "3.0.990",
+            "version_normalized": "3.0.990.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tencentcloud-sdk-php/sms.git",
+                "reference": "2dc4e09ae59950778370f6f438643046deee9882"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tencentcloud-sdk-php/sms/zipball/2dc4e09ae59950778370f6f438643046deee9882",
+                "reference": "2dc4e09ae59950778370f6f438643046deee9882",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "tencentcloud/common": "3.0.990"
+            },
+            "time": "2023-10-09T00:41:03+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "TencentCloud\\": "./src/TencentCloud"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "tencentcloudapi",
+                    "email": "tencentcloudapi@tencent.com",
+                    "homepage": "https://github.com/tencentcloud-sdk-php/sms",
+                    "role": "Developer"
+                }
+            ],
+            "description": "TencentCloudApi php sdk sms",
+            "homepage": "https://github.com/tencentcloud-sdk-php/sms",
+            "support": {
+                "issues": "https://github.com/tencentcloud-sdk-php/sms/issues",
+                "source": "https://github.com/tencentcloud-sdk-php/sms/tree/3.0.990"
+            },
+            "install-path": "../tencentcloud/sms"
         },
         {
             "name": "thenorthmemory/xml",
