@@ -8,7 +8,7 @@
         </div>
         <div v-if="content.style == 1" class="flex flex-wrap pt-[40rpx] pb-[20rpx]">
             <div
-                v-for="(item, index) in content.data"
+                v-for="(item, index) in showList"
                 :key="index"
                 class="flex flex-col items-center w-1/4 mb-[15px]"
                 @click="handleClick(item.link)"
@@ -19,7 +19,7 @@
         </div>
         <div v-if="content.style == 2">
             <div
-                v-for="(item, index) in content.data"
+                v-for="(item, index) in showList"
                 :key="index"
                 class="flex items-center border-light border-solid border-0 border-b h-[100rpx] px-[24rpx]"
                 @click="handleClick(item.link)"
@@ -36,6 +36,7 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/stores/app'
 import { navigateTo } from '@/utils/util'
+import { computed } from 'vue'
 
 const props = defineProps({
     content: {
@@ -51,6 +52,10 @@ const { getImageUrl } = useAppStore()
 const handleClick = (link: any) => {
     navigateTo(link)
 }
+
+const showList = computed(() => {
+    return props.content.data?.filter((item: any) => item.is_show == '1') || []
+})
 </script>
 
 <style lang="scss"></style>

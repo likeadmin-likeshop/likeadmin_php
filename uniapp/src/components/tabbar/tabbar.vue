@@ -16,15 +16,17 @@ import { computed, ref } from 'vue'
 const current = ref()
 const appStore = useAppStore()
 const tabbarList = computed(() => {
-    return appStore.getTabbarConfig.map((item: any) => {
-        return {
-            iconPath: item.unselected,
-            selectedIconPath: item.selected,
-            text: item.name,
-            link: item.link,
-            pagePath: item.link.path
-        }
-    })
+    return appStore.getTabbarConfig
+        ?.filter((item: any) => item.is_show == 1)
+        .map((item: any) => {
+            return {
+                iconPath: item.unselected,
+                selectedIconPath: item.selected,
+                text: item.name,
+                link: item.link,
+                pagePath: item.link.path
+            }
+        })
 })
 const showTabbar = computed(() => {
     const currentPages = getCurrentPages()

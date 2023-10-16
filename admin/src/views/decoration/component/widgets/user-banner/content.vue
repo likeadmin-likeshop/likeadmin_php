@@ -20,10 +20,12 @@ const props = defineProps({
         default: () => ({})
     }
 })
+const showList = computed(() => {
+    return props.content.data?.filter((item: any) => item.is_show == '1') || []
+})
 const getImage = computed(() => {
-    const { data } = props.content
-    if (Array.isArray(data)) {
-        return data[0] ? data[0].image : ''
+    if (Array.isArray(showList.value)) {
+        return showList.value[0] ? showList.value[0].image : ''
     }
     return ''
 })

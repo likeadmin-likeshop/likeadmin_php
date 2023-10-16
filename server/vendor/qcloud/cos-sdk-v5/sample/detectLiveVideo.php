@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', // 审核时必须为https
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     $result = $cosClient->detectLiveVideo(array(
@@ -33,6 +33,9 @@ try {
             'Callback' => '',
 //            'CallbackType' => 1,
             'BizType' => '07d41bbb5a3a93dca4xxxxxxxxxxx', // 直播流审核 BizType 必填，可联系工作人员生成后使用
+        ),
+        'StorageConf' => array(
+            'Path' => 'xxx',
         ),
     ));
     // 请求成功

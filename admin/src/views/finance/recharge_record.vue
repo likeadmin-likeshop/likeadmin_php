@@ -27,13 +27,13 @@
                     />
                 </el-form-item>
                 <el-form-item label="支付方式">
-                    <el-select class="w-[280px]" v-model="queryParams.pay_status">
+                    <el-select class="w-[280px]" v-model="queryParams.pay_way">
                         <el-option label="全部" value />
                         <el-option label="微信支付" :value="2" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="支付状态">
-                    <el-select class="w-[280px]" v-model="queryParams.pay_way">
+                    <el-select class="w-[280px]" v-model="queryParams.pay_status">
                         <el-option label="全部" value />
                         <el-option label="未支付" :value="0" />
                         <el-option label="已支付" :value="1" />
@@ -130,7 +130,7 @@ const { pager, getLists, resetPage, resetParams } = usePaging({
     params: queryParams
 })
 const handleRefund = async (id: number) => {
-    await feedback.confirm('确认重新退款？')
+    await feedback.confirm('确认退款？')
     await refund({
         recharge_id: id
     })

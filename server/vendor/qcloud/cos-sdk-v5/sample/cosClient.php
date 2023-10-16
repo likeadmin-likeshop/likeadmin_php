@@ -21,10 +21,12 @@ $cosClient = new Qcloud\Cos\Client(
         'userAgent' => '', //UA
         'allow_redirects' => false, //是否follow302
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey,
             'token'     => $token,
             'anonymous' => true, //匿名模式
-        )
+        ),
+        'timezone' => 'PRC', //时区
+        'locationWithSchema' => true //Location中是否包含schema
     )
 );

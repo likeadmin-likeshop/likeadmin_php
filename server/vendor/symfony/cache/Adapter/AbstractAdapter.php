@@ -98,10 +98,8 @@ abstract class AbstractAdapter implements AdapterInterface, CacheInterface, Logg
      * Returns the best possible adapter that your runtime supports.
      *
      * Using ApcuAdapter makes system caches compatible with read-only filesystems.
-     *
-     * @return AdapterInterface
      */
-    public static function createSystemCache(string $namespace, int $defaultLifetime, string $version, string $directory, LoggerInterface $logger = null)
+    public static function createSystemCache(string $namespace, int $defaultLifetime, string $version, string $directory, LoggerInterface $logger = null): AdapterInterface
     {
         $opcache = new PhpFilesAdapter($namespace, $defaultLifetime, $directory, true);
         if (null !== $logger) {
@@ -145,10 +143,8 @@ abstract class AbstractAdapter implements AdapterInterface, CacheInterface, Logg
 
     /**
      * {@inheritdoc}
-     *
-     * @return bool
      */
-    public function commit()
+    public function commit(): bool
     {
         $ok = true;
         $byLifetime = (self::$mergeByLifetime)($this->deferred, $this->namespace, $expiredIds, \Closure::fromCallable([$this, 'getId']), $this->defaultLifetime);

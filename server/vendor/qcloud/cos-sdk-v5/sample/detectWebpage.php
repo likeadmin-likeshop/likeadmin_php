@@ -17,13 +17,28 @@ try {
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Input' => array(
             'Url' => 'https://www.xxx.com/',
-//            'DataId' => '' // 可选 该字段在审核结果中会返回原始内容，长度限制为512字节。您可以使用该字段对待审核的数据进行唯一业务标识。
+//            'DataId' => 'xxx', // 可选 该字段在审核结果中会返回原始内容，长度限制为512字节。您可以使用该字段对待审核的数据进行唯一业务标识。
+//            'UserInfo' => array(
+//                'TokenId' => '',
+//                'Nickname' => '',
+//                'DeviceId' => '',
+//                'AppId' => '',
+//                'Room' => '',
+//                'IP' => '',
+//                'Type' => '',
+//                'ReceiveTokenId' => '',
+//                'Gender' => '',
+//                'Level' => '',
+//                'Role' => '',
+//            ), // 可选 用户业务字段
         ),
 //        'Conf' => array(
-////            'DetectType' => 'Porn,Ads', // 可选 不填走默认策略
-////            'ReturnHighlightHtml' => 'true',  // 可选 'true' 或者 'false'
-////            'Callback' => '', // 可选
-//        ), // 可选 在DetectType/BizType都不传的情况下，走默认策略及默认审核场景。
+//            'BizType' => 'd7a51676a0xxxxxxxxxxxxxxxxxxxxxx', // 可选 审核策略
+////            'DetectType' => 'Porn', // 可选 审核的场景类型 注：该参数后续不再维护，请使用BizType参数
+//            'Callback' => 'http://xxx.com/xxx', // 可选 回调地址，以http://或者https://开头的地址。
+//            'ReturnHighlightHtml' => 'true', // 可选 true 或者 false 指定是否需要高亮展示网页内的违规文本，查询及回调结果时会根据此参数决定是否返回高亮展示的 html 内容
+//            'CallbackType' => 1, // 可选 回调片段类型，有效值：1（回调全部图片和文本片段）、2（回调违规图片和文本片段）。默认为 1。
+//        ), // 审核规则配置
     ));
     // 请求成功
     print_r($result);

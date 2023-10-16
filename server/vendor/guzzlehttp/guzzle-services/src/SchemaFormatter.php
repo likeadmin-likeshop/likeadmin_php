@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle;
 
 /**
@@ -41,6 +42,7 @@ class SchemaFormatter
      * @param string               $format   Format of the result
      *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     protected function dateFormatter($dateTime, $format)
@@ -58,18 +60,19 @@ class SchemaFormatter
             if (!$utc) {
                 $utc = new \DateTimeZone('UTC');
             }
+
             return $dateTime->setTimezone($utc)->format($format);
         }
 
         throw new \InvalidArgumentException('Date/Time values must be either '
-            . 'be a string, integer, or DateTime object');
+            .'be a string, integer, or DateTime object');
     }
 
     /**
      * Create a ISO 8601 (YYYY-MM-DDThh:mm:ssZ) formatted date time value in
      * UTC time.
      *
-     * @param string|integer|\DateTime $value Date time value
+     * @param string|int|\DateTime $value Date time value
      *
      * @return string
      */
@@ -81,7 +84,7 @@ class SchemaFormatter
     /**
      * Create an HTTP date (RFC 1123 / RFC 822) formatted UTC date-time string
      *
-     * @param string|integer|\DateTime $value Date time value
+     * @param string|int|\DateTime $value Date time value
      *
      * @return string
      */
@@ -93,7 +96,7 @@ class SchemaFormatter
     /**
      * Create a YYYY-MM-DD formatted string
      *
-     * @param string|integer|\DateTime $value Date time value
+     * @param string|int|\DateTime $value Date time value
      *
      * @return string
      */
@@ -105,7 +108,7 @@ class SchemaFormatter
     /**
      * Create a hh:mm:ss formatted string
      *
-     * @param string|integer|\DateTime $value Date time value
+     * @param string|int|\DateTime $value Date time value
      *
      * @return string
      */
@@ -117,8 +120,8 @@ class SchemaFormatter
     /**
      * Formats a boolean value as a string
      *
-     * @param string|integer|bool $value Value to convert to a boolean
-     *                                   'true' / 'false' value
+     * @param string|int|bool $value Value to convert to a boolean
+     *                               'true' / 'false' value
      *
      * @return string
      */
@@ -130,7 +133,7 @@ class SchemaFormatter
     /**
      * Return a UNIX timestamp in the UTC timezone
      *
-     * @param string|integer|\DateTime $value Time value
+     * @param string|int|\DateTime $value Time value
      *
      * @return int
      */

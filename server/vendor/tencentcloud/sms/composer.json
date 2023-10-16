@@ -1,0 +1,23 @@
+{
+    "name": "tencentcloud/sms",
+    "description": "TencentCloudApi php sdk sms",
+    "type": "library",
+    "homepage": "https://github.com/tencentcloud-sdk-php/sms",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "tencentcloudapi",
+            "email": "tencentcloudapi@tencent.com",
+            "homepage": "https://github.com/tencentcloud-sdk-php/sms",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "tencentcloud/common": "3.0.990"
+    },
+    "autoload": {
+        "psr-4": {
+            "TencentCloud\\": "./src/TencentCloud"
+        }
+    }
+}

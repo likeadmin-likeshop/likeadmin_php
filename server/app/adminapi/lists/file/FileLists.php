@@ -63,8 +63,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
             ->toArray();
 
         foreach ($lists as &$item) {
-            $item['url'] = $item['uri'];
-            $item['uri'] = FileService::getFileUrl($item['uri']);
+            $item['url'] = FileService::getFileUrl($item['uri']);
         }
 
         return $lists;

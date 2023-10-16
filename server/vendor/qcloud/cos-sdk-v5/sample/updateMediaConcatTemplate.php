@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', //协议头部，默认为http
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // https://cloud.tencent.com/document/product/436/54044 更新拼接模板
@@ -46,6 +46,34 @@ try {
             ),
             'Container' => array(
                 'Format' => 'mp4',
+            ),
+            'AudioMixArray' => array(
+                array(
+                    'AudioSource' => '',
+                    'MixMode' => '',
+                    'Replace' => '',
+                    'EffectConfig' => array(
+                        'EnableStartFadein' => '',
+                        'StartFadeinTime' => '',
+                        'EnableEndFadeout' => '',
+                        'EndFadeoutTime' => '',
+                        'EnableBgmFade' => '',
+                        'BgmFadeTime' => '',
+                    ),
+                ),
+                array(
+                    'AudioSource' => '',
+                    'MixMode' => '',
+                    'Replace' => '',
+                    'EffectConfig' => array(
+                        'EnableStartFadein' => '',
+                        'StartFadeinTime' => '',
+                        'EnableEndFadeout' => '',
+                        'EndFadeoutTime' => '',
+                        'EnableBgmFade' => '',
+                        'BgmFadeTime' => '',
+                    ),
+                ),
             ),
         ),
     ));

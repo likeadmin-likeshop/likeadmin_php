@@ -2,16 +2,18 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2021 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2023 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace think\cache\driver;
 
+use DateInterval;
+use DateTimeInterface;
 use think\cache\Driver;
 
 /**
@@ -89,7 +91,7 @@ class Memcached extends Driver
      * @param string $name 缓存变量名
      * @return bool
      */
-    public function has($name): bool
+    public function has(string $name): bool
     {
         $key = $this->getCacheKey($name);
 
@@ -103,7 +105,7 @@ class Memcached extends Driver
      * @param mixed  $default 默认值
      * @return mixed
      */
-    public function get($name, $default = null)
+    public function get(string $name, mixed $default = null): mixed
     {
         $this->readTimes++;
 
@@ -117,10 +119,10 @@ class Memcached extends Driver
      * @access public
      * @param string            $name   缓存变量名
      * @param mixed             $value  存储数据
-     * @param integer|\DateTime $expire 有效时间（秒）
+     * @param integer|DateInterval|DateTimeInterface $expire 有效时间（秒）
      * @return bool
      */
-    public function set($name, $value, $expire = null): bool
+    public function set(string $name, mixed $value, int|DateInterval|DateTimeInterface $expire = null): bool
     {
         $this->writeTimes++;
 
@@ -184,15 +186,15 @@ class Memcached extends Driver
      * @param bool|false $ttl
      * @return bool
      */
-    public function delete($name, $ttl = false): bool
+    public function delete(string $name, $ttl = false): bool
     {
         $this->writeTimes++;
 
         $key = $this->getCacheKey($name);
 
         return false === $ttl ?
-        $this->handler->delete($key) :
-        $this->handler->delete($key, $ttl);
+            $this->handler->delete($key) :
+            $this->handler->delete($key, $ttl);
     }
 
     /**
@@ -217,5 +219,4 @@ class Memcached extends Driver
     {
         $this->handler->deleteMulti($keys);
     }
-
 }

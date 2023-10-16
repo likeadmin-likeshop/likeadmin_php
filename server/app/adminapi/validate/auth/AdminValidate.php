@@ -30,7 +30,7 @@ class AdminValidate extends BaseValidate
         'name' => 'require|length:1,16|unique:'.Admin::class,
         'password' => 'require|length:6,32|edit',
         'password_confirm' => 'requireWith:password|confirm',
-        'role_id' => 'require',
+        'role_id' => 'checkRole',
         'disable' => 'require|in:0,1|checkAbleDisable',
         'multipoint_login' => 'require|in:0,1',
     ];
@@ -47,7 +47,6 @@ class AdminValidate extends BaseValidate
         'name.require' => '名称不能为空',
         'name.length' => '名称须在1-16位字符',
         'name.unique' => '名称已存在',
-        'role_id.require' => '请选择角色',
         'disable.require' => '请选择状态',
         'disable.in' => '状态值错误',
         'multipoint_login.require' => '请选择是否支持多处登录',
@@ -162,6 +161,33 @@ class AdminValidate extends BaseValidate
         if ($value && $admin['root']) {
             return '超级管理员不允许被禁用';
         }
+        return true;
+    }
+
+    /**
+     * @notes 校验角色
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2023/9/6 16:58
+     */
+    public function checkRole($value, $rule, $data)
+    {
+        $admin = Admin::findOrEmpty($data['id']);
+        if ($admin->isEmpty()) {
+            return '管理员不存在';
+        }
+
+        if ($admin['root']) {
+            return true;
+        }
+
+        if (empty($data['role_id'])) {
+            return '请选择角色';
+        }
+
         return true;
     }
 

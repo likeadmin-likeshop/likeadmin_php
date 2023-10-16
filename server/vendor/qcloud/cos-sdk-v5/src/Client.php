@@ -207,10 +207,36 @@ use GuzzleHttp\Psr7;
  * @method object GetFileUncompressResult(array $args) 查询文件解压结果
  * @method object CreateFileCompressJobs(array $args) 提交多文件打包压缩任务
  * @method object GetFileCompressResult(array $args) 查询多文件打包压缩结果
+ * @method object CreateM3U8PlayListJobs(array $args) 获取指定hls/m3u8文件指定时间区间内的ts资源
+ * @method object GetPicQueueList(array $args) 搜索图片处理队列
+ * @method object UpdatePicQueue(array $args) 更新图片处理队列
+ * @method object GetPicBucketList(array $args) 查询图片处理服务状态
+ * @method object GetAiBucketList(array $args) 查询 AI 内容识别服务状态
+ * @method object OpenAiService(array $args) 开通 AI 内容识别
+ * @method object GetAiQueueList(array $args) 搜索 AI 内容识别队列
+ * @method object UpdateAiQueue(array $args) 更新 AI 内容识别队列
+ * @method object CreateMediaTranscodeProTemplate(array $args) 创建音视频转码 pro 模板
+ * @method object UpdateMediaTranscodeProTemplate(array $args) 更新音视频转码 pro 模板
+ * @method object CreateVoiceTtsTemplate(array $args) 创建语音合成模板
+ * @method object UpdateVoiceTtsTemplate(array $args) 更新语音合成模板
+ * @method object CreateMediaSmartCoverTemplate(array $args) 创建智能封面模板
+ * @method object UpdateMediaSmartCoverTemplate(array $args) 更新智能封面模板
+ * @method object CreateVoiceSpeechRecognitionTemplate(array $args) 创建语音识别模板
+ * @method object UpdateVoiceSpeechRecognitionTemplate(array $args) 更新语音识别模板
+ * @method object CreateVoiceTtsJobs(array $args) 提交一个语音合成任务
+ * @method object CreateAiTranslationJobs(array $args) 提交一个翻译任务
+ * @method object CreateVoiceSpeechRecognitionJobs(array $args) 提交一个语音识别任务
+ * @method object CreateAiWordsGeneralizeJobs(array $args) 提交一个分词任务
+ * @method object CreateMediaVideoEnhanceJobs(array $args) 提交画质增强任务
+ * @method object CreateMediaVideoEnhanceTemplate(array $args) 创建画质增强模板
+ * @method object UpdateMediaVideoEnhanceTemplate(array $args) 更新画质增强模板
+ * @method object OpenImageSlim(array $args) 开通图片瘦身
+ * @method object CloseImageSlim(array $args) 关闭图片瘦身
+ * @method object GetImageSlim(array $args) 查询图片瘦身状态
  * @see \Qcloud\Cos\Service::getService()
  */
 class Client extends GuzzleClient {
-    const VERSION = '2.6.2';
+    const VERSION = '2.6.5';
 
     public $httpClient;
     
@@ -245,6 +271,7 @@ class Client extends GuzzleClient {
         $this->cosConfig['allow_redirects'] = isset($cosConfig['allow_redirects']) ? $cosConfig['allow_redirects'] : false;
         $this->cosConfig['allow_accelerate'] = isset($cosConfig['allow_accelerate']) ? $cosConfig['allow_accelerate'] : false;
         $this->cosConfig['timezone'] = isset($cosConfig['timezone']) ? $cosConfig['timezone'] : 'PRC';
+        $this->cosConfig['locationWithSchema'] = isset($cosConfig['locationWithSchema']) ? $cosConfig['locationWithSchema'] : false;
 
         // check config
         $this->inputCheck();
@@ -260,6 +287,7 @@ class Client extends GuzzleClient {
         }
         if ($this->cosConfig['token'] != null) {
             $handler->push(Middleware::mapRequest(function (RequestInterface $request) {
+                $request = $request->withHeader('x-ci-security-token', $this->cosConfig['token']);
                 return $request->withHeader('x-cos-security-token', $this->cosConfig['token']);
             }));
         }
@@ -413,7 +441,7 @@ class Client extends GuzzleClient {
     public function getObjectUrlWithoutSign($bucket, $key, array $args = array()) {
         $command = $this->getCommand('GetObject', $args + array('Bucket' => $bucket, 'Key' => $key));
         $request = $this->commandToRequestTransformer($command);
-        return $request->getUri()-> __toString();
+        return $request->getUri()->__toString();
     }
 
     public function upload($bucket, $key, $body, $options = array()) {

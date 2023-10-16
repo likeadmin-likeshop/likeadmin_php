@@ -9,7 +9,7 @@
             </el-form-item>
             <el-form-item label="菜单设置">
                 <div class="flex-1">
-                    <div class="form-tips mb-4">最多可添加10个，建议图片尺寸：100px*100px</div>
+                    <div class="form-tips mb-4">建议图片尺寸：100px*100px</div>
                     <AddNav v-model="content.data" />
                 </div>
             </el-form-item>

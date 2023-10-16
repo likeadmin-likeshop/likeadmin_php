@@ -42,6 +42,16 @@ class Crontab extends Command
             return false;
         }
         foreach ($lists as $item) {
+            if (empty($item['last_time'])) {
+                $lastTime = (new CronExpression($item['expression']))
+                    ->getNextRunDate()
+                    ->getTimestamp();
+                CrontabModel::where('id', $item['id'])->update([
+                    'last_time' => $lastTime,
+                ]);
+                continue;
+            }
+
             $nextTime = (new CronExpression($item['expression']))
                 ->getNextRunDate($item['last_time'])
                 ->getTimestamp();

@@ -79,14 +79,10 @@ const avatar = ref()
 
 const handleSubmit = (e: any) => {
     const { nickname } = e.detail.value
-    if (!avatar.value)
-        return uni.$u.toast({
-            title: '请添加头像'
-        })
-    if (!nickname)
-        return uni.$u.toast({
-            title: '请输入昵称'
-        })
+  if (!avatar.value)
+      return uni.$u.toast('请添加头像')
+  if (!nickname)
+      return uni.$u.toast('请输入昵称')
     emit('update', {
         avatar: avatar.value,
         nickname

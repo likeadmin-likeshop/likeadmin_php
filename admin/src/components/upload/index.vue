@@ -1,6 +1,7 @@
 <template>
     <div class="upload">
         <el-upload
+            v-model:file-list="fileList"
             ref="uploadRefs"
             :action="action"
             :multiple="multiple"
@@ -14,7 +15,7 @@
             :on-error="handleError"
             :accept="getAccept"
         >
-            <slot></slot>
+            <slot />
         </el-upload>
         <el-dialog
             v-if="showProgress && fileList.length"
@@ -30,7 +31,7 @@
                     <div class="mb-5">
                         <div>{{ item.name }}</div>
                         <div class="flex-1">
-                            <el-progress :percentage="parseInt(item.percentage)"></el-progress>
+                            <el-progress :percentage="parseInt(item.percentage)" />
                         </div>
                     </div>
                 </template>
@@ -89,14 +90,13 @@ export default defineComponent({
 
         const handleProgress = (event: any, file: any, fileLists: any[]) => {
             visible.value = true
-            fileList.value = toRaw(fileLists)
         }
-
+        let uploadLen = 0
         const handleSuccess = (response: any, file: any, fileLists: any[]) => {
-            const allSuccess = fileLists.every((item) => item.status == 'success')
-            if (allSuccess) {
-                uploadRefs.value?.clearFiles()
-                visible.value = false
+            uploadLen++
+            if (uploadLen == fileList.value.length) {
+                uploadLen = 0
+                fileList.value = []
             }
             emit('change', file)
             if (response.code == RequestCodeEnum.SUCCESS) {
@@ -107,6 +107,11 @@ export default defineComponent({
             }
         }
         const handleError = (event: any, file: any) => {
+            uploadLen++
+            if (uploadLen == fileList.value.length) {
+                uploadLen = 0
+                fileList.value = []
+            }
             feedback.msgError(`${file.name}文件上传失败`)
             uploadRefs.value?.abort(file)
             visible.value = false
@@ -117,7 +122,7 @@ export default defineComponent({
             feedback.msgError(`超出上传上限${props.limit}，请重新上传`)
         }
         const handleClose = () => {
-            uploadRefs.value?.clearFiles()
+            fileList.value = []
             visible.value = false
         }
 

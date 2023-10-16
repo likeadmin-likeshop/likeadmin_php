@@ -19,7 +19,6 @@ try {
         'Key' => 'test.png', // 桶文件
         'ci-process' => 'sensitive-content-recognition',
 //        'BizType' => '', // 可选 定制化策略，不传走默认策略
-//        'DetectType' => 'porn,ads', // 可选 不填走默认策略 或 定制化策略，四种参数：porn,ads等，可使用多种规则，注意规则间不要加空格
 //        'Interval' => 5, // 可选 审核 GIF 时使用 截帧的间隔
 //        'MaxFrames' => 5, // 可选 针对 GIF 动图审核的最大截帧数量，需大于0。
 //        'LargeImageDetect' => '',
@@ -39,7 +38,6 @@ try {
         'ci-process' => 'sensitive-content-recognition',
         'DetectUrl' => $imgUrl,
 //        'BizType' => '', // 可选 定制化策略，不传走默认策略
-//        'DetectType' => 'porn,ads', // 可选 不填走默认策略 或 定制化策略，四种参数：porn,ads等，可使用多种规则，注意规则间不要加空格
 //        'Interval' => 5, // 可选 审核 GIF 时使用 截帧的间隔
 //        'MaxFrames' => 5, // 可选 针对 GIF 动图审核的最大截帧数量，需大于0。
 //        'LargeImageDetect' => '',

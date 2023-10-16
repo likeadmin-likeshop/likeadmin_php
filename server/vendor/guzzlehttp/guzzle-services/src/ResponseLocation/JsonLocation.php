@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle\ResponseLocation;
 
 use GuzzleHttp\Command\Guzzle\Parameter;
@@ -25,10 +26,6 @@ class JsonLocation extends AbstractLocation
     }
 
     /**
-     * @param \GuzzleHttp\Command\ResultInterface  $result
-     * @param \Psr\Http\Message\ResponseInterface  $response
-     * @param \GuzzleHttp\Command\Guzzle\Parameter $model
-     *
      * @return \GuzzleHttp\Command\ResultInterface
      */
     public function before(
@@ -37,7 +34,7 @@ class JsonLocation extends AbstractLocation
         Parameter $model
     ) {
         $body = (string) $response->getBody();
-        $body = $body ?: "{}";
+        $body = $body ?: '{}';
         $this->json = \GuzzleHttp\json_decode($body, true);
         // relocate named arrays, so that they have the same structure as
         //  arrays nested in objects and visit can work on them in the same way
@@ -49,9 +46,6 @@ class JsonLocation extends AbstractLocation
     }
 
     /**
-     * @param ResultInterface $result
-     * @param ResponseInterface $response
-     * @param Parameter $model
      * @return ResultInterface
      */
     public function after(
@@ -84,9 +78,6 @@ class JsonLocation extends AbstractLocation
     }
 
     /**
-     * @param ResultInterface $result
-     * @param ResponseInterface $response
-     * @param Parameter $param
      * @return Result|ResultInterface
      */
     public function visit(
@@ -123,6 +114,7 @@ class JsonLocation extends AbstractLocation
      *
      * @param Parameter $param API parameter being validated
      * @param mixed     $value Value to process.
+     *
      * @return mixed|null
      */
     private function recurse(Parameter $param, $value)
