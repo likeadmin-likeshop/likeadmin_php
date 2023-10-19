@@ -247,13 +247,15 @@ class WechatUserService
             'default' => ConfigService::get('storage', 'default', 'local'),
             'engine' => ConfigService::get('storage')
         ];
+
+        $fileName = md5($this->openid . time()) . '.jpeg';
+
         if ($config['default'] == 'local') {
             // 本地存储
-            $file_name = md5($this->openid . time()) . '.jpeg';
-            $avatar = download_file($this->headimgurl, 'uploads/user/avatar/', $file_name);
+            $avatar = download_file($this->headimgurl, 'uploads/user/avatar/', $fileName);
         } else {
             // 第三方存储
-            $avatar = 'uploads/user/avatar/' . md5($this->openid . time()) . '.jpeg';
+            $avatar = 'uploads/user/avatar/' . $fileName;
             $StorageDriver = new StorageDriver($config);
             if (!$StorageDriver->fetch($this->headimgurl, $avatar)) {
                 throw new Exception('头像保存失败:' . $StorageDriver->getError());
