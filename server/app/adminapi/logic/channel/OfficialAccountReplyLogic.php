@@ -51,8 +51,7 @@ class OfficialAccountReplyLogic extends BaseLogic
             OfficialAccountReply::create($params);
             return true;
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 
@@ -93,8 +92,7 @@ class OfficialAccountReplyLogic extends BaseLogic
             OfficialAccountReply::update($params);
             return true;
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 

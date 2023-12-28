@@ -40,8 +40,7 @@ class OfficialAccountMenuLogic extends BaseLogic
             ConfigService::set('oa_setting', 'menu', $params);
             return true;
         } catch (\Exception $e) {
-            OfficialAccountMenuLogic::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 
@@ -184,12 +183,10 @@ class OfficialAccountMenuLogic extends BaseLogic
                 return true;
             }
 
-            self::setError('保存发布菜单失败' . json_encode($result));
-            return false;
+            return self::setError('保存发布菜单失败' . json_encode($result));
 
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 

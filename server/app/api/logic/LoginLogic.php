@@ -63,8 +63,7 @@ class LoginLogic extends BaseLogic
 
             return true;
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 
@@ -111,8 +110,7 @@ class LoginLogic extends BaseLogic
                 'token' => $userInfo['token'],
             ];
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 

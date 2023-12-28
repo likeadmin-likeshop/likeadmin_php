@@ -71,8 +71,7 @@ class AdminLogic extends BaseLogic
             return true;
         } catch (\Exception $e) {
             Db::rollback();
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 
@@ -138,8 +137,7 @@ class AdminLogic extends BaseLogic
             return true;
         } catch (\Exception $e) {
             Db::rollback();
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 
@@ -177,8 +175,7 @@ class AdminLogic extends BaseLogic
             return true;
         } catch (\Exception $e) {
             Db::rollback();
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 

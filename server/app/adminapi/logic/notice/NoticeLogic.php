@@ -109,8 +109,7 @@ class NoticeLogic extends BaseLogic
             NoticeSetting::where('id', $params['id'])->update($updateData);
             return true;
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 

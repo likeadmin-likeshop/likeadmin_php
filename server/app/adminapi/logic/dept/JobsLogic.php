@@ -68,8 +68,7 @@ class JobsLogic extends BaseLogic
             ]);
             return true;
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 

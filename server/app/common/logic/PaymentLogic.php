@@ -84,8 +84,7 @@ class PaymentLogic extends BaseLogic
             ];
 
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 
@@ -128,8 +127,7 @@ class PaymentLogic extends BaseLogic
                 'order' => $orderInfo
             ];
         } catch (\Exception $e) {
-            self::setError($e->getMessage());
-            return false;
+            return self::setError($e->getMessage());
         }
     }
 
