@@ -58,7 +58,7 @@ export function createRouteRecord(route: any, firstRoute: boolean): RouteRecordR
 export function loadRouteView(component: string) {
     try {
         const key = Object.keys(modules).find((key) => {
-            return key.includes(`${component}.vue`)
+            return key.includes(`/${component}.vue`)
         })
         if (key) {
             return modules[key]
