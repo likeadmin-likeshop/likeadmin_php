@@ -25,7 +25,6 @@
                         </div>
                     </div>
                 </div>
-                <el-form-item label="用户编号："> {{ formData.sn }} </el-form-item>
                 <el-form-item label="用户昵称：">
                     {{ formData.nickname }}
                 </el-form-item>
