@@ -40,5 +40,6 @@ const cacheDate = ref<Array<object>>([
 const handleClean = async () => {
     await feedback.confirm('确认清除系统缓存？')
     await systemCacheClear()
+    window.location.reload()
 }
 </script>
