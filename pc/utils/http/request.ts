@@ -4,11 +4,13 @@ import {
     $Fetch,
     FetchResponse,
     RequestOptions,
-    FileParams
-} from 'ohmyfetch'
+    FileParams,
+    RequestEventStreamOptions
+} from 'ofetch'
 import { merge } from 'lodash-es'
 import { isFunction } from '../validate'
 import { RequestMethodsEnum } from '@/enums/requestEnums'
+import { objectToQuery } from '../util'
 
 export class Request {
     private requestOptions: RequestOptions
@@ -79,7 +81,6 @@ export class Request {
             this.requestOptions,
             requestOptions
         )
-
         const {
             requestInterceptorsHook,
             responseInterceptorsHook,
@@ -101,6 +102,7 @@ export class Request {
                                 response,
                                 mergeOptions
                             )
+
                             resolve(response)
                         } catch (error) {
                             reject(error)

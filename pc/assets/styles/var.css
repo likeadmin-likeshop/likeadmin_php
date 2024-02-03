@@ -1,21 +1,26 @@
-:root {
+:root body {
     --el-font-family: theme(fontFamily.sans);
-    --el-color-primary: #4a5dff;
-    --el-color-primary-dark-2: rgb(59, 74, 204);
-    --el-color-primary-light-3: rgb(128, 142, 255);
-    --el-color-primary-light-5: rgb(165, 174, 255);
-    --el-color-primary-light-7: rgb(201, 206, 255);
-    --el-color-primary-light-8: rgb(219, 223, 255);
-    --el-color-primary-light-9: rgb(237, 239, 255);
+    --color-primary: #4153ff;
+    --el-color-primary: var(--color-primary);
+    --color-minor: #7583ff;
+    --color-btn-text: white;
+    --el-color-primary-dark-2: rgb(19, 153, 166);
+    --el-color-primary-light-3: rgb(93, 210, 222);
+    --el-color-primary-light-5: rgb(140, 223, 232);
+    --el-color-primary-light-7: rgb(186, 236, 241);
+    --el-color-primary-light-8: rgb(209, 242, 246);
+    --el-color-primary-light-9: rgb(232, 249, 250);
     --el-font-weight-primary: 400;
     --el-menu-item-height: 46px;
     --el-menu-sub-item-height: var(--el-menu-item-height);
     --el-menu-icon-width: 18px;
-    --aside-width: 200px;
+    --sidebar-width: 140px;
+    --aside-bg-color: #fff;
     --header-height: 60px;
     --color-white: #ffffff;
     --table-header-bg-color: #f8f8f8;
     --el-font-size-extra-large: 18px;
+    --el-menu-horizontal-height: 44px;
     --el-menu-base-level-padding: 16px;
     --el-menu-level-padding: 26px;
     --el-font-size-large: 16px;
@@ -24,10 +29,13 @@
     --el-font-size-small: 13px;
     --el-font-size-extra-small: 12px;
 
+    --gradient-1: var(--color-primary);
+    --gradient-2: var(--color-minor);
+
     --el-bg-color: var(--color-white);
     --el-bg-color-page: #f7f7f7;
     --el-bg-color-overlay: #ffffff;
-    --el-text-color-primary: #333333;
+    --el-text-color-primary: #101010;
     --el-text-color-regular: #666666;
     --el-text-color-secondary: #999999;
     --el-text-color-placeholder: #a8abb2;
@@ -48,9 +56,9 @@
     --el-mask-color: rgba(255, 255, 255, 0.9);
     --el-mask-color-extra-light: rgba(255, 255, 255, 0.3);
     -el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04),
-        0px 8px 20px rgba(0, 0, 0, 0.08);
+    0px 8px 20px rgba(0, 0, 0, 0.08);
     --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.12);
     --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.12);
     --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.08),
-        0px 12px 32px rgba(0, 0, 0, 0.12), 0px 8px 16px -8px rgba(0, 0, 0, 0.16);
+    0px 12px 32px rgba(0, 0, 0, 0.12), 0px 8px 16px -8px rgba(0, 0, 0, 0.16);
 }

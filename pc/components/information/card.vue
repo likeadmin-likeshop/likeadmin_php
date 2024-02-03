@@ -56,7 +56,7 @@
 import { ElButton, ElIcon, ElEmpty } from 'element-plus'
 import empty_news from '@/assets/images/empty_news.png'
 import { ArrowRight } from '@element-plus/icons-vue'
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 defineProps({
     header: {
         type: String,

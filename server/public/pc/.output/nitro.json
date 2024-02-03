@@ -1,0 +1,14 @@
+{
+  "date": "2024-02-03T10:14:23.727Z",
+  "preset": "node-server",
+  "framework": {
+    "name": "nitro",
+    "version": "2.8.1"
+  },
+  "versions": {
+    "nitro": "2.8.1"
+  },
+  "commands": {
+    "preview": "node ./server/index.mjs"
+  }
+}

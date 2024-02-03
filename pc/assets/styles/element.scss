@@ -1,4 +1,4 @@
-@import 'element-plus/theme-chalk/index.css';
+@import "element-plus/theme-chalk/index.css";
 
 :root {
     // 弹窗居中
@@ -76,6 +76,8 @@
 
     .el-button--primary {
         --el-button-hover-link-text-color: var(--el-color-primary-light-3);
+        --el-button-text-color: var(--color-btn-text);
+        --el-button-hover-text-color:var(--color-btn-text);
     }
     .el-button--success {
         --el-button-hover-link-text-color: var(--el-color-success-light-3);
@@ -88,6 +90,10 @@
     }
     .el-button--danger {
         --el-button-hover-link-text-color: var(--el-color-danger-light-3);
+    }
+    .el-button--large {
+        --el-button-size: 38px;
+        padding: 11px 20px;
     }
     .el-image__error {
         font-size: 12px;
@@ -105,6 +111,11 @@
     }
     .el-menu {
         border-right: none;
+    }
+    .el-pagination.is-background .btn-next.is-active,
+    .el-pagination.is-background .btn-prev.is-active,
+    .el-pagination.is-background .el-pager li.is-active{
+        color: var(--color-btn-text);
     }
 }
 
