@@ -15,6 +15,7 @@
 namespace app\adminapi\lists\recharge;
 
 use app\adminapi\lists\BaseAdminDataLists;
+use app\common\enum\PayEnum;
 use app\common\lists\ListsExcelInterface;
 use app\common\lists\ListsSearchInterface;
 use app\common\model\recharge\RechargeOrder;
@@ -39,8 +40,8 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
             'sn' => '充值单号',
             'nickname' => '用户昵称',
             'order_amount' => '充值金额',
-            'pay_way' => '支付方式',
-            'pay_status' => '支付状态',
+            'pay_way_text' => '支付方式',
+            'pay_status_text' => '支付状态',
             'pay_time' => '支付时间',
             'create_time' => '下单时间',
         ];
