@@ -15,6 +15,7 @@ return [
         'pc_logo' => 'resource/image/adminapi/default/pc_logo.png', // pc_logo
         'pc_ico' => 'resource/image/adminapi/default/web_favicon.ico', // pc_ico
         'pc_title' => 'likeadmin', // PC网站标题
+        'h5_favicon' => 'resource/image/adminapi/default/web_favicon.ico', // 网站图标
     ],
 
     // 后台登录
