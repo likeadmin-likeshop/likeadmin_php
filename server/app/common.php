@@ -199,19 +199,20 @@ function clear_file_domain($content)
     return str_replace($fileUrl, '/', $content);
 }
 
-
 /**
  * @notes 设置内容图片域名
  * @param $content
  * @return array|string|string[]|null
  * @author 段誉
- * @date 2022/9/26 10:43
+ * @date 2024/2/5 16:36
  */
 function get_file_domain($content)
 {
-    $preg = '/(<img .*?src=")[^https|^http](.*?)(".*?>)/is';
+    $imgPreg = '/(<img .*?src=")[^https|^http](.*?)(".*?>)/is';
+    $videoPreg = '/(<video .*?src=")[^https|^http](.*?\.mp4)(".*?>)/is';
     $fileUrl = FileService::getFileUrl();
-    return preg_replace($preg, "\${1}$fileUrl\${2}\${3}", $content);
+    $content = preg_replace($imgPreg, "\${1}$fileUrl\${2}\${3}", $content);
+    return preg_replace($videoPreg, "\${1}$fileUrl\${2}\${3}", $content);
 }
 
 
