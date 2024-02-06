@@ -253,7 +253,7 @@
                                     v-if="item.type === 10 || item.type === 20"
                                     type="primary"
                                     link
-                                    @click="handlePreview(item.uri)"
+                                    @click="handlePreview(item.url)"
                                 >
                                     查看
                                 </el-button>
@@ -262,7 +262,7 @@
                                     v-if="item.type === 10 || item.type === 20"
                                     type="primary"
                                     link
-                                    @click="textCopy(item.uri)"
+                                    @click="textCopy(item.url)"
                                     style="margin-left: 1px"
                                     >地址</el-button
                                 >
@@ -271,7 +271,7 @@
                                     type="primary"
                                     :underline="false"
                                     style="margin-left: 25px"
-                                    :href="item.uri"
+                                    :href="item.url"
                                     >下载</el-link
                                 >
                             </div>
