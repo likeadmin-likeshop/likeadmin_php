@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDark, useWindowSize, useThrottleFn } from '@vueuse/core'
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 import useAppStore from './stores/modules/app'
 import useSettingStore from './stores/modules/setting'
 import { ScreenEnum } from './enums/appEnums'
