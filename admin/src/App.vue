@@ -14,18 +14,6 @@ const isDark = useDark()
 onMounted(async () => {
     //设置主题色
     settingStore.setTheme(isDark.value)
-    // 获取配置
-    const data: any = await appStore.getConfig()
-    // 设置网站logo
-    let favicon: HTMLLinkElement = document.querySelector('link[rel="icon"]')!
-    if (favicon) {
-        favicon.href = data.web_favicon
-        return
-    }
-    favicon = document.createElement('link')
-    favicon.rel = 'icon'
-    favicon.href = data.web_favicon
-    document.head.appendChild(favicon)
 })
 
 const { width } = useWindowSize()
