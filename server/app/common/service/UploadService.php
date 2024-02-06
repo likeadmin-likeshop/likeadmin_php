@@ -19,7 +19,6 @@ use app\common\enum\FileEnum;
 use app\common\model\file\File;
 use app\common\service\storage\Driver as StorageDriver;
 use Exception;
-use think\facade\Env;
 
 
 class UploadService
@@ -240,6 +239,6 @@ class UploadService
      */
     private static function getUploadUrl($saveDir):string
     {
-        return $saveDir . '/' . Env::get('APP.APP_ENV', 'local') . '/' . date('Ymd');
+        return $saveDir . '/' . date('Ymd');
     }
 }
