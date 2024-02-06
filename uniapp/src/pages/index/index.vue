@@ -24,6 +24,12 @@
                 :item="item"
             />
         </view>
+
+        <!--  #ifdef MP  -->
+        <!--  微信小程序隐私弹窗  -->
+        <MpPrivacyPopup></MpPrivacyPopup>
+        <!--  #endif  -->
+
         <tabbar />
     </view>
 </template>
@@ -31,6 +37,11 @@
 <script setup lang="ts">
 import { getIndex } from '@/api/shop'
 import { reactive } from 'vue'
+
+// #ifdef MP
+import MpPrivacyPopup from './component/mp-privacy-popup.vue'
+// #endif
+
 const state = reactive<{
     pages: any[]
     article: any[]
