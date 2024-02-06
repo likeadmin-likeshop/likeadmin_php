@@ -27,4 +27,5 @@ class FileEnum
     const SOURCE_ADMIN = 0;  // 后台
     const SOURCE_USER = 1;   // 用户
 
+
 }

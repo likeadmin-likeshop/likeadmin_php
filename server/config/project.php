@@ -75,6 +75,11 @@ return [
         'wmv', 'avi', 'mpg', 'mpeg', '3gp', 'mov', 'mp4', 'flv', 'f4v', 'rmvb', 'mkv'
     ],
 
+    //上传文件的格式 (文件)
+    'file_file' => [
+        'zip','rar','txt','pdf','doc','docx','xls','xlsx','ppt','pptx','csv','txt','ftr','7z','gz'
+    ],
+
     // 登录设置
     'login' => [
         // 登录方式：1-账号密码登录；2-手机短信验证码登录

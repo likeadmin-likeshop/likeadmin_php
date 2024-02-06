@@ -32,6 +32,14 @@ return [
             'host'   => env('cache.host','like-redis'),
             //端口
             'port'   => env('cache.port','6379'),
+            //密码
+            'password' => env('cache.password', '123456'),
+            //选择库
+            'select' => '3',
+            // 缓存前缀
+            'prefix' => 'la_',
+            // 缓存有效期 0表示永久缓存
+            'expire' => 0,
         ],
     ],
 ];
