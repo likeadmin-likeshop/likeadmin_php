@@ -54,14 +54,13 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
         $where = [];
 
         if (!empty($this->params['cid'])) {
-            $model = new FileCate();
             $map1 = [
                 ['id', '=', $this->params['cid']],
             ];
             $map2 = [
                 ['pid', '=', $this->params['cid']],
             ];
-            $cateIds = $model->whereOr([ $map1, $map2 ])->column('id');
+            $cateIds = FileCate::whereOr([ $map1, $map2 ])->column('id');
 
             $where[] = ['cid', 'in', $cateIds];
         }
