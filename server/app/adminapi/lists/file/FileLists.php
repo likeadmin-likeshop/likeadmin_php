@@ -15,6 +15,7 @@
 namespace app\adminapi\lists\file;
 
 use app\adminapi\lists\BaseAdminDataLists;
+use app\adminapi\logic\FileLogic;
 use app\common\enum\FileEnum;
 use app\common\lists\ListsSearchInterface;
 use app\common\model\file\File;
@@ -54,13 +55,8 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
         $where = [];
 
         if (!empty($this->params['cid'])) {
-            $map1 = [
-                ['id', '=', $this->params['cid']],
-            ];
-            $map2 = [
-                ['pid', '=', $this->params['cid']],
-            ];
-            $cateIds = FileCate::whereOr([ $map1, $map2 ])->column('id');
+   
+            $cateIds = FileLogic::getCateIds($this->params['cid']);
 
             $where[] = ['cid', 'in', $cateIds];
         }
