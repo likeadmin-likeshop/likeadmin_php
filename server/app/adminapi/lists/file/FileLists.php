@@ -18,6 +18,7 @@ use app\adminapi\lists\BaseAdminDataLists;
 use app\common\enum\FileEnum;
 use app\common\lists\ListsSearchInterface;
 use app\common\model\file\File;
+use app\common\model\file\FileCate;
 use app\common\service\FileService;
 
 /**
@@ -37,9 +38,35 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
     public function setSearch(): array
     {
         return [
-            '=' => ['type', 'cid', 'source'],
+            '=' => ['type', 'source'],
             '%like%' => ['name']
         ];
+    }
+
+    /**
+     * @notes 额外查询处理
+     * @return array
+     * @author 段誉
+     * @date 2024/2/7 10:26
+     */
+    public function queryWhere(): array
+    {
+        $where = [];
+
+        if (!empty($this->params['cid'])) {
+            $model = new FileCate();
+            $map1 = [
+                ['id', '=', $this->params['cid']],
+            ];
+            $map2 = [
+                ['pid', '=', $this->params['cid']],
+            ];
+            $cateIds = $model->whereOr([ $map1, $map2 ])->column('id');
+
+            $where[] = ['id', 'in', $cateIds];
+        }
+
+        return $where;
     }
 
 
@@ -57,6 +84,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
         $lists = (new File())->field(['id,cid,type,name,uri,create_time'])
             ->order('id', 'desc')
             ->where($this->searchWhere)
+            ->where($this->queryWhere())
 //            ->where('source', FileEnum::SOURCE_ADMIN)
             ->limit($this->limitOffset, $this->limitLength)
             ->select()
@@ -79,6 +107,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
     public function count(): int
     {
         return (new File())->where($this->searchWhere)
+            ->where($this->queryWhere())
 //            ->where('source', FileEnum::SOURCE_ADMIN)
             ->count();
     }
