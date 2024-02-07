@@ -117,7 +117,7 @@ class FileLogic extends BaseLogic
         $fileModel = new File();
         $cateModel = new FileCate();
 
-        $cateIds = array_merge(self::getCateIds($params['id']), $params['id']);
+        $cateIds = array_push(self::getCateIds($params['id']), $params['id']);
 
         // 删除分类及子分类
         $cateModel->whereIn('id', $cateIds)->update(['delete_time' => time()]);

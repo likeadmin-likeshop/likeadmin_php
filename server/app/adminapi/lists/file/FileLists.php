@@ -56,8 +56,8 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
 
         if (!empty($this->params['cid'])) {
             $cateIds = FileLogic::getCateIds($this->params['cid']);
-            $cateIds = array_merge($cateIds, $this->params['cid']);
-            
+            $cateIds = array_push($cateIds, $this->params['cid']);
+
             $where[] = ['cid', 'in', $cateIds];
         }
 
