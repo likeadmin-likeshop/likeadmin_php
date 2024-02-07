@@ -84,7 +84,7 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
         $where = [];
         // 用户编号
         if (!empty($this->params['user_info'])) {
-            $where[] = ['u.sn|u.nickname|u.mobile', 'like', '%' . $this->params['user_info'] . '%'];
+            $where[] = ['u.sn|u.nickname|u.mobile|u.account', 'like', '%' . $this->params['user_info'] . '%'];
         }
 
         // 下单时间
@@ -106,7 +106,7 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
     public function lists(): array
     {
         $field = 'ro.id,ro.sn,ro.order_amount,ro.pay_way,ro.pay_time,ro.pay_status,ro.create_time,ro.refund_status';
-        $field .= ',u.avatar,u.nickname';
+        $field .= ',u.avatar,u.nickname,u.account';
         $lists = RechargeOrder::alias('ro')
             ->join('user u', 'u.id = ro.user_id')
             ->field($field)

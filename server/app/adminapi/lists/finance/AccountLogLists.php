@@ -57,7 +57,7 @@ class AccountLogLists extends BaseAdminDataLists implements ListsSearchInterface
         }
 
         if (!empty($this->params['user_info'])) {
-            $where[] = ['u.sn|u.nickname|u.mobile', 'like', '%' . $this->params['user_info'] . '%'];
+            $where[] = ['u.sn|u.nickname|u.mobile|u.account', 'like', '%' . $this->params['user_info'] . '%'];
         }
 
         if (!empty($this->params['start_time'])) {
@@ -80,7 +80,7 @@ class AccountLogLists extends BaseAdminDataLists implements ListsSearchInterface
      */
     public function lists(): array
     {
-        $field = 'u.nickname,u.sn,u.avatar,u.mobile,al.action,al.change_amount,al.left_amount,al.change_type,al.source_sn,al.create_time';
+        $field = 'u.nickname,u.account,u.sn,u.avatar,u.mobile,al.action,al.change_amount,al.left_amount,al.change_type,al.source_sn,al.create_time';
         $lists = UserAccountLog::alias('al')
             ->join('user u', 'u.id = al.user_id')
             ->field($field)
