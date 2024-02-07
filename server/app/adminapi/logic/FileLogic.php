@@ -128,7 +128,7 @@ class FileLogic extends BaseLogic
         $cateIds = $cateModel->whereOr([ $map1, $map2 ])->column('id');
 
         // 删除分类及子分类
-        $cateModel->whereIn('id', $cateIds)->delete();
+        $cateModel->whereIn('id', $cateIds)->update(['delete_time' => time()]);
 
         // 删除文件
         $fileIds = $fileModel->whereIn('cid', $cateIds)->column('id');
