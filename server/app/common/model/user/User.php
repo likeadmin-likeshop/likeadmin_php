@@ -56,7 +56,7 @@ class User extends BaseModel
     public function searchKeywordAttr($query, $value, $data)
     {
         if ($value) {
-            $query->where('sn|nickname|mobile', 'like', '%' . $value . '%');
+            $query->where('sn|nickname|mobile|account', 'like', '%' . $value . '%');
         }
     }
 
