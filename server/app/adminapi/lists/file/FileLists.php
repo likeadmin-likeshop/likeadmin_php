@@ -63,7 +63,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
             ];
             $cateIds = $model->whereOr([ $map1, $map2 ])->column('id');
 
-            $where[] = ['id', 'in', $cateIds];
+            $where[] = ['cid', 'in', $cateIds];
         }
 
         return $where;
