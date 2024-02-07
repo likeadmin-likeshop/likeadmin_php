@@ -12,7 +12,7 @@
                     <el-input
                         class="w-[280px]"
                         v-model="queryParams.user_info"
-                        placeholder="请输入用户编号/昵称/手机号"
+                        placeholder="请输入用户账号/昵称/手机号"
                         clearable
                         @keyup.enter="resetPage"
                     />
@@ -42,7 +42,7 @@
         </el-card>
         <el-card class="!border-none mt-4" shadow="never">
             <el-table size="large" v-loading="pager.loading" :data="pager.lists">
-                <el-table-column label="用户编号" prop="sn" min-width="100" />
+                <el-table-column label="用户账号" prop="account" min-width="100" />
                 <el-table-column label="用户昵称" min-width="160">
                     <template #default="{ row }">
                         <div class="flex items-center">

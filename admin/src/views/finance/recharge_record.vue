@@ -21,7 +21,7 @@
                     <el-input
                         class="w-[280px]"
                         v-model="queryParams.user_info"
-                        placeholder="请输入用户编号/昵称/手机号"
+                        placeholder="请输入用户账号/昵称/手机号"
                         clearable
                         @keyup.enter="resetPage"
                     />
