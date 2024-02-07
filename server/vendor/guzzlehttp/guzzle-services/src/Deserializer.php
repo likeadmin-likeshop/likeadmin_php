@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle;
 
 use GuzzleHttp\Command\CommandInterface;
@@ -29,18 +30,17 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Deserializer
 {
-    /** @var ResponseLocationInterface[] $responseLocations */
+    /** @var ResponseLocationInterface[] */
     private $responseLocations;
 
-    /** @var DescriptionInterface $description */
+    /** @var DescriptionInterface */
     private $description;
 
-    /** @var boolean $process */
+    /** @var bool */
     private $process;
 
     /**
-     * @param DescriptionInterface $description
-     * @param bool $process
+     * @param bool                        $process
      * @param ResponseLocationInterface[] $responseLocations Extra response locations
      */
     public function __construct(
@@ -51,12 +51,12 @@ class Deserializer
         static $defaultResponseLocations;
         if (!$defaultResponseLocations) {
             $defaultResponseLocations = [
-                'body'         => new BodyLocation(),
-                'header'       => new HeaderLocation(),
+                'body' => new BodyLocation(),
+                'header' => new HeaderLocation(),
                 'reasonPhrase' => new ReasonPhraseLocation(),
-                'statusCode'   => new StatusCodeLocation(),
-                'xml'          => new XmlLocation(),
-                'json'         => new JsonLocation(),
+                'statusCode' => new StatusCodeLocation(),
+                'xml' => new XmlLocation(),
+                'json' => new JsonLocation(),
             ];
         }
 
@@ -68,9 +68,8 @@ class Deserializer
     /**
      * Deserialize the response into the specified result representation
      *
-     * @param ResponseInterface     $response
      * @param RequestInterface|null $request
-     * @param CommandInterface      $command
+     *
      * @return Result|ResultInterface|void|ResponseInterface
      */
     public function __invoke(ResponseInterface $response, RequestInterface $request, CommandInterface $command)
@@ -103,8 +102,6 @@ class Deserializer
     /**
      * Handles visit() and after() methods of the Response locations
      *
-     * @param Parameter         $model
-     * @param ResponseInterface $response
      * @return Result|ResultInterface|void
      */
     protected function visit(Parameter $model, ResponseInterface $response)
@@ -117,7 +114,7 @@ class Deserializer
         } elseif ($model->getType() === 'array') {
             $result = $this->visitOuterArray($model, $result, $response, $context);
         } else {
-            throw new \InvalidArgumentException('Invalid response model: ' . $model->getType());
+            throw new \InvalidArgumentException('Invalid response model: '.$model->getType());
         }
 
         // Call the after() method of each found visitor
@@ -132,11 +129,8 @@ class Deserializer
     /**
      * Handles the before() method of Response locations
      *
-     * @param string            $location
-     * @param Parameter         $model
-     * @param ResultInterface   $result
-     * @param ResponseInterface $response
-     * @param array             $context
+     * @param string $location
+     *
      * @return ResultInterface
      */
     private function triggerBeforeVisitor(
@@ -164,10 +158,6 @@ class Deserializer
     /**
      * Visits the outer object
      *
-     * @param Parameter         $model
-     * @param ResultInterface   $result
-     * @param ResponseInterface $response
-     * @param array             $context
      * @return ResultInterface
      */
     private function visitOuterObject(
@@ -212,10 +202,6 @@ class Deserializer
     /**
      * Visits the outer array
      *
-     * @param Parameter         $model
-     * @param ResultInterface   $result
-     * @param ResponseInterface $response
-     * @param array             $context
      * @return ResultInterface|void
      */
     private function visitOuterArray(
@@ -246,11 +232,6 @@ class Deserializer
      * In order for the exception to be properly triggered, all your exceptions must be instance
      * of "GuzzleHttp\Command\Exception\CommandException". If that's not the case, your exceptions will be wrapped
      * around a CommandException
-     *
-     * @param ResponseInterface $response
-     * @param RequestInterface  $request
-     * @param CommandInterface  $command
-     * @param Operation         $operation
      */
     protected function handleErrorResponses(
         ResponseInterface $response,
@@ -271,7 +252,7 @@ class Deserializer
                 continue;
             }
 
-            if (isset($error['phrase']) && ! ($error['phrase'] === $response->getReasonPhrase())) {
+            if (isset($error['phrase']) && !($error['phrase'] === $response->getReasonPhrase())) {
                 continue;
             }
 

@@ -51,8 +51,9 @@ class SmsMessageService
         try {
             // 通知设置
             $noticeSetting = NoticeSetting::where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
-            // 添加短信记录
+            // 替换通知模板参数
             $content = $this->contentFormat($noticeSetting, $params);
+            // 添加短信记录
             $this->smsLog = $this->addSmsLog($params, $content);
             // 添加通知记录
             $this->notice = NoticeLogic::addNotice($params, $noticeSetting, NoticeEnum::SMS, $content);

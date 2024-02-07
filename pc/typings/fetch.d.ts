@@ -1,7 +1,7 @@
-import 'ohmyfetch'
-import { FetchResponse, FetchOptions } from 'ohmyfetch'
+import 'ofetch'
+import { FetchResponse, FetchOptions } from 'ofetch'
 
-declare module 'ohmyfetch' {
+declare module 'ofetch' {
     interface FetchOptions {
         url?: string
         requestOptions?: RequestOptions
@@ -23,6 +23,12 @@ declare module 'ohmyfetch' {
             options: FetchOptions
         ): any
         responseInterceptorsCatchHook?: (error: any) => void
+    }
+
+    interface RequestEventStreamOptions extends Partial<RequestOptions> {
+        onstart?: (reader: ReadableStreamDefaultReader<Uint8Array>) => void
+        onmessage?: (value: string) => void
+        onclose?: () => void
     }
     interface FileParams {
         name?: string

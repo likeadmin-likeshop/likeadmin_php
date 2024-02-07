@@ -15,9 +15,11 @@
 namespace app\adminapi\lists\file;
 
 use app\adminapi\lists\BaseAdminDataLists;
+use app\adminapi\logic\FileLogic;
 use app\common\enum\FileEnum;
 use app\common\lists\ListsSearchInterface;
 use app\common\model\file\File;
+use app\common\model\file\FileCate;
 use app\common\service\FileService;
 
 /**
@@ -37,9 +39,28 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
     public function setSearch(): array
     {
         return [
-            '=' => ['type', 'cid'],
+            '=' => ['type', 'source'],
             '%like%' => ['name']
         ];
+    }
+
+    /**
+     * @notes 额外查询处理
+     * @return array
+     * @author 段誉
+     * @date 2024/2/7 10:26
+     */
+    public function queryWhere(): array
+    {
+        $where = [];
+
+        if (!empty($this->params['cid'])) {
+            $cateChild = FileLogic::getCateIds($this->params['cid']);
+            array_push($cateChild, $this->params['cid']);
+            $where[] = ['cid', 'in', $cateChild];
+        }
+
+        return $where;
     }
 
 
@@ -57,14 +78,14 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
         $lists = (new File())->field(['id,cid,type,name,uri,create_time'])
             ->order('id', 'desc')
             ->where($this->searchWhere)
-            ->where('source', FileEnum::SOURCE_ADMIN)
+            ->where($this->queryWhere())
+//            ->where('source', FileEnum::SOURCE_ADMIN)
             ->limit($this->limitOffset, $this->limitLength)
             ->select()
             ->toArray();
 
         foreach ($lists as &$item) {
-            $item['url'] = $item['uri'];
-            $item['uri'] = FileService::getFileUrl($item['uri']);
+            $item['url'] = FileService::getFileUrl($item['uri']);
         }
 
         return $lists;
@@ -80,7 +101,8 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
     public function count(): int
     {
         return (new File())->where($this->searchWhere)
-            ->where('source', FileEnum::SOURCE_ADMIN)
+            ->where($this->queryWhere())
+//            ->where('source', FileEnum::SOURCE_ADMIN)
             ->count();
     }
 }

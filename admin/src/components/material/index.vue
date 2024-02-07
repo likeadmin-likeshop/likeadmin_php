@@ -42,7 +42,21 @@
                                                         </el-dropdown-item>
                                                     </div>
                                                 </popover-input>
-                                                <div @click="handleDeleteCate(data.id)">
+                                                <popover-input
+                                                    @confirm="handleAddChildCate($event, data.id)"
+                                                    size="default"
+                                                    width="400px"
+                                                    :limit="20"
+                                                    show-limit
+                                                    teleported
+                                                >
+                                                    <div>
+                                                        <el-dropdown-item>
+                                                            添加分组
+                                                        </el-dropdown-item>
+                                                    </div>
+                                                </popover-input>
+                                                <div @click="handleDeleteCate(data.id, data?.children?.length)">
                                                     <el-dropdown-item>删除分组</el-dropdown-item>
                                                 </div>
                                             </el-dropdown-menu>
@@ -91,6 +105,16 @@
                     >
                         <el-button type="primary">本地上传</el-button>
                     </upload>
+                    <upload
+                        v-if="type == 'file'"
+                        class="mr-3"
+                        :data="{ cid: cateId }"
+                        :type="type"
+                        :show-progress="true"
+                        @change="refresh"
+                    >
+                        <el-button type="primary">本地上传</el-button>
+                    </upload>
                     <el-button
                         v-if="mode == 'page'"
                         :disabled="!select.length"
@@ -124,6 +148,21 @@
                         </div>
                     </popup>
                 </div>
+                <el-select
+                    v-model="fileParams.source"
+                    placeholder="请选择文件来源"
+                    size="large"
+                    clearable
+                    style="margin-right: 20px"
+                    class="w-50"
+                >
+                    <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    />
+                </el-select>
                 <el-input
                     class="w-60"
                     placeholder="请输入名称"
@@ -138,6 +177,7 @@
                         </el-button>
                     </template>
                 </el-input>
+
                 <div class="flex items-center ml-2">
                     <el-tooltip content="列表视图" placement="top">
                         <div
@@ -184,7 +224,7 @@
                         >
                             <del-wrap @close="batchFileDelete([item.id])">
                                 <file-item
-                                    :uri="item.uri"
+                                    :uri="item.url"
                                     :file-size="fileSize"
                                     :type="type"
                                     @click="selectFile(item)"
@@ -208,9 +248,32 @@
                                 >
                                     <el-button type="primary" link> 重命名 </el-button>
                                 </popover-input>
-                                <el-button type="primary" link @click="handlePreview(item.uri)">
+
+                                <el-button
+                                    v-if="item.type === 10 || item.type === 20"
+                                    type="primary"
+                                    link
+                                    @click="handlePreview(item.url)"
+                                >
                                     查看
                                 </el-button>
+
+                                <el-button
+                                    v-if="item.type === 10 || item.type === 20"
+                                    type="primary"
+                                    link
+                                    @click="textCopy(item.url)"
+                                    style="margin-left: 1px"
+                                    >地址</el-button
+                                >
+                                <el-link
+                                    v-else
+                                    type="primary"
+                                    :underline="false"
+                                    style="margin-left: 25px"
+                                    :href="item.url"
+                                    >下载</el-link
+                                >
                             </div>
                         </li>
                     </ul>
@@ -233,12 +296,12 @@
                     </el-table-column>
                     <el-table-column label="图片" width="100">
                         <template #default="{ row }">
-                            <file-item :uri="row.uri" file-size="50px" :type="type"></file-item>
+                            <file-item :uri="row.url" file-size="50px" :type="type"></file-item>
                         </template>
                     </el-table-column>
                     <el-table-column label="名称" min-width="100" show-overflow-tooltip>
                         <template #default="{ row }">
-                            <el-link @click.stop="handlePreview(row.uri)" :underline="false">
+                            <el-link @click.stop="handlePreview(row.url)" :underline="false">
                                 {{ row.name }}
                             </el-link>
                         </template>
@@ -260,7 +323,7 @@
                                 </popover-input>
                             </div>
                             <div class="inline-block">
-                                <el-button type="primary" link @click.stop="handlePreview(row.uri)">
+                                <el-button type="primary" link @click.stop="handlePreview(row.url)">
                                     查看
                                 </el-button>
                             </div>
@@ -347,7 +410,7 @@
                             <div class="select-item">
                                 <del-wrap @close="cancelSelete(item.id)">
                                     <file-item
-                                        :uri="item.uri"
+                                        :uri="item.url"
                                         file-size="100px"
                                         :type="type"
                                     ></file-item>
@@ -359,6 +422,7 @@
             </div>
         </div>
         <preview v-model="showPreview" :url="previewUrl" :type="type" />
+        <input ref="textCopys" id="textCopys" value="" style="opacity: 0; position: absolute" />
     </div>
 </template>
 
@@ -367,6 +431,7 @@ import { useCate, useFile } from './hook'
 import FileItem from './file.vue'
 import Preview from './preview.vue'
 import type { Ref } from 'vue'
+import { ElMessage } from 'element-plus'
 const props = defineProps({
     fileSize: {
         type: String,
@@ -403,6 +468,17 @@ const typeValue = computed<number>(() => {
             return 0
     }
 })
+const options = [
+    {
+        value: '0',
+        label: '后台上传'
+    },
+    {
+        value: '1',
+        label: '前端上传'
+    }
+]
+
 const visible: Ref<boolean> = inject('visible')!
 const previewUrl = ref('')
 const showPreview = ref(false)
@@ -411,6 +487,7 @@ const {
     cateId,
     cateLists,
     handleAddCate,
+    handleAddChildCate,
     handleEditCate,
     handleDeleteCate,
     getCateLists,
@@ -492,6 +569,19 @@ onMounted(() => {
 defineExpose({
     clearSelect
 })
+
+const textCopys = ref()
+const textCopy = (uri: string) => {
+    const text = uri // 复制文本内容
+    const input = textCopys.value
+    input.value = text // 修改input的内容
+    input.select() // 选中文本
+    document.execCommand('copy') // 浏览器复制
+    ElMessage({
+        message: '地址复制成功',
+        type: 'success'
+    })
+}
 </script>
 
 <style scoped lang="scss">

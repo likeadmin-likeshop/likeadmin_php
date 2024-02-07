@@ -27,21 +27,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => false, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -49,6 +47,7 @@ class Descriptions {
                         'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
                         'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
                         'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'FreeTranscode' => array( 'type' => 'string', 'location' => 'xml', ),
                         'WatermarkTemplateId' => array(
                             'type' => 'array', 
                             'location' => 'xml',
@@ -71,6 +70,13 @@ class Descriptions {
                                     'location' => 'xml',
                                     'properties' => array(
                                         'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ClipConfig' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
                                     ),
                                 ),
                                 'Video' => array(
@@ -135,6 +141,56 @@ class Descriptions {
                                             'properties' => array(
                                                 'IsHlsEncrypt' => array( 'type' => 'string', 'location' => 'xml', ),
                                                 'UriKey' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'AudioMix' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EffectConfig' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'AudioMixArray' => array(
+                                    'type' => 'array',
+                                    'location' => 'xml',
+                                    'data' => array(
+                                        'xmlFlattened' => true,
+                                    ),
+                                    'items' => array(
+                                        'type' => 'object',
+                                        'name' => 'AudioMixArray',
+                                        'sentAs' => 'AudioMixArray',
+                                        'properties' => array(
+                                            'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EffectConfig' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                ),
                                             ),
                                         ),
                                     ),
@@ -212,6 +268,7 @@ class Descriptions {
                                 'Type' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'Version' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'IgnoreError' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'State' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                     ),
@@ -273,19 +330,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => false, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'CallBack' => array( 'required' => false, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'array',
                     'location' => 'xml',
                     'data' => array(
@@ -298,6 +355,8 @@ class Descriptions {
                         'properties' => array(
                             'Tag' => array('location' => 'xml', 'type' => 'string', ),
                             'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
                             'TranscodeTemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
                             'VideoProcess' => array(
                                 'type' => 'object',
@@ -610,6 +669,15 @@ class Descriptions {
                         ),
                     ),
                 ),
+                'CallBackMqConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
             ),
         );
     }
@@ -709,13 +777,11 @@ class Descriptions {
                     'location' => 'uri',
                 ),
                 'Tag' => array(
-                    'required' => true,
                     'type' => 'string',
                     'location' => 'query',
                     'sentAs' => 'tag',
                 ),
                 'QueueId' => array(
-                    'required' => true,
                     'type' => 'string',
                     'location' => 'query',
                     'sentAs' => 'queueId',
@@ -750,6 +816,9 @@ class Descriptions {
                     'location' => 'query',
                     'sentAs' => 'endCreationTime',
                 ),
+                'WorkflowId' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'workflowId', ),
+                'InventoryTriggerJobId' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'inventoryTriggerJobId', ),
+                'InputObject' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'inputObject', ),
             ),
         );
     }
@@ -797,27 +866,24 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'CallBack' => array( 'required' => false, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
                         'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
                         'Output' => array(
-                            'required' => true,
                             'type' => 'object',
                             'location' => 'xml',
                             'properties' => array(
@@ -900,21 +966,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true, 
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' =>false, 'type' => 'string', 'location' => 'xml', ), // 拼接任务Input可以为空，完全用数组内的元素拼接
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ), // 拼接任务Input可以为空，完全用数组内的元素拼接
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -922,13 +986,12 @@ class Descriptions {
                         'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
                         'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
                         'Output' => array(
-                            'required' => true,
                             'type' => 'object',
                             'location' => 'xml',
                             'properties' => array(
-                                'Region' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
-                                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
-                                'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                         'ConcatTemplate' => array(
@@ -982,6 +1045,56 @@ class Descriptions {
                                     'location' => 'xml',
                                     'properties' => array(
                                         'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'AudioMix' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EffectConfig' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'AudioMixArray' => array(
+                                    'type' => 'array',
+                                    'location' => 'xml',
+                                    'data' => array(
+                                        'xmlFlattened' => true,
+                                    ),
+                                    'items' => array(
+                                        'type' => 'object',
+                                        'name' => 'AudioMixArray',
+                                        'sentAs' => 'AudioMixArray',
+                                        'properties' => array(
+                                            'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EffectConfig' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                ),
+                                            ),
+                                        ),
                                     ),
                                 ),
                             ),
@@ -1107,6 +1220,16 @@ class Descriptions {
                         'CallbackType' => array(
                             'type' => 'integer',
                             'location' => 'xml',
+                        ),
+                        'Freeze' => array(
+                            'location' => 'xml',
+                            'type' => 'object',
+                            'properties' => array(
+                                'PornScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'AdsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'PoliticsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'TerrorismScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            ),
                         ),
                     ),
                 ),
@@ -1261,6 +1384,7 @@ class Descriptions {
                                     'Url' => array( 'type' => 'string', 'location' => 'xml', ),
                                     'Text' => array( 'type' => 'string', 'location' => 'xml', ),
                                     'Label' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml', ),
                                     'OffsetTime' => array( 'type' => 'integer', 'location' => 'xml', ),
                                     'Duration' => array( 'type' => 'integer', 'location' => 'xml', ),
                                     'Result' => array( 'type' => 'integer', 'location' => 'xml', ),
@@ -1685,6 +1809,7 @@ class Descriptions {
                         'Label' => array( 'type' => 'string', 'location' => 'xml', ),
                         'SubLabel' => array( 'type' => 'string', 'location' => 'xml', ),
                         'Result' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'ForbidState' => array( 'type' => 'integer', 'location' => 'xml', ),
                         'PornInfo' => array(
                             'type' => 'object',
                             'location' => 'xml',
@@ -1991,6 +2116,17 @@ class Descriptions {
                                 'Role' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
+                        'Encryption' => array(
+                            'location' => 'xml',
+                            'type' => 'object',
+                            'properties' => array(
+                                'Algorithm' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Key' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'IV' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'KeyId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'KeyType' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            ),
+                        ),
                     ),
                 ),
                 'Conf' => array(
@@ -2010,6 +2146,16 @@ class Descriptions {
                                 'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'Count' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'TimeInterval' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Freeze' => array(
+                            'location' => 'xml',
+                            'type' => 'object',
+                            'properties' => array(
+                                'PornScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'AdsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'PoliticsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'TerrorismScore' => array( 'type' => 'integer', 'location' => 'xml', ),
                             ),
                         ),
                     ),
@@ -2096,6 +2242,7 @@ class Descriptions {
                         'SnapshotCount' => array('type' => 'string', 'location' => 'xml',),
                         'Label' => array('type' => 'string', 'location' => 'xml',),
                         'Result' => array('type' => 'integer', 'location' => 'xml',),
+                        'ForbidState' => array('type' => 'integer', 'location' => 'xml',),
                         'PornInfo' => array(
                             'type' => 'object',
                             'location' => 'xml',
@@ -2146,6 +2293,7 @@ class Descriptions {
                                     'SnapshotTime' => array('type' => 'integer', 'location' => 'xml',),
                                     'Text' => array('type' => 'string', 'location' => 'xml',),
                                     'Label' => array('type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                     'Result' => array('type' => 'integer', 'location' => 'xml',),
                                     'PornInfo' => array(
                                         'type' => 'object',
@@ -2164,6 +2312,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Text' => array('type' => 'integer', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'integer', 'location' => 'xml',),
                                                         'Keywords' => array(
                                                             'type' => 'array',
                                                             'location' => 'xml',
@@ -2191,6 +2340,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                         'Location' => array(
                                                             'type' => 'object',
                                                             'location' => 'xml',
@@ -2236,6 +2386,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Text' => array('type' => 'integer', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'integer', 'location' => 'xml',),
                                                         'Keywords' => array(
                                                             'type' => 'array',
                                                             'location' => 'xml',
@@ -2263,6 +2414,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                         'Location' => array(
                                                             'type' => 'object',
                                                             'location' => 'xml',
@@ -2308,6 +2460,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Text' => array('type' => 'integer', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'integer', 'location' => 'xml',),
                                                         'Keywords' => array(
                                                             'type' => 'array',
                                                             'location' => 'xml',
@@ -2335,6 +2488,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                         'Location' => array(
                                                             'type' => 'object',
                                                             'location' => 'xml',
@@ -2380,6 +2534,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Text' => array('type' => 'integer', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'integer', 'location' => 'xml',),
                                                         'Keywords' => array(
                                                             'type' => 'array',
                                                             'location' => 'xml',
@@ -2407,6 +2562,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                         'Location' => array(
                                                             'type' => 'object',
                                                             'location' => 'xml',
@@ -2452,6 +2608,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Text' => array('type' => 'integer', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'integer', 'location' => 'xml',),
                                                         'Keywords' => array(
                                                             'type' => 'array',
                                                             'location' => 'xml',
@@ -2479,6 +2636,7 @@ class Descriptions {
                                                     'location' => 'xml',
                                                     'properties' => array(
                                                         'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                        'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                         'Location' => array(
                                                             'type' => 'object',
                                                             'location' => 'xml',
@@ -2521,6 +2679,7 @@ class Descriptions {
                                     'OffsetTime' => array('type' => 'integer', 'location' => 'xml',),
                                     'Duration' => array('type' => 'integer', 'location' => 'xml',),
                                     'Label' => array('type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                     'Result' => array('type' => 'integer', 'location' => 'xml',),
                                     'PornInfo' => array(
                                         'type' => 'object',
@@ -2529,6 +2688,7 @@ class Descriptions {
                                             'HitFlag' => array('type' => 'string', 'location' => 'xml',),
                                             'Score' => array('type' => 'string', 'location' => 'xml',),
                                             'Category' => array('type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -2560,6 +2720,7 @@ class Descriptions {
                                             'HitFlag' => array('type' => 'string', 'location' => 'xml',),
                                             'Score' => array('type' => 'string', 'location' => 'xml',),
                                             'Category' => array('type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -2591,6 +2752,7 @@ class Descriptions {
                                             'HitFlag' => array('type' => 'string', 'location' => 'xml',),
                                             'Score' => array('type' => 'string', 'location' => 'xml',),
                                             'Category' => array('type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -2622,6 +2784,7 @@ class Descriptions {
                                             'HitFlag' => array('type' => 'string', 'location' => 'xml',),
                                             'Score' => array('type' => 'string', 'location' => 'xml',),
                                             'Category' => array('type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -2653,6 +2816,7 @@ class Descriptions {
                                             'HitFlag' => array('type' => 'string', 'location' => 'xml',),
                                             'Score' => array('type' => 'string', 'location' => 'xml',),
                                             'Category' => array('type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -2776,6 +2940,16 @@ class Descriptions {
                         'Callback' => array( 'type' => 'string', 'location' => 'xml', ),
                         'BizType' => array( 'type' => 'string', 'location' => 'xml', ),
                         'CallbackType' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'Freeze' => array(
+                            'location' => 'xml',
+                            'type' => 'object',
+                            'properties' => array(
+                                'PornScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'AdsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'PoliticsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'TerrorismScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -2860,6 +3034,7 @@ class Descriptions {
                         'Object' => array('type' => 'string', 'location' => 'xml',),
                         'Url' => array('type' => 'string', 'location' => 'xml',),
                         'PageCount' => array('type' => 'integer', 'location' => 'xml',),
+                        'ForbidState' => array('type' => 'integer', 'location' => 'xml',),
                         'Labels' => array(
                             'type' => 'object',
                             'location' => 'xml',
@@ -2931,6 +3106,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Text' => array('type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                                 'Keywords' => array(
                                                                     'type' => 'array',
                                                                     'location' => 'xml',
@@ -2958,6 +3134,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                                 'Location' => array(
                                                                     'type' => 'object',
                                                                     'location' => 'xml',
@@ -3002,6 +3179,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Text' => array('type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                                 'Keywords' => array(
                                                                     'type' => 'array',
                                                                     'location' => 'xml',
@@ -3029,6 +3207,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                                 'Location' => array(
                                                                     'type' => 'object',
                                                                     'location' => 'xml',
@@ -3073,6 +3252,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Text' => array('type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                                 'Keywords' => array(
                                                                     'type' => 'array',
                                                                     'location' => 'xml',
@@ -3100,6 +3280,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                                 'Location' => array(
                                                                     'type' => 'object',
                                                                     'location' => 'xml',
@@ -3144,6 +3325,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Text' => array('type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                                 'Keywords' => array(
                                                                     'type' => 'array',
                                                                     'location' => 'xml',
@@ -3171,6 +3353,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Name' => array('type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                                                                 'Location' => array(
                                                                     'type' => 'object',
                                                                     'location' => 'xml',
@@ -3264,46 +3447,40 @@ class Descriptions {
                     'location' => 'uri',
                 ),
                 'Tag' => array(
-                    'required' => true,
                     'type' => 'string',
                     'location' => 'xml',
                 ),
                 'QueueId' => array(
-                    'required' => true,
                     'type' => 'string',
                     'location' => 'xml',
                 ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
                         'Output' => array(
-                            'required' => true,
                             'type' => 'object',
                             'location' => 'xml',
                             'properties' => array(
                                 'Region' => array(
-                                    'type' => 'string','required' => true,'location' => 'xml',
+                                    'type' => 'string','location' => 'xml',
                                 ),
                                 'Bucket' => array(
-                                    'type' => 'string','required' => true,'location' => 'xml',
+                                    'type' => 'string','location' => 'xml',
                                 ),
                                 'Object' => array(
-                                    'type' => 'string','required' => true,'location' => 'xml',
+                                    'type' => 'string','location' => 'xml',
                                 ),
                             ),
                         ),
                         'DocProcess' => array(
-                            'required' => true,
                             'type' => 'object',
                             'location' => 'xml',
                             'properties' => array(
@@ -3544,11 +3721,6 @@ class Descriptions {
             'type' => 'object',
             'additionalProperties' => true,
             'properties' => array(
-                'Body' => array(
-                    'type' => 'string',
-                    'instanceOf' => 'GuzzleHttp\\Psr7\\Stream',
-                    'location' => 'body',
-                ),
                 'RequestId' => array(
                     'type' => 'string',
                     'location' => 'header',
@@ -3603,55 +3775,56 @@ class Descriptions {
                             ),
                         ),
                         'Operation' => array(
-                            'type' => 'array',
+                            'type' => 'object',
                             'location' => 'xml',
-                            'items' => array(
-                                'type' => 'object',
-                                'properties' => array(
-                                    'DocProcess' => array(
-                                        'type' => 'object',
-                                        'location' => 'xml',
-                                        'properties' => array(
-                                            'SrcType' => array(
-                                                'type' => 'string',
-                                            ),
-                                            'TgtType' => array(
-                                                'type' => 'string',
-                                            ),
-                                            'SheetId' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'StartPage' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'EndPage' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'ImageParams' => array(
-                                                'type' => 'string',
-                                            ),
-                                            'DocPassword' => array(
-                                                'type' => 'string',
-                                            ),
-                                            'Comments' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'PaperDirection' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'Quality' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'Zoom' => array(
-                                                'type' => 'integer',
-                                            ),
+                            'properties' => array(
+                                'DocProcess' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'SrcType' => array(
+                                            'type' => 'string',
+                                        ),
+                                        'TgtType' => array(
+                                            'type' => 'string',
+                                        ),
+                                        'SheetId' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'StartPage' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'EndPage' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'ImageParams' => array(
+                                            'type' => 'string',
+                                        ),
+                                        'DocPassword' => array(
+                                            'type' => 'string',
+                                        ),
+                                        'Comments' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'PaperDirection' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'Quality' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'Zoom' => array(
+                                            'type' => 'integer',
                                         ),
                                     ),
-                                    'DocProcessResult' => array(
-                                        'type' => 'object',
-                                        'location' => 'xml',
-                                        'properties' => array(
-                                            'PageInfo' => array(
+                                ),
+                                'DocProcessResult' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'PageInfo' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'items' => array(
                                                 'type' => 'object',
                                                 'location' => 'xml',
                                                 'properties' => array(
@@ -3672,39 +3845,39 @@ class Descriptions {
                                                     ),
                                                 ),
                                             ),
-                                            'SuccPageCount' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'FailPageCount' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'TaskId' => array(
-                                                'type' => 'string',
-                                            ),
-                                            'TgtType' => array(
-                                                'type' => 'string',
-                                            ),
-                                            'TotalPageCount' => array(
-                                                'type' => 'integer',
-                                            ),
-                                            'TotalSheetCount' => array(
-                                                'type' => 'integer',
-                                            ),
+                                        ),
+                                        'SuccPageCount' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'FailPageCount' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'TaskId' => array(
+                                            'type' => 'string',
+                                        ),
+                                        'TgtType' => array(
+                                            'type' => 'string',
+                                        ),
+                                        'TotalPageCount' => array(
+                                            'type' => 'integer',
+                                        ),
+                                        'TotalSheetCount' => array(
+                                            'type' => 'integer',
                                         ),
                                     ),
-                                    'Output' => array(
-                                        'type' => 'object',
-                                        'location' => 'xml',
-                                        'properties' => array(
-                                            'Bucket' => array(
-                                                'type' => 'string',
-                                            ),
-                                            'Object' => array(
-                                                'type' => 'string',
-                                            ),
-                                            'Region' => array(
-                                                'type' => 'string',
-                                            ),
+                                ),
+                                'Output' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Bucket' => array(
+                                            'type' => 'string',
+                                        ),
+                                        'Object' => array(
+                                            'type' => 'string',
+                                        ),
+                                        'Region' => array(
+                                            'type' => 'string',
                                         ),
                                     ),
                                 ),
@@ -3730,13 +3903,11 @@ class Descriptions {
                     'location' => 'uri',
                 ),
                 'Tag' => array(
-                    'required' => true,
                     'type' => 'string',
                     'location' => 'query',
                     'sentAs' => 'tag',
                 ),
                 'QueueId' => array(
-                    'required' => true,
                     'type' => 'string',
                     'location' => 'query',
                     'sentAs' => 'queueId',
@@ -3987,6 +4158,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Keywords' => array(
                                         'type' => 'array',
                                         'location' => 'xml',
@@ -4014,6 +4186,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Location' => array(
                                         'type' => 'object',
                                         'location' => 'xml',
@@ -4061,6 +4234,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Keywords' => array(
                                         'type' => 'array',
                                         'location' => 'xml',
@@ -4088,6 +4262,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Location' => array(
                                         'type' => 'object',
                                         'location' => 'xml',
@@ -4135,6 +4310,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Keywords' => array(
                                         'type' => 'array',
                                         'location' => 'xml',
@@ -4162,6 +4338,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Location' => array(
                                         'type' => 'object',
                                         'location' => 'xml',
@@ -4209,6 +4386,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Keywords' => array(
                                         'type' => 'array',
                                         'location' => 'xml',
@@ -4236,6 +4414,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Location' => array(
                                         'type' => 'object',
                                         'location' => 'xml',
@@ -4283,6 +4462,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Keywords' => array(
                                         'type' => 'array',
                                         'location' => 'xml',
@@ -4310,6 +4490,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Location' => array(
                                         'type' => 'object',
                                         'location' => 'xml',
@@ -4357,6 +4538,7 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Keywords' => array(
                                         'type' => 'array',
                                         'location' => 'xml',
@@ -4384,6 +4566,83 @@ class Descriptions {
                                 'location' => 'xml',
                                 'properties' => array(
                                     'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'Location' => array(
+                                        'type' => 'object',
+                                        'location' => 'xml',
+                                        'properties' => array(
+                                            'X' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                            'Y' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                            'Width' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                            'Height' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                            'Rotate' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'LibResults' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'items' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'ImageId' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'Score' => array( 'type' => 'integer', 'location' => 'xml',),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'QualityInfo' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Code' => array( 'type' => 'integer', 'location' => 'xml',),
+                        'Msg' => array( 'type' => 'string', 'location' => 'xml',),
+                        'HitFlag' => array( 'type' => 'integer', 'location' => 'xml',),
+                        'Score' => array( 'type' => 'integer', 'location' => 'xml',),
+                        'Label' => array( 'type' => 'string', 'location' => 'xml',),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml',),
+                        'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                        'OcrResults' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'items' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'Keywords' => array(
+                                        'type' => 'array',
+                                        'location' => 'xml',
+                                        'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                    ),
+                                    'Location' => array(
+                                        'type' => 'object',
+                                        'location' => 'xml',
+                                        'properties' => array(
+                                            'X' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                            'Y' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                            'Width' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                            'Height' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                            'Rotate' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'ObjectResults' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'items' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                     'Location' => array(
                                         'type' => 'object',
                                         'location' => 'xml',
@@ -4470,6 +4729,17 @@ class Descriptions {
                                     'Role' => array( 'type' => 'string', 'location' => 'xml', ),
                                 ),
                             ),
+                            'Encryption' => array(
+                                'location' => 'xml',
+                                'type' => 'object',
+                                'properties' => array(
+                                    'Algorithm' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Key' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'IV' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'KeyId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'KeyType' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                ),
+                            ),
                         ),
                     ),
                 ),
@@ -4481,6 +4751,16 @@ class Descriptions {
                         'BizType' => array( 'type' => 'string', 'location' => 'xml', ),
                         'Async' => array( 'type' => 'integer', 'location' => 'xml', ),
                         'Callback' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Freeze' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'PornScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'AdsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'PoliticsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'TerrorismScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -4510,6 +4790,7 @@ class Descriptions {
                             'Label' => array( 'type' => 'string', 'location' => 'xml',),
                             'Result' => array( 'type' => 'integer', 'location' => 'xml',),
                             'Score' => array( 'type' => 'integer', 'location' => 'xml',),
+                            'ForbidState' => array( 'type' => 'integer', 'location' => 'xml',),
                             'Category' => array( 'type' => 'string', 'location' => 'xml',),
                             'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                             'Text' => array( 'type' => 'string', 'location' => 'xml',),
@@ -4534,6 +4815,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Keywords' => array(
                                                     'type' => 'array',
                                                     'location' => 'xml',
@@ -4561,6 +4843,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Location' => array(
                                                     'type' => 'object',
                                                     'location' => 'xml',
@@ -4608,6 +4891,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Keywords' => array(
                                                     'type' => 'array',
                                                     'location' => 'xml',
@@ -4635,6 +4919,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Location' => array(
                                                     'type' => 'object',
                                                     'location' => 'xml',
@@ -4682,6 +4967,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Keywords' => array(
                                                     'type' => 'array',
                                                     'location' => 'xml',
@@ -4709,6 +4995,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Location' => array(
                                                     'type' => 'object',
                                                     'location' => 'xml',
@@ -4756,6 +5043,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Keywords' => array(
                                                     'type' => 'array',
                                                     'location' => 'xml',
@@ -4783,6 +5071,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Location' => array(
                                                     'type' => 'object',
                                                     'location' => 'xml',
@@ -4830,6 +5119,7 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Keywords' => array(
                                                     'type' => 'array',
                                                     'location' => 'xml',
@@ -4857,6 +5147,83 @@ class Descriptions {
                                             'location' => 'xml',
                                             'properties' => array(
                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'Location' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'X' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                        'Y' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                        'Width' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                        'Height' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                        'Rotate' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                    'LibResults' => array(
+                                        'type' => 'array',
+                                        'location' => 'xml',
+                                        'items' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'ImageId' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'Score' => array( 'type' => 'integer', 'location' => 'xml',),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'QualityInfo' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'Code' => array( 'type' => 'integer', 'location' => 'xml',),
+                                    'Msg' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'HitFlag' => array( 'type' => 'integer', 'location' => 'xml',),
+                                    'Score' => array( 'type' => 'integer', 'location' => 'xml',),
+                                    'Label' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'Category' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                    'OcrResults' => array(
+                                        'type' => 'array',
+                                        'location' => 'xml',
+                                        'items' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'Keywords' => array(
+                                                    'type' => 'array',
+                                                    'location' => 'xml',
+                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                ),
+                                                'Location' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'X' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                        'Y' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                        'Width' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                        'Height' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                        'Rotate' => array( 'type' => 'numeric', 'location' => 'xml',),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                    'ObjectResults' => array(
+                                        'type' => 'array',
+                                        'location' => 'xml',
+                                        'items' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                 'Location' => array(
                                                     'type' => 'object',
                                                     'location' => 'xml',
@@ -5128,6 +5495,7 @@ class Descriptions {
                         'SubLabel' => array('type' => 'string', 'location' => 'xml',),
                         'Result' => array('type' => 'integer', 'location' => 'xml',),
                         'Score' => array('type' => 'integer', 'location' => 'xml',),
+                        'ForbidState' => array('type' => 'integer', 'location' => 'xml',),
                         'PornInfo' => array(
                             'type' => 'object',
                             'location' => 'xml',
@@ -5145,6 +5513,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -5172,6 +5541,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Location' => array(
                                                 'type' => 'object',
                                                 'location' => 'xml',
@@ -5217,6 +5587,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -5244,6 +5615,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Location' => array(
                                                 'type' => 'object',
                                                 'location' => 'xml',
@@ -5289,6 +5661,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -5316,6 +5689,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Location' => array(
                                                 'type' => 'object',
                                                 'location' => 'xml',
@@ -5361,6 +5735,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -5388,6 +5763,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Location' => array(
                                                 'type' => 'object',
                                                 'location' => 'xml',
@@ -5433,6 +5809,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Keywords' => array(
                                                 'type' => 'array',
                                                 'location' => 'xml',
@@ -5460,6 +5837,7 @@ class Descriptions {
                                         'location' => 'xml',
                                         'properties' => array(
                                             'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                            'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                             'Location' => array(
                                                 'type' => 'object',
                                                 'location' => 'xml',
@@ -5544,21 +5922,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -5735,6 +6111,7 @@ class Descriptions {
                     'location' => 'xml',
                     'type' => 'object',
                     'properties' => array(
+                        'BizType' => array( 'type' => 'string', 'location' => 'xml', ),
                         'DetectType' => array( 'type' => 'string', 'location' => 'xml', ),
                         'Callback' => array( 'type' => 'string', 'location' => 'xml', ),
                         'ReturnHighlightHtml' => array( 'type' => 'string', 'location' => 'xml', ),
@@ -5892,6 +6269,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                                 'Keywords' => array(
                                                                     'type' => 'array',
                                                                     'location' => 'xml',
@@ -5919,6 +6297,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                                 'Location' => array(
                                                                     'type' => 'object',
                                                                     'location' => 'xml',
@@ -5963,6 +6342,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                                 'Keywords' => array(
                                                                     'type' => 'array',
                                                                     'location' => 'xml',
@@ -5990,6 +6370,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                                 'Location' => array(
                                                                     'type' => 'object',
                                                                     'location' => 'xml',
@@ -6034,6 +6415,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                                 'Keywords' => array(
                                                                     'type' => 'array',
                                                                     'location' => 'xml',
@@ -6061,6 +6443,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                                 'Location' => array(
                                                                     'type' => 'object',
                                                                     'location' => 'xml',
@@ -6105,6 +6488,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                                 'Keywords' => array(
                                                                     'type' => 'array',
                                                                     'location' => 'xml',
@@ -6132,6 +6516,7 @@ class Descriptions {
                                                             'location' => 'xml',
                                                             'properties' => array(
                                                                 'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                                                 'Location' => array(
                                                                     'type' => 'object',
                                                                     'location' => 'xml',
@@ -6597,21 +6982,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'CallBack' => array( 'required' => false, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -6630,13 +7013,12 @@ class Descriptions {
                             ),
                         ),
                         'Output' => array(
-                            'required' => true,
                             'type' => 'object',
                             'location' => 'xml',
                             'properties' => array(
-                                'Region' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
-                                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
-                                'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                     ),
@@ -6697,21 +7079,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'CallBack' => array( 'required' => false, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -6869,6 +7249,7 @@ class Descriptions {
                                 'Type' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'Version' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'IgnoreError' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'State' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                         'Output' => array(
@@ -6938,21 +7319,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -6964,6 +7343,7 @@ class Descriptions {
                             'location' => 'xml',
                             'properties' => array(
                                 'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Scene' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'Container' => array(
                                     'type' => 'object',
                                     'location' => 'xml',
@@ -6996,11 +7376,36 @@ class Descriptions {
                                     ),
                                 ),
                                 'AudioMix' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EffectConfig' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'AudioMixArray' => array(
                                     'type' => 'array',
                                     'location' => 'xml',
+                                    'data' => array(
+                                        'xmlFlattened' => true,
+                                    ),
                                     'items' => array(
                                         'type' => 'object',
-                                        'location' => 'xml',
+                                        'name' => 'AudioMixArray',
+                                        'sentAs' => 'AudioMixArray',
                                         'properties' => array(
                                             'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
                                             'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
@@ -7089,21 +7494,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'CallBack' => array( 'required' => false, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -7212,21 +7615,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -7308,17 +7709,16 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
@@ -7410,32 +7810,29 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
                         'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
                         'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
                         'VideoTag' => array(
-                            'required' => true,
                             'type' => 'object',
                             'location' => 'xml',
                             'properties' => array(
-                                'Scenario' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                                'Scenario' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                     ),
@@ -7496,21 +7893,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -7652,6 +8047,7 @@ class Descriptions {
                                 'Type' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'Version' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'IgnoreError' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'State' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                         'Output' => array(
@@ -7721,21 +8117,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -7934,21 +8328,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -7961,6 +8353,8 @@ class Descriptions {
                                 'Message' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'Type' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'IgnoreError' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'State' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                         'Output' => array(
@@ -8030,21 +8424,19 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -8153,6 +8545,13 @@ class Descriptions {
                         'Callback' => array( 'type' => 'string', 'location' => 'xml', ),
                         'BizType' => array( 'type' => 'string', 'location' => 'xml', ),
                         'CallbackType' => array( 'type' => 'integer', 'location' => 'xml', ),
+                    ),
+                ),
+                'StorageConf' => array(
+                    'location' => 'xml',
+                    'type' => 'object',
+                    'properties' => array(
+                        'Path' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
             ),
@@ -8426,10 +8825,9 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Snapshot' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
@@ -8586,8 +8984,8 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Container' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -8664,6 +9062,56 @@ class Descriptions {
                             'properties' => array(
                                 'IsHlsEncrypt' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'UriKey' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'AudioMix' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EffectConfig' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'AudioMixArray' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'data' => array(
+                        'xmlFlattened' => true,
+                    ),
+                    'items' => array(
+                        'type' => 'object',
+                        'name' => 'AudioMixArray',
+                        'sentAs' => 'AudioMixArray',
+                        'properties' => array(
+                            'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'EffectConfig' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
                             ),
                         ),
                     ),
@@ -8798,6 +9246,56 @@ class Descriptions {
                         ),
                     ),
                 ),
+                'AudioMix' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EffectConfig' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'AudioMixArray' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'data' => array(
+                        'xmlFlattened' => true,
+                    ),
+                    'items' => array(
+                        'type' => 'object',
+                        'name' => 'AudioMixArray',
+                        'sentAs' => 'AudioMixArray',
+                        'properties' => array(
+                            'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'EffectConfig' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             ),
         );
     }
@@ -8845,8 +9343,8 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Container' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -9050,8 +9548,8 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Container' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -9207,12 +9705,13 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'ConcatTemplate' => array(
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
+                        'DirectConcat' => array( 'type' => 'string', 'location' => 'xml', ),
                         'ConcatFragments' => array(
                             'type' => 'array',
                             'location' => 'xml',
@@ -9256,6 +9755,64 @@ class Descriptions {
                             'location' => 'xml',
                             'properties' => array(
                                 'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'AudioMix' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EffectConfig' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'AudioMixArray' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'data' => array(
+                                'xmlFlattened' => true,
+                            ),
+                            'items' => array(
+                                'type' => 'object',
+                                'name' => 'AudioMixArray',
+                                'sentAs' => 'AudioMixArray',
+                                'properties' => array(
+                                    'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EffectConfig' => array(
+                                        'type' => 'object',
+                                        'location' => 'xml',
+                                        'properties' => array(
+                                            'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'SceneChangeInfo' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Time' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                     ),
@@ -9314,6 +9871,7 @@ class Descriptions {
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
+                        'DirectConcat' => array( 'type' => 'string', 'location' => 'xml', ),
                         'ConcatFragments' => array(
                             'type' => 'array',
                             'location' => 'xml',
@@ -9357,6 +9915,64 @@ class Descriptions {
                             'location' => 'xml',
                             'properties' => array(
                                 'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'AudioMix' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EffectConfig' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'AudioMixArray' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'data' => array(
+                                'xmlFlattened' => true,
+                            ),
+                            'items' => array(
+                                'type' => 'object',
+                                'name' => 'AudioMixArray',
+                                'sentAs' => 'AudioMixArray',
+                                'properties' => array(
+                                    'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EffectConfig' => array(
+                                        'type' => 'object',
+                                        'location' => 'xml',
+                                        'properties' => array(
+                                            'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'SceneChangeInfo' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Time' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                     ),
@@ -9408,8 +10024,8 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'ColorEnhance' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -9543,9 +10159,10 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Duration' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Scene' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Container' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -9583,6 +10200,47 @@ class Descriptions {
                         'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
                         'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
                         'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EffectConfig' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'AudioMixArray' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'data' => array(
+                        'xmlFlattened' => true,
+                    ),
+                    'items' => array(
+                        'type' => 'object',
+                        'name' => 'AudioMixArray',
+                        'sentAs' => 'AudioMixArray',
+                        'properties' => array(
+                            'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'EffectConfig' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -9636,6 +10294,7 @@ class Descriptions {
                 'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
                 'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Duration' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Scene' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Container' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -9673,6 +10332,47 @@ class Descriptions {
                         'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
                         'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
                         'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EffectConfig' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'AudioMixArray' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'data' => array(
+                        'xmlFlattened' => true,
+                    ),
+                    'items' => array(
+                        'type' => 'object',
+                        'name' => 'AudioMixArray',
+                        'sentAs' => 'AudioMixArray',
+                        'properties' => array(
+                            'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'EffectConfig' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -9722,9 +10422,9 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'AudioMode' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'AudioMode' => array( 'location' => 'xml', 'type' => 'string', ),
                 'AudioConfig' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -9843,8 +10543,8 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Resolution' => array( 'location' => 'xml', 'type' => 'string', ),
                 'EnableScaleUp' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Version' => array( 'location' => 'xml', 'type' => 'string', ),
@@ -9948,8 +10648,8 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'PicProcess' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -10063,8 +10763,8 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Watermark' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -10387,7 +11087,8 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Name' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Type' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
                     'type' => 'object',
                     'location' => 'xml',
@@ -10403,12 +11104,631 @@ class Descriptions {
                     'location' => 'xml',
                     'properties' => array(
                         'WorkflowIds' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueType' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CallBackFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CallBackType' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CallBack' => array( 'type' => 'string', 'location' => 'xml', ),
                         'TimeInterval' => array(
                             'type' => 'object',
                             'location' => 'xml',
                             'properties' => array(
                                 'Start' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'End' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Output' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'AuObject' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'SpriteObject' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'StreamExtract' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Index' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'JobParam' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'TranscodeTemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'WatermarkTemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Animation' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Container' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Video' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'AnimateOnlyKeepKeyFrame' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'AnimateTimeIntervalOfFrame' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'AnimateFramesPerSecond' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Quality' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'TimeInterval' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Start' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'Transcode' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Container' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Video' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Remove' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Profile' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Crf' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Gop' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Preset' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bufsize' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Maxrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'HlsTsTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Pixfmt' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'LongShortMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'TimeInterval' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Start' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Audio' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Remove' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'KeepTwoTracks' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'SwitchTrack' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'SampleFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'TransConfig' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'AdjDarMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'IsCheckReso' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'ResoAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'IsCheckVideoBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'VideoBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'IsCheckAudioBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'AudioBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'DeleteMetadata' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'IsHdr2Sdr' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'HlsEncrypt' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'IsHlsEncrypt' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'UriKey' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'AudioMix' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EffectConfig' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'AudioMixArray' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'data' => array(
+                                                'xmlFlattened' => true,
+                                            ),
+                                            'items' => array(
+                                                'type' => 'object',
+                                                'name' => 'AudioMixArray',
+                                                'sentAs' => 'AudioMixArray',
+                                                'properties' => array(
+                                                    'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EffectConfig' => array(
+                                                        'type' => 'object',
+                                                        'location' => 'xml',
+                                                        'properties' => array(
+                                                            'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'SmartCover' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Count' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'DeleteDuplicates' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'DigitalWatermark' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IgnoreError' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Watermark' => array(
+                                    'type' => 'array',
+                                    'location' => 'xml',
+                                    'data' => array(
+                                        'xmlFlattened' => true,
+                                    ),
+                                    'items' => array(
+                                        'name' => 'Watermark',
+                                        'type' => 'object',
+                                        'sentAs' => 'Watermark',
+                                        'properties' => array(
+                                            'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Pos' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'LocMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Dx' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Dy' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Image' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Transparency' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Background' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                ),
+                                            ),
+                                            'Text' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'FontSize' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'FontType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'FontColor' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Transparency' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Text' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                ),
+                                            ),
+                                        ),
+                                    )
+                                ),
+                                'RemoveWatermark' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Dx' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Dy' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Snapshot' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Start' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'TimeInterval' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Count' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'SpeechRecognition' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'EngineModelType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ChannelNum' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'ResTextFormat' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'FilterDirty' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'FilterModal' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'ConvertNumMode' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'SpeakerDiarization' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'SpeakerNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'FilterPunc' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'OutputFileType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'FlashAsr' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'FirstChannelOnly' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'WordInfo' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'SentenceMaxLength' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'ConcatTemplate' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Audio' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Index' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'DirectConcat' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ConcatFragments' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'data' => array(
+                                                'xmlFlattened' => true,
+                                            ),
+                                            'items' => array(
+                                                'name' => 'ConcatFragment',
+                                                'type' => 'object',
+                                                'sentAs' => 'ConcatFragment',
+                                                'properties' => array(
+                                                    'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    // 'Mode' => array( 'type' => 'string', 'location' => 'xml', ), 拼接接口不需要Mode参数
+                                                ),
+                                            ),
+                                        ),
+                                        'Video' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Remove' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Container' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'AudioMix' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EffectConfig' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'AudioMixArray' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'data' => array(
+                                                'xmlFlattened' => true,
+                                            ),
+                                            'items' => array(
+                                                'type' => 'object',
+                                                'name' => 'AudioMixArray',
+                                                'sentAs' => 'AudioMixArray',
+                                                'properties' => array(
+                                                    'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EffectConfig' => array(
+                                                        'type' => 'object',
+                                                        'location' => 'xml',
+                                                        'properties' => array(
+                                                            'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'VoiceSeparate' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'AudioMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'AudioConfig' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'VideoMontage' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Scene' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Container' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Video' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Crf' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Rotate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Audio' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Remove' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'AudioMix' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EffectConfig' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'AudioMixArray' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'data' => array(
+                                                'xmlFlattened' => true,
+                                            ),
+                                            'items' => array(
+                                                'type' => 'object',
+                                                'name' => 'AudioMixArray',
+                                                'sentAs' => 'AudioMixArray',
+                                                'properties' => array(
+                                                    'AudioSource' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'MixMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Replace' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'EffectConfig' => array(
+                                                        'type' => 'object',
+                                                        'location' => 'xml',
+                                                        'properties' => array(
+                                                            'EnableStartFadein' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'StartFadeinTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EnableEndFadeout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EndFadeoutTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'EnableBgmFade' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            'BgmFadeTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'SDRtoHDR' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'HdrMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'VideoProcess' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'ColorEnhance' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Enable' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Contrast' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Correction' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Saturation' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'MsSharpen' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Enable' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'SharpenLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'SuperResolution' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Resolution' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EnableScaleUp' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Segment' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'HlsEncrypt' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'IsHlsEncrypt' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'UriKey' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'ExtractDigitalWatermark' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'VideoTag' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Scenario' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'TtsTpl' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'VoiceType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Volume' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Speed' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Emotion' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'NoiseReduction' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'SampleRate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'CallBackMqConfig' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
                             ),
                         ),
                     ),
@@ -10612,25 +11932,33 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
                         'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
                         'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'NoiseReduction' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'SampleRate' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
                         'Output' => array(
                             'type' => 'object',
                             'location' => 'xml',
@@ -11694,7 +13022,7 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Key' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Key' => array( 'type' => 'string', 'location' => 'uri', ),
                 'Name' => array( 'type' => 'string', 'location' => 'xml', ),
                 'QueueID' => array( 'type' => 'string', 'location' => 'xml', ),
                 'State' => array( 'type' => 'string', 'location' => 'xml', ),
@@ -11760,7 +13088,7 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
                 'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
@@ -11844,17 +13172,16 @@ class Descriptions {
             ),
             'parameters' => array(
                 'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
-                'Tag' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
-                'QueueId' => array( 'required' => true, 'location' => 'xml', 'type' => 'string', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
                 'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
                 'Input' => array(
-                    'required' => true,
                     'type' => 'object',
                     'location' => 'xml',
                     'properties' => array(
-                        'Object' => array( 'required' => true, 'type' => 'string', 'location' => 'xml', ),
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
                     ),
                 ),
                 'Operation' => array(
@@ -12886,6 +14213,3159 @@ class Descriptions {
                 ),
                 'NonExistJobIds' => array('type' => 'string', 'location' => 'xml',),
             ),
+        );
+    }
+
+    public static function CreateM3U8PlayListJobs() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}m3u8_playlist',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateM3U8PlayListJobsOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'StartTime' => array( 'location' => 'query', 'type' => 'integer', 'sentAs' => 'startTime'),
+                'EndTime' => array( 'location' => 'query', 'type' => 'integer', 'sentAs' => 'endTime'),
+                'Operation' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'M3U8List' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'data' => array('xmlFlattened' => true),
+                            'items' => array(
+                                'name' => 'M3U8List',
+                                'type' => 'object',
+                                'sentAs' => 'M3U8List',
+                                'properties' => array(
+                                    'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Index' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'ObjectPath' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                            ),
+                        ),
+                        'Output' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateM3U8PlayListJobsOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'x-ci-request-id',
+                ),
+                'ContentType' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'Content-Type',
+                ),
+                'ContentLength' => array(
+                    'type' => 'numeric',
+                    'minimum'=> 0,
+                    'location' => 'header',
+                    'sentAs' => 'Content-Length',
+                ),
+                'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Operation' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'M3U8List' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'items' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Index' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'ObjectPath' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                            ),
+                        ),
+                        'Output' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'ResultInfo' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'OutputUrl' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'ErrorInfo' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'items' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'ObjectPath' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Code' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function GetPicQueueList() {
+        return array(
+            'httpMethod' => 'GET',
+            'uri' => '/{Bucket}picqueue',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'GetPicQueueListOutput',
+            'responseType' => 'model',
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'QueueIds' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'queueIds' ),
+                'State' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'state' ),
+                'PageNumber' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'pageNumber' ),
+                'PageSize' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'pageSize' ),
+            ),
+        );
+    }
+    public static function GetPicQueueListOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'TotalCount' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PageNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PageSize' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'QueueList' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'items' => array(
+                        'type' => 'object',
+                        'location' => 'xml',
+                        'properties' => array(
+                            'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'MaxSize' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            'MaxConcurrent' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'NotifyConfig' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Event' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'ResultFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'NonExistPIDs' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'items' => array( 'type' => 'string', 'location' => 'xml', ),
+                ),
+            ),
+        );
+    }
+
+    public static function UpdatePicQueue() {
+        return array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}picqueue/{/Key*}',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'UpdatePicQueueOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Key' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'State' => array( 'location' => 'xml', 'type' => 'string', ),
+                'NotifyConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Event' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'ResultFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function UpdatePicQueueOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'x-ci-request-id',
+                ),
+                'ContentType' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'Content-Type',
+                ),
+                'ContentLength' => array(
+                    'type' => 'numeric',
+                    'minimum'=> 0,
+                    'location' => 'header',
+                    'sentAs' => 'Content-Length',
+                ),
+                'Queue' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MaxSize' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'MaxConcurrent' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'NotifyConfig' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Event' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'ResultFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function GetPicBucketList() {
+        return array(
+            'httpMethod' => 'GET',
+            'uri' => '/picbucket',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'GetPicBucketListOutput',
+            'responseType' => 'model',
+            'parameters' => array(
+                'Regions' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'regions' ),
+                'BucketNames' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'bucketNames' ),
+                'BucketName' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'bucketName' ),
+                'PageNumber' => array( 'type' => 'integer', 'location' => 'query', 'sentAs' => 'pageNumber' ),
+                'PageSize' => array( 'type' => 'integer', 'location' => 'query', 'sentAs' => 'pageSize' ),
+            ),
+        );
+    }
+    public static function GetPicBucketListOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'TotalCount' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PageNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PageSize' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PicBucketList' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'items' => array(
+                        'type' => 'object',
+                        'location' => 'xml',
+                        'properties' => array(
+                            'BucketId' => array( 'type' => 'string', 'location' => 'xml',),
+                            'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                            'Region' => array( 'type' => 'string', 'location' => 'xml',),
+                            'CreateTime' => array( 'type' => 'string', 'location' => 'xml',),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function GetAiBucketList() {
+        return array(
+            'httpMethod' => 'GET',
+            'uri' => '/ai_bucket',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'GetAiBucketListOutput',
+            'responseType' => 'model',
+            'parameters' => array(
+                'Regions' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'regions' ),
+                'BucketNames' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'bucketNames' ),
+                'BucketName' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'bucketName' ),
+                'PageNumber' => array( 'type' => 'integer', 'location' => 'query', 'sentAs' => 'pageNumber' ),
+                'PageSize' => array( 'type' => 'integer', 'location' => 'query', 'sentAs' => 'pageSize' ),
+            ),
+        );
+    }
+    public static function GetAiBucketListOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'TotalCount' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PageNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PageSize' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'AiBucketList' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'items' => array(
+                        'type' => 'object',
+                        'location' => 'xml',
+                        'properties' => array(
+                            'BucketId' => array( 'type' => 'string', 'location' => 'xml',),
+                            'Name' => array( 'type' => 'string', 'location' => 'xml',),
+                            'Region' => array( 'type' => 'string', 'location' => 'xml',),
+                            'CreateTime' => array( 'type' => 'string', 'location' => 'xml',),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function OpenAiService() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}ai_bucket',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'OpenAiServiceOutput',
+            'responseType' => 'model',
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+            ),
+        );
+    }
+    public static function OpenAiServiceOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'AiBucket' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function GetAiQueueList() {
+        return array(
+            'httpMethod' => 'GET',
+            'uri' => '/{Bucket}ai_queue',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'GetAiQueueListOutput',
+            'responseType' => 'model',
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'QueueIds' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'queueIds' ),
+                'State' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'state' ),
+                'PageNumber' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'pageNumber' ),
+                'PageSize' => array( 'type' => 'string', 'location' => 'query', 'sentAs' => 'pageSize' ),
+            ),
+        );
+    }
+    public static function GetAiQueueListOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'TotalCount' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PageNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'PageSize' => array( 'type' => 'integer', 'location' => 'xml', ),
+                'QueueList' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'items' => array(
+                        'type' => 'object',
+                        'location' => 'xml',
+                        'properties' => array(
+                            'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'MaxSize' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            'MaxConcurrent' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                            'NotifyConfig' => array(
+                                'type' => 'object',
+                                'location' => 'xml',
+                                'properties' => array(
+                                    'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Event' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'ResultFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'NonExistPIDs' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'items' => array( 'type' => 'string', 'location' => 'xml', ),
+                ),
+            ),
+        );
+    }
+
+    public static function UpdateAiQueue() {
+        return array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}ai_queue/{/Key*}',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'UpdateAiQueueOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Key' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'State' => array( 'location' => 'xml', 'type' => 'string', ),
+                'NotifyConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Event' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'ResultFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function UpdateAiQueueOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'x-ci-request-id',
+                ),
+                'ContentType' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'Content-Type',
+                ),
+                'ContentLength' => array(
+                    'type' => 'numeric',
+                    'minimum'=> 0,
+                    'location' => 'header',
+                    'sentAs' => 'Content-Length',
+                ),
+                'Queue' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MaxSize' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'MaxConcurrent' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'NotifyConfig' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Event' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'ResultFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateMediaTranscodeProTemplate() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}template',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateMediaTranscodeProTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Container' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'Video' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Profile' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Interlaced' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Rotate' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'TimeInterval' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Start' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'Audio' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Remove' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'TransConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'AdjDarMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsCheckReso' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'ResoAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsCheckVideoBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'VideoBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsCheckAudioBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'AudioBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsCheckVideoFps' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'VideoFpsAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'DeleteMetadata' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsHdr2Sdr' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateMediaTranscodeProTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'TransProTpl' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Container' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Video' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Profile' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Interlaced' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Rotate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'TimeInterval' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Start' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Audio' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Remove' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'TransConfig' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'AdjDarMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsCheckReso' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ResoAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsCheckVideoBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'VideoBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsCheckAudioBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'AudioBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsCheckVideoFps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'VideoFpsAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'DeleteMetadata' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsHdr2Sdr' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function UpdateMediaTranscodeProTemplate() {
+        return array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}template/{/Key*}',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'UpdateMediaTranscodeProTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Key' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Container' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'Video' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Profile' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Interlaced' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Rotate' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'TimeInterval' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Start' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'Audio' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Remove' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'TransConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'AdjDarMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsCheckReso' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'ResoAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsCheckVideoBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'VideoBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsCheckAudioBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'AudioBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsCheckVideoFps' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'VideoFpsAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'DeleteMetadata' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'IsHdr2Sdr' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function UpdateMediaTranscodeProTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'TransProTpl' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Container' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Video' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Profile' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Interlaced' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Rotate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'TimeInterval' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Start' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Audio' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Remove' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'TransConfig' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'AdjDarMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsCheckReso' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ResoAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsCheckVideoBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'VideoBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsCheckAudioBitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'AudioBitrateAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsCheckVideoFps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'VideoFpsAdjMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'DeleteMetadata' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IsHdr2Sdr' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateVoiceTtsTemplate() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}template',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateVoiceTtsTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                'VoiceType' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Volume' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Speed' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Emotion' => array( 'type' => 'string', 'location' => 'xml', ),
+            ),
+        );
+    }
+    public static function CreateVoiceTtsTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'TtsTpl' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'VoiceType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Volume' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Speed' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Emotion' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function UpdateVoiceTtsTemplate() {
+        return array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}template/{/Key*}',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'UpdateVoiceTtsTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Key' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                'VoiceType' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Volume' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Speed' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Emotion' => array( 'type' => 'string', 'location' => 'xml', ),
+            ),
+        );
+    }
+    public static function UpdateVoiceTtsTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'TtsTpl' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'VoiceType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Volume' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Speed' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Emotion' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateMediaSmartCoverTemplate() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}template',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateMediaSmartCoverTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'SmartCover' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Count' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'DeleteDuplicates' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateMediaSmartCoverTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'SmartCover' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Count' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'DeleteDuplicates' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function UpdateMediaSmartCoverTemplate() {
+        return array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}template/{/Key*}',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'UpdateMediaSmartCoverTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Key' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'SmartCover' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Count' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'DeleteDuplicates' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function UpdateMediaSmartCoverTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'SmartCover' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Count' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'DeleteDuplicates' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateVoiceSpeechRecognitionTemplate() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}template',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateVoiceSpeechRecognitionTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                'SpeechRecognition' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'EngineModelType' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'ChannelNum' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'ResTextFormat' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'FilterDirty' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'FilterModal' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'ConvertNumMode' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'SpeakerDiarization' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'SpeakerNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'FilterPunc' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'OutputFileType' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'FlashAsr' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'FirstChannelOnly' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'WordInfo' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'SentenceMaxLength' => array( 'type' => 'integer', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateVoiceSpeechRecognitionTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'SpeechRecognition' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'EngineModelType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'ChannelNum' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'ResTextFormat' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterDirty' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterModal' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'ConvertNumMode' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SpeakerDiarization' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SpeakerNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterPunc' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'OutputFileType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'FlashAsr' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'FirstChannelOnly' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'WordInfo' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SentenceMaxLength' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function UpdateVoiceSpeechRecognitionTemplate() {
+        return array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}template/{/Key*}',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'UpdateVoiceSpeechRecognitionTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Key' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                'SpeechRecognition' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'EngineModelType' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'ChannelNum' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'ResTextFormat' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'FilterDirty' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'FilterModal' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'ConvertNumMode' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'SpeakerDiarization' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'SpeakerNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'FilterPunc' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'OutputFileType' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'FlashAsr' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'FirstChannelOnly' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'WordInfo' => array( 'type' => 'integer', 'location' => 'xml', ),
+                        'SentenceMaxLength' => array( 'type' => 'integer', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function UpdateVoiceSpeechRecognitionTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'SpeechRecognition' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'EngineModelType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'ChannelNum' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'ResTextFormat' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterDirty' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterModal' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'ConvertNumMode' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SpeakerDiarization' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SpeakerNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterPunc' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'OutputFileType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'FlashAsr' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'FirstChannelOnly' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'WordInfo' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SentenceMaxLength' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateVoiceTtsJobs() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}jobs',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateVoiceTtsJobsOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Operation' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'TtsConfig' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'InputType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Input' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'TtsTpl' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'VoiceType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Volume' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Speed' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Emotion' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Output' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'CallBackMqConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateVoiceTtsJobsOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'JobsDetail' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Code' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreationTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Operation' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'TemplateName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'TtsConfig' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'InputType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Input' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Output' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'MediaInfo' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'NumStream' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                'NumProgram' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                'FormatName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'FormatLongName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'StartTime' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                'Duration' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                'Size' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Stream' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Video' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Index' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'CodecName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecLongName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTimeBase' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTagString' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTag' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Profile' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Height' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Width' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'HasBFrame' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'RefFrames' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Sar' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Dar' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'PixFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'FieldOrder' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Level' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Fps' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'AvgFps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Timebase' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'StartTime' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Duration' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Bitrate' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'NumFrames' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Language' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                                'Audio' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Index' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'CodecName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecLongName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTimeBase' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTagString' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTag' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'SampleFmt' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'SampleRate' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Channel' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'ChannelLayout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Timebase' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'StartTime' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Duration' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Bitrate' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Language' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                                'Subtitle' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Index' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Language' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'MediaResult' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'OutputFile' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'ObjectName' => array(
+                                                    'type' => 'array',
+                                                    'location' => 'xml',
+                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                ),
+                                                'Md5Info' => array(
+                                                    'type' => 'array',
+                                                    'location' => 'xml',
+                                                    'items' => array(
+                                                        'type' => 'object',
+                                                        'location' => 'xml',
+                                                        'properties' => array(
+                                                            'ObjectName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                            'Md5' => array( 'type' => 'string', 'location' => 'xml',),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateAiTranslationJobs() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}jobs',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateAiTranslationJobsOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Input' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Lang' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BasicType' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'Operation' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'NoNeedOutput' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Translation' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Lang' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Output' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'CallBackMqConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateAiTranslationJobsOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'JobsDetail' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Code' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreationTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Input' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Lang' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'BasicType' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Operation' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Translation' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Lang' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Output' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'AITranslateResult' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Result' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateVoiceSpeechRecognitionJobs() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}jobs',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateVoiceSpeechRecognitionJobsOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Input' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'Operation' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'SpeechRecognition' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'EngineModelType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'ChannelNum' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'ResTextFormat' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterDirty' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterModal' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'ConvertNumMode' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SpeakerDiarization' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SpeakerNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'FilterPunc' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'OutputFileType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'FlashAsr' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'FirstChannelOnly' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'WordInfo' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'SentenceMaxLength' => array( 'type' => 'integer', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Output' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'CallBackMqConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateVoiceSpeechRecognitionJobsOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'JobsDetail' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Code' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreationTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Input' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Operation' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'TemplateName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'SpeechRecognition' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'EngineModelType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ChannelNum' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'ResTextFormat' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'FilterDirty' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'FilterModal' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'ConvertNumMode' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'SpeakerDiarization' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'SpeakerNumber' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'FilterPunc' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'OutputFileType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'FlashAsr' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'FirstChannelOnly' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'WordInfo' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'SentenceMaxLength' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Output' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'SpeechRecognitionResult' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'AudioTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Result' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'FlashResult' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'items' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'channel_id' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                    'text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'sentence_list' => array(
+                                                        'type' => 'array',
+                                                        'location' => 'xml',
+                                                        'items' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'text' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'start_time' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'end_time' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'speaker_id' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'word_list' => array(
+                                                                    'type' => 'array',
+                                                                    'location' => 'xml',
+                                                                    'items' => array(
+                                                                        'type' => 'object',
+                                                                        'location' => 'xml',
+                                                                        'properties' => array(
+                                                                            'word' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                            'start_time' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                            'end_time' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                        ),
+                                                                    ),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'ResultDetail' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'items' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'FinalSentence' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SliceSentence' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'StartMs' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'EndMs' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'WordsNum' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SpeechSpeed' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SpeakerId' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'Words' => array(
+                                                        'type' => 'array',
+                                                        'location' => 'xml',
+                                                        'items' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'Word' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'OffsetStartMs' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'OffsetEndMs' => array( 'type' => 'string', 'location' => 'xml',),
+                                                            ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateAiWordsGeneralizeJobs() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}jobs',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateAiWordsGeneralizeJobsOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Input' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'Operation' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'WordsGeneralize' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'NerMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'SegMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'CallBackMqConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateAiWordsGeneralizeJobsOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'JobsDetail' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Code' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreationTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueType' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Input' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Operation' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'WordsGeneralize' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'NerMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'SegMethod' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'WordsGeneralizeResult' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'WordsGeneralizeLable' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'items' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'Category' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'Word' => array( 'type' => 'string', 'location' => 'xml',),
+                                                ),
+                                            ),
+                                        ),
+                                        'WordsGeneralizeToken' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'items' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'Word' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'Offset' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'Length' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'Pos' => array( 'type' => 'string', 'location' => 'xml',),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateMediaVideoEnhanceJobs() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}jobs',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateMediaVideoEnhanceJobsOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'QueueId' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBack' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackFormat' => array( 'location' => 'xml', 'type' => 'string', ),
+                'CallBackType' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Input' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+                'Operation' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'VideoEnhance' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Transcode' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Container' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'ClipConfig' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'Video' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Audio' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'SuperResolution' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Resolution' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EnableScaleUp' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'SDRtoHDR' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'HdrMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'ColorEnhance' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Contrast' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Correction' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Saturation' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'MsSharpen' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'SharpenLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'FrameEnhance' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'FrameDoubling' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'WatermarkTemplateId' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'data' => array(
+                                'xmlFlattened' => true,
+                            ),
+                            'items' => array(
+                                'name' => 'WatermarkTemplateId',
+                                'type' => 'string',
+                                'location' => 'xml',
+                                'sentAs' => 'WatermarkTemplateId',
+                            ),
+                        ),
+                        'Watermark' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'data' => array(
+                                'xmlFlattened' => true,
+                            ),
+                            'items' => array(
+                                'name' => 'Watermark',
+                                'type' => 'object',
+                                'sentAs' => 'Watermark',
+                                'properties' => array(
+                                    'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Pos' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'LocMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Dx' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Dy' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    'Image' => array(
+                                        'type' => 'object',
+                                        'location' => 'xml',
+                                        'properties' => array(
+                                            'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Transparency' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Background' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        ),
+                                    ),
+                                    'Text' => array(
+                                        'type' => 'object',
+                                        'location' => 'xml',
+                                        'properties' => array(
+                                            'FontSize' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'FontType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'FontColor' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Transparency' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Text' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        ),
+                                    ),
+                                    'SlideConfig' => array(
+                                        'type' => 'object',
+                                        'location' => 'xml',
+                                        'properties' => array(
+                                            'SlideMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'XSlideSpeed' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'YSlideSpeed' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        ),
+                                    ),
+                                ),
+                            )
+                        ),
+                        'DigitalWatermark' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'IgnoreError' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Output' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+                'CallBackMqConfig' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'MqRegion' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'MqName' => array( 'type' => 'string', 'location' => 'xml', ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateMediaVideoEnhanceJobsOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'JobsDetail' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Code' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'JobId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Progress' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreationTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'QueueType' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Input' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'Operation' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'TemplateName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'UserData' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'JobLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'VideoEnhance' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Transcode' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Container' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'ClipConfig' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                            ),
+                                                        ),
+                                                    ),
+                                                ),
+                                                'Video' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                                'Audio' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'SuperResolution' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Resolution' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'EnableScaleUp' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'SDRtoHDR' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'HdrMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'ColorEnhance' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Contrast' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Correction' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Saturation' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'MsSharpen' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'SharpenLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'FrameEnhance' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'FrameDoubling' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'Watermark' => array(
+                                    'type' => 'array',
+                                    'location' => 'xml',
+                                    'items' => array(
+                                        'type' => 'object',
+                                        'location' => 'xml',
+                                        'properties' => array(
+                                            'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Pos' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'LocMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Dx' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Dy' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'StartTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'EndTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            'Image' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'Url' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Mode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Transparency' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Background' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                ),
+                                            ),
+                                            'Text' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'FontSize' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'FontType' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'FontColor' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Transparency' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'Text' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                ),
+                                            ),
+                                            'SlideConfig' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'SlideMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'XSlideSpeed' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    'YSlideSpeed' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                ),
+                                            ),
+                                        ),
+                                    )
+                                ),
+                                'WatermarkTemplateId' => array(
+                                    'type' => 'array',
+                                    'location' => 'xml',
+                                    'items' => array( 'type' => 'string', 'location' => 'xml', ),
+                                ),
+                                'Output' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Object' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'MediaInfo' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'NumStream' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                'NumProgram' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                'FormatName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'FormatLongName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'StartTime' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                'Duration' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                'Size' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Stream' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Video' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Index' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'CodecName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecLongName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTimeBase' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTagString' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTag' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Profile' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Height' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Width' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'HasBFrame' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'RefFrames' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Sar' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Dar' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'PixFormat' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'FieldOrder' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Level' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Fps' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'AvgFps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Timebase' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'StartTime' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Duration' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Bitrate' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'NumFrames' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Language' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                                'Audio' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Index' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'CodecName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecLongName' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTimeBase' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTagString' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'CodecTag' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'SampleFmt' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'SampleRate' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Channel' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'ChannelLayout' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'Timebase' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                        'StartTime' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Duration' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Bitrate' => array( 'type' => 'numeric', 'location' => 'xml', ),
+                                                        'Language' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                                'Subtitle' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Index' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                                        'Language' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'MediaResult' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'OutputFile' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Bucket' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Region' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'ObjectName' => array(
+                                                    'type' => 'array',
+                                                    'location' => 'xml',
+                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                ),
+                                                'Md5Info' => array(
+                                                    'type' => 'array',
+                                                    'location' => 'xml',
+                                                    'items' => array(
+                                                        'type' => 'object',
+                                                        'location' => 'xml',
+                                                        'properties' => array(
+                                                            'ObjectName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                            'Md5' => array( 'type' => 'string', 'location' => 'xml',),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'DigitalWatermark' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Message' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IgnoreError' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'State' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function CreateMediaVideoEnhanceTemplate() {
+        return array(
+            'httpMethod' => 'POST',
+            'uri' => '/{Bucket}template',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CreateMediaVideoEnhanceTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'VideoEnhance' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Transcode' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Container' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ClipConfig' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'Video' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Audio' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'SuperResolution' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Resolution' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableScaleUp' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'SDRtoHDR' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'HdrMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'ColorEnhance' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Contrast' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Correction' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Saturation' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'MsSharpen' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'SharpenLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'FrameEnhance' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'FrameDoubling' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function CreateMediaVideoEnhanceTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'VideoEnhance' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Transcode' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Container' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'ClipConfig' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'Video' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Audio' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'SuperResolution' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Resolution' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EnableScaleUp' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'SDRtoHDR' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'HdrMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'ColorEnhance' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Contrast' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Correction' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Saturation' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'MsSharpen' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'SharpenLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'FrameEnhance' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'FrameDoubling' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function UpdateMediaVideoEnhanceTemplate() {
+        return array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}template/{/Key*}',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'UpdateMediaVideoEnhanceTemplateOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'Request',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Key' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'Tag' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Name' => array( 'location' => 'xml', 'type' => 'string', ),
+                'VideoEnhance' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Transcode' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Container' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ClipConfig' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'Video' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'Audio' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'SuperResolution' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Resolution' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'EnableScaleUp' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'SDRtoHDR' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'HdrMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'ColorEnhance' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Contrast' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Correction' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'Saturation' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'MsSharpen' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'SharpenLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                        'FrameEnhance' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'FrameDoubling' => array( 'type' => 'string', 'location' => 'xml', ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function UpdateMediaVideoEnhanceTemplateOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'x-ci-request-id', ),
+                'ContentType' => array( 'type' => 'string', 'location' => 'header', 'sentAs' => 'Content-Type', ),
+                'ContentLength' => array( 'type' => 'numeric', 'minimum'=> 0, 'location' => 'header', 'sentAs' => 'Content-Length', ),
+                'Template' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'TemplateId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Name' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'BucketId' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Category' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'Tag' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'UpdateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'CreateTime' => array( 'type' => 'string', 'location' => 'xml', ),
+                        'VideoEnhance' => array(
+                            'type' => 'object',
+                            'location' => 'xml',
+                            'properties' => array(
+                                'Transcode' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Container' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Format' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'ClipConfig' => array(
+                                                    'type' => 'object',
+                                                    'location' => 'xml',
+                                                    'properties' => array(
+                                                        'Duration' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                        'Video' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Width' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Height' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Fps' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                        'Audio' => array(
+                                            'type' => 'object',
+                                            'location' => 'xml',
+                                            'properties' => array(
+                                                'Codec' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Samplerate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Bitrate' => array( 'type' => 'string', 'location' => 'xml', ),
+                                                'Channels' => array( 'type' => 'string', 'location' => 'xml', ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'SuperResolution' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Resolution' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'EnableScaleUp' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Version' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'SDRtoHDR' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'HdrMode' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'ColorEnhance' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'Contrast' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Correction' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Saturation' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'MsSharpen' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'SharpenLevel' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                                'FrameEnhance' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'FrameDoubling' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public static function OpenImageSlim() {
+        return array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}?image-slim',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'OpenImageSlimOutput',
+            'responseType' => 'model',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'ImageSlim',
+                ),
+            ),
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+                'SlimMode' => array( 'location' => 'xml', 'type' => 'string', ),
+                'Suffixs' => array(
+                    'type' => 'object',
+                    'location' => 'xml',
+                    'properties' => array(
+                        'Suffix' => array(
+                            'type' => 'array',
+                            'location' => 'xml',
+                            'data' => array(
+                                'xmlFlattened' => true,
+                            ),
+                            'items' => array( 'name' => 'Suffix', 'type' => 'string', 'location' => 'xml', 'sentAs' => 'Suffix', ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+    public static function OpenImageSlimOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'x-cos-request-id',
+                ),
+                'ContentType' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'Content-Type',
+                ),
+                'ContentLength' => array(
+                    'type' => 'numeric',
+                    'minimum'=> 0,
+                    'location' => 'header',
+                    'sentAs' => 'Content-Length',
+                ),
+            )
+        );
+    }
+
+    public static function CloseImageSlim() {
+        return array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/{Bucket}?image-slim',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'CloseImageSlimOutput',
+            'responseType' => 'model',
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+            ),
+        );
+    }
+    public static function CloseImageSlimOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'x-cos-request-id',
+                ),
+                'ContentType' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'Content-Type',
+                ),
+                'ContentLength' => array(
+                    'type' => 'numeric',
+                    'minimum'=> 0,
+                    'location' => 'header',
+                    'sentAs' => 'Content-Length',
+                ),
+            )
+        );
+    }
+
+    public static function GetImageSlim() {
+        return array(
+            'httpMethod' => 'GET',
+            'uri' => '/{Bucket}?image-slim',
+            'class' => 'Qcloud\\Cos\\Command',
+            'responseClass' => 'GetImageSlimOutput',
+            'responseType' => 'model',
+            'parameters' => array(
+                'Bucket' => array( 'required' => true, 'type' => 'string', 'location' => 'uri', ),
+            ),
+        );
+    }
+    public static function GetImageSlimOutput() {
+        return array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'x-cos-request-id',
+                ),
+                'ContentType' => array(
+                    'type' => 'string',
+                    'location' => 'header',
+                    'sentAs' => 'Content-Type',
+                ),
+                'ContentLength' => array(
+                    'type' => 'numeric',
+                    'minimum'=> 0,
+                    'location' => 'header',
+                    'sentAs' => 'Content-Length',
+                ),
+                'Status' => array( 'type' => 'string', 'location' => 'xml', ),
+                'SlimMode' => array( 'type' => 'string', 'location' => 'xml', ),
+            )
         );
     }
 

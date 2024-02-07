@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', //协议头部，默认为http
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // 提交超分辨率任务 https://cloud.tencent.com/document/product/436/67210
@@ -18,7 +18,6 @@ try {
     $result = $cosClient->createMediaSuperResolutionJobs(array(
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'SuperResolution',
-        'QueueId' => 'p81e648af2aee49688570xxxxxxxxxxx',
         'Input' => array(
             'Object' => 'video01.mp4'
         ),
@@ -50,7 +49,6 @@ try {
     $result = $cosClient->createMediaSuperResolutionJobs(array(
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'SuperResolution',
-        'QueueId' => 'p81e648af2aee49688570xxxxxxxxxxx',
         'Input' => array(
             'Object' => 'video01.mp4'
         ),

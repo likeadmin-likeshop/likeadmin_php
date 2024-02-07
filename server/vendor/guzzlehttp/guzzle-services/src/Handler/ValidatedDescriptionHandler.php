@@ -1,4 +1,6 @@
-<?php namespace GuzzleHttp\Command\Guzzle\Handler;
+<?php
+
+namespace GuzzleHttp\Command\Guzzle\Handler;
 
 use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Exception\CommandException;
@@ -12,17 +14,14 @@ use GuzzleHttp\Command\Guzzle\SchemaValidator;
  */
 class ValidatedDescriptionHandler
 {
-    /** @var SchemaValidator $validator */
+    /** @var SchemaValidator */
     private $validator;
 
-    /** @var DescriptionInterface $description */
+    /** @var DescriptionInterface */
     private $description;
 
     /**
      * ValidatedDescriptionHandler constructor.
-     *
-     * @param DescriptionInterface $description
-     * @param SchemaValidator|null $schemaValidator
      */
     public function __construct(DescriptionInterface $description, SchemaValidator $schemaValidator = null)
     {
@@ -31,7 +30,6 @@ class ValidatedDescriptionHandler
     }
 
     /**
-     * @param callable $handler
      * @return \Closure
      */
     public function __invoke(callable $handler)
@@ -47,7 +45,7 @@ class ValidatedDescriptionHandler
                     $value = $schema->filter($value);
                 }
 
-                if (! $this->validator->validate($schema, $value)) {
+                if (!$this->validator->validate($schema, $value)) {
                     $errors = array_merge($errors, $this->validator->getErrors());
                 } elseif ($value !== $command[$name]) {
                     // Update the config value if it changed and no validation errors were encountered.
@@ -60,10 +58,10 @@ class ValidatedDescriptionHandler
             if ($params = $operation->getAdditionalParameters()) {
                 foreach ($command->toArray() as $name => $value) {
                     // It's only additional if it isn't defined in the schema
-                    if (! $operation->hasParam($name)) {
+                    if (!$operation->hasParam($name)) {
                         // Always set the name so that error messages are useful
                         $params->setName($name);
-                        if (! $this->validator->validate($params, $value)) {
+                        if (!$this->validator->validate($params, $value)) {
                             $errors = array_merge($errors, $this->validator->getErrors());
                         } elseif ($value !== $command[$name]) {
                             $command[$name] = $value;
@@ -73,7 +71,7 @@ class ValidatedDescriptionHandler
             }
 
             if ($errors) {
-                throw new CommandException('Validation errors: ' . implode("\n", $errors), $command);
+                throw new CommandException('Validation errors: '.implode("\n", $errors), $command);
             }
 
             return $handler($command);

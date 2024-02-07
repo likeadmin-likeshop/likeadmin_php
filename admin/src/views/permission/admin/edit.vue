@@ -79,7 +79,6 @@
                         placeholder="请选择角色"
                         clearable
                     >
-                        <el-option v-if="formData.root == 1" label="系统管理员" :value="0" />
                         <el-option
                             v-for="(item, index) in optionsData.role"
                             :key="index"
@@ -165,6 +164,18 @@ const passwordConfirmValidator = (rule: object, value: string, callback: any) =>
     }
     callback()
 }
+
+const roleIdValidator = (rule: object, value: string, callback: any) => {
+    if (formData.root) {
+        callback()
+    } else {
+        if (formData.role_id.length) {
+            callback()
+        } else {
+            callback(new Error('请选择角色'))
+        }
+    }
+}
 const formRules = reactive({
     account: [
         {
@@ -182,10 +193,8 @@ const formRules = reactive({
     ],
     role_id: [
         {
-            type: 'array',
             required: true,
-            message: '请选择角色',
-            trigger: ['blur']
+            validator: roleIdValidator
         }
     ],
     password: [

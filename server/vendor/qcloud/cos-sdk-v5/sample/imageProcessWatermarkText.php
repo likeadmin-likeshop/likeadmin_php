@@ -27,6 +27,8 @@ try {
     $textWatermarkRule->setBatch(1); // 平铺水印功能，可将文字水印平铺至整张图片。值为1时，表示开启平铺水印功能
     $textWatermarkRule->setDegree(10); // 当 batch 值为1时生效。文字水印的旋转角度设置，取值范围为0 - 360，默认0
     $textWatermarkRule->setShadow(10); // 文字阴影效果，有效值为[0,100]，默认为0，表示无阴影
+    $textWatermarkRule->setScatype(1); // 根据原图的大小，缩放调整文字水印的大小
+    $textWatermarkRule->setSpcent(500); // 与 scatype 搭配使用
 
     $picOperations = new Qcloud\Cos\ImageParamTemplate\PicOperationsTransformation();
     $picOperations->setIsPicInfo(1); // is_pic_info

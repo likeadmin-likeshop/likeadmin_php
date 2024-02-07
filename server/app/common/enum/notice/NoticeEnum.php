@@ -252,7 +252,7 @@ class NoticeEnum
                 $example = self::getSystemExample($sceneId);
                 break;
             case self::SMS:
-                $other[] = '生效条件：1、管理后台完成短信设置。 2、第三方短信平台申请模板 3、若是腾讯云模板变量名须换成变量名出现顺序对应的数字(例：您好{nickname},您的订单{order_sn}已发货! 须改为 您好{1},您的订单{2}已发货!)';
+                $other[] = '生效条件：1、管理后台完成短信设置。 2、第三方短信平台申请模板。';
                 $example = self::getSmsExample($sceneId);
                 break;
             case self::OA:

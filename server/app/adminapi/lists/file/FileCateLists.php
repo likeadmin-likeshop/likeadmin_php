@@ -54,6 +54,7 @@ class FileCateLists extends BaseAdminDataLists implements ListsSearchInterface
     {
         $lists = (new FileCate())->field(['id,pid,type,name'])
             ->where($this->searchWhere)
+            ->order('id desc')
             ->select()->toArray();
 
         return linear_to_tree($lists, 'children');

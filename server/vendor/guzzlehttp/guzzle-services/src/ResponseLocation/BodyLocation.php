@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle\ResponseLocation;
 
 use GuzzleHttp\Command\Guzzle\Parameter;
@@ -10,7 +11,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class BodyLocation extends AbstractLocation
 {
-
     /**
      * Set the name of the location
      *
@@ -22,9 +22,6 @@ class BodyLocation extends AbstractLocation
     }
 
     /**
-     * @param ResultInterface $result
-     * @param ResponseInterface $response
-     * @param Parameter $param
      * @return ResultInterface
      */
     public function visit(

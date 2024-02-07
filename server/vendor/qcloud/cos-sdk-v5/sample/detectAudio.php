@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', // 审核时必须为https
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // start --------------- 桶文件审核 ----------------- //
@@ -38,6 +38,12 @@ try {
 //            'DetectType' => 'Porn,Terrorism,Politics,Ads', // 可选 若不传此参数，BizType为空时走默认策略，BizType不为空走定制化策略
 //            'Callback' => '', // 可选 回调URL
 //            'CallbackVersion' => '', // 可选 回调内容的结构，有效值：Simple（回调内容包含基本信息）、Detail（回调内容包含详细信息）。默认为 Simple。
+//            'Freeze' => array(
+//                'PornScore' => 90,
+//                'AdsScore' => 90,
+//                'PoliticsScore' => 90,
+//                'TerrorismScore' => 90,
+//            ), // 可选 可通过该字段，设置根据审核结果给出的不同分值，对音频文件进行自动冻结，仅当`input`中审核的音频为`object`时有效
 //        ), // 可选 走默认策略及默认审核场景。
     ));
     // 请求成功

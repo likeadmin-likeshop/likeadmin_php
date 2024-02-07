@@ -2,12 +2,12 @@
     <div class="index">
         <div class="flex">
             <ElCarousel
-                v-if="getSwioperData.enabled"
+                v-if="getSwiperData.enabled"
                 class="w-[750px] flex-none mr-5"
                 trigger="click"
                 height="340px"
             >
-                <ElCarouselItem v-for="item in getSwioperData.data" :key="item">
+                <ElCarouselItem v-for="item in showList" :key="item">
                     <NuxtLink :to="item.link.path" target="_blank">
                         <ElImage
                             class="w-full h-full rounded-[8px] bg-white overflow-hidden"
@@ -63,13 +63,19 @@ const { data: pageData } = await useAsyncData(() => getIndex(), {
     })
 })
 
-const getSwioperData = computed(() => {
+const getSwiperData = computed(() => {
     try {
         const data = JSON.parse(pageData.value.page.data)
         return data.find((item) => item.name === 'banner')?.content
     } catch (error) {
         return {}
     }
+})
+const showList = computed(() => {
+    return (
+        getSwiperData.value?.data?.filter((item: any) => item.is_show == '1') ||
+        []
+    )
 })
 </script>
 <style lang="scss" scoped></style>

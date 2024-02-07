@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle\RequestLocation;
 
 use GuzzleHttp\Command\CommandInterface;
@@ -12,10 +13,10 @@ use Psr\Http\Message\RequestInterface;
  */
 class MultiPartLocation extends AbstractLocation
 {
-    /** @var string $contentType */
+    /** @var string */
     protected $contentType = 'multipart/form-data; boundary=';
 
-    /** @var array $formParamsData */
+    /** @var array */
     protected $multipartData = [];
 
     /**
@@ -29,9 +30,6 @@ class MultiPartLocation extends AbstractLocation
     }
 
     /**
-     * @param CommandInterface $command
-     * @param RequestInterface $request
-     * @param Parameter $param
      * @return RequestInterface
      */
     public function visit(
@@ -41,17 +39,13 @@ class MultiPartLocation extends AbstractLocation
     ) {
         $this->multipartData[] = [
             'name' => $param->getWireName(),
-            'contents' => $this->prepareValue($command[$param->getName()], $param)
+            'contents' => $this->prepareValue($command[$param->getName()], $param),
         ];
 
         return $request;
     }
 
-
     /**
-     * @param CommandInterface $command
-     * @param RequestInterface $request
-     * @param Operation $operation
      * @return RequestInterface
      */
     public function after(
@@ -68,7 +62,7 @@ class MultiPartLocation extends AbstractLocation
         $request = Psr7\Utils::modifyRequest($request, $modify);
         if ($request->getBody() instanceof Psr7\MultipartStream) {
             // Use a multipart/form-data POST if a Content-Type is not set.
-            $request->withHeader('Content-Type', $this->contentType . $request->getBody()->getBoundary());
+            $request->withHeader('Content-Type', $this->contentType.$request->getBody()->getBoundary());
         }
 
         return $request;

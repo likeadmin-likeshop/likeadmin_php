@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', //协议头部，默认为http
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // 提交精彩集锦任务 https://cloud.tencent.com/document/product/436/58337
@@ -18,7 +18,6 @@ try {
     $result = $cosClient->createMediaVideoMontageJobs(array(
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'VideoMontage',
-        'QueueId' => 'p81e648af2aeexxxxxxxxxxxxxxxxxxx',
         'Input' => array(
             'Object' => 'video01.mp4'
         ),
@@ -42,13 +41,13 @@ try {
     $result = $cosClient->createMediaVideoMontageJobs(array(
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'VideoMontage',
-        'QueueId' => 'p81e648af2aeexxxxxxxxxxxxxxxxxxx',
         'Input' => array(
             'Object' => 'video01.mp4'
         ),
         'Operation' => array(
             'VideoMontage' => array(
                 'Duration' => '',
+                'Scene' => '',
                 'Container' => array(
                     'Format' => '',
                 ),
@@ -66,6 +65,21 @@ try {
                     'Bitrate' => '',
                     'Channels' => '',
                     'Remove' => '',
+                ),
+                'AudioMixArray' => array(
+                    array(
+                        'AudioSource' => 'https://examplebucket-125000000.cos.ap-guangzhou.myqcloud.com/test01.mp3',
+                        'MixMode' => 'Once',
+                        'Replace' => 'true',
+                        'EffectConfig' => array(
+                            'EnableStartFadein' => 'true',
+                            'StartFadeinTime' => '3',
+                            'EnableEndFadeout' => 'false',
+                            'EndFadeoutTime' => '0',
+                            'EnableBgmFade' => 'true',
+                            'BgmFadeTime' => '1.7',
+                        ),
+                    ),
                 ),
             ),
             'Output' => array(

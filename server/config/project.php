@@ -1,7 +1,7 @@
 <?php
 return [
     // 系统版本号
-    'version' => '1.6.0',
+    'version' => '1.7.0',
 
     // 官网
     'website' => [
@@ -15,12 +15,13 @@ return [
         'pc_logo' => 'resource/image/adminapi/default/pc_logo.png', // pc_logo
         'pc_ico' => 'resource/image/adminapi/default/web_favicon.ico', // pc_ico
         'pc_title' => 'likeadmin', // PC网站标题
+        'h5_favicon' => 'resource/image/adminapi/default/web_favicon.ico', // 网站图标
     ],
 
     // 后台登录
     'admin_login' => [
         // 管理后台登录限制 0-不限制 1-需要限制
-        'login_restrictions' => 1,
+        'login_restrictions' => 0,
         // 限制密码错误次数
         'password_error_times' => 5,
         // 限制禁止多少分钟不能登录
@@ -72,6 +73,11 @@ return [
     // 文件上传限制 (视频)
     'file_video' => [
         'wmv', 'avi', 'mpg', 'mpeg', '3gp', 'mov', 'mp4', 'flv', 'f4v', 'rmvb', 'mkv'
+    ],
+
+    //上传文件的格式 (文件)
+    'file_file' => [
+        'zip','rar','txt','pdf','doc','docx','xls','xlsx','ppt','pptx','csv','txt','ftr','7z','gz'
     ],
 
     // 登录设置

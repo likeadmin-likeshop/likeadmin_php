@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', // 审核时必须为https
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // start --------------- 文本内容审核 ----------------- //
@@ -42,6 +42,14 @@ try {
 //            'DetectType' => 'Porn,Terrorism,Politics,Ads', // 选填，在只有BizType时走设定策略的审核场景
 //            'Callback' => '', // 回调URL 选填
 //            'CallbackVersion' => 'Detail', // 选填 Detail、Simple 默认为 Simple
+//            'Freeze' => array(
+//                'PornScore' => 90,
+//                'AdsScore' => 90,
+//                'IllegalScore' => 90,
+//                'AbuseScore' => 90,
+//                'PoliticsScore' => 90,
+//                'TerrorismScore' => 90,
+//            ),
 //        ), // 非必选，在DetectType/BizType都不传的情况下，走默认策略及默认审核场景。
     ));
     // 请求成功

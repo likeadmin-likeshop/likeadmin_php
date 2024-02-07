@@ -49,6 +49,8 @@ class WebSettingLogic extends BaseLogic
             'pc_ico' => FileService::getFileUrl(ConfigService::get('website', 'pc_ico')),
             'pc_desc' => ConfigService::get('website', 'pc_desc', ''),
             'pc_keywords' => ConfigService::get('website', 'pc_keywords', ''),
+
+            'h5_favicon' => FileService::getFileUrl(ConfigService::get('website', 'h5_favicon')),
         ];
     }
 
@@ -61,6 +63,7 @@ class WebSettingLogic extends BaseLogic
      */
     public static function setWebsiteInfo(array $params)
     {
+        $h5favicon = FileService::setFileUrl($params['h5_favicon']);
         $favicon = FileService::setFileUrl($params['web_favicon']);
         $logo = FileService::setFileUrl($params['web_logo']);
         $login = FileService::setFileUrl($params['login_image']);
@@ -80,6 +83,8 @@ class WebSettingLogic extends BaseLogic
         ConfigService::set('website', 'pc_ico', $pcIco);
         ConfigService::set('website', 'pc_desc', $params['pc_desc'] ?? '');
         ConfigService::set('website', 'pc_keywords', $params['pc_keywords'] ?? '');
+
+        ConfigService::set('website', 'h5_favicon', $h5favicon);
     }
 
 

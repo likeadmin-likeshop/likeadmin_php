@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle;
 
 use GuzzleHttp\Command\ToArrayInterface;
@@ -21,8 +22,8 @@ class SchemaValidator
 
     /**
      * @param bool $castIntegerToStringType Set to true to convert integers
-     *     into strings when a required type is a string and the input value is
-     *     an integer. Defaults to true.
+     *                                      into strings when a required type is a string and the input value is
+     *                                      an integer. Defaults to true.
      */
     public function __construct($castIntegerToStringType = true)
     {
@@ -30,8 +31,6 @@ class SchemaValidator
     }
 
     /**
-     * @param Parameter $param
-     * @param $value
      * @return bool
      */
     public function validate(Parameter $param, &$value)
@@ -43,6 +42,7 @@ class SchemaValidator
             return true;
         } else {
             sort($this->errors);
+
             return false;
         }
     }
@@ -60,8 +60,8 @@ class SchemaValidator
     /**
      * From the allowable types, determine the type that the variable matches
      *
-     * @param string|array $type Parameter type
-     * @param mixed $value Value to determine the type
+     * @param string|array $type  Parameter type
+     * @param mixed        $value Value to determine the type
      *
      * @return string|false Returns the matching type on
      */
@@ -97,11 +97,11 @@ class SchemaValidator
     /**
      * Recursively validate a parameter
      *
-     * @param Parameter $param  API parameter being validated
-     * @param mixed     $value  Value to validate and validate. The value may
-     *                          change during this validate.
-     * @param string    $path   Current validation path (used for error reporting)
-     * @param int       $depth  Current depth in the validation validate
+     * @param Parameter $param API parameter being validated
+     * @param mixed     $value Value to validate and validate. The value may
+     *                         change during this validate.
+     * @param string    $path  Current validation path (used for error reporting)
+     * @param int       $depth Current depth in the validation validate
      *
      * @return bool Returns true if valid, or false if invalid
      */
@@ -146,6 +146,7 @@ class SchemaValidator
                 // indexed
                 if (isset($value[0])) {
                     $this->errors[] = "{$path} must be an array of properties. Got a numerically indexed array.";
+
                     return false;
                 }
                 $traverse = true;
@@ -208,24 +209,24 @@ class SchemaValidator
                     $valueIsArray = false;
                 }
             }
-
         } elseif ($type == 'array' && $valueIsArray && $param->getItems()) {
             foreach ($value as $i => &$item) {
                 // Validate each item in an array against the items attribute of the schema
-                $this->recursiveProcess($param->getItems(), $item, $path . "[{$i}]", $depth + 1);
+                $this->recursiveProcess($param->getItems(), $item, $path."[{$i}]", $depth + 1);
             }
         }
 
         // If the value is required and the type is not null, then there is an
         // error if the value is not set
         if ($required && $value === null && $type != 'null') {
-            $message = "{$path} is " . ($param->getType()
-                ? ('a required ' . implode(' or ', (array) $param->getType()))
+            $message = "{$path} is ".($param->getType()
+                ? ('a required '.implode(' or ', (array) $param->getType()))
                 : 'required');
             if ($param->has('description')) {
-                $message .= ': ' . $param->getDescription();
+                $message .= ': '.$param->getDescription();
             }
             $this->errors[] = $message;
+
             return false;
         }
 
@@ -239,7 +240,7 @@ class SchemaValidator
             ) {
                 $value = (string) $value;
             } else {
-                $this->errors[] = "{$path} must be of type " . implode(' or ', (array) $param->getType());
+                $this->errors[] = "{$path} must be of type ".implode(' or ', (array) $param->getType());
             }
         }
 
@@ -247,12 +248,12 @@ class SchemaValidator
         if ($type == 'string') {
             // Strings can have enums which are a list of predefined values
             if (($enum = $param->getEnum()) && !in_array($value, $enum)) {
-                $this->errors[] = "{$path} must be one of " . implode(' or ', array_map(function ($s) {
-                        return '"' . addslashes($s) . '"';
+                $this->errors[] = "{$path} must be one of ".implode(' or ', array_map(function ($s) {
+                    return '"'.addslashes($s).'"';
                 }, $enum));
             }
             // Strings can have a regex pattern that the value must match
-            if (($pattern  = $param->getPattern()) && !preg_match($pattern, $value)) {
+            if (($pattern = $param->getPattern()) && !preg_match($pattern, $value)) {
                 $this->errors[] = "{$path} must match the following regular expression: {$pattern}";
             }
 
@@ -268,7 +269,6 @@ class SchemaValidator
                     $this->errors[] = "{$path} length must be less than or equal to {$max}";
                 }
             }
-
         } elseif ($type == 'array') {
             $size = null;
             if ($min = $param->getMinItems()) {
@@ -282,7 +282,6 @@ class SchemaValidator
                     $this->errors[] = "{$path} must contain {$max} or fewer elements";
                 }
             }
-
         } elseif ($type == 'integer' || $type == 'number' || $type == 'numeric') {
             if (($min = $param->getMinimum()) && $value < $min) {
                 $this->errors[] = "{$path} must be greater than or equal to {$min}";

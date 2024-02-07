@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', // 审核时必须为https
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     //存储桶视频审核
@@ -32,6 +32,13 @@ try {
 //                'Level' => '',
 //                'Role' => '',
 //            ),
+//            'Encryption' => array(
+//                'Algorithm' => '',
+//                'Key' => '',
+//                'IV' => '',
+//                'KeyId' => '',
+//                'KeyType' => 0,
+//            ),
         ),
         'Conf' => array(
 //            'BizType' => '', // 可选 定制化策略
@@ -44,8 +51,16 @@ try {
 //                'TimeInterval' => 50, // 可选 视频截帧频率
                 'Count' => '3', // 视频截帧数量
             ),
+//            'Freeze' => array(
+//                'PornScore' => 90,
+//                'AdsScore' => 90,
+//                'PoliticsScore' => 90,
+//                'TerrorismScore' => 90,
+//            ), // 可选 自动冻结配置项，可配置指定审核分数的结果进行自动冻结
         ),
     ));
+    // 请求成功
+    print_r($result);
 
     //视频url审核
     $videoUrl = 'http://example.com/test.mp4';
@@ -68,7 +83,6 @@ try {
             ),
         ),
     ));
-
     // 请求成功
     print_r($result);
 } catch (\Exception $e) {

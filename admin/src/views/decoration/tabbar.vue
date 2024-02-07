@@ -6,7 +6,7 @@
                     <div class="tabbar flex">
                         <div
                             class="tabbar-item flex flex-col justify-center items-center flex-1"
-                            v-for="(item, index) in tabbar.list"
+                            v-for="(item, index) in showTabbarList"
                             :key="index"
                             :style="{ color: tabbar.style.default_color }"
                         >
@@ -33,6 +33,7 @@
                                         v-model="tabbar.list"
                                         animation="300"
                                         draggable=".draggable"
+                                        handle=".drag-move"
                                         :move="onMove"
                                     >
                                         <template v-slot:item="{ element, index }">
@@ -91,6 +92,25 @@
                                                     <el-form-item label="链接地址">
                                                         <link-picker v-model="element.link" />
                                                     </el-form-item>
+                                                    <el-form-item label="是否显示">
+                                                        <div class="flex-1 flex items-center">
+                                                            <el-switch
+                                                                v-model="element.is_show"
+                                                                :active-value="1"
+                                                                :inactive-value="0"
+                                                                :disabled="index === 0"
+                                                                @change="handleShowChange(element)"
+                                                            />
+                                                            <div
+                                                                class="drag-move cursor-move ml-auto"
+                                                            >
+                                                                <icon
+                                                                    name="el-icon-Rank"
+                                                                    size="18"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </el-form-item>
                                                 </div>
                                             </del-wrap>
                                         </template>
@@ -141,25 +161,13 @@ const tabbar = reactive({
         default_color: '',
         selected_color: ''
     },
-    list: [
-        {
-            name: '',
-            selected: '',
-            unselected: '',
-            link: {}
-        },
-        {
-            name: '',
-            selected: '',
-            unselected: '',
-            link: {}
-        }
-    ]
+    list: [] as any
 })
 
 const handleAdd = () => {
     if (tabbar.list?.length < max) {
         tabbar.list.push({
+            is_show: true,
             name: '',
             selected: '',
             unselected: '',
@@ -191,6 +199,17 @@ const getData = async () => {
 const setData = async () => {
     await setDecorateTabbar(toRaw(tabbar))
     getData()
+}
+
+const showTabbarList = computed(() => {
+    return tabbar.list?.filter((tab: any) => tab.is_show == 1) || []
+})
+
+const handleShowChange = (item: any) => {
+    if (showTabbarList.value.length < min) {
+        item.is_show = 1
+        return feedback.msgError(`最少显示${min}个`)
+    }
 }
 getData()
 </script>

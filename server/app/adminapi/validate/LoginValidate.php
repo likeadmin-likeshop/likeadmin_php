@@ -91,7 +91,6 @@ class LoginValidate extends BaseValidate
         }
 
         $passwordSalt = Config::get('project.unique_identification');
-
         if ($adminInfo['password'] !== create_password($password, $passwordSalt)) {
             $adminAccountSafeCache->record();
             return '密码错误';

@@ -56,7 +56,7 @@ class RefundRecordLists extends BaseAdminDataLists implements ListsSearchInterfa
     {
         $where = [];
         if (!empty($this->params['user_info'])) {
-            $where[] = ['u.sn|u.nickname|u.mobile', 'like', '%' . $this->params['user_info'] . '%'];
+            $where[] = ['u.sn|u.nickname|u.mobile|u.account', 'like', '%' . $this->params['user_info'] . '%'];
         }
         if (!empty($this->params['start_time'])) {
             $where[] = ['r.create_time', '>=', strtotime($this->params['start_time'])];

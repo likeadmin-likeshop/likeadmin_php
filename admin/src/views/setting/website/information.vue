@@ -45,6 +45,12 @@
                         ></el-input>
                     </div>
                 </el-form-item>
+                <el-form-item label="网站图标" prop="web_favicon" required>
+                    <div>
+                        <material-picker v-model="formData.h5_favicon" :limit="1" />
+                        <div class="form-tips">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
+                    </div>
+                </el-form-item>
                 <el-form-item label="前台LOGO" prop="shop_logo">
                     <div>
                         <material-picker v-model="formData.shop_logo" :limit="1" />
@@ -113,6 +119,7 @@ const formData = reactive({
     web_favicon: '', // 网站图标
     web_logo: '', // 网站logo
     login_image: '', // 登录页广告图
+    h5_favicon: '',
     shop_name: '',
     shop_logo: '',
     pc_logo: '',

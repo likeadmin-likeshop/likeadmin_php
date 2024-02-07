@@ -6,7 +6,7 @@
                     <el-input
                         class="w-[280px]"
                         v-model="queryParams.keyword"
-                        placeholder="用户编号/昵称/手机号码"
+                        placeholder="账号/昵称/手机号码"
                         clearable
                         @keyup.enter="resetPage"
                     />
@@ -41,7 +41,6 @@
         </el-card>
         <el-card class="!border-none mt-4" shadow="never">
             <el-table size="large" v-loading="pager.loading" :data="pager.lists">
-                <el-table-column label="用户编号" prop="sn" min-width="120" />
                 <el-table-column label="头像" min-width="100">
                     <template #default="{ row }">
                         <el-avatar :src="row.avatar" :size="50" />

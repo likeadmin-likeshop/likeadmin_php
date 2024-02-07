@@ -45,3 +45,19 @@ export function getNormalPath(path: string) {
     }
     return newPath
 }
+
+/**
+ * @description对象格式化为Query语法
+ * @param { Object } params
+ * @return {string} Query语法
+ */
+export function objectToQuery(params: Record<string, any>): string {
+    let query = ''
+    for (const props of Object.keys(params)) {
+        const value = params[props]
+        if (!isEmpty(value)) {
+            query += props + '=' + value + '&'
+        }
+    }
+    return query.slice(0, -1)
+}

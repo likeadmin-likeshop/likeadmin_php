@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle;
 
 use GuzzleHttp\Command\ToArrayInterface;
@@ -6,74 +7,75 @@ use GuzzleHttp\Command\ToArrayInterface;
 /**
  * API parameter object used with service descriptions
  */
+#[\AllowDynamicProperties]
 class Parameter implements ToArrayInterface
 {
     private $originalData;
 
-    /** @var string $name */
+    /** @var string */
     private $name;
 
-    /** @var string $description */
+    /** @var string */
     private $description;
 
-    /** @var string|array $type */
+    /** @var string|array */
     private $type;
 
-    /** @var bool $required*/
+    /** @var bool */
     private $required;
 
-    /** @var array|null $enum */
+    /** @var array|null */
     private $enum;
 
-    /** @var string $pattern */
+    /** @var string */
     private $pattern;
 
-    /** @var int $minimum*/
+    /** @var int */
     private $minimum;
 
-    /** @var int $maximum */
+    /** @var int */
     private $maximum;
 
-    /** @var int $minLength */
+    /** @var int */
     private $minLength;
 
-    /** @var int $maxLength */
+    /** @var int */
     private $maxLength;
 
-    /** @var int $minItems */
+    /** @var int */
     private $minItems;
 
-    /** @var int $maxItems */
+    /** @var int */
     private $maxItems;
 
-    /** @var mixed $default */
+    /** @var mixed */
     private $default;
 
-    /** @var bool $static */
+    /** @var bool */
     private $static;
 
-    /** @var array $filters */
+    /** @var array */
     private $filters;
 
-    /** @var string $location */
+    /** @var string */
     private $location;
 
-    /** @var string $sentAs */
+    /** @var string */
     private $sentAs;
 
-    /** @var array $data */
+    /** @var array */
     private $data;
 
-    /** @var array $properties */
+    /** @var array */
     private $properties = [];
 
-    /** @var array|bool|Parameter $additionalProperties */
+    /** @var array|bool|Parameter */
     private $additionalProperties;
 
-    /** @var array|Parameter $items */
+    /** @var array|Parameter */
     private $items;
 
-    /** @var string $format */
+    /** @var string */
     private $format;
 
     private $propertiesCache = null;
@@ -171,7 +173,7 @@ class Parameter implements ToArrayInterface
      *
      * @param array $data    Array of data as seen in service descriptions
      * @param array $options Options used when creating the parameter. You can
-     *     specify a Guzzle service description in the 'description' key.
+     *                       specify a Guzzle service description in the 'description' key.
      *
      * @throws \InvalidArgumentException
      */
@@ -252,8 +254,9 @@ class Parameter implements ToArrayInterface
      * @param mixed $value Value to filter
      *
      * @return mixed Returns the filtered value
+     *
      * @throws \RuntimeException when trying to format when no service
-     *     description is available.
+     *                           description is available.
      */
     public function filter($value)
     {
@@ -261,8 +264,9 @@ class Parameter implements ToArrayInterface
         if ($this->format) {
             if (!$this->serviceDescription) {
                 throw new \RuntimeException('No service description was set so '
-                    . 'the value cannot be formatted.');
+                    .'the value cannot be formatted.');
             }
+
             return $this->serviceDescription->format($this->format, $value);
         }
 
@@ -512,7 +516,7 @@ class Parameter implements ToArrayInterface
      *
      * @param string $name Name of the property to retrieve
      *
-     * @return null|Parameter
+     * @return Parameter|null
      */
     public function getProperty($name)
     {
@@ -618,6 +622,7 @@ class Parameter implements ToArrayInterface
      * @param string|array $filter Method to filter the value through
      *
      * @return self
+     *
      * @throws \InvalidArgumentException
      */
     private function addFilter($filter)
@@ -643,13 +648,15 @@ class Parameter implements ToArrayInterface
      * Check if a parameter has a specific variable and if it set.
      *
      * @param string $var
+     *
      * @return bool
      */
     public function has($var)
     {
         if (!is_string($var)) {
-            throw new \InvalidArgumentException('Expected a string. Got: ' . (is_object($var) ? get_class($var) : gettype($var)));
+            throw new \InvalidArgumentException('Expected a string. Got: '.(is_object($var) ? get_class($var) : gettype($var)));
         }
+
         return isset($this->{$var}) && !empty($this->{$var});
     }
 }
