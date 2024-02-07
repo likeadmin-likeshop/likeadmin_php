@@ -114,7 +114,8 @@ class FileLogic extends BaseLogic
      */
     public static function delCate($params)
     {
-        $model = new FileCate();
+        $fileModel = new File();
+        $cateModel = new FileCate();
 
         $map1 = [
             ['id', '=', $params['id']],
@@ -124,12 +125,16 @@ class FileLogic extends BaseLogic
             ['pid', '=', $params['id']],
         ];
 
-        $cateIds = $model->whereOr([ $map1, $map2 ])->column('id');
+        $cateIds = $cateModel->whereOr([ $map1, $map2 ])->column('id');
 
         // 删除分类及子分类
-        $model->whereIn('id', $cateIds)->delete();
+        $cateModel->whereIn('id', $cateIds)->delete();
 
         // 删除文件
-        self::delete(['ids' => $cateIds]);
+        $fileIds = $fileModel->whereIn('cid', $cateIds)->column('id');
+
+        if (!empty($fileIds)) {
+            self::delete(['ids' => $fileIds]);
+        }
     }
 }
