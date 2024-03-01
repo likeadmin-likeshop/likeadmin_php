@@ -163,7 +163,7 @@ class User extends BaseModel
     {
         $rand_str = '';
         for ($i = 0; $i < $length; $i++) {
-            $rand_str .= mt_rand(0, 9);
+            $rand_str .= mt_rand(1, 9);
         }
         $sn = $prefix . $rand_str;
         if (User::where(['sn' => $sn])->find()) {
