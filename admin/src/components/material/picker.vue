@@ -24,6 +24,8 @@
                                     <file-item
                                         :uri="excludeDomain ? getImageUrl(element) : element"
                                         :file-size="size"
+                                        :width="width"
+                                        :height="height"
                                         :type="type"
                                     ></file-item>
                                 </del-wrap>
@@ -49,8 +51,8 @@
                             <div
                                 class="upload-btn"
                                 :style="{
-                                    width: size,
-                                    height: size
+                                    width: width || size,
+                                    height: height || size
                                 }"
                             >
                                 <icon :size="25" name="el-icon-Plus" />
@@ -104,6 +106,16 @@ export default defineComponent({
         },
         // 选择器尺寸
         size: {
+            type: String,
+            default: '100px'
+        },
+        // 选择器尺寸-宽度（不传则是使用size
+        width: {
+            type: String,
+            default: '100px'
+        },
+        // 选择器尺寸-高度（不传则是使用size
+        height: {
             type: String,
             default: '100px'
         },

@@ -66,14 +66,15 @@ const { data: pageData } = await useAsyncData(() => getIndex(), {
 const getSwiperData = computed(() => {
     try {
         const data = JSON.parse(pageData.value.page.data)
-        return data.find((item) => item.name === 'banner')?.content
+        console.log(data)
+        return data.find((item) => item.name === 'pc-banner')?.content
     } catch (error) {
         return {}
     }
 })
 const showList = computed(() => {
     return (
-        getSwiperData.value?.data?.filter((item: any) => item.is_show == '1') ||
+        getSwiperData.value?.data ||
         []
     )
 })

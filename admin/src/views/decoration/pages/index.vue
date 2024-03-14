@@ -1,12 +1,23 @@
 <template>
     <div class="decoration-pages min-w-[1100px]">
-        <el-card shadow="never" class="!border-none flex-1 flex" :body-style="{ flex: 1 }">
-            <div class="flex h-full items-start">
+        <div class="flex flex-1 h-full justify-between">
+            <el-card
+                shadow="never"
+                class="!border-none flex"
+                :body-style="{ 'padding-right': 0 }"
+            >
                 <Menu v-model="activeMenu" :menus="menus" />
-                <preview v-model="selectWidgetIndex" :pageData="getPageData" />
-                <attr-setting class="flex-1" :widget="getSelectWidget" />
-            </div>
-        </el-card>
+            </el-card>
+
+            <preview
+                class="flex-1"
+                v-model="selectWidgetIndex"
+                :pageData="getPageData"
+                :pageMeta="getPageMeta"
+            />
+
+            <attr-setting class="w-[500px]" :widget="getSelectWidget" />
+        </div>
         <footer-btns class="mt-4" :fixed="false" v-perms="['decorate:pages:save']">
             <el-button type="primary" @click="setData">保存</el-button>
         </footer-btns>
@@ -40,6 +51,7 @@ const menus: Record<
     {
         id: number
         name: string
+        pageMeta?: any,
         pageData: any[]
     }
 > = reactive({
@@ -47,18 +59,21 @@ const menus: Record<
         id: 1,
         type: 1,
         name: '首页装修',
+        pageMeta: generatePageData(['page-meta']),
         pageData: generatePageData(['search', 'banner', 'nav', 'news'])
     },
     [pagesTypeEnum.USER]: {
         id: 2,
         type: 2,
         name: '个人中心',
+        pageMeta: generatePageData(['page-meta']),
         pageData: generatePageData(['user-info', 'my-service', 'user-banner'])
     },
     [pagesTypeEnum.SERVICE]: {
         id: 3,
         type: 3,
         name: '客服设置',
+        pageMeta: null,
         pageData: generatePageData(['customer-service'])
     }
 })
@@ -68,19 +83,29 @@ const selectWidgetIndex = ref(-1)
 const getPageData = computed(() => {
     return menus[activeMenu.value]?.pageData ?? []
 })
+const getPageMeta = computed(() => {
+    return menus[activeMenu.value]?.pageMeta ?? {}
+})
 const getSelectWidget = computed(() => {
-    return menus[activeMenu.value]?.pageData[selectWidgetIndex.value] ?? ''
+    if (selectWidgetIndex.value === -1) {
+        return menus[activeMenu.value]?.pageMeta[0] ?? ''
+    } else {
+        return menus[activeMenu.value]?.pageData[selectWidgetIndex.value] ?? ''
+    }
 })
 
 const getData = async () => {
     const data = await getDecoratePages({ id: activeMenu.value })
     menus[String(data.id)].pageData = JSON.parse(data.data)
+    // menus[String(data.id)].pageMeta = data?.meta ? JSON.parse(data?.meta) : null
 }
 
 const setData = async () => {
+    const data = menus[activeMenu.value]
     await setDecoratePages({
-        ...menus[activeMenu.value],
-        data: JSON.stringify(menus[activeMenu.value].pageData)
+        ...data,
+        data: JSON.stringify(data.pageData),
+        meta: data?.pageMeta ? JSON.stringify(data?.pageMeta) : null
     })
     getData()
 }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="file-item relative" :style="{ height: fileSize, width: fileSize }">
+        <div class="file-item relative" :style="{ height: height || fileSize, width: width || fileSize }">
             <el-image class="image" v-if="type == 'image'" fit="contain" :src="uri"></el-image>
             <video class="video" v-else-if="type == 'video'" :src="uri"></video>
             <el-image
@@ -29,6 +29,16 @@ export default defineComponent({
         },
         // 图片尺寸
         fileSize: {
+            type: String,
+            default: '100px'
+        },
+        // 选择器尺寸-宽度（不传则是使用size
+        width: {
+            type: String,
+            default: '100px'
+        },
+        // 选择器尺寸-高度（不传则是使用size
+        height: {
             type: String,
             default: '100px'
         },
