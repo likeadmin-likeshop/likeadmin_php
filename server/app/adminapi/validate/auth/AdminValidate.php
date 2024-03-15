@@ -62,7 +62,7 @@ class AdminValidate extends BaseValidate
     public function sceneAdd()
     {
         return $this->remove(['password', 'edit'])
-            ->remove('id', 'require|checkAdmin')
+            ->remove('id', true)
             ->remove('disable', 'checkAbleDisable');
     }
 
