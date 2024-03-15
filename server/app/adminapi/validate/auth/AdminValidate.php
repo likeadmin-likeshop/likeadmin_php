@@ -63,7 +63,7 @@ class AdminValidate extends BaseValidate
     {
         return $this->remove(['password', 'edit'])
             ->remove('id', true)
-            ->remove('disable', 'checkAbleDisable');
+            ->remove('disable', true);
     }
 
     /**
