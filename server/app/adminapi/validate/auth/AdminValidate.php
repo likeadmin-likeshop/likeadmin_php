@@ -30,7 +30,7 @@ class AdminValidate extends BaseValidate
         'name' => 'require|length:1,16|unique:'.Admin::class,
         'password' => 'require|length:6,32|edit',
         'password_confirm' => 'requireWith:password|confirm',
-        'role_id' => 'checkRole',
+        'role_id' => 'require',
         'disable' => 'require|in:0,1|checkAbleDisable',
         'multipoint_login' => 'require|in:0,1',
     ];
@@ -47,6 +47,7 @@ class AdminValidate extends BaseValidate
         'name.require' => '名称不能为空',
         'name.length' => '名称须在1-16位字符',
         'name.unique' => '名称已存在',
+        'role_id.require' => '请选择角色',
         'disable.require' => '请选择状态',
         'disable.in' => '状态值错误',
         'multipoint_login.require' => '请选择是否支持多处登录',
@@ -86,7 +87,9 @@ class AdminValidate extends BaseValidate
     public function sceneEdit()
     {
         return $this->remove('password', 'require|length')
-            ->append('id', 'require|checkAdmin');
+            ->append('id', 'require|checkAdmin')
+            ->remove('role_id', 'require')
+            ->append('role_id', 'checkRole');
     }
 
 
