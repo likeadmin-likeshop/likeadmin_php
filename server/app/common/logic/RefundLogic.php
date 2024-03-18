@@ -20,6 +20,7 @@ use app\common\enum\PayEnum;
 use app\common\enum\RefundEnum;
 use app\common\model\refund\RefundLog;
 use app\common\model\refund\RefundRecord;
+use app\common\service\pay\AliPayService;
 use app\common\service\pay\WeChatPayService;
 
 
@@ -59,6 +60,10 @@ class RefundLogic extends BaseLogic
                 //微信退款
                 case PayEnum::WECHAT_PAY:
                     self::wechatPayRefund($order, $refundAmount);
+                    break;
+                // 支付宝退款
+                case PayEnum::ALI_PAY:
+                    self::aliPayRefund($order, $refundAmount, $refundRecordId);
                     break;
                 default:
                     throw new \Exception('支付方式异常');
@@ -110,6 +115,34 @@ class RefundLogic extends BaseLogic
             'refund_amount' => $refundAmount,// 退款金额
             'total_amount' => $order['order_amount'],// 订单金额
         ]);
+    }
+
+    /**
+     * @notes 支付宝退款
+     * @param $order
+     * @param $refundAmount
+     * @param $refundRecordId
+     * @throws \Exception
+     * @author mjf
+     * @date 2024/3/18 18:54
+     */
+    public static function aliPayRefund($order, $refundAmount,$refundRecordId)
+    {
+        $result = (new AliPayService())->refund($order['order_sn'], $refundAmount, self::$refundLog['sn']);
+        $result = (array)$result;
+
+        if ($result['code'] == '10000' && $result['msg'] == 'Success' && $result['fundChange'] == 'Y') {
+            // 更新日志
+            RefundLog::update([
+                'refund_status' => RefundEnum::REFUND_SUCCESS,
+                'refund_msg'    => json_encode($result, JSON_UNESCAPED_UNICODE),
+            ], ['id'=>self::$refundLog['id']]);
+
+            // 更新记录
+            RefundRecord::update([
+                'refund_status' =>  RefundEnum::REFUND_SUCCESS,
+            ], ['id'=>$refundRecordId]);
+        }
     }
 
 
