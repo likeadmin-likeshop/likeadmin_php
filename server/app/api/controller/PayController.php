@@ -18,6 +18,7 @@ namespace app\api\controller;
 use app\api\validate\PayValidate;
 use app\common\enum\user\UserTerminalEnum;
 use app\common\logic\PaymentLogic;
+use app\common\service\pay\AliPayService;
 use app\common\service\pay\WeChatPayService;
 
 /**
@@ -119,5 +120,20 @@ class PayController extends BaseApiController
         return (new WeChatPayService(UserTerminalEnum::WECHAT_OA))->notify();
     }
 
+    /**
+     * @notes 支付宝回调
+     * @author mjf
+     * @date 2024/3/18 16:50
+     */
+    public function aliNotify()
+    {
+        $params = $this->request->post();
+        $result = (new AliPayService())->notify($params);
+        if (true === $result) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
 
 }
