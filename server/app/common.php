@@ -196,7 +196,8 @@ function download_file($url, $saveDir, $fileName)
 function clear_file_domain($content)
 {
     $fileUrl = FileService::getFileUrl();
-    return str_replace($fileUrl, '/', $content);
+    $pattern = '/<img[^>]*\bsrc=["\']'.preg_quote($fileUrl, '/').'([^"\']+)["\']/i';
+    return preg_replace($pattern, '<img src="$1"', $content);
 }
 
 /**
