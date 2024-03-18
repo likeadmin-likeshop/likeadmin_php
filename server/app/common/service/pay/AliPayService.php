@@ -137,24 +137,15 @@ class AliPayService extends BasePayService
      * @author 段誉
      * @date 2021/8/13 17:08
      */
-    public function pay($from, $order)
+    public function pay($from, $order): array|bool
     {
         try {
-            switch ($this->terminal) {
-                case UserTerminalEnum::PC:
-                    $result = $this->pagePay($from, $order);
-                    break;
-                case UserTerminalEnum::IOS:
-                case UserTerminalEnum::ANDROID:
-                    $result = $this->appPay($from, $order);
-                    break;
-                case UserTerminalEnum::WECHAT_OA:
-                case UserTerminalEnum::H5:
-                    $result = $this->wapPay($from, $order);
-                    break;
-                default:
-                    throw new \Exception('支付方式错误');
-            }
+            $result = match ($this->terminal) {
+                UserTerminalEnum::PC => $this->pagePay($from, $order),
+                UserTerminalEnum::IOS, UserTerminalEnum::ANDROID => $this->appPay($from, $order),
+                UserTerminalEnum::WECHAT_OA, UserTerminalEnum::H5 => $this->wapPay($from, $order),
+                default => throw new \Exception('支付方式错误'),
+            };
             return [
                 'config' => $result,
                 'pay_way' => PayEnum::ALI_PAY
