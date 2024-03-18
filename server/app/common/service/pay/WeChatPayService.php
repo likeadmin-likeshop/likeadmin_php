@@ -240,7 +240,7 @@ class WeChatPayService extends BasePayService
             'out_trade_no' => $order['pay_sn'],
             'notify_url' => $this->config['notify_url'],
             'amount' => [
-                'total' => intval($order['order_amount'] * 100),
+                'total' => intval(strval($order['order_amount'] * 100)),
             ],
             'attach' => $from,
             'scene_info' => [
