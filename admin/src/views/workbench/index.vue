@@ -7,12 +7,12 @@
                 </template>
                 <div>
                     <div class="flex leading-9">
-                        <div class="w-20">当前版本</div>
-                        <span> {{ workbenchData.version.version }}</span>
+                        <div class="w-20">平台名称</div>
+                        <span> {{ workbenchData.version.name }}</span>
                     </div>
                     <div class="flex leading-9">
-                        <div class="w-20">基于框架</div>
-                        <span> {{ workbenchData.version.based }}</span>
+                        <div class="w-20">当前版本</div>
+                        <span> {{ workbenchData.version.version }}</span>
                     </div>
                     <div class="flex leading-9">
                         <div class="w-20">获取渠道</div>
@@ -43,31 +43,31 @@
 
                 <div class="flex flex-wrap">
                     <div class="w-1/2 md:w-1/4">
-                        <div class="leading-10">访问量(人)</div>
-                        <div class="text-6xl">{{ workbenchData.today.today_visitor }}</div>
-                        <div class="text-tx-secondary text-xs">
-                            总访问量：{{ workbenchData.today.total_visitor }}
-                        </div>
-                    </div>
-                    <div class="w-1/2 md:w-1/4">
-                        <div class="leading-10">销售额(元)</div>
+                        <div class="leading-10">销售额</div>
                         <div class="text-6xl">{{ workbenchData.today.today_sales }}</div>
                         <div class="text-tx-secondary text-xs">
-                            总销售额：{{ workbenchData.today.total_sales }}
+                            总：{{ workbenchData.today.total_sales }}
                         </div>
                     </div>
                     <div class="w-1/2 md:w-1/4">
-                        <div class="leading-10">订单量(笔)</div>
+                        <div class="leading-10">成交订单</div>
                         <div class="text-6xl">{{ workbenchData.today.order_num }}</div>
                         <div class="text-tx-secondary text-xs">
-                            总订单量：{{ workbenchData.today.order_sum }}
+                            总：{{ workbenchData.today.order_sum }}
                         </div>
                     </div>
                     <div class="w-1/2 md:w-1/4">
                         <div class="leading-10">新增用户</div>
                         <div class="text-6xl">{{ workbenchData.today.today_new_user }}</div>
                         <div class="text-tx-secondary text-xs">
-                            总访用户：{{ workbenchData.today.total_new_user }}
+                            总：{{ workbenchData.today.total_new_user }}
+                        </div>
+                    </div>
+                    <div class="w-1/2 md:w-1/4">
+                        <div class="leading-10">新增访问量</div>
+                        <div class="text-6xl">{{ workbenchData.today.today_visitor }}</div>
+                        <div class="text-tx-secondary text-xs">
+                            总：{{ workbenchData.today.total_visitor }}
                         </div>
                     </div>
                 </div>
@@ -103,32 +103,6 @@
                         :option="workbenchData.visitorOption"
                         :autoresize="true"
                     />
-                </div>
-            </el-card>
-            <el-card class="!border-none mb-4" shadow="never">
-                <template #header>
-                    <span>服务支持</span>
-                </template>
-                <div>
-                    <div v-for="(item, index) in workbenchData.support" :key="index">
-                        <div
-                            class="flex items-center pb-10 pt-10"
-                            :class="{
-                                'border-b border-br': index == 0
-                            }"
-                        >
-                            <image-contain
-                                :width="120"
-                                :height="120"
-                                class="flex-none"
-                                :src="item.image"
-                            />
-                            <div class="ml-2">
-                                <div>{{ item.title }}</div>
-                                <div class="text-tx-regular text-xs mt-4">{{ item.desc }}</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </el-card>
         </div>
