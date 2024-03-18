@@ -3,7 +3,7 @@
         <div class="flex flex-1 h-full justify-between">
             <el-card
                 shadow="never"
-                class="!border-none flex"
+                class="!border-none flex scroll-view-content"
                 :body-style="{ 'padding-right': 0 }"
             >
                 <Menu v-model="activeMenu" :menus="menus" />
@@ -16,7 +16,7 @@
                 :pageMeta="getPageMeta"
             />
 
-            <attr-setting class="w-[500px]" :widget="getSelectWidget" />
+            <attr-setting class="w-[560px] scroll-view-content" :widget="getSelectWidget" />
         </div>
         <footer-btns class="mt-4" :fixed="false" v-perms="['decorate:pages:save']">
             <el-button type="primary" @click="setData">保存</el-button>
@@ -84,7 +84,7 @@ const getPageData = computed(() => {
     return menus[activeMenu.value]?.pageData ?? []
 })
 const getPageMeta = computed(() => {
-    return menus[activeMenu.value]?.pageMeta ?? {}
+    return menus[activeMenu.value]?.pageMeta ?? null
 })
 const getSelectWidget = computed(() => {
     if (selectWidgetIndex.value === -1) {
@@ -97,7 +97,7 @@ const getSelectWidget = computed(() => {
 const getData = async () => {
     const data = await getDecoratePages({ id: activeMenu.value })
     menus[String(data.id)].pageData = JSON.parse(data.data)
-    // menus[String(data.id)].pageMeta = data?.meta ? JSON.parse(data?.meta) : null
+    menus[String(data.id)].pageMeta = data?.meta ? JSON.parse(data?.meta) : null
 }
 
 const setData = async () => {
@@ -121,8 +121,12 @@ watch(
 )
 </script>
 <style lang="scss" scoped>
+$scroll-height: calc(100vh - var(--navbar-height) - 74px);
 .decoration-pages {
-    min-height: calc(100vh - var(--navbar-height) - 80px);
+    height: $scroll-height;
     @apply flex flex-col;
+    .scroll-view-content {
+        height: calc($scroll-height - 60px);
+    }
 }
 </style>

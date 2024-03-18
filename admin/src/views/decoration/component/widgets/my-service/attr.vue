@@ -3,7 +3,7 @@
         <el-form label-width="70px">
             <el-card shadow="never" class="!border-none flex mt-2">
                 <el-form-item label="标题">
-                    <el-input class="w-[300px]" v-model="content.title"/>
+                    <el-input class="w-[396px]" v-model="content.title"/>
                 </el-form-item>
             </el-card>
             <el-card shadow="never" class="!border-none flex mt-2">

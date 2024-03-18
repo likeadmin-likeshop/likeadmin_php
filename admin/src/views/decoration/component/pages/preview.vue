@@ -1,7 +1,7 @@
 <template>
     <el-scrollbar class="pages-preview-container">
         <div
-            v-if="pageMete !== null"
+            v-if="pageMeta !== null"
             class="absolute right-4 top-4"
             @click="handleClickPageMeta"
         >
@@ -93,9 +93,9 @@ import {Hide, View, ArrowUpBold, ArrowDownBold} from "@element-plus/icons-vue";
 import {computed} from "vue";
 
 const props = defineProps({
-    pageMete: {
+    pageMeta: {
         type: Object as any,
-        default: () => {}
+        default: () => null
     },
     pageData: {
         type: Array as PropType<any[]>,
@@ -184,7 +184,7 @@ const rearrangeArray = (currentIdx: number, targetIdx: number) => {
     .pages-preview {
         background-color: #f8f8f8;
         width: 360px;
-        height: 615px;
+        min-height: 615px;
         color: #333;
 
         .select {

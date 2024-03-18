@@ -3,16 +3,14 @@
         <div class="relative flex justify-center h-full mt-5 mx-10">
             <!--    iframe预览    -->
             <iframe
+                v-if="$route.query.url"
                 ref="previewIframeRef"
                 class="flex-1 h-full"
                 width="100%"
                 height="100%"
                 scrolling="no"
-                src="http://192.168.1.44:3001/pc"
+                :src="$route.query.url"
             ></iframe>
-            <!--
-            https://likeadmin-php.yixiangonline.com
-            -->
             <div class="max-w-[1200px] w-full absolute">
                 <div
                     v-for="(widget, index) in pageData"

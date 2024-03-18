@@ -35,16 +35,6 @@ enum pagesTypeEnum {
     HOME = '4'
 }
 
-const generatePageData = (widgetNames: string[]) => {
-    return widgetNames.map((widgetName) => {
-        const options = {
-            id: getNonDuplicateID(),
-            ...(widgets[widgetName]?.options() || {})
-        }
-        return options
-    })
-}
-
 const menus: Record<
     string,
     {

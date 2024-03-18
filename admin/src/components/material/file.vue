@@ -35,12 +35,12 @@ export default defineComponent({
         // 选择器尺寸-宽度（不传则是使用size
         width: {
             type: String,
-            default: '100px'
+            default: ''
         },
         // 选择器尺寸-高度（不传则是使用size
         height: {
             type: String,
-            default: '100px'
+            default: ''
         },
         // 文件类型
         type: {

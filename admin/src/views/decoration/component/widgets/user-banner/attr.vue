@@ -18,7 +18,7 @@
                         <del-wrap
                             :key="index"
                             @close="handleDelete(index)"
-                            class="max-w-[400px]"
+                            class="w-[467px]"
                         >
                             <div class="bg-fill-light flex items-center w-full p-4 mt-4">
                                 <material-picker

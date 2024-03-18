@@ -85,13 +85,10 @@ const getData = async () => {
     menus['1'].data = data
 }
 const setData = async () => {
-    const {id, type, name, data} = currentTab.value
+    const {data} = currentTab.value
 
     await setDecorateTabbar({
-        id,
-        type,
-        name,
-        data
+        ...data
     })
     getData()
 }

@@ -101,7 +101,7 @@
                         :data="{ cid: cateId }"
                         :type="type"
                         :show-progress="true"
-                        @change="refresh"
+                        @allSuccess="refresh"
                     >
                         <el-button type="primary">本地上传</el-button>
                     </upload>
@@ -111,7 +111,7 @@
                         :data="{ cid: cateId }"
                         :type="type"
                         :show-progress="true"
-                        @change="refresh"
+                        @allSuccess="refresh"
                     >
                         <el-button type="primary">本地上传</el-button>
                     </upload>

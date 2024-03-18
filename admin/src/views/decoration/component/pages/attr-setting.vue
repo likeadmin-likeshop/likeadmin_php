@@ -7,10 +7,9 @@
                 {{ widget?.title }}
             </div>
         </el-card>
-        <el-scrollbar class="w-full">
+        <el-scrollbar class="w-full" style="height: calc(100% - 60px)">
             <keep-alive>
                 <component
-                    class="pr-4"
                     :is="widgets[widget?.name]?.attr"
                     :content="widget?.content"
                     :styles="widget?.styles"

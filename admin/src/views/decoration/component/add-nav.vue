@@ -3,7 +3,7 @@
         <div>
             <draggable class="draggable" v-model="navLists" animation="300" handle=".drag-move">
                 <template v-slot:item="{ element: item, index }">
-                    <del-wrap class="max-w-[400px]" :key="index" @close="handleDelete(index)">
+                    <del-wrap class="w-[467px]" :key="index" @close="handleDelete(index)">
                         <div class="bg-fill-light flex items-center w-full p-4 mb-4">
                             <material-picker
                                 v-model="item.image"

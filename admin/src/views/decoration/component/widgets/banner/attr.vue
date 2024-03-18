@@ -21,7 +21,7 @@
                 开启背景联动后，需为轮播图设置背景图，轮播图切换时，背景图也跟随切换，此时该页面自身的“页面背景“设置将失效。
             </div>
         </el-card>
-        <el-card shadow="never" class="!border-none flex mt-2">
+        <el-card shadow="never" class="!border-none flex-1 mt-2">
             <div class="flex items-end">
                 <div class="text-base text-[#101010] font-medium">轮播图片</div>
                 <div class="text-xs text-tx-secondary ml-2">
@@ -42,7 +42,7 @@
                             class="w-full"
                         >
                             <div class="bg-fill-light w-full p-4 mt-4">
-                                <div class="flex justify-center w-[396px]">
+                                <div class="flex justify-center w-[467px]">
                                     <template v-if="content.style == 1">
                                         <material-picker
                                             size="122px"
@@ -57,6 +57,7 @@
                                             </template>
                                         </material-picker>
                                         <material-picker
+                                            class="ml-[40px]"
                                             size="122px"
                                             v-model="item.bg"
                                             upload-class="bg-body"
