@@ -76,7 +76,7 @@ export default defineComponent({
             default: false
         }
     },
-    emits: ['change', 'error', 'success'],
+    emits: ['change', 'error', 'success', 'allSuccess'],
     setup(props, { emit }) {
         const userStore = useUserStore()
         const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
@@ -97,6 +97,7 @@ export default defineComponent({
             if (uploadLen == fileList.value.length) {
                 uploadLen = 0
                 fileList.value = []
+                emit('allSuccess')
             }
             emit('change', file)
             if (response.code == RequestCodeEnum.SUCCESS) {
@@ -111,6 +112,7 @@ export default defineComponent({
             if (uploadLen == fileList.value.length) {
                 uploadLen = 0
                 fileList.value = []
+                emit('allSuccess')
             }
             feedback.msgError(`${file.name}文件上传失败`)
             uploadRefs.value?.abort(file)
