@@ -1,5 +1,5 @@
 <template>
-    <div class="relative mx-[30rpx] mt-[20rpx]">
+    <div class="relative mx-[20rpx] mt-[20rpx]">
         <swiper
             class="py-[20rpx] bg-white rounded-lg"
             :style="{

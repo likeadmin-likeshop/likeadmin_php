@@ -199,17 +199,25 @@
         }
     },
     "tabBar": {
+        "borderStyle": "none",
         "custom": true,
+        "iconWidth": "20px",
         "list": [
             {
+                "iconPath": "static/images/tabbar/home.png",
+                "selectedIconPath": "static/images/tabbar/home_s.png",
                 "pagePath": "pages/index/index",
                 "text": "首页"
             },
             {
+                "iconPath": "static/images/tabbar/news.png",
+                "selectedIconPath": "static/images/tabbar/news_s.png",
                 "pagePath": "pages/news/news",
                 "text": "资讯"
             },
             {
+                "iconPath": "static/images/tabbar/user.png",
+                "selectedIconPath": "static/images/tabbar/user_s.png",
                 "pagePath": "pages/user/user",
                 "text": "我的"
             }

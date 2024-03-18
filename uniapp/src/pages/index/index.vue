@@ -96,7 +96,6 @@ const state = reactive<{
 const scrollTop = ref<number>(0)
 const percent = ref<number>(0)
 
-
 // 是否联动背景图
 const isLinkage = computed(() => {
     return state.pages.find((item: any) => item.name === 'banner')?.content.bg_style === 1

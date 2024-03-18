@@ -48,7 +48,6 @@ onLaunch(async () => {
     setH5WebIcon()
     //#endif
     await getUser()
-    uni.hideTabBar()
 })
 </script>
 <style lang="scss">
