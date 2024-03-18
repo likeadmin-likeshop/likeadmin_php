@@ -129,7 +129,7 @@ class RefundLogic extends BaseLogic
      */
     public static function aliPayRefund($order, $refundAmount,$refundRecordId)
     {
-        $result = (new AliPayService())->refund($order['order_sn'], $refundAmount, self::$refundLog['sn']);
+        $result = (new AliPayService())->refund($order['sn'], $refundAmount, self::$refundLog['sn']);
         $result = (array)$result;
 
         if ($result['code'] == '10000' && $result['msg'] == 'Success' && $result['fundChange'] == 'Y') {
