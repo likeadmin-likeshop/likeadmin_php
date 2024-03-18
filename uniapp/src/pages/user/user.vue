@@ -46,7 +46,9 @@ const getData = async () => {
     const data = await getDecorate({ id: 2 })
     state.meta = JSON.parse(data.meta)
     state.pages = JSON.parse(data.data)
-
+    uni.setNavigationBarTitle({
+        title: state.meta[0].content.title
+    })
 }
 const userStore = useUserStore()
 const { userInfo, isLogin } = storeToRefs(userStore)

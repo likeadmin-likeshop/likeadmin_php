@@ -126,6 +126,10 @@ const getData = async () => {
     state.pages = JSON.parse(data?.page?.data)
     state.meta = JSON.parse(data?.page?.meta)
     state.article = data.article
+
+    uni.setNavigationBarTitle({
+        title: state.meta[0].content.title
+    })
 }
 
 onPageScroll((event: any) => {
