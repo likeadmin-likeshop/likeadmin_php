@@ -1,5 +1,5 @@
 <template>
-    <div class="shop-pages">
+    <div class="shop-pages h-[458px]">
         <div class="link-list flex flex-wrap">
             <div
                 class="link-item border border-br px-5 py-[5px] rounded-[3px] cursor-pointer mr-[10px] mb-[10px]"
@@ -35,17 +35,20 @@ const linkList = ref([
     {
         path: '/pages/index/index',
         name: '商城首页',
-        type: LinkTypeEnum.SHOP_PAGES
+        type: LinkTypeEnum.SHOP_PAGES,
+        canTab: true
     },
     {
         path: '/pages/news/news',
         name: '文章资讯',
-        type: LinkTypeEnum.SHOP_PAGES
+        type: LinkTypeEnum.SHOP_PAGES,
+        canTab: true
     },
     {
         path: '/pages/user/user',
         name: '个人中心',
-        type: LinkTypeEnum.SHOP_PAGES
+        type: LinkTypeEnum.SHOP_PAGES,
+        canTab: true
     },
     {
         path: '/pages/collection/collection',
