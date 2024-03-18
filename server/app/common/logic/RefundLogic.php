@@ -18,6 +18,7 @@ namespace app\common\logic;
 
 use app\common\enum\PayEnum;
 use app\common\enum\RefundEnum;
+use app\common\model\recharge\RechargeOrder;
 use app\common\model\refund\RefundLog;
 use app\common\model\refund\RefundRecord;
 use app\common\service\pay\AliPayService;
@@ -142,6 +143,15 @@ class RefundLogic extends BaseLogic
             RefundRecord::update([
                 'refund_status' =>  RefundEnum::REFUND_SUCCESS,
             ], ['id'=>$refundRecordId]);
+
+            // 更新订单信息
+            $refundRecord = RefundRecord::where('id',$refundRecordId)->findOrEmpty()->toArray();
+            if ($refundRecord['order_type'] == 'recharge') {
+                RechargeOrder::update([
+                    'id' => $order['id'],
+                    'refund_transaction_id' => $result['tradeNo'] ?? '',
+                ]);
+            }
         }
     }
 
