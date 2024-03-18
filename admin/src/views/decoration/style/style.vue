@@ -20,7 +20,6 @@
 <script setup lang="ts">
 import { getDecoratePages, setDecoratePages } from '@/api/decoration'
 import MobileStyle from './components/mobile-style.vue'
-import PcStyle from './components/pc-style.vue'
 const currentTabIndex = ref(0)
 const tabsList = ref([
     {

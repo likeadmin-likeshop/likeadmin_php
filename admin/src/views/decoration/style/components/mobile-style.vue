@@ -21,17 +21,6 @@
                     </el-radio-group>
                     <div>
                         <span class="form-tips">页面导航栏文字的颜色</span>
-                        <el-popover placement="right" width="auto" trigger="hover">
-                            <template #reference>
-                                <span class="text-sm ml-2 text-primary">查看示例</span>
-                            </template>
-                            <template #default>
-                                <img
-                                    src="@/assets/images/task_page.png"
-                                    class="w-[200px] h-[230px]"
-                                />
-                            </template>
-                        </el-popover>
                     </div>
                 </div>
             </el-form-item>
@@ -43,17 +32,6 @@
                     ></color-picker>
                     <div>
                         <span class="form-tips"> 页面顶部导航栏背景颜色，不设置则跟随主题色 </span>
-                        <el-popover placement="right" width="auto" trigger="hover">
-                            <template #reference>
-                                <span class="text-sm ml-2 text-primary">查看示例</span>
-                            </template>
-                            <template #default>
-                                <img
-                                    src="@/assets/images/task_page.png"
-                                    class="w-[200px] h-[230px]"
-                                />
-                            </template>
-                        </el-popover>
                     </div>
                 </div>
             </el-form-item>
@@ -103,6 +81,16 @@
                 <img class="w-[200px] ml-[30px]" src="@/assets/images/yellow2.png" />
                 <img class="w-[200px] ml-[30px]" src="@/assets/images/yellow3.png" />
             </div>
+            <div class="flex" v-if="formData.themeColorId == 5">
+                <img class="w-[200px]" src="@/assets/images/red1.png" />
+                <img class="w-[200px] ml-[30px]" src="@/assets/images/red2.png" />
+                <img class="w-[200px] ml-[30px]" src="@/assets/images/red3.png" />
+            </div>
+            <div class="flex" v-if="formData.themeColorId == 6">
+                <img class="w-[200px]" src="@/assets/images/pink1.png" />
+                <img class="w-[200px] ml-[30px]" src="@/assets/images/pink2.png" />
+                <img class="w-[200px] ml-[30px]" src="@/assets/images/pink3.png" />
+            </div>
         </div>
     </el-form>
 </template>
@@ -121,10 +109,13 @@ const themeColors = ref([
         btnColor: 'white'
     },
     { id: 2, name: '偏绿蓝', color1: '#02AAB0', color2: '#00CDAC', btnColor: 'white' },
-    { id: 3, name: '梦幻紫', color1: '#A74BFD', color2: '#CB60FF', btnColor: 'white' },
-    { id: 4, name: '高级黄', color1: '#FFC94D', color2: '#FFB814', btnColor: 'black' },
-    { id: 5, name: '自定义', color1: '#F8F8F8', color2: '#F5F5F5', btnColor: 'white' }
+    { id: 3, name: '商务紫', color1: '#A74BFD', color2: '#CB60FF', btnColor: 'white' },
+    { id: 4, name: '活力橙', color1: '#F7971E', color2: '#FFD200', btnColor: 'black' },
+    { id: 5, name: '经典红', color1: '#FF2C3C', color2: '#EF1D2D', btnColor: 'white' },
+    { id: 6, name: '美妆色', color1: '#FD498F', color2: '#FA444D', btnColor: 'white' },
+    { id: 7, name: '自定义', color1: '#F8F8F8', color2: '#F5F5F5', btnColor: 'white' },
 ])
+
 
 const emit = defineEmits<{
     (event: 'update:modelValue', value: Record<string, any>): void
