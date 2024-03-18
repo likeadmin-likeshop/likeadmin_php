@@ -228,7 +228,7 @@
 </template>
 
 <script setup lang="ts">
-import { login, mnpLogin, updateUser } from '@/api/account'
+import { login, mnpLogin, updateUser, OALogin } from '@/api/account'
 import { smsSend } from '@/api/app'
 import { SMSEnum } from '@/enums/appEnums'
 import { BACK_URL } from '@/enums/constantEnums'
@@ -239,7 +239,7 @@ import { useRouter, useRoute } from 'uniapp-router-next'
 import cache from '@/utils/cache'
 import { isWeixinClient } from '@/utils/client'
 // #ifdef H5
-import wechatOa from '@/utils/wechat'
+import wechatOa, { UrlScene } from '@/utils/wechat'
 // #endif
 import { onLoad, onShow } from '@dcloudio/uni-app'
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
@@ -254,6 +254,7 @@ const isWeixin = ref(true)
 isWeixin.value = isWeixinClient()
 // #endif
 
+const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 const appStore = useAppStore()
@@ -346,6 +347,8 @@ const loginHandle = async (data: any) => {
         await router.navigateBack()
         // @ts-ignore
         const { onLoad, options } = prevPage
+        // 刷新上一个页面
+        onLoad && onLoad(options)
     } else if (cache.get(BACK_URL)) {
         try {
             router.redirectTo(cache.get(BACK_URL))
@@ -359,6 +362,19 @@ const loginHandle = async (data: any) => {
 }
 
 const { lockFn: handleLogin } = useLockFn(loginFun)
+
+const oaLogin = async (options: any = { getUrl: true }) => {
+    const { code, getUrl } = options
+    if (getUrl) {
+        await wechatOa.getUrl(UrlScene.LOGIN)
+    } else {
+        const data = await OALogin({
+            code
+        })
+        return data
+    }
+    return Promise.reject()
+}
 
 const wxLogin = async () => {
     if (!isCheckAgreement.value && isOpenAgreement.value) {
@@ -394,7 +410,7 @@ const wxLogin = async () => {
     // #endif
     // #ifdef H5
     if (isWeixin.value) {
-        wechatOa.getUrl()
+        oaLogin()
     }
     // #endif
 }
@@ -424,45 +440,39 @@ const DisableStyle = computed(() => {
         return false
     }
 })
-onShow(async () => {
+
+const removeWxQuery = () => {
+    const options = route.query
+    if (options.code && options.state) {
+        delete options.code
+        delete options.state
+        router.redirectTo({ path: route.path, query: options })
+    }
+}
+
+onLoad(async () => {
+    //#ifdef H5
+    const options = wechatOa.getAuthData()
     try {
-        if (userStore.isLogin) {
+        if (options.code && options.scene === UrlScene.LOGIN) {
             uni.showLoading({
                 title: '请稍后...'
             })
-            await userStore.getUser()
-            uni.hideLoading()
-            uni.navigateBack()
+            const data = await oaLogin(options)
+            if (data) {
+                loginData.value = data
+
+                loginHandle(loginData.value)
+            }
         }
-    } catch (error: any) {
+    } catch (error) {
+        removeWxQuery()
+    } finally {
         uni.hideLoading()
+        //清除保存的授权数据
+        wechatOa.setAuthData()
     }
-})
-
-onLoad(async (options) => {
-    if (userStore.isLogin) {
-        // 已经登录 => 首页
-        router.reLaunch('/pages/index/index')
-        return
-    }
-    // #ifdef H5
-    const { code } = options
-    if (code) {
-        uni.showLoading({
-            title: '请稍后...'
-        })
-
-        try {
-            const data = await wechatOa.setAuthData(code)
-            loginHandle(data)
-        } catch (error: any) {
-            uni.hideLoading()
-            //用于清空code
-            router.redirectTo('/pages/login/login')
-            throw new Error(error)
-        }
-    }
-    // #endif
+    //#endif
 })
 </script>
 

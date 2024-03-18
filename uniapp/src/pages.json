@@ -23,24 +23,36 @@
             "path": "pages/login/login",
             "style": {
                 "navigationBarTitleText": "登录"
+            },
+            "meta": {
+                "white": true
             }
         },
         {
             "path": "pages/register/register",
             "style": {
                 "navigationBarTitleText": "注册"
+            },
+            "meta": {
+                "white": true
             }
         },
         {
             "path": "pages/forget_pwd/forget_pwd",
             "style": {
                 "navigationBarTitleText": "忘记密码"
+            },
+            "meta": {
+                "white": true
             }
         },
         {
             "path": "pages/customer_service/customer_service",
             "style": {
                 "navigationBarTitleText": "联系客服"
+            },
+            "meta": {
+                "white": true
             }
         },
         {
@@ -187,6 +199,7 @@
         }
     },
     "tabBar": {
+        "custom": true,
         "list": [
             {
                 "pagePath": "pages/index/index",
@@ -204,6 +217,7 @@
     },
     "easycom": {
         "custom": {
+            "router-navigate": "uniapp-router-next/components/router-navigate/router-navigate.vue",
             "^(?!z-paging-refresh|z-paging-load-more)z-paging(.*)": "z-paging/components/z-paging$1/z-paging$1.vue",
             "^w-(.*)": "@/components/widgets/$1/$1.vue"
         }
