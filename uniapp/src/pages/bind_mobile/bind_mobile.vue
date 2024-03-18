@@ -1,4 +1,12 @@
 <template>
+    <page-meta :page-style="$theme.pageStyle">
+        <!-- #ifndef H5 -->
+        <navigation-bar
+            :front-color="$theme.navColor"
+            :background-color="$theme.navBgColor"
+        />
+        <!-- #endif -->
+    </page-meta>
     <view class="bg-white min-h-full flex flex-col items-center px-[40rpx] pt-[40rpx] box-border">
         <view class="w-full">
             <u-form borderBottom :label-width="150">

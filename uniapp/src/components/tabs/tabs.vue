@@ -63,7 +63,7 @@ import {
     onMounted,
     getCurrentInstance
 } from 'vue'
-import { useTouch } from '@/hooks/useTouch'
+import { useTouch } from './hooks/useTouch'
 
 // Touch 钩子
 const { touch, resetTouchStatus, touchStart, touchMove } = useTouch()
@@ -97,7 +97,7 @@ const props = withDefaults(
         top?: number | string // 吸顶顶部距离
         stickyBgColor?: string // 吸顶颜色
 
-        swipeable: boolean // 是否允许滑动切换
+        swipeable?: boolean // 是否允许滑动切换
         // animated: boolean                   // 切换动画
     }>(),
     {
@@ -106,7 +106,7 @@ const props = withDefaults(
         height: 80,
         fontSize: 28,
         duration: 0.3,
-        activeColor: '#2073F4',
+        activeColor: 'var(--color-primary)',
         inactiveColor: '#333',
         barWidth: 40,
         barHeight: 4,

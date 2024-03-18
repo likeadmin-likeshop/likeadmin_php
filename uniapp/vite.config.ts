@@ -5,6 +5,7 @@ import autoprefixer from 'autoprefixer'
 import postcssRemToResponsivePixel from 'postcss-rem-to-responsive-pixel'
 import postcssWeappTailwindcssRename from 'weapp-tailwindcss-webpack-plugin/postcss'
 import vwt from 'weapp-tailwindcss-webpack-plugin/vite'
+import uniRouter from 'unplugin-uni-router/vite'
 
 const isH5 = process.env.UNI_PLATFORM === 'h5'
 const isApp = process.env.UNI_PLATFORM === 'app'
@@ -24,10 +25,13 @@ if (!weappTailwindcssDisabled) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [uni(), weappTailwindcssDisabled ? undefined : vwt()],
+    plugins: [uni(), uniRouter(), weappTailwindcssDisabled ? undefined : vwt()],
     css: {
         postcss: {
             plugins: postcssPlugin
         }
+    },
+    server: {
+        port: 8991
     }
 })

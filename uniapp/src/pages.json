@@ -3,7 +3,7 @@
         {
             "path": "pages/index/index",
             "style": {
-                "navigationBarTitleText": "首页"
+                "navigationStyle": "custom"
             }
         },
         {
@@ -16,7 +16,7 @@
         {
             "path": "pages/user/user",
             "style": {
-                "navigationBarTitleText": "个人中心"
+                "navigationStyle": "custom"
             }
         },
         {
@@ -54,14 +54,18 @@
             "style": {
                 "navigationBarTitleText": "个人设置"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "pages/collection/collection",
             "style": {
                 "navigationBarTitleText": "我的收藏"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "pages/as_us/as_us",
@@ -80,14 +84,18 @@
             "style": {
                 "navigationBarTitleText": "修改密码"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "pages/user_data/user_data",
             "style": {
                 "navigationBarTitleText": "个人资料"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "pages/search/search",
@@ -115,7 +123,9 @@
             "style": {
                 "navigationBarTitleText": "支付结果"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "uni_modules/vk-uview-ui/components/u-avatar-cropper/u-avatar-cropper",
@@ -128,26 +138,42 @@
 	"subPackages": [{
 		"root": "packages",
 		"pages": [
+            {
+                "path": "pages/404/404",
+                "style": {
+                    "navigationBarTitleText": "404"
+                },
+                "name": "404",
+                "meta": {
+                    "white": true
+                }
+            },
 			{
 				"path": "pages/user_wallet/user_wallet",
 				"style": {
 				    "navigationBarTitleText": "我的钱包"
 				},
-				"auth": true
+				"meta": {
+                    "auth": true
+                }
 			},
             {
 				"path": "pages/recharge/recharge",
 				"style": {
 				    "navigationBarTitleText": "充值"
 				},
-				"auth": true
+				"meta": {
+                    "auth": true
+                }
 			},
             {
 				"path": "pages/recharge_record/recharge_record",
 				"style": {
 				    "navigationBarTitleText": "充值记录"
 				},
-				"auth": true
+				"meta": {
+                    "auth": true
+                }
 			}
 		]
 	}],
@@ -159,6 +185,22 @@
         "h5": {
             "navigationStyle": "custom"
         }
+    },
+    "tabBar": {
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页"
+            },
+            {
+                "pagePath": "pages/news/news",
+                "text": "资讯"
+            },
+            {
+                "pagePath": "pages/user/user",
+                "text": "我的"
+            }
+        ]
     },
     "easycom": {
         "custom": {

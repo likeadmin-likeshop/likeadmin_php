@@ -5,7 +5,7 @@
         v-bind="tabbarStyle"
         :list="tabbarList"
         @change="handleChange"
-        :hide-tab-bar="false"
+        :hide-tab-bar="true"
     ></u-tabbar>
 </template>
 
@@ -41,8 +41,15 @@ const tabbarStyle = computed(() => ({
     activeColor: appStore.getStyleConfig.selected_color,
     inactiveColor: appStore.getStyleConfig.default_color
 }))
+
+const nativeTabbar = [
+    '/pages/index/index',
+    '/pages/news/news',
+    '/pages/user/user'
+]
 const handleChange = (index: number) => {
     const selectTab = tabbarList.value[index]
-    navigateTo(selectTab.link, 'reLaunch')
+    const navigateType = nativeTabbar.includes(selectTab.link.path) ? 'switchTab' : 'reLaunch'
+    navigateTo(selectTab.link, navigateType)
 }
 </script>

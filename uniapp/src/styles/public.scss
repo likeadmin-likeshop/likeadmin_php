@@ -1,8 +1,16 @@
 page {
     background-color: $u-bg-color;
     font-size: 28rpx;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: theme('fontFamily.sans')
+    //font-family: PingFang SC;
 }
 
 uni-modal {
-  z-index: 999999 !important;
+    z-index: 999999 !important;
+}
+
+button::after {
+    border: initial;
 }

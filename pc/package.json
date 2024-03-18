@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "build": "nuxt build && node scripts/build.mjs",
+        "build": "nuxt generate && node scripts/build.mjs",
         "dev": "nuxt dev",
         "start": "nuxt start",
         "generate": "nuxt generate",

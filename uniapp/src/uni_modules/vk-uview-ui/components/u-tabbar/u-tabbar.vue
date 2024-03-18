@@ -336,7 +336,7 @@ export default {
 
 			&__text {
 				color: $u-content-color;
-				font-size: 22rpx;
+				font-size: 20rpx;
 				line-height: 28rpx;
 				position: absolute;
 				bottom: 14rpx;

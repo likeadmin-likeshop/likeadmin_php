@@ -3,11 +3,8 @@
         class="customer-service bg-white flex flex-col justify-center items-center mx-[36rpx] mt-[20rpx] rounded-lg px-[110rpx] pt-[100rpx] pb-[160rpx]"
     >
         <u-image width="280" height="280" :src="getImageUrl(content.qrcode)" />
-        <view v-if="content.title" class="text-lg mt-[14rpx] font-medium">{{ content.title }}</view>
-        <view v-if="content.time" class="text-content mt-[40rpx]"
-            >服务时间：{{ content.time }}</view
-        >
-        <view v-if="content.mobile" class="text-content mt-[14rpx] flex flex-wrap">
+        <view v-if="content.title" class="text-lg mt-[24rpx] font-medium">{{ content.title }}</view>
+        <view v-if="content.mobile" class="text-content text-sm mt-[14rpx] flex flex-wrap">
             客服电话：{{ content.mobile }}
             <!-- #ifdef H5 -->
             <a class="ml-[10rpx] phone text-muted underline" :href="'tel:' + content.mobile">
@@ -26,6 +23,9 @@
             >
                 保存二维码图片
             </u-button>
+        </view>
+        <view v-if="content.time" class="text-muted text-xs mt-[30rpx]">
+            服务时间：{{ content.time }}
         </view>
     </view>
 </template>
