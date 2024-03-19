@@ -1,7 +1,7 @@
 <template>
     <div class="index">
         <div class="flex">
-            <div class="w-[750px] flex-none mr-5">
+            <div class="w-[750px] h-[340px] flex-none mr-5">
                 <ElCarousel
                     v-if="getSwiperData.enabled"
                     class="w-full"
