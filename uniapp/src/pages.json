@@ -199,7 +199,6 @@
         }
     },
     "tabBar": {
-        "borderStyle": "none",
         "custom": true,
         "iconWidth": "20px",
         "list": [

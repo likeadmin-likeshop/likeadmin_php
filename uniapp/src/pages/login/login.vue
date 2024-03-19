@@ -11,11 +11,10 @@
         class="bg-white login min-h-full flex flex-col items-center px-[40rpx] pt-[120rpx] box-border"
     >
         <view>
-            <u-image
+            <image
                 :src="appStore.getWebsiteConfig.shop_logo"
                 mode="widthFix"
-                height="160"
-                width="160"
+                class="w-[160rpx] h-[160rpx] rounded-full"
             />
         </view>
         <view class="w-full mt-[140rpx] pb-[60rpx]">
@@ -199,6 +198,7 @@
             v-model="showModel"
             show-cancel-button
             :show-title="false"
+            confirm-color="var(--color-primary)"
             @confirm=";(isCheckAgreement = true), (showModel = false)"
             @cancel="showModel = false"
         >
