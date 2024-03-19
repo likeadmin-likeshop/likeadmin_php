@@ -1,22 +1,24 @@
 <template>
     <div class="index">
         <div class="flex">
-            <ElCarousel
-                v-if="getSwiperData.enabled"
-                class="w-[750px] flex-none mr-5"
-                trigger="click"
-                height="340px"
-            >
-                <ElCarouselItem v-for="item in showList" :key="item">
-                    <NuxtLink :to="item.link.path" target="_blank">
-                        <ElImage
-                            class="w-full h-full rounded-[8px] bg-white overflow-hidden"
-                            :src="appStore.getImageUrl(item.image)"
-                            fit="contain"
-                        />
-                    </NuxtLink>
-                </ElCarouselItem>
-            </ElCarousel>
+            <div class="w-[750px] flex-none mr-5">
+                <ElCarousel
+                    v-if="getSwiperData.enabled"
+                    class="w-full"
+                    trigger="click"
+                    height="340px"
+                >
+                    <ElCarouselItem v-for="item in showList" :key="item">
+                        <NuxtLink :to="item.link.path" target="_blank">
+                            <ElImage
+                                class="w-full h-full rounded-[8px] bg-white overflow-hidden"
+                                :src="appStore.getImageUrl(item.image)"
+                                fit="contain"
+                            />
+                        </NuxtLink>
+                    </ElCarouselItem>
+                </ElCarousel>
+            </div>
             <InformationCard
                 link="/information/new"
                 class="flex-1 min-w-0"
