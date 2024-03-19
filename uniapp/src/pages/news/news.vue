@@ -7,6 +7,23 @@
         />
         <!-- #endif -->
     </page-meta>
+    <!-- #ifndef H5 -->
+    <u-sticky
+        h5-nav-height="0"
+        bg-color="transparent"
+    >
+        <u-navbar
+            :is-back="false"
+            :is-fixed="false"
+            title="资讯"
+            :border-bottom="false"
+            :title-bold="true"
+            :title-color="$theme.navColor"
+            :background="{ background: $theme.navBgColor }"
+        >
+        </u-navbar>
+    </u-sticky>
+    <!-- #endif -->
     <view class="news">
         <!-- 搜索 -->
         <navigator class="news-search px-[24rpx] py-[14rpx] bg-white" url="/pages/search/search">
