@@ -248,7 +248,7 @@ class AliPayService extends BasePayService
     public function wapPay($attach, $order)
     {
         $domain = request()->domain();
-        $url = $domain . '/mobile' . $order['redirect_url'];
+        $url = $domain . '/mobile' . $order['redirect_url'] .'?id=' . $order['id'] . '&from='. $attach . '&checkPay=true';;
         $result = $this->pay->wap()->optional('passback_params', $attach)->pay(
             '订单:' . $order['sn'],
             $order['sn'],
