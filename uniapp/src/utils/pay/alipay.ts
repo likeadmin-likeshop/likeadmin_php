@@ -6,6 +6,7 @@ export class Alipay {
         pay[name] = this
     }
     openNewPage(options: any) {
+        uni.navigateBack()
         const alipayPage = window.open('', '_self')!
         alipayPage.document.body.innerHTML = options
         alipayPage.document.forms[0].submit()
