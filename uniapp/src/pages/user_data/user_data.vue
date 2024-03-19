@@ -153,7 +153,7 @@
     <!-- 账号修改组件 -->
     <u-popup v-model="showMobilePop" :closeable="true" mode="center" border-radius="20">
         <view class="px-[50rpx] py-[40rpx] bg-white" style="width: 85vw">
-            <view class="mb-[70rpx] text-xl text-center">修改手机号码</view>
+            <view class="mb-[70rpx] text-xl text-center">{{ userInfo?.mobile == '' ? '绑定手机号' : '更换手机号' }}</view>
             <u-form-item borderBottom>
                 <u-input
                     class="flex-1"

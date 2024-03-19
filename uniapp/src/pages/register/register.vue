@@ -103,13 +103,13 @@
         <view class="text-center px-[70rpx] py-[60rpx]">
             <view> 请先阅读并同意</view>
             <view class="flex justify-center">
-                <navigator data-theme="" url="/pages/agreement/agreement?type=service">
+                <router-navigate data-theme="" to="/pages/agreement/agreement?type=service">
                     <view class="text-primary">《服务协议》</view>
-                </navigator>
+                </router-navigate>
                 和
-                <navigator url="/pages/agreement/agreement?type=privacy">
+                <router-navigate to="/pages/agreement/agreement?type=privacy">
                     <view class="text-primary">《隐私协议》</view>
-                </navigator>
+                </router-navigate>
             </view>
         </view>
     </u-modal>
