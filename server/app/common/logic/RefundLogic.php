@@ -64,7 +64,7 @@ class RefundLogic extends BaseLogic
                     break;
                 // 支付宝退款
                 case PayEnum::ALI_PAY:
-                    self::aliPayRefund($order, $refundAmount, $refundRecordId);
+                    self::aliPayRefund($refundRecordId, $refundAmount);
                     break;
                 default:
                     throw new \Exception('支付方式异常');
@@ -120,16 +120,17 @@ class RefundLogic extends BaseLogic
 
     /**
      * @notes 支付宝退款
-     * @param $order
-     * @param $refundAmount
      * @param $refundRecordId
+     * @param $refundAmount
      * @throws \Exception
      * @author mjf
      * @date 2024/3/18 18:54
      */
-    public static function aliPayRefund($order, $refundAmount,$refundRecordId)
+    public static function aliPayRefund($refundRecordId, $refundAmount)
     {
-        $result = (new AliPayService())->refund($order['sn'], $refundAmount, self::$refundLog['sn']);
+        $refundRecord = RefundRecord::where('id', $refundRecordId)->findOrEmpty()->toArray();
+
+        $result = (new AliPayService())->refund($refundRecord['order_sn'], $refundAmount, self::$refundLog['sn']);
         $result = (array)$result;
 
         if ($result['code'] == '10000' && $result['msg'] == 'Success' && $result['fundChange'] == 'Y') {
@@ -145,10 +146,9 @@ class RefundLogic extends BaseLogic
             ], ['id'=>$refundRecordId]);
 
             // 更新订单信息
-            $refundRecord = RefundRecord::where('id',$refundRecordId)->findOrEmpty()->toArray();
             if ($refundRecord['order_type'] == 'recharge') {
                 RechargeOrder::update([
-                    'id' => $order['id'],
+                    'id' => $refundRecord['order_id'],
                     'refund_transaction_id' => $result['tradeNo'] ?? '',
                 ]);
             }
