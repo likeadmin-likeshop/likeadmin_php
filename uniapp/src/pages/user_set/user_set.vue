@@ -67,7 +67,7 @@
         </navigator>
 
         <view class="mt-[60rpx] mx-[26rpx]">
-            <u-button type="primary" shape="circle" @click="logoutHandle"> 退出登录 </u-button>
+            <u-button type="primary" shape="circle" @click="showLogout = true"> 退出登录</u-button>
         </view>
 
         <u-action-sheet
@@ -76,21 +76,67 @@
             @click="handleClick"
             :safe-area-inset-bottom="true"
         ></u-action-sheet>
+
+        <u-popup
+            class="pay-popup"
+            v-model="showLogout"
+            round
+            mode="center"
+            borderRadius="10"
+            :maskCloseAble="false"
+        >
+            <view class="content bg-white w-[560rpx] p-[40rpx]">
+                <view class="text-2xl font-medium text-center"> 温馨提示</view>
+                <view class="pt-[30rpx] pb-[40rpx]">
+                    <view> 是否清除当前登录信息，退出登录？</view>
+                </view>
+                <view class="flex">
+                    <view class="flex-1 mr-[20rpx]">
+                        <u-button
+                            shape="circle"
+                            type="primary"
+                            plain
+                            size="medium"
+                            hover-class="none"
+                            :customStyle="{ width: '100%' }"
+                            @click="showLogout = false"
+                        >
+                            取消
+                        </u-button>
+                    </view>
+                    <view class="flex-1">
+                        <u-button
+                            shape="circle"
+                            type="primary"
+                            size="medium"
+                            hover-class="none"
+                            :customStyle="{ width: '100%' }"
+                            @click="logoutHandle"
+                        >
+                            确认
+                        </u-button>
+                    </view>
+                </view>
+            </view>
+        </u-popup>
     </view>
 </template>
 
 <script setup lang="ts">
-import { onLoad, onShow } from '@dcloudio/uni-app'
-import { computed, ref } from 'vue'
-import { useAppStore } from '@/stores/app'
-import { useUserStore } from '@/stores/user'
-import { AgreementEnum } from '@/enums/agreementEnums'
-import { isWeixinClient } from '@/utils/client'
-import { mnpAuthBind, oaAuthBind } from '@/api/account'
-import { useLockFn } from '@/hooks/useLockFn'
+import {onLoad, onShow} from '@dcloudio/uni-app'
+import {computed, ref} from 'vue'
+import {useAppStore} from '@/stores/app'
+import {useUserStore} from '@/stores/user'
+import {AgreementEnum} from '@/enums/agreementEnums'
+import {isWeixinClient} from '@/utils/client'
+import {mnpAuthBind, oaAuthBind} from '@/api/account'
+import {useLockFn} from '@/hooks/useLockFn'
+import {useRouter} from "uniapp-router-next";
 // #ifdef H5
 import wechatOa from '@/utils/wechat'
 // #endif
+
+const router = useRouter()
 const appStore = useAppStore()
 const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo)
@@ -110,36 +156,30 @@ isWeixin.value = isWeixinClient()
 // #endif
 
 const show = ref(false)
+const showLogout = ref(false)
 
 // 修改/忘记密码
 const handleClick = (index: number) => {
     switch (index) {
         case 0:
-            uni.navigateTo({ url: '/pages/change_password/change_password' })
+            router.navigateTo('/pages/change_password/change_password')
             break
         case 1:
-            uni.navigateTo({ url: '/pages/forget_pwd/forget_pwd' })
+            router.navigateTo('/pages/forget_pwd/forget_pwd')
             break
     }
 }
 
 const handlePwd = () => {
     if (!userInfo.value.has_password)
-        return uni.navigateTo({ url: '/pages/change_password/change_password?type=set' })
+        return router.navigateTo('/pages/change_password/change_password?type=set')
     show.value = true
 }
 
 // 退出登录
 const logoutHandle = () => {
-    uni.showModal({
-        content: '是否退出登录？',
-        confirmColor: '#4173FF',
-        success: ({ cancel }) => {
-            if (cancel) return
-            userStore.logout()
-            uni.redirectTo({ url: '/pages/login/login' })
-        }
-    })
+    userStore.logout()
+    router.redirectTo('/pages/login/login')
 }
 
 const bindWechat = async () => {
@@ -149,7 +189,7 @@ const bindWechat = async () => {
             title: '请稍后...'
         })
         // #ifdef MP-WEIXIN
-        const { code }: any = await uni.login({
+        const {code}: any = await uni.login({
             provider: 'weixin'
         })
         await mnpAuthBind({
@@ -168,7 +208,7 @@ const bindWechat = async () => {
         uni.$u.toast(e)
     }
 }
-const { lockFn: bindWechatLock } = useLockFn(bindWechat)
+const {lockFn: bindWechatLock} = useLockFn(bindWechat)
 
 onShow(() => {
     userStore.getUser()
@@ -176,20 +216,19 @@ onShow(() => {
 
 onLoad(async (options) => {
     // #ifdef H5
-    const { code } = options
+    const {code} = options
     if (!isWeixin.value) return
     if (code) {
         uni.showLoading({
             title: '请稍后...'
         })
         try {
-            await oaAuthBind({ code })
+            await oaAuthBind({code})
             await userStore.getUser()
-        } catch (error) {}
+        } catch (error) {
+        }
         //用于清空code
-        uni.redirectTo({
-            url: '/pages/user_set/user_set'
-        })
+        router.redirectTo('/pages/user_set/user_set')
     }
 
     // #endif

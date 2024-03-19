@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </el-form-item>
-            <el-form-item label="自定义主题颜色" v-if="formData.themeColorId == 5">
+            <el-form-item label="自定义主题颜色" v-if="formData.themeColorId == 7">
                 <div>
                     <color-picker
                         v-model="formData.themeColor1"
@@ -123,7 +123,7 @@ const emit = defineEmits<{
 
 //选择主题颜色
 const selectThemeColor = (item: any) => {
-    if (item.id != 5) {
+    if (item.id != 7) {
         formData.value.themeColor1 = item.color1
         formData.value.themeColor2 = item.color2
         formData.value.navigationBarColor = item.color1
