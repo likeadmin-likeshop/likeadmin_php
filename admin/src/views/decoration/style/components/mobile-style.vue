@@ -27,7 +27,7 @@
             <el-form-item label="导航顶部背景颜色">
                 <div>
                     <color-picker
-                        :defaultColor="formData.themeColor1"
+                        :resetColor="formData.themeColor1"
                         v-model="formData.navigationBarColor"
                     ></color-picker>
                     <div>
@@ -108,7 +108,7 @@ const themeColors = ref([
         color2: '#56CCF2',
         btnColor: 'white'
     },
-    { id: 2, name: '偏绿蓝', color1: '#02AAB0', color2: '#00CDAC', btnColor: 'white' },
+    { id: 2, name: '偏绿蓝', color1: '#2EC840', color2: '#3DE650', btnColor: 'white' },
     { id: 3, name: '商务紫', color1: '#A74BFD', color2: '#CB60FF', btnColor: 'white' },
     { id: 4, name: '活力橙', color1: '#F7971E', color2: '#FFD200', btnColor: 'black' },
     { id: 5, name: '经典红', color1: '#FF2C3C', color2: '#EF1D2D', btnColor: 'white' },
