@@ -42,8 +42,8 @@ const getConfig = async () => {
 }
 
 onLaunch(async () => {
-    getConfig()
     getTheme()
+    getConfig()
     //#ifdef H5
     setH5WebIcon()
     //#endif

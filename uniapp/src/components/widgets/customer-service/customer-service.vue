@@ -1,37 +1,39 @@
 <template>
+    <view class="bg-white p-[30rpx] flex text-[#101010] font-medium text-lg">
+        联系我们
+    </view>
     <view
-        class="customer-service bg-white flex flex-col justify-center items-center mx-[36rpx] mt-[20rpx] rounded-lg px-[110rpx] pt-[100rpx] pb-[160rpx]"
+        class="customer-service bg-white flex flex-col justify-center items-center mx-[36rpx] mt-[30rpx] rounded-[20rpx] px-[20rpx] pb-[100rpx]"
     >
-        <u-image width="280" height="280" :src="getImageUrl(content.qrcode)" />
-        <view v-if="content.title" class="text-lg mt-[24rpx] font-medium">{{ content.title }}</view>
-        <view v-if="content.mobile" class="text-content text-sm mt-[14rpx] flex flex-wrap">
-            客服电话：{{ content.mobile }}
+        <view
+            class="w-full border-solid border-0 border-b border-[#f5f5f5] p-[30rpx] text-center text-[#101010] text-base font-medium">
+            {{ content.title }}
+        </view>
+
+        <view class="mt-[60rpx]">
+            <u-image width="200" height="200" border-radius="10rpx" :src="getImageUrl(content.qrcode)"/>
+        </view>
+        <view v-if="content.remark" class="text-sm mt-[40rpx] font-medium">{{ content.remark }}</view>
+        <view v-if="content.mobile" class="text-sm mt-[24rpx] flex flex-wrap">
             <!-- #ifdef H5 -->
-            <a class="ml-[10rpx] phone text-muted underline" :href="'tel:' + content.mobile">
-                拨打
+            <a class="ml-[10rpx] phone text-primary underline" :href="'tel:' + content.mobile">
+                {{ content.mobile }}
             </a>
             <!-- #endif -->
             <!-- #ifndef H5 -->
-            <view class="ml-[10rpx] phone text-muted underline" @click="handleCall">拨打</view>
+            <view class="ml-[10rpx] phone text-primary underline" @click="handleCall">
+                {{ content.mobile }}
+            </view>
             <!-- #endif -->
         </view>
-        <view class="mt-[100rpx] w-full">
-            <u-button
-                type="primary"
-                shape="circle"
-                @click="saveImageToPhotosAlbum(getImageUrl(content.qrcode))"
-            >
-                保存二维码图片
-            </u-button>
-        </view>
-        <view v-if="content.time" class="text-muted text-xs mt-[30rpx]">
+        <view v-if="content.time" class="text-muted text-sm mt-[30rpx]">
             服务时间：{{ content.time }}
         </view>
     </view>
 </template>
 <script lang="ts" setup>
-import { useAppStore } from '@/stores/app'
-import { saveImageToPhotosAlbum } from '@/utils/file'
+import {useAppStore} from '@/stores/app'
+import {saveImageToPhotosAlbum} from '@/utils/file'
 
 const props = defineProps({
     content: {
@@ -44,7 +46,7 @@ const props = defineProps({
     }
 })
 
-const { getImageUrl } = useAppStore()
+const {getImageUrl} = useAppStore()
 
 const handleCall = () => {
     uni.makePhoneCall({

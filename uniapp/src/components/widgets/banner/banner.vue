@@ -6,7 +6,7 @@
     >
         <LSwiper
             :content="content"
-            :height="isLargeScreen ? '980' : '321'"
+            :height="isLargeScreen ? '1100' : '321'"
             :circular="true"
             :effect3d="false"
             :border-radius="isLargeScreen ? '0' : '14'"

@@ -9,7 +9,7 @@
         {
             "path": "pages/news/news",
             "style": {
-                "navigationBarTitleText": "资讯",
+                "navigationStyle": "custom",
                 "disableScroll": true
             }
         },

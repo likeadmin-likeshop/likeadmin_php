@@ -14,7 +14,7 @@ module.exports = {
             minor: 'var(--color-minor, #FFB814)',
             'btn-text': 'var(--color-btn-text, white)',
             primary: {
-                DEFAULT: 'var(--color-primary, #FFC244)',
+                DEFAULT: 'var(--color-primary)',
                 'light-3': 'var(--color-primary-light-3, rgb(255, 217, 130))',
                 'light-5': 'var(--color-primary-light-5, rgb(255, 228, 166))',
                 'light-7': 'var(--color-primary-light-7, rgb(255, 239, 202))',
