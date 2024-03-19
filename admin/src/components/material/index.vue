@@ -151,7 +151,6 @@
                 <el-select
                     v-model="fileParams.source"
                     placeholder="请选择文件来源"
-                    size="large"
                     clearable
                     style="margin-right: 20px"
                     class="w-50"
