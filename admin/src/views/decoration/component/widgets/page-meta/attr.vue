@@ -21,7 +21,7 @@
                 <material-picker v-model="content.title_img" :limit="1" size="100px"/>
                 <div class="form-tips">建议图片尺寸：300px*40px</div>
             </el-form-item>
-            <el-form-item label="文字颜色">
+            <el-form-item label="文字颜色" v-if="content.title_type == 1">
                 <el-radio-group v-model="content.text_color">
                     <el-radio label="1">白色</el-radio>
                     <el-radio label="2">黑色</el-radio>

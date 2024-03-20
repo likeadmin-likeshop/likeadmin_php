@@ -10,7 +10,7 @@
             </el-card>
 
             <preview
-                class="flex-1"
+                class="flex-1 scroll-view-content"
                 v-model="selectWidgetIndex"
                 :pageData="getPageData"
                 :pageMeta="getPageMeta"
