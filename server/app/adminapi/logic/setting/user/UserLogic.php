@@ -31,10 +31,10 @@ class UserLogic
      */
     public static function getConfig(): array
     {
-        $defaultAvatar = FileService::getFileUrl(config('project.default_image.user_avatar'));
+        $defaultAvatar = config('project.default_image.user_avatar');
         $config = [
             //默认头像
-            'default_avatar' => ConfigService::get('default_image', 'user_avatar', $defaultAvatar),
+            'default_avatar' => FileService::getFileUrl(ConfigService::get('default_image', 'user_avatar', $defaultAvatar)),
         ];
         return $config;
     }
