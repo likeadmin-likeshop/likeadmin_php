@@ -131,7 +131,7 @@ export default defineComponent({
         const getAccept = computed(() => {
             switch (props.type) {
                 case 'image':
-                    return '.jpg,.png,.gif,.jpeg'
+                    return '.jpg,.png,.gif,.jpeg,.ico'
                 case 'video':
                     return '.wmv,.avi,.mpg,.mpeg,.3gp,.mov,.mp4,.flv,.rmvb,.mkv'
                 default:
