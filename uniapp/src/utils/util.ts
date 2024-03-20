@@ -53,7 +53,7 @@ export enum LinkTypeEnum {
 }
 
 export function navigateTo(link: Link, navigateType: 'navigateTo' | 'switchTab' | 'reLaunch' = 'navigateTo') {
-    const url = link.query ? `${link.path}?${objectToQuery(link.query)}` : link.path;
+    const url = link?.query ? `${link.path}?${objectToQuery(link?.query)}` : link.path;
 
     (navigateType == 'switchTab' || link.canTab) && uni.switchTab({url})
     navigateType == 'navigateTo' && uni.navigateTo({url})

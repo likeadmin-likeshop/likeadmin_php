@@ -12,7 +12,7 @@
             <swiper-item
                 v-for="(item, index) in showList"
                 :key="index"
-                @click="handleClick(item.limk)"
+                @click="handleClick(item.link)"
             >
                 <u-image
                     mode="widthFix"
