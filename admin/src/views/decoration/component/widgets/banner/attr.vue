@@ -9,7 +9,7 @@
                 <el-radio :label="2">大屏</el-radio>
             </el-radio-group>
         </el-card>
-        <el-card shadow="never" class="!border-none flex mt-2">
+        <el-card shadow="never" class="!border-none flex mt-2" v-if="content.style == 1">
             <div class="flex items-end mb-4">
                 <div class="text-base text-[#101010] font-medium">背景联动</div>
             </div>
@@ -24,8 +24,17 @@
         <el-card shadow="never" class="!border-none flex-1 mt-2">
             <div class="flex items-end">
                 <div class="text-base text-[#101010] font-medium">轮播图片</div>
-                <div class="text-xs text-tx-secondary ml-2">
+                <div
+                    v-if="content.style == 1"
+                    class="text-xs text-tx-secondary ml-2"
+                >
                     最多添加5张，建议图片尺寸：750px*340px
+                </div>
+                <div
+                    v-else
+                    class="text-xs text-tx-secondary ml-2"
+                >
+                    最多添加5张，建议图片尺寸：750px*1100px
                 </div>
             </div>
             <div class="flex-1">
@@ -57,6 +66,7 @@
                                             </template>
                                         </material-picker>
                                         <material-picker
+                                            v-if="content.style == 0 || content.bg_style == 1"
                                             class="ml-[40px]"
                                             size="122px"
                                             v-model="item.bg"

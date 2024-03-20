@@ -9,16 +9,18 @@
 					</view>
 					<view class="u-icon-wrap u-back-text u-line-1" v-if="backText" :style="[backTextStyle]">{{ backText }}</view>
 				</view>
-				<view class="u-navbar-content-title" v-if="title" :style="[titleStyle]">
-					<view
-					    class="u-title u-line-1"
-					    :style="{
+				<view class="u-navbar-content-title" v-if="title || customTitle" :style="[titleStyle]">
+                    <slot name="title">
+                        <view
+                            class="u-title u-line-1"
+                            :style="{
 							color: titleColor,
 							fontSize: titleSize + 'rpx',
 							fontWeight: titleBold ? 'bold' : 'normal'
 						}">
-						{{ title }}
-					</view>
+                            {{ title }}
+                        </view>
+                    </slot>
 				</view>
 				<view class="u-slot-content">
 					<slot></slot>
@@ -101,6 +103,11 @@
 					}
 				}
 			},
+            // 自定义导航栏标题
+            customTitle: {
+                type: Boolean,
+                default: false
+            },
 			// 导航栏标题
 			title: {
 				type: String,

@@ -6,6 +6,7 @@
             :is-back="false"
             :is-fixed="true"
             :title="metaData.title"
+            :custom-title="true"
             :border-bottom="false"
             :title-bold="true"
             :background="{ background: 'rgba(256,256, 256, 0)' }"
@@ -20,6 +21,9 @@
                 >
                     <u-icon name="search"></u-icon>
                 </navigator>
+            </template>
+            <template #title>
+                <image class="h-[30rpx]" :src="metaData.title_img" mode="widthFix"></image>
             </template>
         </u-navbar>
     </u-sticky>

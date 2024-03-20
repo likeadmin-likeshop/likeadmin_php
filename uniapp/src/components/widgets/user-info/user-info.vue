@@ -9,11 +9,15 @@
                 :is-back="false"
                 :is-fixed="false"
                 :title="metaData.title"
+                :custom-title="true"
                 :border-bottom="false"
                 :title-bold="true"
                 :background="{ background: 'rgba(256,256, 256, 0)' }"
                 :title-color="$theme.navColor"
             >
+                <template #title>
+                    <image class="h-[30rpx]" :src="metaData.title_img" mode="widthFix"></image>
+                </template>
             </u-navbar>
         </u-sticky>
         <!-- #endif -->

@@ -3,7 +3,7 @@
         <div class="banner-image w-full h-full">
             <decoration-img
                 width="100%"
-                :height="styles.height || height"
+                :height="content.style == 1 ? height : '550px'"
                 :src="getImage"
                 fit="contain"
             />
