@@ -67,7 +67,7 @@ return [
 
     // 文件上传限制 (图片)
     'file_image' => [
-        'jpg', 'png', 'gif', 'jpeg', 'webp'
+        'jpg', 'png', 'gif', 'jpeg', 'webp', 'ico'
     ],
 
     // 文件上传限制 (视频)
