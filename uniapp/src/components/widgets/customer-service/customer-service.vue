@@ -11,6 +11,7 @@
         </view>
 
         <view class="mt-[60rpx]">
+            <!--      这样渲染是为了能在小程序中长按识别二维码      -->
             <u-parse :html="richTxt"></u-parse>
 <!--            <u-image width="200" height="200" border-radius="10rpx" :src="getImageUrl(content.qrcode)"/>-->
         </view>
@@ -51,7 +52,7 @@ const {getImageUrl} = useAppStore()
 
 const richTxt = computed(() => {
     const src = getImageUrl(props.content.qrcode)
-    return `<img src="${src}" style="width: 100px;height: 100px" />`
+    return `<img src="${src}" style="width: 100px;height: 100px; border-radius: 8px" />`
 })
 
 const handleCall = () => {

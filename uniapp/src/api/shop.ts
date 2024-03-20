@@ -7,7 +7,7 @@ export function getIndex() {
 
 // 装修页面
 export function getDecorate(data: any) {
-    return request.get({ url: '/index/decorate', data })
+    return request.get({ url: '/index/decorate', data }, { ignoreCancel: true })
 }
 
 /**
