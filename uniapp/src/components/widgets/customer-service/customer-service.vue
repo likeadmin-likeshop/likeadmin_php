@@ -11,7 +11,8 @@
         </view>
 
         <view class="mt-[60rpx]">
-            <u-image width="200" height="200" border-radius="10rpx" :src="getImageUrl(content.qrcode)"/>
+            <u-parse :html="richTxt"></u-parse>
+<!--            <u-image width="200" height="200" border-radius="10rpx" :src="getImageUrl(content.qrcode)"/>-->
         </view>
         <view v-if="content.remark" class="text-sm mt-[40rpx] font-medium">{{ content.remark }}</view>
         <view v-if="content.mobile" class="text-sm mt-[24rpx] flex flex-wrap">
@@ -33,7 +34,7 @@
 </template>
 <script lang="ts" setup>
 import {useAppStore} from '@/stores/app'
-import {saveImageToPhotosAlbum} from '@/utils/file'
+import { computed } from 'vue'
 
 const props = defineProps({
     content: {
@@ -47,6 +48,11 @@ const props = defineProps({
 })
 
 const {getImageUrl} = useAppStore()
+
+const richTxt = computed(() => {
+    const src = getImageUrl(props.content.qrcode)
+    return `<img src="${src}" style="width: 100px;height: 100px" />`
+})
 
 const handleCall = () => {
     uni.makePhoneCall({
