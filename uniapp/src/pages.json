@@ -3,20 +3,35 @@
         {
             "path": "pages/index/index",
             "style": {
-                "navigationStyle": "custom"
+                // #ifndef H5
+                "navigationStyle": "custom",
+                // #endif
+                // #ifdef H5
+                "navigationBarTitleText": "首页"
+                // #endif
             }
         },
         {
             "path": "pages/news/news",
             "style": {
+                // #ifndef H5
                 "navigationStyle": "custom",
+                // #endif
+                // #ifdef H5
+                "navigationBarTitleText": "资讯",
+                // #endif
                 "disableScroll": true
             }
         },
         {
             "path": "pages/user/user",
             "style": {
-                "navigationStyle": "custom"
+                // #ifndef H5
+                "navigationStyle": "custom",
+                // #endif
+                // #ifdef H5
+                "navigationBarTitleText": "个人中心"
+                // #endif
             }
         },
         {
