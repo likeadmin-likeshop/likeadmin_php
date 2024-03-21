@@ -8,6 +8,7 @@
         :indicator-pos="indicatorPos"
         :autoplay="autoplay"
         :interval="interval"
+        :duration="duration"
         :circular="circular"
         :borderRadius="borderRadius"
         :current="current"

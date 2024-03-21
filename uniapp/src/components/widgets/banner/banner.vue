@@ -10,6 +10,7 @@
             :circular="true"
             :effect3d="false"
             :border-radius="isLargeScreen ? '0' : '14'"
+            interval="7000"
             bgColor="transparent"
             @change="handleChange"
         ></LSwiper>
