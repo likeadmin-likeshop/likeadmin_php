@@ -1,13 +1,15 @@
 <template>
-    <el-menu
-        :default-active="modelValue"
-        class="w-[160px] min-h-[668px] pages-menu"
-        @select="handleSelect"
-    >
-        <el-menu-item v-for="(item, key) in menus" :index="key" :key="item.id">
-            <span>{{ item.name }}</span>
-        </el-menu-item>
-    </el-menu>
+    <div class="pages-menu">
+        <el-menu
+            :default-active="modelValue"
+            class="w-[160px] min-h-[668px]"
+            @select="handleSelect"
+        >
+            <el-menu-item v-for="(item, key) in menus" :index="key" :key="item.id">
+                <span>{{ item.name }}</span>
+            </el-menu-item>
+        </el-menu>
+    </div>
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
@@ -32,6 +34,9 @@ const handleSelect = (index: string) => {
 
 <style lang="scss" scoped>
 .pages-menu {
+    :deep(.el-menu) {
+        border-right: none;
+    }
     :deep(.el-menu-item) {
         border-color: transparent;
         &.is-active {

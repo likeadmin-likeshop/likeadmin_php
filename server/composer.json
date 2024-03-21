@@ -33,7 +33,8 @@
         "alibabacloud/client": "^1.5",
         "rmccue/requests": "^2.0",
         "w7corp/easywechat": "^6.8",
-        "tencentcloud/sms": "^3.0"
+        "tencentcloud/sms": "^3.0",
+        "alipaysdk/easysdk": "^2.2"
     },
     "require-dev": {
         "symfony/var-dumper": ">=4.2",

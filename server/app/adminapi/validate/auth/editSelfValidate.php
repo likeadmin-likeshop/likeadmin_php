@@ -29,7 +29,6 @@ class editSelfValidate extends BaseValidate
     protected $rule = [
         'name' => 'require|length:1,16',
         'avatar' => 'require',
-        'password_old' => 'length:6,32',
         'password' => 'length:6,32|checkPassword',
         'password_confirm' => 'requireWith:password|confirm',
     ];

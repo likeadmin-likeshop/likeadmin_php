@@ -1,5 +1,5 @@
 <template>
-    <view class="">
+    <view class="p-[30rpx]">
         <u-parse :html="agreementContent"></u-parse>
     </view>
 </template>

@@ -1,236 +1,145 @@
 <template>
-    <div class="decoration-tabbar min-w-[800px]">
-        <el-card shadow="never" class="!border-none flex-1" :body-style="{ height: '100%' }">
-            <div class="flex h-full items-start">
-                <div class="pages-preview mx-[30px]">
-                    <div class="tabbar flex">
-                        <div
-                            class="tabbar-item flex flex-col justify-center items-center flex-1"
-                            v-for="(item, index) in showTabbarList"
-                            :key="index"
-                            :style="{ color: tabbar.style.default_color }"
+    <div class="decoration-tabbar">
+        <div class="flex-1 min-h-0 w-full">
+            <div class="h-full">
+                <ElScrollbar>
+                    <div class="flex min-w-[900px] scroll-view-content">
+                        <el-card
+                            shadow="never"
+                            class="!border-none flex"
+                            :body-style="{ 'padding-right': 0 }"
                         >
-                            <img class="w-[22px] h-[22px]" :src="item.unselected" alt="" />
-                            <div class="leading-3 text-[12px] mt-[4px]">{{ item.name }}</div>
+                            <Menu class="!h-full flex-none" v-model="activeMenu" :menus="menus"/>
+                        </el-card>
+                        <div class="flex-1 pages-preview-box">
+                            <div class="pages-preview mx-[30px]">
+                                <el-scrollbar height="100%">
+                                    <component
+                                        :is="currentTab.component?.content"
+                                        v-bind="currentTab.data"
+                                    />
+                                </el-scrollbar>
+                            </div>
                         </div>
+                        <el-scrollbar class="attr-setting flex-none">
+                            <div class="px-5 pb-5">
+                                <component
+                                    :is="currentTab.component?.attr"
+                                    v-model="currentTab.data"
+                                />
+                            </div>
+                        </el-scrollbar>
                     </div>
-                </div>
-                <div class="flex-1">
-                    <div
-                        class="title flex items-center before:w-[3px] before:h-[14px] before:block before:bg-primary before:mr-2"
-                    >
-                        底部导航设置
-                        <span class="form-tips ml-[10px] !mt-0">
-                            至少添加2个导航，最多添加5个导航
-                        </span>
-                    </div>
-                    <el-form class="mt-4" label-width="70px">
-                        <el-tabs model-value="content">
-                            <el-tab-pane label="导航图片" name="content">
-                                <div class="mb-[18px]">
-                                    <draggable
-                                        class="draggable"
-                                        v-model="tabbar.list"
-                                        animation="300"
-                                        draggable=".draggable"
-                                        handle=".drag-move"
-                                        :move="onMove"
-                                    >
-                                        <template v-slot:item="{ element, index }">
-                                            <del-wrap
-                                                @close="handleDelete(index)"
-                                                class="max-w-[400px]"
-                                                :class="{ draggable: index != 0 }"
-                                            >
-                                                <div class="bg-fill-light w-full p-4 mt-4">
-                                                    <el-form-item label="导航图标">
-                                                        <material-picker
-                                                            v-model="element.unselected"
-                                                            upload-class="bg-body"
-                                                            size="60px"
-                                                        >
-                                                            <template #upload>
-                                                                <div
-                                                                    class="upload-btn w-[60px] h-[60px]"
-                                                                >
-                                                                    <icon
-                                                                        name="el-icon-Plus"
-                                                                        :size="16"
-                                                                    />
-                                                                    <span class="text-xs leading-5">
-                                                                        未选中
-                                                                    </span>
-                                                                </div>
-                                                            </template>
-                                                        </material-picker>
-                                                        <material-picker
-                                                            v-model="element.selected"
-                                                            upload-class="bg-body"
-                                                            size="60px"
-                                                        >
-                                                            <template #upload>
-                                                                <div
-                                                                    class="upload-btn w-[60px] h-[60px]"
-                                                                >
-                                                                    <icon
-                                                                        name="el-icon-Plus"
-                                                                        :size="16"
-                                                                    />
-                                                                    <span class="text-xs leading-5">
-                                                                        选中
-                                                                    </span>
-                                                                </div>
-                                                            </template>
-                                                        </material-picker>
-                                                    </el-form-item>
-                                                    <el-form-item label="导航名称">
-                                                        <el-input
-                                                            v-model="element.name"
-                                                            placeholder="请输入名称"
-                                                        />
-                                                    </el-form-item>
-                                                    <el-form-item label="链接地址">
-                                                        <link-picker v-model="element.link" />
-                                                    </el-form-item>
-                                                    <el-form-item label="是否显示">
-                                                        <div class="flex-1 flex items-center">
-                                                            <el-switch
-                                                                v-model="element.is_show"
-                                                                :active-value="1"
-                                                                :inactive-value="0"
-                                                                :disabled="index === 0"
-                                                                @change="handleShowChange(element)"
-                                                            />
-                                                            <div
-                                                                class="drag-move cursor-move ml-auto"
-                                                            >
-                                                                <icon
-                                                                    name="el-icon-Rank"
-                                                                    size="18"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </el-form-item>
-                                                </div>
-                                            </del-wrap>
-                                        </template>
-                                    </draggable>
-                                </div>
-
-                                <el-form-item v-if="tabbar.list?.length < max" label-width="0">
-                                    <el-button type="primary" @click="handleAdd">
-                                        添加导航
-                                    </el-button>
-                                </el-form-item>
-                            </el-tab-pane>
-                            <el-tab-pane label="样式设置" name="styles">
-                                <el-form-item label="默认颜色">
-                                    <color-picker
-                                        class="max-w-[400px]"
-                                        v-model="tabbar.style.default_color"
-                                        default-color="#999999"
-                                    />
-                                </el-form-item>
-                                <el-form-item label="选中颜色">
-                                    <color-picker
-                                        class="max-w-[400px]"
-                                        v-model="tabbar.style.selected_color"
-                                        default-color="#4173ff"
-                                    />
-                                </el-form-item>
-                            </el-tab-pane>
-                        </el-tabs>
-                    </el-form>
-                </div>
+                </ElScrollbar>
             </div>
-        </el-card>
-        <footer-btns class="mt-4" :fixed="false" v-perms="['decorate:tabbar:save']">
+        </div>
+
+        <footer-btns :fixed="true" v-perms="['decorate:tabbar:save']">
             <el-button type="primary" @click="setData">保存</el-button>
         </footer-btns>
     </div>
 </template>
 <script lang="ts" setup name="decorationTabbar">
-import { getDecorateTabbar, setDecorateTabbar } from '@/api/decoration'
-import feedback from '@/utils/feedback'
-import Draggable from 'vuedraggable'
+import {getDecorateTabbar, setDecorateTabbar} from '@/api/decoration'
+import Menu from './component/pages/menu.vue'
+import mobileTab from './component/tabbar/mobile'
+// import pcTab from './component/tabbar/pc'
 
-const max = 5
-const min = 2
-const tabbar = reactive({
-    style: {
-        default_color: '',
-        selected_color: ''
-    },
-    list: [] as any
+enum ClientTypeEnum {
+    MOBILE = '1',
+    PC = '2'
+}
+
+const activeMenu = ref(ClientTypeEnum.MOBILE)
+const menus: Record<
+    string,
+    {
+        id: number
+        name: string
+        type: number
+        data: any
+        component: any
+    }
+> = reactive({
+    [ClientTypeEnum.MOBILE]: {
+        id: 1,
+        type: 1,
+        name: '移动端导航栏',
+        data: {
+            style: {
+                default_color: '',
+                selected_color: ''
+            },
+            list: []
+        },
+        component: mobileTab
+    }
 })
-
-const handleAdd = () => {
-    if (tabbar.list?.length < max) {
-        tabbar.list.push({
-            is_show: true,
-            name: '',
-            selected: '',
-            unselected: '',
-            link: {}
-        })
-    } else {
-        feedback.msgError(`最多添加${max}个`)
-    }
-}
-const handleDelete = (index: number) => {
-    if (tabbar.list?.length <= min) {
-        return feedback.msgError(`最少保留${min}个`)
-    }
-    tabbar.list.splice(index, 1)
-}
-
-const onMove = (e: any) => {
-    if (e.relatedContext.index == 0) {
-        return false
-    }
-    return true
-}
-
+const currentTab = computed(() => {
+    return menus[activeMenu.value]
+})
 const getData = async () => {
-    const data = await getDecorateTabbar()
-    tabbar.list = data.list
-    tabbar.style = data.style
+    const data = await getDecorateTabbar({
+        type: activeMenu.value
+    })
+    menus['1'].data = data
 }
 const setData = async () => {
-    await setDecorateTabbar(toRaw(tabbar))
+    const {data} = currentTab.value
+
+    await setDecorateTabbar({
+        ...data
+    })
     getData()
 }
 
-const showTabbarList = computed(() => {
-    return tabbar.list?.filter((tab: any) => tab.is_show == 1) || []
-})
-
-const handleShowChange = (item: any) => {
-    if (showTabbarList.value.length < min) {
-        item.is_show = 1
-        return feedback.msgError(`最少显示${min}个`)
+watch(
+    activeMenu,
+    () => {
+        getData()
+    },
+    {
+        immediate: true
     }
-}
-getData()
+)
 </script>
 <style lang="scss" scoped>
+$scroll-height: calc(100vh - var(--navbar-height) - 74px);
 .decoration-tabbar {
-    min-height: calc(100vh - var(--navbar-height) - 80px);
+    height: $scroll-height;
+    width: 100%;
     @apply flex flex-col;
-    .pages-preview {
-        background-color: #f7f7f7;
-        width: 360px;
-        height: 615px;
-        color: #333;
-        position: relative;
-        .tabbar {
-            position: absolute;
-            height: 50px;
-            background-color: #fff;
-            bottom: 0;
-            width: 100%;
-            border: 2px solid var(--el-color-primary);
+    .scroll-view-content {
+        height: calc($scroll-height - 60px);
+    }
+
+    .pages-preview-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+
+        .pages-preview {
+            background-color: #ffffff;
+            width: 360px;
+            height: 615px;
+            color: #333;
+            position: relative;
         }
+    }
+
+    .nav-item {
+        &:hover {
+            .drag-move {
+                display: block;
+            }
+        }
+    }
+
+    .attr-setting {
+        width: 450px;
+        height: 100%;
     }
 }
 </style>

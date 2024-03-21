@@ -1,0 +1,13 @@
+1.8.0
+装修数据及菜单数据有调整，请备份后谨慎更新
+
+表结构调整
+la_decorate_page
+la_recharge_order
+
+表数据调整
+la_dev_pay_config
+la_dev_pay_way
+la_decorate_tabbar
+la_decorate_page
+la_system_menu

@@ -1,4 +1,12 @@
 <template>
+    <page-meta :page-style="$theme.pageStyle">
+        <!-- #ifndef H5 -->
+        <navigation-bar
+            :front-color="$theme.navColor"
+            :background-color="$theme.navBgColor"
+        />
+        <!-- #endif -->
+    </page-meta>
     <!-- 页面状态 -->
     <page-status :status="status">
         <template #error>
@@ -18,8 +26,9 @@
                         />
                         <!-- 支付状态文字 -->
                         <text class="text-2xl font-medium mt-[20rpx]">{{
-                            paymentStatus['text']
-                        }}</text>
+                                paymentStatus['text']
+                            }}
+                        </text>
                         <view class="text-3xl font-medium mt-[20rpx]">
                             ¥ {{ orderInfo.order.order_amount }}
                         </view>
@@ -76,10 +85,14 @@
 </template>
 
 <script lang="ts" setup>
-import { getPayResult } from '@/api/pay'
-import { PageStatusEnum } from '@/enums/appEnums'
-import { onLoad } from '@dcloudio/uni-app'
-import { computed, reactive, ref } from 'vue'
+import {getPayResult} from '@/api/pay'
+import {PageStatusEnum} from '@/enums/appEnums'
+import {onLoad} from '@dcloudio/uni-app'
+import {computed, reactive, ref} from 'vue'
+import {useRouter} from "uniapp-router-next";
+
+const router = useRouter()
+
 const mapStatus = {
     succeed: {
         text: '支付成功',
@@ -120,17 +133,13 @@ const initPageData = () => {
 }
 
 const goHome = () => {
-    uni.reLaunch({
-        url: '/pages/index/index'
-    })
+    router.reLaunch('/pages/index/index')
 }
 
 const goOrder = () => {
     switch (pageOptions.value.from) {
         case 'recharge':
-            uni.navigateTo({
-                url: '/packages/pages/recharge/recharge'
-            })
+            router.navigateBack()
             break
     }
 }

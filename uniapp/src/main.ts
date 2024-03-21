@@ -1,16 +1,14 @@
 import { createSSRApp } from 'vue'
 import App from './App.vue'
 import plugins from './plugins'
-import { setupRouter } from './router'
+import router from './router'
 import './styles/index.scss'
-import './utils/pay'
+import { setupMixin } from './mixins'
 export function createApp() {
     const app = createSSRApp(App)
-
-    Promise.resolve().then(() => {
-        setupRouter()
-    })
+    setupMixin(app)
     app.use(plugins)
+    app.use(router)
     return {
         app
     }

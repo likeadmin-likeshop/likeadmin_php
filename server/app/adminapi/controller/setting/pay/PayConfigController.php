@@ -11,14 +11,13 @@
 // +----------------------------------------------------------------------
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
-
 namespace app\adminapi\controller\setting\pay;
-
 
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\lists\setting\pay\PayConfigLists;
 use app\adminapi\logic\setting\pay\PayConfigLogic;
 use app\adminapi\validate\setting\PayConfigValidate;
+use think\response\Json;
 
 /**
  * 支付配置
@@ -31,11 +30,11 @@ class PayConfigController extends BaseAdminController
 
     /**
      * @notes 设置支付配置
-     * @return \think\response\Json
+     * @return Json
      * @author 段誉
      * @date 2023/2/23 16:14
      */
-    public function setConfig()
+    public function setConfig(): Json
     {
         $params = (new PayConfigValidate())->post()->goCheck();
         PayConfigLogic::setConfig($params);
@@ -45,11 +44,11 @@ class PayConfigController extends BaseAdminController
 
     /**
      * @notes 获取支付配置
-     * @return \think\response\Json
+     * @return Json
      * @author 段誉
      * @date 2023/2/23 16:14
      */
-    public function getConfig()
+    public function getConfig(): Json
     {
         $id = (new PayConfigValidate())->goCheck('get');
         $result = PayConfigLogic::getConfig($id);
@@ -59,11 +58,11 @@ class PayConfigController extends BaseAdminController
 
     /**
      * @notes
-     * @return \think\response\Json
+     * @return Json
      * @author 段誉
      * @date 2023/2/23 16:15
      */
-    public function lists()
+    public function lists(): Json
     {
         return $this->dataLists(new PayConfigLists());
     }

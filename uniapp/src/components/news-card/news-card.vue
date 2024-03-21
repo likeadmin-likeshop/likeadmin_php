@@ -5,7 +5,7 @@
                 <u-image :src="item.image" width="240" height="180"></u-image>
             </view>
             <view class="news-card-content flex flex-col justify-between flex-1">
-                <view class="news-card-content-title text-lg font-medium">{{ item.title }}</view>
+                <view class="news-card-content-title text-base">{{ item.title }}</view>
                 <view class="news-card-content-intro text-gray-400 text-sm mt-[16rpx]">
                     {{ item.desc }}
                 </view>

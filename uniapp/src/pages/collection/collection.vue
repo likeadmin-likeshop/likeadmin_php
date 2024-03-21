@@ -1,4 +1,12 @@
 <template>
+    <page-meta :page-style="$theme.pageStyle">
+        <!-- #ifndef H5 -->
+        <navigation-bar
+            :front-color="$theme.navColor"
+            :background-color="$theme.navBgColor"
+        />
+        <!-- #endif -->
+    </page-meta>
     <z-paging
         ref="paging"
         v-model="collectData"

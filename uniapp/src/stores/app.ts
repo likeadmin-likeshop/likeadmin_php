@@ -18,7 +18,7 @@ export const useAppStore = defineStore({
     },
     actions: {
         getImageUrl(url: string) {
-            return url ? `${this.config.domain}${url}` : ''
+            return url.indexOf('http') ? `${this.config.domain}${url}` : url
         },
         async getConfig() {
             const data = await getConfig()

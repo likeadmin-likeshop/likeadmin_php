@@ -1,4 +1,12 @@
 <template>
+    <page-meta :page-style="$theme.pageStyle">
+        <!-- #ifndef H5 -->
+        <navigation-bar
+            :front-color="$theme.navColor"
+            :background-color="$theme.navBgColor"
+        />
+        <!-- #endif -->
+    </page-meta>
     <view class="as-us flex flex-1 flex-col items-center">
         <image :src="appStore.getWebsiteConfig.shop_logo" mode="" class="img"></image>
         <view class="text-content mt-[20rpx]">当前版本{{ appStore.config.version }}</view>

@@ -5,7 +5,8 @@ export default () => ({
         title: '添加客服二维码',
         time: '',
         mobile: '',
-        qrcode: ''
+        qrcode: '',
+        remark: ''
     },
     styles: {}
 })

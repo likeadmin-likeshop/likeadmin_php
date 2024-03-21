@@ -20,6 +20,7 @@ use app\common\enum\YesNoEnum;
 use app\common\model\pay\PayWay;
 use app\common\model\recharge\RechargeOrder;
 use app\common\model\user\User;
+use app\common\service\pay\AliPayService;
 use app\common\service\pay\WeChatPayService;
 
 
@@ -163,7 +164,6 @@ class PaymentLogic extends BaseLogic
         }
     }
 
-
     /**
      * @notes 支付
      * @param $payWay
@@ -171,9 +171,10 @@ class PaymentLogic extends BaseLogic
      * @param $order
      * @param $terminal
      * @param $redirectUrl
-     * @return array|false|mixed|string
-     * @author 段誉
-     * @date 2023/2/28 12:15
+     * @return array|false|mixed|string|string[]
+     * @throws \Exception
+     * @author mjf
+     * @date 2024/3/18 16:49
      */
     public static function pay($payWay, $from, $order, $terminal, $redirectUrl)
     {
@@ -195,10 +196,16 @@ class PaymentLogic extends BaseLogic
             return ['pay_way' => PayEnum::BALANCE_PAY];
         }
 
+        $payService = null;
         switch ($payWay) {
             case PayEnum::WECHAT_PAY:
                 $payService = (new WeChatPayService($terminal, $order['user_id'] ?? null));
                 $order['pay_sn'] = $paySn;
+                $order['redirect_url'] = $redirectUrl;
+                $result = $payService->pay($from, $order);
+                break;
+            case PayEnum::ALI_PAY:
+                $payService = (new AliPayService($terminal));
                 $order['redirect_url'] = $redirectUrl;
                 $result = $payService->pay($from, $order);
                 break;
@@ -212,9 +219,6 @@ class PaymentLogic extends BaseLogic
         }
         return $result;
     }
-
-
-
 
     /**
      * @notes 设置订单号 支付回调时截取前面的单号 18个

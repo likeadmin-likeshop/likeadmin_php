@@ -90,7 +90,7 @@ class IndexLogic extends BaseLogic
      */
     public static function getDecorate($id)
     {
-        return DecoratePage::field(['type', 'name', 'data'])
+        return DecoratePage::field(['type', 'name', 'data', 'meta'])
             ->findOrEmpty($id)->toArray();
     }
 
