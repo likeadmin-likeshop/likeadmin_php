@@ -7,9 +7,9 @@ const styles = {
   "layouts/default.vue": () => import('./_nuxt/default-styles.fe152912.mjs').then(interopDefault),
   "components/cropper-upload/index.vue?vue&type=script&setup=true&lang.ts": () => import('./_nuxt/index.vue.7946ff16.mjs').then(interopDefault),
   "layouts/components/header/index.vue": () => import('./_nuxt/index-styles.085979ab.mjs').then(interopDefault),
-  "layouts/components/header/search.vue": () => import('./_nuxt/search-styles.1d570787.mjs').then(interopDefault),
   "layouts/components/menu/index.vue": () => import('./_nuxt/index-styles.af585307.mjs').then(interopDefault),
-  "layouts/components/header/navbar.vue": () => import('./_nuxt/navbar-styles.97c16b38.mjs').then(interopDefault)
+  "layouts/components/header/navbar.vue": () => import('./_nuxt/navbar-styles.97c16b38.mjs').then(interopDefault),
+  "layouts/components/header/search.vue": () => import('./_nuxt/search-styles.1d570787.mjs').then(interopDefault)
 };
 
 export { styles as default };
