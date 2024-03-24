@@ -31,7 +31,12 @@
   ```
 如果需要自定义参数永久挂载数据，在终端运行以下命令，其中"[]"改成自定义参数。
 ```shell
-docker run -d --name likeadmin_php -v 【主机存储数据库路径】:/var/lib/mysql -v 【主机存储项目代码文件路径】:/var/www/html/likeadmin_php -p 【访问端口】:80 -e MYSQL_ROOT_PASSWORD=【Mysql密码】  likeshop/likeadmin_php:latest
+docker run -d --name likeadmin_php\
+-v 【主机存储数据库路径】:/var/lib/mysql\
+-v 【主机存储项目代码文件路径】:/var/www/html/likeadmin_php\
+-p 【访问端口】:80\
+-e MYSQL_ROOT_PASSWORD=【Mysql密码】\
+likeshop/likeadmin_php:latest
 ```
 
 
