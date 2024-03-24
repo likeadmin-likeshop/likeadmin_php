@@ -1,23 +1,24 @@
- <a href="https://www.mddai.cn">![gitee头图 java.png](https://resource.likeshop.cn/gitee/mddai.png)</a><br>
+ <a href="https://www.likeshop.cn">![gitee头图 java.png](/server/public/readme/likeshop.png)</a><br>
  <h1 align="center">likeadmin（PHP）通用管理后台</h1>
-<h4 align="center">🚀快速开发、🛠️ 一键生成代码、✅后台多端自适应、📱手机端、🖥️PC（电脑）端前台</h4> 
+<h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
 <p align="center">
 <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8-8892bf"></a> <a href="https://www.tslang.cn/"><img src="https://img.shields.io/badge/TypeScript-3-294e80"></a> <a href="#"><img src="https://img.shields.io/badge/ThinkPHP-6.0-6fb737"></a> <a href="#"><img src="https://img.shields.io/badge/Vue.js-3-4eb883"></a> <a href="#"><img src="https://img.shields.io/badge/vite-2-ffc018"></a> <a href="#"><img src="https://img.shields.io/badge/Element Plus-2-409eff"></a> <a href="https://uniapp.dcloud.io/"><img src="https://img.shields.io/badge/uniapp--d85806"></a> <a href="https://www.nuxtjs.cn/"><img src="https://img.shields.io/badge/Nuxt.js--18bc78"></a>
 </p>
 <p align="center">
 <a href="https://mp.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-公众号-05ce66"></a>
 <a href="https://mp.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-小程序-05ce66"></a>
-<a href="https://pay.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-支付API3-05ce66"></a>
 <a href="https://open.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-开放平台-05ce66"></a>
+<a href="https://pay.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-支付API3-05ce66"></a>
 <a href="https://cloud.tencent.com/"><img src="https://img.shields.io/badge/腾讯云-COS-00a3ff"></a>
 <a href="https://cloud.tencent.com/"><img src="https://img.shields.io/badge/腾讯云-短信-00a3ff"></a>
+<a href="https://www.alipay.com"><img src="https://img.shields.io/badge/支付宝-支付-00a0eb"></a>
 <a href="https://www.aliyun.com/"><img src="https://img.shields.io/badge/阿里云-OSS-ff6a00"></a>
 <a href="https://www.aliyun.com/"><img src="https://img.shields.io/badge/阿里云-短信-ff6a00"></a>
 <a href="https://www.qiniu.com/"><img src="https://img.shields.io/badge/七牛云-OSS-07beff"></a>
 </p>
 </p>
 <div align="center">
-  <img  width="80%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=9cf02b831e49d6a411bafbc4d79f51d4" /><br>
+  <img src="/server/public/readme/likeadmin.png" /><br>
 </div>
 <br>
 <br>
@@ -28,16 +29,19 @@
   ```shell
   docker run -d --name likeadmin_php -p 20221:80 likeshop/likeadmin_php:1.6.0
   ```
-2.访问安装程序：http://127.0.0.1:20221
-<br>
-### 本地访问
-命令运行完毕以后，访问不了，请稍等10秒，安装界面数据库信息按默认，请勿更改。由于谷歌浏览器对本地部署不友好原因，访问的链接下面尾部有/就带上/。<br>
 
+  ### 访问
+访问安装程序：http://127.0.0.1:20221
 PC端管理后台：http://127.0.0.1:20221/admin/login
-<br>PC端前台：http://127.0.0.1:20221/pc/
-<br>手机端前台：http://127.0.0.1:20221/mobile/
+PC端前台：http://127.0.0.1:20221/pc/
+手机端前台：http://127.0.0.1:20221/mobile/
+<br>
 ### ⚠️注意
-docker快速部署只适合本地部署体验，不熟悉docker请勿用于生产环境，可能造成数据丢失等问题。
+1.安装的时候，数据默认帐号为root，默认密码为root。
+2.docker快速部署只适合本地部署体验，不熟悉docker请勿用于生产环境，可能造成数据丢失等问题。
+
+
+
 <br>
 
 ##  👀体验后台
@@ -45,13 +49,33 @@ docker快速部署只适合本地部署体验，不熟悉docker请勿用于生�
 **地址：https://php.likeadmin.cn/admin <br>
 账号：admin 密码：123456**
 ### 微信小程序前台
-<img  width="40%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=1d806dc4d79c267737e9b5fa79835e59" /><br>
+<img  width="40%"  src="/server/public/readme/mnp.jpg" /><br>
 ### 手机端网页前台
 https://php.likeadmin.cn/mobile
 ### PC（电脑）端网页前台
 https://php.likeadmin.cn/pc/
 ### 开发文档
 地址：[https://www.likeadmin.cn](https://www.likeadmin.cn "https://www.likeadmin.cn")
+
+### 🖥️界面预览
+![](/server/public/readme/admin-1.png)
+![](/server/public/readme/admin-2.png)
+![](/server/public/readme/admin-3.png)
+![](/server/public/readme/admin-4.png)
+<br>
+### 📱手机端前台界面
+<center class="half">
+<img  width="23%"  src="/server/public/readme/mobile-1.png" />
+<img  width="23%"  src="/server/public/readme/mobile-2.png" />
+<img  width="23%"  src="/server/public/readme/mobile-3.png" />
+<img  width="23%"  src="/server/public/readme/mobile-4.png" />
+</center> <br>
+
+### 🖥️PC端前台界面
+![](/server/public/readme/pc-1.png)
+![](/server/public/readme/pc-2.png)
+![](/server/public/readme/pc-3.png)
+![](/server/public/readme/pc-4.png)
 
 ## 👨‍💻‍简介
 我们希望能够为开源社区做出更多的贡献，推出永久免费开源的likeadmin通用前后端分离管理后台系统。遵循MIT开源许可协议，您可以免费使用，甚至允许把你基于likeadmin开发的软件应用开源、发布、销售。
@@ -75,18 +99,3 @@ https://php.likeadmin.cn/pc/
 PC端前台使用Nuxt.js，支持服务器端渲染(SSR)，对SEO友好。
 ### 🛠️ 代码生成器
 一键生成前后端业务代码，大大提示开发效率。
-### 🖥️界面预览
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=c8f9673f87634d8a2f7f927fb4beff26) <br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=9cf02b831e49d6a411bafbc4d79f51d4) <br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=e22d40bd4927e5188d2ab6e023728945) <br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=818d843fb9cba396226e32dad1a58f3c) <br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=194ab31919cd4dd619e6c453d7a44304) <br>
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=f6770e2a8069d7b6ea3d83b91204b9d6) <br>
-<br>
-### 📱手机端前台界面
-<center class="half">
-<img  width="30%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=2dbac190afadfb6650a04c8af44980e1" />  <img  width="30%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=73adbdb91ff5c43ca3e694a99effae7a" />  <img  width="30%"  src="https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=55b51eaebd7d696f96ccbf60d4694368" />
-</center> <br>
-
-### 🖥️PC端前台界面
-![](https://md.likeshop.cn/server/index.php?s=/api/attachment/visitFile&sign=479257a7d709401147f17c9e1d7eb0fd)
