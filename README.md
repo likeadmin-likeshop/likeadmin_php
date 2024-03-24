@@ -27,7 +27,7 @@
 ### 快速部署
 1.安装启动 [docker](https://www.docker.com/) 之后，在终端运行以下命令即可体验。<br>
   ```shell
-  docker run -d --name likeadmin_php -p 20221:80 likeshop/likeadmin_php:1.6.0
+   docker run -d --name likeadmin_php -p 20221:80 likeshop/likeadmin_php
   ```
 
   ### 访问
