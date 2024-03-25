@@ -1,4 +1,3 @@
- <a href="https://www.likeshop.cn">![gitee头图 java.png](/server/public/readme/likeshop.png)</a><br>
  <h1 align="center">likeadmin（PHP）通用管理后台</h1>
 <h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
 <p align="center">
@@ -21,7 +20,8 @@
   <img src="/server/public/readme/likeadmin.png" /><br>
 </div>
 <br>
-<br>
+
+ <a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
 
 ## 🚀🚀🚀docker本地一句命令快速部署体验
 ### 🐳快速部署
@@ -31,11 +31,11 @@
   ```
 如果需要自定义参数永久挂载数据，在终端运行以下命令，其中"[]"改成自定义参数。
 ```shell
-docker run -d --name likeadmin_php\
--v 【主机存储数据库路径】:/var/lib/mysql\
--v 【主机存储项目代码文件路径】:/var/www/html/likeadmin_php\
--p 【访问端口】:80\
--e MYSQL_ROOT_PASSWORD=【Mysql密码】\
+docker run -d --name likeadmin_php \
+-v 【主机存储数据库路径】:/var/lib/mysql \
+-v 【主机存储项目代码文件路径】:/var/www/html/likeadmin_php \
+-p 【访问端口】:80 \
+-e MYSQL_ROOT_PASSWORD=【Mysql密码】 \
 likeshop/likeadmin_php:latest
 ```
 
