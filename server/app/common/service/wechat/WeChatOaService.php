@@ -56,7 +56,7 @@ class WeChatOaService
     /**
      * @notes 配置
      * @return array
-     * @throws \Exception
+     * @throws Exception
      * @author 段誉
      * @date 2023/2/27 12:03
      */
@@ -64,7 +64,7 @@ class WeChatOaService
     {
         $config = WeChatConfigService::getOaConfig();
         if (empty($config['app_id']) || empty($config['secret'])) {
-            throw new \Exception('请先设置公众号配置');
+            throw new Exception('请先设置公众号配置');
         }
         return $config;
     }
