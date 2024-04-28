@@ -1,0 +1,1 @@
+function t(t,o,s){}const o={methods:{dispatch(t,o,s){let a=this.$parent||this.$root,n=a.$options.name;for(;a&&(!n||n!==t);)a=a.$parent,a&&(n=a.$options.name);a&&a[o](s)},broadcast(o,s,a){t.call(this,o,s,a)}}};export{o as E};
