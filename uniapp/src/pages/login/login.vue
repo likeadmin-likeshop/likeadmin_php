@@ -352,7 +352,7 @@ const loginHandle = async (data: any) => {
     } else if (cache.get(BACK_URL)) {
         try {
             router.redirectTo(cache.get(BACK_URL))
-        } finally {
+        } catch (error) {
             router.switchTab(cache.get(BACK_URL))
         }
     } else {
