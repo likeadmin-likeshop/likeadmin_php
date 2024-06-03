@@ -1,4 +1,8 @@
- <h1 align="center">likeadmin（PHP）通用管理后台</h1>
+ <a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
+
+ <a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
+ <h1 align="center">likeadmin（PHP）
+ 通用管理后台</h1>
 <h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
 <p align="center">
 <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8-8892bf"></a>
@@ -27,8 +31,6 @@
   <img src="/server/public/readme/likeadmin.png" /><br>
 </div>
 <br>
-
- <a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
 
 ## 🚀🚀🚀docker本地一句命令快速部署体验
 ### 🐳快速部署
@@ -95,7 +97,6 @@ https://php.likeadmin.cn/pc/
 ![](/server/public/readme/pc-1.png)
 ![](/server/public/readme/pc-2.png)
 ![](/server/public/readme/pc-3.png)
-![](/server/public/readme/pc-4.png)
 
 ## 👨‍💻‍简介
 我们希望能够为开源社区做出更多的贡献，推出永久免费开源的likeadmin通用前后端分离管理后台系统。遵循MIT开源许可协议，您可以免费使用，甚至允许把你基于likeadmin开发的软件应用开源、发布、销售。
