@@ -150,7 +150,7 @@
         <refund-log v-model="showRefundLog" :refund-id="selectRefundId" />
     </div>
 </template>
-<script lang="ts" setup name="articleLists">
+<script lang="ts" setup name="refundRecord">
 import { refundRecord, refundAgain, refundStat } from '@/api/finance'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'

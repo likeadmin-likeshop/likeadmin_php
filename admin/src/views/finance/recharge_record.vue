@@ -112,7 +112,7 @@
         </el-card>
     </div>
 </template>
-<script lang="ts" setup name="articleLists">
+<script lang="ts" setup name="rechargeRecord">
 import { rechargeLists, refund } from '@/api/finance'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'

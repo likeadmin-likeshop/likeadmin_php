@@ -78,7 +78,7 @@
         </el-card>
     </div>
 </template>
-<script lang="ts" setup name="articleLists">
+<script lang="ts" setup name="balanceDetail">
 import { getUmChangeType, accountLog } from '@/api/finance'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
