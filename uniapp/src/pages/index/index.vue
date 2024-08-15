@@ -52,6 +52,24 @@
             />
         </view>
 
+        <!--  #ifdef H5  -->
+        <view class="text-center py-4">
+            <router-navigate
+                class="mx-1 text-xs text-[#495770]"
+                :to="{
+                    path: '/pages/webview/webview',
+                    query: {
+                        url: item.value
+                    }
+                }"
+                v-for="item in appStore.getCopyrightConfig"
+                :key="item.key"
+            >
+                {{ item.key }}
+            </router-navigate>
+        </view>
+        <!--  #endif  -->
+
         <!-- 返回顶部按钮 -->
         <u-back-top
             :scroll-top="scrollTop"
@@ -77,11 +95,13 @@
 import {getIndex} from '@/api/shop'
 import {onLoad, onPageScroll} from "@dcloudio/uni-app";
 import {computed, reactive, ref} from 'vue'
+import {useAppStore} from '@/stores/app'
 
 // #ifdef MP
 import MpPrivacyPopup from './component/mp-privacy-popup.vue'
 // #endif
 
+const appStore = useAppStore()
 const state = reactive<{
     pages: any[]
     meta: any[]
