@@ -85,11 +85,8 @@ const router = useRouter();
 
 const handleClick = (index: number) => {
     const link = props.content.data[index]?.link;
-    if (link.type === LinkTypeEnum.MINI_PROGRAM) {
-        navigateToMiniProgram(link)
-    } else if (link) {
-        navigateTo(link);
-    }
+    if (!link) return
+    navigateTo(link);
 };
 
 const handleChange = (index: number) => {
