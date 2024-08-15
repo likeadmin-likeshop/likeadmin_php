@@ -2,7 +2,7 @@
     <div class="link flex">
         <el-menu
             :default-active="activeMenu"
-            class="w-[160px] min-h-[350px] link-menu"
+            class="flex-none w-[180px] min-h-[350px] link-menu"
             :default-openeds="[MenuTypeEnum.SHOP_PAGES, MenuTypeEnum.APPTOOL, MenuTypeEnum.OTHER_LINK]"
             @select="handleSelect"
         >
@@ -24,7 +24,7 @@
                 </el-menu-item>
             </el-sub-menu>
         </el-menu>
-        <div class="flex-1 pl-4">
+        <div class="flex-1 ml-4 link-content">
             <shop-pages v-model="activeLink" v-if="LinkTypeEnum.SHOP_PAGES == activeMenu"/>
             <article-list v-model="activeLink" v-if="LinkTypeEnum.ARTICLE_LIST == activeMenu"/>
             <custom-link v-model="activeLink" v-if="LinkTypeEnum.CUSTOM_LINK == activeMenu"/>
@@ -136,17 +136,29 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.link-menu {
-    --el-menu-item-height: 40px;
+.link {
+    .link-menu {
+        --el-menu-item-height: 40px;
+        border-radius: 8px;
+        border: 1px solid var(--el-border-color);
 
-    :deep(.el-menu-item) {
-        border-color: transparent;
+        :deep(.el-menu-item) {
+            border-color: transparent;
 
-        &.is-active {
-            border-right-width: 2px;
-            border-color: var(--el-color-primary);
-            background-color: var(--el-color-primary-light-9);
+            &.is-active {
+                border-right-width: 2px;
+                border-color: var(--el-color-primary);
+                background-color: var(--el-color-primary-light-9);
+            }
         }
     }
+
+    .link-content {
+        padding: 12px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        border: 1px solid var(--el-border-color);
+    }
 }
+
 </style>

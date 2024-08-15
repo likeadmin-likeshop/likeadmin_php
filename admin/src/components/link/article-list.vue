@@ -24,7 +24,7 @@
             size="large"
             v-loading="pager.loading"
             :data="pager.lists"
-            height="460px"
+            height="432px"
             @row-click="handleSelectItem"
         >
             <el-table-column label="选择" min-width="50">
