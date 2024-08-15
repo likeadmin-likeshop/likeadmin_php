@@ -105,4 +105,10 @@ const handleInput = (key: 'appId' | 'path' | 'env_version' | 'query', value: str
         type: LinkTypeEnum.MINI_PROGRAM
     })
 }
+
+watch(() => props.modelValue, (value) => {
+    if (!value.query?.env_version) {
+        handleInput('env_version', 'release')
+    }
+}, { immediate: true })
 </script>
