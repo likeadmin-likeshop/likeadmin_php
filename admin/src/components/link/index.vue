@@ -28,6 +28,7 @@
             <shop-pages v-model="activeLink" v-if="LinkTypeEnum.SHOP_PAGES == activeMenu"/>
             <article-list v-model="activeLink" v-if="LinkTypeEnum.ARTICLE_LIST == activeMenu"/>
             <custom-link v-model="activeLink" v-if="LinkTypeEnum.CUSTOM_LINK == activeMenu"/>
+            <mini-program v-model="activeLink" v-if="LinkTypeEnum.MINI_PROGRAM == activeMenu"/>
         </div>
     </div>
 </template>
@@ -38,6 +39,7 @@ import {LinkTypeEnum, MenuTypeEnum, type Link} from '.'
 import ShopPages from './shop-pages.vue'
 import CustomLink from './custom-link.vue'
 import ArticleList from './article-list.vue'
+import MiniProgram from './mini-program.vue'
 
 const props = defineProps({
     modelValue: {
@@ -79,6 +81,11 @@ const menus = ref([
             {
                 name: "自定义链接",
                 type: LinkTypeEnum.CUSTOM_LINK,
+                link: {},
+            },
+            {
+                name: "小程序跳转",
+                type: LinkTypeEnum.MINI_PROGRAM,
                 link: {},
             },
         ],

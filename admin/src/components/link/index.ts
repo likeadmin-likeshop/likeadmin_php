@@ -7,7 +7,8 @@ export enum MenuTypeEnum {
 export enum LinkTypeEnum {
     'SHOP_PAGES' = 'shop',
     'ARTICLE_LIST' = 'article',
-    'CUSTOM_LINK' = 'custom'
+    'CUSTOM_LINK' = 'custom',
+    'MINI_PROGRAM' = 'mini_program'
 }
 
 export interface Link {
