@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import LSwiper from '@/components/l-swiper/l-swiper.vue'
 import {useAppStore} from "@/stores/app";
 

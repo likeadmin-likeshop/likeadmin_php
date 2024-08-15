@@ -49,7 +49,8 @@ interface Link {
 
 export enum LinkTypeEnum {
     'SHOP_PAGES' = 'shop',
-    'CUSTOM_LINK' = 'custom'
+    'CUSTOM_LINK' = 'custom',
+    'MINI_PROGRAM' = 'mini_program'
 }
 
 export function navigateTo(link: Link, navigateType: 'navigateTo' | 'switchTab' | 'reLaunch' = 'navigateTo') {
@@ -58,6 +59,14 @@ export function navigateTo(link: Link, navigateType: 'navigateTo' | 'switchTab' 
     (navigateType == 'switchTab' || link.canTab) && uni.switchTab({url})
     navigateType == 'navigateTo' && uni.navigateTo({url})
     navigateType == 'reLaunch' && uni.reLaunch({url})
+}
+
+/**
+ * @description 小程序跳转
+ * @param link 跳转信息，由装修数据进行输入
+ */
+export function navigateToMiniProgram(link: Link) {
+    uni.navigateToMiniProgram(link.query as any)
 }
 
 /**

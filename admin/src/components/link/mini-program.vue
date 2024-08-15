@@ -10,9 +10,9 @@
             <div class="ml-4 flex-1 min-w-[100px]">
                 <el-input
                     class="max-w-[320px]"
-                    :model-value="modelValue.query?.appid"
-                    placeholder="请输入小程序appid"
-                    @input="(value) => handleInput('appid', value)"
+                    :model-value="modelValue.query?.appId"
+                    placeholder="请输入小程序appId"
+                    @input="(value) => handleInput('appId', value)"
                 />
             </div>
         </div>
@@ -23,9 +23,9 @@
             <div class="ml-4 flex-1 min-w-[100px]">
                 <el-input
                     class="max-w-[320px]"
-                    :model-value="modelValue.query?.url"
+                    :model-value="modelValue.query?.path"
                     placeholder="请输入小程序路径链接地址"
-                    @input="(value) => handleInput('url', value)"
+                    @input="(value) => handleInput('path', value)"
                 />
             </div>
         </div>
@@ -46,7 +46,7 @@ const emit = defineEmits<{
     (event: 'update:modelValue', value: Link): void
 }>()
 
-const handleInput = (key: 'appid' | 'url', value: string) => {
+const handleInput = (key: 'appId' | 'path', value: string) => {
     emit('update:modelValue', {
         ...props.modelValue,
         name: '小程序跳转',
