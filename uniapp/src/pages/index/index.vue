@@ -53,7 +53,7 @@
         </view>
 
         <!--  #ifdef H5  -->
-        <view class="text-center py-4">
+        <view class="text-center py-4 mb-12">
             <router-navigate
                 class="mx-1 text-xs text-[#495770]"
                 :to="{
