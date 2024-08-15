@@ -154,7 +154,7 @@ watch(
     }
 
     .link-content {
-        padding: 12px;
+        padding: 20px;
         box-sizing: border-box;
         border-radius: 8px;
         border: 1px solid var(--el-border-color);

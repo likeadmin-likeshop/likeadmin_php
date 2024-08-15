@@ -4,7 +4,7 @@
             跳转小程序
         </div>
         <div class="flex flex-wrap items-center mt-4">
-            <div class="w-[86px]">
+            <div class="w-[86px] text-right">
                 小程序APPID
             </div>
             <div class="ml-4 flex-1 min-w-[100px]">
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="flex flex-wrap items-center mt-4">
-            <div class="w-[86px]">
+            <div class="w-[86px] text-right">
                 小程序路径
             </div>
             <div class="ml-4 flex-1 min-w-[100px]">
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="flex flex-wrap items-center mt-4">
-            <div class="w-[86px]">
+            <div class="w-[86px] text-right">
                 传递参数
             </div>
             <div class="ml-4 flex-1 min-w-[100px]">
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="flex flex-wrap items-center mt-4">
-            <div class="w-[86px]">
+            <div class="w-[86px] text-right">
                 小程序版本
             </div>
             <div class="ml-4 flex-1 min-w-[100px]">

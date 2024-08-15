@@ -4,7 +4,7 @@
             自定义链接
         </div>
         <div class="flex flex-wrap items-center mt-4">
-            <div class="w-[86px]">
+            <div class="w-[86px] text-right">
                 自定义链接
             </div>
             <div class="ml-4 flex-1 min-w-[100px]">
