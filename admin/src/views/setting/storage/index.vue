@@ -3,10 +3,17 @@
         <el-card class="!border-none" shadow="never">
             <el-alert
                 type="warning"
-                title="温馨提示：1.切换存储方式后，需要将资源文件传输至新的存储端；2.请勿随意切换存储方式，可能导致图片无法查看"
+                title="温馨提示："
                 :closable="false"
                 show-icon
-            ></el-alert>
+            >
+                <template #default>
+                    <div>1.使用对象存储，需要将public目录下的资源文件保留原来目录路径传输到对象存储空间。</div>
+                    <div>2.请勿随意切换存储方式，可能导致图片无法查看。</div>
+                    <div>3.需要在对象存储后台设置域名跨域，否则图片生成场景无法使用，例海报合成等。</div>
+                    <div>4.需将对象存储的图片域名添加到微信小程序官方后台request合法域名和downloadFile合法域名。</div>
+                </template>
+            </el-alert>
         </el-card>
         <el-card class="!border-none mt-4" shadow="never" v-loading="state.loading">
             <el-table size="large" :data="state.lists">
