@@ -23,7 +23,7 @@ const requestHooks: RequestHooks = {
             options.header.token = token;
         }
         options.header.version = appConfig.version;
-        options.header.terminal = getClient();
+        // options.header.terminal = getClient();
         return options;
     },
     async responseInterceptorsHook(response, config) {
