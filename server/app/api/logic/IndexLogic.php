@@ -142,6 +142,9 @@ class IndexLogic extends BaseLogic
             'url' => request()->domain() . '/mobile'
         ];
 
+        // 备案信息
+        $copyright = ConfigService::get('copyright', 'config', []);
+
         return [
             'domain' => FileService::getFileUrl(),
             'style' => $style,
@@ -149,7 +152,8 @@ class IndexLogic extends BaseLogic
             'login' => $loginConfig,
             'website' => $website,
             'webPage' => $webPage,
-            'version'=> config('project.version')
+            'version'=> config('project.version'),
+            'copyright' => $copyright,
         ];
     }
 

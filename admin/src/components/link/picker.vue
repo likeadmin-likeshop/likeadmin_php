@@ -10,7 +10,7 @@
                 />
             </template>
         </el-input>
-        <popup ref="popupRef" width="900px" title="链接选择" @confirm="handleConfirm">
+        <popup ref="popupRef" width="1050px" title="链接选择" @confirm="handleConfirm">
             <link-content v-model="activeLink" />
         </popup>
     </div>
@@ -45,7 +45,7 @@ const getLink = computed(() => {
         case LinkTypeEnum.SHOP_PAGES:
             return props.modelValue.name
         case LinkTypeEnum.ARTICLE_LIST:
-            return props.modelValue.name;
+            return props.modelValue.name
         case LinkTypeEnum.CUSTOM_LINK:
             return props.modelValue.query?.url
         default:

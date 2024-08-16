@@ -18,11 +18,11 @@
                                 </template>
                             </material-picker>
                             <div class="ml-3 flex-1">
-                                <div class="flex">
+                                <div class="flex items-center">
                                     <span class="text-tx-regular flex-none mr-3">名称</span>
                                     <el-input v-model="item.name" placeholder="请输入名称" />
                                 </div>
-                                <div class="flex mt-[18px]">
+                                <div class="flex items-center mt-[18px]">
                                     <span class="text-tx-regular flex-none mr-3">链接</span>
                                     <link-picker v-model="item.link" />
                                 </div>

@@ -1,5 +1,6 @@
 import {isObject} from '@vue/shared'
 import {getToken} from './auth'
+import {parseQuery} from "uniapp-router-next";
 
 /**
  * @description 获取元素节点信息（在组件中的元素必须要传ctx）
@@ -49,15 +50,43 @@ interface Link {
 
 export enum LinkTypeEnum {
     'SHOP_PAGES' = 'shop',
-    'CUSTOM_LINK' = 'custom'
+    'CUSTOM_LINK' = 'custom',
+    'MINI_PROGRAM' = 'mini_program'
 }
 
 export function navigateTo(link: Link, navigateType: 'navigateTo' | 'switchTab' | 'reLaunch' = 'navigateTo') {
+    // 如果是小程序跳转
+    if (link.type === LinkTypeEnum.MINI_PROGRAM) {
+        navigateToMiniProgram(link)
+        return
+    }
+
     const url = link?.query ? `${link.path}?${objectToQuery(link?.query)}` : link.path;
 
     (navigateType == 'switchTab' || link.canTab) && uni.switchTab({url})
     navigateType == 'navigateTo' && uni.navigateTo({url})
     navigateType == 'reLaunch' && uni.reLaunch({url})
+}
+
+/**
+ * @description 小程序跳转
+ * @param link 跳转信息，由装修数据进行输入
+ */
+export function navigateToMiniProgram(link: Link) {
+    const query = link.query;
+    // #ifdef H5
+    window.open(
+        `weixin://dl/business/?appid=${query?.appId}&path=${query?.path}&env_version=${query?.env_version}&query=${encodeURIComponent(query?.query)}`
+    )
+    // #endif
+    // #ifdef MP
+    uni.navigateToMiniProgram({
+        appId: query?.appId,
+        path: query?.path,
+        extraData: parseQuery(query?.query),
+        envVersion: query?.env_version,
+    })
+    // #endif
 }
 
 /**

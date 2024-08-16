@@ -3,10 +3,19 @@
         <div class="navbar">
             <div class="flex-1 flex">
                 <div class="navbar-item">
-                    <fold />
+                    <el-tooltip
+                        class="box-item"
+                        effect="dark"
+                        :content="isCollapsed ? '展开菜单' : '收起菜单'"
+                        placement="bottom"
+                    >
+                        <fold />
+                    </el-tooltip>
                 </div>
                 <div class="navbar-item">
-                    <refresh />
+                    <el-tooltip class="box-item" effect="dark" content="刷新" placement="bottom">
+                        <refresh />
+                    </el-tooltip>
                 </div>
                 <div class="flex items-center px-2" v-if="!isMobile && settingStore.showCrumb">
                     <breadcrumb />
@@ -14,13 +23,17 @@
             </div>
             <div class="flex">
                 <div class="navbar-item" v-if="!isMobile">
-                    <full-screen />
+                    <el-tooltip class="box-item" effect="dark" content="全屏" placement="bottom">
+                        <full-screen />
+                    </el-tooltip>
                 </div>
                 <div class="navbar-item">
                     <user-drop-down />
                 </div>
                 <div class="navbar-item">
-                    <setting />
+                    <el-tooltip class="box-item" effect="dark" content="设置" placement="bottom">
+                        <setting />
+                    </el-tooltip>
                 </div>
             </div>
         </div>
@@ -41,6 +54,7 @@ import MultipleTabs from './multiple-tabs.vue'
 import useSettingStore from '@/stores/modules/setting'
 const appStore = useAppStore()
 const isMobile = computed(() => appStore.isMobile)
+const isCollapsed = computed(() => appStore.isCollapsed)
 const settingStore = useSettingStore()
 </script>
 

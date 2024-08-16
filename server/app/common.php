@@ -209,13 +209,13 @@ function clear_file_domain($content)
  */
 function get_file_domain($content)
 {
-    $imgPreg = '/(<img .*?src=")[^https|^http](.*?)(".*?>)/is';
-    $videoPreg = '/(<video .*?src=")[^https|^http](.*?\.mp4)(".*?>)/is';
     $fileUrl = FileService::getFileUrl();
+    $imgPreg = '/(<img .*?src=")(?!https?:\/\/)([^"]*)(".*?>)/is';
+    $videoPreg = '/(<video .*?src=")(?!https?:\/\/)([^"]*)(".*?>)/is';
     $content = preg_replace($imgPreg, "\${1}$fileUrl\${2}\${3}", $content);
-    return preg_replace($videoPreg, "\${1}$fileUrl\${2}\${3}", $content);
+    $content = preg_replace($videoPreg, "\${1}$fileUrl\${2}\${3}", $content);
+    return $content;
 }
-
 
 /**
  * @notes uri小写

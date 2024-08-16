@@ -70,7 +70,7 @@
                 </el-form-item>
 
                 <!-- 角色选择框 -->
-                <el-form-item label="角色" prop="role_id">
+                <el-form-item label="角色" prop="role_id" v-if="formData.root != 1">
                     <el-select
                         v-model="formData.role_id"
                         :disabled="formData.root == 1"

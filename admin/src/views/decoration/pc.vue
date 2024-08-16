@@ -2,12 +2,14 @@
     <div class="decoration-pc min-w-[1100px]">
         <el-card shadow="never" class="!border-none flex-1 flex">
             <div class="text-xl font-medium">首页装修</div>
-            <router-link :to="{
-                path: '/decoration/pc_details',
-                query: {
-                    url: state.pc_url
-                }
-            }">
+            <router-link
+                :to="{
+                    path: '/decoration/pc_details',
+                    query: {
+                        url: state.pc_url
+                    }
+                }"
+            >
                 <el-button class="m-5" type="primary" size="large">去装修</el-button>
             </router-link>
             <el-form>

@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import {useAppStore} from "@/stores/app";
-import {navigateTo} from "@/utils/util";
+import {navigateTo, navigateToMiniProgram, LinkTypeEnum} from "@/utils/util";
 import {watchEffect, computed} from "vue";
 import {useRouter} from "uniapp-router-next";
 
@@ -85,7 +85,7 @@ const router = useRouter();
 
 const handleClick = (index: number) => {
     const link = props.content.data[index]?.link;
-    if (!link) return;
+    if (!link) return
     navigateTo(link);
 };
 

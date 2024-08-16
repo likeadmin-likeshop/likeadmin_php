@@ -1,7 +1,7 @@
 <?php
 return [
     // 系统版本号
-    'version' => '1.8.0',
+    'version' => '1.9.0',
 
     // 官网
     'website' => [
@@ -21,7 +21,7 @@ return [
     // 后台登录
     'admin_login' => [
         // 管理后台登录限制 0-不限制 1-需要限制
-        'login_restrictions' => 0,
+        'login_restrictions' => 1,
         // 限制密码错误次数
         'password_error_times' => 5,
         // 限制禁止多少分钟不能登录

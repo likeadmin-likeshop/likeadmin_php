@@ -1,10 +1,6 @@
 <template>
     <el-scrollbar class="pages-preview-container">
-        <div
-            v-if="pageMeta !== null"
-            class="absolute right-4 top-4"
-            @click="handleClickPageMeta"
-        >
+        <div v-if="pageMeta !== null" class="absolute right-4 top-4" @click="handleClickPageMeta">
             <el-button>页面设置</el-button>
         </div>
         <div class="shadow mx-[30px] pages-preview">
@@ -52,11 +48,7 @@
                         </el-tooltip>
                     </div>
                     <div>
-                        <el-tooltip
-                            effect="dark"
-                            content="上移"
-                            placement="right"
-                        >
+                        <el-tooltip effect="dark" content="上移" placement="right">
                             <el-button
                                 class="py-[5px]"
                                 type="primary"
@@ -67,11 +59,7 @@
                         </el-tooltip>
                     </div>
                     <div>
-                        <el-tooltip
-                            effect="dark"
-                            content="下移"
-                            placement="right"
-                        >
+                        <el-tooltip effect="dark" content="下移" placement="right">
                             <el-button
                                 class="py-[5px]"
                                 type="primary"
@@ -88,9 +76,9 @@
 </template>
 <script lang="ts" setup>
 import widgets from '../widgets'
-import type {PropType} from 'vue'
-import {Hide, View, ArrowUpBold, ArrowDownBold} from "@element-plus/icons-vue";
-import {computed} from "vue";
+import type { PropType } from 'vue'
+import { Hide, View, ArrowUpBold, ArrowDownBold } from '@element-plus/icons-vue'
+import { computed } from 'vue'
 
 const props = defineProps({
     pageMeta: {
@@ -137,7 +125,7 @@ const canMoveUpCom = computed(() => {
 // 是否可以移动组件
 const canMoveDownCom = computed(() => {
     return (index: number) => {
-        return props.pageData?.length === (index + 1)
+        return props.pageData?.length === index + 1
     }
 })
 
@@ -169,7 +157,6 @@ const rearrangeArray = (currentIdx: number, targetIdx: number) => {
 
     emit('update:modelValue', targetIdx)
 }
-
 </script>
 
 <style lang="scss" scoped>

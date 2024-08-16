@@ -88,8 +88,12 @@
                     <el-form-item label="支付授权目录">
                         <div>
                             <div>
-                                <span class="mr-[20px]">{{ formData.domain }}</span>
-                                <el-button link type="primary" v-copy="formData.domain">
+                                <span class="mr-[20px]">https://前台手机域名地址/</span>
+                                <el-button
+                                    link
+                                    type="primary"
+                                    v-copy="formData.domain + '/mobile/'"
+                                >
                                     复制
                                 </el-button>
                             </div>
@@ -150,7 +154,7 @@
                                 v-model="formData.config.ali_public_key"
                                 placeholder="请输入支付宝公钥"
                             />
-                            <span class="form-tips">支付宝公钥（ali_public_key） </span>
+                            <span class="form-tips">支付宝公钥（alipayCertPublicKey） </span>
                         </div>
                     </el-form-item>
                 </template>

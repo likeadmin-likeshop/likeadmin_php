@@ -2,7 +2,7 @@
     <div class="material-select">
         <popup
             ref="popupRef"
-            width="830px"
+            width="1050px"
             custom-class="body-padding"
             :title="`选择${tipsText}`"
             @confirm="handleConfirm"
@@ -309,7 +309,7 @@ export default defineComponent({
 }
 .material-wrap {
     min-width: 720px;
-    height: 430px;
+    height: 560px;
     @apply border-t border-b border-br;
 }
 </style>

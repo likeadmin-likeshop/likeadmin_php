@@ -209,7 +209,7 @@ const formData = reactive({
     //路由参数
     params: '',
     //是否缓存 0=否， 1=是
-    is_cache: 0,
+    is_cache: 1,
     //是否显示 0=否， 1=是
     is_show: 1,
     //是否禁用 0=否， 1=是
