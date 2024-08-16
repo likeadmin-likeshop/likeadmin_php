@@ -84,7 +84,7 @@ const menus = ref([
                 link: {}
             },
             {
-                name: '小程序跳转',
+                name: '跳转小程序',
                 type: LinkTypeEnum.MINI_PROGRAM,
                 link: {}
             }
