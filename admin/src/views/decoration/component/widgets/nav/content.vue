@@ -4,11 +4,7 @@
             class="grid grid-rows-auto gap-y-3 w-full"
             :style="{ 'grid-template-columns': `repeat(${content.per_line}, 1fr)` }"
         >
-            <div
-                v-for="(item, index) in showList"
-                :key="index"
-                class="flex flex-col items-center"
-            >
+            <div v-for="(item, index) in showList" :key="index" class="flex flex-col items-center">
                 <decoration-img width="41px" height="41px" :src="item.image" alt="" />
                 <div class="mt-[7px]">{{ item.name }}</div>
             </div>

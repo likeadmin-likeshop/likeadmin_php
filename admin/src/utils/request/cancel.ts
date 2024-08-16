@@ -5,7 +5,7 @@ const cancelerMap = new Map<string, Canceler>()
 // 获取一个唯一的请求键，它由请求的 URL 和参数组成
 function getRequestKey(config: AxiosRequestConfig): string {
     const { url, method, params, data } = config
-    return [method, url, JSON.stringify(params), JSON.stringify(data)].join("&")
+    return [method, url, JSON.stringify(params), JSON.stringify(data)].join('&')
 }
 
 export class AxiosCancel {

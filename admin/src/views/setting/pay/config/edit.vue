@@ -89,7 +89,11 @@
                         <div>
                             <div>
                                 <span class="mr-[20px]">https://前台手机域名地址/</span>
-                                <el-button link type="primary" v-copy="formData.domain+'/mobile/'">
+                                <el-button
+                                    link
+                                    type="primary"
+                                    v-copy="formData.domain + '/mobile/'"
+                                >
                                     复制
                                 </el-button>
                             </div>

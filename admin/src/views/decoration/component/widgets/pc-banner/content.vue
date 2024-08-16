@@ -1,23 +1,13 @@
 <template>
-    <popup
-        ref="popupRef"
-        title="轮播图设置"
-        :async="true"
-        width="980px"
-        @confirm="handleSubmit"
-    >
-        <el-alert title="最多可添加10张，建议图片尺寸750px*440px" type="warning"/>
+    <popup ref="popupRef" title="轮播图设置" :async="true" width="980px" @confirm="handleSubmit">
+        <el-alert title="最多可添加10张，建议图片尺寸750px*440px" type="warning" />
 
         <el-scrollbar height="400px" class="mt-4">
             <div class="flex flex-wrap p-4">
                 <div v-for="(item, index) in content.data" :key="index" class="w-[400px] mr-4 mb-4">
-                    <del-wrap
-                        :key="index"
-                        @close="handleDelete(index)"
-                        class="w-full"
-                    >
+                    <del-wrap :key="index" @close="handleDelete(index)" class="w-full">
                         <div class="bg-fill-light w-full p-4">
-                            <div class="flex items-center ">
+                            <div class="flex items-center">
                                 <material-picker
                                     width="122px"
                                     height="122px"
@@ -26,14 +16,14 @@
                                     exclude-domain
                                 >
                                     <template #upload>
-                                        <div class="w-[122px] h-[122px] flex justify-center items-center">
+                                        <div
+                                            class="w-[122px] h-[122px] flex justify-center items-center"
+                                        >
                                             轮播图
                                         </div>
                                     </template>
                                 </material-picker>
-                                <link-picker
-                                    v-model="item.link"
-                                />
+                                <link-picker v-model="item.link" />
                             </div>
                         </div>
                     </del-wrap>
@@ -46,10 +36,10 @@
     </popup>
 </template>
 <script lang="ts" setup>
-import type {PropType} from 'vue'
+import type { PropType } from 'vue'
 import type options from './options'
-import Popup from "@/components/popup/index.vue";
-import feedback from "@/utils/feedback";
+import Popup from '@/components/popup/index.vue'
+import feedback from '@/utils/feedback'
 
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 
@@ -96,8 +86,7 @@ const handleDelete = (index: number) => {
     props.content.data.splice(index, 1)
 }
 
-
-defineExpose({open})
+defineExpose({ open })
 </script>
 
 <style lang="scss" scoped></style>

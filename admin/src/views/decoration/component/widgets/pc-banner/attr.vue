@@ -36,11 +36,7 @@
                     handle=".drag-move"
                 >
                     <template v-slot:item="{ element: item, index }">
-                        <del-wrap
-                            :key="index"
-                            @close="handleDelete(index)"
-                            class="w-full"
-                        >
+                        <del-wrap :key="index" @close="handleDelete(index)" class="w-full">
                             <div class="bg-fill-light w-full p-4 mt-4">
                                 <div class="flex justify-center w-[396px]">
                                     <template v-if="content.style == 1">
@@ -81,10 +77,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <el-form-item class="mt-[18px]" label="图片链接">
-                                        <link-picker
-                                            v-if="type == 'mobile'"
-                                            v-model="item.link"
-                                        />
+                                        <link-picker v-if="type == 'mobile'" v-model="item.link" />
                                         <el-input
                                             v-if="type == 'pc'"
                                             placeholder="请输入链接"
@@ -99,7 +92,7 @@
                                                 inactive-value="0"
                                             />
                                             <div class="drag-move cursor-move ml-auto">
-                                                <icon name="el-icon-Rank" size="18"/>
+                                                <icon name="el-icon-Rank" size="18" />
                                             </div>
                                         </div>
                                     </el-form-item>
@@ -117,7 +110,7 @@
 </template>
 <script lang="ts" setup>
 import feedback from '@/utils/feedback'
-import type {PropType} from 'vue'
+import type { PropType } from 'vue'
 import type options from './options'
 import Draggable from 'vuedraggable'
 

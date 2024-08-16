@@ -1,12 +1,8 @@
 <template>
     <div class="custom-link h-[530px]">
-        <div class="text-xl font-medium">
-            自定义链接
-        </div>
+        <div class="text-xl font-medium">自定义链接</div>
         <div class="flex flex-wrap items-center mt-4">
-            <div class="w-[86px] text-right">
-                自定义链接
-            </div>
+            <div class="w-[86px] text-right">自定义链接</div>
             <div class="ml-4 flex-1 min-w-[100px]">
                 <el-input
                     class="max-w-[320px]"

@@ -1,11 +1,11 @@
 {
-  "editor.detectIndentation": false,
-  "editor.tabSize": 4,
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-},
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false
 }

@@ -30,8 +30,8 @@ const handleCommand = async (command: string) => {
     switch (command) {
         case 'logout':
             await feedback.confirm('确定退出登录吗？')
-            userStore.logout();
-            break;
+            userStore.logout()
+            break
         case 'cache':
             // 清理缓存
             await systemCacheClear()

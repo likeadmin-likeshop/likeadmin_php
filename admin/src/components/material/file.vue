@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div class="file-item relative" :style="{ height: height || fileSize, width: width || fileSize }">
+        <div
+            class="file-item relative"
+            :style="{ height: height || fileSize, width: width || fileSize }"
+        >
             <el-image class="image" v-if="type == 'image'" fit="contain" :src="uri"></el-image>
             <video class="video" v-else-if="type == 'video'" :src="uri"></video>
             <el-image

@@ -9,6 +9,7 @@
         "typings/**/*.d.ts"
     ],
     "compilerOptions": {
+        "ignoreDeprecations": "5.0",
         "isolatedModules": true,
         "baseUrl": ".",
         "paths": {
