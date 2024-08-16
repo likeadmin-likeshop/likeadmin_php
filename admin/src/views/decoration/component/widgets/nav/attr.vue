@@ -10,10 +10,7 @@
                     <el-radio :label="2">分页滑动</el-radio>
                 </el-radio-group>
                 <el-form-item label="每行数量" class="mt-4">
-                    <el-select
-                        v-model="content.per_line"
-                        style="width: 300px"
-                    >
+                    <el-select v-model="content.per_line" style="width: 300px">
                         <el-option
                             v-for="item in 5"
                             :key="item"
@@ -23,10 +20,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="显示行数">
-                    <el-select
-                        v-model="content.show_line"
-                        style="width: 300px"
-                    >
+                    <el-select v-model="content.show_line" style="width: 300px">
                         <el-option
                             v-for="item in 2"
                             :key="item"
@@ -39,9 +33,7 @@
             <el-card shadow="never" class="!border-none flex mt-2">
                 <div class="flex items-end">
                     <div class="text-base text-[#101010] font-medium">菜单设置</div>
-                    <div class="text-xs text-tx-secondary ml-2">
-                        建议图片尺寸：100px*100px
-                    </div>
+                    <div class="text-xs text-tx-secondary ml-2">建议图片尺寸：100px*100px</div>
                 </div>
                 <div class="flex-1 mt-4">
                     <AddNav v-model="content.data" />

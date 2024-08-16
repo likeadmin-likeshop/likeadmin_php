@@ -51,7 +51,7 @@ const menus: Record<
     {
         id: number
         name: string
-        pageMeta?: any,
+        pageMeta?: any
         pageData: any[]
     }
 > = reactive({

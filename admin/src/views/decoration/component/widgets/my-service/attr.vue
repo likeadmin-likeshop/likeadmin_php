@@ -3,7 +3,7 @@
         <el-form label-width="70px">
             <el-card shadow="never" class="!border-none flex mt-2">
                 <el-form-item label="标题">
-                    <el-input class="w-[396px]" v-model="content.title"/>
+                    <el-input class="w-[396px]" v-model="content.title" />
                 </el-form-item>
             </el-card>
             <el-card shadow="never" class="!border-none flex mt-2">
@@ -18,19 +18,17 @@
             <el-card shadow="never" class="!border-none flex mt-2">
                 <div class="flex items-end mb-4">
                     <div class="text-base text-[#101010] font-medium">菜单</div>
-                    <div class="text-xs text-tx-secondary ml-2">
-                        建议图片尺寸：100px*100px
-                    </div>
+                    <div class="text-xs text-tx-secondary ml-2">建议图片尺寸：100px*100px</div>
                 </div>
                 <div class="flex-1">
-                    <AddNav v-model="content.data"/>
+                    <AddNav v-model="content.data" />
                 </div>
             </el-card>
         </el-form>
     </div>
 </template>
 <script lang="ts" setup>
-import type {PropType} from 'vue'
+import type { PropType } from 'vue'
 import type options from './options'
 import AddNav from '../../add-nav.vue'
 

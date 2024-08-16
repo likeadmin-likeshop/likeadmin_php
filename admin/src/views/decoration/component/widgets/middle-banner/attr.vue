@@ -16,11 +16,7 @@
                         handle=".drag-move"
                     >
                         <template v-slot:item="{ element: item, index }">
-                            <del-wrap
-                                :key="index"
-                                @close="handleDelete(index)"
-                                class="w-full"
-                            >
+                            <del-wrap :key="index" @close="handleDelete(index)" class="w-full">
                                 <div class="bg-fill-light w-full p-4 mt-4">
                                     <material-picker
                                         width="396px"
@@ -49,7 +45,7 @@
                                                     inactive-value="0"
                                                 />
                                                 <div class="drag-move cursor-move ml-auto">
-                                                    <icon name="el-icon-Rank" size="18"/>
+                                                    <icon name="el-icon-Rank" size="18" />
                                                 </div>
                                             </div>
                                         </el-form-item>
@@ -68,7 +64,7 @@
 </template>
 <script lang="ts" setup>
 import feedback from '@/utils/feedback'
-import type {PropType} from 'vue'
+import type { PropType } from 'vue'
 import type options from './options'
 import Draggable from 'vuedraggable'
 

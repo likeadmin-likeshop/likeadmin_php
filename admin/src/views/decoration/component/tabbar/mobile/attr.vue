@@ -8,7 +8,6 @@
         </div>
     </el-card>
     <el-form label-width="70px">
-
         <el-card shadow="never" class="!border-none flex mt-2">
             <div class="flex items-end mb-4">
                 <div class="text-base text-[#101010] font-medium">展示样式</div>
@@ -31,9 +30,7 @@
         <el-card shadow="never" class="!border-none flex mt-2">
             <div class="flex items-end mb-4">
                 <div class="text-base text-[#101010] font-medium">菜单设置</div>
-                <div class="text-xs text-tx-secondary ml-2">
-                    建议图片尺寸：100px*100px
-                </div>
+                <div class="text-xs text-tx-secondary ml-2">建议图片尺寸：100px*100px</div>
             </div>
             <div class="mb-[18px] max-w-[400px]">
                 <Draggable
@@ -61,7 +58,7 @@
                                     >
                                         <template #upload>
                                             <div class="upload-btn w-[60px] h-[60px]">
-                                                <icon name="el-icon-Plus" :size="16"/>
+                                                <icon name="el-icon-Plus" :size="16" />
                                                 <span class="text-xs leading-5"> 未选中 </span>
                                             </div>
                                         </template>
@@ -74,14 +71,14 @@
                                     >
                                         <template #upload>
                                             <div class="upload-btn w-[60px] h-[60px]">
-                                                <icon name="el-icon-Plus" :size="16"/>
+                                                <icon name="el-icon-Plus" :size="16" />
                                                 <span class="text-xs leading-5"> 选中 </span>
                                             </div>
                                         </template>
                                     </material-picker>
                                 </el-form-item>
                                 <el-form-item label="导航名称">
-                                    <el-input v-model="element.name" placeholder="请输入名称"/>
+                                    <el-input v-model="element.name" placeholder="请输入名称" />
                                 </el-form-item>
                                 <el-form-item label="链接地址">
                                     <link-picker
@@ -100,7 +97,7 @@
                                             @change="handleShowChange(element)"
                                         />
                                         <div class="drag-move cursor-move ml-auto">
-                                            <icon name="el-icon-Rank" size="18"/>
+                                            <icon name="el-icon-Rank" size="18" />
                                         </div>
                                     </div>
                                 </el-form-item>
@@ -116,12 +113,11 @@
                 </el-button>
             </div>
         </el-card>
-
     </el-form>
 </template>
 <script lang="ts" setup>
 import feedback from '@/utils/feedback'
-import type {PropType} from 'vue'
+import type { PropType } from 'vue'
 import Draggable from 'vuedraggable'
 
 const props = defineProps({

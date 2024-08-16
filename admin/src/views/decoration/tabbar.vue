@@ -9,7 +9,7 @@
                             class="!border-none flex"
                             :body-style="{ 'padding-right': 0 }"
                         >
-                            <Menu class="!h-full flex-none" v-model="activeMenu" :menus="menus"/>
+                            <Menu class="!h-full flex-none" v-model="activeMenu" :menus="menus" />
                         </el-card>
                         <div class="flex-1 pages-preview-box">
                             <div class="pages-preview mx-[30px]">
@@ -40,7 +40,7 @@
     </div>
 </template>
 <script lang="ts" setup name="decorationTabbar">
-import {getDecorateTabbar, setDecorateTabbar} from '@/api/decoration'
+import { getDecorateTabbar, setDecorateTabbar } from '@/api/decoration'
 import Menu from './component/pages/menu.vue'
 import mobileTab from './component/tabbar/mobile'
 // import pcTab from './component/tabbar/pc'
@@ -85,7 +85,7 @@ const getData = async () => {
     menus['1'].data = data
 }
 const setData = async () => {
-    const {data} = currentTab.value
+    const { data } = currentTab.value
 
     await setDecorateTabbar({
         ...data

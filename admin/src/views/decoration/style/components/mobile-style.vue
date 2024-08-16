@@ -113,9 +113,8 @@ const themeColors = ref([
     { id: 4, name: '活力橙', color1: '#F7971E', color2: '#FFD200', btnColor: 'black' },
     { id: 5, name: '经典红', color1: '#FF2C3C', color2: '#EF1D2D', btnColor: 'white' },
     { id: 6, name: '美妆色', color1: '#FD498F', color2: '#FA444D', btnColor: 'white' },
-    { id: 7, name: '自定义', color1: '#F8F8F8', color2: '#F5F5F5', btnColor: 'white' },
+    { id: 7, name: '自定义', color1: '#F8F8F8', color2: '#F5F5F5', btnColor: 'white' }
 ])
-
 
 const emit = defineEmits<{
     (event: 'update:modelValue', value: Record<string, any>): void

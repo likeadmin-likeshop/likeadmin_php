@@ -11,23 +11,21 @@
                 >
                     返回
                 </el-button>
-                <el-button v-perms="['decorate:pages:save']" @click="setData">
-                    保存
-                </el-button>
+                <el-button v-perms="['decorate:pages:save']" @click="setData"> 保存 </el-button>
             </div>
         </el-card>
         <div class="flex-1 h-full">
-            <preview-pc v-model="selectWidgetIndex" :pageData="getPageData"/>
+            <preview-pc v-model="selectWidgetIndex" :pageData="getPageData" />
         </div>
     </div>
 </template>
 <script lang="ts" setup name="decorationPc">
 import PreviewPc from './component/pages/preview-pc.vue'
 import widgets from './component/widgets'
-import {getDecoratePages, setDecoratePages} from '@/api/decoration'
-import {getNonDuplicateID} from '@/utils/util'
-import {ArrowLeft} from "@element-plus/icons-vue";
-import feedback from "@/utils/feedback";
+import { getDecoratePages, setDecoratePages } from '@/api/decoration'
+import { getNonDuplicateID } from '@/utils/util'
+import { ArrowLeft } from '@element-plus/icons-vue'
+import feedback from '@/utils/feedback'
 
 const router = useRouter()
 
@@ -63,7 +61,7 @@ const handleBack = async () => {
 }
 
 const getData = async () => {
-    const data = await getDecoratePages({id: activeMenu.value})
+    const data = await getDecoratePages({ id: activeMenu.value })
     menus[String(data.id)].pageData = JSON.parse(data.data)
     selectWidgetIndex.value = getPageData.value.findIndex((item) => !item.disabled)
 }

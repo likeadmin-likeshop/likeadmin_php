@@ -3,14 +3,14 @@
         <el-menu
             :default-active="activeMenu"
             class="flex-none w-[180px] min-h-[350px] link-menu"
-            :default-openeds="[MenuTypeEnum.SHOP_PAGES, MenuTypeEnum.APPTOOL, MenuTypeEnum.OTHER_LINK]"
+            :default-openeds="[
+                MenuTypeEnum.SHOP_PAGES,
+                MenuTypeEnum.APPTOOL,
+                MenuTypeEnum.OTHER_LINK
+            ]"
             @select="handleSelect"
         >
-            <el-sub-menu
-                v-for="(item, index) in menus"
-                :index="item.type"
-                :key="index"
-            >
+            <el-sub-menu v-for="(item, index) in menus" :index="item.type" :key="index">
                 <template #title>
                     <span>{{ item.name }}</span>
                 </template>
@@ -25,17 +25,17 @@
             </el-sub-menu>
         </el-menu>
         <div class="flex-1 ml-4 link-content">
-            <shop-pages v-model="activeLink" v-if="LinkTypeEnum.SHOP_PAGES == activeMenu"/>
-            <article-list v-model="activeLink" v-if="LinkTypeEnum.ARTICLE_LIST == activeMenu"/>
-            <custom-link v-model="activeLink" v-if="LinkTypeEnum.CUSTOM_LINK == activeMenu"/>
-            <mini-program v-model="activeLink" v-if="LinkTypeEnum.MINI_PROGRAM == activeMenu"/>
+            <shop-pages v-model="activeLink" v-if="LinkTypeEnum.SHOP_PAGES == activeMenu" />
+            <article-list v-model="activeLink" v-if="LinkTypeEnum.ARTICLE_LIST == activeMenu" />
+            <custom-link v-model="activeLink" v-if="LinkTypeEnum.CUSTOM_LINK == activeMenu" />
+            <mini-program v-model="activeLink" v-if="LinkTypeEnum.MINI_PROGRAM == activeMenu" />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import type {PropType} from 'vue'
-import {LinkTypeEnum, MenuTypeEnum, type Link} from '.'
+import type { PropType } from 'vue'
+import { LinkTypeEnum, MenuTypeEnum, type Link } from '.'
 import ShopPages from './shop-pages.vue'
 import CustomLink from './custom-link.vue'
 import ArticleList from './article-list.vue'
@@ -79,38 +79,38 @@ const menus = ref([
         type: MenuTypeEnum.OTHER_LINK,
         children: [
             {
-                name: "自定义链接",
+                name: '自定义链接',
                 type: LinkTypeEnum.CUSTOM_LINK,
-                link: {},
+                link: {}
             },
             {
-                name: "跳转小程序",
+                name: '跳转小程序',
                 type: LinkTypeEnum.MINI_PROGRAM,
-                link: {},
-            },
-        ],
+                link: {}
+            }
+        ]
     }
 ])
 
 const activeLink = computed({
     get() {
-        let linkStoreage: any = {};
+        let linkStoreage: any = {}
         menus.value.forEach((item) => {
-            const res = item.children.find((citem) => citem.type == activeMenu.value);
-            if (res) linkStoreage = res;
-        });
-        return linkStoreage.link;
+            const res = item.children.find((citem) => citem.type == activeMenu.value)
+            if (res) linkStoreage = res
+        })
+        return linkStoreage.link
     },
     set(value) {
         menus.value.forEach((item) => {
             item.children.forEach((citem) => {
                 if (citem.type == activeMenu.value) {
-                    citem.link = value;
+                    citem.link = value
                 }
-            });
-        });
-    },
-});
+            })
+        })
+    }
+})
 
 const activeMenu = ref<string>(LinkTypeEnum.SHOP_PAGES)
 
@@ -118,10 +118,14 @@ const handleSelect = (index: string) => {
     activeMenu.value = index
 }
 
-watch(activeLink, (value) => {
-    if (!value.type) return
-    emit('update:modelValue', value)
-}, {deep: true})
+watch(
+    activeLink,
+    (value) => {
+        if (!value.type) return
+        emit('update:modelValue', value)
+    },
+    { deep: true }
+)
 
 watch(
     () => props.modelValue,
@@ -160,5 +164,4 @@ watch(
         border: 1px solid var(--el-border-color);
     }
 }
-
 </style>

@@ -17,8 +17,8 @@
                     :key="widget.id"
                     class="absolute left-0 top-0"
                     :class="{
-                    'cursor-pointer': !widget?.disabled
-                }"
+                        'cursor-pointer': !widget?.disabled
+                    }"
                     @click="handleClick(widget, index)"
                 >
                     <div
@@ -45,15 +45,11 @@
                         v-if="index == modelValue"
                         :style="{
                             top: widget.styles.top,
-                            left:  widget.styles.width
+                            left: widget.styles.width
                         }"
                     >
                         <div>
-                            <el-tooltip
-                                effect="dark"
-                                content="编辑组件内容"
-                                placement="right"
-                            >
+                            <el-tooltip effect="dark" content="编辑组件内容" placement="right">
                                 <el-button
                                     class="py-[5px]"
                                     type="primary"
@@ -84,8 +80,8 @@
 </template>
 <script lang="ts" setup>
 import widgets from '../widgets'
-import type {PropType} from 'vue'
-import {Setting, ArrowLeft, Hide, View} from "@element-plus/icons-vue";
+import type { PropType } from 'vue'
+import { Setting, ArrowLeft, Hide, View } from '@element-plus/icons-vue'
 
 const commonComponentRef = shallowRef<any>()
 

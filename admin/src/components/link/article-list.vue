@@ -10,12 +10,7 @@
                     @keyup.enter="resetPage"
                 >
                 </el-input>
-                <el-button
-                    type="primary"
-                    class="ml-4"
-                    :icon="Search"
-                    @click="resetPage"
-                />
+                <el-button type="primary" class="ml-4" :icon="Search" @click="resetPage" />
             </el-form-item>
         </el-form>
 
@@ -66,43 +61,43 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from "vue";
-import { LinkTypeEnum } from ".";
-import { usePaging } from "@/hooks/usePaging";
-import { articleLists } from "@/api/article";
-import { Search } from "@element-plus/icons-vue";
+import type { PropType } from 'vue'
+import { LinkTypeEnum } from '.'
+import { usePaging } from '@/hooks/usePaging'
+import { articleLists } from '@/api/article'
+import { Search } from '@element-plus/icons-vue'
 
 //TODO TODO
 const props = defineProps({
     modelValue: {
         type: Object as PropType<any>,
-        default: () => ({}),
-    },
-});
+        default: () => ({})
+    }
+})
 const emit = defineEmits<{
-    (event: "update:modelValue", value: any): void;
-}>();
+    (event: 'update:modelValue', value: any): void
+}>()
 
 const selectData = ref<any>({
     path: '/pages/news_detail/news_detail',
     name: '',
     query: {},
-    type: LinkTypeEnum.ARTICLE_LIST,
-});
+    type: LinkTypeEnum.ARTICLE_LIST
+})
 
 const queryParams = reactive<any>({
-    name: "",
+    name: '',
     is_show: 1
-});
+})
 
 const { pager, getLists, resetPage, resetParams } = usePaging({
     fetchFun: articleLists,
-    params: queryParams,
-});
+    params: queryParams
+})
 
 const getSelectItem = (id: number) => {
-    return id == Number(selectData.value.id);
-};
+    return id == Number(selectData.value.id)
+}
 /**
  * @description 选择
  */
@@ -114,30 +109,30 @@ const handleSelectItem = (event: any) => {
         query: {
             id: event.id
         },
-        type: LinkTypeEnum.ARTICLE_LIST,
-    };
+        type: LinkTypeEnum.ARTICLE_LIST
+    }
 
-    emit("update:modelValue", selectData.value);
-};
+    emit('update:modelValue', selectData.value)
+}
 watch(
     () => props.modelValue,
     (value) => {
         if (value.type != LinkTypeEnum.ARTICLE_LIST) {
             return (selectData.value = {
-                id: "",
-                name: "",
+                id: '',
+                name: '',
                 path: '/pages/news_detail/news_detail',
-                type: LinkTypeEnum.SHOP_PAGES,
-            });
+                type: LinkTypeEnum.SHOP_PAGES
+            })
         }
-        selectData.value = value;
+        selectData.value = value
     },
     {
-        immediate: true,
+        immediate: true
     }
-);
+)
 
-getLists();
+getLists()
 </script>
 
 <style lang="scss" scoped>

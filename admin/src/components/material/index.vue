@@ -56,7 +56,14 @@
                                                         </el-dropdown-item>
                                                     </div>
                                                 </popover-input>
-                                                <div @click="handleDeleteCate(data.id, data?.children?.length)">
+                                                <div
+                                                    @click="
+                                                        handleDeleteCate(
+                                                            data.id,
+                                                            data?.children?.length
+                                                        )
+                                                    "
+                                                >
                                                     <el-dropdown-item>删除分组</el-dropdown-item>
                                                 </div>
                                             </el-dropdown-menu>

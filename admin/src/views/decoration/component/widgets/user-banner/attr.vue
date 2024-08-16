@@ -15,11 +15,7 @@
                     handle=".drag-move"
                 >
                     <template v-slot:item="{ element: item, index }">
-                        <del-wrap
-                            :key="index"
-                            @close="handleDelete(index)"
-                            class="w-[467px]"
-                        >
+                        <del-wrap :key="index" @close="handleDelete(index)" class="w-[467px]">
                             <div class="bg-fill-light flex items-center w-full p-4 mt-4">
                                 <material-picker
                                     v-model="item.image"
@@ -28,13 +24,10 @@
                                 />
                                 <div class="ml-3 flex-1">
                                     <el-form-item label="图片名称">
-                                        <el-input
-                                            v-model="item.name"
-                                            placeholder="请输入名称"
-                                        />
+                                        <el-input v-model="item.name" placeholder="请输入名称" />
                                     </el-form-item>
                                     <el-form-item class="mt-[18px]" label="图片链接">
-                                        <link-picker v-model="item.link"/>
+                                        <link-picker v-model="item.link" />
                                     </el-form-item>
                                     <el-form-item label="是否显示" class="mt-[18px]">
                                         <div class="flex-1 flex items-center">
@@ -44,7 +37,7 @@
                                                 inactive-value="0"
                                             />
                                             <div class="drag-move cursor-move ml-auto">
-                                                <icon name="el-icon-Rank" size="18"/>
+                                                <icon name="el-icon-Rank" size="18" />
                                             </div>
                                         </div>
                                     </el-form-item>
@@ -62,7 +55,7 @@
 </template>
 <script lang="ts" setup>
 import feedback from '@/utils/feedback'
-import type {PropType} from 'vue'
+import type { PropType } from 'vue'
 import type options from './options'
 import Draggable from 'vuedraggable'
 
