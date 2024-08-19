@@ -185,23 +185,21 @@ abstract class BaseDataLists implements ListsInterface
         $this->fileName .= '-' . date('Y-m-d-His') . '.xlsx';
 
         //导出文件准备
-        if ($this->export == ExportEnum::EXPORT) {
-            //指定导出范围（例：第2页到，第5页的数据）
-            if ($this->pageType == 1) {
-                $this->pageStart = $this->request->get('page_start', $this->pageStart);
-                $this->pageEnd = $this->request->get('page_end', $this->pageEnd);
-                //改变查询数量参数（例：第2页到，第5页的数据，查询->page(2,(5-2+1)*25)
-                $this->limitOffset = ($this->pageStart - 1) * $this->pageSize;
-                $this->limitLength = ($this->pageEnd - $this->pageStart + 1) * $this->pageSize;
-            }
+        //指定导出范围（例：第2页到，第5页的数据）
+        if ($this->pageType == 1) {
+            $this->pageStart = $this->request->get('page_start', $this->pageStart);
+            $this->pageEnd = $this->request->get('page_end', $this->pageEnd);
+            //改变查询数量参数（例：第2页到，第5页的数据，查询->page(2,(5-2+1)*25)
+            $this->limitOffset = ($this->pageStart - 1) * $this->pageSize;
+            $this->limitLength = ($this->pageEnd - $this->pageStart + 1) * $this->pageSize;
+        }
 
-            $count = $this->count();
+        $count = $this->count();
 
-            //判断导出范围是否有数据
-            if ($count == 0 || ceil($count / $this->pageSize) < $this->pageStart) {
-                $msg = $this->pageType ? '第' . $this->pageStart . '页到第' . $this->pageEnd . '页没有数据，无法导出' : '没有数据,无法导出';
-                return JsonService::throw($msg);
-            }
+        //判断导出范围是否有数据
+        if ($count == 0 || ceil($count / $this->pageSize) < $this->pageStart) {
+            $msg = $this->pageType ? '第' . $this->pageStart . '页到第' . $this->pageEnd . '页没有数据，无法导出' : '没有数据,无法导出';
+            return JsonService::throw($msg);
         }
     }
 
