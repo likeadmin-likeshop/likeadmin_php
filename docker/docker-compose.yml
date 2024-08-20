@@ -41,8 +41,8 @@ services:
 
   mysql:
     container_name: likeadmin-mysql
-    #image: registry.cn-guangzhou.aliyuncs.com/likeadmin/mysql:5.7.44 #X86架构
-    image: registry.cn-guangzhou.aliyuncs.com/likeadmin/mysql:5.7.29-amd64 #arm架构
+    image: registry.cn-guangzhou.aliyuncs.com/likeadmin/mysql:5.7.44 #X86架构
+    #image: registry.cn-guangzhou.aliyuncs.com/likeadmin/mysql:5.7.29-amd64 #arm架构
     restart: always 
     environment:
       MYSQL_ROOT_PASSWORD: root
