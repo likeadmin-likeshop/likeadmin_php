@@ -8,7 +8,7 @@ services:
 
   nginx:
     container_name: likeadmin-nginx
-    image: nginx:1.23.1
+    image: registry.cn-guangzhou.aliyuncs.com/chatmoney/nginx:1.23.1
     restart: always
     depends_on:
       - "php"
@@ -26,7 +26,7 @@ services:
 
   php:
     container_name: likeadmin-php
-    image: likeshop/php:8.0.22-fpm
+    image: registry.cn-guangzhou.aliyuncs.com/likeadmin/php:8.0.30.3-fpm  
     restart: always
     working_dir: /likeadmin_php/server
     volumes:
@@ -41,9 +41,9 @@ services:
 
   mysql:
     container_name: likeadmin-mysql
-    image: mysql:5.7.29 #X86架构
-    #image: amd64/mysql:5.7.29 #arm架构
-    restart: always
+    #image: registry.cn-guangzhou.aliyuncs.com/likeadmin/mysql:5.7.44 #X86架构
+    image: registry.cn-guangzhou.aliyuncs.com/likeadmin/mysql:5.7.29-amd64 #arm架构
+    restart: always 
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
@@ -57,7 +57,7 @@ services:
 
   redis:
     container_name: likeadmin-redis
-    image: redis:7.0.4
+    image: registry.cn-guangzhou.aliyuncs.com/likeadmin/redis:7.4.0
     restart: always
     volumes:
       - ./data/redis:/data
@@ -65,16 +65,3 @@ services:
       - likeadmin
     ports:
       - "6379:6379"
-
-  node:
-    container_name: likeadmin-node
-    image: node:14.18.1
-    restart: always
-    volumes:
-      - ../admin:/likeadmin_php/admin
-    networks:
-      - likeadmin
-    tty: true
-    working_dir: /likeadmin_php/admin
-    ports:
-      - "5173:5173"

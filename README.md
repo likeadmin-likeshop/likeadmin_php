@@ -36,7 +36,7 @@
 ### 🐳快速部署
 安装启动 [docker](https://www.docker.com/) 之后，在终端运行以下命令即可体验。<br>
   ```shell
-   docker run -d --name likeadmin_php  -p 20221:80 -e MYSQL_ROOT_PASSWORD=root  likeshop/likeadmin_php:latest
+   docker run -d --name likeadmin_php  -p 20221:80 -e MYSQL_ROOT_PASSWORD=root  registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
   ```
 如果需要自定义参数永久挂载数据，在终端运行以下命令，其中"[]"改成自定义参数。
 ```shell
@@ -45,7 +45,7 @@ docker run -d --name likeadmin_php \
 -v 【主机存储项目代码文件路径】:/var/www/html/likeadmin_php \
 -p 【访问端口】:80 \
 -e MYSQL_ROOT_PASSWORD=【Mysql密码】 \
-likeshop/likeadmin_php:latest
+registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
 ```
 
 
