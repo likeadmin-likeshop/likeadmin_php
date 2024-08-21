@@ -23,7 +23,12 @@
             </div>
             <div class="flex">
                 <div class="navbar-item" v-if="!isMobile">
-                    <el-tooltip class="box-item" effect="dark" content="全屏" placement="bottom">
+                    <el-tooltip
+                        class="box-item"
+                        effect="dark"
+                        :content="isFullscreen ? '退出全屏' : '全屏模式'"
+                        placement="bottom"
+                    >
                         <full-screen />
                     </el-tooltip>
                 </div>
@@ -31,7 +36,12 @@
                     <user-drop-down />
                 </div>
                 <div class="navbar-item">
-                    <el-tooltip class="box-item" effect="dark" content="设置" placement="bottom">
+                    <el-tooltip
+                        class="box-item"
+                        effect="dark"
+                        content="主题设置"
+                        placement="bottom"
+                    >
                         <setting />
                     </el-tooltip>
                 </div>
@@ -50,12 +60,14 @@ import FullScreen from './full-screen.vue'
 import UserDropDown from './user-drop-down.vue'
 import Setting from '../setting/index.vue'
 import MultipleTabs from './multiple-tabs.vue'
+import { useFullscreen } from '@vueuse/core'
 
 import useSettingStore from '@/stores/modules/setting'
 const appStore = useAppStore()
 const isMobile = computed(() => appStore.isMobile)
 const isCollapsed = computed(() => appStore.isCollapsed)
 const settingStore = useSettingStore()
+const { isFullscreen } = useFullscreen()
 </script>
 
 <style lang="scss">

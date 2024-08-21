@@ -92,8 +92,8 @@
                 </div>
             </el-card>
         </div>
-        <div class="md:flex">
-            <el-card class="flex-1 !border-none md:mr-4 mb-4" shadow="never">
+        <div class="lg:flex gap-4">
+            <el-card class="!border-none mb-4 lg:mb-0 w-full lg:w-2/3" shadow="never">
                 <template #header>
                     <span>访问量趋势图</span>
                 </template>
@@ -101,6 +101,18 @@
                     <v-charts
                         style="height: 350px"
                         :option="workbenchData.visitorOption"
+                        :autoresize="true"
+                    />
+                </div>
+            </el-card>
+            <el-card class="!border-none w-full lg:w-1/3" shadow="never">
+                <template #header>
+                    <span>销售额趋势图</span>
+                </template>
+                <div>
+                    <v-charts
+                        style="height: 350px"
+                        :option="workbenchData.saleOption"
                         :autoresize="true"
                     />
                 </div>
@@ -155,6 +167,55 @@ const workbenchData: any = reactive({
                 smooth: true
             }
         ]
+    },
+
+    saleOption: {
+        xAxis: {
+            type: 'category',
+            data: []
+        },
+        yAxis: {
+            type: 'value',
+            name: '单位（万）'
+        },
+        legend: {
+            data: ['销售量']
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        series: [
+            {
+                data: [],
+                type: 'bar',
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'rgba(180, 180, 180, 0.2)',
+                    borderRadius: [10, 10, 0, 0]
+                },
+                barWidth: '40%',
+                itemStyle: {
+                    borderRadius: [10, 10, 0, 0],
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            {
+                                offset: 0,
+                                color: '#4A5DFF'
+                            },
+                            {
+                                offset: 1,
+                                color: '#5777ff'
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     }
 })
 
@@ -178,6 +239,42 @@ const getData = () => {
             })
             res.visitor.list[0].data.forEach((item: any) => {
                 workbenchData.visitorOption.series[0].data.push(item)
+            })
+
+            // 清空echarts 数据
+            workbenchData.saleOption.xAxis.data = []
+            workbenchData.saleOption.series[0].data = []
+
+            // 写入从后台拿来的数据
+            res.sale.date.reverse().forEach((item: any) => {
+                workbenchData.saleOption.xAxis.data.push(item)
+            })
+            res.sale.list[0].data.forEach((item: any) => {
+                if (item <= 50) {
+                    item = {
+                        value: item,
+                        itemStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [
+                                    {
+                                        offset: 0,
+                                        color: '#ff8729'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#ff8729'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+                workbenchData.saleOption.series[0].data.push(item)
             })
         })
         .catch((err: any) => {
