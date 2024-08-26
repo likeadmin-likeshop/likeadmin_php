@@ -197,7 +197,7 @@ class WorkbenchLogic extends BaseLogic
         for ($i = 0; $i < 7; $i++) {
             $where_start = strtotime("- " . $i . "day");
             $date[] = date('m/d', $where_start);
-            $num[$i] = rand(30, 150);
+            $num[$i] = rand(30, 200);
         }
 
         return [

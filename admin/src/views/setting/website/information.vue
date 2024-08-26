@@ -1,7 +1,14 @@
 <!-- 网站信息 -->
 <template>
     <div class="website-information">
-        <el-form ref="formRef" :rules="rules" class="ls-form" :model="formData" label-width="120px">
+        <el-form
+            ref="formRef"
+            :rules="rules"
+            class="ls-form"
+            :model="formData"
+            label-width="120px"
+            scroll-to-error
+        >
             <el-card shadow="never" class="!border-none">
                 <div class="text-xl font-medium mb-[20px]">后台设置</div>
                 <el-form-item label="网站名称" prop="name">

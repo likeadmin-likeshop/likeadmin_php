@@ -144,7 +144,7 @@ const workbenchData: any = reactive({
     visitorOption: {
         xAxis: {
             type: 'category',
-            data: [0]
+            data: []
         },
         yAxis: {
             type: 'value'
@@ -162,9 +162,35 @@ const workbenchData: any = reactive({
         series: [
             {
                 name: '访问量',
-                data: [0],
+                data: [],
                 type: 'line',
-                smooth: true
+                smooth: true,
+                lineStyle: {
+                    normal: {
+                        color: '#4A5DFF',
+                        width: 2
+                    }
+                },
+                areaStyle: {
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            {
+                                offset: 0,
+                                color: '#4A5DFF'
+                            },
+                            {
+                                offset: 1,
+                                color: '#5777ff'
+                            }
+                        ]
+                    },
+                    opacity: 0.1
+                }
             }
         ]
     },
@@ -232,6 +258,8 @@ const getData = () => {
             // 清空echarts 数据
             workbenchData.visitorOption.xAxis.data = []
             workbenchData.visitorOption.series[0].data = []
+            workbenchData.saleOption.xAxis.data = []
+            workbenchData.saleOption.series[0].data = []
 
             // 写入从后台拿来的数据
             res.visitor.date.reverse().forEach((item: any) => {
@@ -240,12 +268,6 @@ const getData = () => {
             res.visitor.list[0].data.forEach((item: any) => {
                 workbenchData.visitorOption.series[0].data.push(item)
             })
-
-            // 清空echarts 数据
-            workbenchData.saleOption.xAxis.data = []
-            workbenchData.saleOption.series[0].data = []
-
-            // 写入从后台拿来的数据
             res.sale.date.reverse().forEach((item: any) => {
                 workbenchData.saleOption.xAxis.data.push(item)
             })
