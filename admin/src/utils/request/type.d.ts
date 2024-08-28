@@ -1,6 +1,7 @@
+import 'axios'
+
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-import 'axios'
 declare module 'axios' {
     // 扩展 RouteMeta
     interface AxiosRequestConfig {

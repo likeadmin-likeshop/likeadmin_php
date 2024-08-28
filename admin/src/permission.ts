@@ -2,16 +2,18 @@
  * 权限控制
  */
 
-import NProgress from 'nprogress'
-import router, { findFirstValidRoute } from './router'
 import 'nprogress/nprogress.css'
-import { isExternal } from './utils/validate'
-import useUserStore from './stores/modules/user'
-import { INDEX_ROUTE, INDEX_ROUTE_NAME } from './router/routes'
-import { PageEnum } from './enums/pageEnum'
-import useTabsStore from './stores/modules/multipleTabs'
-import { clearAuthInfo } from './utils/auth'
+
+import NProgress from 'nprogress'
+
 import config from './config'
+import { PageEnum } from './enums/pageEnum'
+import router, { findFirstValidRoute } from './router'
+import { INDEX_ROUTE, INDEX_ROUTE_NAME } from './router/routes'
+import useTabsStore from './stores/modules/multipleTabs'
+import useUserStore from './stores/modules/user'
+import { clearAuthInfo } from './utils/auth'
+import { isExternal } from './utils/validate'
 
 // 动态添加路由-使用递归进行调整-（fix: 修复之前超过3级菜单导致使用keep-alive功能无效问题
 const addRoutesRecursively = (routes: any, parentPath = '') => {

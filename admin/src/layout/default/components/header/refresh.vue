@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import useAppStore from '@/stores/modules/app'
+
 const appStore = useAppStore()
 // 刷新页面
 const refreshView = () => {

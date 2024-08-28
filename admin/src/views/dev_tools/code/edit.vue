@@ -382,14 +382,17 @@
 </template>
 
 <script lang="ts" setup name="tableEdit">
-import { generateEdit, tableDetail } from '@/api/tools/code'
 import type { FormInstance } from 'element-plus'
-import feedback from '@/utils/feedback'
-import { useDictOptions } from '@/hooks/useDictOptions'
-import { dictTypeAll } from '@/api/setting/dict'
-import { menuAll } from '@/api/perms/menu'
-import RelationsAdd from '../components/relations-add.vue'
 import { cloneDeep } from 'lodash'
+
+import { menuAll } from '@/api/perms/menu'
+import { dictTypeAll } from '@/api/setting/dict'
+import { generateEdit, tableDetail } from '@/api/tools/code'
+import { useDictOptions } from '@/hooks/useDictOptions'
+import feedback from '@/utils/feedback'
+
+import RelationsAdd from '../components/relations-add.vue'
+
 const route = useRoute()
 const router = useRouter()
 const activeName = ref('column')

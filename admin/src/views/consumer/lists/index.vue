@@ -75,10 +75,11 @@
     </div>
 </template>
 <script lang="ts" setup name="consumerLists">
-import { usePaging } from '@/hooks/usePaging'
-import { getRoutePath } from '@/router'
 import { getUserList } from '@/api/consumer'
 import { ClientMap } from '@/enums/appEnums'
+import { usePaging } from '@/hooks/usePaging'
+import { getRoutePath } from '@/router'
+
 const queryParams = reactive({
     keyword: '',
     channel: '',

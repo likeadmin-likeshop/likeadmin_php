@@ -61,11 +61,13 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import { LinkTypeEnum } from '.'
-import { usePaging } from '@/hooks/usePaging'
-import { articleLists } from '@/api/article'
 import { Search } from '@element-plus/icons-vue'
+import type { PropType } from 'vue'
+
+import { articleLists } from '@/api/article'
+import { usePaging } from '@/hooks/usePaging'
+
+import { LinkTypeEnum } from '.'
 
 //TODO TODO
 const props = defineProps({
@@ -90,7 +92,7 @@ const queryParams = reactive<any>({
     is_show: 1
 })
 
-const { pager, getLists, resetPage, resetParams } = usePaging({
+const { pager, getLists, resetPage } = usePaging({
     fetchFun: articleLists,
     params: queryParams
 })

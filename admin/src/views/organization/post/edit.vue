@@ -45,8 +45,10 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import { jobsEdit, jobsAdd, jobsDetail } from '@/api/org/post'
+
+import { jobsAdd, jobsDetail, jobsEdit } from '@/api/org/post'
 import Popup from '@/components/popup/index.vue'
+
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()

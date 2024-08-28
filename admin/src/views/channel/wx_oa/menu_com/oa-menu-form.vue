@@ -46,8 +46,9 @@
 </template>
 
 <script lang="ts" setup>
-import { rules } from './useMenuOa'
 import type { FormInstance } from 'element-plus'
+
+import { rules } from './useMenuOa'
 
 const emit = defineEmits([
     'update:name',

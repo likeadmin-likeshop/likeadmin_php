@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import useAppStore from '@/stores/modules/app'
+
 const appStore = useAppStore()
 const isCollapsed = computed(() => appStore.isCollapsed)
 // 折叠展开菜单

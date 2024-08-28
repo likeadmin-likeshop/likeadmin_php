@@ -1,7 +1,7 @@
 <template>
     <el-card shadow="never" class="!border-none">
         <div class="mt-[-10px]">
-            <el-tabs v-model="currentTabIndex" @tab-change="">
+            <el-tabs v-model="currentTabIndex">
                 <el-tab-pane
                     v-for="(item, index) in tabsList"
                     :key="item.id"
@@ -19,7 +19,9 @@
 </template>
 <script setup lang="ts">
 import { getDecoratePages, setDecoratePages } from '@/api/decoration'
+
 import MobileStyle from './components/mobile-style.vue'
+
 const currentTabIndex = ref(0)
 const tabsList = ref([
     {

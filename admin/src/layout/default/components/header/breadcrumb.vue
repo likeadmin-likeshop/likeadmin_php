@@ -6,8 +6,10 @@
     </el-breadcrumb>
 </template>
 <script setup lang="ts">
-import { useWatchRoute } from '@/hooks/useWatchRoute'
 import type { RouteLocationMatched, RouteLocationNormalizedLoaded } from 'vue-router'
+
+import { useWatchRoute } from '@/hooks/useWatchRoute'
+
 const breadcrumbs = ref<RouteLocationMatched[]>([])
 const getBreadcrumb = (route: RouteLocationNormalizedLoaded) => {
     const matched = route.matched.filter((item) => item.meta && item.meta.title)

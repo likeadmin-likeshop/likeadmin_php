@@ -75,10 +75,12 @@
     </el-scrollbar>
 </template>
 <script lang="ts" setup>
-import widgets from '../widgets'
+import { ArrowDownBold, ArrowUpBold, Hide, View } from '@element-plus/icons-vue'
+import { cloneDeep } from 'lodash-es'
 import type { PropType } from 'vue'
-import { Hide, View, ArrowUpBold, ArrowDownBold } from '@element-plus/icons-vue'
 import { computed } from 'vue'
+
+import widgets from '../widgets'
 
 const props = defineProps({
     pageMeta: {
@@ -97,6 +99,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
     (event: 'update:modelValue', value: number): void
+    (event: 'updatePageData', value: any[]): void
 }>()
 
 const oldModelValue = ref<number>(-1)
@@ -152,9 +155,13 @@ const rearrangeArray = (currentIdx: number, targetIdx: number) => {
         return
     }
 
-    const element = props.pageData.splice(currentIdx, 1)[0]
-    props.pageData.splice(targetIdx, 0, element)
+    // const element = props.pageData.splice(currentIdx, 1)[0]
+    // props.pageData.splice(targetIdx, 0, element)
+    const newPageData = cloneDeep(props.pageData)
+    const element = newPageData.splice(currentIdx, 1)[0]
+    newPageData.splice(targetIdx, 0, element)
 
+    emit('updatePageData', newPageData)
     emit('update:modelValue', targetIdx)
 }
 </script>

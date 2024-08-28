@@ -12,11 +12,16 @@
             <preview
                 class="flex-1 scroll-view-content"
                 v-model="selectWidgetIndex"
+                @updatePageData="updatePageData"
                 :pageData="getPageData"
                 :pageMeta="getPageMeta"
             />
 
-            <attr-setting class="w-[560px] scroll-view-content" :widget="getSelectWidget" />
+            <attr-setting
+                class="w-[560px] scroll-view-content"
+                :widget="getSelectWidget"
+                @update:content="updateContent"
+            />
         </div>
         <footer-btns class="mt-4" :fixed="false" v-perms="['decorate:pages:save']">
             <el-button type="primary" @click="setData">保存</el-button>
@@ -24,16 +29,22 @@
     </div>
 </template>
 <script lang="ts" setup name="decorationPages">
-import Menu from '../component/pages/menu.vue'
-import Preview from '../component/pages/preview.vue'
-import AttrSetting from '../component/pages/attr-setting.vue'
-import widgets from '../component/widgets'
 import { getDecoratePages, setDecoratePages } from '@/api/decoration'
 import { getNonDuplicateID } from '@/utils/util'
+
+import AttrSetting from '../component/pages/attr-setting.vue'
+import Menu from '../component/pages/menu.vue'
+import Preview from '../component/pages/preview.vue'
+import widgets from '../component/widgets'
+
 enum pagesTypeEnum {
     HOME = '1',
     USER = '2',
     SERVICE = '3'
+}
+
+const updatePageData = (value: any) => {
+    menus[activeMenu.value].pageData = [...value]
 }
 
 const generatePageData = (widgetNames: string[]) => {
@@ -44,6 +55,12 @@ const generatePageData = (widgetNames: string[]) => {
         }
         return options
     })
+}
+
+const updateContent = (content: any) => {
+    if (menus[activeMenu.value]?.pageData) {
+        menus[activeMenu.value].pageData[selectWidgetIndex.value].content = content
+    }
 }
 
 const menus: Record<
@@ -78,8 +95,8 @@ const menus: Record<
     }
 })
 
-const activeMenu = ref('1')
-const selectWidgetIndex = ref(-1)
+const activeMenu = ref<string>('1')
+const selectWidgetIndex = ref<number>(-1)
 const getPageData = computed(() => {
     return menus[activeMenu.value]?.pageData ?? []
 })

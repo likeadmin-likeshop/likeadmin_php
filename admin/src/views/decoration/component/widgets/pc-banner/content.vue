@@ -36,14 +36,18 @@
     </popup>
 </template>
 <script lang="ts" setup>
+import { cloneDeep } from 'lodash-es'
 import type { PropType } from 'vue'
-import type options from './options'
+
 import Popup from '@/components/popup/index.vue'
 import feedback from '@/utils/feedback'
 
-const popupRef = shallowRef<InstanceType<typeof Popup>>()
+import type options from './options'
 
 type OptionsType = ReturnType<typeof options>
+const emits = defineEmits<(event: 'update:content', data: OptionsType['content']) => void>()
+const popupRef = shallowRef<InstanceType<typeof Popup>>()
+
 const props = defineProps({
     content: {
         type: Object as PropType<OptionsType['content']>,
@@ -69,11 +73,13 @@ const handleSubmit = () => {
 
 const handleAdd = () => {
     if (props.content.data?.length < 10) {
-        props.content.data.push({
+        const content = cloneDeep(props.content)
+        content.data.push({
             image: '',
             name: '',
             link: {}
         })
+        emits('update:content', content)
     } else {
         feedback.msgError(`最多添加${10}张图片`)
     }
@@ -83,7 +89,9 @@ const handleDelete = (index: number) => {
     if (props.content.data?.length <= 1) {
         return feedback.msgError('最少保留一个轮播图')
     }
-    props.content.data.splice(index, 1)
+    const content = cloneDeep(props.content)
+    content.data.splice(index, 1)
+    emits('update:content', content)
 }
 
 defineExpose({ open })

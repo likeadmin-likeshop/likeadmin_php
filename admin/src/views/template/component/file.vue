@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card header="基础使用" shadow="none" class="!border-none">
+        <el-card header="基础使用" shadow="never" class="!border-none">
             <div class="flex flex-wrap">
                 <div class="flex m-4">
                     <div class="mr-4">选择图片：</div>
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </el-card>
-        <el-card header="进阶用法" shadow="none" class="!border-none mt-4">
+        <el-card header="进阶用法" shadow="never" class="!border-none mt-4">
             <div class="flex flex-wrap">
                 <div class="flex m-4">
                     <div class="mr-4">自定义选择器大小：</div>

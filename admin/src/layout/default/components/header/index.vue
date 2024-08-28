@@ -52,17 +52,19 @@
 </template>
 
 <script setup lang="ts">
-import useAppStore from '@/stores/modules/app'
-import Fold from './fold.vue'
-import Refresh from './refresh.vue'
-import Breadcrumb from './breadcrumb.vue'
-import FullScreen from './full-screen.vue'
-import UserDropDown from './user-drop-down.vue'
-import Setting from '../setting/index.vue'
-import MultipleTabs from './multiple-tabs.vue'
 import { useFullscreen } from '@vueuse/core'
 
+import useAppStore from '@/stores/modules/app'
 import useSettingStore from '@/stores/modules/setting'
+
+import Setting from '../setting/index.vue'
+import Breadcrumb from './breadcrumb.vue'
+import Fold from './fold.vue'
+import FullScreen from './full-screen.vue'
+import MultipleTabs from './multiple-tabs.vue'
+import Refresh from './refresh.vue'
+import UserDropDown from './user-drop-down.vue'
+
 const appStore = useAppStore()
 const isMobile = computed(() => appStore.isMobile)
 const isCollapsed = computed(() => appStore.isCollapsed)

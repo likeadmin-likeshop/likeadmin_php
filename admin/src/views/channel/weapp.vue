@@ -144,9 +144,10 @@
     </div>
 </template>
 <script lang="ts" setup name="weappConfig">
+import type { FormInstance } from 'element-plus'
+
 import { getWeappConfig, setWeappConfig } from '@/api/channel/weapp'
 import useAppStore from '@/stores/modules/app'
-import type { FormInstance } from 'element-plus'
 
 const appStore = useAppStore()
 const formData = reactive({

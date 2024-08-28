@@ -16,9 +16,9 @@
                 >
                     <view class="scroll-box" :class="{ 'tabs-scorll-flex': !isScroll }">
                         <view
+                            v-for="(item, index) in list"
                             class="tab-item line1"
                             :id="'tab-item-' + index"
-                            v-for="(item, index) in list"
                             :key="index"
                             @tap="clickTab(index)"
                             :style="[tabItemStyle(index)]"

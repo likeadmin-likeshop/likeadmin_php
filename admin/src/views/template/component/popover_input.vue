@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card header="基础使用" shadow="none" class="!border-none">
+        <el-card header="基础使用" shadow="never" class="!border-none">
             <div class="flex flex-wrap">
                 <div class="m-4">
                     <popover-input @confirm="onConfirm">

@@ -40,9 +40,11 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { setSmsConfig, smsDetail } from '@/api/message'
 import type { FormInstance } from 'element-plus'
+
+import { setSmsConfig, smsDetail } from '@/api/message'
 import Popup from '@/components/popup/index.vue'
+
 const emit = defineEmits(['success'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()

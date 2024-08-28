@@ -160,9 +160,11 @@
     </div>
 </template>
 <script lang="ts" setup name="wxOaConfig">
+import type { FormInstance } from 'element-plus'
+
 import { getOaConfig, setOaConfig } from '@/api/channel/wx_oa'
 import useAppStore from '@/stores/modules/app'
-import type { FormInstance } from 'element-plus'
+
 const appStore = useAppStore()
 const formData = reactive({
     name: '',

@@ -40,6 +40,7 @@
                     draggable=".draggable"
                     handle=".drag-move"
                     :move="onMove"
+                    item-key="index"
                 >
                     <template v-slot:item="{ element, index }">
                         <del-wrap
@@ -116,9 +117,9 @@
     </el-form>
 </template>
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
-import type { PropType } from 'vue'
 import Draggable from 'vuedraggable'
+
+import feedback from '@/utils/feedback'
 
 const props = defineProps({
     modelValue: {

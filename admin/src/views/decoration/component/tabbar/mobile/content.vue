@@ -14,8 +14,9 @@
     </div>
 </template>
 <script lang="ts" setup>
-import DecorationImg from '../../decoration-img.vue'
 import type { PropType } from 'vue'
+
+import DecorationImg from '../../decoration-img.vue'
 
 const props = defineProps({
     style: {

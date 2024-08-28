@@ -80,8 +80,8 @@
 </template>
 
 <script setup lang="ts" name="search">
-import { getSearch, setSearch } from '@/api/setting/search'
 import type { Search } from '@/api/setting/search'
+import { getSearch, setSearch } from '@/api/setting/search'
 
 const formData = reactive<Search>({
     status: 1,

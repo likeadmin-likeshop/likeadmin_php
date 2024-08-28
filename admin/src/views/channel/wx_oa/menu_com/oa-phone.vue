@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { useMenuOa } from './useMenuOa'
 import useSettingStore from '@/stores/modules/setting'
+
+import { useMenuOa } from './useMenuOa'
 
 // 菜单颜色（这里采用全局颜色）
 const settingStore = useSettingStore()

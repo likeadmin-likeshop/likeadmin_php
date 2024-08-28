@@ -14,9 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import Side from './side.vue'
 import useAppStore from '@/stores/modules/app'
 import useSettingStore from '@/stores/modules/setting'
+
+import Side from './side.vue'
 
 const appStore = useAppStore()
 const settingStore = useSettingStore()

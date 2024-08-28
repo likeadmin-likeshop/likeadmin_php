@@ -9,7 +9,7 @@
                 width="100%"
                 height="100%"
                 scrolling="no"
-                :src="$route.query.url"
+                :src="$route.query.url as string"
             ></iframe>
             <div class="max-w-[1200px] w-full absolute">
                 <div
@@ -79,9 +79,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-import widgets from '../widgets'
+import { Hide, Setting, View } from '@element-plus/icons-vue'
 import type { PropType } from 'vue'
-import { Setting, ArrowLeft, Hide, View } from '@element-plus/icons-vue'
+
+import widgets from '../widgets'
 
 const commonComponentRef = shallowRef<any>()
 

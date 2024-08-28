@@ -110,9 +110,12 @@
 
 <script lang="ts" setup name="consumerDetail">
 import type { FormInstance } from 'element-plus'
+
 import { adjustMoney, getUserDetail, userEdit } from '@/api/consumer'
 import { isEmpty } from '@/utils/util'
+
 import AccountAdjust from '../components/account-adjust.vue'
+
 const route = useRoute()
 const formData = reactive({
     avatar: '',

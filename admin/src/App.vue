@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { useDark, useWindowSize, useThrottleFn } from '@vueuse/core'
+import { useDark, useThrottleFn, useWindowSize } from '@vueuse/core'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+
+import { ScreenEnum } from './enums/appEnums'
 import useAppStore from './stores/modules/app'
 import useSettingStore from './stores/modules/setting'
-import { ScreenEnum } from './enums/appEnums'
+
 const appStore = useAppStore()
 const settingStore = useSettingStore()
 const elConfig = {

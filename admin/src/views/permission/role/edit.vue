@@ -42,8 +42,10 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
+
 import { roleAdd, roleEdit } from '@/api/perms/role'
 import Popup from '@/components/popup/index.vue'
+
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()

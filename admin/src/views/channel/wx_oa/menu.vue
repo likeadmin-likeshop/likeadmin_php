@@ -1,6 +1,6 @@
 <script setup lang="ts" name="wxOaMenu">
-import OaPhone from './menu_com/oa-phone.vue'
 import OaAttr from './menu_com/oa-attr.vue'
+import OaPhone from './menu_com/oa-phone.vue'
 import { useMenuOa } from './menu_com/useMenuOa'
 
 const { getOaMenuFunc, handleSave, handlePublish } = useMenuOa(undefined)

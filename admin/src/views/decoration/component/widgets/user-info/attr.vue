@@ -3,9 +3,11 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
+
 import type options from './options'
+
 type OptionsType = ReturnType<typeof options>
-const props = defineProps({
+defineProps({
     content: {
         type: Object as PropType<OptionsType['content']>,
         default: () => ({})

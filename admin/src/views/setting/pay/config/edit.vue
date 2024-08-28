@@ -170,8 +170,10 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
+
 import { getPayConfig, setPayConfig } from '@/api/setting/pay'
 import Popup from '@/components/popup/index.vue'
+
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
@@ -188,6 +190,8 @@ const popupTitle = computed(() => {
             return '微信支付'
         case PayWayEnum.ALIPAY:
             return '支付宝支付'
+        default:
+            return ''
     }
 })
 const formData = reactive({

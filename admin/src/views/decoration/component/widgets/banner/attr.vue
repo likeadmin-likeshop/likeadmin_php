@@ -2,18 +2,18 @@
     <el-form label-width="70px">
         <el-card shadow="never" class="!border-none flex mt-2">
             <div class="flex items-end mb-4">
-                <div class="text-base text-[#101010] font-medium">展示样式</div>
+                <div class="text-base dark:text-[#ffffff] text-[#101010] font-medium">展示样式</div>
             </div>
-            <el-radio-group v-model="content.style">
+            <el-radio-group v-model="contentData.style">
                 <el-radio :label="1">常规</el-radio>
                 <el-radio :label="2">大屏</el-radio>
             </el-radio-group>
         </el-card>
         <el-card shadow="never" class="!border-none flex mt-2" v-if="content.style == 1">
             <div class="flex items-end mb-4">
-                <div class="text-base text-[#101010] font-medium">背景联动</div>
+                <div class="text-base text-[#101010] dark:text-[#ffffff] font-medium">背景联动</div>
             </div>
-            <el-radio-group v-model="content.bg_style">
+            <el-radio-group v-model="contentData.bg_style">
                 <el-radio :label="1">开启</el-radio>
                 <el-radio :label="0">关闭</el-radio>
             </el-radio-group>
@@ -23,7 +23,7 @@
         </el-card>
         <el-card shadow="never" class="!border-none flex-1 mt-2">
             <div class="flex items-end">
-                <div class="text-base text-[#101010] font-medium">轮播图片</div>
+                <div class="text-base text-[#101010] dark:text-[#ffffff] font-medium">轮播图片</div>
                 <div v-if="content.style == 1" class="text-xs text-tx-secondary ml-2">
                     最多添加5张，建议图片尺寸：750px*340px
                 </div>
@@ -34,9 +34,10 @@
             <div class="flex-1">
                 <draggable
                     class="draggable"
-                    v-model="content.data"
+                    v-model="contentData.data"
                     animation="300"
                     handle=".drag-move"
+                    item-key="index"
                 >
                     <template v-slot:item="{ element: item, index }">
                         <del-wrap :key="index" @close="handleDelete(index)" class="w-full">
@@ -56,7 +57,7 @@
                                             </template>
                                         </material-picker>
                                         <material-picker
-                                            v-if="content.style == 0 || content.bg_style == 1"
+                                            v-if="content.style == 1 || content.bg_style == 1"
                                             class="ml-[40px]"
                                             size="122px"
                                             v-model="item.bg"
@@ -114,13 +115,17 @@
     </el-form>
 </template>
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
+import { cloneDeep } from 'lodash-es'
 import type { PropType } from 'vue'
-import type options from './options'
 import Draggable from 'vuedraggable'
 
-const limit = 5
+import feedback from '@/utils/feedback'
+
+import type options from './options'
+
 type OptionsType = ReturnType<typeof options>
+const emits = defineEmits<(event: 'update:content', data: OptionsType['content']) => void>()
+const limit = 5
 const props = defineProps({
     content: {
         type: Object as PropType<OptionsType['content']>,
@@ -136,14 +141,24 @@ const props = defineProps({
     }
 })
 
+const contentData = computed({
+    get: () => props.content,
+    set: (newValue) => {
+        emits('update:content', newValue)
+    }
+})
+
 const handleAdd = () => {
     if (props.content.data?.length < limit) {
-        props.content.data.push({
+        const content = cloneDeep(props.content)
+        content.data.push({
             is_show: '1',
             image: '',
+            bg: '',
             name: '',
             link: {}
         })
+        emits('update:content', content)
     } else {
         feedback.msgError(`最多添加${limit}张图片`)
     }
@@ -152,7 +167,9 @@ const handleDelete = (index: number) => {
     if (props.content.data?.length <= 1) {
         return feedback.msgError('最少保留一张图片')
     }
-    props.content.data.splice(index, 1)
+    const content = cloneDeep(props.content)
+    content.data.splice(index, 1)
+    emits('update:content', content)
 }
 </script>
 

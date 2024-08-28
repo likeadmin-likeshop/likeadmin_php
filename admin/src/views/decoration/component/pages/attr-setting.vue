@@ -14,6 +14,7 @@
                     :content="widget?.content"
                     :styles="widget?.styles"
                     :type="type"
+                    @update:content="handleUpdateContent"
                 />
             </keep-alive>
         </el-scrollbar>
@@ -21,9 +22,15 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
+
 import widgets from '../widgets'
 
-const props = defineProps({
+const emits = defineEmits(['update:content'])
+const handleUpdateContent = (data: any) => {
+    emits('update:content', data)
+}
+
+defineProps({
     widget: {
         type: Object as PropType<Record<string, any>>,
         default: () => ({})

@@ -56,8 +56,9 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import Popup from '@/components/popup/index.vue'
+
 import { dictDataAdd, dictDataEdit } from '@/api/setting/dict'
+import Popup from '@/components/popup/index.vue'
 
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()

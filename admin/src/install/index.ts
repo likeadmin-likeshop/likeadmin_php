@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+
 const modules = import.meta.glob('./**/*', { eager: true })
 
 // 安装方法，执行某一类相同操作

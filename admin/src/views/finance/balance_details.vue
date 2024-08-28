@@ -79,9 +79,10 @@
     </div>
 </template>
 <script lang="ts" setup name="balanceDetail">
-import { getUmChangeType, accountLog } from '@/api/finance'
+import { accountLog, getUmChangeType } from '@/api/finance'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
+
 const queryParams = reactive({
     user_info: '',
     change_type: '',

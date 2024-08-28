@@ -1,9 +1,11 @@
-import { defineStore } from 'pinia'
-import defaultSetting from '@/config/setting'
-import cache from '@/utils/cache'
 import { isObject } from '@vue/shared'
-import { setTheme } from '@/utils/theme'
+import { defineStore } from 'pinia'
+
+import defaultSetting from '@/config/setting'
 import { SETTING_KEY } from '@/enums/cacheEnums'
+import cache from '@/utils/cache'
+import { setTheme } from '@/utils/theme'
+
 const storageSetting = cache.get(SETTING_KEY)
 
 export const useSettingStore = defineStore({

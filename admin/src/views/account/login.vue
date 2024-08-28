@@ -49,15 +49,17 @@
 </template>
 
 <script lang="ts" setup>
+import type { FormInstance, InputInstance } from 'element-plus'
 import { computed, onMounted, reactive, ref, shallowRef } from 'vue'
-import type { InputInstance, FormInstance } from 'element-plus'
+
+import { ACCOUNT_KEY } from '@/enums/cacheEnums'
+import { PageEnum } from '@/enums/pageEnum'
+import { useLockFn } from '@/hooks/useLockFn'
 import LayoutFooter from '@/layout/components/footer.vue'
 import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import cache from '@/utils/cache'
-import { ACCOUNT_KEY } from '@/enums/cacheEnums'
-import { PageEnum } from '@/enums/pageEnum'
-import { useLockFn } from '@/hooks/useLockFn'
+
 const passwordRef = shallowRef<InputInstance>()
 const formRef = shallowRef<FormInstance>()
 const appStore = useAppStore()

@@ -163,11 +163,12 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import { menuLists, menuEdit, menuAdd, menuDetail } from '@/api/perms/menu'
-import { MenuEnum } from '@/enums/appEnums'
+
+import { menuAdd, menuDetail, menuEdit, menuLists } from '@/api/perms/menu'
 import Popup from '@/components/popup/index.vue'
-import { arrayToTree, treeToArray } from '@/utils/util'
+import { MenuEnum } from '@/enums/appEnums'
 import { getModulesKey } from '@/router'
+import { arrayToTree, treeToArray } from '@/utils/util'
 
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()

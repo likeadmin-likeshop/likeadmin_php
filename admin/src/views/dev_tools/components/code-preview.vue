@@ -28,8 +28,9 @@
 </template>
 
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
 import useClipboard from 'vue-clipboard3'
+
+import feedback from '@/utils/feedback'
 
 const props = defineProps<{
     modelValue: boolean

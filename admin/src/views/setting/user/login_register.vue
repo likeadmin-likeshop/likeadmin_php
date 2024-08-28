@@ -5,7 +5,7 @@
             <el-card shadow="never" class="!border-none">
                 <div class="font-medium mb-7">通用设置</div>
 
-                <el-form-item label="登录方式" prop="loginWay">
+                <el-form-item label="登录方式" prop="login_way">
                     <div>
                         <el-checkbox-group v-model="formData.login_way">
                             <el-checkbox label="1">账号密码登录</el-checkbox>
@@ -102,9 +102,11 @@
 </template>
 
 <script lang="ts" setup name="loginRegister">
+import type { FormInstance, FormRules } from 'element-plus'
+
 import type { LoginSetup } from '@/api/setting/user'
 import { getLogin, setLogin } from '@/api/setting/user'
-import type { FormInstance, FormRules } from 'element-plus'
+
 const formRef = ref<FormInstance>()
 
 // 表单数据

@@ -53,8 +53,10 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
+
 import DecorationImg from '../../decoration-img.vue'
-const props = defineProps({
+
+defineProps({
     nav: {
         type: Array as PropType<any[]>,
         default: () => []

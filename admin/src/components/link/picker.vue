@@ -17,9 +17,11 @@
 </template>
 
 <script lang="ts" setup>
-import { LinkTypeEnum, type Link } from '.'
-import LinkContent from './index.vue'
 import Popup from '@/components/popup/index.vue'
+
+import { type Link, LinkTypeEnum } from '.'
+import LinkContent from './index.vue'
+
 const props = defineProps({
     modelValue: {
         type: Object
@@ -40,7 +42,6 @@ const handleConfirm = () => {
 }
 
 const getLink = computed(() => {
-    console.log(props.modelValue)
     switch (props.modelValue?.type) {
         case LinkTypeEnum.SHOP_PAGES:
             return props.modelValue.name

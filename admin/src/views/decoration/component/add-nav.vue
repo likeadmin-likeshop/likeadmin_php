@@ -1,7 +1,13 @@
 <template>
     <div>
         <div>
-            <draggable class="draggable" v-model="navLists" animation="300" handle=".drag-move">
+            <draggable
+                class="draggable"
+                v-model="navLists"
+                animation="300"
+                handle=".drag-move"
+                item-key="index"
+            >
                 <template v-slot:item="{ element: item, index }">
                     <del-wrap class="w-[467px]" :key="index" @close="handleDelete(index)">
                         <div class="bg-fill-light flex items-center w-full p-4 mb-4">
@@ -50,9 +56,11 @@
     </div>
 </template>
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
 import type { PropType } from 'vue'
 import Draggable from 'vuedraggable'
+
+import feedback from '@/utils/feedback'
+
 const props = defineProps({
     modelValue: {
         type: Array as PropType<any[]>,

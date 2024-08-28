@@ -113,8 +113,9 @@
 
 <script lang="ts" setup name="articleListsEdit">
 import type { FormInstance } from 'element-plus'
+
+import { articleAdd, articleCateAll, articleDetail, articleEdit } from '@/api/article'
 import { useDictOptions } from '@/hooks/useDictOptions'
-import { articleDetail, articleEdit, articleAdd, articleCateAll } from '@/api/article'
 import useMultipleTabs from '@/hooks/useMultipleTabs'
 
 const route = useRoute()

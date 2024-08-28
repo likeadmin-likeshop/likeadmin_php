@@ -1,8 +1,10 @@
-import { createRouter, createWebHistory, RouterView, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw, RouterView } from 'vue-router'
+
 import { MenuEnum } from '@/enums/appEnums'
-import { isExternal } from '@/utils/validate'
-import { constantRoutes, INDEX_ROUTE_NAME, LAYOUT } from './routes'
 import useUserStore from '@/stores/modules/user'
+import { isExternal } from '@/utils/validate'
+
+import { constantRoutes, INDEX_ROUTE_NAME, LAYOUT } from './routes'
 
 // 匹配views里面所有的.vue文件，动态引入
 const modules = import.meta.glob('/src/views/**/*.vue')

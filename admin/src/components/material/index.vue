@@ -433,11 +433,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useCate, useFile } from './hook'
-import FileItem from './file.vue'
-import Preview from './preview.vue'
-import type { Ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import type { Ref } from 'vue'
+
+import FileItem from './file.vue'
+import { useCate, useFile } from './hook'
+import Preview from './preview.vue'
+
 const props = defineProps({
     fileSize: {
         type: String,
@@ -485,7 +487,7 @@ const options = [
     }
 ]
 
-const visible: Ref<boolean> = inject('visible')!
+const visible: Ref<boolean> = inject('visible', ref<boolean>(false))!
 const previewUrl = ref('')
 const showPreview = ref(false)
 const {
@@ -532,7 +534,7 @@ const handlePreview = (url: string) => {
     showPreview.value = true
 }
 watch(
-    visible,
+    () => visible.value,
     async (val: boolean) => {
         if (val) {
             getData()

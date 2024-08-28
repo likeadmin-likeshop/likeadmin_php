@@ -83,10 +83,11 @@
 </template>
 
 <script setup lang="ts">
-import useSettingStore from '@/stores/modules/setting'
 import { useDark, useToggle } from '@vueuse/core'
-import theme_light from '@/assets/images/theme_white.png'
+
 import theme_dark from '@/assets/images/theme_black.png'
+import theme_light from '@/assets/images/theme_white.png'
+import useSettingStore from '@/stores/modules/setting'
 
 const settingStore = useSettingStore()
 const predefineColors = ref(['#409EFF', '#28C76F', '#EA5455', '#FF9F43', '#01CFE8', '#4A5DFF'])

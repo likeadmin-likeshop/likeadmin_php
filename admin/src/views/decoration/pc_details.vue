@@ -20,12 +20,12 @@
     </div>
 </template>
 <script lang="ts" setup name="decorationPc">
-import PreviewPc from './component/pages/preview-pc.vue'
-import widgets from './component/widgets'
-import { getDecoratePages, setDecoratePages } from '@/api/decoration'
-import { getNonDuplicateID } from '@/utils/util'
 import { ArrowLeft } from '@element-plus/icons-vue'
+
+import { getDecoratePages, setDecoratePages } from '@/api/decoration'
 import feedback from '@/utils/feedback'
+
+import PreviewPc from './component/pages/preview-pc.vue'
 
 const router = useRouter()
 

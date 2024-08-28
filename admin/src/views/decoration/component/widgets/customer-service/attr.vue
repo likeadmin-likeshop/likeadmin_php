@@ -7,13 +7,13 @@
                         class="w-[400px]"
                         show-word-limit
                         maxlength="20"
-                        v-model="content.title"
+                        v-model="contentData.title"
                     />
                 </el-form-item>
 
                 <el-form-item label="客服二维码">
                     <div>
-                        <material-picker v-model="content.qrcode" exclude-domain />
+                        <material-picker v-model="contentData.qrcode" exclude-domain />
                     </div>
                 </el-form-item>
 
@@ -22,18 +22,18 @@
                         class="w-[400px]"
                         show-word-limit
                         maxlength="20"
-                        v-model="content.remark"
+                        v-model="contentData.remark"
                     />
                 </el-form-item>
                 <el-form-item label="联系电话">
-                    <el-input class="w-[400px]" v-model="content.mobile" />
+                    <el-input class="w-[400px]" v-model="contentData.mobile" />
                 </el-form-item>
                 <el-form-item label="服务时间">
                     <el-input
                         class="w-[400px]"
                         show-word-limit
                         maxlength="20"
-                        v-model="content.time"
+                        v-model="contentData.time"
                     />
                 </el-form-item>
             </el-card>
@@ -42,10 +42,12 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
+
 import type options from './options'
 
 type OptionsType = ReturnType<typeof options>
-defineProps({
+const emits = defineEmits<(event: 'update:content', data: OptionsType['content']) => void>()
+const props = defineProps({
     content: {
         type: Object as PropType<OptionsType['content']>,
         default: () => ({})
@@ -53,6 +55,12 @@ defineProps({
     styles: {
         type: Object as PropType<OptionsType['styles']>,
         default: () => ({})
+    }
+})
+const contentData = computed({
+    get: () => props.content,
+    set: (newValue) => {
+        emits('update:content', newValue)
     }
 })
 </script>

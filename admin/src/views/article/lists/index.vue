@@ -123,11 +123,12 @@
     </div>
 </template>
 <script lang="ts" setup name="articleLists">
-import { articleLists, articleDelete, articleStatus, articleCateAll } from '@/api/article'
+import { articleCateAll, articleDelete, articleLists, articleStatus } from '@/api/article'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
 import { getRoutePath } from '@/router'
 import feedback from '@/utils/feedback'
+
 const queryParams = reactive({
     title: '',
     cid: '',

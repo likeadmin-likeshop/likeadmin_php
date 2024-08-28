@@ -58,10 +58,11 @@
 
 <script lang="ts" setup name="noticeEdit">
 import type { FormInstance } from 'element-plus'
-import feedback from '@/utils/feedback'
+import { pick } from 'lodash'
+
 import { noticeDetail, setNoticeConfig } from '@/api/message'
 import useMultipleTabs from '@/hooks/useMultipleTabs'
-import { pick } from 'lodash'
+import feedback from '@/utils/feedback'
 
 const route = useRoute()
 const router = useRouter()

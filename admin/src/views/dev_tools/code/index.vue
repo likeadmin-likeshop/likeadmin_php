@@ -150,18 +150,19 @@
 
 <script lang="ts" setup name="codeGenerate">
 import {
-    generateTable,
-    syncColumn,
+    generateCode,
     generateDelete,
     generatePreview,
-    generateCode
+    generateTable,
+    syncColumn
 } from '@/api/tools/code'
 import { usePaging } from '@/hooks/usePaging'
-import DataTable from '../components/data-table.vue'
-import CodePreview from '../components/code-preview.vue'
-import feedback from '@/utils/feedback'
-import { isProdMode } from '@/utils/env'
 import { getRoutePath } from '@/router'
+import { isProdMode } from '@/utils/env'
+import feedback from '@/utils/feedback'
+
+import CodePreview from '../components/code-preview.vue'
+import DataTable from '../components/data-table.vue'
 
 const formData = reactive({
     table_name: '',

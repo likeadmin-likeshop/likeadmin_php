@@ -1,6 +1,12 @@
 <template>
     <div class="mb-[18px] max-w-[400px]">
-        <Draggable class="draggable" v-model="menu" animation="300" handle=".drag-move">
+        <Draggable
+            class="draggable"
+            v-model="menu"
+            animation="300"
+            handle=".drag-move"
+            item-key="index"
+        >
             <template v-slot:item="{ element, index }">
                 <del-wrap @close="handleDelete(index)" class="max-w-[400px]">
                     <div class="bg-fill-light w-full p-4 mt-4">
@@ -69,9 +75,11 @@
 </template>
 
 <script setup lang="ts">
-import feedback from '@/utils/feedback'
 import { cloneDeep } from 'lodash-es'
 import Draggable from 'vuedraggable'
+
+import feedback from '@/utils/feedback'
+
 const props = withDefaults(
     defineProps<{
         modelValue: any[]

@@ -35,6 +35,7 @@
 </template>
 <script lang="ts" setup name="rechargeConfig">
 import { getRechargeConfig, setRechargeConfig } from '@/api/app/recharge'
+
 const formData = reactive({
     status: 1, //功能状态 1-开启 0-关闭
     min_amount: '' //最低充值金额

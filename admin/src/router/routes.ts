@@ -14,6 +14,7 @@
  */
 
 import type { RouteRecordRaw } from 'vue-router'
+
 import { PageEnum } from '@/enums/pageEnum'
 import Layout from '@/layout/default/index.vue'
 

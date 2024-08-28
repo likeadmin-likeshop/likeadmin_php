@@ -41,6 +41,7 @@
 </template>
 <script lang="ts" setup name="decorationTabbar">
 import { getDecorateTabbar, setDecorateTabbar } from '@/api/decoration'
+
 import Menu from './component/pages/menu.vue'
 import mobileTab from './component/tabbar/mobile'
 // import pcTab from './component/tabbar/pc'

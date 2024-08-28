@@ -11,7 +11,7 @@
                 <div class="flex-1">
                     <draggable
                         class="draggable"
-                        v-model="content.data"
+                        v-model="contentData.data"
                         animation="300"
                         handle=".drag-move"
                     >
@@ -63,13 +63,17 @@
     </div>
 </template>
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
+import { cloneDeep } from 'lodash-es'
 import type { PropType } from 'vue'
-import type options from './options'
 import Draggable from 'vuedraggable'
+
+import feedback from '@/utils/feedback'
+
+import type options from './options'
 
 const limit = 5
 type OptionsType = ReturnType<typeof options>
+const emits = defineEmits<(event: 'update:content', data: OptionsType['content']) => void>()
 const props = defineProps({
     content: {
         type: Object as PropType<OptionsType['content']>,
@@ -85,14 +89,23 @@ const props = defineProps({
     }
 })
 
+const contentData = computed({
+    get: () => props.content,
+    set: (newValue) => {
+        emits('update:content', newValue)
+    }
+})
+
 const handleAdd = () => {
     if (props.content.data?.length < limit) {
-        props.content.data.push({
+        const content = cloneDeep(props.content)
+        content.data.push({
             is_show: '1',
             image: '',
             name: '',
             link: {}
         })
+        emits('update:content', content)
     } else {
         feedback.msgError(`最多添加${limit}张图片`)
     }
@@ -101,7 +114,9 @@ const handleDelete = (index: number) => {
     if (props.content.data?.length <= 1) {
         return feedback.msgError('最少保留一张图片')
     }
-    props.content.data.splice(index, 1)
+    const content = cloneDeep(props.content)
+    content.data.splice(index, 1)
+    emits('update:content', content)
 }
 </script>
 

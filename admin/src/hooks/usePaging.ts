@@ -11,7 +11,14 @@ interface Options {
 }
 
 export function usePaging(options: Options) {
-    const { page = 1, size = 15, fetchFun, params = {},fixedParams = {}, firstLoading = false } = options
+    const {
+        page = 1,
+        size = 15,
+        fetchFun,
+        params = {},
+        fixedParams = {},
+        firstLoading = false
+    } = options
     // 记录分页初始参数
     const paramsInit: Record<any, any> = Object.assign({}, toRaw(params))
     // 分页数据

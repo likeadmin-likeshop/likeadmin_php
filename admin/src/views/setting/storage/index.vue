@@ -45,7 +45,9 @@
 </template>
 <script lang="ts" setup name="storage">
 import { storageLists } from '@/api/setting/storage'
+
 import EditPopup from './edit.vue'
+
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 
 // 列表数据

@@ -84,7 +84,8 @@
 
 <script lang="ts" setup name="scheduledTaskEdit">
 import type { FormInstance } from 'element-plus'
-import { crontabAdd, crontabEdit, crontabDetail, crontabExpression } from '@/api/setting/system'
+
+import { crontabAdd, crontabDetail, crontabEdit, crontabExpression } from '@/api/setting/system'
 import useMultipleTabs from '@/hooks/useMultipleTabs'
 
 const route = useRoute()

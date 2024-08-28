@@ -33,9 +33,11 @@
     </popup>
 </template>
 <script lang="ts" setup>
-import Popup from '@/components/popup/index.vue'
 import type { FormInstance, FormRules } from 'element-plus'
+
+import Popup from '@/components/popup/index.vue'
 import feedback from '@/utils/feedback'
+
 const formRef = shallowRef<FormInstance>()
 const props = defineProps({
     show: {

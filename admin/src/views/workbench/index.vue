@@ -122,8 +122,9 @@
 </template>
 
 <script lang="ts" setup name="workbench">
-import { getWorkbench } from '@/api/app'
 import vCharts from 'vue-echarts'
+
+import { getWorkbench } from '@/api/app'
 // 表单数据
 const workbenchData: any = reactive({
     version: {
@@ -166,10 +167,8 @@ const workbenchData: any = reactive({
                 type: 'line',
                 smooth: true,
                 lineStyle: {
-                    normal: {
-                        color: '#4A5DFF',
-                        width: 2
-                    }
+                    color: '#4A5DFF',
+                    width: 2
                 },
                 areaStyle: {
                     color: {
@@ -203,9 +202,6 @@ const workbenchData: any = reactive({
         yAxis: {
             type: 'value',
             name: '单位（万）'
-        },
-        legend: {
-            data: ['销售量']
         },
         tooltip: {
             trigger: 'axis'

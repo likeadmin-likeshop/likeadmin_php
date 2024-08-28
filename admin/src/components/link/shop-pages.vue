@@ -19,7 +19,8 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { LinkTypeEnum, type Link } from '.'
+
+import { type Link, LinkTypeEnum } from '.'
 
 defineProps({
     modelValue: {

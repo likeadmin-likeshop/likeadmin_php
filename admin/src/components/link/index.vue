@@ -35,11 +35,12 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { LinkTypeEnum, MenuTypeEnum, type Link } from '.'
-import ShopPages from './shop-pages.vue'
-import CustomLink from './custom-link.vue'
+
+import { type Link, LinkTypeEnum, MenuTypeEnum } from '.'
 import ArticleList from './article-list.vue'
+import CustomLink from './custom-link.vue'
 import MiniProgram from './mini-program.vue'
+import ShopPages from './shop-pages.vue'
 
 const props = defineProps({
     modelValue: {

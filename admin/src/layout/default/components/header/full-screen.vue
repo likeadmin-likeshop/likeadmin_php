@@ -6,5 +6,6 @@
 
 <script setup lang="ts">
 import { useFullscreen } from '@vueuse/core'
+
 const { toggle: toggleFullscreen, isFullscreen } = useFullscreen()
 </script>

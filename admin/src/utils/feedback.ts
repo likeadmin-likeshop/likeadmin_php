@@ -1,9 +1,9 @@
 import {
+    ElLoading,
     ElMessage,
     ElMessageBox,
-    ElNotification,
-    ElLoading,
-    type ElMessageBoxOptions
+    type ElMessageBoxOptions,
+    ElNotification
 } from 'element-plus'
 import type { LoadingInstance } from 'element-plus/es/components/loading/src/loading'
 

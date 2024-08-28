@@ -1,5 +1,6 @@
-import useAppStore from '@/stores/modules/app'
 import type { Router } from 'vue-router'
+
+import useAppStore from '@/stores/modules/app'
 
 export default function createInitGuard(router: Router) {
     router.beforeEach(async () => {

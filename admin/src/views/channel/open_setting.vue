@@ -31,8 +31,9 @@
     </div>
 </template>
 <script lang="ts" setup name="wxDevConfig">
-import { getOpenSettingConfig, setOpenSettingConfig } from '@/api/channel/open_setting'
 import type { FormInstance } from 'element-plus'
+
+import { getOpenSettingConfig, setOpenSettingConfig } from '@/api/channel/open_setting'
 
 const formData = reactive({
     app_id: '',

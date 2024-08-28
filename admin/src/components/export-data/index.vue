@@ -61,9 +61,11 @@
     </div>
 </template>
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
-import Popup from '@/components/popup/index.vue'
 import type { FormInstance } from 'element-plus'
+
+import Popup from '@/components/popup/index.vue'
+import feedback from '@/utils/feedback'
+
 const formRef = shallowRef<FormInstance>()
 const props = defineProps({
     params: {
