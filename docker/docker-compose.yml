@@ -8,7 +8,7 @@ services:
 
   nginx:
     container_name: likeadmin-nginx
-    image: registry.cn-guangzhou.aliyuncs.com/chatmoney/nginx:1.23.1
+    image: registry.cn-guangzhou.aliyuncs.com/likeadmin/nginx:1.23.1
     restart: always
     depends_on:
       - "php"
