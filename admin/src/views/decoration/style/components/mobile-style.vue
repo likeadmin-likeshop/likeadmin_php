@@ -16,8 +16,8 @@
             <el-form-item label="导航顶部文字颜色">
                 <div>
                     <el-radio-group v-model="formData.topTextColor">
-                        <el-radio label="white" size="large">白色</el-radio>
-                        <el-radio label="black" size="large">黑色</el-radio>
+                        <el-radio value="white" size="large">白色</el-radio>
+                        <el-radio value="black" size="large">黑色</el-radio>
                     </el-radio-group>
                     <div>
                         <span class="form-tips">页面导航栏文字的颜色</span>
@@ -54,8 +54,8 @@
             <el-form-item label="按钮文字颜色">
                 <div>
                     <el-radio-group v-model="formData.buttonColor">
-                        <el-radio label="white" size="large">白色</el-radio>
-                        <el-radio label="black" size="large">黑色</el-radio>
+                        <el-radio value="white" size="large">白色</el-radio>
+                        <el-radio value="black" size="large">黑色</el-radio>
                     </el-radio-group>
                 </div>
             </el-form-item>

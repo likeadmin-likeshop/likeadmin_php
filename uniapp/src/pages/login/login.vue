@@ -1,10 +1,7 @@
 <template>
     <page-meta :page-style="$theme.pageStyle">
         <!-- #ifndef H5 -->
-        <navigation-bar
-            :front-color="$theme.navColor"
-            :background-color="$theme.navBgColor"
-        />
+        <navigation-bar :front-color="$theme.navColor" :background-color="$theme.navBgColor" />
         <!-- #endif -->
     </page-meta>
     <view
@@ -18,8 +15,8 @@
             />
         </view>
         <view class="w-full mt-[140rpx] pb-[60rpx]">
-            <!-- #ifdef MP-WEIXIN || H5 -->
             <block v-if="!phoneLogin">
+                <!-- #ifdef MP-WEIXIN || H5 -->
                 <view v-if="isOpenOtherAuth && isWeixin && inWxAuth">
                     <u-button
                         type="primary"
@@ -167,7 +164,7 @@
                 </view>
                 <view class="flex justify-between mt-[40rpx]">
                     <view
-                    >已有账号，使用
+                        >已有账号，使用
                         <span
                             class="text-primary"
                             @click="changeLoginWay(LoginWayEnum.ACCOUNT)"
@@ -175,7 +172,7 @@
                                 formData.scene == LoginWayEnum.MOBILE &&
                                 includeLoginWay(LoginWayEnum.ACCOUNT)
                             "
-                        >密码登录</span
+                            >密码登录</span
                         >
                         <span
                             class="text-primary"
@@ -184,11 +181,11 @@
                                 formData.scene == LoginWayEnum.ACCOUNT &&
                                 includeLoginWay(LoginWayEnum.MOBILE)
                             "
-                        >验证码登录</span
+                            >验证码登录</span
                         >
                     </view>
                     <navigator url="/pages/register/register" hover-class="none"
-                    >注册账号</navigator
+                        >注册账号</navigator
                     >
                 </view>
             </block>

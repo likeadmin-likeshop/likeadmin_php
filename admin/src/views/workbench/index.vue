@@ -99,6 +99,7 @@
                 </template>
                 <div>
                     <v-charts
+                        ref="visitorChart"
                         style="height: 350px"
                         :option="workbenchData.visitorOption"
                         :autoresize="true"
@@ -111,6 +112,7 @@
                 </template>
                 <div>
                     <v-charts
+                        ref="saleChart"
                         style="height: 350px"
                         :option="workbenchData.saleOption"
                         :autoresize="true"
@@ -125,6 +127,21 @@
 import vCharts from 'vue-echarts'
 
 import { getWorkbench } from '@/api/app'
+import useSettingStore from '@/stores/modules/setting'
+import { useComponentRef } from '@/utils/getExposeType'
+import { calcColor } from '@/utils/util'
+
+const settingStore = useSettingStore()
+const saleChart = useComponentRef(vCharts)
+const visitorChart = useComponentRef(vCharts)
+
+watch(
+    () => settingStore.theme,
+    () => {
+        updateColor()
+    }
+)
+
 // 表单数据
 const workbenchData: any = reactive({
     version: {
@@ -153,10 +170,6 @@ const workbenchData: any = reactive({
         legend: {
             data: ['访问量']
         },
-        itemStyle: {
-            // 点的颜色。
-            color: 'red'
-        },
         tooltip: {
             trigger: 'axis'
         },
@@ -166,8 +179,9 @@ const workbenchData: any = reactive({
                 data: [],
                 type: 'line',
                 smooth: true,
+                color: settingStore.theme,
                 lineStyle: {
-                    color: '#4A5DFF',
+                    color: settingStore.theme,
                     width: 2
                 },
                 areaStyle: {
@@ -180,11 +194,11 @@ const workbenchData: any = reactive({
                         colorStops: [
                             {
                                 offset: 0,
-                                color: '#4A5DFF'
+                                color: settingStore.theme
                             },
                             {
                                 offset: 1,
-                                color: '#5777ff'
+                                color: settingStore.theme
                             }
                         ]
                     },
@@ -208,6 +222,7 @@ const workbenchData: any = reactive({
         },
         series: [
             {
+                name: '销售量',
                 data: [],
                 type: 'bar',
                 showBackground: true,
@@ -227,11 +242,11 @@ const workbenchData: any = reactive({
                         colorStops: [
                             {
                                 offset: 0,
-                                color: '#4A5DFF'
+                                color: calcColor(settingStore.theme, 0.7)
                             },
                             {
                                 offset: 1,
-                                color: '#5777ff'
+                                color: settingStore.theme
                             }
                         ]
                     }
@@ -281,7 +296,7 @@ const getData = () => {
                                 colorStops: [
                                     {
                                         offset: 0,
-                                        color: '#ff8729'
+                                        color: calcColor('#ff8729', 0.7)
                                     },
                                     {
                                         offset: 1,
@@ -298,6 +313,36 @@ const getData = () => {
         .catch((err: any) => {
             console.log('err', err)
         })
+}
+
+const updateColor = () => {
+    workbenchData.visitorOption.series[0].color = settingStore.theme
+    workbenchData.visitorOption.series[0].lineStyle.color = settingStore.theme
+    workbenchData.visitorOption.series[0].areaStyle.color.colorStops = [
+        {
+            offset: 0,
+            color: settingStore.theme
+        },
+        {
+            offset: 1,
+            color: settingStore.theme
+        }
+    ]
+    workbenchData.saleOption.series[0].itemStyle.color.colorStops = [
+        {
+            offset: 0,
+            color: calcColor(settingStore.theme, 0.7)
+        },
+        {
+            offset: 1,
+            color: settingStore.theme
+        }
+    ]
+
+    saleChart.value?.clear()
+    visitorChart.value?.clear()
+    saleChart.value?.setOption(workbenchData.saleOption)
+    visitorChart.value?.setOption(workbenchData.visitorOption)
 }
 
 onMounted(() => {

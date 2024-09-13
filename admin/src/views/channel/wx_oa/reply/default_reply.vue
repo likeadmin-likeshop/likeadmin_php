@@ -81,13 +81,13 @@ const { pager, getLists } = usePaging({
 const handleAdd = async () => {
     showEdit.value = true
     await nextTick()
-    editRef.value?.open('add', 1)
+    editRef.value?.open('add', 3)
 }
 
 const handleEdit = async (data: any) => {
     showEdit.value = true
     await nextTick()
-    editRef.value?.open('edit', 1)
+    editRef.value?.open('edit', 3)
     editRef.value?.getDetail(data)
 }
 

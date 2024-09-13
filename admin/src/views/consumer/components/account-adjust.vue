@@ -12,8 +12,8 @@
                 <el-form-item label="当前余额">¥ {{ value }} </el-form-item>
                 <el-form-item label="余额增减" required prop="action">
                     <el-radio-group v-model="formData.action">
-                        <el-radio :label="1">增加余额</el-radio>
-                        <el-radio :label="2">扣减余额</el-radio>
+                        <el-radio :value="1">增加余额</el-radio>
+                        <el-radio :value="2">扣减余额</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="调整余额" prop="num">

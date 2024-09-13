@@ -20,8 +20,8 @@
                 <div class="font-medium mb-7">短信通知</div>
                 <el-form-item label="开启状态" prop="sms_notice.status" required>
                     <el-radio-group v-model="formData.sms_notice.status">
-                        <el-radio label="0">关闭</el-radio>
-                        <el-radio label="1">开启</el-radio>
+                        <el-radio value="0">关闭</el-radio>
+                        <el-radio value="1">开启</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="模板ID" prop="sms_notice.template_id">

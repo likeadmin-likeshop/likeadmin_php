@@ -1,31 +1,43 @@
 <template>
-    <div class="edit-popup">
-        <popup
-            ref="popupRef"
-            :title="popupTitle"
-            :async="true"
-            width="550px"
-            @confirm="handleSubmit"
-            @close="handleClose"
+    <el-drawer
+        v-model="drawer"
+        destroy-on-close
+        :title="`${popupTitle}配置`"
+        direction="rtl"
+        size="50%"
+        @close="afterClose"
+        :before-close="beforeClose"
+    >
+        <div
+            class="h-full flex flex-col"
+            v-loading="loading"
+            element-loading-text="加载中..."
+            element-loading-background="var(--el-bg-color)"
         >
-            <el-form ref="formRef" :model="formData" label-width="84px" :rules="formRules">
+            <el-form ref="formRef" :model="formData" label-width="9rem" :rules="formRules">
                 <el-form-item label="支付方式">
-                    <el-radio :label="popupTitle" :model-value="popupTitle" />
+                    <el-radio :value="popupTitle" :model-value="popupTitle">
+                        {{ popupTitle }}
+                    </el-radio>
                 </el-form-item>
                 <el-form-item label="显示名称" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入显示名称" />
+                    <el-input
+                        v-model="formData.name"
+                        placeholder="请输入显示名称"
+                        style="max-width: 250px"
+                    />
                 </el-form-item>
-                <el-form-item label="显示图标" prop="image">
+                <el-form-item label="图标" prop="image">
                     <div>
                         <material-picker :limit="1" :disabled="false" v-model="formData.icon" />
-                        <span class="form-tips">建议尺寸：200*200px</span>
+                        <div class="form-tips">建议尺寸：200*200px</div>
                     </div>
                 </el-form-item>
                 <template v-if="formData.pay_way == PayWayEnum.WECHAT">
                     <el-form-item prop="config.interface_version" label="微信支付接口版本">
                         <div>
                             <el-radio-group v-model="formData.config.interface_version">
-                                <el-radio label="v3"></el-radio>
+                                <el-radio value="v3">V3</el-radio>
                             </el-radio-group>
                             <div class="form-tips">暂时只支持V3版本</div>
                         </div>
@@ -34,7 +46,7 @@
                     <el-form-item label="商户类型" prop="config.merchant_type">
                         <div>
                             <el-radio-group v-model="formData.config.merchant_type">
-                                <el-radio label="ordinary_merchant">普通商户</el-radio>
+                                <el-radio value="ordinary_merchant">普通商户</el-radio>
                             </el-radio-group>
                             <div class="form-tips">
                                 暂时只支持普通商户类型，服务商户类型模式暂不支持
@@ -43,63 +55,63 @@
                     </el-form-item>
 
                     <el-form-item label="微信支付商户号" prop="config.mch_id">
-                        <div class="flex-1">
+                        <div>
                             <el-input
                                 v-model="formData.config.mch_id"
                                 placeholder="请输入微信支付商户号"
+                                style="max-width: 250px"
                             />
                             <div class="form-tips">微信支付商户号（MCHID）</div>
                         </div>
                     </el-form-item>
 
                     <el-form-item label="商户API密钥" prop="config.pay_sign_key">
-                        <el-input
-                            v-model="formData.config.pay_sign_key"
-                            placeholder="请输入微信支付商户API密钥"
-                        />
-                        <span class="form-tips">微信支付商户API密钥（paySignKey）</span>
+                        <div>
+                            <el-input
+                                v-model="formData.config.pay_sign_key"
+                                placeholder="请输入微信支付商户API密钥"
+                                style="max-width: 250px"
+                            />
+                            <div class="form-tips">微信支付商户API密钥（paySignKey）</div>
+                        </div>
                     </el-form-item>
 
                     <el-form-item label="微信支付证书" prop="config.apiclient_cert">
-                        <el-input
-                            type="textarea"
-                            rows="3"
-                            v-model="formData.config.apiclient_cert"
-                            placeholder="请输入微信支付证书"
-                        />
+                        <div>
+                            <el-input
+                                type="textarea"
+                                :rows="3"
+                                v-model="formData.config.apiclient_cert"
+                                placeholder="请输入微信支付证书"
+                                style="max-width: 400px"
+                            />
 
-                        <span class="form-tips">
-                            微信支付证书（apiclient_cert.pem），前往微信商家平台生成并黏贴至此处
-                        </span>
+                            <div class="form-tips">
+                                微信支付证书（apiclient_cert.pem），前往微信商家平台生成并黏贴至此处
+                            </div>
+                        </div>
                     </el-form-item>
 
                     <el-form-item label="微信支付证书密钥" prop="config.apiclient_key">
-                        <el-input
-                            type="textarea"
-                            rows="3"
-                            v-model="formData.config.apiclient_key"
-                            placeholder="请输入微信支付证书密钥"
-                        />
-                        <span class="form-tips">
-                            微信支付证书密钥（apiclient_key.pem），前往微信商家平台生成并黏贴至此处
-                        </span>
+                        <div>
+                            <el-input
+                                type="textarea"
+                                :rows="3"
+                                v-model="formData.config.apiclient_key"
+                                placeholder="请输入微信支付证书密钥"
+                                style="max-width: 400px"
+                            />
+                            <div class="form-tips">
+                                微信支付证书密钥（apiclient_key.pem），前往微信商家平台生成并黏贴至此处
+                            </div>
+                        </div>
                     </el-form-item>
 
                     <el-form-item label="支付授权目录">
                         <div>
                             <div>
                                 <span class="mr-[20px]">https://前台手机域名地址/</span>
-                                <el-button
-                                    link
-                                    type="primary"
-                                    v-copy="formData.domain + '/mobile/'"
-                                >
-                                    复制
-                                </el-button>
                             </div>
-                            <span class="form-tips">
-                                支付授权目录仅用于参考，复制后前往微信商家平台填写
-                            </span>
                         </div>
                     </el-form-item>
                 </template>
@@ -107,7 +119,7 @@
                     <el-form-item label="模式" prop="config.mode">
                         <div>
                             <el-radio-group v-model="formData.config.mode">
-                                <el-radio label="normal_mode">普通模式</el-radio>
+                                <el-radio value="normal_mode">普通模式</el-radio>
                             </el-radio-group>
                             <div class="form-tips">暂时仅支持支付宝普通模式</div>
                         </div>
@@ -116,7 +128,7 @@
                     <el-form-item label="商户类型" prop="config.merchant_type">
                         <div>
                             <el-radio-group v-model="formData.config.merchant_type">
-                                <el-radio label="ordinary_merchant">普通商户</el-radio>
+                                <el-radio value="ordinary_merchant">普通商户</el-radio>
                             </el-radio-group>
                             <div class="form-tips">
                                 暂时只支持普通商户类型，服务商户类型模式暂不支持
@@ -129,8 +141,9 @@
                             <el-input
                                 v-model="formData.config.app_id"
                                 placeholder="请输入支付宝应用ID"
+                                style="max-width: 250px"
                             />
-                            <span class="form-tips"> 支付宝应用APP_ID </span>
+                            <div class="form-tips">支付宝应用APP_ID</div>
                         </div>
                     </el-form-item>
 
@@ -138,11 +151,12 @@
                         <div class="flex-1">
                             <el-input
                                 type="textarea"
-                                rows="3"
+                                :rows="3"
                                 v-model="formData.config.private_key"
                                 placeholder="请输入支付宝应用私钥"
+                                style="max-width: 400px"
                             />
-                            <span class="form-tips">支付宝应用私钥（private_key） </span>
+                            <div class="form-tips">支付宝应用私钥（private_key）</div>
                         </div>
                     </el-form-item>
 
@@ -150,11 +164,12 @@
                         <div class="flex-1">
                             <el-input
                                 type="textarea"
-                                rows="3"
+                                :rows="3"
                                 v-model="formData.config.ali_public_key"
                                 placeholder="请输入支付宝公钥"
+                                style="max-width: 400px"
                             />
-                            <span class="form-tips">支付宝公钥（alipayCertPublicKey） </span>
+                            <div class="form-tips">支付宝公钥（alipayCertPublicKey）</div>
                         </div>
                     </el-form-item>
                 </template>
@@ -164,26 +179,61 @@
                         <div class="form-tips">默认为0， 数值越大越排前</div>
                     </div>
                 </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" :loading="isLock" @click="lockSubmit">保存</el-button>
+                </el-form-item>
             </el-form>
-        </popup>
-    </div>
+        </div>
+    </el-drawer>
 </template>
+
 <script lang="ts" setup>
-import type { FormInstance, FormRules } from 'element-plus'
+import type { FormRules } from 'element-plus'
+import { ElForm, ElMessageBox } from 'element-plus'
 
 import { getPayConfig, setPayConfig } from '@/api/setting/pay'
-import Popup from '@/components/popup/index.vue'
+import { useLockFn } from '@/hooks/useLockFn'
+import { useComponentRef } from '@/utils/getExposeType'
 
-const emit = defineEmits(['success', 'close'])
-const formRef = shallowRef<FormInstance>()
-const popupRef = shallowRef<InstanceType<typeof Popup>>()
+interface Config {
+    interface_version?: string
+    merchant_type?: string
+    mch_id?: string
+    pay_sign_key?: string
+    apiclient_cert?: string
+    apiclient_key?: string
+    mode?: string
+    app_id?: string
+    private_key?: string
+    ali_public_key?: string
+}
+
+interface FormData {
+    id: string
+    pay_way: number
+    name: string
+    icon: string
+    sort: number
+    remark: string
+    domain: string
+    config: Partial<Config>
+}
+
 enum PayWayEnum {
     BALANCE = 1,
     WECHAT = 2,
     ALIPAY = 3
 }
+
+const drawer = ref(false)
+const formRef = useComponentRef(ElForm)
+const tenantId = ref<number>()
+const activeName = ref<'profile' | 'accounts' | 'users'>('profile')
+const editStatus = ref<boolean>(false)
+const loading = ref<boolean>(true)
+
 const popupTitle = computed(() => {
-    switch (formData.pay_way) {
+    switch (formData.value.pay_way) {
         case PayWayEnum.BALANCE:
             return '余额支付'
         case PayWayEnum.WECHAT:
@@ -194,7 +244,7 @@ const popupTitle = computed(() => {
             return ''
     }
 })
-const formData = reactive({
+const formData = ref<FormData>({
     id: '',
     pay_way: 0,
     name: '',
@@ -267,40 +317,61 @@ const formRules: FormRules = {
     ]
 }
 
-const handleSubmit = async () => {
-    await formRef.value?.validate()
-    await setPayConfig(formData)
-    popupRef.value?.close()
-    emit('success')
-}
+const emits = defineEmits(['refresh'])
 
-const open = () => {
-    popupRef.value?.open()
+const openHandle = (id: number, status?: boolean, tabIndex?: 'profile' | 'accounts' | 'users') => {
+    loading.value = true
+    activeName.value = tabIndex || 'profile'
+    editStatus.value = status || false
+    getDetails(id)
+    tenantId.value = id
+    drawer.value = true
 }
-
-const setFormData = (data: Record<any, any>) => {
-    for (const key in formData) {
-        if (data[key] != null && data[key] != undefined) {
-            //@ts-ignore
-            formData[key] = data[key]
-        }
-    }
-}
-
-const getDetail = async (row: Record<string, any>) => {
-    const data = await getPayConfig({
-        id: row.id
+const getDetails = async (id: number) => {
+    const data: FormData = await getPayConfig({
+        id: id
     })
-    setFormData(data)
+    if (!data.config) {
+        data.config = formData.value.config
+    }
+    loading.value = false
+    formData.value = data
 }
 
-const handleClose = () => {
-    emit('close')
+const beforeClose = (done: () => void) => {
+    ElMessageBox.confirm('修改还未保存，确认退出编辑吗？')
+        .then(() => {
+            done()
+        })
+        .catch(() => {})
 }
+const afterClose = () => {
+    formRef.value?.resetFields()
+}
+
+const submitEdit = async () => {
+    await formRef.value?.validate()
+    await setPayConfig(formData.value)
+    drawer.value = false
+    emits('refresh')
+}
+
+const { isLock, lockFn: lockSubmit } = useLockFn(submitEdit)
 
 defineExpose({
-    open,
-    setFormData,
-    getDetail
+    openHandle
 })
 </script>
+
+<style lang="scss" scoped>
+:deep(.el-tabs__content) {
+    flex: 1;
+
+    .el-tab-pane {
+        height: 100%;
+    }
+}
+:deep(.el-form-item__content) {
+    align-items: start;
+}
+</style>

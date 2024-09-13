@@ -10,7 +10,7 @@ const props = withDefaults(
     defineProps<{
         options: any[]
         value: any
-        config: Record<string, string>
+        config?: Record<string, string>
     }>(),
     {
         options: () => [],

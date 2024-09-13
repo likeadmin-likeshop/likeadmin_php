@@ -63,8 +63,8 @@
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_required"
-                                        :true-label="1"
-                                        :false-label="0"
+                                        :true-value="1"
+                                        :false-value="0"
                                     />
                                 </template>
                             </el-table-column>
@@ -72,8 +72,8 @@
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_insert"
-                                        :true-label="1"
-                                        :false-label="0"
+                                        :true-value="1"
+                                        :false-value="0"
                                     />
                                 </template>
                             </el-table-column>
@@ -81,8 +81,8 @@
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_update"
-                                        :true-label="1"
-                                        :false-label="0"
+                                        :true-value="1"
+                                        :false-value="0"
                                     />
                                 </template>
                             </el-table-column>
@@ -90,8 +90,8 @@
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_lists"
-                                        :true-label="1"
-                                        :false-label="0"
+                                        :true-value="1"
+                                        :false-value="0"
                                     />
                                 </template>
                             </el-table-column>
@@ -99,8 +99,8 @@
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_query"
-                                        :true-label="1"
-                                        :false-label="0"
+                                        :true-value="1"
+                                        :false-value="0"
                                     />
                                 </template>
                             </el-table-column>
@@ -161,14 +161,14 @@
                     <el-tab-pane label="生成配置" name="config">
                         <el-form-item label="模板类型" prop="template_type">
                             <el-radio-group v-model="formData.template_type">
-                                <el-radio :label="0">单表（curd）</el-radio>
-                                <el-radio :label="1">树表（curd）</el-radio>
+                                <el-radio :value="0">单表（curd）</el-radio>
+                                <el-radio :value="1">树表（curd）</el-radio>
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="删除类型" prop="delete.type">
                             <el-radio-group v-model="formData.delete.type">
-                                <el-radio :label="0">物理删除</el-radio>
-                                <el-radio :label="1">软删除</el-radio>
+                                <el-radio :value="0">物理删除</el-radio>
+                                <el-radio :value="1">软删除</el-radio>
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item
@@ -250,8 +250,8 @@
 
                         <el-form-item label="生成方式" prop="generate_type">
                             <el-radio-group v-model="formData.generate_type">
-                                <el-radio :label="0">压缩包下载</el-radio>
-                                <el-radio :label="1">生成到模块</el-radio>
+                                <el-radio :value="0">压缩包下载</el-radio>
+                                <el-radio :value="1">生成到模块</el-radio>
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="模块名" prop="module_name">
@@ -308,8 +308,8 @@
                         <el-form-item label="菜单构建" prop="menu.type" required>
                             <div>
                                 <el-radio-group v-model="formData.menu.type">
-                                    <el-radio :label="1">自动构建</el-radio>
-                                    <el-radio :label="0">手动添加</el-radio>
+                                    <el-radio :value="1">自动构建</el-radio>
+                                    <el-radio :value="0">手动添加</el-radio>
                                 </el-radio-group>
                                 <div class="form-tips">
                                     自动构建：自动执行生成菜单sql。手动添加：自行添加菜单。
@@ -325,7 +325,7 @@
                             新增关联
                         </el-button>
                         <div class="mt-4">
-                            <el-table :data="formData.relations" size="mini">
+                            <el-table :data="formData.relations" size="small">
                                 <el-table-column prop="type" label="关联类型">
                                     <template #default="{ row }">
                                         <dict-value :value="row.type" :options="relationTypes" />

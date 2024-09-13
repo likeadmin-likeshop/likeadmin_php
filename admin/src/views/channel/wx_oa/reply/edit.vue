@@ -30,8 +30,8 @@
                 <el-form-item label="匹配方式" prop="matching_type" v-if="formData.reply_type == 2">
                     <div class="flex-1">
                         <el-radio-group v-model="formData.matching_type">
-                            <el-radio :label="1">全匹配</el-radio>
-                            <el-radio :label="2">模糊匹配</el-radio>
+                            <el-radio :value="1">全匹配</el-radio>
+                            <el-radio :value="2">模糊匹配</el-radio>
                         </el-radio-group>
                         <div class="form-tips">模糊匹配时，关键词部分匹配用户输入的内容即可</div>
                     </div>
@@ -39,7 +39,7 @@
                 <el-form-item label="回复类型" prop="content_type" :min="0">
                     <div class="flex-1">
                         <el-radio-group v-model="formData.content_type">
-                            <el-radio :label="1">文本</el-radio>
+                            <el-radio :value="1">文本</el-radio>
                         </el-radio-group>
                         <div class="form-tips">暂时只支持文本类型</div>
                     </div>
@@ -69,7 +69,7 @@
                 >
                     <div class="flex-1">
                         <el-radio-group v-model="formData.reply_num">
-                            <el-radio :label="1">回复匹配首词条</el-radio>
+                            <el-radio :value="1">回复匹配首词条</el-radio>
                         </el-radio-group>
                         <div class="form-tips">
                             设置关键词匹配多条时回复的数量，暂时支持回复一条内容

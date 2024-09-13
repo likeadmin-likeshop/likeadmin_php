@@ -8,7 +8,7 @@
                             ref="treeRef"
                             node-key="id"
                             :data="cateLists"
-                            empty-text="''"
+                            empty-text=""
                             :highlight-current="true"
                             :expand-on-click-node="false"
                             :current-node-key="cateId"

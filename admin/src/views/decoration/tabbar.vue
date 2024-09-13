@@ -40,6 +40,8 @@
     </div>
 </template>
 <script lang="ts" setup name="decorationTabbar">
+import { markRaw } from 'vue'
+
 import { getDecorateTabbar, setDecorateTabbar } from '@/api/decoration'
 
 import Menu from './component/pages/menu.vue'
@@ -73,7 +75,7 @@ const menus: Record<
             },
             list: []
         },
-        component: mobileTab
+        component: markRaw(mobileTab)
     }
 })
 const currentTab = computed(() => {

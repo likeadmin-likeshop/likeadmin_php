@@ -97,14 +97,14 @@
                             class="flex-col !items-start min-w-0"
                             v-model="formData.encryption_type"
                         >
-                            <el-radio :label="1">
+                            <el-radio :value="1">
                                 明文模式 (不使用消息体加解密功能，安全系数较低)
                             </el-radio>
 
-                            <el-radio :label="2">
+                            <el-radio :value="2">
                                 兼容模式 (明文、密文将共存，方便开发者调试和维护)
                             </el-radio>
-                            <el-radio :label="3">
+                            <el-radio :value="3">
                                 安全模式（推荐） (消息包为纯密文，需要开发者加密和解密，安全系数高)
                             </el-radio>
                         </el-radio-group>

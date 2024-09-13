@@ -23,7 +23,7 @@
                 </el-form-item>
                 <el-form-item label="类型" prop="type">
                     <el-radio-group v-model="formData.type">
-                        <el-radio :label="1">定时任务</el-radio>
+                        <el-radio :value="1">定时任务</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="命令" prop="command">

@@ -18,6 +18,8 @@
     </footer-btns>
 </template>
 <script setup lang="ts">
+import { markRaw } from 'vue'
+
 import { getDecoratePages, setDecoratePages } from '@/api/decoration'
 
 import MobileStyle from './components/mobile-style.vue'
@@ -27,7 +29,7 @@ const tabsList = ref([
     {
         name: '移动端',
         id: 5,
-        component: MobileStyle,
+        component: markRaw(MobileStyle),
         data: {
             themeColorId: 1,
             topTextColor: 'white',

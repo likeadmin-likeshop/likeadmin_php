@@ -5,8 +5,8 @@
                 <el-form-item label="功能状态" style="margin-bottom: 0">
                     <div>
                         <el-radio-group v-model="formData.status">
-                            <el-radio :label="1">开启</el-radio>
-                            <el-radio :label="0">关闭</el-radio>
+                            <el-radio :value="1">开启</el-radio>
+                            <el-radio :value="0">关闭</el-radio>
                         </el-radio-group>
 
                         <div class="form-tips">默认开启，关闭则前端不显示该功能</div>

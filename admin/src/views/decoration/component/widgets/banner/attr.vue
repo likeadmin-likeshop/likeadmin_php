@@ -5,8 +5,8 @@
                 <div class="text-base dark:text-[#ffffff] text-[#101010] font-medium">展示样式</div>
             </div>
             <el-radio-group v-model="contentData.style">
-                <el-radio :label="1">常规</el-radio>
-                <el-radio :label="2">大屏</el-radio>
+                <el-radio :value="1">常规</el-radio>
+                <el-radio :value="2">大屏</el-radio>
             </el-radio-group>
         </el-card>
         <el-card shadow="never" class="!border-none flex mt-2" v-if="content.style == 1">
@@ -14,8 +14,8 @@
                 <div class="text-base text-[#101010] dark:text-[#ffffff] font-medium">背景联动</div>
             </div>
             <el-radio-group v-model="contentData.bg_style">
-                <el-radio :label="1">开启</el-radio>
-                <el-radio :label="0">关闭</el-radio>
+                <el-radio :value="1">开启</el-radio>
+                <el-radio :value="0">关闭</el-radio>
             </el-radio-group>
             <div class="p-[15px] rounded-[8px] bg-[#f3f8ff] text-[#136bdf] mt-2">
                 开启背景联动后，需为轮播图设置背景图，轮播图切换时，背景图也跟随切换，此时该页面自身的“页面背景“设置将失效。

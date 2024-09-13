@@ -160,3 +160,60 @@ export const getNonDuplicateID = (length = 8) => {
     idStr += Math.random().toString(36).substring(3, length)
     return idStr
 }
+
+/**
+ * 计算颜色透明度减淡
+ */
+export const calcColor = (color: string, opacity: number): string => {
+    // 规范化透明度值在 0 ~ 1 之间
+    opacity = Math.min(1, Math.max(0, opacity))
+
+    // 检查颜色是否是 hex 格式
+    const isHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
+    const isRgb = /^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)$/
+    const isRgba = /^rgba\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*[0-9.]+\s*\)$/
+
+    let r: number = 0,
+        g: number = 0,
+        b: number = 0
+
+    if (isHex.test(color)) {
+        // 如果是 hex 格式 (#ffffff 或 #fff)
+        const hex = color.slice(1)
+
+        // 如果是3位短格式，扩展为6位
+        const fullHex =
+            hex.length === 3
+                ? hex
+                      .split('')
+                      .map((h) => h + h)
+                      .join('')
+                : hex
+
+        // 转换为 RGB
+        r = parseInt(fullHex.substring(0, 2), 16)
+        g = parseInt(fullHex.substring(2, 4), 16)
+        b = parseInt(fullHex.substring(4, 6), 16)
+    } else if (isRgb.test(color)) {
+        // 如果是 rgb 格式 (rgb(255, 255, 255))
+        const rgbValues = color.match(/\d+/g)
+        if (rgbValues) {
+            r = parseInt(rgbValues[0])
+            g = parseInt(rgbValues[1])
+            b = parseInt(rgbValues[2])
+        }
+    } else if (isRgba.test(color)) {
+        // 如果是 rgba 格式 (rgba(255, 255, 255, 1))
+        const rgbaValues = color.match(/\d+(\.\d+)?/g)
+        if (rgbaValues) {
+            r = parseInt(rgbaValues[0])
+            g = parseInt(rgbaValues[1])
+            b = parseInt(rgbaValues[2])
+        }
+    } else {
+        throw new Error('Unsupported color format')
+    }
+
+    // 返回转换后的 rgba 颜色值
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}

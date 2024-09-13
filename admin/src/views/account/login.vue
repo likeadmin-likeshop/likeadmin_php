@@ -17,7 +17,7 @@
                                 @keyup.enter="handleEnter"
                             >
                                 <template #prepend>
-                                    <icon name="el-icon-User" />
+                                    <icon name="el-icon-User" size="16" />
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -30,7 +30,7 @@
                                 @keyup.enter="handleLogin"
                             >
                                 <template #prepend>
-                                    <icon name="el-icon-Lock" />
+                                    <icon name="el-icon-Lock" size="16" />
                                 </template>
                             </el-input>
                         </el-form-item>

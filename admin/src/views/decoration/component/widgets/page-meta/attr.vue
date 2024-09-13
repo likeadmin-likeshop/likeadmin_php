@@ -3,8 +3,8 @@
         <el-card shadow="never" class="!border-none flex mt-2">
             <el-form-item label="页面标题">
                 <el-radio-group v-model="contentData.title_type">
-                    <el-radio label="1">文字</el-radio>
-                    <el-radio label="2">图片</el-radio>
+                    <el-radio value="1">文字</el-radio>
+                    <el-radio value="2">图片</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item v-if="content.title_type == 1">
@@ -22,14 +22,14 @@
             </el-form-item>
             <el-form-item label="文字颜色" v-if="content.title_type == 1">
                 <el-radio-group v-model="contentData.text_color">
-                    <el-radio label="1">白色</el-radio>
-                    <el-radio label="2">黑色</el-radio>
+                    <el-radio value="1">白色</el-radio>
+                    <el-radio value="2">黑色</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="页面背景">
                 <el-radio-group v-model="contentData.bg_type">
-                    <el-radio label="1">背景颜色</el-radio>
-                    <el-radio label="2">背景图片</el-radio>
+                    <el-radio value="1">背景颜色</el-radio>
+                    <el-radio value="2">背景图片</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item v-if="content.bg_type == 1">

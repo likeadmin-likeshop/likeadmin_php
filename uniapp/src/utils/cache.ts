@@ -1,7 +1,7 @@
 const cache = {
     key: 'app_',
     //设置缓存(expire为缓存时效)
-    set(key: string, value: any, expire?: string) {
+    set(key: string, value: any, expire?: number) {
         key = this.getKey(key)
         let data: any = {
             expire: expire ? this.time() + expire : '',

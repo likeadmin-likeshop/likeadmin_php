@@ -8,8 +8,8 @@
         <!-- 菜单类型 -->
         <el-form-item label="主菜单类型" prop="menuType" v-if="modular === 'master'">
             <el-radio-group v-model="menuForm.menuType">
-                <el-radio :label="false">不配置子菜单</el-radio>
-                <el-radio :label="true">配置子菜单</el-radio>
+                <el-radio :value="false">不配置子菜单</el-radio>
+                <el-radio :value="true">配置子菜单</el-radio>
             </el-radio-group>
         </el-form-item>
         <el-form-item label="" v-if="menuForm.menuType && modular === 'master'">
@@ -20,8 +20,8 @@
             <!-- 跳转链接 -->
             <el-form-item label="跳转链接" prop="visitType">
                 <el-radio-group v-model="menuForm.visitType">
-                    <el-radio label="view">网页</el-radio>
-                    <el-radio label="miniprogram">小程序</el-radio>
+                    <el-radio value="view">网页</el-radio>
+                    <el-radio value="miniprogram">小程序</el-radio>
                 </el-radio-group>
             </el-form-item>
 

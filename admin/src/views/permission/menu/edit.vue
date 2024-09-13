@@ -11,9 +11,9 @@
             <el-form ref="formRef" :model="formData" label-width="80px" :rules="formRules">
                 <el-form-item label="菜单类型" prop="type" required>
                     <el-radio-group v-model="formData.type">
-                        <el-radio :label="MenuEnum.CATALOGUE">目录</el-radio>
-                        <el-radio :label="MenuEnum.MENU">菜单</el-radio>
-                        <el-radio :label="MenuEnum.BUTTON">按钮</el-radio>
+                        <el-radio :value="MenuEnum.CATALOGUE">目录</el-radio>
+                        <el-radio :value="MenuEnum.MENU">菜单</el-radio>
+                        <el-radio :value="MenuEnum.BUTTON">按钮</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="父级菜单" prop="pid">
@@ -115,8 +115,8 @@
                 >
                     <div>
                         <el-radio-group v-model="formData.is_cache">
-                            <el-radio :label="1">缓存</el-radio>
-                            <el-radio :label="0">不缓存</el-radio>
+                            <el-radio :value="1">缓存</el-radio>
+                            <el-radio :value="0">不缓存</el-radio>
                         </el-radio-group>
                         <div class="form-tips">选择缓存则会被`keep-alive`缓存</div>
                     </div>
@@ -129,8 +129,8 @@
                 >
                     <div>
                         <el-radio-group v-model="formData.is_show">
-                            <el-radio :label="1">显示</el-radio>
-                            <el-radio :label="0">隐藏</el-radio>
+                            <el-radio :value="1">显示</el-radio>
+                            <el-radio :value="0">隐藏</el-radio>
                         </el-radio-group>
                         <div class="form-tips">
                             选择隐藏则路由将不会出现在侧边栏，但仍然可以访问
@@ -145,8 +145,8 @@
                 >
                     <div>
                         <el-radio-group v-model="formData.is_disable">
-                            <el-radio :label="0">正常</el-radio>
-                            <el-radio :label="1">停用</el-radio>
+                            <el-radio :value="0">正常</el-radio>
+                            <el-radio :value="1">停用</el-radio>
                         </el-radio-group>
                         <div class="form-tips">选择停用则路由将不会出现在侧边栏，也不能被访问</div>
                     </div>

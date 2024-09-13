@@ -54,7 +54,7 @@
                 <el-table-column label="添加时间" prop="create_time" min-width="180" />
                 <el-table-column label="状态" prop="status" min-width="100">
                     <template #default="{ row }">
-                        <el-tag class="ml-2" :type="row.status ? '' : 'danger'">
+                        <el-tag class="ml-2" :type="row.status ? 'primary' : 'danger'">
                             {{ row.status_desc }}
                         </el-tag>
                     </template>

@@ -6,8 +6,8 @@
                     <div class="text-base text-[#101010] font-medium">展示样式</div>
                 </div>
                 <el-radio-group v-model="contentData.style">
-                    <el-radio :label="1">固定显示</el-radio>
-                    <el-radio :label="2">分页滑动</el-radio>
+                    <el-radio :value="1">固定显示</el-radio>
+                    <el-radio :value="2">分页滑动</el-radio>
                 </el-radio-group>
                 <el-form-item label="每行数量" class="mt-4">
                     <el-select v-model="contentData.per_line" style="width: 300px">

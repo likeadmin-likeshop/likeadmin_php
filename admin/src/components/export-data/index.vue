@@ -26,8 +26,8 @@
                     </el-form-item>
                     <el-form-item prop="page_type" label="导出范围：" required>
                         <el-radio-group v-model="formData.page_type">
-                            <el-radio :label="0">全部导出</el-radio>
-                            <el-radio :label="1">分页导出</el-radio>
+                            <el-radio :value="0">全部导出</el-radio>
+                            <el-radio :value="1">分页导出</el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="分页范围：" v-if="formData.page_type == 1">
