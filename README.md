@@ -1,6 +1,3 @@
-<a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
-
-<a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
 
  <h1 align="center">likeadmin（PHP）
  通用管理后台</h1>
@@ -32,7 +29,9 @@
   <img src="/server/public/readme/likeadmin.png" /><br>
 </div>
 <br>
+<a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
 
+<a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
 ## 🚀🚀🚀docker 本地一句命令快速部署体验
 
 ### 🐳 快速部署
