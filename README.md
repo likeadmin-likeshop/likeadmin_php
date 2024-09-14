@@ -1,4 +1,3 @@
-
  <h1 align="center">likeadmin（PHP）
  通用管理后台</h1>
 <h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
@@ -32,6 +31,7 @@
 <a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
 
 <a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
+
 ## 🚀🚀🚀docker 本地一句命令快速部署体验
 
 ### 🐳 快速部署
@@ -143,4 +143,4 @@ PC 端前台使用 Nuxt.js，支持服务器端渲染(SSR)，对 SEO 友好。
 
 ### 🛠️  代码生成器
 
-一键生成前后端业务代码，大大提示开发效率。
+一键生成前后端业务代码，大大提升开发效率。
