@@ -2,6 +2,7 @@
  通用管理后台</h1>
 <h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
 <p align="center">
+<p align="center"><a href="https://gitee.com/likeadmin/likeadmin_php_saas">SaaS版点击这里</a></p>
 <p align="center">
 <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8-8892bf"></a>
 <a href="https://www.tslang.cn/"><img src="https://img.shields.io/badge/TypeScript-5-294e80"></a>
@@ -29,6 +30,7 @@
   <img src="/server/public/readme/likeadmin.png" /><br>
 </div>
 <br>
+
 <a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
 
 <a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
@@ -43,7 +45,7 @@
  docker run -d --name likeadmin_php  -p 20221:80 -e MYSQL_ROOT_PASSWORD=root  registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
 ```
 
-如果需要自定义参数永久挂载数据，在终端运行以下命令，其中"[]"改成自定义参数。
+如果需要自定义参数永久挂载数据，在终端运行以下命令，其中整个"[]"改成自定义参数。
 
 ```shell
 docker run -d --name likeadmin_php \
@@ -56,7 +58,8 @@ registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
 
 ### ⚠️ 注意
 
-1.如果出现无法访问，请等待 1 分钟，docker 部署每次会下载最新源码。<br> 2.安装的时候，数据默认帐号为 root，默认密码为 root。<br>
+1.如果出现无法访问，请等待 1 分钟，docker 部署每次会下载最新源码。<br>
+ 2.安装的时候，数据默认帐号为 root，默认密码为 root。<br>
 3.docker 快速部署只适合本地部署体验，不熟悉 docker 请勿用于生产环境，可能造成数据丢失等问题。
 
 ### 🛜 访问
