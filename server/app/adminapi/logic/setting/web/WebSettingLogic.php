@@ -159,4 +159,29 @@ class WebSettingLogic extends BaseLogic
 
         return $config;
     }
+
+    /**
+     * @notes 获取站点统计配置
+     * @return array
+     * @author yfdong
+     * @date 2024/09/20 22:25
+     */
+    public static function getSiteStatistics()
+    {
+        return [
+            'clarity_code' => ConfigService::get('siteStatistics', 'clarity_code')
+        ];
+    }
+
+    /**
+     * @notes 设置站点统计配置
+     * @param array $params
+     * @return void
+     * @author yfdong
+     * @date 2024/09/20 22:31
+     */
+    public static function setSiteStatistics(array $params)
+    {
+        ConfigService::set('siteStatistics', 'clarity_code', $params['clarity_code']);
+    }
 }
