@@ -8,32 +8,30 @@
                 show-icon
             ></el-alert>
             <el-form ref="formRef" class="mb-[-16px] mt-[16px]" :model="queryParams" :inline="true">
-                <el-form-item label="充值单号">
+                <el-form-item class="w-[280px]" label="充值单号">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.sn"
                         placeholder="请输入充值单号"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="用户信息">
+                <el-form-item class="w-[280px]" label="用户信息">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.user_info"
                         placeholder="请输入用户账号/昵称/手机号"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="支付方式">
-                    <el-select class="w-[280px]" v-model="queryParams.pay_way">
+                <el-form-item class="w-[280px]" label="支付方式">
+                    <el-select v-model="queryParams.pay_way">
                         <el-option label="全部" value />
                         <el-option label="微信支付" :value="2" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="支付状态">
-                    <el-select class="w-[280px]" v-model="queryParams.pay_status">
+                <el-form-item class="w-[280px]" label="支付状态">
+                    <el-select v-model="queryParams.pay_status">
                         <el-option label="全部" value />
                         <el-option label="未支付" :value="0" />
                         <el-option label="已支付" :value="1" />

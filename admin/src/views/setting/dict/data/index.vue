@@ -3,8 +3,8 @@
         <el-card class="!border-none" shadow="never">
             <el-page-header class="mb-4" content="数据管理" @back="$router.back()" />
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
-                <el-form-item label="字典名称">
-                    <el-select class="w-[280px]" v-model="queryParams.type_id" @change="getLists">
+                <el-form-item class="w-[280px]" label="字典名称">
+                    <el-select v-model="queryParams.type_id" @change="getLists">
                         <el-option
                             v-for="item in optionsData.dict_type"
                             :label="item.name"
@@ -13,16 +13,11 @@
                         />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="数据名称">
-                    <el-input
-                        class="w-[280px]"
-                        v-model="queryParams.name"
-                        clearable
-                        @keyup.enter="resetPage"
-                    />
+                <el-form-item class="w-[280px]" label="数据名称">
+                    <el-input v-model="queryParams.name" clearable @keyup.enter="resetPage" />
                 </el-form-item>
-                <el-form-item label="数据状态">
-                    <el-select class="w-[280px]" v-model="queryParams.status">
+                <el-form-item class="w-[280px]" label="数据状态">
+                    <el-select v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />

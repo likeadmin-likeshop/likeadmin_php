@@ -1,9 +1,8 @@
 <template>
     <div class="article-list">
         <el-form ref="formRef" :model="queryParams" :inline="true">
-            <el-form-item label="文章名称">
+            <el-form-item class="w-[280px]" label="文章名称">
                 <el-input
-                    class="w-[280px]"
                     v-model="queryParams.name"
                     placeholder="请输入"
                     clearable

@@ -16,7 +16,8 @@ export const useAppStore = defineStore({
         getLoginConfig: (state) => state.config.login || {},
         getCopyrightConfig: (state) => state.config.copyright || [],
         getQrcodeConfig: (state) => state.config.qrcode || {},
-        getAdminUrl: (state) => state.config.admin_url
+        getAdminUrl: (state) => state.config.admin_url,
+        getSiteStatistics: (state) => state.config.siteStatistics || {}
     },
     actions: {
         async getConfig() {

@@ -2,16 +2,11 @@
     <div class="department">
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
-                <el-form-item label="部门名称" prop="name">
-                    <el-input
-                        class="w-[280px]"
-                        v-model="queryParams.name"
-                        clearable
-                        @keyup.enter="getLists"
-                    />
+                <el-form-item class="w-[280px]" label="部门名称" prop="name">
+                    <el-input v-model="queryParams.name" clearable @keyup.enter="getLists" />
                 </el-form-item>
-                <el-form-item label="部门状态" prop="status">
-                    <el-select class="w-[280px]" v-model="queryParams.status">
+                <el-form-item class="w-[280px]" label="部门状态" prop="status">
+                    <el-select v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" value="1" />
                         <el-option label="停用" value="0" />

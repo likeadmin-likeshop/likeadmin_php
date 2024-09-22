@@ -22,35 +22,32 @@
         </el-card>
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px] mt-[16px]" :model="queryParams" :inline="true">
-                <el-form-item label="退款单号">
+                <el-form-item class="w-[280px]" label="退款单号">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.sn"
                         placeholder="请输入退款单号"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="来源单号">
+                <el-form-item class="w-[280px]" label="来源单号">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.order_sn"
                         placeholder="请输入来源单号"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="用户信息">
+                <el-form-item class="w-[280px]" label="用户信息">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.user_info"
                         placeholder="请输入用户信息"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="退款类型">
-                    <el-select class="w-[280px]" v-model="queryParams.refund_type">
+                <el-form-item class="w-[280px]" label="退款类型">
+                    <el-select v-model="queryParams.refund_type">
                         <el-option label="全部" value />
                         <el-option label="后台退款" :value="1" />
                     </el-select>

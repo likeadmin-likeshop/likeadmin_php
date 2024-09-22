@@ -11,7 +11,7 @@
             <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
                 <el-form-item label="存储方式" prop="engine">
                     <div>
-                        <el-radio model-value>{{ getStorageInfo?.name }} </el-radio>
+                        <el-radio checked>{{ getStorageInfo?.name }} </el-radio>
                         <div class="form-tips">{{ getStorageInfo?.tips }}</div>
                     </div>
                 </el-form-item>

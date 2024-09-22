@@ -2,9 +2,8 @@
     <div>
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
-                <el-form-item label="用户信息">
+                <el-form-item class="w-[280px]" label="用户信息">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.keyword"
                         placeholder="账号/昵称/手机号码"
                         clearable
@@ -17,8 +16,8 @@
                         v-model:endTime="queryParams.create_time_end"
                     />
                 </el-form-item>
-                <el-form-item label="注册来源">
-                    <el-select class="w-[280px]" v-model="queryParams.channel">
+                <el-form-item class="w-[280px]" label="注册来源">
+                    <el-select v-model="queryParams.channel">
                         <el-option
                             v-for="(item, key) in ClientMap"
                             :key="key"

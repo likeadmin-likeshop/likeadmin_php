@@ -148,6 +148,11 @@ class PcLogic extends BaseLogic
             'pc_keywords' => ConfigService::get('website', 'pc_keywords'),
         ];
 
+        // 站点统计
+        $siteStatistics = [
+            'clarity_code' => ConfigService::get('siteStatistics', 'clarity_code'),
+        ];
+
         // 备案信息
         $copyright = ConfigService::get('copyright', 'config', []);
 
@@ -162,6 +167,7 @@ class PcLogic extends BaseLogic
             'domain' => FileService::getFileUrl(),
             'login' => $loginConfig,
             'website' => $website,
+            'siteStatistics' => $siteStatistics,
             'version' => config('project.version'),
             'copyright' => $copyright,
             'admin_url' => request()->domain() . '/admin',

@@ -1,7 +1,7 @@
 <?php
 return [
     // 系统版本号
-    'version' => '1.9.2',
+    'version' => '1.9.3',
 
     // 官网
     'website' => [

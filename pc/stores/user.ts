@@ -25,7 +25,7 @@ export const useUserStore = defineStore({
             const data = await getUserCenter()
             this.userInfo = data
         },
-        setUser(userInfo) {
+        setUser(userInfo: any) {
             this.userInfo = userInfo
         },
         login(token: string) {

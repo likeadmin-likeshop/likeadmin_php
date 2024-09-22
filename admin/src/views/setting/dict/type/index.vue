@@ -2,24 +2,14 @@
     <div class="dict-type">
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
-                <el-form-item label="字典名称">
-                    <el-input
-                        class="w-[280px]"
-                        v-model="queryParams.name"
-                        clearable
-                        @keyup.enter="resetPage"
-                    />
+                <el-form-item class="w-[280px]" label="字典名称">
+                    <el-input v-model="queryParams.name" clearable @keyup.enter="resetPage" />
                 </el-form-item>
-                <el-form-item label="字典类型">
-                    <el-input
-                        class="w-[280px]"
-                        v-model="queryParams.type"
-                        clearable
-                        @keyup.enter="resetPage"
-                    />
+                <el-form-item class="w-[280px]" label="字典类型">
+                    <el-input v-model="queryParams.type" clearable @keyup.enter="resetPage" />
                 </el-form-item>
-                <el-form-item label="状态">
-                    <el-select class="w-[280px]" v-model="queryParams.status">
+                <el-form-item class="w-[280px]" label="状态">
+                    <el-select v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />

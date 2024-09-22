@@ -2,16 +2,16 @@
     <div class="article-lists">
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
-                <el-form-item label="文章标题">
+                <el-form-item class="w-[280px]" label="文章标题">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.title"
+                        placeholder="输入文章标题"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="栏目名称">
-                    <el-select class="w-[280px]" v-model="queryParams.cid">
+                <el-form-item class="w-[280px]" label="栏目名称">
+                    <el-select v-model="queryParams.cid">
                         <el-option label="全部" value />
                         <el-option
                             v-for="item in optionsData.article_cate"
@@ -21,8 +21,8 @@
                         />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="文章状态">
-                    <el-select class="w-[280px]" v-model="queryParams.is_show">
+                <el-form-item class="w-[280px]" label="文章状态">
+                    <el-select v-model="queryParams.is_show">
                         <el-option label="全部" value />
                         <el-option label="显示" :value="1" />
                         <el-option label="隐藏" :value="0" />

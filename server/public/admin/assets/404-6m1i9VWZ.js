@@ -1,1 +1,0 @@
-import e from"./error-CUJCMVVT.js";import{d as o,o as r,a as t,m as a}from"./index-D1Bm06Rt.js";const s={class:"error404"},d=o({__name:"404",setup(c){return(n,_)=>(r(),t("div",s,[a(e,{code:"404",title:"哎呀，出错了！您访问的页面不存在…"})]))}});export{d as default};

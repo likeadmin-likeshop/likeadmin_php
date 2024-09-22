@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>likeadmin安装</title>
-    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="./css/layui.css" />
     <link rel="stylesheet" type="text/css" href="./css/mounted.css" />
     <link rel="shortcut icon" href="./favicon.ico" />
 </head>
@@ -514,7 +514,7 @@
     <footer>
         Copyright © 2019-<?= date('Y') ?> 广州好象科技有限公司 粤ICP备16101670号-2
     </footer>
-    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script src="./js/layui.js"></script>
     <?php if (count($successTables) > 0): ?>
         <script>
             var successTables = eval(<?= json_encode($successTables) ?>);

@@ -8,17 +8,16 @@
                 show-icon
             ></el-alert>
             <el-form ref="formRef" class="mb-[-16px] mt-[16px]" :model="queryParams" :inline="true">
-                <el-form-item label="用户信息">
+                <el-form-item class="w-[280px]" label="用户信息">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.user_info"
                         placeholder="请输入用户账号/昵称/手机号"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="变动类型">
-                    <el-select class="w-[280px]" v-model="queryParams.change_type">
+                <el-form-item class="w-[280px]" label="变动类型">
+                    <el-select v-model="queryParams.change_type">
                         <el-option label="全部" value />
                         <el-option
                             v-for="(value, key) in optionsData.change_type"
