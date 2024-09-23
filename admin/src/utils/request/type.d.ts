@@ -1,6 +1,6 @@
 import 'axios'
 
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 declare module 'axios' {
     // 扩展 RouteMeta
@@ -23,7 +23,9 @@ export interface RequestOptions {
 }
 
 export interface AxiosHooks {
-    requestInterceptorsHook?: (config: AxiosRequestConfig) => AxiosRequestConfig
+    requestInterceptorsHook?: (
+        config: AxiosRequestConfig
+    ) => InternalAxiosRequestConfig | AxiosRequestConfig
     requestInterceptorsCatchHook?: (error: Error) => void
     responseInterceptorsHook?: (
         response: AxiosResponse<RequestData<T>>

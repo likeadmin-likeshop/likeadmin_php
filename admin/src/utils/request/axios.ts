@@ -2,7 +2,8 @@ import axios, {
     AxiosError,
     type AxiosInstance,
     type AxiosRequestConfig,
-    type AxiosResponse
+    type AxiosResponse,
+    type InternalAxiosRequestConfig
 } from 'axios'
 import { cloneDeep, isFunction, merge } from 'lodash'
 
@@ -46,7 +47,7 @@ export class Axios {
             (config) => {
                 this.addCancelToken(config)
                 if (isFunction(requestInterceptorsHook)) {
-                    config = requestInterceptorsHook(config)
+                    config = requestInterceptorsHook(config) as InternalAxiosRequestConfig
                 }
                 return config
             },
@@ -102,7 +103,7 @@ export class Axios {
      * @description 重新请求
      */
     retryRequest(error: AxiosError) {
-        const config = error.config
+        const config = error.config as any
         const { retryCount, isOpenRetry } = config.requestOptions
         if (!isOpenRetry || config.method?.toUpperCase() == RequestMethodsEnum.POST) {
             return Promise.reject(error)

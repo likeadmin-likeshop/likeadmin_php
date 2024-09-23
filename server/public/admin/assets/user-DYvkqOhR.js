@@ -1,0 +1,1 @@
+import{y as e}from"./index-Db5CBa4F.js";function r(){return e.get({url:"/setting.user.user/getConfig"})}function u(t){return e.post({url:"/setting.user.user/setConfig",params:t})}function n(){return e.get({url:"/setting.user.user/getRegisterConfig"})}function g(t){return e.post({url:"/setting.user.user/setRegisterConfig",params:t})}export{r as a,u as b,n as g,g as s};

@@ -46,6 +46,7 @@ import { computed, defineComponent, ref, shallowRef } from 'vue'
 
 import config from '@/config'
 import { RequestCodeEnum } from '@/enums/requestEnums'
+import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
 import feedback from '@/utils/feedback'
 
@@ -81,11 +82,12 @@ export default defineComponent({
     emits: ['change', 'error', 'success', 'allSuccess'],
     setup(props, { emit }) {
         const userStore = useUserStore()
+        const appStore = useAppStore()
         const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
         const action = ref(`${config.baseUrl}${config.urlPrefix}/upload/${props.type}`)
         const headers = computed(() => ({
             token: userStore.token,
-            version: config.version
+            version: appStore.config.version
         }))
         const visible = ref(false)
         const fileList = ref<any[]>([])

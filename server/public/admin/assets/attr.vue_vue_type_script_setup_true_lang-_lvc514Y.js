@@ -1,0 +1,1 @@
+import{d as e,o as t,a as o}from"./index-Db5CBa4F.js";const r=e({__name:"attr",props:{content:{type:Object,default:()=>({})},styles:{type:Object,default:()=>({})}},setup(a){return(n,c)=>(t(),o("div"))}});export{r as _};
