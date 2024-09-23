@@ -3,7 +3,12 @@
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
                 <el-form-item class="w-[280px]" label="岗位编码">
-                    <el-input v-model="queryParams.code" clearable @keyup.enter="resetPage" />
+                    <el-input
+                        v-model="queryParams.code"
+                        placeholder="请输入岗位编码"
+                        clearable
+                        @keyup.enter="resetPage"
+                    />
                 </el-form-item>
                 <el-form-item class="w-[280px]" label="岗位名称">
                     <el-input v-model="queryParams.name" clearable @keyup.enter="resetPage" />

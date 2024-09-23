@@ -11,9 +11,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, withDefaults } from 'vue'
-
-/* Props S */
 const props = withDefaults(
     defineProps<{
         startTime?: string
