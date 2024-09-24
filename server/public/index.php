@@ -14,7 +14,9 @@ namespace think;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-if (!file_exists(__DIR__ .'/../config/install.lock')) {
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$whe = !str_starts_with($url, '/adminapi/config/getConfig') && !str_starts_with($url, '/api/pc/config') && !str_starts_with($url, '/api/index/config');
+if ($whe && !file_exists(__DIR__ . '/../config/install.lock')) {
     header("location:/install/install.php");
     exit;
 }

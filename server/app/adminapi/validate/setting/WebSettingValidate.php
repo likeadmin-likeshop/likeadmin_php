@@ -30,8 +30,7 @@ class WebSettingValidate extends BaseValidate
         'login_image' => 'require',
         'shop_name' => 'require',
         'shop_logo' => 'require',
-        'pc_logo' => 'require',
-        'clarity_code' => 'require',
+        'pc_logo' => 'require'
     ];
 
     protected $message = [
@@ -42,12 +41,11 @@ class WebSettingValidate extends BaseValidate
         'login_image.require' => '请上传登录页广告图',
         'shop_name.require' => '请填写前台名称',
         'shop_logo.require' => '请上传前台logo',
-        'pc_logo.require' => '请上传PC端logo',
-        'clarity_code.require' => '请输入统计代码片段',
+        'pc_logo.require' => '请上传PC端logo'
     ];
 
     protected $scene = [
         'website' => ['name', 'web_favicon', 'web_logo', 'login_image', 'shop_name', 'shop_logo', 'pc_logo'],
-        'siteStatistics' => ['clarity_code'],
+        'siteStatistics' => [],
     ];
 }

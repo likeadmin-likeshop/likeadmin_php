@@ -11,8 +11,9 @@ export enum RequestMethodsEnum {
 }
 
 export enum RequestCodeEnum {
-    SUCCESS = 1,
-    FAIL = 0,
+    NOT_INSTALL = -2,
     LOGIN_FAILURE = -1,
+    FAIL = 0,
+    SUCCESS = 1,
     OPEN_NEW_PAGE = 2
 }

@@ -1,3 +1,14 @@
+:root {
+    --theme: #4153ff;
+    --radius-1: 4px;
+    --radius-2: 6px;
+}
+
+button {
+    border-radius: var(--radius-1);
+    border: none;
+}
+
 body {
     position: relative;
     background-color: #F6F6F6;
@@ -22,12 +33,13 @@ body {
 .mounted-box {
     display: flex;
     width: 940px;
-    min-height: 611px;
+    /*min-height: 611px;*/
     background-color: white;
     padding: 15px 30px 24px;
     flex-direction: column;
     align-items: center;
-    box-shadow:3px 2px 20px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    box-shadow: 3px 2px 20px rgba(0, 0, 0, 0.02);
 }
 
 .mounted-title {
@@ -43,64 +55,55 @@ body {
     justify-content: center;
 }
 
-.mounted-nav {
+.mounted-nav-container {
     display: flex;
     justify-content: center;
+}
+
+.mounted-nav {
+    display: flex;
     margin-top: 15px;
+    padding: 4px;
+    background-color: #f6f6f6;
+    border-radius: var(--radius-2);
+}
+
+.mounted-nav li {
+    width: 140px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-family: PingFang SC;
 }
 
 .mounted-nav .active {
     color: white;
-    background-color: #2C85EA;
-    border: 1px solid #2C85EA !important;
-}
-
-.mounted-nav li:nth-of-type(even) {
-    width: 140px;
-    height: 36px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    font-family: PingFang SC;
-    border-top: 1px solid #E5E5E5;
-    border-bottom: 1px solid #E5E5E5;
-}
-
-.mounted-nav li:nth-of-type(odd) {
-    width: 140px;
-    height: 36px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    font-family: PingFang SC;
-    border: 1px solid #E5E5E5;
-}
-
-.mounted-nav li:last-child {
-    border-right: 1px solid #E5E5E5;
+    background-color: var(--theme);
+    border-radius: var(--radius-2);
 }
 
 .mounted-content-item {
     margin-top: 15px;
-    /* border:1px solid #E5E5E5; */
+    /* border:1px solid #E9E9E9; */
     display: none;
 }
 
 .content-header {
-    background-color: #E5E5E5;
+    background-color: #E9E9E9;
     padding: 8px 16px;
     font-family: PingFang SC;
+    border-radius: 4px 4px 0 0;
 }
 
 .content {
     padding: 16px;
     height: 392px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #E9E9E9;
     overflow-y: auto;
+    border-radius: 0 0 4px 4px;
 }
 
 .content h2 {
@@ -109,6 +112,7 @@ body {
 
 .content p {
     font-size: 14px;
+    line-height: 1.7;
 }
 
 .content h3 {
@@ -125,7 +129,8 @@ body {
 
 .content-form {
     padding: 23px 60px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #E9E9E9;
+    border-radius: 0 0 4px 4px;
 }
 
 .form-box-item {
@@ -133,6 +138,7 @@ body {
     align-items: center;
     height: 40px;
 }
+
 .form-box-item:not(:nth-of-type(1)) {
     display: flex;
     align-items: center;
@@ -149,9 +155,17 @@ body {
 }
 
 .form-box-item div input {
-    width:328px;
+    width: 328px;
     height: 32px;
     padding-left: 20px;
+    border: 1px solid #e2e2e2;
+    border-radius: var(--radius-1);
+}
+
+.form-box-item div input:focus {
+    border: 1px solid var(--theme);
+    box-shadow: 0 0 0 2px rgba(65, 83, 255, 0.2);
+    transition: all 0.1s ease-in-out;
 }
 
 .cancel-btn {
@@ -164,8 +178,7 @@ body {
 .accept-btn {
     padding: 7px 28px;
     color: white;
-    background-color: #2C85EA;
-    border: none;
+    background-color: var(--theme);
     flex: none;
     cursor: pointer;
 }
@@ -174,11 +187,10 @@ body {
     padding: 7px 28px;
     color: #222222;
     background-color: #D7D7D7;
-    border: none;
     flex: none;
     display: flex;
     align-items: center;
-    border:1px solid #D7D7D7;
+    border: 1px solid #D7D7D7;
 }
 
 .item-btn-group {
@@ -203,7 +215,7 @@ body {
 footer {
     font-size: 12px;
     margin-bottom: 20px;
-    color:#707070;
+    color: #707070;
     font-weight: 400;
     display: flex;
     justify-content: center;
@@ -218,18 +230,18 @@ footer {
     background-color: white !important;
 }
 
-.layui-table tr td{
+.layui-table tr td {
     font-size: 12px;
-    font-family:PingFang SC;
-    line-height:20px;
+    font-family: PingFang SC;
+    line-height: 20px;
     background-color: white !important;
 }
 
 .layui-table tr th {
     font-size: 14px;
-    font-family:PingFang SC;
-    font-weight:bold;
-    line-height:20px;
+    font-family: PingFang SC;
+    font-weight: bold;
+    line-height: 20px;
 }
 
 .mounted-env-container {
@@ -239,16 +251,17 @@ footer {
 }
 
 .mounted-tips {
-    padding: 15px 24px;
-    color: #2C85EA;
+    padding: 12px 20px;
+    color: var(--theme);
     background-color: #eef4ff;
+    border-radius: var(--radius-1);
 }
 
 .mounting-container {
     padding: 16px;
     height: 479px;
     max-height: 479px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #E9E9E9;
     overflow-y: auto;
 }
 
@@ -260,7 +273,7 @@ footer {
     flex-wrap: wrap;
 }
 
-.green{
+.green {
     color: #11d55c;
 }
 
@@ -278,7 +291,8 @@ footer {
     align-items: center;
     justify-content: center;
     height: 392px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #E9E9E9;
+    border-radius: 0 0 4px 4px;
 }
 
 img {
@@ -288,11 +302,12 @@ img {
 
 .success-content .tips {
     width: 400px;
-    height: 80px;
-    padding: 9px 18px;
+    /*height: 80px;*/
+    padding: 18px;
+    border-radius: 8px;
     background-color: #F8F8F8;
     font-size: 12px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .success-content .btn-group {
@@ -302,26 +317,27 @@ img {
 }
 
 .success-content .result {
-    font-size:20px;
-    font-family:PingFang SC;
-    font-weight:bold;
-    line-height:28px;
+    font-size: 20px;
+    font-family: PingFang SC;
+    font-weight: bold;
+    line-height: 28px;
 }
 
 .success-content .btn-group .store-btn {
     padding: 7px 35px;
-    border: 1px solid #2C85EA;
+    border: 1px solid var(--theme);
     background-color: white;
-    color: #2C85EA;
+    color: var(--theme);
     cursor: pointer;
-} 
+}
 
 .success-content .btn-group .btn {
     padding: 7px 35px;
-    border: 1px solid #2C85EA;
-    background-color: #2C85EA;
+    border: 1px solid var(--theme);
+    background-color: var(--theme);
     color: white;
     cursor: pointer;
+    border-radius: var(--radius-2);
 }
 
 .mounted-footer {
@@ -329,7 +345,7 @@ img {
     background-color: white;
     padding: 16px 30px 23px;
     margin-top: 16px;
-    box-shadow:3px 2px 20px rgba(0,0,0,0.08);
+    box-shadow: 3px 2px 20px rgba(0, 0, 0, 0.08);
     display: none;
 }
 
@@ -352,7 +368,7 @@ img {
     align-items: center;
     width: 224px;
     height: 140px;
-    border:1px solid #D7D7D7;
+    border: 1px solid #D7D7D7;
     cursor: pointer;
 }
 
@@ -371,7 +387,7 @@ img {
     height: 140px;
 }
 
-.mounted-recommend-item:hover .icon{
+.mounted-recommend-item:hover .icon {
     display: none;
 }
 

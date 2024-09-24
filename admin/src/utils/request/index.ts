@@ -72,6 +72,9 @@ const axiosHooks: AxiosHooks = {
             case RequestCodeEnum.OPEN_NEW_PAGE:
                 window.location.href = data.url
                 return data
+            case RequestCodeEnum.NOT_INSTALL:
+                window.location.replace('/install/install.php')
+                break
             default:
                 return data
         }

@@ -1,33 +1,34 @@
 <?php !defined('install') && exit(); ?>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>likeadmin安装</title>
-    <link rel="stylesheet" type="text/css" href="./css/layui.css" />
-    <link rel="stylesheet" type="text/css" href="./css/mounted.css" />
-    <link rel="shortcut icon" href="./favicon.ico" />
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>likeadmin安装</title>
+        <link rel="stylesheet" type="text/css" href="./css/layui.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/mounted.css"/>
+        <link rel="shortcut icon" href="./favicon.ico"/>
+    </head>
 
-<body>
+    <body>
     <div class="header">
         <div class="logo" style="width: 220px;">
-            <img src="./images/slogn.png?v=1" />
+            <img src="./images/slogn.png?v=1"/>
         </div>
     </div>
     <div class="mounted" id="mounted">
         <div class="mounted-box">
             <form method="post" action="#" name="main_form">
-                <!--                <div class="mounted-title">安装步骤</div>-->
                 <div class="mounted-container" id="tab">
-                    <ul class="mounted-nav" id="nav">
-                        <li <?php if ($step == "1") { ?>class="active" <?php } ?>>许可协议</li>
-                        <li <?php if ($step == "2") { ?>class="active" <?php } ?>>环境监测</li>
-                        <li <?php if ($step == "3") { ?>class="active" <?php } ?>>参数配置</li>
-                        <li <?php if ($step == "4" or $step == '5') { ?>class="active" <?php } ?>>安装</li>
-                    </ul>
+                    <div class="mounted-nav-container">
+                        <ul class="mounted-nav" id="nav">
+                            <li <?php if ($step == "1") { ?>class="active" <?php } ?>>许可协议</li>
+                            <li <?php if ($step == "2") { ?>class="active" <?php } ?>>环境监测</li>
+                            <li <?php if ($step == "3") { ?>class="active" <?php } ?>>参数配置</li>
+                            <li <?php if ($step == "4" or $step == '5') { ?>class="active" <?php } ?>>安装</li>
+                        </ul>
+                    </div>
 
                     <!-- 阅读许可 -->
                     <?php if ($step == '1') { ?>
@@ -49,11 +50,16 @@
                                 </p>
                                 <h3 class="mt16">一、订阅应用</h3>
                                 <p class="mt16">
-                                    1、用户可以在likeadmin官网在线订阅likeadmin付费应用，购买时需提前注册好likeadmin官网账号。 <br>
-                                    2、用户以likeadmin官网允许的支付方式订阅likeadmin付费应用时，用户应当是具备完全民事权利能力和完全民事行为能力的自然人、法人或其他组织。若用户不具备前述主体资格，则用户及用户的监护人应承担因此而导致的一切后果，同时likeadmin官网将保留追究用户及其监护人民事、刑事责任等权利，且likeadmin官网有权注销(永久冻结)用户的likeadmin官网帐号，并有权向用户及用户的监护人索赔。 <br>
-                                    3、用户应当在订阅使用likeadmin付费应用之前认真阅读全部协议内容。用户确认likeadmin官网对协议中所含免除或限制其责任的条款已尽提示、说明义务，用户同意此等条款，用户如对协议内容有任何异议的，应向likeadmin官网咨询。但无论用户事实上是否在订阅或使用likeadmin付费应用之前认真阅读了本协议内容，只要用户订阅或使用likeadmin付费应用，即与likeadmin官网缔结了本协议，本协议即对用户产生约束，届时用户不应以未阅读本协议的内容或者未获得likeadmin官网对用户问询的解答等理由，主张本协议无效或要求撤销本协议。 <br>
-                                    4、用户承诺接受并遵守本协议的约定。如果用户不同意本协议的约定，应立即停止购买使用likeadmin付费应用。 <br>
-                                    5、likeadmin官网有权根据需要不时地制订、修改本协议或各类规则，并以公示的方式进行公告，不再单独通知用户。变更后的协议和规则一经公布后，立即自动生效。如用户不同意相关变更，应当立即停止使用likeadmin付费应用。用户继续订阅或使用likeadmin付费应用，即表示用户接受经修订的协议。 <br>
+                                    1、用户可以在likeadmin官网在线订阅likeadmin付费应用，购买时需提前注册好likeadmin官网账号。
+                                    <br>
+                                    2、用户以likeadmin官网允许的支付方式订阅likeadmin付费应用时，用户应当是具备完全民事权利能力和完全民事行为能力的自然人、法人或其他组织。若用户不具备前述主体资格，则用户及用户的监护人应承担因此而导致的一切后果，同时likeadmin官网将保留追究用户及其监护人民事、刑事责任等权利，且likeadmin官网有权注销(永久冻结)用户的likeadmin官网帐号，并有权向用户及用户的监护人索赔。
+                                    <br>
+                                    3、用户应当在订阅使用likeadmin付费应用之前认真阅读全部协议内容。用户确认likeadmin官网对协议中所含免除或限制其责任的条款已尽提示、说明义务，用户同意此等条款，用户如对协议内容有任何异议的，应向likeadmin官网咨询。但无论用户事实上是否在订阅或使用likeadmin付费应用之前认真阅读了本协议内容，只要用户订阅或使用likeadmin付费应用，即与likeadmin官网缔结了本协议，本协议即对用户产生约束，届时用户不应以未阅读本协议的内容或者未获得likeadmin官网对用户问询的解答等理由，主张本协议无效或要求撤销本协议。
+                                    <br>
+                                    4、用户承诺接受并遵守本协议的约定。如果用户不同意本协议的约定，应立即停止购买使用likeadmin付费应用。
+                                    <br>
+                                    5、likeadmin官网有权根据需要不时地制订、修改本协议或各类规则，并以公示的方式进行公告，不再单独通知用户。变更后的协议和规则一经公布后，立即自动生效。如用户不同意相关变更，应当立即停止使用likeadmin付费应用。用户继续订阅或使用likeadmin付费应用，即表示用户接受经修订的协议。
+                                    <br>
                                 </p>
 
                                 <h3 class="mt16">二、应用下载</h3>
@@ -171,45 +177,47 @@
                                                 <col width="730">
                                             </colgroup>
                                             <thead>
-                                                <tr>
-                                                    <th>参数</th>
-                                                    <th>值</th>
-                                                </tr>
+                                            <tr>
+                                                <th>参数</th>
+                                                <th>值</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>服务器操作系统</td>
-                                                    <td><?php echo PHP_OS ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>web服务器环境</td>
-                                                    <td><?php echo $_SERVER['SERVER_SOFTWARE']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>PHP版本</td>
-                                                    <td><?php echo @phpversion(); ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>程序安装目录</td>
-                                                    <td><?php echo realpath(__DIR__ . '../../../'); ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>磁盘空间</td>
-                                                    <td><?php echo $modelInstall->freeDiskSpace(realpath(__DIR__ . '../../../')) ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>上传限制</td>
-                                                    <?php if (ini_get('file_uploads')): ?>
-                                                        <td><?php echo ini_get('upload_max_filesize'); ?></td>
-                                                    <?php else: ?>
-                                                        <td>禁止上传</td>
-                                                    <?php endif; ?>
-                                                </tr>
+                                            <tr>
+                                                <td>服务器操作系统</td>
+                                                <td><?php echo PHP_OS ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>web服务器环境</td>
+                                                <td><?php echo $_SERVER['SERVER_SOFTWARE']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>PHP版本</td>
+                                                <td><?php echo @phpversion(); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>程序安装目录</td>
+                                                <td><?php echo realpath(__DIR__ . '../../../'); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>磁盘空间</td>
+                                                <td><?php echo $modelInstall->freeDiskSpace(realpath(__DIR__ . '../../../')) ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>上传限制</td>
+                                                <?php if (ini_get('file_uploads')): ?>
+                                                    <td><?php echo ini_get('upload_max_filesize'); ?></td>
+                                                <?php else: ?>
+                                                    <td>禁止上传</td>
+                                                <?php endif; ?>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="mounted-tips mt16">PHP环境要求必须满足下列所有条件，否则系统或系统部分功能将无法使用。</div>
+                                <div class="mounted-tips mt16">
+                                    PHP环境要求必须满足下列所有条件，否则系统或系统部分功能将无法使用。
+                                </div>
                                 <div class="mounted-item mt16">
                                     <div class="content-header">
                                         PHP环境要求
@@ -223,56 +231,56 @@
                                                 <col width="400">
                                             </colgroup>
                                             <thead>
-                                                <tr>
-                                                    <th>选项</th>
-                                                    <th>要求</th>
-                                                    <th>状态</th>
-                                                    <th>说明及帮助</th>
-                                                </tr>
+                                            <tr>
+                                                <th>选项</th>
+                                                <th>要求</th>
+                                                <th>状态</th>
+                                                <th>说明及帮助</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>PHP版本</td>
-                                                    <td>大于8.0</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkPHP()) ?>
-                                                    <td>建议使用PHP8.0.8版本</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>PDO_MYSQL</td>
-                                                    <td>支持 (强烈建议支持)</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkPDOMySQL()) ?>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>allow_url_fopen</td>
-                                                    <td>支持 (建议支持cURL)</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkCurl()) ?>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>GD2</td>
-                                                    <td>支持</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkGd2()) ?>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>DOM</td>
-                                                    <td>支持</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDom()) ?>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>fileinfo</td>
-                                                    <td>支持</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkFileInfo()) ?>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>session.auto_start</td>
-                                                    <td>关闭</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkSessionAutoStart()) ?>
-                                                    <td></td>
-                                                </tr>
+                                            <tr>
+                                                <td>PHP版本</td>
+                                                <td>大于8.0</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkPHP()) ?>
+                                                <td>建议使用PHP8.0.8版本</td>
+                                            </tr>
+                                            <tr>
+                                                <td>PDO_MYSQL</td>
+                                                <td>支持 (强烈建议支持)</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkPDOMySQL()) ?>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>allow_url_fopen</td>
+                                                <td>支持 (建议支持cURL)</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkCurl()) ?>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>GD2</td>
+                                                <td>支持</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkGd2()) ?>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>DOM</td>
+                                                <td>支持</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkDom()) ?>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>fileinfo</td>
+                                                <td>支持</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkFileInfo()) ?>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>session.auto_start</td>
+                                                <td>关闭</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkSessionAutoStart()) ?>
+                                                <td></td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -293,44 +301,44 @@
                                                 <col width="400">
                                             </colgroup>
                                             <thead>
-                                                <tr>
-                                                    <th>目录</th>
-                                                    <th>要求</th>
-                                                    <th>状态</th>
-                                                    <th>说明及帮助</th>
-                                                </tr>
+                                            <tr>
+                                                <th>目录</th>
+                                                <th>要求</th>
+                                                <th>状态</th>
+                                                <th>说明及帮助</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>/runtime</td>
-                                                    <td>runtime目录可写</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('runtime')) ?>
-                                                    <td><?php if ($modelInstall->checkDirWrite('runtime') == 'fail') echo '请给runtime目录权限，若目录不存在先新建'; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>/public/uploads</td>
-                                                    <td>uploads目录可写</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/uploads')) ?>
-                                                    <td><?php if ($modelInstall->checkDirWrite('public/uploads') == 'fail') echo '请给public/uploads目录权限，若目录不存在先新建'; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>/public/admin</td>
-                                                    <td>admin目录可写</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/admin')) ?>
-                                                    <td><?php if ($modelInstall->checkDirWrite('public/uploads') == 'fail') echo '请给public/admin目录权限，若目录不存在先新建'; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>../config</td>
-                                                    <td>config目录可写</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('config')) ?>
-                                                    <td><?php if ($modelInstall->checkDirWrite('config') == 'fail') echo '请给config目录权限，若目录不存在先新建'; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>../.env</td>
-                                                    <td>.env文件可写</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('.env')) ?>
-                                                    <td><?php if ($modelInstall->checkDirWrite('.env') == 'fail') echo '请给.env文件权限，若文件不存在，注意文件名第1字符是" . "'; ?></td>
-                                                </tr>
+                                            <tr>
+                                                <td>/runtime</td>
+                                                <td>runtime目录可写</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('runtime')) ?>
+                                                <td><?php if ($modelInstall->checkDirWrite('runtime') == 'fail') echo '请给runtime目录权限，若目录不存在先新建'; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>/public/uploads</td>
+                                                <td>uploads目录可写</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/uploads')) ?>
+                                                <td><?php if ($modelInstall->checkDirWrite('public/uploads') == 'fail') echo '请给public/uploads目录权限，若目录不存在先新建'; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>/public/admin</td>
+                                                <td>admin目录可写</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/admin')) ?>
+                                                <td><?php if ($modelInstall->checkDirWrite('public/admin') == 'fail') echo '请给public/admin，若目录不存在先新建'; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>../config</td>
+                                                <td>config目录可写</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('config')) ?>
+                                                <td><?php if ($modelInstall->checkDirWrite('config') == 'fail') echo '请给config目录权限，若目录不存在先新建'; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>../.env</td>
+                                                <td>.env文件可写</td>
+                                                <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('.env')) ?>
+                                                <td><?php if ($modelInstall->checkDirWrite('.env') == 'fail') echo '请给.env文件权限，若文件不存在，注意文件名第1字符是" . "'; ?></td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -353,7 +361,7 @@
                                             数据库主机
                                         </div>
                                         <div>
-                                            <input type="text" name="host" value="<?= $post['host'] ?>" />
+                                            <input type="text" name="host" value="<?= $post['host'] ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-box-item">
@@ -361,7 +369,7 @@
                                             端口号
                                         </div>
                                         <div>
-                                            <input type="text" name="port" value="<?= $post['port'] ?>" />
+                                            <input type="text" name="port" value="<?= $post['port'] ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-box-item">
@@ -369,7 +377,7 @@
                                             数据库用户
                                         </div>
                                         <div>
-                                            <input type="text" name="user" value="<?= $post['user'] ?>" />
+                                            <input type="text" name="user" value="<?= $post['user'] ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-box-item">
@@ -377,7 +385,7 @@
                                             数据库密码
                                         </div>
                                         <div>
-                                            <input type="text" name="password" value="<?= $post['password'] ?>" />
+                                            <input type="text" name="password" value="<?= $post['password'] ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-box-item">
@@ -385,7 +393,7 @@
                                             数据库名称
                                         </div>
                                         <div>
-                                            <input type="text" name="name" value="<?= $post['name'] ?>" />
+                                            <input type="text" name="name" value="<?= $post['name'] ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-box-item">
@@ -393,7 +401,7 @@
                                             数据表前缀
                                         </div>
                                         <div>
-                                            <input type="text" name="prefix" value="<?= $post['prefix'] ?>" />
+                                            <input type="text" name="prefix" value="<?= $post['prefix'] ?>"/>
                                         </div>
                                     </div>
                                 </div>
@@ -409,7 +417,7 @@
                                             管理员账号
                                         </div>
                                         <div>
-                                            <input type="text" name="admin_user" value="<?= $post['admin_user'] ?>" />
+                                            <input type="text" name="admin_user" value="<?= $post['admin_user'] ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-box-item">
@@ -418,7 +426,7 @@
                                         </div>
                                         <div>
                                             <input type="password" name="admin_password"
-                                                value="<?= $post['admin_password'] ?>" />
+                                                   value="<?= $post['admin_password'] ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-box-item">
@@ -427,16 +435,7 @@
                                         </div>
                                         <div>
                                             <input type="password" name="admin_confirm_password"
-                                                value="<?= $post['admin_confirm_password'] ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="form-box-check">
-                                        <div class="form-desc"></div>
-                                        <div style="display: flex;align-items: center;">
-                                            <input type="checkbox" name="import_test_data"
-                                                <?php if ($post['import_test_data'] == 'on'): ?>checked<?php endif; ?>
-                                                title="导入测试数据" />
-                                            <div style="color: #666666;">&nbsp;导入测试数据</div>
+                                                   value="<?= $post['admin_confirm_password'] ?>"/>
                                         </div>
                                     </div>
                                 </div>
@@ -467,10 +466,10 @@
                                     </div>
                                     <div class="success-content">
                                         <div style="width: 48px;height: 48px;">
-                                            <img src="./images/icon_mountSuccess.png" />
+                                            <img src="./images/icon_mountSuccess.png"/>
                                         </div>
                                         <div class="mt16 result">安装完成，进入管理后台</div>
-                                        <div style="margin-top: 5px;font-size:14px;">版本号：1.9.4</div>
+                                        <div style="margin-top: 10px;font-size:14px;color: #444444">版本号：1.9.4</div>
                                         <div class="tips">
                                             为了您站点的安全，安装完成后即可将网站根目录下的“install”文件夹删除，或者config/目录下创建install.lock文件防止重复安装。
                                         </div>
@@ -521,9 +520,9 @@
         </script>
     <?php endif; ?>
     <script src="./js/mounted.js"></script>
-</body>
+    </body>
 
-</html>
+    </html>
 <?php if ($message != ''): ?>
     <script>
         alert('<?= $message; ?>');

@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper.c27b6911.js";import{c as t,W as s,o as c}from"./entry.edbe2177.js";const n={},r={class:"layout-blank"};function a(e,l){return c(),t("section",r,[s(e.$slots,"default")])}const d=o(n,[["render",a]]);export{d as default};
