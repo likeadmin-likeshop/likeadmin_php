@@ -85,5 +85,9 @@
         "unplugin-uni-router": "1.2.7",
         "vite": "4.1.4",
         "weapp-tailwindcss-webpack-plugin": "1.12.8"
-    }
+    },
+    "engines": {
+        "node": ">=18.19.0"
+    },
+    "engine-strict": true
 }

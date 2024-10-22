@@ -127,6 +127,43 @@
             margin-bottom: 0;
         }
     }
+
+    .el-input,
+    .el-select,
+    .el-textarea {
+        @apply shadow-primary-light-8;
+
+        box-shadow: 0 0 0 0 var(--tw-shadow-color);
+        &:focus-within {
+            box-shadow: 0 0 0 2px var(--tw-shadow-color);
+            border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
+            transition: box-shadow ease 0.1s;
+        }
+    }
+
+    .el-checkbox__input,
+    .el-radio__input {
+        @apply shadow-primary-light-8;
+        border-radius: var(--el-checkbox-border-radius);
+
+        box-shadow: 0 0 0 0 var(--tw-shadow-color);
+        &:active {
+            box-shadow: 0 0 0 2px var(--tw-shadow-color);
+            transition: box-shadow ease 0s;
+        }
+    }
+
+    .el-radio__input {
+        border-radius: var(--el-radio-input-border-radius);
+    }
+
+    .el-form-item.is-error .el-input,
+    .el-form-item.is-error .el-select,
+    .el-form-item.is-error .el-textarea,
+    .el-form-item.is-error .el-radio__input,
+    .el-form-item.is-error .el-checkbox {
+        @apply shadow-danger-light-8;
+    }
 }
 @media (max-width: 768px) {
     .el-pagination > .el-pagination__jump {

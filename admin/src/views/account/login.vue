@@ -1,7 +1,7 @@
 <template>
     <div class="login flex flex-col">
         <div class="flex-1 flex items-center justify-center">
-            <div class="login-card flex rounded-md">
+            <div class="login-card flex rounded-md overflow-hidden">
                 <div class="flex-1 h-full hidden md:inline-block">
                     <image-contain :src="config.login_image" :width="400" height="100%" />
                 </div>

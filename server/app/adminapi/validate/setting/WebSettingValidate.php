@@ -46,6 +46,6 @@ class WebSettingValidate extends BaseValidate
 
     protected $scene = [
         'website' => ['name', 'web_favicon', 'web_logo', 'login_image', 'shop_name', 'shop_logo', 'pc_logo'],
-        'siteStatistics' => [],
+        'siteStatistics' => [''],
     ];
 }

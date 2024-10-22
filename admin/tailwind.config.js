@@ -13,11 +13,51 @@ module.exports = {
                 'light-9': 'var(--el-color-primary-light-9)',
                 'dark-2': 'var(--el-color-primary-dark-2)'
             },
-            success: 'var(--el-color-success)',
-            warning: 'var(--el-color-warning)',
-            danger: 'var(--el-color-danger)',
-            error: 'var(--el-color-error)',
-            info: 'var(--el-color-info)',
+            success: {
+                DEFAULT: 'var(--el-color-success)',
+                'light-3': 'var(--el-color-success-light-3)',
+                'light-5': 'var(--el-color-success-light-5)',
+                'light-7': 'var(--el-color-success-light-7)',
+                'light-8': 'var(--el-color-success-light-8)',
+                'light-9': 'var(--el-color-success-light-9)',
+                'dark-2': 'var(--el-color-success-dark-2)'
+            },
+            warning: {
+                DEFAULT: 'var(--el-color-warning)',
+                'light-3': 'var(--el-color-warning-light-3)',
+                'light-5': 'var(--el-color-warning-light-5)',
+                'light-7': 'var(--el-color-warning-light-7)',
+                'light-8': 'var(--el-color-warning-light-8)',
+                'light-9': 'var(--el-color-warning-light-9)',
+                'dark-2': 'var(--el-color-warning-dark-2)'
+            },
+            danger: {
+                DEFAULT: 'var(--el-color-danger)',
+                'light-3': 'var(--el-color-danger-light-3)',
+                'light-5': 'var(--el-color-danger-light-5)',
+                'light-7': 'var(--el-color-danger-light-7)',
+                'light-8': 'var(--el-color-danger-light-8)',
+                'light-9': 'var(--el-color-danger-light-9)',
+                'dark-2': 'var(--el-color-danger-dark-2)'
+            },
+            error: {
+                DEFAULT: 'var(--el-color-error)',
+                'light-3': 'var(--el-color-error-light-3)',
+                'light-5': 'var(--el-color-error-light-5)',
+                'light-7': 'var(--el-color-error-light-7)',
+                'light-8': 'var(--el-color-error-light-8)',
+                'light-9': 'var(--el-color-error-light-9)',
+                'dark-2': 'var(--el-color-error-dark-2)'
+            },
+            info: {
+                DEFAULT: 'var(--el-color-info)',
+                'light-3': 'var(--el-color-info-light-3)',
+                'light-5': 'var(--el-color-info-light-5)',
+                'light-7': 'var(--el-color-info-light-7)',
+                'light-8': 'var(--el-color-info-light-8)',
+                'light-9': 'var(--el-color-info-light-9)',
+                'dark-2': 'var(--el-color-info-dark-2)'
+            },
             body: 'var(--el-bg-color)',
             page: 'var(--el-bg-color-page)',
             'tx-primary': 'var(--el-text-color-primary)',

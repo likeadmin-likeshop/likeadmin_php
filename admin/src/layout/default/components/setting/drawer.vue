@@ -7,76 +7,86 @@
             size="250px"
             title="主题设置"
         >
-            <div class="setting-item mb-5">
-                <span class="text-tx-secondary">风格设置</span>
-                <div class="flex mt-4 cursor-pointer">
-                    <div
-                        class="mr-4 flex relative text-primary"
-                        v-for="item in sideThemeList"
-                        :key="item.type"
-                        @click="sideTheme = item.type"
-                    >
-                        <img :src="item.image" width="52" height="36" />
-                        <icon
-                            v-if="sideTheme == item.type"
-                            class="icon-select"
-                            name="el-icon-Select"
+            <div class="h-full flex flex-col">
+                <div class="setting-item mb-5">
+                    <span class="text-tx-secondary">风格设置</span>
+                    <div class="flex mt-4 cursor-pointer">
+                        <div
+                            class="mr-4 flex relative text-primary"
+                            v-for="item in sideThemeList"
+                            :key="item.type"
+                            @click="sideTheme = item.type"
+                        >
+                            <img :src="item.image" width="52" height="36" />
+                            <icon
+                                v-if="sideTheme == item.type"
+                                class="icon-select"
+                                name="el-icon-Select"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-item mb-5 flex justify-between items-center">
+                    <span class="text-tx-secondary">主题颜色</span>
+                    <div>
+                        <el-color-picker v-model="theme" :predefine="predefineColors" />
+                    </div>
+                </div>
+                <div class="setting-item mb-5 flex justify-between items-center">
+                    <span class="text-tx-secondary">开启黑暗模式</span>
+                    <div>
+                        <el-switch :model-value="isDark" @change="toggleDark" />
+                    </div>
+                </div>
+                <div class="setting-item mb-5 flex justify-between items-center">
+                    <span class="text-tx-secondary">开启多页签栏</span>
+                    <div>
+                        <el-switch
+                            v-model="openMultipleTabs"
+                            :active-value="true"
+                            :inactive-value="false"
                         />
                     </div>
                 </div>
-            </div>
-            <div class="setting-item mb-5 flex justify-between items-center">
-                <span class="text-tx-secondary">主题颜色</span>
-                <div>
-                    <el-color-picker v-model="theme" :predefine="predefineColors" />
+                <div class="setting-item mb-5 flex justify-between items-center">
+                    <span class="text-tx-secondary">只展开一个一级菜单</span>
+                    <div>
+                        <el-switch
+                            v-model="isUniqueOpened"
+                            :active-value="true"
+                            :inactive-value="false"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="setting-item mb-5 flex justify-between items-center">
-                <span class="text-tx-secondary">开启黑暗模式</span>
-                <div>
-                    <el-switch :model-value="isDark" @change="toggleDark" />
+                <div class="setting-item mb-5 flex justify-between items-center">
+                    <div class="text-tx-secondary flex-none mr-3">菜单栏宽度</div>
+                    <div>
+                        <el-input-number v-model="sideWidth" :min="180" :max="250" />
+                    </div>
                 </div>
-            </div>
-            <div class="setting-item mb-5 flex justify-between items-center">
-                <span class="text-tx-secondary">开启多页签栏</span>
-                <div>
-                    <el-switch
-                        v-model="openMultipleTabs"
-                        :active-value="true"
-                        :inactive-value="false"
-                    />
+                <div class="setting-item mb-5 flex justify-between items-center">
+                    <div class="text-tx-secondary flex-none mr-3">显示LOGO</div>
+                    <div>
+                        <el-switch
+                            v-model="showLogo"
+                            :active-value="true"
+                            :inactive-value="false"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="setting-item mb-5 flex justify-between items-center">
-                <span class="text-tx-secondary">只展开一个一级菜单</span>
-                <div>
-                    <el-switch
-                        v-model="isUniqueOpened"
-                        :active-value="true"
-                        :inactive-value="false"
-                    />
+                <div class="setting-item mb-5 flex justify-between items-center">
+                    <div class="text-tx-secondary flex-none mr-3">显示面包屑</div>
+                    <div>
+                        <el-switch
+                            v-model="showCrumb"
+                            :active-value="true"
+                            :inactive-value="false"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="setting-item mb-5 flex justify-between items-center">
-                <div class="text-tx-secondary flex-none mr-3">菜单栏宽度</div>
-                <div>
-                    <el-input-number v-model="sideWidth" :min="180" :max="250" />
+                <div class="setting-item flex justify-between items-center mt-auto">
+                    <el-button @click="resetTheme" class="w-full">重置主题</el-button>
                 </div>
-            </div>
-            <div class="setting-item mb-5 flex justify-between items-center">
-                <div class="text-tx-secondary flex-none mr-3">显示LOGO</div>
-                <div>
-                    <el-switch v-model="showLogo" :active-value="true" :inactive-value="false" />
-                </div>
-            </div>
-            <div class="setting-item mb-5 flex justify-between items-center">
-                <div class="text-tx-secondary flex-none mr-3">显示面包屑</div>
-                <div>
-                    <el-switch v-model="showCrumb" :active-value="true" :inactive-value="false" />
-                </div>
-            </div>
-            <div class="setting-item mb-5 flex justify-between items-center">
-                <el-button @click="resetTheme">重置主题</el-button>
             </div>
         </el-drawer>
     </div>
