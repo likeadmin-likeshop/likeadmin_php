@@ -41,11 +41,22 @@ class Crontab extends Command
         if (empty($lists)) {
             return false;
         }
+        $time =  time();
         foreach ($lists as $item) {
+            if (empty($item['last_time'])) {
+                $lastTime = (new CronExpression($item['expression']))
+                    ->getNextRunDate()
+                    ->getTimestamp();
+                CrontabModel::where('id', $item['id'])->update([
+                    'last_time' => $lastTime,
+                ]);
+                continue;
+            }
+
             $nextTime = (new CronExpression($item['expression']))
                 ->getNextRunDate($item['last_time'])
                 ->getTimestamp();
-            if ($nextTime > time()) {
+            if ($nextTime > $time) {
                 // 未到时间，不执行
                 continue;
             }

@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command;
 
 use GuzzleHttp\ClientInterface;
@@ -22,6 +23,7 @@ interface ServiceClientInterface
      * @param array  $args Arguments to pass to the command
      *
      * @return CommandInterface
+     *
      * @throws \InvalidArgumentException if no command can be found by name
      */
     public function getCommand($name, array $args = []);
@@ -32,6 +34,7 @@ interface ServiceClientInterface
      * @param CommandInterface $command Command to execute
      *
      * @return ResultInterface The result of the executed command
+     *
      * @throws CommandException
      */
     public function execute(CommandInterface $command);
@@ -49,13 +52,14 @@ interface ServiceClientInterface
      * Executes multiple commands concurrently using a fixed pool size.
      *
      * @param array|\Iterator $commands Array or iterator that contains
-     *     CommandInterface objects to execute with the client.
-     * @param array $options Associative array of options to apply.
-     *     - concurrency: (int) Max number of commands to execute concurrently.
-     *     - fulfilled: (callable) Function to invoke when a command completes.
-     *     - rejected: (callable) Function to invoke when a command fails.
+     *                                  CommandInterface objects to execute with the client.
+     * @param array           $options  Associative array of options to apply.
+     *                                  - concurrency: (int) Max number of commands to execute concurrently.
+     *                                  - fulfilled: (callable) Function to invoke when a command completes.
+     *                                  - rejected: (callable) Function to invoke when a command fails.
      *
      * @return array
+     *
      * @see GuzzleHttp\Command\ServiceClientInterface::createPool for options.
      */
     public function executeAll($commands, array $options = []);
@@ -65,13 +69,14 @@ interface ServiceClientInterface
      * fixed pool size.
      *
      * @param array|\Iterator $commands Array or iterator that contains
-     *     CommandInterface objects to execute with the client.
-     * @param array $options Associative array of options to apply.
-     *     - concurrency: (int) Max number of commands to execute concurrently.
-     *     - fulfilled: (callable) Function to invoke when a command completes.
-     *     - rejected: (callable) Function to invoke when a command fails.
+     *                                  CommandInterface objects to execute with the client.
+     * @param array           $options  Associative array of options to apply.
+     *                                  - concurrency: (int) Max number of commands to execute concurrently.
+     *                                  - fulfilled: (callable) Function to invoke when a command completes.
+     *                                  - rejected: (callable) Function to invoke when a command fails.
      *
      * @return PromiseInterface
+     *
      * @see GuzzleHttp\Command\ServiceClientInterface::createPool for options.
      */
     public function executeAllAsync($commands, array $options = []);

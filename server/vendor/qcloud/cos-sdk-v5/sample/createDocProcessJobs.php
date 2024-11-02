@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require dirname(__FILE__, 2) . '/vendor/autoload.php';
 
 $secretId = "SECRETID"; //替换为用户的 secretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
 $secretKey = "SECRETKEY"; //替换为用户的 secretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
@@ -10,13 +10,12 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', //协议头部，默认为http
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     $result = $cosClient->createDocProcessJobs(array(
         'Bucket' => 'examplebucket-1250000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'DocProcess', //任务的 Tag：DocProcess 固定值
-        'QueueId' => 'pd8e422a2ea134165a92f2012ea43****', //任务所在的队列 ID
         'Input' => array(
             'Object' => 'Append功能测试.pdf' //待操作的文件对象
         ),

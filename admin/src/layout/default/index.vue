@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import LayoutHeader from './components/header/index.vue'
 import LayoutMain from './components/main.vue'
 import LayoutSidebar from './components/sidebar/index.vue'
-import LayoutHeader from './components/header/index.vue'
 </script>

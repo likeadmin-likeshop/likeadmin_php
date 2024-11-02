@@ -1,33 +1,33 @@
 <template>
-    <div class="color-picker flex flex-1">
-        <el-color-picker v-model="color" :predefine="predefineColors" />
-        <el-input v-model="color" class="mx-[10px] flex-1" type="text" readonly />
+    <div class="color-select flex flex-1">
+        <el-color-picker v-model="color" :predefine="predefineColors"></el-color-picker>
+        <el-input v-model="color" class="mx-[10px] flex-1" type="text" readonly></el-input>
         <el-button type="text" @click="reset">重置</el-button>
     </div>
 </template>
-<script lang="ts" setup>
+
+<script setup lang="ts">
+import { useVModel } from '@vueuse/core'
+
 const props = defineProps({
     modelValue: {
-        type: String
+        type: String,
+        default: ''
     },
-    defaultColor: {
-        type: String
+    resetColor: {
+        type: String,
+        default: ''
     }
 })
+
 const emit = defineEmits<{
-    (event: 'update:modelValue', value: any): void
+    (event: 'update:modelValue', value: number): void
 }>()
 
-const color = computed({
-    get() {
-        return props.modelValue
-    },
-    set(value) {
-        emit('update:modelValue', value)
-    }
-})
-const predefineColors = ['#409EFF', '#28C76F', '#EA5455', '#FF9F43', '#01CFE8', '#4A5DFF']
+const color = useVModel(props, 'modelValue', emit)
+const predefineColors = ['#FF2C3C', '#f7971e', '#fa444d', '#e0a356', '#2f80ed', '#2ec840']
+
 const reset = () => {
-    color.value = props.defaultColor
+    color.value = props.resetColor
 }
 </script>

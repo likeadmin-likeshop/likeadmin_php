@@ -1,18 +1,14 @@
-import { FetchOptions } from 'ohmyfetch'
+import { FetchOptions } from 'ofetch'
 import { RequestCodeEnum, RequestMethodsEnum } from '@/enums/requestEnums'
 import feedback from '@/utils/feedback'
 import { merge } from 'lodash-es'
 import { Request } from './request'
 import { getApiPrefix, getApiUrl, getVersion } from '../env'
 import { useUserStore } from '@/stores/user'
-import {
-    PopupTypeEnum,
-    useAccount
-} from '~~/layouts/components/account/useAccount'
 
 export function createRequest(opt?: Partial<FetchOptions>) {
     const userStore = useUserStore()
-    const { setPopupType, toggleShowPopup } = useAccount()
+    // const { setPopupType, toggleShowPopup } = useAccount()
     const defaultOptions: FetchOptions = {
         // 基础接口地址
         baseURL: getApiUrl(),
@@ -21,16 +17,6 @@ export function createRequest(opt?: Partial<FetchOptions>) {
             version: getVersion()
         },
         retry: 2,
-        async onRequest({ options }) {
-            const { withToken } = options.requestOptions
-            const headers = options.headers || {}
-            // 添加token
-            if (withToken) {
-                const token = userStore.token
-                headers['token'] = token
-            }
-            options.headers = headers
-        },
         requestOptions: {
             apiPrefix: getApiPrefix(),
             isTransformResponse: true,
@@ -38,8 +24,8 @@ export function createRequest(opt?: Partial<FetchOptions>) {
             withToken: true,
             isParamsToData: true,
             requestInterceptorsHook(options) {
-                console.log(options)
-                const { apiPrefix, isParamsToData } = options.requestOptions
+                const { apiPrefix, isParamsToData, withToken } =
+                    options.requestOptions
                 // 拼接请求前缀
                 if (apiPrefix) {
                     options.url = `${apiPrefix}${options.url}`
@@ -54,6 +40,12 @@ export function createRequest(opt?: Partial<FetchOptions>) {
                     options.body = params
                     options.params = {}
                 }
+                const headers = options.headers || {}
+                if (withToken) {
+                    const token = userStore.token
+                    headers['token'] = token
+                }
+                options.headers = headers
                 return options
             },
             async responseInterceptorsHook(response, options) {
@@ -78,11 +70,9 @@ export function createRequest(opt?: Partial<FetchOptions>) {
                         if (show) {
                             msg && feedback.msgError(msg)
                         }
-                        return Promise.reject(data)
+                        return Promise.reject(msg)
                     case RequestCodeEnum.LOGIN_FAILURE:
                         userStore.logout()
-                        setPopupType(PopupTypeEnum.LOGIN)
-                        toggleShowPopup(true)
                         return Promise.reject(data)
                     default:
                         return data

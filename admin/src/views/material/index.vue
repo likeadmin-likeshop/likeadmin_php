@@ -32,6 +32,10 @@ const tabsMap = [
     {
         type: 'video',
         name: '视频'
+    },
+    {
+        type: 'file',
+        name: '文件'
     }
 ]
 const activeTab = ref('image')
@@ -43,7 +47,6 @@ const activeTab = ref('image')
     :deep(.el-tabs) {
         height: calc(100vh - 180px);
         display: flex;
-        flex-direction: column;
         .el-tabs__header {
             margin-bottom: 0 !important;
         }

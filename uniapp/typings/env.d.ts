@@ -12,4 +12,7 @@ declare interface Window {
 }
 
 declare module 'uview-plus'
+
 declare module 'weixin-js-sdk'
+
+declare module 'css-color-function'

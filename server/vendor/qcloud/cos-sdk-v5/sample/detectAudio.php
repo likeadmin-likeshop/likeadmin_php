@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require dirname(__FILE__, 2) . '/vendor/autoload.php';
 
 $secretId = "SECRETID"; //替换为用户的 secretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
 $secretKey = "SECRETKEY"; //替换为用户的 secretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', // 审核时必须为https
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // start --------------- 桶文件审核 ----------------- //
@@ -19,12 +19,31 @@ try {
         'Input' => array(
             'Object' => 'sound01.mp3',
 //            'DataId' => '', // 可选 该字段在审核结果中会返回原始内容，长度限制为512字节。您可以使用该字段对待审核的数据进行唯一业务标识。
+//            'UserInfo' => array(
+//                'TokenId' => '',
+//                'Nickname' => '',
+//                'DeviceId' => '',
+//                'AppId' => '',
+//                'Room' => '',
+//                'IP' => '',
+//                'Type' => '',
+//                'ReceiveTokenId' => '',
+//                'Gender' => '',
+//                'Level' => '',
+//                'Role' => '',
+//            ),
         ),
 //        'Conf' => array(
 //            'BizType' => '', // 可选 定制化策略
 //            'DetectType' => 'Porn,Terrorism,Politics,Ads', // 可选 若不传此参数，BizType为空时走默认策略，BizType不为空走定制化策略
 //            'Callback' => '', // 可选 回调URL
 //            'CallbackVersion' => '', // 可选 回调内容的结构，有效值：Simple（回调内容包含基本信息）、Detail（回调内容包含详细信息）。默认为 Simple。
+//            'Freeze' => array(
+//                'PornScore' => 90,
+//                'AdsScore' => 90,
+//                'PoliticsScore' => 90,
+//                'TerrorismScore' => 90,
+//            ), // 可选 可通过该字段，设置根据审核结果给出的不同分值，对音频文件进行自动冻结，仅当`input`中审核的音频为`object`时有效
 //        ), // 可选 走默认策略及默认审核场景。
     ));
     // 请求成功

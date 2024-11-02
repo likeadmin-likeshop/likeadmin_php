@@ -9,21 +9,21 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        'd767e4fc2dc52fe66584ab8c6684783e' => __DIR__ . '/..' . '/adbario/php-dot-notation/src/helpers.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '35fab96057f1bf5e7aba31a8a6d5fdde' => __DIR__ . '/..' . '/topthink/think-orm/stubs/load_stubs.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
-        'd767e4fc2dc52fe66584ab8c6684783e' => __DIR__ . '/..' . '/adbario/php-dot-notation/src/helpers.php',
-        '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
+        'c5521cebe610a9bf42c44b3a5163adfd' => __DIR__ . '/..' . '/overtrue/socialite/src/Contracts/FactoryInterface.php',
+        'ccd11c8e7dd9b33638b248681bdfba27' => __DIR__ . '/..' . '/overtrue/socialite/src/Contracts/UserInterface.php',
+        '5649552725dea6ec47381627600e3ac1' => __DIR__ . '/..' . '/overtrue/socialite/src/Contracts/ProviderInterface.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '66453932bc1be9fb2f910a27947d11b6' => __DIR__ . '/..' . '/alibabacloud/client/src/Functions.php',
         'cd5441689b14144e5573bf989ee47b34' => __DIR__ . '/..' . '/qcloud/cos-sdk-v5/src/Common.php',
@@ -66,7 +66,6 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         array (
             'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Php80\\' => 23,
-            'Symfony\\Polyfill\\Php73\\' => 23,
             'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
@@ -83,7 +82,6 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
             'Symfony\\Component\\HttpClient\\' => 29,
             'Symfony\\Component\\Cache\\' => 24,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
-            'Stringy\\' => 8,
         ),
         'Q' => 
         array (
@@ -120,10 +118,6 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         array (
             'JmesPath\\' => 9,
         ),
-        'H' => 
-        array (
-            'Http\\Message\\' => 13,
-        ),
         'G' => 
         array (
             'GuzzleHttp\\UriTemplate\\' => 23,
@@ -144,6 +138,9 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         ),
         'A' => 
         array (
+            'Alipay\\EasySDK\\' => 15,
+            'AlibabaCloud\\Tea\\FileForm\\' => 26,
+            'AlibabaCloud\\Tea\\' => 17,
             'AlibabaCloud\\Client\\' => 20,
             'Adbar\\' => 6,
         ),
@@ -195,7 +192,8 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         ),
         'TencentCloud\\' => 
         array (
-            0 => __DIR__ . '/..' . '/tencentcloud/tencentcloud-sdk-php/src/TencentCloud',
+            0 => __DIR__ . '/..' . '/tencentcloud/common/src/TencentCloud',
+            1 => __DIR__ . '/..' . '/tencentcloud/sms/src/TencentCloud',
         ),
         'Symfony\\Polyfill\\Php81\\' => 
         array (
@@ -204,10 +202,6 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-        ),
-        'Symfony\\Polyfill\\Php73\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
         ),
         'Symfony\\Polyfill\\Php72\\' => 
         array (
@@ -273,10 +267,6 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
-        'Stringy\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/danielstjules/stringy/src',
-        ),
         'Qiniu\\' => 
         array (
             0 => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu',
@@ -291,7 +281,7 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         ),
         'Psr\\Log\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+            0 => __DIR__ . '/..' . '/psr/log/src',
         ),
         'Psr\\Http\\Message\\' => 
         array (
@@ -346,10 +336,6 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         array (
             0 => __DIR__ . '/..' . '/mtdowling/jmespath.php/src',
         ),
-        'Http\\Message\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
-        ),
         'GuzzleHttp\\UriTemplate\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/uri-template/src',
@@ -386,6 +372,18 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
+        'Alipay\\EasySDK\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alipaysdk/easysdk/php/src',
+        ),
+        'AlibabaCloud\\Tea\\FileForm\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/tea-fileform/src',
+        ),
+        'AlibabaCloud\\Tea\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alibabacloud/tea/src',
+        ),
         'AlibabaCloud\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/alibabacloud/client/src',
@@ -413,9 +411,8 @@ class ComposerStaticInitd2a74ba94e266cc4f45a64c54a292d7e
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
-        'QcloudApi' => __DIR__ . '/..' . '/tencentcloud/tencentcloud-sdk-php/src/QcloudApi/QcloudApi.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Requests' => __DIR__ . '/..' . '/rmccue/requests/library/Requests.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',

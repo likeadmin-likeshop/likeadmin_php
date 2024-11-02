@@ -1,5 +1,6 @@
-import { getDictData } from '@/api/app'
 import { reactive, toRaw } from 'vue'
+
+import { getDictData } from '@/api/app'
 
 interface Options {
     [propName: string]: {

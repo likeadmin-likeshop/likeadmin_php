@@ -1,7 +1,6 @@
 <?php
 // 应用公共文件
 use app\common\service\FileService;
-use think\facade\Db;
 use think\helper\Str;
 
 /**
@@ -27,7 +26,9 @@ function create_password(string $plaintext, string $salt) : string
  */
 function create_token(string $extra = '') : string
 {
-    return md5($extra . time());
+    $salt = env('project.unique_identification', 'likeadmin');
+    $encryptSalt = md5( $salt . uniqid());
+    return md5($salt . $extra . time() . $encryptSalt);
 }
 
 
@@ -195,24 +196,26 @@ function download_file($url, $saveDir, $fileName)
 function clear_file_domain($content)
 {
     $fileUrl = FileService::getFileUrl();
-    return str_replace($fileUrl, '/', $content);
+    $pattern = '/<img[^>]*\bsrc=["\']'.preg_quote($fileUrl, '/').'([^"\']+)["\']/i';
+    return preg_replace($pattern, '<img src="$1"', $content);
 }
-
 
 /**
  * @notes 设置内容图片域名
  * @param $content
  * @return array|string|string[]|null
  * @author 段誉
- * @date 2022/9/26 10:43
+ * @date 2024/2/5 16:36
  */
 function get_file_domain($content)
 {
-    $preg = '/(<img .*?src=")[^https|^http](.*?)(".*?>)/is';
     $fileUrl = FileService::getFileUrl();
-    return preg_replace($preg, "\${1}$fileUrl\${2}\${3}", $content);
+    $imgPreg = '/(<img .*?src=")(?!https?:\/\/)([^"]*)(".*?>)/is';
+    $videoPreg = '/(<video .*?src=")(?!https?:\/\/)([^"]*)(".*?>)/is';
+    $content = preg_replace($imgPreg, "\${1}$fileUrl\${2}\${3}", $content);
+    $content = preg_replace($videoPreg, "\${1}$fileUrl\${2}\${3}", $content);
+    return $content;
 }
-
 
 /**
  * @notes uri小写

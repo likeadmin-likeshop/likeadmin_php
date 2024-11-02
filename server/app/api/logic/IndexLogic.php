@@ -90,7 +90,7 @@ class IndexLogic extends BaseLogic
      */
     public static function getDecorate($id)
     {
-        return DecoratePage::field(['type', 'name', 'data'])
+        return DecoratePage::field(['type', 'name', 'data', 'meta'])
             ->findOrEmpty($id)->toArray();
     }
 
@@ -127,6 +127,7 @@ class IndexLogic extends BaseLogic
         ];
         // 网址信息
         $website = [
+            'h5_favicon' => FileService::getFileUrl(ConfigService::get('website', 'h5_favicon')),
             'shop_name' => ConfigService::get('website', 'shop_name'),
             'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo')),
         ];
@@ -141,6 +142,9 @@ class IndexLogic extends BaseLogic
             'url' => request()->domain() . '/mobile'
         ];
 
+        // 备案信息
+        $copyright = ConfigService::get('copyright', 'config', []);
+
         return [
             'domain' => FileService::getFileUrl(),
             'style' => $style,
@@ -148,7 +152,8 @@ class IndexLogic extends BaseLogic
             'login' => $loginConfig,
             'website' => $website,
             'webPage' => $webPage,
-            'version'=> config('project.version')
+            'version'=> config('project.version'),
+            'copyright' => $copyright,
         ];
     }
 

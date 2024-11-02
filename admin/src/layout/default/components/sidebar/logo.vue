@@ -1,5 +1,5 @@
 <template>
-    <div class="logo">
+    <div class="logo" @click="handleClick">
         <image-contain :width="szie" :height="szie" :src="config.web_logo" />
         <transition name="title-width">
             <div
@@ -21,8 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import useAppStore from '@/stores/modules/app'
 import { ThemeEnum } from '@/enums/appEnums'
+import useAppStore from '@/stores/modules/app'
+
 defineProps({
     szie: { type: Number, default: 34 },
     title: { type: String },
@@ -31,11 +32,18 @@ defineProps({
 })
 const appStore = useAppStore()
 const config = computed(() => appStore.config)
+const router = useRouter()
+
+const handleClick = () => {
+    router.push('/')
+}
 </script>
 <style lang="scss" scoped>
 .logo {
     height: var(--navbar-height);
     overflow: hidden;
+    cursor: pointer;
+    user-select: none;
     @apply flex items-center p-2 relative;
     .logo-title {
         width: 70%;

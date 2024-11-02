@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
-import cache from '@/utils/cache'
 import type { RouteRecordRaw } from 'vue-router'
+
 import { getUserInfo, login, logout } from '@/api/user'
-import router, { filterAsyncRoutes } from '@/router'
 import { TOKEN_KEY } from '@/enums/cacheEnums'
 import { PageEnum } from '@/enums/pageEnum'
+import router, { filterAsyncRoutes } from '@/router'
 import { clearAuthInfo, getToken } from '@/utils/auth'
+import cache from '@/utils/cache'
+
 export interface UserState {
     token: string
     userInfo: Record<string, any>

@@ -2,24 +2,24 @@
     <div class="admin">
         <el-card class="!border-none" shadow="never">
             <el-form class="mb-[-16px]" :model="formData" inline>
-                <el-form-item label="管理员账号">
+                <el-form-item class="w-[280px]" label="管理员账号">
                     <el-input
                         v-model="formData.account"
-                        class="w-[280px]"
+                        placeholder="请输入管理员账号"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="管理员名称">
+                <el-form-item class="w-[280px]" label="管理员名称">
                     <el-input
                         v-model="formData.name"
-                        class="w-[280px]"
+                        placeholder="请输入管理员名称"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="管理员角色">
-                    <el-select class="w-[280px]" v-model="formData.role_id">
+                <el-form-item class="w-[280px]" label="管理员角色">
+                    <el-select v-model="formData.role_id">
                         <el-option label="全部" value="" />
                         <el-option
                             v-for="(item, index) in optionsData.role"
@@ -116,12 +116,14 @@
 </template>
 
 <script lang="ts" setup name="admin">
-import { adminEdit, adminLists, adminDelete } from '@/api/perms/admin'
+import { adminDelete, adminEdit, adminLists } from '@/api/perms/admin'
 import { roleAll } from '@/api/perms/role'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
+
 import EditPopup from './edit.vue'
+
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 // 表单数据
 const formData = reactive({
@@ -138,9 +140,12 @@ const { pager, getLists, resetParams, resetPage } = usePaging({
 const changeStatus = (data: any) => {
     adminEdit({
         id: data.id,
+        avatar: data.avatar,
         account: data.account,
         name: data.name,
         role_id: data.role_id,
+        job_id: data.job_id,
+        dept_id: data.dept_id,
         disable: data.disable,
         multipoint_login: data.multipoint_login
     }).finally(() => {

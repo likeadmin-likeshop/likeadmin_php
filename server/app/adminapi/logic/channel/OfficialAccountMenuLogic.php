@@ -71,6 +71,10 @@ class OfficialAccountMenuLogic extends BaseLogic
                 throw new \Exception('请输入一级菜单名称');
             }
 
+            if (mb_strlen($item['name']) > 4) {
+                throw new \Exception("一级菜单名称字数不能超过4个字符");
+            }
+
             if (false == $item['has_menu']) {
                 if (empty($item['type'])) {
                     throw new \Exception('一级菜单未选择菜单类型');
@@ -116,6 +120,10 @@ class OfficialAccountMenuLogic extends BaseLogic
 
             if (empty($subItem['name'])) {
                 throw new \Exception('请输入二级菜单名称');
+            }
+
+            if (mb_strlen($subItem['name']) > 8) {
+                throw new \Exception("二级菜单名称字数不能超过8个字符");
             }
 
             if (empty($subItem['type']) || !in_array($subItem['type'], OfficialAccountEnum::MENU_TYPE)) {
@@ -184,6 +192,7 @@ class OfficialAccountMenuLogic extends BaseLogic
             }
 
             return self::setError('保存发布菜单失败' . json_encode($result));
+
 
         } catch (\Exception $e) {
             return self::setError($e->getMessage());

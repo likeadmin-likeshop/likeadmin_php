@@ -4,7 +4,7 @@ import { getEnvConfig } from './nuxt/env'
 const envConfig = getEnvConfig()
 export default defineNuxtConfig({
     css: ['@/assets/styles/index.scss'],
-    modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
+    modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', '@element-plus/nuxt'],
     app: {
         baseURL: envConfig.baseUrl
     },

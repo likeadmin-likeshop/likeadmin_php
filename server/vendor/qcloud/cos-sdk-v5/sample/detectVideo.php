@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require dirname(__FILE__, 2) . '/vendor/autoload.php';
 
 $secretId = "SECRETID"; //替换为用户的 secretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
 $secretKey = "SECRETKEY"; //替换为用户的 secretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', // 审核时必须为https
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     //存储桶视频审核
@@ -19,6 +19,26 @@ try {
         'Input' => array(
             'Object' => 'test.mp4', // 存储桶文件
 //            'DataId' => '', // 可选 该字段在审核结果中会返回原始内容，长度限制为512字节。您可以使用该字段对待审核的数据进行唯一业务标识。
+//            'UserInfo' => array(
+//                'TokenId' => '',
+//                'Nickname' => '',
+//                'DeviceId' => '',
+//                'AppId' => '',
+//                'Room' => '',
+//                'IP' => '',
+//                'Type' => '',
+//                'ReceiveTokenId' => '',
+//                'Gender' => '',
+//                'Level' => '',
+//                'Role' => '',
+//            ),
+//            'Encryption' => array(
+//                'Algorithm' => '',
+//                'Key' => '',
+//                'IV' => '',
+//                'KeyId' => '',
+//                'KeyType' => 0,
+//            ),
         ),
         'Conf' => array(
 //            'BizType' => '', // 可选 定制化策略
@@ -31,8 +51,16 @@ try {
 //                'TimeInterval' => 50, // 可选 视频截帧频率
                 'Count' => '3', // 视频截帧数量
             ),
+//            'Freeze' => array(
+//                'PornScore' => 90,
+//                'AdsScore' => 90,
+//                'PoliticsScore' => 90,
+//                'TerrorismScore' => 90,
+//            ), // 可选 自动冻结配置项，可配置指定审核分数的结果进行自动冻结
         ),
     ));
+    // 请求成功
+    print_r($result);
 
     //视频url审核
     $videoUrl = 'http://example.com/test.mp4';
@@ -55,7 +83,6 @@ try {
             ),
         ),
     ));
-
     // 请求成功
     print_r($result);
 } catch (\Exception $e) {

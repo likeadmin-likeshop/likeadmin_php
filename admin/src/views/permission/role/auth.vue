@@ -45,10 +45,12 @@
 </template>
 <script lang="ts" setup>
 import type { CheckboxValueType, ElTree, FormInstance } from 'element-plus'
+
+import { menuAll } from '@/api/perms/menu'
 import { roleEdit } from '@/api/perms/role'
 import Popup from '@/components/popup/index.vue'
 import { treeToArray } from '@/utils/util'
-import { menuAll } from '@/api/perms/menu'
+
 const emit = defineEmits(['success', 'close'])
 const treeRef = shallowRef<InstanceType<typeof ElTree>>()
 const formRef = shallowRef<FormInstance>()

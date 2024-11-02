@@ -63,8 +63,8 @@ class AdminValidate extends BaseValidate
     public function sceneAdd()
     {
         return $this->remove(['password', 'edit'])
-            ->remove('id', 'require|checkAdmin')
-            ->remove('disable', 'checkAbleDisable');
+            ->remove('id', true)
+            ->remove('disable', true);
     }
 
     /**
@@ -87,7 +87,9 @@ class AdminValidate extends BaseValidate
     public function sceneEdit()
     {
         return $this->remove('password', 'require|length')
-            ->append('id', 'require|checkAdmin');
+            ->append('id', 'require|checkAdmin')
+            ->remove('role_id', 'require')
+            ->append('role_id', 'checkRole');
     }
 
 
@@ -162,6 +164,33 @@ class AdminValidate extends BaseValidate
         if ($value && $admin['root']) {
             return '超级管理员不允许被禁用';
         }
+        return true;
+    }
+
+    /**
+     * @notes 校验角色
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2023/9/6 16:58
+     */
+    public function checkRole($value, $rule, $data)
+    {
+        $admin = Admin::findOrEmpty($data['id']);
+        if ($admin->isEmpty()) {
+            return '管理员不存在';
+        }
+
+        if ($admin['root']) {
+            return true;
+        }
+
+        if (empty($data['role_id'])) {
+            return '请选择角色';
+        }
+
         return true;
     }
 

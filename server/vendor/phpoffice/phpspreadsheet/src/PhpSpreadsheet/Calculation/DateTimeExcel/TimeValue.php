@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use Datetime;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class TimeValue
@@ -24,7 +25,7 @@ class TimeValue
      * Excel Function:
      *        TIMEVALUE(timeValue)
      *
-     * @param array|string $timeValue A text string that represents a time in any one of the Microsoft
+     * @param null|array|string $timeValue A text string that represents a time in any one of the Microsoft
      *                                    Excel time formats; for example, "6:45 PM" and "18:45" text strings
      *                                    within quotation marks that represent time.
      *                                    Date information in time_text is ignored.
@@ -51,7 +52,7 @@ class TimeValue
         }
 
         $PHPDateArray = Helpers::dateParse($timeValue);
-        $retValue = Functions::VALUE();
+        $retValue = ExcelError::VALUE();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {
             /** @var int */
             $hour = $PHPDateArray['hour'];
@@ -66,7 +67,7 @@ class TimeValue
             if ($retType === Functions::RETURNDATE_EXCEL) {
                 $retValue = (float) $excelDateValue;
             } elseif ($retType === Functions::RETURNDATE_UNIX_TIMESTAMP) {
-                $retValue = (int) $phpDateValue = SharedDateHelper::excelToTimestamp($excelDateValue + 25569) - 3600;
+                $retValue = (int) SharedDateHelper::excelToTimestamp($excelDateValue + 25569) - 3600;
             } else {
                 $retValue = new DateTime('1900-01-01 ' . $PHPDateArray['hour'] . ':' . $PHPDateArray['minute'] . ':' . $PHPDateArray['second']);
             }

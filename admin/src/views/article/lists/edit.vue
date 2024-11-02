@@ -92,8 +92,8 @@
                         </el-form-item>
                         <el-form-item label="文章状态" required prop="is_show">
                             <el-radio-group v-model="formData.is_show">
-                                <el-radio :label="1">显示</el-radio>
-                                <el-radio :label="0">隐藏</el-radio>
+                                <el-radio :value="1">显示</el-radio>
+                                <el-radio :value="0">隐藏</el-radio>
                             </el-radio-group>
                         </el-form-item>
                     </div>
@@ -113,8 +113,9 @@
 
 <script lang="ts" setup name="articleListsEdit">
 import type { FormInstance } from 'element-plus'
+
+import { articleAdd, articleCateAll, articleDetail, articleEdit } from '@/api/article'
 import { useDictOptions } from '@/hooks/useDictOptions'
-import { articleDetail, articleEdit, articleAdd, articleCateAll } from '@/api/article'
 import useMultipleTabs from '@/hooks/useMultipleTabs'
 
 const route = useRoute()

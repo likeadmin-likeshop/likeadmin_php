@@ -4,12 +4,13 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Erf
 {
     use ArrayEnabled;
 
-    private static $twoSqrtPi = 1.128379167095512574;
+    private const TWO_SQRT_PI = 1.128379167095512574;
 
     /**
      * ERF.
@@ -49,7 +50,7 @@ class Erf
             }
         }
 
-        return Functions::VALUE();
+        return ExcelError::VALUE();
     }
 
     /**
@@ -76,11 +77,16 @@ class Erf
         return self::ERF($limit);
     }
 
-    //
-    //    Private method to calculate the erf value
-    //
+    /**
+     * Method to calculate the erf value.
+     *
+     * @param float|int|string $value
+     *
+     * @return float
+     */
     public static function erfValue($value)
     {
+        $value = (float) $value;
         if (abs($value) > 2.2) {
             return 1 - ErfC::ERFC($value);
         }
@@ -99,6 +105,6 @@ class Erf
             }
         } while (abs($term / $sum) > Functions::PRECISION);
 
-        return self::$twoSqrtPi * $sum;
+        return self::TWO_SQRT_PI * $sum;
     }
 }

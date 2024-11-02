@@ -43,7 +43,7 @@ final class Query
             $parts = explode('=', $kvp, 2);
             $key = $decoder($parts[0]);
             $value = isset($parts[1]) ? $decoder($parts[1]) : null;
-            if (!isset($result[$key])) {
+            if (!array_key_exists($key, $result)) {
                 $result[$key] = $value;
             } else {
                 if (!is_array($result[$key])) {
@@ -93,7 +93,7 @@ final class Query
                 $qs .= $k;
                 $v = is_bool($v) ? (int) $v : $v;
                 if ($v !== null) {
-                    $qs .= '=' . $encoder((string) $v);
+                    $qs .= '='.$encoder((string) $v);
                 }
                 $qs .= '&';
             } else {
@@ -101,7 +101,7 @@ final class Query
                     $qs .= $k;
                     $vv = is_bool($vv) ? (int) $vv : $vv;
                     if ($vv !== null) {
-                        $qs .= '=' . $encoder((string) $vv);
+                        $qs .= '='.$encoder((string) $vv);
                     }
                     $qs .= '&';
                 }

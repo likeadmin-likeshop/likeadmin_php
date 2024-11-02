@@ -78,13 +78,16 @@ class UserTokenService
     public static function overtimeToken($token)
     {
         $time = time();
-        $adminSession = UserSession::where('token', '=', $token)->find();
+        $userSession = UserSession::where('token', '=', $token)->find();
+        if ($userSession->isEmpty()) {
+            return false;
+        }
         //延长token过期时间
-        $adminSession->expire_time = $time + Config::get('project.user_token.expire_duration');
-        $adminSession->update_time = $time;
-        $adminSession->save();
+        $userSession->expire_time = $time + Config::get('project.user_token.expire_duration');
+        $userSession->update_time = $time;
+        $userSession->save();
 
-        return (new UserTokenCache())->setUserInfo($adminSession->token);
+        return (new UserTokenCache())->setUserInfo($userSession->token);
     }
 
 

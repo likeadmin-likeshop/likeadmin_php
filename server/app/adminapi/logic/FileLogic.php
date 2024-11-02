@@ -114,6 +114,45 @@ class FileLogic extends BaseLogic
      */
     public static function delCate($params)
     {
-        FileCate::destroy($params['id']);
+        $fileModel = new File();
+        $cateModel = new FileCate();
+
+        $cateIds = self::getCateIds($params['id']);
+        array_push($cateIds, $params['id']);
+
+        // 删除分类及子分类
+        $cateModel->whereIn('id', $cateIds)->update(['delete_time' => time()]);
+
+        // 删除文件
+        $fileIds = $fileModel->whereIn('cid', $cateIds)->column('id');
+
+        if (!empty($fileIds)) {
+            self::delete(['ids' => $fileIds]);
+        }
     }
+
+
+    /**
+     * @notes 获取所有分类id
+     * @param $parentId
+     * @param array $cateArr
+     * @return array
+     * @author 段誉
+     * @date 2024/2/7 15:03
+     */
+    public static function getCateIds($parentId, array $cateArr = []): array
+    {
+        $childIds = FileCate::where(['pid' => $parentId])->column('id');
+
+        if (empty($childIds)) {
+            return $childIds;
+        } else {
+            $allChildIds = $childIds;
+            foreach ($childIds as $childId) {
+                $allChildIds = array_merge($allChildIds, static::getCateIds($childId, $cateArr));
+            }
+            return $allChildIds;
+        }
+    }
+
 }

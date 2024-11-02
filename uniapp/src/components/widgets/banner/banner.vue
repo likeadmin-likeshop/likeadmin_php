@@ -1,34 +1,27 @@
 <template>
     <view
-        class="banner h-[340rpx] bg-white translate-y-0"
+        class="banner translate-y-0"
+        :class="{ 'px-[20rpx]': !isLargeScreen }"
         v-if="content.data.length && content.enabled"
     >
-        <swiper
-            class="swiper h-full"
-            :indicator-dots="content.data.length > 1"
-            indicator-active-color="#4173ff"
-            :autoplay="true"
-        >
-            <swiper-item
-                v-for="(item, index) in content.data"
-                :key="index"
-                @click="handleClick(item.link)"
-            >
-                <u-image
-                    mode="aspectFit"
-                    width="100%"
-                    height="100%"
-                    :src="getImageUrl(item.image)"
-                />
-            </swiper-item>
-        </swiper>
+        <LSwiper
+            :content="content"
+            :height="isLargeScreen ? '1100' : '321'"
+            :circular="true"
+            :effect3d="false"
+            :border-radius="isLargeScreen ? '0' : '14'"
+            interval="7000"
+            bgColor="transparent"
+            @change="handleChange"
+        ></LSwiper>
     </view>
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/app'
-import { navigateTo } from '@/utils/util'
+import LSwiper from '@/components/l-swiper/l-swiper.vue'
+import {useAppStore} from "@/stores/app";
 
+const emit = defineEmits(['change'])
 const props = defineProps({
     content: {
         type: Object,
@@ -37,12 +30,14 @@ const props = defineProps({
     styles: {
         type: Object,
         default: () => ({})
+    },
+    isLargeScreen: {
+        type: Boolean
     }
 })
-const { getImageUrl } = useAppStore()
-const handleClick = (link: any) => {
-    navigateTo(link)
+const {getImageUrl} = useAppStore();
+
+const handleChange = (index: number) => {
+    emit('change', getImageUrl(props['content'].data[index].bg))
 }
 </script>
-
-<style></style>

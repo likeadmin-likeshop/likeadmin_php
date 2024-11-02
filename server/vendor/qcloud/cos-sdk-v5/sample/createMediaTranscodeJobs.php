@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require dirname(__FILE__, 2) . '/vendor/autoload.php';
 
 $secretId = "SECRETID"; //替换为用户的 secretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
 $secretKey = "SECRETKEY"; //替换为用户的 secretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
@@ -10,61 +10,28 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', //协议头部，默认为http
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
-    // 多任务接口
-    $result = $cosClient->CreateMediaJobs(array(
-        'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
-        'Tag' => 'Transcode',
-        'QueueId' => 'paaf4fce5521a40888a3034a5de80f6ca',
-        'CallBack' => '',
-        'Input' => array(
-            'Object' => 'example.mp4'
-        ),
-        'Operation' => array(
-            array(
-                'TemplateId' => 't04e1ab86554984f1aa17c062fbf6c007c',
-                'Output' => array(
-                    'Region' => $region,
-                    'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
-                    'Object' => 'video01.mp4',
-                ),
-                'WatermarkTemplateId' => array(
-                    't112d18d9b2a9b430e91d3c320f80af341',
-                ),
-            ),
-            array(
-                'TemplateId' => 't04e1ab86554984f1aa17c062fbf6c007c',
-                'Output' => array(
-                    'Region' => $region,
-                    'Bucket' => 'wwj-cq-1253960454', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
-                    'Object' => 'video02.mp4',
-                ),
-                'WatermarkTemplateId' => array(
-                    't1bf713bb5c6a5496e859aebc4a8973ab5',
-                ),
-            ),
-        ),
-    ));
-
-    // 单任务接口
+    // 提交转码任务 https://cloud.tencent.com/document/product/436/54009
     // start --------------- 使用模版 ----------------- //
     $result = $cosClient->createMediaTranscodeJobs(array(
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'Transcode',
-        'QueueId' => 'paaf4fce5521a40888a3034a5de80f6ca',
         'Input' => array(
             'Object' => 'example.mp4'
         ),
         'Operation' => array(
             'TemplateId' => 't04e1ab86554984f1aa17c062fbf6c007c',
+//            'UserData' => 'xxx', // 透传用户信息
+//            'JobLevel' => '0', // 任务优先级，级别限制：0 、1 、2。级别越大任务优先级越高，默认为0
+            'FreeTranscode' => 'true', // 闲时转码
             'Output' => array(
                 'Region' => $region,
                 'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
                 'Object' => 'video02.mp4',
             ),
-            'Watermark' => arrray(
+            'Watermark' => array(
                 array(
                     'Type' => 'Text',
                     'LocMode' => 'Absolute',
@@ -96,15 +63,6 @@ try {
             ),
         ),
     ));
-    $result = $cosClient->DescribeMediaJob(array(
-        'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
-        'Key' => 'j20f7a6be6c5511eca253f3ee9d4082e0',
-    ));
-    $result = $cosClient->DescribeMediaJobs(array(
-        'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
-        'Tag' => 'Transcode',
-        'QueueId' => 'paaf4fce5521a40888a3034a5de80f6ca',
-    ));
     // 请求成功
     print_r($result);
     // end --------------- 使用模版 ----------------- //
@@ -114,12 +72,14 @@ try {
     $result = $cosClient->createMediaTranscodeJobs(array(
         'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
         'Tag' => 'Transcode',
-        'QueueId' => 'asdadadfafsdkjhfjghdfjg',
         'CallBack' => 'https://example.com/callback',
         'Input' => array(
             'Object' => 'video01.mp4'
         ),
         'Operation' => array(
+//            'UserData' => 'xxx', // 透传用户信息
+//            'JobLevel' => '0', // 任务优先级，级别限制：0 、1 、2。级别越大任务优先级越高，默认为0
+            'FreeTranscode' => 'true', // 闲时转码
             'Output' => array(
                 'Region' => $region,
                 'Bucket' => 'examplebucket-125000000', //存储桶名称，由BucketName-Appid 组成，可以在COS控制台查看 https://console.cloud.tencent.com/cos5/bucket
@@ -151,6 +111,34 @@ try {
                 'TimeInterval' => array(
                     'Start' => '0',
                     'Duration' => '60',
+                ),
+                'AudioMixArray' => array(
+                    array(
+                        'AudioSource' => '',
+                        'MixMode' => '',
+                        'Replace' => '',
+                        'EffectConfig' => array(
+                            'EnableStartFadein' => '',
+                            'StartFadeinTime' => '',
+                            'EnableEndFadeout' => '',
+                            'EndFadeoutTime' => '',
+                            'EnableBgmFade' => '',
+                            'BgmFadeTime' => '',
+                        ),
+                    ),
+                    array(
+                        'AudioSource' => '',
+                        'MixMode' => '',
+                        'Replace' => '',
+                        'EffectConfig' => array(
+                            'EnableStartFadein' => '',
+                            'StartFadeinTime' => '',
+                            'EnableEndFadeout' => '',
+                            'EndFadeoutTime' => '',
+                            'EnableBgmFade' => '',
+                            'BgmFadeTime' => '',
+                        ),
+                    ),
                 ),
             ),
         ),

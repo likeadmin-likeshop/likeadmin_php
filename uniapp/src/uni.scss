@@ -1,37 +1,41 @@
-@import '@/uni_modules/vk-uview-ui/theme.scss';
+// 替换uview颜色变量
+$u-main-color: theme("colors.main");
+$u-content-color: theme("colors.content");
+$u-tips-color: theme("colors.muted");
+$u-light-color: theme("colors.light");
+$u-border-color: theme("colors.light");
+$u-bg-color: theme("colors.page");
+$u-disabled-color: theme("colors.disabled");
+$u-minor-color: theme("colors[minor]");
+$u-type-primary: theme("colors.primary.DEFAULT");
+$u-type-primary-disabled: theme("colors.primary[light-3]");
+$u-type-primary-dark: theme("colors.primary[dark-2]");
+$u-type-primary-light: theme("colors.primary[light-9]");
 
-$u-main-color: #333333;
-$u-content-color: #666666;
-$u-tips-color: #999999;
-$u-light-color: #c0c4cc;
-$u-border-color: #e5e5e5;
-$u-bg-color: #f3f4f6;
-$u-disabled-color: #c8c9cc;
+$u-type-warning: theme("colors.warning.DEFAULT");
+$u-type-warning-disabled: theme("colors.warning[light-3]");
+$u-type-warning-dark: theme("colors.warning[dark-2]");
+$u-type-warning-light: theme("colors.warning[light-9]");
 
-$u-type-primary: #4173ff;
-$u-type-primary-light: #ecf5ff;
-$u-type-primary-disabled: #a0cfff;
-$u-type-primary-dark: #2b85e4;
+$u-type-success: theme("colors.success.DEFAULT");
+$u-type-success-disabled: theme("colors.success[light-3]");
+$u-type-success-dark: theme("colors.success[dark-2]");
+$u-type-success-light: theme("colors.success[light-9]");
 
-$u-type-warning: #ff9900;
-$u-type-warning-disabled: #fcbd71;
-$u-type-warning-dark: #f29100;
-$u-type-warning-light: #fdf6ec;
+$u-type-error: theme("colors.error.DEFAULT");
+$u-type-error-disabled: theme("colors.error[light-3]");
+$u-type-error-dark: theme("colors.error[dark-2]");
+$u-type-error-light: theme("colors.error[light-9]");
 
-$u-type-success: #19be6b;
-$u-type-success-disabled: #71d5a1;
-$u-type-success-dark: #18b566;
-$u-type-success-light: #dbf1e1;
-
-$u-type-error: #fa3534;
-$u-type-error-disabled: #fab6b6;
-$u-type-error-dark: #dd6161;
-$u-type-error-light: #fef0f0;
-
-$u-type-info: #909399;
-$u-type-info-disabled: #c8c9cc;
-$u-type-info-dark: #82848a;
-$u-type-info-light: #f4f4f5;
+$u-type-info: theme("colors.info.DEFAULT");
+$u-type-info-disabled: theme("colors.info[light-3]");
+$u-type-info-dark: theme("colors.info[dark-2]");
+$u-type-info-light: theme("colors.info[light-9]");
 
 $u-form-item-height: 60rpx;
-$u-form-item-border-color: #e5e5e5;
+$u-form-item-border-color: theme("colors.light");
+
+$-color-white: theme("colors.white");
+$-color-black: theme("colors.black");
+
+$u-color-btn-text: theme("colors[btn-text]");

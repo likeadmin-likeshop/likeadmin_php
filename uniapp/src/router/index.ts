@@ -1,55 +1,91 @@
+import routes from 'uni-router-routes'
+import { createRouter } from 'uniapp-router-next'
+
 import { ClientEnum } from '@/enums/appEnums'
-import { client } from '@/utils/client'
-import { BACK_URL } from '@/enums/constantEnums'
 import { useUserStore } from '@/stores/user'
-import { getToken } from '@/utils/auth'
-import cache from '@/utils/cache'
-import { routes } from './routes'
+import { client } from '@/utils/client'
 // #ifdef H5
 import wechatOa from '@/utils/wechat'
 // #endif
-const whiteList = ['register', 'login', 'forget_pwd']
-const list = ['navigateTo', 'redirectTo', 'reLaunch', 'switchTab']
-list.forEach((item) => {
-    uni.addInterceptor(item, {
-        invoke(e) {
-            // 获取要跳转的页面路径（url去掉"?"和"?"后的参数）
-            const url = e.url.split('?')[0]
-            const currentRoute = routes.find((item) => {
-                return url === item.path
-            })
-            // 需要登录并且没有token
-            if (currentRoute?.auth && !getToken()) {
-                uni.navigateTo({
-                    url: '/pages/login/login'
-                })
-                return false
+import cache from '@/utils/cache'
+import { BACK_URL } from '@/enums/constantEnums'
+
+const router = createRouter({
+    routes: [
+        ...routes,
+        {
+            path: '*',
+            redirect() {
+                return {
+                    name: '404'
+                }
             }
-            return e
-        },
-        fail(err) {
-            // 失败回调拦截
-            console.log(err)
         }
-    })
+    ],
+    debug: import.meta.env.DEV,
+    //@ts-ignore
+    platform: process.env.UNI_PLATFORM,
+    h5: {}
 })
 
-export function setupRouter() {
-    // #ifdef H5
-    const app = getApp()
-    app.$router.afterEach((to: any, from: any) => {
-        const index = whiteList.findIndex((item) => from.path.includes(item) || from.path === '/')
+//存储登陆前的页面
+let isFirstEach = true
+router.beforeEach(async (to, from) => {
+    //保存第一次进来时的页面路径（需要登陆才能访问的页面）
+    if (isFirstEach) {
         const userStore = useUserStore()
-        if (index == -1 && !userStore.isLogin) {
-            //保存登录前的路径
-            cache.set(BACK_URL, from.fullPath)
+        if (!userStore.isLogin && !to.meta.white) {
+            cache.set(BACK_URL, to.fullPath)
         }
-    })
+        isFirstEach = false
+    }
+})
+router.afterEach((to, from) => {
+    const userStore = useUserStore()
+    if (!userStore.isLogin && !to.meta.white) {
+        cache.set(BACK_URL, to.fullPath)
+    }
+})
+
+// 登录拦截
+router.beforeEach(async (to, from) => {
+    const userStore = useUserStore();
+    if (!userStore.isLogin && to.meta.auth) {
+        return '/pages/login/login'
+    }
+})
+
+// #ifdef H5
+//用于收集微信公众号的授权的code，并清除路径上微信带的参数
+router.beforeEach(async (to, form) => {
+    const { code, state, scene } = to.query
+
+    if (code && state && scene) {
+        wechatOa.setAuthData({
+            code,
+            scene
+        })
+        //收集完删除路径上的参数
+        delete to.query.code
+        delete to.query.state
+        return {
+            path: to.path,
+            force: true,
+            navType: 'reLaunch',
+            query: to.query
+        }
+    }
+})
+// #endif
+
+// #ifdef H5
+router.afterEach((to, from) => {
     setTimeout(async () => {
-        if (client == ClientEnum.OA_WEIXIN) {
+        if (client == ClientEnum.OA_WEIXIN && !to.meta.webview) {
             // jssdk配置
             await wechatOa.config()
         }
     })
-    // #endif
-}
+})
+// #endif
+export default router

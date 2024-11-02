@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { isExternal } from '@/utils/validate'
 import type {
     LocationQuery,
     RouteLocationNormalized,
@@ -7,7 +6,9 @@ import type {
     Router,
     RouteRecordName
 } from 'vue-router'
+
 import { PageEnum } from '@/enums/pageEnum'
+import { isExternal } from '@/utils/validate'
 
 interface TabItem {
     name: RouteRecordName
@@ -110,7 +111,6 @@ const useTabsStore = defineStore({
             }
             this.tasMap[fullPath] = tabItem
             if (meta?.keepAlive) {
-                console.log(componentName)
                 this.addCache(componentName)
             }
             if (hasTabIndex != -1) {

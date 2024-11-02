@@ -28,6 +28,7 @@
 
 <script lang="ts" setup>
 import { refundLog } from '@/api/finance'
+
 const loading = ref(false)
 const logLists = ref([])
 const props = defineProps<{
@@ -56,7 +57,9 @@ const getRefundLog = async () => {
             record_id: props.refundId
         })
         logLists.value = res
-    } catch (error) {}
+    } catch (error) {
+        console.log(error)
+    }
     loading.value = false
 }
 

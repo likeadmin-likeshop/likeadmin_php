@@ -79,11 +79,11 @@ class OAuthTest extends TestCase
         $response = m::mock(\Psr\Http\Message\ResponseInterface::class);
 
         $response->shouldReceive('getBody')->andReturn($response);
-        $response->shouldReceive('getContents')->andReturn([
+        $response->shouldReceive('__toString')->andReturn(\json_encode([
             'access_token' => 'fake_access_token',
             'refresh_token' => 'fake_refresh_token',
             'expires_in' => 123456,
-        ]);
+        ]));
 
         $provider->getHttpClient()->shouldReceive('post')->with('http://token.url', [
             'form_params' => [
@@ -129,11 +129,11 @@ class OAuthTest extends TestCase
 
         $response = m::mock(\Psr\Http\Message\ResponseInterface::class);
         $response->shouldReceive('getBody')->andReturn($response);
-        $response->shouldReceive('getContents')->andReturn([
+        $response->shouldReceive('__toString')->andReturn(\json_encode([
             'access_token' => 'fake_access_token',
             'refresh_token' => 'fake_refresh_token',
             'expires_in' => 123456,
-        ]);
+        ]));
 
         $provider->getHttpClient()->shouldReceive('post')->with('http://token.url', [
             'form_params' => [
@@ -170,7 +170,9 @@ class OAuthTest extends TestCase
 class OAuthTestProviderStub extends Base
 {
     public $http;
+
     protected array $scopes = ['info'];
+
     protected int $encodingType = PHP_QUERY_RFC3986;
 
     protected function getAuthUrl(): string
@@ -200,7 +202,7 @@ class OAuthTestProviderStub extends Base
      *
      * @return \GuzzleHttp\Client
      */
-    public function getHttpClient(): \GuzzleHttp\Client
+    public function getHttpClient(): GuzzleHttp\Client
     {
         if ($this->http) {
             return $this->http;

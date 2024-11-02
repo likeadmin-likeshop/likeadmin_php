@@ -30,6 +30,10 @@
         }
     }
 
+    .el-menu {
+        user-select: none;
+    }
+
     .el-drawer {
         --el-drawer-padding-primary: 16px;
         &__header {

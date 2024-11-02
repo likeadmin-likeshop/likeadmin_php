@@ -24,3 +24,8 @@ export function getDecorateTabbar(params?: any) {
 export function setDecorateTabbar(params: any) {
     return request.post({ url: '/decorate.tabbar/save', params })
 }
+
+// pc装修数据
+export function getDecoratePc() {
+    return request.get({ url: '/decorate.data/pc' })
+}

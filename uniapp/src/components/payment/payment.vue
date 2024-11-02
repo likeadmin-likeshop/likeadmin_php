@@ -48,7 +48,7 @@
                                                 }}</view>
                                             </view>
 
-                                            <u-radio class="mr-[-20rpx]" :name="item.pay_way">
+                                            <u-radio activeColor="var(--color-primary)" class="mr-[-20rpx]" :name="item.pay_way">
                                             </u-radio>
                                         </view>
                                     </u-radio-group>

@@ -69,8 +69,5 @@ module.exports = {
             '8xl': '48px',
             '9xl': '60px'
         }
-    },
-    plugins: [
-        require('@tailwindcss/line-clamp') // 引入插件
-    ]
+    }
 }

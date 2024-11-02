@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 export function getUserCenter(header?: any) {
-    return request.get({ url: '/user/center', header })
+    return request.get({ url: '/user/center', header }, { ignoreCancel: true })
 }
 
 // 个人信息
@@ -38,3 +38,4 @@ export function forgotPassword(data: Record<string, any>) {
 export function accountLog(data: any) {
     return request.get({ url: '/account_log/lists', data })
 }
+

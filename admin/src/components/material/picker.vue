@@ -2,7 +2,7 @@
     <div class="material-select">
         <popup
             ref="popupRef"
-            width="830px"
+            width="1050px"
             custom-class="body-padding"
             :title="`选择${tipsText}`"
             @confirm="handleConfirm"
@@ -24,6 +24,8 @@
                                     <file-item
                                         :uri="excludeDomain ? getImageUrl(element) : element"
                                         :file-size="size"
+                                        :width="width"
+                                        :height="height"
                                         :type="type"
                                     ></file-item>
                                 </del-wrap>
@@ -49,8 +51,8 @@
                             <div
                                 class="upload-btn"
                                 :style="{
-                                    width: size,
-                                    height: size
+                                    width: width || size,
+                                    height: height || size
                                 }"
                             >
                                 <icon :size="25" name="el-icon-Plus" />
@@ -77,13 +79,15 @@
 </template>
 
 <script lang="ts">
+import { useThrottleFn } from '@vueuse/core'
 import Draggable from 'vuedraggable'
+
 import Popup from '@/components/popup/index.vue'
+import useAppStore from '@/stores/modules/app'
+
 import FileItem from './file.vue'
 import Material from './index.vue'
 import Preview from './preview.vue'
-import useAppStore from '@/stores/modules/app'
-import { useThrottleFn } from '@vueuse/core'
 export default defineComponent({
     components: {
         Popup,
@@ -106,6 +110,16 @@ export default defineComponent({
         size: {
             type: String,
             default: '100px'
+        },
+        // 选择器尺寸-宽度（不传则是使用size
+        width: {
+            type: String,
+            default: ''
+        },
+        // 选择器尺寸-高度（不传则是使用size
+        height: {
+            type: String,
+            default: ''
         },
         // 文件尺寸
         fileSize: {
@@ -174,7 +188,7 @@ export default defineComponent({
         const handleConfirm = useThrottleFn(
             () => {
                 const selectUri = select.value.map((item) =>
-                    props.excludeDomain ? item.url : item.uri
+                    props.excludeDomain ? item.uri : item.url
                 )
                 if (!isAdd.value) {
                     fileList.value.splice(currentIndex.value, 1, selectUri.shift())
@@ -297,7 +311,7 @@ export default defineComponent({
 }
 .material-wrap {
     min-width: 720px;
-    height: 430px;
+    height: 560px;
     @apply border-t border-b border-br;
 }
 </style>

@@ -111,9 +111,5 @@ module.exports = {
             9: '36px',
             10: '40px'
         }
-    },
-
-    plugins: [
-        require('@tailwindcss/line-clamp') // 引入插件
-    ]
+    }
 }

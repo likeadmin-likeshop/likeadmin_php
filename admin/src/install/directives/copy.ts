@@ -4,8 +4,10 @@
  *  <el-button v-perms="['auth.menu/edit']">编辑</el-button>
  */
 
-import feedback from '@/utils/feedback'
 import useClipboard from 'vue-clipboard3'
+
+import feedback from '@/utils/feedback'
+
 const clipboard = 'data-clipboard-text'
 export default {
     mounted: (el: HTMLElement, binding: any) => {

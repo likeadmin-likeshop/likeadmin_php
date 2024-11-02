@@ -57,9 +57,11 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import { deptEdit, deptAdd, deptDetail, deptAll } from '@/api/org/department'
+
+import { deptAdd, deptAll, deptDetail, deptEdit } from '@/api/org/department'
 import Popup from '@/components/popup/index.vue'
 import { useDictOptions } from '@/hooks/useDictOptions'
+
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()

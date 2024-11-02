@@ -1,4 +1,5 @@
 import colors from 'css-color-function'
+
 const lightConfig = {
     'dark-2': 'shade(20%)',
     'light-3': 'tint(30%)',

@@ -49,6 +49,8 @@ class WebSettingLogic extends BaseLogic
             'pc_ico' => FileService::getFileUrl(ConfigService::get('website', 'pc_ico')),
             'pc_desc' => ConfigService::get('website', 'pc_desc', ''),
             'pc_keywords' => ConfigService::get('website', 'pc_keywords', ''),
+
+            'h5_favicon' => FileService::getFileUrl(ConfigService::get('website', 'h5_favicon')),
         ];
     }
 
@@ -61,6 +63,7 @@ class WebSettingLogic extends BaseLogic
      */
     public static function setWebsiteInfo(array $params)
     {
+        $h5favicon = FileService::setFileUrl($params['h5_favicon']);
         $favicon = FileService::setFileUrl($params['web_favicon']);
         $logo = FileService::setFileUrl($params['web_logo']);
         $login = FileService::setFileUrl($params['login_image']);
@@ -80,6 +83,8 @@ class WebSettingLogic extends BaseLogic
         ConfigService::set('website', 'pc_ico', $pcIco);
         ConfigService::set('website', 'pc_desc', $params['pc_desc'] ?? '');
         ConfigService::set('website', 'pc_keywords', $params['pc_keywords'] ?? '');
+
+        ConfigService::set('website', 'h5_favicon', $h5favicon);
     }
 
 
@@ -153,5 +158,30 @@ class WebSettingLogic extends BaseLogic
         $config['privacy_content'] = get_file_domain($config['privacy_content']);
 
         return $config;
+    }
+
+    /**
+     * @notes 获取站点统计配置
+     * @return array
+     * @author yfdong
+     * @date 2024/09/20 22:25
+     */
+    public static function getSiteStatistics()
+    {
+        return [
+            'clarity_code' => ConfigService::get('siteStatistics', 'clarity_code')
+        ];
+    }
+
+    /**
+     * @notes 设置站点统计配置
+     * @param array $params
+     * @return void
+     * @author yfdong
+     * @date 2024/09/20 22:31
+     */
+    public static function setSiteStatistics(array $params)
+    {
+        ConfigService::set('siteStatistics', 'clarity_code', $params['clarity_code']);
     }
 }

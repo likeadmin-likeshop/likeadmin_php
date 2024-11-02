@@ -21,6 +21,7 @@ use app\common\{enum\notice\NoticeEnum,
     logic\BaseLogic,
     model\user\User,
     model\user\UserAuth,
+    service\FileService,
     service\sms\SmsDriver,
     service\wechat\WeChatMnpService};
 use think\facade\Config;
@@ -91,6 +92,10 @@ class UserLogic extends BaseLogic
     public static function setInfo(int $userId, array $params)
     {
         try {
+            if ($params['field'] == "avatar") {
+                $params['value'] = FileService::setFileUrl($params['value']);
+            }
+
             return User::update([
                     'id' => $userId,
                     $params['field'] => $params['value']]

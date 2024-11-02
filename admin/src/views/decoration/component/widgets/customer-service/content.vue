@@ -1,20 +1,37 @@
 <template>
-    <div class="customer-service">
-        <decoration-img width="140px" height="140px" :src="content.qrcode" alt="" />
-        <div class="text-[15px] mt-[7px] font-medium">{{ content.title }}</div>
-        <div class="text-[#666] mt-[20px]">服务时间：{{ content.time }}</div>
-        <div class="text-[#666] mt-[7px]">客服电话：{{ content.mobile }}</div>
-        <div
-            class="text-white text-[16px] rounded-[42px] bg-[#4173FF] w-full h-[42px] flex justify-center items-center mt-[50px]"
+    <view class="bg-white p-[15px] flex text-[#101010] font-medium text-lg"> 联系我们 </view>
+    <view
+        class="customer-service bg-white flex flex-col justify-center items-center mx-[18px] mt-[15px] rounded-[10px] px-[10px] pb-[50px]"
+    >
+        <view
+            class="w-full border-solid border-0 border-b border-[#f5f5f5] p-[15px] text-center text-[#101010] text-base font-medium"
         >
-            保存二维码图片
-        </div>
-    </div>
+            {{ content.title }}
+        </view>
+
+        <view class="mt-[30px]">
+            <decoration-img width="100px" height="100px" :src="content.qrcode" alt="" />
+        </view>
+        <view v-if="content.remark" class="text-sm mt-[20px] font-medium">{{
+            content.remark
+        }}</view>
+        <view v-if="content.mobile" class="text-sm mt-[12px] flex flex-wrap">
+            <a class="ml-[5px] phone text-primary underline" :href="'tel:' + content.mobile">
+                {{ content.mobile }}
+            </a>
+        </view>
+        <view v-if="content.time" class="text-muted text-sm mt-[15px]">
+            服务时间：{{ content.time }}
+        </view>
+    </view>
+    Î
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type options from './options'
+
 import DecorationImg from '../../decoration-img.vue'
+import type options from './options'
+
 type OptionsType = ReturnType<typeof options>
 defineProps({
     content: {
@@ -30,9 +47,6 @@ defineProps({
 
 <style lang="scss" scoped>
 .customer-service {
-    margin: 10px 18px;
-    border-radius: 10px;
-    padding: 50px 55px 80px;
     background: #fff;
     @apply flex flex-col justify-center items-center;
 }

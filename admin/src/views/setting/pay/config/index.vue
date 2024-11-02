@@ -40,12 +40,20 @@
             </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getConfig" @close="showEdit = false" />
+        <Edit ref="editNewRef" @refresh="getConfig" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { getPayConfigLists } from '@/api/setting/pay'
+import { useComponentRef } from '@/utils/getExposeType'
+
+import Edit from './edit.vue'
+
+const editNewRef = useComponentRef(Edit)
+
 import EditPopup from './edit.vue'
+
 const payConfigList = ref<any[]>([])
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const showEdit = ref(false)
@@ -54,10 +62,7 @@ const getConfig = async () => {
     payConfigList.value = lists
 }
 const handleEdit = async (data: any) => {
-    showEdit.value = true
-    await nextTick()
-    editRef.value?.open()
-    editRef.value?.getDetail(data)
+    editNewRef.value?.openHandle(data.id, false)
 }
 getConfig()
 </script>

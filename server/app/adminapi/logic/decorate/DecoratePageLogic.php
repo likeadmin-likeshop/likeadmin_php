@@ -58,6 +58,7 @@ class DecoratePageLogic extends BaseLogic
             'id' => $params['id'],
             'type' => $params['type'],
             'data' => $params['data'],
+            'meta' => $params['meta'] ?? '',
         ]);
         return true;
     }

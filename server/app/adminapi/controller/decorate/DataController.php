@@ -15,7 +15,7 @@ namespace app\adminapi\controller\decorate;
 
 use app\adminapi\controller\BaseAdminController;
 use app\adminapi\logic\decorate\DecorateDataLogic;
-
+use think\response\Json;
 
 /**
  * 装修-数据
@@ -24,24 +24,32 @@ use app\adminapi\logic\decorate\DecorateDataLogic;
  */
 class DataController extends BaseAdminController
 {
-
-
     /**
      * @notes 文章列表
-     * @return \think\response\Json
+     * @return Json
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 段誉
-     * @date 2022/9/22 16:50
+     * @author mjf
+     * @date 2024/3/14 18:13
      */
-    public function article()
+    public function article(): Json
     {
         $limit = $this->request->get('limit/d', 10);
         $result = DecorateDataLogic::getArticleLists($limit);
         return $this->success('获取成功', $result);
     }
 
-
+    /**
+     * @notes pc设置
+     * @return Json
+     * @author mjf
+     * @date 2024/3/14 18:13
+     */
+    public function pc(): Json
+    {
+        $result = DecorateDataLogic::pc();
+        return $this->data($result);
+    }
 
 }

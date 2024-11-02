@@ -150,8 +150,8 @@ class WechatUserService
         $this->user->channel = $this->terminal;
         $this->user->is_new_user = YesNoEnum::YES;
 
-        if (empty($this->nickname)) {
-            $this->user->nickname = '用户' . $this->user->sn;
+        if ($this->terminal != UserTerminalEnum::WECHAT_MMP && !empty($this->nickname)) {
+            $this->user->nickname = $this->nickname;
         }
 
         $this->user->save();
@@ -190,6 +190,11 @@ class WechatUserService
             $userAuth->unionid = $this->unionid;
             $userAuth->terminal = $this->terminal;
             $userAuth->save();
+        } else {
+            if (empty($userAuth['unionid']) && !empty($this->unionid)) {
+                $userAuth->unionid = $this->unionid;
+                $userAuth->save();
+            }
         }
     }
 
@@ -242,13 +247,15 @@ class WechatUserService
             'default' => ConfigService::get('storage', 'default', 'local'),
             'engine' => ConfigService::get('storage')
         ];
+
+        $fileName = md5($this->openid . time()) . '.jpeg';
+
         if ($config['default'] == 'local') {
             // 本地存储
-            $file_name = md5($this->openid . time()) . '.jpeg';
-            $avatar = download_file($this->headimgurl, 'uploads/user/avatar/', $file_name);
+            $avatar = download_file($this->headimgurl, 'uploads/user/avatar/', $fileName);
         } else {
             // 第三方存储
-            $avatar = 'uploads/user/avatar/' . md5($this->openid . time()) . '.jpeg';
+            $avatar = 'uploads/user/avatar/' . $fileName;
             $StorageDriver = new StorageDriver($config);
             if (!$StorageDriver->fetch($this->headimgurl, $avatar)) {
                 throw new Exception('头像保存失败:' . $StorageDriver->getError());

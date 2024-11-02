@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle;
 
 use GuzzleHttp\ClientInterface;
@@ -12,7 +13,7 @@ use GuzzleHttp\HandlerStack;
  */
 class GuzzleClient extends ServiceClient
 {
-    /** @var array $config */
+    /** @var array */
     private $config;
 
     /** @var DescriptionInterface Guzzle service description */
@@ -33,12 +34,12 @@ class GuzzleClient extends ServiceClient
      * - response_locations: Associative array of location types mapping to
      *   ResponseLocationInterface objects.
      *
-     * @param ClientInterface $client HTTP client to use.
-     * @param DescriptionInterface $description Guzzle service description
-     * @param callable $commandToRequestTransformer
-     * @param callable $responseToResultTransformer
-     * @param HandlerStack $commandHandlerStack
-     * @param array $config Configuration options
+     * @param ClientInterface      $client                      HTTP client to use.
+     * @param DescriptionInterface $description                 Guzzle service description
+     * @param callable             $commandToRequestTransformer
+     * @param callable             $responseToResultTransformer
+     * @param HandlerStack         $commandHandlerStack
+     * @param array                $config                      Configuration options
      */
     public function __construct(
         ClientInterface $client,
@@ -59,9 +60,11 @@ class GuzzleClient extends ServiceClient
 
     /**
      * Returns the command if valid; otherwise an Exception
+     *
      * @param string $name
-     * @param array  $args
+     *
      * @return CommandInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function getCommand($name, array $args = [])
@@ -95,6 +98,7 @@ class GuzzleClient extends ServiceClient
      * Returns the passed Serializer when set, a new instance otherwise
      *
      * @param callable|null $commandToRequestTransformer
+     *
      * @return \GuzzleHttp\Command\Guzzle\Serializer
      */
     private function getSerializer($commandToRequestTransformer)
@@ -108,11 +112,12 @@ class GuzzleClient extends ServiceClient
      * Returns the passed Deserializer when set, a new instance otherwise
      *
      * @param callable|null $responseToResultTransformer
+     *
      * @return \GuzzleHttp\Command\Guzzle\Deserializer
      */
     private function getDeserializer($responseToResultTransformer)
     {
-        $process = (! isset($this->config['process']) || $this->config['process'] === true);
+        $process = (!isset($this->config['process']) || $this->config['process'] === true);
 
         return $responseToResultTransformer !== null
             ? $responseToResultTransformer
@@ -123,6 +128,7 @@ class GuzzleClient extends ServiceClient
      * Get the config of the client
      *
      * @param array|string $option
+     *
      * @return mixed
      */
     public function getConfig($option = null)
@@ -132,10 +138,6 @@ class GuzzleClient extends ServiceClient
             : (isset($this->config[$option]) ? $this->config[$option] : []);
     }
 
-    /**
-     * @param $option
-     * @param $value
-     */
     public function setConfig($option, $value)
     {
         $this->config[$option] = $value;

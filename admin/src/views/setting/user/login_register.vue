@@ -5,11 +5,11 @@
             <el-card shadow="never" class="!border-none">
                 <div class="font-medium mb-7">通用设置</div>
 
-                <el-form-item label="登录方式" prop="loginWay">
+                <el-form-item label="登录方式" prop="login_way">
                     <div>
                         <el-checkbox-group v-model="formData.login_way">
-                            <el-checkbox label="1">账号密码登录</el-checkbox>
-                            <el-checkbox label="2">手机验证码登录</el-checkbox>
+                            <el-checkbox value="1">账号密码登录</el-checkbox>
+                            <el-checkbox value="2">手机验证码登录</el-checkbox>
                         </el-checkbox-group>
                         <div class="form-tips">系统通用登录方式，至少选择一项</div>
                     </div>
@@ -68,8 +68,8 @@
                         <div>
                             <el-checkbox
                                 v-model="formData.wechat_auth"
-                                :true-label="1"
-                                :false-label="0"
+                                :true-value="1"
+                                :false-value="0"
                             >
                                 微信登录
                             </el-checkbox>
@@ -102,9 +102,11 @@
 </template>
 
 <script lang="ts" setup name="loginRegister">
+import type { FormInstance, FormRules } from 'element-plus'
+
 import type { LoginSetup } from '@/api/setting/user'
 import { getLogin, setLogin } from '@/api/setting/user'
-import type { FormInstance, FormRules } from 'element-plus'
+
 const formRef = ref<FormInstance>()
 
 // 表单数据
@@ -129,7 +131,7 @@ const rules = reactive<FormRules>({
                 } else {
                     if (formData.login_way !== '') {
                         if (!formRef.value) return
-                        formRef.value.validateField('checkPass', () => null)
+                        formRef.value.validateField('checkPass')
                     }
                     callback()
                 }

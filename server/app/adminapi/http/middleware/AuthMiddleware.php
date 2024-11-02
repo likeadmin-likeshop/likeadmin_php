@@ -44,6 +44,10 @@ class AuthMiddleware
             return $next($request);
         }
 
+        if ($request->adminInfo['login_ip'] != request()->ip()) {
+            return JsonService::fail('ip地址发生变化，请重新登录', [], -1);
+        }
+
         //系统默认超级管理员，无需权限验证
         if (1 === $request->adminInfo['root']) {
             return $next($request);

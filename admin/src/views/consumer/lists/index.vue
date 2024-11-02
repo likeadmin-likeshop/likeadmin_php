@@ -2,11 +2,10 @@
     <div>
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
-                <el-form-item label="用户信息">
+                <el-form-item class="w-[280px]" label="用户信息">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.keyword"
-                        placeholder="用户编号/昵称/手机号码"
+                        placeholder="账号/昵称/手机号码"
                         clearable
                         @keyup.enter="resetPage"
                     />
@@ -17,8 +16,8 @@
                         v-model:endTime="queryParams.create_time_end"
                     />
                 </el-form-item>
-                <el-form-item label="注册来源">
-                    <el-select class="w-[280px]" v-model="queryParams.channel">
+                <el-form-item class="w-[280px]" label="注册来源">
+                    <el-select v-model="queryParams.channel">
                         <el-option
                             v-for="(item, key) in ClientMap"
                             :key="key"
@@ -41,7 +40,6 @@
         </el-card>
         <el-card class="!border-none mt-4" shadow="never">
             <el-table size="large" v-loading="pager.loading" :data="pager.lists">
-                <el-table-column label="用户编号" prop="sn" min-width="120" />
                 <el-table-column label="头像" min-width="100">
                     <template #default="{ row }">
                         <el-avatar :src="row.avatar" :size="50" />
@@ -76,10 +74,11 @@
     </div>
 </template>
 <script lang="ts" setup name="consumerLists">
-import { usePaging } from '@/hooks/usePaging'
-import { getRoutePath } from '@/router'
 import { getUserList } from '@/api/consumer'
 import { ClientMap } from '@/enums/appEnums'
+import { usePaging } from '@/hooks/usePaging'
+import { getRoutePath } from '@/router'
+
 const queryParams = reactive({
     keyword: '',
     channel: '',

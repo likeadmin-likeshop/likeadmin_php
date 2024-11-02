@@ -91,13 +91,16 @@
         <edit-popup v-if="showEdit" ref="editRef" @success="getLists" @close="showEdit = false" />
     </div>
 </template>
-<script lang="ts" setup name="menu">
-import { menuDelete, menuLists } from '@/api/perms/menu'
+<script lang="ts" setup name="permission-menu">
 import type { ElTable } from 'element-plus'
-import { usePaging } from '@/hooks/usePaging'
+
+import { menuDelete, menuLists } from '@/api/perms/menu'
 import { MenuEnum } from '@/enums/appEnums'
-import EditPopup from './edit.vue'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
+
+import EditPopup from './edit.vue'
+
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 let isExpand = false

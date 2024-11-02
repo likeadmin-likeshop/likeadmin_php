@@ -6,11 +6,19 @@ interface Options {
     size?: number
     fetchFun: (_arg: any) => Promise<any>
     params?: Record<any, any>
+    fixedParams?: Record<any, any>
     firstLoading?: boolean
 }
 
 export function usePaging(options: Options) {
-    const { page = 1, size = 15, fetchFun, params = {}, firstLoading = false } = options
+    const {
+        page = 1,
+        size = 15,
+        fetchFun,
+        params = {},
+        fixedParams = {},
+        firstLoading = false
+    } = options
     // 记录分页初始参数
     const paramsInit: Record<any, any> = Object.assign({}, toRaw(params))
     // 分页数据
@@ -28,7 +36,8 @@ export function usePaging(options: Options) {
         return fetchFun({
             page_no: pager.page,
             page_size: pager.size,
-            ...params
+            ...params,
+            ...fixedParams
         })
             .then((res: any) => {
                 pager.count = res?.count

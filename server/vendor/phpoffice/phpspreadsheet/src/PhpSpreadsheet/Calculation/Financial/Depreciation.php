@@ -4,9 +4,13 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Depreciation
 {
+    /** @var float */
+    private static $zeroPointZero = 0.0;
+
     /**
      * DB.
      *
@@ -50,7 +54,7 @@ class Depreciation
             return $e->getMessage();
         }
 
-        if ($cost === 0.0) {
+        if ($cost === self::$zeroPointZero) {
             return 0.0;
         }
 
@@ -117,7 +121,7 @@ class Depreciation
         }
 
         if ($period > $life) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         // Loop through each period calculating the depreciation
@@ -160,8 +164,8 @@ class Depreciation
             return $e->getMessage();
         }
 
-        if ($life === 0.0) {
-            return Functions::DIV0();
+        if ($life === self::$zeroPointZero) {
+            return ExcelError::DIV0();
         }
 
         return ($cost - $salvage) / $life;
@@ -196,7 +200,7 @@ class Depreciation
         }
 
         if ($period > $life) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $syd = (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
@@ -204,61 +208,67 @@ class Depreciation
         return $syd;
     }
 
+    /** @param mixed $cost */
     private static function validateCost($cost, bool $negativeValueAllowed = false): float
     {
         $cost = FinancialValidations::validateFloat($cost);
         if ($cost < 0.0 && $negativeValueAllowed === false) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $cost;
     }
 
+    /** @param mixed $salvage */
     private static function validateSalvage($salvage, bool $negativeValueAllowed = false): float
     {
         $salvage = FinancialValidations::validateFloat($salvage);
         if ($salvage < 0.0 && $negativeValueAllowed === false) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $salvage;
     }
 
+    /** @param mixed $life */
     private static function validateLife($life, bool $negativeValueAllowed = false): float
     {
         $life = FinancialValidations::validateFloat($life);
         if ($life < 0.0 && $negativeValueAllowed === false) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $life;
     }
 
+    /** @param mixed $period */
     private static function validatePeriod($period, bool $negativeValueAllowed = false): float
     {
         $period = FinancialValidations::validateFloat($period);
         if ($period <= 0.0 && $negativeValueAllowed === false) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $period;
     }
 
+    /** @param mixed $month */
     private static function validateMonth($month): int
     {
         $month = FinancialValidations::validateInt($month);
         if ($month < 1) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $month;
     }
 
+    /** @param mixed $factor */
     private static function validateFactor($factor): float
     {
         $factor = FinancialValidations::validateFloat($factor);
         if ($factor <= 0.0) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $factor;

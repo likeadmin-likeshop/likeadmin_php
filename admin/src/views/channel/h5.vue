@@ -8,16 +8,16 @@
                 <el-form-item label="渠道状态" required prop="status">
                     <div>
                         <el-radio-group v-model="formData.status">
-                            <el-radio :label="1">开启</el-radio>
-                            <el-radio :label="0">关闭</el-radio>
+                            <el-radio :value="1">开启</el-radio>
+                            <el-radio :value="0">关闭</el-radio>
                         </el-radio-group>
                         <div class="form-tips">状态为关闭时，将不对外提供服务，请谨慎操作</div>
                     </div>
                 </el-form-item>
                 <el-form-item label="关闭后访问页面" prop="page_status">
                     <el-radio-group v-model="formData.page_status">
-                        <el-radio :label="0">空页面</el-radio>
-                        <el-radio :label="1">自定义链接</el-radio>
+                        <el-radio :value="0">空页面</el-radio>
+                        <el-radio :value="1">自定义链接</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="" prop="page_url" v-if="formData.page_status == 1">

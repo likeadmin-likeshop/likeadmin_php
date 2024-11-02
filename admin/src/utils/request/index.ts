@@ -1,14 +1,16 @@
+import { AxiosError, type AxiosRequestConfig } from 'axios'
 import { merge } from 'lodash'
+import NProgress from 'nprogress'
+
 import configs from '@/config'
-import { Axios } from './axios'
+import { PageEnum } from '@/enums/pageEnum'
 import { ContentTypeEnum, RequestCodeEnum, RequestMethodsEnum } from '@/enums/requestEnums'
-import type { AxiosHooks } from './type'
+import router from '@/router'
+
 import { clearAuthInfo, getToken } from '../auth'
 import feedback from '../feedback'
-import NProgress from 'nprogress'
-import { AxiosError, type AxiosRequestConfig } from 'axios'
-import router from '@/router'
-import { PageEnum } from '@/enums/pageEnum'
+import { Axios } from './axios'
+import type { AxiosHooks } from './type'
 
 // 处理axios的钩子函数
 const axiosHooks: AxiosHooks = {

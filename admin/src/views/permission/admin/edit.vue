@@ -70,7 +70,7 @@
                 </el-form-item>
 
                 <!-- 角色选择框 -->
-                <el-form-item label="角色" prop="role_id">
+                <el-form-item label="角色" prop="role_id" v-if="formData.root != 1">
                     <el-select
                         v-model="formData.role_id"
                         :disabled="formData.root == 1"
@@ -79,7 +79,6 @@
                         placeholder="请选择角色"
                         clearable
                     >
-                        <el-option v-if="formData.root == 1" label="系统管理员" :value="0" />
                         <el-option
                             v-for="(item, index) in optionsData.role"
                             :key="index"
@@ -131,12 +130,14 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import Popup from '@/components/popup/index.vue'
-import { useDictOptions } from '@/hooks/useDictOptions'
+
+import { deptAll } from '@/api/org/department'
+import { jobsAll } from '@/api/org/post'
 import { adminAdd, adminDetail, adminEdit } from '@/api/perms/admin'
 import { roleAll } from '@/api/perms/role'
-import { jobsAll } from '@/api/org/post'
-import { deptAll } from '@/api/org/department'
+import Popup from '@/components/popup/index.vue'
+import { useDictOptions } from '@/hooks/useDictOptions'
+
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
@@ -165,6 +166,18 @@ const passwordConfirmValidator = (rule: object, value: string, callback: any) =>
     }
     callback()
 }
+
+const roleIdValidator = (rule: object, value: string, callback: any) => {
+    if (formData.root) {
+        callback()
+    } else {
+        if (formData.role_id.length) {
+            callback()
+        } else {
+            callback(new Error('请选择角色'))
+        }
+    }
+}
 const formRules = reactive({
     account: [
         {
@@ -182,10 +195,8 @@ const formRules = reactive({
     ],
     role_id: [
         {
-            type: 'array',
             required: true,
-            message: '请选择角色',
-            trigger: ['blur']
+            validator: roleIdValidator
         }
     ],
     password: [

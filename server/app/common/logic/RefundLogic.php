@@ -1,17 +1,15 @@
 <?php
 // +----------------------------------------------------------------------
-// | LikeShop有特色的全开源社交分销电商系统
+// | likeadmin快速开发前后端分离管理后台（PHP版）
 // +----------------------------------------------------------------------
 // | 欢迎阅读学习系统程序代码，建议反馈是我们前进的动力
-// | 商业用途务必购买系统授权，以免引起不必要的法律纠纷
-// | 禁止对系统程序代码以任何目的，任何形式的再发布
-// | 微信公众号：好象科技
-// | 访问官网：http://www.likemarket.net
-// | 访问社区：http://bbs.likemarket.net
-// | 访问手册：http://doc.likemarket.net
-// | 好象科技开发团队 版权所有 拥有最终解释权
+// | 开源版本可自由商用，可去除界面版权logo
+// | gitee下载：https://gitee.com/likeshop_gitee/likeadmin
+// | github下载：https://github.com/likeshop-github/likeadmin
+// | 访问官网：https://www.likeadmin.cn
+// | likeadmin团队 版权所有 拥有最终解释权
 // +----------------------------------------------------------------------
-// | Author: LikeShopTeam-段誉
+// | author: likeadminTeam
 // +----------------------------------------------------------------------
 
 
@@ -20,8 +18,10 @@ namespace app\common\logic;
 
 use app\common\enum\PayEnum;
 use app\common\enum\RefundEnum;
+use app\common\model\recharge\RechargeOrder;
 use app\common\model\refund\RefundLog;
 use app\common\model\refund\RefundRecord;
+use app\common\service\pay\AliPayService;
 use app\common\service\pay\WeChatPayService;
 
 
@@ -61,6 +61,10 @@ class RefundLogic extends BaseLogic
                 //微信退款
                 case PayEnum::WECHAT_PAY:
                     self::wechatPayRefund($order, $refundAmount);
+                    break;
+                // 支付宝退款
+                case PayEnum::ALI_PAY:
+                    self::aliPayRefund($refundRecordId, $refundAmount);
                     break;
                 default:
                     throw new \Exception('支付方式异常');
@@ -112,6 +116,43 @@ class RefundLogic extends BaseLogic
             'refund_amount' => $refundAmount,// 退款金额
             'total_amount' => $order['order_amount'],// 订单金额
         ]);
+    }
+
+    /**
+     * @notes 支付宝退款
+     * @param $refundRecordId
+     * @param $refundAmount
+     * @throws \Exception
+     * @author mjf
+     * @date 2024/3/18 18:54
+     */
+    public static function aliPayRefund($refundRecordId, $refundAmount)
+    {
+        $refundRecord = RefundRecord::where('id', $refundRecordId)->findOrEmpty()->toArray();
+
+        $result = (new AliPayService())->refund($refundRecord['order_sn'], $refundAmount, self::$refundLog['sn']);
+        $result = (array)$result;
+
+        if ($result['code'] == '10000' && $result['msg'] == 'Success' && $result['fundChange'] == 'Y') {
+            // 更新日志
+            RefundLog::update([
+                'refund_status' => RefundEnum::REFUND_SUCCESS,
+                'refund_msg'    => json_encode($result, JSON_UNESCAPED_UNICODE),
+            ], ['id'=>self::$refundLog['id']]);
+
+            // 更新记录
+            RefundRecord::update([
+                'refund_status' =>  RefundEnum::REFUND_SUCCESS,
+            ], ['id'=>$refundRecordId]);
+
+            // 更新订单信息
+            if ($refundRecord['order_type'] == 'recharge') {
+                RechargeOrder::update([
+                    'id' => $refundRecord['order_id'],
+                    'refund_transaction_id' => $result['tradeNo'] ?? '',
+                ]);
+            }
+        }
     }
 
 

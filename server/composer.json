@@ -20,23 +20,24 @@
         }        
     ],
     "require": {
-        "php": ">=7.1.0",
-        "topthink/framework": "^6.0.0",
-        "topthink/think-orm": "^2.0",
+        "php": ">=8.0",
+        "topthink/framework": "^8.0.2",
+        "topthink/think-orm": "^3.0",
         "topthink/think-multi-app": "^1.0",
-        "topthink/think-view": "^1.0",
+        "topthink/think-view": "^2.0",
         "dragonmantank/cron-expression": "^3.3",
         "phpoffice/phpspreadsheet": "^1.22",
         "qiniu/php-sdk": "7.4",
         "qcloud/cos-sdk-v5": "^2.5",
         "aliyuncs/oss-sdk-php": "^2.4",
-        "tencentcloud/tencentcloud-sdk-php": "^3.0",
         "alibabacloud/client": "^1.5",
         "rmccue/requests": "^2.0",
-        "w7corp/easywechat": "^6.8"
+        "w7corp/easywechat": "^6.8",
+        "tencentcloud/sms": "^3.0",
+        "alipaysdk/easysdk": "^2.2"
     },
     "require-dev": {
-        "symfony/var-dumper": "^4.2",
+        "symfony/var-dumper": ">=4.2",
         "topthink/think-trace":"^1.0"
     },
     "autoload": {

@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts" setup name="scheduledTask">
-import { crontabLists, crontabDel } from '@/api/setting/system'
+import { crontabDel, crontabLists } from '@/api/setting/system'
 import { usePaging } from '@/hooks/usePaging'
 import { getRoutePath } from '@/router'
 import feedback from '@/utils/feedback'

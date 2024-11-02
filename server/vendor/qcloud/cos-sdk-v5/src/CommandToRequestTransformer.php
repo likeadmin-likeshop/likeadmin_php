@@ -2,6 +2,7 @@
 
 namespace Qcloud\Cos;
 
+use http\Exception\BadUrlException;
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Psr7\Uri;
@@ -22,7 +23,7 @@ class CommandToRequestTransformer {
     public function bucketStyleTransformer( CommandInterface $command, RequestInterface $request ) {
         $action = $command->getName();
         if ($action == 'ListBuckets') {
-            $uri =  "service.cos.myqcloud.com";
+            $uri = "service.cos.myqcloud.com";
     
             if ($this->config['endpoint'] != null) {
                 $uri = $this->config['endpoint'];
@@ -42,13 +43,11 @@ class CommandToRequestTransformer {
         $bucketname = $command['Bucket'];
 
         $appId = $this->config['appId'];
-        if ( $appId != null && endWith( $bucketname, '-'.$appId ) == False ) {
+        if ( $appId != null && endWith( $bucketname, '-'.$appId ) == false ) {
             $bucketname = $bucketname.'-'.$appId;
         }
         $command['Bucket'] = $bucketname;
-        $path = '';
 
-        $http_method = $operation['httpMethod'];
         $uri = $operation['uri'];
 
         // Hoststyle is used by default
@@ -69,7 +68,11 @@ class CommandToRequestTransformer {
 
         $domain_type = '.cos.';
         if ($action == 'PutBucketImageStyle' || $action == 'GetBucketImageStyle' || $action == 'DeleteBucketImageStyle'
-            || $action == 'PutBucketGuetzli' || $action == 'GetBucketGuetzli' || $action == 'DeleteBucketGuetzli') {
+            || $action == 'PutBucketGuetzli' || $action == 'GetBucketGuetzli' || $action == 'DeleteBucketGuetzli'
+            || $action == 'BindCiService' || $action == 'GetCiService' || $action == 'UnBindCiService'
+            || $action == 'GetHotLink' || $action == 'AddHotLink'
+            || $action == 'OpenOriginProtect' || $action == 'GetOriginProtect' || $action == 'CloseOriginProtect'
+            || $action == 'OpenImageSlim' || $action == 'GetImageSlim' || $action == 'CloseImageSlim' ) {
             $domain_type = '.pic.';
         }
 
@@ -93,7 +96,7 @@ class CommandToRequestTransformer {
         $uri = new Uri( $path );
         $query = $request->getUri()->getQuery();
         if ( $uri->getQuery() != $query && $uri->getQuery() != '' ) {
-            $query =   $uri->getQuery() . '&' . $request->getUri()->getQuery();
+            $query = $uri->getQuery() . '&' . $request->getUri()->getQuery();
         }
         $uri = $uri->withQuery( $query );
         $request = $request->withUri( $uri );
@@ -119,10 +122,9 @@ class CommandToRequestTransformer {
         if ( null !== $body ) {
             return $request;
         } else {
-            throw new InvalidArgumentException(
-                "You must specify a non-null value for the {$bodyParameter} or {$sourceParameter} parameters." );
-            }
+            throw new InvalidArgumentException("You must specify a non-null value for the {$bodyParameter} or {$sourceParameter} parameters.");
         }
+    }
 
         // update md5
 
@@ -236,6 +238,29 @@ class CommandToRequestTransformer {
 
         public function cosDomain2CiTransformer(CommandInterface $command, $request) {
             $action = $command->getName();
+            if(key_exists($action, array(
+                'DescribeMediaBuckets' => 1,
+                'DescribeDocProcessBuckets' =>1,
+                'GetPicBucketList' =>1,
+                'GetAiBucketList' =>1,
+            ))) {
+                $origin_host = "ci.{$this->config['region']}.myqcloud.com";
+                $host = $origin_host;
+                if ($this->config['ip'] != null) {
+                    $host = $this->config['ip'];
+                    if ($this->config['port'] != null) {
+                        $host = $this->config['ip'] . ":" . $this->config['port'];
+                    }
+                }
+
+                $path = $this->config['schema'].'://'. $host . $request->getUri()->getPath();
+                $uri = new Uri( $path );
+                $query = $request->getUri()->getQuery();
+                $uri = $uri->withQuery( $query );
+                $request = $request->withUri( $uri );
+                $request = $request->withHeader( 'Host', $origin_host );
+                return $request;
+            }
             $ciActions = array(
                 'DetectText' => 1,
                 'CreateMediaTranscodeJobs' => 1,
@@ -263,11 +288,100 @@ class CommandToRequestTransformer {
                 'DescribeMediaVoiceSeparateJob' => 1,
                 'DetectWebpage' => 1,
                 'GetDetectWebpageResult' => 1,
+                'DescribeMediaQueues' => 1,
+                'UpdateMediaQueue' => 1,
+                'CreateMediaSmartCoverJobs' => 1,
+                'CreateMediaVideoProcessJobs' => 1,
+                'CreateMediaVideoMontageJobs' => 1,
+                'CreateMediaAnimationJobs' => 1,
+                'CreateMediaPicProcessJobs' => 1,
+                'CreateMediaSegmentJobs' => 1,
+                'CreateMediaVideoTagJobs' => 1,
+                'CreateMediaSuperResolutionJobs' => 1,
+                'CreateMediaSDRtoHDRJobs' => 1,
+                'CreateMediaDigitalWatermarkJobs' => 1,
+                'CreateMediaExtractDigitalWatermarkJobs' => 1,
+                'DetectLiveVideo' => 1,
+                'CancelLiveVideoAuditing' => 1,
+                'TriggerWorkflow' => 1,
+                'GetWorkflowInstances' => 1,
+                'GetWorkflowInstance' => 1,
+                'CreateMediaSnapshotTemplate' => 1,
+                'UpdateMediaSnapshotTemplate' => 1,
+                'CreateMediaTranscodeTemplate' => 1,
+                'UpdateMediaTranscodeTemplate' => 1,
+                'CreateMediaHighSpeedHdTemplate' => 1,
+                'UpdateMediaHighSpeedHdTemplate' => 1,
+                'CreateMediaAnimationTemplate' => 1,
+                'UpdateMediaAnimationTemplate' => 1,
+                'CreateMediaConcatTemplate' => 1,
+                'UpdateMediaConcatTemplate' => 1,
+                'CreateMediaVideoProcessTemplate' => 1,
+                'UpdateMediaVideoProcessTemplate' => 1,
+                'CreateMediaVideoMontageTemplate' => 1,
+                'UpdateMediaVideoMontageTemplate' => 1,
+                'CreateMediaVoiceSeparateTemplate' => 1,
+                'UpdateMediaVoiceSeparateTemplate' => 1,
+                'CreateMediaSuperResolutionTemplate' => 1,
+                'UpdateMediaSuperResolutionTemplate' => 1,
+                'CreateMediaPicProcessTemplate' => 1,
+                'UpdateMediaPicProcessTemplate' => 1,
+                'CreateMediaWatermarkTemplate' => 1,
+                'UpdateMediaWatermarkTemplate' => 1,
+                'DescribeMediaTemplates' => 1,
+                'DescribeWorkflow' => 1,
+                'DeleteWorkflow' => 1,
+                'CreateInventoryTriggerJob' => 1,
+                'DescribeInventoryTriggerJobs' => 1,
+                'DescribeInventoryTriggerJob' => 1,
+                'CancelInventoryTriggerJob' => 1,
+                'CreateMediaNoiseReductionJobs' => 1,
+                'ImageSearchOpen' => 1,
+                'UpdateDocProcessQueue' => 1,
+                'CreateMediaQualityEstimateJobs' => 1,
+                'CreateMediaStreamExtractJobs' => 1,
+                'OpenFileProcessService' => 1,
+                'GetFileProcessQueueList' => 1,
+                'UpdateFileProcessQueue' => 1,
+                'CreateFileHashCodeJobs' => 1,
+                'GetFileHashCodeResult' => 1,
+                'CreateFileUncompressJobs' => 1,
+                'GetFileUncompressResult' => 1,
+                'CreateFileCompressJobs' => 1,
+                'GetFileCompressResult' => 1,
+                'CreateM3U8PlayListJobs' => 1,
+                'GetPicQueueList' => 1,
+                'UpdatePicQueue' => 1,
+                'OpenAiService' => 1,
+                'GetAiQueueList' => 1,
+                'UpdateAiQueue' => 1,
+                'CreateMediaTranscodeProTemplate' => 1,
+                'UpdateMediaTranscodeProTemplate' => 1,
+                'CreateVoiceTtsTemplate' => 1,
+                'UpdateVoiceTtsTemplate' => 1,
+                'CreateMediaSmartCoverTemplate' => 1,
+                'UpdateMediaSmartCoverTemplate' => 1,
+                'CreateVoiceSpeechRecognitionTemplate' => 1,
+                'UpdateVoiceSpeechRecognitionTemplate' => 1,
+                'CreateVoiceTtsJobs' => 1,
+                'CreateAiTranslationJobs' => 1,
+                'CreateVoiceSpeechRecognitionJobs' => 1,
+                'CreateAiWordsGeneralizeJobs' => 1,
+                'CreateMediaVideoEnhanceJobs' => 1,
+                'CreateMediaVideoEnhanceTemplate' => 1,
+                'UpdateMediaVideoEnhanceTemplate' => 1,
             );
             if (key_exists($action, $ciActions)) {
+                // 万象接口需要https，http方式报错
+                if($this->config['schema'] !== 'https') {
+                    $e = new Exception\CosException('CI request schema must be "https", instead of "http"');
+                    $e->setExceptionCode('Invalid Argument');
+                    throw $e;
+                }
+
                 $bucketname = $command['Bucket'];
                 $appId = $this->config['appId'];
-                if ( $appId != null && endWith( $bucketname, '-'.$appId ) == False ) {
+                if ( $appId != null && endWith( $bucketname, '-'.$appId ) == false ) {
                     $bucketname = $bucketname.'-'.$appId;
                 }
                 $command['Bucket'] = $bucketname;

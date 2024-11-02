@@ -57,7 +57,7 @@ class PayNotifyLogic extends BaseLogic
      * @author 段誉
      * @date 2023/2/27 15:28
      */
-    public static function recharge($orderSn, $extra = [])
+    public static function recharge($orderSn, array $extra = [])
     {
         $order = RechargeOrder::where('sn', $orderSn)->findOrEmpty();
         // 增加用户累计充值金额及用户余额
@@ -77,7 +77,7 @@ class PayNotifyLogic extends BaseLogic
         );
 
         // 更新充值订单状态
-        $order->transaction_id = $extra['transaction_id'];
+        $order->transaction_id = $extra['transaction_id'] ?? '';
         $order->pay_status = PayEnum::ISPAID;
         $order->pay_time = time();
         $order->save();

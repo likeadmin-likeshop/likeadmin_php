@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require dirname(__FILE__, 2) . '/vendor/autoload.php';
 
 $secretId = "SECRETID"; //替换为用户的 secretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
 $secretKey = "SECRETKEY"; //替换为用户的 secretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
@@ -21,10 +21,12 @@ $cosClient = new Qcloud\Cos\Client(
         'userAgent' => '', //UA
         'allow_redirects' => false, //是否follow302
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey,
             'token'     => $token,
             'anonymous' => true, //匿名模式
-        )
+        ),
+        'timezone' => 'PRC', //时区
+        'locationWithSchema' => true //Location中是否包含schema
     )
 );

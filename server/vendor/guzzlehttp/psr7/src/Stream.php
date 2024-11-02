@@ -61,8 +61,8 @@ class Stream implements StreamInterface
         $this->stream = $stream;
         $meta = stream_get_meta_data($this->stream);
         $this->seekable = $meta['seekable'];
-        $this->readable = (bool)preg_match(self::READABLE_MODES, $meta['mode']);
-        $this->writable = (bool)preg_match(self::WRITABLE_MODES, $meta['mode']);
+        $this->readable = (bool) preg_match(self::READABLE_MODES, $meta['mode']);
+        $this->writable = (bool) preg_match(self::WRITABLE_MODES, $meta['mode']);
         $this->uri = $this->getMetadata('uri');
     }
 
@@ -80,12 +80,14 @@ class Stream implements StreamInterface
             if ($this->isSeekable()) {
                 $this->seek(0);
             }
+
             return $this->getContents();
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
             trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), E_USER_ERROR);
+
             return '';
         }
     }
@@ -96,13 +98,11 @@ class Stream implements StreamInterface
             throw new \RuntimeException('Stream is detached');
         }
 
-        $contents = stream_get_contents($this->stream);
-
-        if ($contents === false) {
-            throw new \RuntimeException('Unable to read stream contents');
+        if (!$this->readable) {
+            throw new \RuntimeException('Cannot read from non-readable stream');
         }
 
-        return $contents;
+        return Utils::tryGetContents($this->stream);
     }
 
     public function close(): void
@@ -147,6 +147,7 @@ class Stream implements StreamInterface
         $stats = fstat($this->stream);
         if (is_array($stats) && isset($stats['size'])) {
             $this->size = $stats['size'];
+
             return $this->size;
         }
 
@@ -209,7 +210,7 @@ class Stream implements StreamInterface
         }
         if (fseek($this->stream, $offset, $whence) === -1) {
             throw new \RuntimeException('Unable to seek to stream position '
-                . $offset . ' with whence ' . var_export($whence, true));
+                .$offset.' with whence '.var_export($whence, true));
         }
     }
 
@@ -229,7 +230,12 @@ class Stream implements StreamInterface
             return '';
         }
 
-        $string = fread($this->stream, $length);
+        try {
+            $string = fread($this->stream, $length);
+        } catch (\Exception $e) {
+            throw new \RuntimeException('Unable to read from stream', 0, $e);
+        }
+
         if (false === $string) {
             throw new \RuntimeException('Unable to read from stream');
         }

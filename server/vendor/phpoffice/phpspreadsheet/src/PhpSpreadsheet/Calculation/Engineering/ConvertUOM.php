@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ConvertUOM
 {
@@ -106,6 +106,7 @@ class ConvertUOM
         'W' => ['Group' => self::CATEGORY_POWER, 'Unit Name' => 'Watt', 'AllowPrefix' => true],
         'w' => ['Group' => self::CATEGORY_POWER, 'Unit Name' => 'Watt', 'AllowPrefix' => true],
         'PS' => ['Group' => self::CATEGORY_POWER, 'Unit Name' => 'Pferdestärke', 'AllowPrefix' => false],
+        // Magnetism
         'T' => ['Group' => self::CATEGORY_MAGNETISM, 'Unit Name' => 'Tesla', 'AllowPrefix' => true],
         'ga' => ['Group' => self::CATEGORY_MAGNETISM, 'Unit Name' => 'Gauss', 'AllowPrefix' => true],
         // Temperature
@@ -539,18 +540,18 @@ class ConvertUOM
         }
 
         if (!is_numeric($value)) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         try {
             [$fromUOM, $fromCategory, $fromMultiplier] = self::getUOMDetails($fromUOM);
             [$toUOM, $toCategory, $toMultiplier] = self::getUOMDetails($toUOM);
         } catch (Exception $e) {
-            return Functions::NA();
+            return ExcelError::NA();
         }
 
         if ($fromCategory !== $toCategory) {
-            return Functions::NA();
+            return ExcelError::NA();
         }
 
         // @var float $value
@@ -563,7 +564,7 @@ class ConvertUOM
         } elseif ($fromUOM === $toUOM) {
             return $value / $toMultiplier;
         } elseif ($fromCategory === self::CATEGORY_TEMPERATURE) {
-            return self::convertTemperature($fromUOM, $toUOM, $value);
+            return self::convertTemperature($fromUOM, $toUOM, /** @scrutinizer ignore-type */ $value);
         }
 
         $baseValue = $value * (1.0 / self::$unitConversions[$fromCategory][$fromUOM]);
@@ -571,7 +572,7 @@ class ConvertUOM
         return ($baseValue * self::$unitConversions[$fromCategory][$toUOM]) / $toMultiplier;
     }
 
-    private static function getUOMDetails(string $uom)
+    private static function getUOMDetails(string $uom): array
     {
         if (isset(self::$conversionUnits[$uom])) {
             $unitCategory = self::$conversionUnits[$uom]['Group'];
@@ -677,7 +678,7 @@ class ConvertUOM
         return $value;
     }
 
-    private static function resolveTemperatureSynonyms(string $uom)
+    private static function resolveTemperatureSynonyms(string $uom): string
     {
         switch ($uom) {
             case 'fah':

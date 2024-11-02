@@ -8,8 +8,8 @@
                 <el-form-item label="状态">
                     <div>
                         <el-radio-group v-model="formData.status" class="ml-4">
-                            <el-radio :label="1">开启</el-radio>
-                            <el-radio :label="0">关闭</el-radio>
+                            <el-radio :value="1">开启</el-radio>
+                            <el-radio :value="0">关闭</el-radio>
                         </el-radio-group>
                         <div class="form-tips">关闭或开启充值功能，关闭后将不显示充值入口</div>
                     </div>
@@ -33,8 +33,9 @@
         </footer-btns>
     </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="rechargeConfig">
 import { getRechargeConfig, setRechargeConfig } from '@/api/app/recharge'
+
 const formData = reactive({
     status: 1, //功能状态 1-开启 0-关闭
     min_amount: '' //最低充值金额

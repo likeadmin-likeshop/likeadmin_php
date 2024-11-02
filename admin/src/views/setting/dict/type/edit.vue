@@ -23,8 +23,8 @@
                 </el-form-item>
                 <el-form-item label="字典状态" required prop="status">
                     <el-radio-group v-model="formData.status">
-                        <el-radio :label="1">正常</el-radio>
-                        <el-radio :label="0">停用</el-radio>
+                        <el-radio :value="1">正常</el-radio>
+                        <el-radio :value="0">停用</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="备注" prop="remark">
@@ -43,8 +43,10 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import Popup from '@/components/popup/index.vue'
+
 import { dictTypeAdd, dictTypeEdit } from '@/api/setting/dict'
+import Popup from '@/components/popup/index.vue'
+
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()

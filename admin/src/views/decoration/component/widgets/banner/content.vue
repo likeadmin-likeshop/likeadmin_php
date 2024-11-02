@@ -3,7 +3,7 @@
         <div class="banner-image w-full h-full">
             <decoration-img
                 width="100%"
-                :height="styles.height || height"
+                :height="content.style == 1 ? height : '550px'"
                 :src="getImage"
                 fit="contain"
             />
@@ -12,8 +12,10 @@
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type options from './options'
+
 import DecorationImg from '../../decoration-img.vue'
+import type options from './options'
+
 type OptionsType = ReturnType<typeof options>
 const props = defineProps({
     content: {
@@ -30,10 +32,13 @@ const props = defineProps({
     }
 })
 
+const showList = computed(() => {
+    return props.content.data?.filter((item: any) => item.is_show == '1') || []
+})
+
 const getImage = computed(() => {
-    const { data } = props.content
-    if (Array.isArray(data)) {
-        return data[0] ? data[0].image : ''
+    if (Array.isArray(showList.value)) {
+        return showList.value[0] ? showList.value[0].image : ''
     }
     return ''
 })

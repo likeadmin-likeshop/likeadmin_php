@@ -31,8 +31,8 @@
                 </el-form-item>
                 <el-form-item label="状态" prop="status">
                     <el-radio-group v-model="formData.status">
-                        <el-radio :label="0">关闭</el-radio>
-                        <el-radio :label="1">开启</el-radio>
+                        <el-radio :value="0">关闭</el-radio>
+                        <el-radio :value="1">开启</el-radio>
                     </el-radio-group>
                 </el-form-item>
             </el-form>
@@ -40,9 +40,11 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { setSmsConfig, smsDetail } from '@/api/message'
 import type { FormInstance } from 'element-plus'
+
+import { setSmsConfig, smsDetail } from '@/api/message'
 import Popup from '@/components/popup/index.vue'
+
 const emit = defineEmits(['success'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()

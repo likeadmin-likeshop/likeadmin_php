@@ -15,7 +15,7 @@ namespace app\adminapi\logic\decorate;
 
 use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
-
+use app\common\model\decorate\DecoratePage;
 
 /**
  * 装修页-数据
@@ -35,7 +35,7 @@ class DecorateDataLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/22 16:49
      */
-    public static function getArticleLists($limit)
+    public static function getArticleLists($limit): array
     {
         $field = 'id,title,desc,abstract,image,author,content,
         click_virtual,click_actual,create_time';
@@ -49,6 +49,21 @@ class DecorateDataLogic extends BaseLogic
             ->select()->toArray();
     }
 
+    /**
+     * @notes pc设置
+     * @return array
+     * @author mjf
+     * @date 2024/3/14 18:13
+     */
+    public static function pc(): array
+    {
+        $pcPage = DecoratePage::findOrEmpty(4)->toArray();
+        $updateTime = !empty($pcPage['update_time']) ? $pcPage['update_time'] : date('Y-m-d H:i:s');
+        return [
+            'update_time' => $updateTime,
+            'pc_url' => request()->domain() . '/pc'
+        ];
+    }
 
 
 

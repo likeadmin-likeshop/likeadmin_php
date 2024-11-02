@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require dirname(__FILE__, 2) . '/vendor/autoload.php';
 
 $secretId = "SECRETID"; //替换为用户的 secretId，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
 $secretKey = "SECRETKEY"; //替换为用户的 secretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
@@ -10,7 +10,7 @@ $cosClient = new Qcloud\Cos\Client(
         'region' => $region,
         'schema' => 'https', // 审核时必须为https
         'credentials'=> array(
-            'secretId'  => $secretId ,
+            'secretId'  => $secretId,
             'secretKey' => $secretKey)));
 try {
     // 存储桶文档审核
@@ -20,13 +20,34 @@ try {
             'Object' => 'test01.docx',
 //            'Type' => 'docx',
 //            'DataId' => '', // 选填 该字段在审核结果中会返回原始内容，长度限制为512字节。您可以使用该字段对待审核的数据进行唯一业务标识。
+//            'UserInfo' => array(
+//                'TokenId' => '',
+//                'Nickname' => '',
+//                'DeviceId' => '',
+//                'AppId' => '',
+//                'Room' => '',
+//                'IP' => '',
+//                'Type' => '',
+//                'ReceiveTokenId' => '',
+//                'Gender' => '',
+//                'Level' => '',
+//                'Role' => '',
+//            ),
         ),
 //        'Conf' => array(
 //            'BizType' => '',
 //            'DetectType' => 'Porn,Terrorism,Politics,Ads', // 选填，在只有BizType时走设定策略的审核场景
 //            'Callback' => '', // 回调URL 选填
+//            'Freeze' => array(
+//                'PornScore' => 90,
+//                'AdsScore' => 90,
+//                'PoliticsScore' => 90,
+//                'TerrorismScore' => 90,
+//            ), // 选填 可通过该字段，设置根据审核结果给出的不同分值，对文档进行自动冻结。仅当`input`中审核的文档为`object`时有效。
 //        ), // 选填 在DetectType/BizType都不传的情况下，走默认策略及默认审核场景。
     ));
+    // 请求成功
+    print_r($result);
 
     // 文档URL审核
     $result = $cosClient->detectDocument(array(

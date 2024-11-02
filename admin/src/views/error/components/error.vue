@@ -15,6 +15,7 @@
 <script lang="ts" setup>
 import { onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
 const props = defineProps({
     code: String,
     title: String,

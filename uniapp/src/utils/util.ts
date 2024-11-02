@@ -1,5 +1,6 @@
-import { isObject } from '@vue/shared'
-import { getToken } from './auth'
+import {isObject} from '@vue/shared'
+import {getToken} from './auth'
+import {parseQuery} from "uniapp-router-next";
 
 /**
  * @description 获取元素节点信息（在组件中的元素必须要传ctx）
@@ -43,19 +44,64 @@ interface Link {
     path: string
     name?: string
     type: string
-    isTab: boolean
+    canTab: boolean
     query?: Record<string, any>
 }
 
 export enum LinkTypeEnum {
     'SHOP_PAGES' = 'shop',
-    'CUSTOM_LINK' = 'custom'
+    'CUSTOM_LINK' = 'custom',
+    'MINI_PROGRAM' = 'mini_program'
 }
 
-export function navigateTo(link: Link, navigateType: 'navigateTo' | 'reLaunch' = 'navigateTo') {
-    const url = link.query ? `${link.path}?${objectToQuery(link.query)}` : link.path
-    navigateType == 'navigateTo' && uni.navigateTo({ url })
-    navigateType == 'reLaunch' && uni.reLaunch({ url })
+export function navigateTo(link: Link, navigateType: 'navigateTo' | 'switchTab' | 'reLaunch' = 'navigateTo') {
+    // 如果是小程序跳转
+    if (link.type === LinkTypeEnum.MINI_PROGRAM) {
+        navigateToMiniProgram(link)
+        return
+    }
+
+    const url = link?.query ? `${link.path}?${objectToQuery(link?.query)}` : link.path;
+
+    (navigateType == 'switchTab' || link.canTab) && uni.switchTab({url})
+    navigateType == 'navigateTo' && uni.navigateTo({url})
+    navigateType == 'reLaunch' && uni.reLaunch({url})
+}
+
+/**
+ * @description 小程序跳转
+ * @param link 跳转信息，由装修数据进行输入
+ */
+export function navigateToMiniProgram(link: Link) {
+    const query = link.query;
+    // #ifdef H5
+    window.open(
+        `weixin://dl/business/?appid=${query?.appId}&path=${query?.path}&env_version=${query?.env_version}&query=${encodeURIComponent(query?.query)}`
+    )
+    // #endif
+    // #ifdef MP
+    uni.navigateToMiniProgram({
+        appId: query?.appId,
+        path: query?.path,
+        extraData: parseQuery(query?.query),
+        envVersion: query?.env_version,
+    })
+    // #endif
+}
+
+/**
+ * @description 将一个数组分成几个同等长度的数组
+ * @param  { Array } array[分割的原数组]
+ * @param  { Number } size[每个子数组的长度]
+ */
+export const sliceArray = (array: any[], size: number) => {
+    const result = []
+    for (let x = 0; x < Math.ceil(array.length / size); x++) {
+        const start = x * size
+        const end = start + size
+        result.push(array.slice(start, end))
+    }
+    return result
 }
 
 /**
@@ -110,7 +156,7 @@ export const addUnit = (value: string | number, unit = 'rpx') => {
  * @param  { string } take 小数点操作
  * @param  { string } prec 小数位补
  */
-export function formatPrice({ price, take = 'all', prec = undefined }: any) {
+export function formatPrice({price, take = 'all', prec = undefined}: any) {
     let [integer, decimals = ''] = (price + '').split('.')
 
     // 小数位补

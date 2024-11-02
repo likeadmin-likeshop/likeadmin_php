@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle;
 
 use GuzzleHttp\Command\CommandInterface;
@@ -28,7 +29,6 @@ class Serializer
     private $description;
 
     /**
-     * @param DescriptionInterface       $description
      * @param RequestLocationInterface[] $requestLocations Extra request locations
      */
     public function __construct(
@@ -38,11 +38,11 @@ class Serializer
         static $defaultRequestLocations;
         if (!$defaultRequestLocations) {
             $defaultRequestLocations = [
-                'body'      => new BodyLocation(),
-                'query'     => new QueryLocation(),
-                'header'    => new HeaderLocation(),
-                'json'      => new JsonLocation(),
-                'xml'       => new XmlLocation(),
+                'body' => new BodyLocation(),
+                'query' => new QueryLocation(),
+                'header' => new HeaderLocation(),
+                'json' => new JsonLocation(),
+                'xml' => new XmlLocation(),
                 'formParam' => new FormParamLocation(),
                 'multipart' => new MultiPartLocation(),
             ];
@@ -53,21 +53,22 @@ class Serializer
     }
 
     /**
-     * @param CommandInterface $command
      * @return RequestInterface
      */
     public function __invoke(CommandInterface $command)
     {
         $request = $this->createRequest($command);
+
         return $this->prepareRequest($command, $request);
     }
 
     /**
      * Prepares a request for sending using location visitors
      *
-     * @param CommandInterface $command
      * @param RequestInterface $request Request being created
+     *
      * @return RequestInterface
+     *
      * @throws \RuntimeException If a location cannot be handled
      */
     protected function prepareRequest(
@@ -109,9 +110,8 @@ class Serializer
     /**
      * Create a request for the command and operation
      *
-     * @param CommandInterface $command
-     *
      * @return RequestInterface
+     *
      * @throws \RuntimeException
      */
     protected function createRequest(CommandInterface $command)
@@ -133,7 +133,6 @@ class Serializer
      * Create a request for an operation with a uri merged onto a base URI
      *
      * @param \GuzzleHttp\Command\Guzzle\Operation $operation
-     * @param \GuzzleHttp\Command\CommandInterface $command
      *
      * @return \GuzzleHttp\Psr7\Request
      */

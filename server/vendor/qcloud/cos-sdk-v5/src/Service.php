@@ -3485,6 +3485,23 @@ class Service {
                                     'type' => 'string',
                                     'location' => 'xml',
                                 ),
+                                'UserInfo' => array(
+                                    'location' => 'xml',
+                                    'type' => 'object',
+                                    'properties' => array(
+                                        'TokenId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Nickname' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'DeviceId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'AppId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Room' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'IP' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Type' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'ReceiveTokenId' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Gender' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Level' => array( 'type' => 'string', 'location' => 'xml', ),
+                                        'Role' => array( 'type' => 'string', 'location' => 'xml', ),
+                                    ),
+                                ),
                             ),
                         ),
                         'Conf' => array(
@@ -3495,6 +3512,19 @@ class Service {
                                 'Callback' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'BizType' => array( 'type' => 'string', 'location' => 'xml', ),
                                 'CallbackVersion' => array( 'type' => 'string', 'location' => 'xml', ),
+                                'CallbackType' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                'Freeze' => array(
+                                    'location' => 'xml',
+                                    'type' => 'object',
+                                    'properties' => array(
+                                        'PornScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'AdsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'IllegalScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'AbuseScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'PoliticsScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                        'TerrorismScore' => array( 'type' => 'integer', 'location' => 'xml', ),
+                                    ),
+                                ),
                             ),
                         ),
                     ),
@@ -3688,6 +3718,118 @@ class Service {
                 'DescribeMediaVoiceSeparateJob' => Descriptions::DescribeMediaVoiceSeparateJob(), // 查询指定的人声分离任务
                 'DetectWebpage' => Descriptions::DetectWebpage(), // 提交网页审核任务
                 'GetDetectWebpageResult' => Descriptions::GetDetectWebpageResult(), // 查询网页审核任务结果
+                'DescribeMediaBuckets' => Descriptions::DescribeMediaBuckets(), // 查询媒体处理开通状态
+                'GetPrivateM3U8' => Descriptions::GetPrivateM3U8(), // 获取私有 M3U8 ts 资源的下载授权
+                'DescribeMediaQueues' => Descriptions::DescribeMediaQueues(), // 搜索媒体处理队列
+                'UpdateMediaQueue' => Descriptions::UpdateMediaQueue(), // 更新媒体处理队列
+                'CreateMediaSmartCoverJobs' => Descriptions::CreateMediaSmartCoverJobs(), // 提交智能封面任务
+                'CreateMediaVideoProcessJobs' => Descriptions::CreateMediaVideoProcessJobs(), // 提交视频增强任务
+                'CreateMediaVideoMontageJobs' => Descriptions::CreateMediaVideoMontageJobs(), // 提交精彩集锦任务
+                'CreateMediaAnimationJobs' => Descriptions::CreateMediaAnimationJobs(), // 提交动图任务
+                'CreateMediaPicProcessJobs' => Descriptions::CreateMediaPicProcessJobs(), // 提交图片处理任务
+                'CreateMediaSegmentJobs' => Descriptions::CreateMediaSegmentJobs(), // 提交转封装任务
+                'CreateMediaVideoTagJobs' => Descriptions::CreateMediaVideoTagJobs(), // 提交视频标签任务
+                'CreateMediaSuperResolutionJobs' => Descriptions::CreateMediaSuperResolutionJobs(), // 提交超分辨率任务
+                'CreateMediaSDRtoHDRJobs' => Descriptions::CreateMediaSDRtoHDRJobs(), // 提交 SDR to HDR 任务
+                'CreateMediaDigitalWatermarkJobs' => Descriptions::CreateMediaDigitalWatermarkJobs(), // 嵌入数字水印任务(添加水印)
+                'CreateMediaExtractDigitalWatermarkJobs' => Descriptions::CreateMediaExtractDigitalWatermarkJobs(), // 提取数字水印任务(提取水印)
+                'DetectLiveVideo' => Descriptions::DetectLiveVideo(), // 直播流审核
+                'CancelLiveVideoAuditing' => Descriptions::CancelLiveVideoAuditing(), // 取消直播流审核
+                'OpticalOcrRecognition' => Descriptions::OpticalOcrRecognition(), // 通用文字识别
+                'TriggerWorkflow' => Descriptions::TriggerWorkflow(), // 手动触发工作流
+                'GetWorkflowInstances' => Descriptions::GetWorkflowInstances(), // 获取工作流实例列表
+                'GetWorkflowInstance' => Descriptions::GetWorkflowInstance(), // 获取工作流实例详情
+                'CreateMediaSnapshotTemplate' => Descriptions::CreateMediaSnapshotTemplate(), // 新增截图模板
+                'UpdateMediaSnapshotTemplate' => Descriptions::UpdateMediaSnapshotTemplate(), // 更新截图模板
+                'CreateMediaTranscodeTemplate' => Descriptions::CreateMediaTranscodeTemplate(), // 新增转码模板
+                'UpdateMediaTranscodeTemplate' => Descriptions::UpdateMediaTranscodeTemplate(), // 更新转码模板
+                'CreateMediaHighSpeedHdTemplate' => Descriptions::CreateMediaHighSpeedHdTemplate(), // 新增极速高清转码模板
+                'UpdateMediaHighSpeedHdTemplate' => Descriptions::UpdateMediaHighSpeedHdTemplate(), // 更新极速高清转码模板
+                'CreateMediaAnimationTemplate' => Descriptions::CreateMediaAnimationTemplate(), // 新增动图模板
+                'UpdateMediaAnimationTemplate' => Descriptions::UpdateMediaAnimationTemplate(), // 更新动图模板
+                'CreateMediaConcatTemplate' => Descriptions::CreateMediaConcatTemplate(), // 新增拼接模板
+                'UpdateMediaConcatTemplate' => Descriptions::UpdateMediaConcatTemplate(), // 更新拼接模板
+                'CreateMediaVideoProcessTemplate' => Descriptions::CreateMediaVideoProcessTemplate(), // 新增视频增强模板
+                'UpdateMediaVideoProcessTemplate' => Descriptions::UpdateMediaVideoProcessTemplate(), // 更新视频增强模板
+                'CreateMediaVideoMontageTemplate' => Descriptions::CreateMediaVideoMontageTemplate(), // 新增精彩集锦模板
+                'UpdateMediaVideoMontageTemplate' => Descriptions::UpdateMediaVideoMontageTemplate(), // 更新精彩集锦模板
+                'CreateMediaVoiceSeparateTemplate' => Descriptions::CreateMediaVoiceSeparateTemplate(), // 新增人声分离模板
+                'UpdateMediaVoiceSeparateTemplate' => Descriptions::UpdateMediaVoiceSeparateTemplate(), // 更新人声分离模板
+                'CreateMediaSuperResolutionTemplate' => Descriptions::CreateMediaSuperResolutionTemplate(), // 新增超分辨率模板
+                'UpdateMediaSuperResolutionTemplate' => Descriptions::UpdateMediaSuperResolutionTemplate(), // 更新超分辨率模板
+                'CreateMediaPicProcessTemplate' => Descriptions::CreateMediaPicProcessTemplate(), // 新增图片处理模板
+                'UpdateMediaPicProcessTemplate' => Descriptions::UpdateMediaPicProcessTemplate(), // 更新图片处理模板
+                'CreateMediaWatermarkTemplate' => Descriptions::CreateMediaWatermarkTemplate(), // 新增水印模板
+                'UpdateMediaWatermarkTemplate' => Descriptions::UpdateMediaWatermarkTemplate(), // 更新水印模板
+                'DescribeMediaTemplates' => Descriptions::DescribeMediaTemplates(), // 查询模板列表
+                'DescribeWorkflow' => Descriptions::DescribeWorkflow(), // 搜索工作流
+                'DeleteWorkflow' => Descriptions::DeleteWorkflow(), // 删除工作流
+                'CreateInventoryTriggerJob' => Descriptions::CreateInventoryTriggerJob(), // 触发批量存量任务
+                'DescribeInventoryTriggerJobs' => Descriptions::DescribeInventoryTriggerJobs(), // 批量拉取存量任务
+                'DescribeInventoryTriggerJob' => Descriptions::DescribeInventoryTriggerJob(), // 查询存量任务
+                'CancelInventoryTriggerJob' => Descriptions::CancelInventoryTriggerJob(), // 取消存量任务
+                'CreateMediaNoiseReductionJobs' => Descriptions::CreateMediaNoiseReductionJobs(), // 提交音频降噪任务
+                'ImageRepairProcess' => Descriptions::ImageRepairProcess(), // 图片水印修复
+                'ImageDetectCarProcess' => Descriptions::ImageDetectCarProcess(), // 车辆车牌检测
+                'ImageAssessQualityProcess' => Descriptions::ImageAssessQualityProcess(), // 图片质量评估
+                'ImageSearchOpen' => Descriptions::ImageSearchOpen(), // 开通以图搜图
+                'ImageSearchAdd' => Descriptions::ImageSearchAdd(), // 添加图库图片
+                'ImageSearch' => Descriptions::ImageSearch(), // 图片搜索接口
+                'ImageSearchDelete' => Descriptions::ImageSearchDelete(), // 图片搜索接口
+                'BindCiService' => Descriptions::BindCiService(), // 绑定数据万象服务
+                'GetCiService' => Descriptions::GetCiService(), // 查询数据万象服务
+                'UnBindCiService' => Descriptions::UnBindCiService(), // 解绑数据万象服务
+                'GetHotLink' => Descriptions::GetHotLink(), // 查询防盗链
+                'AddHotLink' => Descriptions::AddHotLink(), // 查询防盗链
+                'OpenOriginProtect' => Descriptions::OpenOriginProtect(), // 开通原图保护
+                'GetOriginProtect' => Descriptions::GetOriginProtect(), // 查询原图保护状态
+                'CloseOriginProtect' => Descriptions::CloseOriginProtect(), // 关闭原图保护
+                'ImageDetectFace' => Descriptions::ImageDetectFace(), // 人脸检测
+                'ImageFaceEffect' => Descriptions::ImageFaceEffect(), // 人脸特效
+                'IDCardOCR' => Descriptions::IDCardOCR(), // 身份证识别
+                'IDCardOCRByUpload' => Descriptions::IDCardOCRByUpload(), // 身份证识别-上传时处理
+                'GetLiveCode' => Descriptions::GetLiveCode(), // 获取数字验证码
+                'GetActionSequence' => Descriptions::GetActionSequence(), // 获取动作顺序
+                'DescribeDocProcessBuckets' => Descriptions::DescribeDocProcessBuckets(), // 查询文档预览开通状态
+                'UpdateDocProcessQueue' => Descriptions::UpdateDocProcessQueue(), // 更新文档转码队列
+                'CreateMediaQualityEstimateJobs' => Descriptions::CreateMediaQualityEstimateJobs(), // 提交视频质量评分任务
+                'CreateMediaStreamExtractJobs' => Descriptions::CreateMediaStreamExtractJobs(), // 提交音视频流分离任务
+                'FileJobs4Hash' => Descriptions::FileJobs4Hash(), // 哈希值计算同步请求
+                'OpenFileProcessService' => Descriptions::OpenFileProcessService(), // 开通文件处理服务
+                'GetFileProcessQueueList' => Descriptions::GetFileProcessQueueList(), // 搜索文件处理队列
+                'UpdateFileProcessQueue' => Descriptions::UpdateFileProcessQueue(), // 更新文件处理的队列
+                'CreateFileHashCodeJobs' => Descriptions::CreateFileHashCodeJobs(), // 提交哈希值计算任务
+                'GetFileHashCodeResult' => Descriptions::GetFileHashCodeResult(), // 查询哈希值计算结果
+                'CreateFileUncompressJobs' => Descriptions::CreateFileUncompressJobs(), // 提交文件解压任务
+                'GetFileUncompressResult' => Descriptions::GetFileUncompressResult(), // 查询文件解压结果
+                'CreateFileCompressJobs' => Descriptions::CreateFileCompressJobs(), // 提交多文件打包压缩任务
+                'GetFileCompressResult' => Descriptions::GetFileCompressResult(), // 查询多文件打包压缩结果
+                'CreateM3U8PlayListJobs' => Descriptions::CreateM3U8PlayListJobs(), // 获取指定hls/m3u8文件指定时间区间内的ts资源
+                'GetPicQueueList' => Descriptions::GetPicQueueList(), // 搜索图片处理队列
+                'UpdatePicQueue' => Descriptions::UpdatePicQueue(), // 更新图片处理队列
+                'GetPicBucketList' => Descriptions::GetPicBucketList(), // 查询图片处理服务状态
+                'GetAiBucketList' => Descriptions::GetAiBucketList(), // 查询 AI 内容识别服务状态
+                'OpenAiService' => Descriptions::OpenAiService(), // 开通 AI 内容识别
+                'GetAiQueueList' => Descriptions::GetAiQueueList(), // 搜索 AI 内容识别队列
+                'UpdateAiQueue' => Descriptions::UpdateAiQueue(), // 更新 AI 内容识别队列
+                'CreateMediaTranscodeProTemplate' => Descriptions::CreateMediaTranscodeProTemplate(), // 创建音视频转码 pro 模板
+                'UpdateMediaTranscodeProTemplate' => Descriptions::UpdateMediaTranscodeProTemplate(), // 更新音视频转码 pro 模板
+                'CreateVoiceTtsTemplate' => Descriptions::CreateVoiceTtsTemplate(), // 创建语音合成模板
+                'UpdateVoiceTtsTemplate' => Descriptions::UpdateVoiceTtsTemplate(), // 更新语音合成模板
+                'CreateMediaSmartCoverTemplate' => Descriptions::CreateMediaSmartCoverTemplate(), // 创建智能封面模板
+                'UpdateMediaSmartCoverTemplate' => Descriptions::UpdateMediaSmartCoverTemplate(), // 更新智能封面模板
+                'CreateVoiceSpeechRecognitionTemplate' => Descriptions::CreateVoiceSpeechRecognitionTemplate(), // 创建语音识别模板
+                'UpdateVoiceSpeechRecognitionTemplate' => Descriptions::UpdateVoiceSpeechRecognitionTemplate(), // 更新语音识别模板
+                'CreateVoiceTtsJobs' => Descriptions::CreateVoiceTtsJobs(), // 提交一个语音合成任务
+                'CreateAiTranslationJobs' => Descriptions::CreateAiTranslationJobs(), // 提交一个翻译任务
+                'CreateVoiceSpeechRecognitionJobs' => Descriptions::CreateVoiceSpeechRecognitionJobs(), // 提交一个语音识别任务
+                'CreateAiWordsGeneralizeJobs' => Descriptions::CreateAiWordsGeneralizeJobs(), // 提交一个分词任务
+                'CreateMediaVideoEnhanceJobs' => Descriptions::CreateMediaVideoEnhanceJobs(), // 提交画质增强任务
+                'CreateMediaVideoEnhanceTemplate' => Descriptions::CreateMediaVideoEnhanceTemplate(), // 创建画质增强模板
+                'UpdateMediaVideoEnhanceTemplate' => Descriptions::UpdateMediaVideoEnhanceTemplate(), // 更新画质增强模板
+                'OpenImageSlim' => Descriptions::OpenImageSlim(), // 开通图片瘦身
+                'CloseImageSlim' => Descriptions::CloseImageSlim(), // 关闭图片瘦身
+                'GetImageSlim' => Descriptions::GetImageSlim(), // 查询图片瘦身状态
             ),
             'models' => array(
                 'AbortMultipartUploadOutput' => array(
@@ -5991,6 +6133,14 @@ class Service {
                             'location' => 'header',
                             'sentAs' => 'x-cos-request-id',
                         ),
+                        'BucketAzType' => array(
+                            'location' => 'header',
+                            'sentAs' => 'x-cos-bucket-az-type', // undefined 或 MAZ
+                        ),
+                        'BucketArch' => array(
+                            'location' => 'header',
+                            'sentAs' => 'x-cos-bucket-arch', // undefined 或 OFS
+                        ),
                     ),
                 ),
                 'SelectObjectContentOutput' => array(
@@ -6506,6 +6656,7 @@ class Service {
                                 'CreationTime' => array( 'type' => 'string', 'location' => 'xml',),
                                 'Content' => array( 'type' => 'string', 'location' => 'xml',),
                                 'Label' => array( 'type' => 'string', 'location' => 'xml',),
+                                'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
                                 'Result' => array( 'type' => 'integer', 'location' => 'xml',),
                                 'SectionCount' => array( 'type' => 'integer', 'location' => 'xml',),
                                 'PornInfo' => array(
@@ -6572,6 +6723,24 @@ class Service {
                                                     'HitFlag' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Score' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Keywords' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'LibResults' => array(
+                                                        'type' => 'array',
+                                                        'location' => 'xml',
+                                                        'items' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'LibType' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'LibName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'Keywords' => array(
+                                                                    'type' => 'array',
+                                                                    'location' => 'xml',
+                                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
                                                 ),
                                             ),
                                             'TerrorismInfo' => array(
@@ -6581,6 +6750,24 @@ class Service {
                                                     'HitFlag' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Score' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Keywords' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'LibResults' => array(
+                                                        'type' => 'array',
+                                                        'location' => 'xml',
+                                                        'items' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'LibType' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'LibName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'Keywords' => array(
+                                                                    'type' => 'array',
+                                                                    'location' => 'xml',
+                                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
                                                 ),
                                             ),
                                             'PoliticsInfo' => array(
@@ -6590,6 +6777,24 @@ class Service {
                                                     'HitFlag' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Score' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Keywords' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'LibResults' => array(
+                                                        'type' => 'array',
+                                                        'location' => 'xml',
+                                                        'items' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'LibType' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'LibName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'Keywords' => array(
+                                                                    'type' => 'array',
+                                                                    'location' => 'xml',
+                                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
                                                 ),
                                             ),
                                             'AdsInfo' => array(
@@ -6599,6 +6804,24 @@ class Service {
                                                     'HitFlag' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Score' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Keywords' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'LibResults' => array(
+                                                        'type' => 'array',
+                                                        'location' => 'xml',
+                                                        'items' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'LibType' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'LibName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'Keywords' => array(
+                                                                    'type' => 'array',
+                                                                    'location' => 'xml',
+                                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
                                                 ),
                                             ),
                                             'IllegalInfo' => array(
@@ -6608,6 +6831,24 @@ class Service {
                                                     'HitFlag' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Score' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Keywords' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'LibResults' => array(
+                                                        'type' => 'array',
+                                                        'location' => 'xml',
+                                                        'items' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'LibType' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'LibName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'Keywords' => array(
+                                                                    'type' => 'array',
+                                                                    'location' => 'xml',
+                                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
                                                 ),
                                             ),
                                             'AbuseInfo' => array(
@@ -6617,6 +6858,60 @@ class Service {
                                                     'HitFlag' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Score' => array( 'type' => 'integer', 'location' => 'xml',),
                                                     'Keywords' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'SubLabel' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'LibResults' => array(
+                                                        'type' => 'array',
+                                                        'location' => 'xml',
+                                                        'items' => array(
+                                                            'type' => 'object',
+                                                            'location' => 'xml',
+                                                            'properties' => array(
+                                                                'LibType' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                                'LibName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                'Keywords' => array(
+                                                                    'type' => 'array',
+                                                                    'location' => 'xml',
+                                                                    'items' => array( 'type' => 'string', 'location' => 'xml',),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ),
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                                'UserInfo' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'TokenId' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'Nickname' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'DeviceId' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'AppId' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'Room' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'IP' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'Type' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'ReceiveTokenId' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'Gender' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'Level' => array( 'type' => 'string', 'location' => 'xml',),
+                                        'Role' => array( 'type' => 'string', 'location' => 'xml',),
+                                    ),
+                                ),
+                                'ListInfo' => array(
+                                    'type' => 'object',
+                                    'location' => 'xml',
+                                    'properties' => array(
+                                        'ListResults' => array(
+                                            'type' => 'array',
+                                            'location' => 'xml',
+                                            'items' => array(
+                                                'type' => 'object',
+                                                'location' => 'xml',
+                                                'properties' => array(
+                                                    'ListType' => array( 'type' => 'integer', 'location' => 'xml',),
+                                                    'ListName' => array( 'type' => 'string', 'location' => 'xml',),
+                                                    'Entity' => array( 'type' => 'string', 'location' => 'xml',),
                                                 ),
                                             ),
                                         ),
@@ -7066,6 +7361,118 @@ class Service {
                 'DescribeMediaVoiceSeparateJobOutput' => Descriptions::DescribeMediaVoiceSeparateJobOutput(),
                 'DetectWebpageOutput' => Descriptions::DetectWebpageOutput(),
                 'GetDetectWebpageResultOutput' => Descriptions::GetDetectWebpageResultOutput(),
+                'DescribeMediaBucketsOutput' => Descriptions::DescribeMediaBucketsOutput(),
+                'GetPrivateM3U8Output' => Descriptions::GetPrivateM3U8Output(),
+                'DescribeMediaQueuesOutput' => Descriptions::DescribeMediaQueuesOutput(),
+                'UpdateMediaQueueOutput' => Descriptions::UpdateMediaQueueOutput(),
+                'CreateMediaSmartCoverJobsOutput' => Descriptions::CreateMediaSmartCoverJobsOutput(),
+                'CreateMediaVideoProcessJobsOutput' => Descriptions::CreateMediaVideoProcessJobsOutput(),
+                'CreateMediaVideoMontageJobsOutput' => Descriptions::CreateMediaVideoMontageJobsOutput(),
+                'CreateMediaAnimationJobsOutput' => Descriptions::CreateMediaAnimationJobsOutput(),
+                'CreateMediaPicProcessJobsOutput' => Descriptions::CreateMediaPicProcessJobsOutput(),
+                'CreateMediaSegmentJobsOutput' => Descriptions::CreateMediaSegmentJobsOutput(),
+                'CreateMediaVideoTagJobsOutput' => Descriptions::CreateMediaVideoTagJobsOutput(),
+                'CreateMediaSuperResolutionJobsOutput' => Descriptions::CreateMediaSuperResolutionJobsOutput(),
+                'CreateMediaSDRtoHDRJobsOutput' => Descriptions::CreateMediaSDRtoHDRJobsOutput(),
+                'CreateMediaDigitalWatermarkJobsOutput' => Descriptions::CreateMediaDigitalWatermarkJobsOutput(),
+                'CreateMediaExtractDigitalWatermarkJobsOutput' => Descriptions::CreateMediaExtractDigitalWatermarkJobsOutput(),
+                'DetectLiveVideoOutput' => Descriptions::DetectLiveVideoOutput(),
+                'CancelLiveVideoAuditingOutput' => Descriptions::CancelLiveVideoAuditingOutput(),
+                'OpticalOcrRecognitionOutput' => Descriptions::OpticalOcrRecognitionOutput(),
+                'TriggerWorkflowOutput' => Descriptions::TriggerWorkflowOutput(),
+                'GetWorkflowInstancesOutput' => Descriptions::GetWorkflowInstancesOutput(),
+                'GetWorkflowInstanceOutput' => Descriptions::GetWorkflowInstanceOutput(),
+                'CreateMediaSnapshotTemplateOutput' => Descriptions::CreateMediaSnapshotTemplateOutput(),
+                'UpdateMediaSnapshotTemplateOutput' => Descriptions::UpdateMediaSnapshotTemplateOutput(),
+                'CreateMediaTranscodeTemplateOutput' => Descriptions::CreateMediaTranscodeTemplateOutput(),
+                'UpdateMediaTranscodeTemplateOutput' => Descriptions::UpdateMediaTranscodeTemplateOutput(),
+                'CreateMediaHighSpeedHdTemplateOutput' => Descriptions::CreateMediaHighSpeedHdTemplateOutput(),
+                'UpdateMediaHighSpeedHdTemplateOutput' => Descriptions::UpdateMediaHighSpeedHdTemplateOutput(),
+                'CreateMediaAnimationTemplateOutput' => Descriptions::CreateMediaAnimationTemplateOutput(),
+                'UpdateMediaAnimationTemplateOutput' => Descriptions::UpdateMediaAnimationTemplateOutput(),
+                'CreateMediaConcatTemplateOutput' => Descriptions::CreateMediaConcatTemplateOutput(),
+                'UpdateMediaConcatTemplateOutput' => Descriptions::UpdateMediaConcatTemplateOutput(),
+                'CreateMediaVideoProcessTemplateOutput' => Descriptions::CreateMediaVideoProcessTemplateOutput(),
+                'UpdateMediaVideoProcessTemplateOutput' => Descriptions::UpdateMediaVideoProcessTemplateOutput(),
+                'CreateMediaVideoMontageTemplateOutput' => Descriptions::CreateMediaVideoMontageTemplateOutput(),
+                'UpdateMediaVideoMontageTemplateOutput' => Descriptions::UpdateMediaVideoMontageTemplateOutput(),
+                'CreateMediaVoiceSeparateTemplateOutput' => Descriptions::CreateMediaVoiceSeparateTemplateOutput(),
+                'UpdateMediaVoiceSeparateTemplateOutput' => Descriptions::UpdateMediaVoiceSeparateTemplateOutput(),
+                'CreateMediaSuperResolutionTemplateOutput' => Descriptions::CreateMediaSuperResolutionTemplateOutput(),
+                'UpdateMediaSuperResolutionTemplateOutput' => Descriptions::UpdateMediaSuperResolutionTemplateOutput(),
+                'CreateMediaPicProcessTemplateOutput' => Descriptions::CreateMediaPicProcessTemplateOutput(),
+                'UpdateMediaPicProcessTemplateOutput' => Descriptions::UpdateMediaPicProcessTemplateOutput(),
+                'CreateMediaWatermarkTemplateOutput' => Descriptions::CreateMediaWatermarkTemplateOutput(),
+                'UpdateMediaWatermarkTemplateOutput' => Descriptions::UpdateMediaWatermarkTemplateOutput(),
+                'DescribeMediaTemplatesOutput' => Descriptions::DescribeMediaTemplatesOutput(),
+                'DescribeWorkflowOutput' => Descriptions::DescribeWorkflowOutput(),
+                'DeleteWorkflowOutput' => Descriptions::DeleteWorkflowOutput(),
+                'CreateInventoryTriggerJobOutput' => Descriptions::CreateInventoryTriggerJobOutput(),
+                'DescribeInventoryTriggerJobsOutput' => Descriptions::DescribeInventoryTriggerJobsOutput(),
+                'DescribeInventoryTriggerJobOutput' => Descriptions::DescribeInventoryTriggerJobOutput(),
+                'CancelInventoryTriggerJobOutput' => Descriptions::CancelInventoryTriggerJobOutput(),
+                'CreateMediaNoiseReductionJobsOutput' => Descriptions::CreateMediaNoiseReductionJobsOutput(),
+                'ImageRepairProcessOutput' => Descriptions::ImageRepairProcessOutput(),
+                'ImageDetectCarProcessOutput' => Descriptions::ImageDetectCarProcessOutput(),
+                'ImageAssessQualityProcessOutput' => Descriptions::ImageAssessQualityProcessOutput(),
+                'ImageSearchOpenOutput' => Descriptions::ImageSearchOpenOutput(),
+                'ImageSearchAddOutput' => Descriptions::ImageSearchAddOutput(),
+                'ImageSearchOutput' => Descriptions::ImageSearchOutput(),
+                'ImageSearchDeleteOutput' => Descriptions::ImageSearchDeleteOutput(),
+                'BindCiServiceOutput' => Descriptions::BindCiServiceOutput(),
+                'GetCiServiceOutput' => Descriptions::GetCiServiceOutput(),
+                'UnBindCiServiceOutput' => Descriptions::UnBindCiServiceOutput(),
+                'GetHotLinkOutput' => Descriptions::GetHotLinkOutput(),
+                'AddHotLinkOutput' => Descriptions::AddHotLinkOutput(),
+                'OpenOriginProtectOutput' => Descriptions::OpenOriginProtectOutput(),
+                'GetOriginProtectOutput' => Descriptions::GetOriginProtectOutput(),
+                'CloseOriginProtectOutput' => Descriptions::CloseOriginProtectOutput(),
+                'ImageDetectFaceOutput' => Descriptions::ImageDetectFaceOutput(),
+                'ImageFaceEffectOutput' => Descriptions::ImageFaceEffectOutput(),
+                'IDCardOCROutput' => Descriptions::IDCardOCROutput(),
+                'IDCardOCRByUploadOutput' => Descriptions::IDCardOCRByUploadOutput(),
+                'GetLiveCodeOutput' => Descriptions::GetLiveCodeOutput(),
+                'GetActionSequenceOutput' => Descriptions::GetActionSequenceOutput(),
+                'DescribeDocProcessBucketsOutput' => Descriptions::DescribeDocProcessBucketsOutput(),
+                'UpdateDocProcessQueueOutput' => Descriptions::UpdateDocProcessQueueOutput(),
+                'CreateMediaQualityEstimateJobsOutput' => Descriptions::CreateMediaQualityEstimateJobsOutput(),
+                'CreateMediaStreamExtractJobsOutput' => Descriptions::CreateMediaStreamExtractJobsOutput(),
+                'FileJobs4HashOutput' => Descriptions::FileJobs4HashOutput(),
+                'OpenFileProcessServiceOutput' => Descriptions::OpenFileProcessServiceOutput(),
+                'GetFileProcessQueueListOutput' => Descriptions::GetFileProcessQueueListOutput(),
+                'UpdateFileProcessQueueOutput' => Descriptions::UpdateFileProcessQueueOutput(),
+                'CreateFileHashCodeJobsOutput' => Descriptions::CreateFileHashCodeJobsOutput(),
+                'GetFileHashCodeResultOutput' => Descriptions::GetFileHashCodeResultOutput(),
+                'CreateFileUncompressJobsOutput' => Descriptions::CreateFileUncompressJobsOutput(),
+                'GetFileUncompressResultOutput' => Descriptions::GetFileUncompressResultOutput(),
+                'CreateFileCompressJobsOutput' => Descriptions::CreateFileCompressJobsOutput(),
+                'GetFileCompressResultOutput' => Descriptions::GetFileCompressResultOutput(),
+                'CreateM3U8PlayListJobsOutput' => Descriptions::CreateM3U8PlayListJobsOutput(),
+                'GetPicQueueListOutput' => Descriptions::GetPicQueueListOutput(),
+                'UpdatePicQueueOutput' => Descriptions::UpdatePicQueueOutput(),
+                'GetPicBucketListOutput' => Descriptions::GetPicBucketListOutput(),
+                'GetAiBucketListOutput' => Descriptions::GetAiBucketListOutput(),
+                'OpenAiServiceOutput' => Descriptions::OpenAiServiceOutput(),
+                'GetAiQueueListOutput' => Descriptions::GetAiQueueListOutput(),
+                'UpdateAiQueueOutput' => Descriptions::UpdateAiQueueOutput(),
+                'CreateMediaTranscodeProTemplateOutput' => Descriptions::CreateMediaTranscodeProTemplateOutput(),
+                'UpdateMediaTranscodeProTemplateOutput' => Descriptions::UpdateMediaTranscodeProTemplateOutput(),
+                'CreateVoiceTtsTemplateOutput' => Descriptions::CreateVoiceTtsTemplateOutput(),
+                'UpdateVoiceTtsTemplateOutput' => Descriptions::UpdateVoiceTtsTemplateOutput(),
+                'CreateMediaSmartCoverTemplateOutput' => Descriptions::CreateMediaSmartCoverTemplateOutput(),
+                'UpdateMediaSmartCoverTemplateOutput' => Descriptions::UpdateMediaSmartCoverTemplateOutput(),
+                'CreateVoiceSpeechRecognitionTemplateOutput' => Descriptions::CreateVoiceSpeechRecognitionTemplateOutput(),
+                'UpdateVoiceSpeechRecognitionTemplateOutput' => Descriptions::UpdateVoiceSpeechRecognitionTemplateOutput(),
+                'CreateVoiceTtsJobsOutput' => Descriptions::CreateVoiceTtsJobsOutput(),
+                'CreateAiTranslationJobsOutput' => Descriptions::CreateAiTranslationJobsOutput(),
+                'CreateVoiceSpeechRecognitionJobsOutput' => Descriptions::CreateVoiceSpeechRecognitionJobsOutput(),
+                'CreateAiWordsGeneralizeJobsOutput' => Descriptions::CreateAiWordsGeneralizeJobsOutput(),
+                'CreateMediaVideoEnhanceJobsOutput' => Descriptions::CreateMediaVideoEnhanceJobsOutput(),
+                'CreateMediaVideoEnhanceTemplateOutput' => Descriptions::CreateMediaVideoEnhanceTemplateOutput(),
+                'UpdateMediaVideoEnhanceTemplateOutput' => Descriptions::UpdateMediaVideoEnhanceTemplateOutput(),
+                'OpenImageSlimOutput' => Descriptions::OpenImageSlimOutput(),
+                'CloseImageSlimOutput' => Descriptions::CloseImageSlimOutput(),
+                'GetImageSlimOutput' => Descriptions::GetImageSlimOutput(),
             )
         );
     }

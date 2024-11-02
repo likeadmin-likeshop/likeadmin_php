@@ -25,7 +25,6 @@
                         </div>
                     </div>
                 </div>
-                <el-form-item label="用户编号："> {{ formData.sn }} </el-form-item>
                 <el-form-item label="用户昵称：">
                     {{ formData.nickname }}
                 </el-form-item>
@@ -111,9 +110,12 @@
 
 <script lang="ts" setup name="consumerDetail">
 import type { FormInstance } from 'element-plus'
+
 import { adjustMoney, getUserDetail, userEdit } from '@/api/consumer'
 import { isEmpty } from '@/utils/util'
+
 import AccountAdjust from '../components/account-adjust.vue'
+
 const route = useRoute()
 const formData = reactive({
     avatar: '',

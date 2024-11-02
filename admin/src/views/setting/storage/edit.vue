@@ -11,7 +11,7 @@
             <el-form ref="formRef" :model="formData" label-width="120px" :rules="formRules">
                 <el-form-item label="存储方式" prop="engine">
                     <div>
-                        <el-radio model-value>{{ getStorageInfo?.name }} </el-radio>
+                        <el-radio checked>{{ getStorageInfo?.name }} </el-radio>
                         <div class="form-tips">{{ getStorageInfo?.tips }}</div>
                     </div>
                 </el-form-item>
@@ -63,8 +63,8 @@
                 </div>
                 <el-form-item label="状态" prop="status">
                     <el-radio-group v-model="formData.status">
-                        <el-radio :label="0">关闭</el-radio>
-                        <el-radio :label="1">开启</el-radio>
+                        <el-radio :value="0">关闭</el-radio>
+                        <el-radio :value="1">开启</el-radio>
                     </el-radio-group>
                 </el-form-item>
             </el-form>
@@ -72,10 +72,12 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { storageSetup } from '@/api/setting/storage'
 import type { FormInstance } from 'element-plus'
-import Popup from '@/components/popup/index.vue'
+
+import { storageSetup } from '@/api/setting/storage'
 import { storageDetail } from '@/api/setting/storage'
+import Popup from '@/components/popup/index.vue'
+
 enum StorageEnum {
     LOCAL = 'local', // 本地
     QINIU = 'qiniu', // 七牛云

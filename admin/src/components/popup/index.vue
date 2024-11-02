@@ -6,7 +6,7 @@
         </div>
         <el-dialog
             v-model="visible"
-            :custom-class="customClass"
+            :class="customClass"
             :center="center"
             :append-to-body="true"
             :width="width"

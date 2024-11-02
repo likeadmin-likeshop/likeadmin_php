@@ -9,6 +9,7 @@
  * @description 兼容第三方页面的跳转
  */
 import { isExternal } from '@/utils/validate'
+
 interface Props {
     to: string | Record<string, string>
     replace?: boolean

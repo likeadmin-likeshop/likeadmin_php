@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Command\Guzzle;
 
 use GuzzleHttp\Psr7\Uri;
@@ -35,7 +36,7 @@ class Description implements DescriptionInterface
     /**
      * @param array $config  Service description data
      * @param array $options Custom options to apply to the description
-     *     - formatter: Can provide a custom SchemaFormatter class
+     *                       - formatter: Can provide a custom SchemaFormatter class
      *
      * @throws \InvalidArgumentException
      */
@@ -132,6 +133,7 @@ class Description implements DescriptionInterface
      * @param string $name Name of the command
      *
      * @return Operation
+     *
      * @throws \InvalidArgumentException if the operation is not found
      */
     public function getOperation($name)
@@ -155,6 +157,7 @@ class Description implements DescriptionInterface
      * @param string $id ID/name of the model to retrieve
      *
      * @return Parameter
+     *
      * @throws \InvalidArgumentException if the model is not found
      */
     public function getModel($id)
@@ -250,7 +253,7 @@ class Description implements DescriptionInterface
      *
      * @param string $key Data key to retrieve or null to retrieve all extra
      *
-     * @return null|mixed
+     * @return mixed|null
      */
     public function getData($key = null)
     {

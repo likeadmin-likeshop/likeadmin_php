@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
 
 /**
@@ -41,6 +42,7 @@ class Xml extends BaseReader
         $this->securityScanner = XmlScanner::getInstance($this);
     }
 
+    /** @var string */
     private $fileContents = '';
 
     public static function xmlMappings(): array
@@ -72,7 +74,7 @@ class Xml extends BaseReader
         ];
 
         // Open file
-        $data = file_get_contents($filename);
+        $data = file_get_contents($filename) ?: '';
 
         // Why?
         //$data = str_replace("'", '"', $data); // fix headers with single quote
@@ -90,9 +92,9 @@ class Xml extends BaseReader
         //    Retrieve charset encoding
         if (preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/m', $data, $matches)) {
             $charSet = strtoupper($matches[1]);
-            if (1 == preg_match('/^ISO-8859-\d[\dL]?$/i', $charSet)) {
+            if (preg_match('/^ISO-8859-\d[\dL]?$/i', $charSet) === 1) {
                 $data = StringHelper::convertEncoding($data, 'UTF-8', $charSet);
-                $data = preg_replace('/(<?xml.*encoding=[\'"]).*?([\'"].*?>)/um', '$1' . 'UTF-8' . '$2', $data, 1);
+                $data = (string) preg_replace('/(<?xml.*encoding=[\'"]).*?([\'"].*?>)/um', '$1' . 'UTF-8' . '$2', $data, 1);
             }
         }
         $this->fileContents = $data;
@@ -111,7 +113,7 @@ class Xml extends BaseReader
     {
         try {
             $xml = simplexml_load_string(
-                $this->securityScanner->scan($this->fileContents ?: file_get_contents($filename)),
+                $this->getSecurityScannerOrThrow()->scan($this->fileContents ?: file_get_contents($filename)),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
@@ -231,13 +233,9 @@ class Xml extends BaseReader
 
     /**
      * Loads Spreadsheet from file.
-     *
-     * @return Spreadsheet
      */
-    public function load(string $filename, int $flags = 0)
+    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
-        $this->processFlags($flags);
-
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
@@ -281,7 +279,7 @@ class Xml extends BaseReader
 
             if (
                 isset($this->loadSheetsOnly, $worksheet_ss['Name']) &&
-                (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))
+                (!in_array($worksheet_ss['Name'], /** @scrutinizer ignore-type */ $this->loadSheetsOnly))
             ) {
                 continue;
             }
@@ -368,7 +366,7 @@ class Xml extends BaseReader
                                 $rowTo = $rowTo + $cell_ss['MergeDown'];
                             }
                             $cellRange .= ':' . $columnTo . $rowTo;
-                            $spreadsheet->getActiveSheet()->mergeCells($cellRange);
+                            $spreadsheet->getActiveSheet()->mergeCells($cellRange, Worksheet::MERGE_CELL_CONTENT_HIDE);
                         }
 
                         $hasCalculatedValue = false;

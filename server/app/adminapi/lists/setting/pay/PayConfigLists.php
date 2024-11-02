@@ -38,7 +38,7 @@ class PayConfigLists extends BaseAdminDataLists
     {
         $lists = PayConfig::field('id,name,pay_way,icon,sort')
             ->append(['pay_way_name'])
-            ->order('sort','asc')
+            ->order('sort','desc')
             ->select()
             ->toArray();
 

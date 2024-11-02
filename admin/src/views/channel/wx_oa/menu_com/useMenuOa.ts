@@ -1,8 +1,9 @@
-import { ref } from 'vue'
-import feedback from '@/utils/feedback'
 import type { FormRules } from 'element-plus'
-import { setOaMenuSave, getOaMenu, setOaMenuPublish } from '@/api/channel/wx_oa'
+import { ref } from 'vue'
+
 import type { Menu } from '@/api/channel/wx_oa'
+import { getOaMenu, setOaMenuPublish, setOaMenuSave } from '@/api/channel/wx_oa'
+import feedback from '@/utils/feedback'
 
 // 菜单实例
 export const menuRef = shallowRef()
@@ -47,6 +48,7 @@ export const rules = reactive<FormRules>({
         },
         {
             pattern:
+                // eslint-disable-next-line no-useless-escape
                 /(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/,
             message: '请输入合法的网址链接',
             trigger: ['blur', 'change']

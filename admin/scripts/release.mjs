@@ -1,5 +1,6 @@
-import path from 'path'
 import fsExtra from 'fs-extra'
+import path from 'path'
+
 const { existsSync, remove, copy } = fsExtra
 const cwd = process.cwd()
 //打包发布路径，谨慎改动

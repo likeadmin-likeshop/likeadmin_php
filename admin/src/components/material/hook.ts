@@ -1,3 +1,6 @@
+import { type CheckboxValueType, ElMessage, ElTree } from 'element-plus'
+import { type Ref, shallowRef } from 'vue'
+
 import {
     fileCateAdd,
     fileCateDelete,
@@ -10,8 +13,6 @@ import {
 } from '@/api/file'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
-import { ElMessage, ElTree, type CheckboxValueType } from 'element-plus'
-import { shallowRef, type Ref } from 'vue'
 
 // 左侧分组的钩子函数
 export function useCate(type: number) {
@@ -55,6 +56,15 @@ export function useCate(type: number) {
         getCateLists()
     }
 
+    const handleAddChildCate = async (value: string, pid: number) => {
+        await fileCateAdd({
+            type,
+            name: value,
+            pid: pid
+        })
+        getCateLists()
+    }
+
     // 编辑分组
     const handleEditCate = async (value: string, id: number) => {
         await fileCateEdit({
@@ -65,8 +75,12 @@ export function useCate(type: number) {
     }
 
     // 删除分组
-    const handleDeleteCate = async (id: number) => {
-        await feedback.confirm('确定要删除？')
+    const handleDeleteCate = async (id: number, children?: number) => {
+        if (children) {
+            await feedback.confirm('删除文件夹将会永久删除文件夹及其所有内容。您确定要继续吗？')
+        } else {
+            await feedback.confirm('确定要删除？')
+        }
         await fileCateDelete({ id })
         cateId.value = ''
         getCateLists()
@@ -82,6 +96,7 @@ export function useCate(type: number) {
         cateId,
         cateLists,
         handleAddCate,
+        handleAddChildCate,
         handleEditCate,
         handleDeleteCate,
         getCateLists,
@@ -105,7 +120,8 @@ export function useFile(
     const fileParams = reactive({
         name: '',
         type: type,
-        cid: cateId
+        cid: cateId,
+        source: ''
     })
     const { pager, getLists, resetPage } = usePaging({
         fetchFun: fileList,

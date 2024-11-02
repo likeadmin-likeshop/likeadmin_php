@@ -13,9 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, shallowRef } from 'vue'
 import 'vue3-video-play/dist/style.css'
+
+import { reactive, shallowRef } from 'vue'
 import VideoPlay from 'vue3-video-play'
+
 const props = defineProps({
     src: {
         type: String,

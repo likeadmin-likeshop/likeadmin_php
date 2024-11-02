@@ -2,11 +2,11 @@
 
 namespace Overtrue\Socialite\Providers;
 
+use GuzzleHttp\Exception\GuzzleException;
 use JetBrains\PhpStorm\Pure;
-use Overtrue\Socialite\Contracts\UserInterface;
+use Overtrue\Socialite\Contracts;
+use Overtrue\Socialite\Exceptions;
 use Overtrue\Socialite\Exceptions\AuthorizeFailedException;
-use Overtrue\Socialite\Exceptions\InvalidArgumentException;
-use Overtrue\Socialite\Exceptions\MethodDoesNotSupportException;
 use Overtrue\Socialite\User;
 
 /**
@@ -15,10 +15,21 @@ use Overtrue\Socialite\User;
 class OpenWeWork extends Base
 {
     public const NAME = 'open-wework';
+
     protected bool $detailed = false;
+
+    protected bool $asQrcode = false;
+
+    protected string $userType = 'member';
+
+    protected string $lang = 'zh';
+
     protected ?string $suiteTicket = null;
+
     protected ?int $agentId = null;
+
     protected ?string $suiteAccessToken = null;
+
     protected string $baseUrl = 'https://qyapi.weixin.qq.com';
 
     public function __construct(array $config)
@@ -30,32 +41,64 @@ class OpenWeWork extends Base
         }
     }
 
-    public function withAgentId(int $agentId): static
+    public function withAgentId(int $agentId): self
     {
         $this->agentId = $agentId;
 
         return $this;
     }
 
-    public function userFromCode(string $code): UserInterface
+    public function detailed(): self
+    {
+        $this->detailed = true;
+
+        return $this;
+    }
+
+    public function asQrcode(): self
+    {
+        $this->asQrcode = true;
+
+        return $this;
+    }
+
+    public function withUserType(string $userType): self
+    {
+        $this->userType = $userType;
+
+        return $this;
+    }
+
+    public function withLang(string $lang): self
+    {
+        $this->lang = $lang;
+
+        return $this;
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws AuthorizeFailedException
+     */
+    public function userFromCode(string $code): Contracts\UserInterface
     {
         $user = $this->getUser($this->getSuiteAccessToken(), $code);
 
         if ($this->detailed) {
-            $user = array_merge($user, $this->getUserByTicket($user['user_ticket']));
+            $user = \array_merge($user, $this->getUserByTicket($user['user_ticket']));
         }
 
         return $this->mapUserToObject($user)->setProvider($this)->setRaw($user);
     }
 
-    public function withSuiteTicket(string $suiteTicket): OpenWeWork
+    public function withSuiteTicket(string $suiteTicket): self
     {
         $this->suiteTicket = $suiteTicket;
 
         return $this;
     }
 
-    public function withSuiteAccessToken(string $suiteAccessToken): OpenWeWork
+    public function withSuiteAccessToken(string $suiteAccessToken): self
     {
         $this->suiteAccessToken = $suiteAccessToken;
 
@@ -63,138 +106,141 @@ class OpenWeWork extends Base
     }
 
     /**
-     * @throws \Overtrue\Socialite\Exceptions\InvalidArgumentException
+     * @throws Exceptions\InvalidArgumentException
      */
     public function getAuthUrl(): string
     {
         $queries = \array_filter([
             'appid' => $this->getClientId(),
-            'redirect_uri' => $this->redirectUrl,
-            'response_type' => 'code',
-            'scope' => $this->formatScopes($this->scopes, $this->scopeSeparator),
-            'state' => $this->state,
+            Contracts\RFC6749_ABNF_REDIRECT_URI => $this->redirectUrl,
+            Contracts\RFC6749_ABNF_RESPONSE_TYPE => Contracts\RFC6749_ABNF_CODE,
+            Contracts\RFC6749_ABNF_SCOPE => $this->formatScopes($this->scopes, $this->scopeSeparator),
+            Contracts\RFC6749_ABNF_STATE => $this->state,
             'agentid' => $this->agentId,
         ]);
 
-        if ((\in_array('snsapi_userinfo', $this->scopes) || \in_array('snsapi_privateinfo', $this->scopes)) && empty($this->agentId)) {
-            throw new InvalidArgumentException('agentid is required when scopes is snsapi_userinfo or snsapi_privateinfo.');
+        if ($this->asQrcode) {
+            $queries = array_filter([
+                'appid' => $queries['appid'] ?? $this->getClientId(),
+                'redirect_uri' => $queries['redirect_uri'] ?? $this->redirectUrl,
+                'usertype' => $this->userType,
+                'lang' => $this->lang,
+                'state' => $this->state,
+            ]);
+
+            return \sprintf('https://open.work.weixin.qq.com/wwopen/sso/3rd_qrConnect?%s', http_build_query($queries));
         }
 
-        return sprintf('https://open.weixin.qq.com/connect/oauth2/authorize?%s#wechat_redirect', http_build_query($queries));
+        return \sprintf('https://open.weixin.qq.com/connect/oauth2/authorize?%s#wechat_redirect', \http_build_query($queries));
     }
 
     /**
-     * @throws \Overtrue\Socialite\Exceptions\MethodDoesNotSupportException
+     * @throws Exceptions\MethodDoesNotSupportException
      */
     protected function getUserByToken(string $token): array
     {
-        throw new MethodDoesNotSupportException('Open WeWork doesn\'t support access_token mode');
+        throw new Exceptions\MethodDoesNotSupportException('Open WeWork doesn\'t support access_token mode');
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Overtrue\Socialite\Exceptions\AuthorizeFailedException
-     */
     protected function getSuiteAccessToken(): string
     {
         return $this->suiteAccessToken ?? $this->suiteAccessToken = $this->requestSuiteAccessToken();
     }
 
     /**
-     * @throws \Overtrue\Socialite\Exceptions\AuthorizeFailedException
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws Exceptions\AuthorizeFailedException|GuzzleException
      */
     protected function getUser(string $token, string $code): array
     {
-        $response = $this->getHttpClient()->get(
-            $this->baseUrl . '/cgi-bin/service/getuserinfo3rd',
+        $responseInstance = $this->getHttpClient()->get(
+            $this->baseUrl.'/cgi-bin/service/getuserinfo3rd',
             [
-                'query' => array_filter(
+                'query' => \array_filter(
                     [
                         'suite_access_token' => $token,
-                        'code' => $code,
+                        Contracts\RFC6749_ABNF_CODE => $code,
                     ]
                 ),
             ]
         );
 
-        $response = \json_decode($response->getBody(), true) ?? [];
+        $response = $this->fromJsonBody($responseInstance);
 
-        if (($response['errcode'] ?? 1) > 0 || (empty($response['UserId']) && empty($response['open_userid']))) {
-            throw new AuthorizeFailedException('Failed to get user openid:' . $response['errmsg'] ?? 'Unknown.', $response);
+        if (($response['errcode'] ?? 1) > 0 || (empty($response['UserId']) && empty($response['openid']))) {
+            throw new Exceptions\AuthorizeFailedException((string) $responseInstance->getBody(), $response);
+        } elseif (empty($response['user_ticket'])) {
+            $this->detailed = false;
         }
 
         return $response;
     }
 
     /**
-     * @throws \Overtrue\Socialite\Exceptions\AuthorizeFailedException
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws Exceptions\AuthorizeFailedException
+     * @throws GuzzleException
      */
     protected function getUserByTicket(string $userTicket): array
     {
-        $response = $this->getHttpClient()->post(
-            $this->baseUrl . '/cgi-bin/user/get',
+        $responseInstance = $this->getHttpClient()->post(
+            $this->baseUrl.'/cgi-bin/service/auth/getuserdetail3rd',
             [
                 'query' => [
                     'suite_access_token' => $this->getSuiteAccessToken(),
+                ],
+                'json' => [
                     'user_ticket' => $userTicket,
                 ],
-            ]
+            ],
         );
 
-        $response = \json_decode($response->getBody(), true) ?? [];
+        $response = $this->fromJsonBody($responseInstance);
 
         if (($response['errcode'] ?? 1) > 0 || empty($response['userid'])) {
-            throw new AuthorizeFailedException('Failed to get user:' . $response['errmsg'] ?? 'Unknown.', $response);
+            throw new Exceptions\AuthorizeFailedException((string) $responseInstance->getBody(), $response);
         }
 
         return $response;
     }
 
     #[Pure]
-    protected function mapUserToObject(array $user): UserInterface
+    protected function mapUserToObject(array $user): Contracts\UserInterface
     {
-        if ($this->detailed) {
-            return new User(
-                [
-                    'id' => $user['userid'] ?? null,
-                    'name' => $user['name'] ?? null,
-                    'avatar' => $user['avatar'] ?? null,
-                    'email' => $user['email'] ?? null,
-                ]
-            );
-        }
-
-        return new User(
-            [
-                'id' => $user['UserId'] ?? null ?: $user['OpenId'] ?? null,
-            ]
-        );
+        return new User($this->detailed ? [
+            Contracts\ABNF_ID => $user['userid'] ?? $user['UserId'] ?? null,
+            Contracts\ABNF_NAME => $user[Contracts\ABNF_NAME] ?? null,
+            Contracts\ABNF_AVATAR => $user[Contracts\ABNF_AVATAR] ?? null,
+            'gender' => $user['gender'] ?? null,
+            'corpid' => $user['corpid'] ?? $user['CorpId'] ?? null,
+            'open_userid' => $user['open_userid'] ?? null,
+            'qr_code' => $user['qr_code'] ?? null,
+        ] : [
+            Contracts\ABNF_ID => $user['userid'] ?? $user['UserId'] ?? $user['OpenId'] ?? $user['openid'] ?? null,
+            'corpid' => $user['CorpId'] ?? null,
+            'open_userid' => $user['open_userid'] ?? null,
+        ]);
     }
 
     /**
-     * @throws \Overtrue\Socialite\Exceptions\AuthorizeFailedException
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws Exceptions\AuthorizeFailedException
+     * @throws GuzzleException
      */
     protected function requestSuiteAccessToken(): string
     {
-        $response = $this->getHttpClient()->post(
-            $this->baseUrl . '/cgi-bin/service/get_suite_token',
+        $responseInstance = $this->getHttpClient()->post(
+            $this->baseUrl.'/cgi-bin/service/get_suite_token',
             [
-                'json' =>
-                    [
-                        'suite_id' => $this->config->get('suite_id') ?? $this->config->get('client_id'),
-                        'suite_secret' => $this->config->get('suite_secret') ?? $this->config->get('client_secret'),
-                        'suite_ticket' => $this->suiteTicket,
-                    ]
+                'json' => [
+                    'suite_id' => $this->config->get('suite_id') ?? $this->config->get('client_id'),
+                    'suite_secret' => $this->config->get('suite_secret') ?? $this->config->get('client_secret'),
+                    'suite_ticket' => $this->suiteTicket,
+                ],
             ]
         );
 
-        $response = \json_decode($response->getBody()->getContents(), true) ?? [];
+        $response = $this->fromJsonBody($responseInstance);
 
         if (isset($response['errcode']) && $response['errcode'] > 0) {
-            throw new AuthorizeFailedException('Failed to get api access_token:' . $response['errmsg'] ?? 'Unknown.', $response);
+            throw new Exceptions\AuthorizeFailedException((string) $responseInstance->getBody(), $response);
         }
 
         return $response['suite_access_token'];

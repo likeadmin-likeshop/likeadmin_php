@@ -20,7 +20,10 @@ export function fileCateLists(params: Record<string, any>) {
 
 // 文件列表
 export function fileList(params: Record<string, any>) {
-    return request.get({ url: '/file/lists', params })
+    return request.get(
+        { url: '/file/lists', params },
+        { ignoreCancelToken: true, isOpenRetry: false }
+    )
 }
 
 // 文件删除

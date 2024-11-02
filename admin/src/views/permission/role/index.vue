@@ -64,11 +64,13 @@
 </template>
 
 <script lang="ts" setup name="role">
-import { roleLists, roleDelete } from '@/api/perms/role'
+import { roleDelete, roleLists } from '@/api/perms/role'
 import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
-import EditPopup from './edit.vue'
+
 import AuthPopup from './auth.vue'
+import EditPopup from './edit.vue'
+
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const authRef = shallowRef<InstanceType<typeof AuthPopup>>()
 const showEdit = ref(false)

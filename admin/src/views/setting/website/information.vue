@@ -1,7 +1,14 @@
 <!-- 网站信息 -->
 <template>
     <div class="website-information">
-        <el-form ref="formRef" :rules="rules" class="ls-form" :model="formData" label-width="120px">
+        <el-form
+            ref="formRef"
+            :rules="rules"
+            class="ls-form"
+            :model="formData"
+            label-width="120px"
+            scroll-to-error
+        >
             <el-card shadow="never" class="!border-none">
                 <div class="text-xl font-medium mb-[20px]">后台设置</div>
                 <el-form-item label="网站名称" prop="name">
@@ -43,6 +50,12 @@
                             maxlength="30"
                             show-word-limit
                         ></el-input>
+                    </div>
+                </el-form-item>
+                <el-form-item label="网站图标" prop="web_favicon" required>
+                    <div>
+                        <material-picker v-model="formData.h5_favicon" :limit="1" />
+                        <div class="form-tips">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
                     </div>
                 </el-form-item>
                 <el-form-item label="前台LOGO" prop="shop_logo">
@@ -101,9 +114,11 @@
 </template>
 
 <script lang="ts" setup name="webInformation">
+import type { FormInstance } from 'element-plus'
+
 import { getWebsite, setWebsite } from '@/api/setting/website'
 import useAppStore from '@/stores/modules/app'
-import type { FormInstance } from 'element-plus'
+
 const formRef = ref<FormInstance>()
 
 const appStore = useAppStore()
@@ -113,6 +128,7 @@ const formData = reactive({
     web_favicon: '', // 网站图标
     web_logo: '', // 网站logo
     login_image: '', // 登录页广告图
+    h5_favicon: '',
     shop_name: '',
     shop_logo: '',
     pc_logo: '',

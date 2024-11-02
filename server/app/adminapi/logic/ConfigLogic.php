@@ -57,9 +57,10 @@ class ConfigLogic
             'web_logo' => FileService::getFileUrl(ConfigService::get('website', 'web_logo')),
             // 登录页
             'login_image' => FileService::getFileUrl(ConfigService::get('website', 'login_image')),
-
             // 版权信息
             'copyright_config' => ConfigService::get('copyright', 'config', []),
+            // 版本号
+            'version' => config('project.version')
         ];
         return $config;
     }

@@ -3,44 +3,71 @@
         {
             "path": "pages/index/index",
             "style": {
+                // #ifndef H5
+                "navigationStyle": "custom",
+                // #endif
+                // #ifdef H5
                 "navigationBarTitleText": "首页"
+                // #endif
             }
         },
         {
             "path": "pages/news/news",
             "style": {
+                // #ifndef H5
+                "navigationStyle": "custom",
+                // #endif
+                // #ifdef H5
                 "navigationBarTitleText": "资讯",
+                // #endif
                 "disableScroll": true
             }
         },
         {
             "path": "pages/user/user",
             "style": {
+                // #ifndef H5
+                "navigationStyle": "custom",
+                // #endif
+                // #ifdef H5
                 "navigationBarTitleText": "个人中心"
+                // #endif
             }
         },
         {
             "path": "pages/login/login",
             "style": {
                 "navigationBarTitleText": "登录"
+            },
+            "meta": {
+                "white": true
             }
         },
         {
             "path": "pages/register/register",
             "style": {
                 "navigationBarTitleText": "注册"
+            },
+            "meta": {
+                "white": true
             }
         },
         {
             "path": "pages/forget_pwd/forget_pwd",
             "style": {
                 "navigationBarTitleText": "忘记密码"
+            },
+            "meta": {
+                "white": true
             }
         },
         {
             "path": "pages/customer_service/customer_service",
             "style": {
                 "navigationBarTitleText": "联系客服"
+            },
+            "meta": {
+                "white": true
             }
         },
         {
@@ -54,14 +81,18 @@
             "style": {
                 "navigationBarTitleText": "个人设置"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "pages/collection/collection",
             "style": {
                 "navigationBarTitleText": "我的收藏"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "pages/as_us/as_us",
@@ -80,14 +111,18 @@
             "style": {
                 "navigationBarTitleText": "修改密码"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "pages/user_data/user_data",
             "style": {
                 "navigationBarTitleText": "个人资料"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "pages/search/search",
@@ -115,7 +150,9 @@
             "style": {
                 "navigationBarTitleText": "支付结果"
             },
-            "auth": true
+            "meta": {
+                "auth": true
+            }
         },
         {
             "path": "uni_modules/vk-uview-ui/components/u-avatar-cropper/u-avatar-cropper",
@@ -128,26 +165,42 @@
 	"subPackages": [{
 		"root": "packages",
 		"pages": [
+            {
+                "path": "pages/404/404",
+                "style": {
+                    "navigationBarTitleText": "404"
+                },
+                "name": "404",
+                "meta": {
+                    "white": true
+                }
+            },
 			{
 				"path": "pages/user_wallet/user_wallet",
 				"style": {
 				    "navigationBarTitleText": "我的钱包"
 				},
-				"auth": true
+				"meta": {
+                    "auth": true
+                }
 			},
             {
 				"path": "pages/recharge/recharge",
 				"style": {
 				    "navigationBarTitleText": "充值"
 				},
-				"auth": true
+				"meta": {
+                    "auth": true
+                }
 			},
             {
 				"path": "pages/recharge_record/recharge_record",
 				"style": {
 				    "navigationBarTitleText": "充值记录"
 				},
-				"auth": true
+				"meta": {
+                    "auth": true
+                }
 			}
 		]
 	}],
@@ -160,8 +213,33 @@
             "navigationStyle": "custom"
         }
     },
+    "tabBar": {
+        "custom": true,
+        "iconWidth": "20px",
+        "list": [
+            {
+                "iconPath": "static/images/tabbar/home.png",
+                "selectedIconPath": "static/images/tabbar/home_s.png",
+                "pagePath": "pages/index/index",
+                "text": "首页"
+            },
+            {
+                "iconPath": "static/images/tabbar/news.png",
+                "selectedIconPath": "static/images/tabbar/news_s.png",
+                "pagePath": "pages/news/news",
+                "text": "资讯"
+            },
+            {
+                "iconPath": "static/images/tabbar/user.png",
+                "selectedIconPath": "static/images/tabbar/user_s.png",
+                "pagePath": "pages/user/user",
+                "text": "我的"
+            }
+        ]
+    },
     "easycom": {
         "custom": {
+            "router-navigate": "uniapp-router-next/components/router-navigate/router-navigate.vue",
             "^(?!z-paging-refresh|z-paging-load-more)z-paging(.*)": "z-paging/components/z-paging$1/z-paging$1.vue",
             "^w-(.*)": "@/components/widgets/$1/$1.vue"
         }

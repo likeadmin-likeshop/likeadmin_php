@@ -12,21 +12,11 @@
                 <slot></slot>
             </template>
             <el-form class="ls-form" :model="formData" inline>
-                <el-form-item label="表名称">
-                    <el-input
-                        class="w-[280px]"
-                        v-model="formData.name"
-                        clearable
-                        @keyup.enter="resetPage"
-                    />
+                <el-form-item class="w-[280px]" label="表名称">
+                    <el-input v-model="formData.name" clearable @keyup.enter="resetPage" />
                 </el-form-item>
-                <el-form-item label="表描述">
-                    <el-input
-                        class="w-[280px]"
-                        v-model="formData.comment"
-                        clearable
-                        @keyup.enter="resetPage"
-                    />
+                <el-form-item class="w-[280px]" label="表描述">
+                    <el-input v-model="formData.comment" clearable @keyup.enter="resetPage" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
@@ -54,10 +44,10 @@
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/popup/index.vue'
-import Pagination from '@/components/pagination/index.vue'
-import { usePaging } from '@/hooks/usePaging'
 import { dataTable, selectTable } from '@/api/tools/code'
+import Pagination from '@/components/pagination/index.vue'
+import Popup from '@/components/popup/index.vue'
+import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 
 const emit = defineEmits<{

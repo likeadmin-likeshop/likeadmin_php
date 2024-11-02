@@ -5,7 +5,7 @@
         v-bind="tabbarStyle"
         :list="tabbarList"
         @change="handleChange"
-        :hide-tab-bar="false"
+        :hide-tab-bar="true"
     ></u-tabbar>
 </template>
 
@@ -16,15 +16,17 @@ import { computed, ref } from 'vue'
 const current = ref()
 const appStore = useAppStore()
 const tabbarList = computed(() => {
-    return appStore.getTabbarConfig.map((item: any) => {
-        return {
-            iconPath: item.unselected,
-            selectedIconPath: item.selected,
-            text: item.name,
-            link: item.link,
-            pagePath: item.link.path
-        }
-    })
+    return appStore.getTabbarConfig
+        ?.filter((item: any) => item.is_show == 1)
+        .map((item: any) => {
+            return {
+                iconPath: item.unselected,
+                selectedIconPath: item.selected,
+                text: item.name,
+                link: item.link,
+                pagePath: item.link.path
+            }
+        })
 })
 const showTabbar = computed(() => {
     const currentPages = getCurrentPages()
@@ -39,8 +41,15 @@ const tabbarStyle = computed(() => ({
     activeColor: appStore.getStyleConfig.selected_color,
     inactiveColor: appStore.getStyleConfig.default_color
 }))
+
+const nativeTabbar = [
+    '/pages/index/index',
+    '/pages/news/news',
+    '/pages/user/user'
+]
 const handleChange = (index: number) => {
     const selectTab = tabbarList.value[index]
-    navigateTo(selectTab.link, 'reLaunch')
+    const navigateType = nativeTabbar.includes(selectTab.link.path) ? 'switchTab' : 'reLaunch'
+    navigateTo(selectTab.link, navigateType)
 }
 </script>

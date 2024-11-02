@@ -12,11 +12,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import type { CSSProperties } from 'vue'
-import { addUnit } from '@/utils/util'
 import { imageProps } from 'element-plus'
+import type { CSSProperties } from 'vue'
+import { computed } from 'vue'
+
 import useAppStore from '@/stores/modules/app'
+import { addUnit } from '@/utils/util'
+
 const props = defineProps({
     width: {
         type: [String, Number],

@@ -57,6 +57,7 @@
 
 <script lang="ts" setup name="environment">
 import { systemInfo } from '@/api/setting/system'
+
 const info = reactive({
     server: [], // 服务器信息
     env: [], // PHP环境要求

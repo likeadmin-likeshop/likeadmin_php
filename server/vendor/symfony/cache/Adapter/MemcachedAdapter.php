@@ -90,16 +90,12 @@ class MemcachedAdapter extends AbstractAdapter
      *
      * @param array[]|string|string[] $servers An array of servers, a DSN, or an array of DSNs
      *
-     * @return \Memcached
-     *
      * @throws \ErrorException When invalid options or servers are provided
      */
-    public static function createConnection($servers, array $options = [])
+    public static function createConnection(array|string $servers, array $options = []): \Memcached
     {
         if (\is_string($servers)) {
             $servers = [$servers];
-        } elseif (!\is_array($servers)) {
-            throw new InvalidArgumentException(sprintf('MemcachedAdapter::createClient() expects array or string as first argument, "%s" given.', get_debug_type($servers)));
         }
         if (!static::isSupported()) {
             throw new CacheException('Memcached '.(\PHP_VERSION_ID >= 80100 ? '> 3.1.5' : '>= 2.2.0').' is required.');
@@ -242,7 +238,7 @@ class MemcachedAdapter extends AbstractAdapter
     /**
      * {@inheritdoc}
      */
-    protected function doSave(array $values, int $lifetime)
+    protected function doSave(array $values, int $lifetime): array|bool
     {
         if (!$values = $this->marshaller->marshall($values, $failed)) {
             return $failed;
@@ -263,7 +259,7 @@ class MemcachedAdapter extends AbstractAdapter
     /**
      * {@inheritdoc}
      */
-    protected function doFetch(array $ids)
+    protected function doFetch(array $ids): iterable
     {
         try {
             $encodedIds = array_map([__CLASS__, 'encodeKey'], $ids);
@@ -284,7 +280,7 @@ class MemcachedAdapter extends AbstractAdapter
     /**
      * {@inheritdoc}
      */
-    protected function doHave(string $id)
+    protected function doHave(string $id): bool
     {
         return false !== $this->getClient()->get(self::encodeKey($id)) || $this->checkResultCode(\Memcached::RES_SUCCESS === $this->client->getResultCode());
     }
@@ -292,7 +288,7 @@ class MemcachedAdapter extends AbstractAdapter
     /**
      * {@inheritdoc}
      */
-    protected function doDelete(array $ids)
+    protected function doDelete(array $ids): bool
     {
         $ok = true;
         $encodedIds = array_map([__CLASS__, 'encodeKey'], $ids);
@@ -308,12 +304,12 @@ class MemcachedAdapter extends AbstractAdapter
     /**
      * {@inheritdoc}
      */
-    protected function doClear(string $namespace)
+    protected function doClear(string $namespace): bool
     {
         return '' === $namespace && $this->getClient()->flush();
     }
 
-    private function checkResultCode($result)
+    private function checkResultCode(mixed $result)
     {
         $code = $this->client->getResultCode();
 
@@ -326,7 +322,7 @@ class MemcachedAdapter extends AbstractAdapter
 
     private function getClient(): \Memcached
     {
-        if ($this->client) {
+        if (isset($this->client)) {
             return $this->client;
         }
 

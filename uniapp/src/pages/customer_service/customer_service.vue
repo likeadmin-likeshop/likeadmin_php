@@ -1,4 +1,12 @@
 <template>
+    <page-meta :page-style="$theme.pageStyle">
+        <!-- #ifndef H5 -->
+        <navigation-bar
+            :front-color="$theme.navColor"
+            :background-color="$theme.navBgColor"
+        />
+        <!-- #endif -->
+    </page-meta>
     <view class="customer-service">
         <view v-for="(item, index) in state.pages" :key="index">
             <template v-if="item.name == 'customer-service'">

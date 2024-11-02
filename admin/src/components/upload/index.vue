@@ -1,6 +1,7 @@
 <template>
     <div class="upload">
         <el-upload
+            v-model:file-list="fileList"
             ref="uploadRefs"
             :action="action"
             :multiple="multiple"
@@ -14,7 +15,7 @@
             :on-error="handleError"
             :accept="getAccept"
         >
-            <slot></slot>
+            <slot />
         </el-upload>
         <el-dialog
             v-if="showProgress && fileList.length"
@@ -30,7 +31,7 @@
                     <div class="mb-5">
                         <div>{{ item.name }}</div>
                         <div class="flex-1">
-                            <el-progress :percentage="parseInt(item.percentage)"></el-progress>
+                            <el-progress :percentage="parseInt(item.percentage)" />
                         </div>
                     </div>
                 </template>
@@ -40,12 +41,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, shallowRef } from 'vue'
-import useUserStore from '@/stores/modules/user'
-import config from '@/config'
-import feedback from '@/utils/feedback'
 import type { ElUpload } from 'element-plus'
+import { computed, defineComponent, ref, shallowRef } from 'vue'
+
+import config from '@/config'
 import { RequestCodeEnum } from '@/enums/requestEnums'
+import useAppStore from '@/stores/modules/app'
+import useUserStore from '@/stores/modules/user'
+import feedback from '@/utils/feedback'
+
 export default defineComponent({
     components: {},
     props: {
@@ -75,28 +79,29 @@ export default defineComponent({
             default: false
         }
     },
-    emits: ['change', 'error', 'success'],
+    emits: ['change', 'error', 'success', 'allSuccess'],
     setup(props, { emit }) {
         const userStore = useUserStore()
+        const appStore = useAppStore()
         const uploadRefs = shallowRef<InstanceType<typeof ElUpload>>()
         const action = ref(`${config.baseUrl}${config.urlPrefix}/upload/${props.type}`)
         const headers = computed(() => ({
             token: userStore.token,
-            version: config.version
+            version: appStore.config.version
         }))
         const visible = ref(false)
         const fileList = ref<any[]>([])
 
-        const handleProgress = (event: any, file: any, fileLists: any[]) => {
+        const handleProgress = () => {
             visible.value = true
-            fileList.value = toRaw(fileLists)
         }
-
-        const handleSuccess = (response: any, file: any, fileLists: any[]) => {
-            const allSuccess = fileLists.every((item) => item.status == 'success')
-            if (allSuccess) {
-                uploadRefs.value?.clearFiles()
-                visible.value = false
+        let uploadLen = 0
+        const handleSuccess = (response: any, file: any) => {
+            uploadLen++
+            if (uploadLen == fileList.value.length) {
+                uploadLen = 0
+                fileList.value = []
+                emit('allSuccess')
             }
             emit('change', file)
             if (response.code == RequestCodeEnum.SUCCESS) {
@@ -107,6 +112,12 @@ export default defineComponent({
             }
         }
         const handleError = (event: any, file: any) => {
+            uploadLen++
+            if (uploadLen == fileList.value.length) {
+                uploadLen = 0
+                fileList.value = []
+                emit('allSuccess')
+            }
             feedback.msgError(`${file.name}文件上传失败`)
             uploadRefs.value?.abort(file)
             visible.value = false
@@ -117,14 +128,14 @@ export default defineComponent({
             feedback.msgError(`超出上传上限${props.limit}，请重新上传`)
         }
         const handleClose = () => {
-            uploadRefs.value?.clearFiles()
+            fileList.value = []
             visible.value = false
         }
 
         const getAccept = computed(() => {
             switch (props.type) {
                 case 'image':
-                    return '.jpg,.png,.gif,.jpeg'
+                    return '.jpg,.png,.gif,.jpeg,.ico'
                 case 'video':
                     return '.wmv,.avi,.mpg,.mpeg,.3gp,.mov,.mp4,.flv,.rmvb,.mkv'
                 default:

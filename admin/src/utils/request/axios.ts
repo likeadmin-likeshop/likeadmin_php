@@ -1,11 +1,14 @@
-import { RequestMethodsEnum } from '@/enums/requestEnums'
 import axios, {
     AxiosError,
     type AxiosInstance,
     type AxiosRequestConfig,
-    type AxiosResponse
+    type AxiosResponse,
+    type InternalAxiosRequestConfig
 } from 'axios'
-import { isFunction, merge, cloneDeep } from 'lodash'
+import { cloneDeep, isFunction, merge } from 'lodash'
+
+import { RequestMethodsEnum } from '@/enums/requestEnums'
+
 import axiosCancel from './cancel'
 import type { RequestData, RequestOptions } from './type'
 
@@ -44,7 +47,7 @@ export class Axios {
             (config) => {
                 this.addCancelToken(config)
                 if (isFunction(requestInterceptorsHook)) {
-                    config = requestInterceptorsHook(config)
+                    config = requestInterceptorsHook(config) as InternalAxiosRequestConfig
                 }
                 return config
             },
@@ -100,7 +103,7 @@ export class Axios {
      * @description 重新请求
      */
     retryRequest(error: AxiosError) {
-        const config = error.config
+        const config = error.config as any
         const { retryCount, isOpenRetry } = config.requestOptions
         if (!isOpenRetry || config.method?.toUpperCase() == RequestMethodsEnum.POST) {
             return Promise.reject(error)

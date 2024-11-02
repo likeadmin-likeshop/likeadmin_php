@@ -2,16 +2,16 @@
     <div class="department">
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
-                <el-form-item label="部门名称" prop="name">
+                <el-form-item class="w-[280px]" label="部门名称" prop="name">
                     <el-input
-                        class="w-[280px]"
                         v-model="queryParams.name"
+                        placeholder="输入部门名称"
                         clearable
                         @keyup.enter="getLists"
                     />
                 </el-form-item>
-                <el-form-item label="部门状态" prop="status">
-                    <el-select class="w-[280px]" v-model="queryParams.status">
+                <el-form-item class="w-[280px]" label="部门状态" prop="status">
+                    <el-select v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" value="1" />
                         <el-option label="停用" value="0" />
@@ -50,7 +50,7 @@
                 />
                 <el-table-column label="部门状态" prop="status" min-width="100">
                     <template #default="{ row }">
-                        <el-tag class="ml-2" :type="row.status ? '' : 'danger'">{{
+                        <el-tag class="ml-2" :type="row.status ? 'primary' : 'danger'">{{
                             row.status_desc
                         }}</el-tag>
                     </template>
@@ -94,9 +94,12 @@
 </template>
 <script lang="ts" setup name="department">
 import type { ElTable, FormInstance } from 'element-plus'
-import EditPopup from './edit.vue'
+
 import { deptDelete, deptLists } from '@/api/org/department'
 import feedback from '@/utils/feedback'
+
+import EditPopup from './edit.vue'
+
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const formRef = shallowRef<FormInstance>()

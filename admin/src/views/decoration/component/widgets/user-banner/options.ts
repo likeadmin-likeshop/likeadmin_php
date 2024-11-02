@@ -5,6 +5,7 @@ export default () => ({
         enabled: 1,
         data: [
             {
+                is_show: '1',
                 image: '',
                 name: '',
                 link: {}

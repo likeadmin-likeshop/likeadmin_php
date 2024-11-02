@@ -15,6 +15,7 @@
 namespace app\adminapi\lists\recharge;
 
 use app\adminapi\lists\BaseAdminDataLists;
+use app\common\enum\PayEnum;
 use app\common\lists\ListsExcelInterface;
 use app\common\lists\ListsSearchInterface;
 use app\common\model\recharge\RechargeOrder;
@@ -39,8 +40,8 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
             'sn' => '充值单号',
             'nickname' => '用户昵称',
             'order_amount' => '充值金额',
-            'pay_way' => '支付方式',
-            'pay_status' => '支付状态',
+            'pay_way_text' => '支付方式',
+            'pay_status_text' => '支付状态',
             'pay_time' => '支付时间',
             'create_time' => '下单时间',
         ];
@@ -83,12 +84,13 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
         $where = [];
         // 用户编号
         if (!empty($this->params['user_info'])) {
-            $where[] = ['u.sn|u.nickname|u.mobile', 'like', '%' . $this->params['user_info'] . '%'];
+            $where[] = ['u.sn|u.nickname|u.mobile|u.account', 'like', '%' . $this->params['user_info'] . '%'];
         }
 
         // 下单时间
         if (!empty($this->params['start_time']) && !empty($this->params['end_time'])) {
-            $where[] = ['ro.create_time', 'between', [$this->params['start_time'], $this->params['end_time']]];
+            $time = [strtotime($this->params['start_time']), strtotime($this->params['end_time'])];
+            $where[] = ['ro.create_time', 'between', $time];
         }
 
         return $where;
@@ -104,7 +106,7 @@ class RechargeLists extends BaseAdminDataLists implements ListsSearchInterface, 
     public function lists(): array
     {
         $field = 'ro.id,ro.sn,ro.order_amount,ro.pay_way,ro.pay_time,ro.pay_status,ro.create_time,ro.refund_status';
-        $field .= ',u.avatar,u.nickname';
+        $field .= ',u.avatar,u.nickname,u.account';
         $lists = RechargeOrder::alias('ro')
             ->join('user u', 'u.id = ro.user_id')
             ->field($field)

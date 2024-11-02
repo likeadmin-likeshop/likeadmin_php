@@ -11,7 +11,9 @@ module.exports = {
         '@vue/eslint-config-prettier',
         './.eslintrc-auto-import.json'
     ],
+    plugins: ['simple-import-sort'],
     rules: {
+        'simple-import-sort/imports': 'error', // 强制导入语句排序
         'prettier/prettier': [
             'warn',
             {
