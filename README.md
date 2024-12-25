@@ -1,3 +1,5 @@
+ <a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
+<a href="https://www.mddai.cn">![码多多AI](/server/public/readme/chatmoney.png)</a><br>
  <h1 align="center">likeadmin（PHP）
  通用管理后台</h1>
 <h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
@@ -27,10 +29,6 @@
 </p>
 
 ![](/server/public/readme/likeadmin.png)
-
-<a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
-
-<a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
 
 ## 🚀🚀🚀docker 本地一句命令快速部署体验
 
