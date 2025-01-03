@@ -58,8 +58,7 @@ class WechatLogic extends BaseLogic
                 'scanQRCode'
             ]);
         } catch (Exception $e) {
-            self::setError('获取jssdk失败:' . $e->getMessage());
-            return false;
+            return self::setError('获取jssdk失败:' . $e->getMessage());
         }
     }
 }

@@ -45,8 +45,7 @@ class PayNotifyLogic extends BaseLogic
                 $e->getLine(),
                 $e->getMessage()
             ]));
-            self::setError($e->getMessage());
-            return $e->getMessage();
+            return self::setError($e->getMessage());
         }
     }
 
