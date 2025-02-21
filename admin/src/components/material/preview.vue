@@ -10,7 +10,11 @@
         </div>
         <div v-if="type == 'video'">
             <el-dialog v-model="visible" width="740px" title="视频预览" :before-close="handleClose">
-                <video-player ref="playerRef" :src="url" width="100%" height="450px" />
+                <div class="aspect-video overflow-hidden">
+                    <video class="size-full" controls>
+                        <source :src="url" type="video/mp4" />
+                    </video>
+                </div>
             </el-dialog>
         </div>
     </div>
