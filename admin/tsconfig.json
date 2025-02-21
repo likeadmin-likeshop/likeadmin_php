@@ -1,12 +1,13 @@
 {
-    "extends": "@vue/tsconfig/tsconfig.web.json",
+    "extends": "@vue/tsconfig/tsconfig.json",
     "include": [
         "global.d.ts",
         "src/**/*",
         "src/**/*.vue",
         "components.d.ts",
         "auto-imports.d.ts",
-        "typings/**/*.d.ts"
+        "typings/**/*.d.ts",
+        "vite.config.*"
     ],
     "compilerOptions": {
         "ignoreDeprecations": "5.0",
@@ -15,11 +16,8 @@
         "paths": {
             "@/*": ["./src/*"]
         },
-        "strict": true
-    },
-    "references": [
-        {
-            "path": "./tsconfig.config.json"
-        }
-    ]
+        "strict": true,
+        "composite": true,
+        "types": ["@types/node"]
+    }
 }
