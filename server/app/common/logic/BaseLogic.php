@@ -56,12 +56,13 @@ class BaseLogic
     /**
      * @notes 设置错误信息
      * @param $error
-     * @author 段誉
-     * @date 2021/7/21 18:20
+     * @author 段誉,muxi_k
+     * @date 2023/12/29 18:20
      */
-    public static function setError($error) : void
+    public static function setError($error) : bool
     {
         !empty($error) && self::$error = $error;
+        return false;
     }
 
 
