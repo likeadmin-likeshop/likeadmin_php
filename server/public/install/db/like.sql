@@ -224,7 +224,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `la_dev_crontab`;
 CREATE TABLE `la_dev_crontab`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '定时任务名称',
   `type` tinyint(1) NOT NULL COMMENT '类型 1-定时任务',
   `system` tinyint(4) NULL DEFAULT 0 COMMENT '是否系统任务 0-否 1-是',
@@ -248,7 +248,7 @@ CREATE TABLE `la_dev_crontab`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `la_dev_pay_config`;
 CREATE TABLE `la_dev_pay_config`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '模版名称',
   `pay_way` tinyint(1) NOT NULL COMMENT '支付方式:1-余额支付;2-微信支付;3-支付宝支付;',
   `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '对应支付配置(json字符串)',
@@ -256,7 +256,7 @@ CREATE TABLE `la_dev_pay_config`  (
   `sort` int(5) NULL DEFAULT NULL COMMENT '排序',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '支付配置表';
 
 -- ----------------------------
 -- Records of la_dev_pay_config
@@ -270,13 +270,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `la_dev_pay_way`;
 CREATE TABLE `la_dev_pay_way`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `pay_config_id` int(11) NOT NULL COMMENT '支付配置ID',
   `scene` tinyint(1) NOT NULL COMMENT '场景:1-微信小程序;2-微信公众号;3-H5;4-PC;5-APP;',
   `is_default` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否默认支付:0-否;1-是;',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态:0-关闭;1-开启;',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '支付方式表';
 
 -- ----------------------------
 -- Records of la_dev_pay_way
@@ -471,7 +471,7 @@ CREATE TABLE `la_notice_record`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `la_notice_setting`;
 CREATE TABLE `la_notice_setting`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `scene_id` int(10) NOT NULL COMMENT '场景id',
   `scene_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '场景名称',
   `scene_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '场景描述',
@@ -498,7 +498,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `la_official_account_reply`;
 CREATE TABLE `la_official_account_reply`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '规则名称',
   `keyword` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '关键词',
   `reply_type` tinyint(1) NOT NULL COMMENT '回复类型 1-关注回复 2-关键字回复 3-默认回复',
@@ -518,7 +518,7 @@ CREATE TABLE `la_official_account_reply`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `la_operation_log`;
 CREATE TABLE `la_operation_log`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `admin_id` int(11) NOT NULL COMMENT '管理员ID',
   `admin_name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '管理员名称',
   `account` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '管理员账号',
@@ -545,7 +545,7 @@ CREATE TABLE `la_recharge_order`  (
   `pay_status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '支付状态：0-待支付；1-已支付',
   `pay_time` int(10) NULL DEFAULT NULL COMMENT '支付时间',
   `order_amount` decimal(10, 2) NOT NULL COMMENT '充值金额',
-  `order_terminal` tinyint(1) NULL DEFAULT 1 COMMENT '终端',
+  `order_terminal` tinyint(1) NULL DEFAULT 1 COMMENT '终端 1-PC端 2-移动端 3-小程序',
   `transaction_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第三方平台交易流水号',
   `refund_status` tinyint(1) NULL DEFAULT 0 COMMENT '退款状态 0-未退款 1-已退款',
   `refund_transaction_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '退款交易流水号',
@@ -553,7 +553,7 @@ CREATE TABLE `la_recharge_order`  (
   `update_time` int(10) NULL DEFAULT NULL COMMENT '更新时间',
   `delete_time` int(10) NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '充值订单表';
 
 -- ----------------------------
 -- Table structure for la_refund_log
@@ -567,12 +567,12 @@ CREATE TABLE `la_refund_log`  (
   `handle_id` int(11) NOT NULL DEFAULT 0 COMMENT '处理人id（管理员id）',
   `order_amount` decimal(10, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '订单总的应付款金额，冗余字段',
   `refund_amount` decimal(10, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '本次退款金额',
-  `refund_status` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '退款状态，0退款中，1退款成功，2退款失败',
+  `refund_status` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '退款状态 0-退款中 1-退款成功 2-退款失败',
   `refund_msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '退款信息',
   `create_time` int(10) UNSIGNED NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(10) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '退款日志表';
 
 -- ----------------------------
 -- Table structure for la_refund_record
@@ -590,11 +590,11 @@ CREATE TABLE `la_refund_record`  (
   `transaction_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第三方平台交易流水号',
   `refund_way` tinyint(1) NOT NULL DEFAULT 1 COMMENT '退款方式 1-线上退款 2-线下退款',
   `refund_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '退款类型 1-后台退款',
-  `refund_status` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '退款状态，0退款中，1退款成功，2退款失败',
+  `refund_status` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '退款状态 0-退款中 1-退款成功 2-退款失败',
   `create_time` int(10) UNSIGNED NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(10) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '退款记录表';
 
 -- ----------------------------
 -- Table structure for la_sms_log
@@ -707,7 +707,7 @@ CREATE TABLE `la_user`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `la_user_account_log`;
 CREATE TABLE `la_user_account_log`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `sn` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '流水号',
   `user_id` int(11) NOT NULL COMMENT '用户id',
   `change_object` tinyint(1) NOT NULL DEFAULT 0 COMMENT '变动对象',
@@ -722,14 +722,14 @@ CREATE TABLE `la_user_account_log`  (
   `update_time` int(10) NULL DEFAULT NULL COMMENT '更新时间',
   `delete_time` int(10) NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户账户变动日志表';
 
 -- ----------------------------
 -- Table structure for la_user_auth
 -- ----------------------------
 DROP TABLE IF EXISTS `la_user_auth`;
 CREATE TABLE `la_user_auth`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `user_id` int(11) NOT NULL COMMENT '用户id',
   `openid` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信openid',
   `unionid` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '微信unionid',
@@ -745,7 +745,7 @@ CREATE TABLE `la_user_auth`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `la_user_session`;
 CREATE TABLE `la_user_session`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `user_id` int(11) NOT NULL COMMENT '用户id',
   `terminal` tinyint(1) NOT NULL DEFAULT 1 COMMENT '客户端类型：1-微信小程序；2-微信公众号；3-手机H5；4-电脑PC；5-苹果APP；6-安卓APP',
   `token` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '令牌',
