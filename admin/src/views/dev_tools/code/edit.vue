@@ -60,6 +60,15 @@
                             </el-table-column>
                             <el-table-column label="物理类型" prop="column_type" />
                             <el-table-column label="必填" width="80">
+                                <template #header>
+                                    <div class="header-checkbox">
+                                        <el-checkbox
+                                            v-model="isAllRequired"
+                                            @change="toggleAllRequired"
+                                        />
+                                        <span>必填</span>
+                                    </div>
+                                </template>
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_required"
@@ -69,6 +78,15 @@
                                 </template>
                             </el-table-column>
                             <el-table-column label="插入" width="80">
+                                <template #header>
+                                    <div class="header-checkbox">
+                                        <el-checkbox
+                                            v-model="isAllInsert"
+                                            @change="toggleAllInsert"
+                                        />
+                                        <span>插入</span>
+                                    </div>
+                                </template>
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_insert"
@@ -78,6 +96,15 @@
                                 </template>
                             </el-table-column>
                             <el-table-column label="编辑" width="80">
+                                <template #header>
+                                    <div class="header-checkbox">
+                                        <el-checkbox
+                                            v-model="isAllUpdate"
+                                            @change="toggleAllUpdate"
+                                        />
+                                        <span>编辑</span>
+                                    </div>
+                                </template>
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_update"
@@ -87,6 +114,15 @@
                                 </template>
                             </el-table-column>
                             <el-table-column label="列表" width="80">
+                                <template #header>
+                                    <div class="header-checkbox">
+                                        <el-checkbox
+                                            v-model="isAllLists"
+                                            @change="toggleAllLists"
+                                        />
+                                        <span>列表</span>
+                                    </div>
+                                </template>
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_lists"
@@ -96,6 +132,15 @@
                                 </template>
                             </el-table-column>
                             <el-table-column label="查询" width="80">
+                                <template #header>
+                                    <div class="header-checkbox">
+                                        <el-checkbox
+                                            v-model="isAllQuery"
+                                            @change="toggleAllQuery"
+                                        />
+                                        <span>查询</span>
+                                    </div>
+                                </template>
                                 <template v-slot="{ row }">
                                     <el-checkbox
                                         v-model="row.is_query"
@@ -380,7 +425,16 @@
         </footer-btns>
     </div>
 </template>
-
+<style scoped>
+.header-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* 这个属性可以设置子元素之间的间距 */
+}
+.header-checkbox .el-checkbox {
+    margin-right: 2px;
+}
+</style>
 <script lang="ts" setup name="tableEdit">
 import type { FormInstance } from 'element-plus'
 import { cloneDeep } from 'lodash'
@@ -435,6 +489,44 @@ const formData = reactive({
     },
     relations: [] as any[]
 })
+
+
+const isAllRequired = ref(false)
+const isAllInsert = ref(false)
+const isAllUpdate = ref(false)
+const isAllLists = ref(false)
+const isAllQuery = ref(false)
+// 全选功能
+const toggleAllRequired = () => {
+    formData.table_column.forEach(item => {
+        item.is_required = isAllRequired.value ? 1 : 0
+    })
+}
+
+const toggleAllInsert = () => {
+    formData.table_column.forEach(item => {
+        item.is_insert = isAllInsert.value ? 1 : 0
+    })
+}
+
+const toggleAllUpdate = () => {
+    formData.table_column.forEach(item => {
+        item.is_update = isAllUpdate.value ? 1 : 0
+    })
+}
+
+const toggleAllLists = () => {
+    formData.table_column.forEach(item => {
+        item.is_lists = isAllLists.value ? 1 : 0
+    })
+}
+
+const toggleAllQuery = () => {
+    formData.table_column.forEach(item => {
+        item.is_query = isAllQuery.value ? 1 : 0
+    })
+}
+
 let editIndex = 0
 const formRef = shallowRef<FormInstance>()
 const editRef = shallowRef<InstanceType<typeof RelationsAdd>>()
