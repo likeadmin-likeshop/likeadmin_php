@@ -21,9 +21,6 @@ services:
     ports:
       - "80:80"
 
-
-
-
   php:
     container_name: likeadmin-php
     image: registry.cn-guangzhou.aliyuncs.com/likeadmin/php:8.0.30.3-fpm  
@@ -47,7 +44,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./data/mysql5.7.29/lib:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
       - ./config/mysql/mysqld.cnf:/etc/mysql/my.cnf
     networks:
       - likeadmin
@@ -60,8 +57,23 @@ services:
     image: registry.cn-guangzhou.aliyuncs.com/likeadmin/redis:7.4.0
     restart: always
     volumes:
-      - ./data/redis:/data
+      - redis_data:/data
     networks:
       - likeadmin
     ports:
       - "6379:6379"
+
+# 命名卷，避免 Windows 和 Linux 挂载文件系统不兼容问题。
+# 使用以下命令导出备份的 mysql 数据：
+# docker run --rm -v docker_mysql_data:/var/lib/mysql -v .:/backup busybox tar -czvf /backup/mysql_data.tar.gz -C /var/lib/mysql .
+# 使用以下命令恢复备份的 mysql 数据：
+# docker run --rm -v docker_mysql_data:/var/lib/mysql -v .:/backup busybox tar -xzvf /backup/mysql_data.tar.gz -C /var/lib/mysql .
+# 使用以下命令导出备份的 redis 数据：
+# docker run --rm -v docker_redis_data:/data -v .:/backup busybox tar -czvf /backup/redis_data.tar.gz -C /data .
+# 使用以下命令恢复备份的 redis 数据：
+# docker run --rm -v docker_redis_data:/data -v .:/backup busybox tar -xzvf /backup/redis_data.tar.gz -C /data .
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
