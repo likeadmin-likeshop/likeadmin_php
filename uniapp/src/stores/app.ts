@@ -7,7 +7,9 @@ interface AppSate {
 export const useAppStore = defineStore({
     id: 'appStore',
     state: (): AppSate => ({
-        config: {}
+        config: {
+            domain: ''
+        }
     }),
     getters: {
         getWebsiteConfig: (state) => state.config.website || {},
