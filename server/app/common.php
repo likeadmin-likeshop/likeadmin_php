@@ -209,6 +209,9 @@ function clear_file_domain($content)
  */
 function get_file_domain($content)
 {
+    if (empty($content)) {
+        return $content;
+    }
     $fileUrl = FileService::getFileUrl();
     $imgPreg = '/(<img .*?src=")(?!https?:\/\/)([^"]*)(".*?>)/is';
     $videoPreg = '/(<video .*?src=")(?!https?:\/\/)([^"]*)(".*?>)/is';
