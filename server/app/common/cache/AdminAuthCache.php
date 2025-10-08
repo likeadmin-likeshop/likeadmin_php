@@ -114,7 +114,7 @@ class AdminAuthCache extends BaseCache
      */
     public function clearAuthCache()
     {
-        $this->clear($this->cacheUrlKey);
+        $this->tag($this->cacheUrlKey)->clear();
         return true;
     }
 
