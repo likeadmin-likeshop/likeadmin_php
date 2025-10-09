@@ -23,7 +23,7 @@ use app\common\model\auth\SystemRole;
  * Class RoleLists
  * @package app\adminapi\lists\auth
  */
-class RoleLists extends BaseAdminDataLists implements ListsSearchInterface, ListsExcelInterface
+class RoleLists extends BaseAdminDataLists
 {
     /**
      * @notes 导出字段
