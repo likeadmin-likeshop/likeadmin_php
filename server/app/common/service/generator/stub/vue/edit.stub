@@ -8,7 +8,7 @@
             @confirm="handleSubmit"
             @close="handleClose"
         >
-            <el-form ref="formRef" :model="formData" label-width="90px" :rules="formRules">
+            <el-form ref="formRef" :model="formData" label-width="140px" :rules="formRules">
 {FORM_VIEW}
             </el-form>
         </popup>
