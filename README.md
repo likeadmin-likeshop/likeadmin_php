@@ -1,6 +1,6 @@
 <a href="https://www.likeshop.cn">![likeshop全开源商城](https://server.likeshop.cn/uploads/gitad/fastbuildAI.png)</a><br>
  <a href="https://www.likeshop.cn">![likeshop全开源商城](https://server.likeshop.cn/uploads/gitad/likeshop.png)</a><br>
-<a href="https://www.mddai.cn">![码多多AI](https://server.likeshop.cn/uploads/gitad/mdd.png)</a><br>
+<a href="https://www.buildingai.cc">![BuildingAI](https://server.likeshop.cn/uploads/gitad/fastbuildAI.png)</a><br>
  <h1 align="center">likeadmin（PHP）
  通用管理后台</h1>
 <h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
