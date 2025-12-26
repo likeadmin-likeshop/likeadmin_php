@@ -55,6 +55,12 @@ if ($step == 4) {
     } elseif (empty(trim($post['admin_password']))) {
         $canNext = false;
         $message = '管理员密码不能为空';
+    } elseif (strlen($post['admin_password']) < 8) {
+        $canNext = false;
+        $message = '密码长度不能少于8位';
+    } elseif ((preg_match('/[0-9]/', $post['admin_password']) + preg_match('/[a-z]/', $post['admin_password']) + preg_match('/[A-Z]/', $post['admin_password']) + preg_match('/[\W_]/', $post['admin_password'])) < 3) {
+        $canNext = false;
+        $message = '密码需包含数字、大小写字母、特殊字符中的至少3种';
     } elseif ($post['admin_password'] != $post['admin_confirm_password']) {
         $canNext = false;
         $message = '两次密码不一致';
