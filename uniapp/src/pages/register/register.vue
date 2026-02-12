@@ -136,7 +136,10 @@ const accountRegister = async () => {
     if (!isCheckAgreement.value && isOpenAgreement.value) return (showModel.value = true)
     if (formData.password != formData.password_confirm) return uni.$u.toast('两次输入的密码不一致')
     await register(formData)
-    uni.navigateBack()
+    // uni.navigateBack()
+    setTimeout(function () {
+        uni.navigateBack()
+    }, 1000)
 }
 </script>
 
