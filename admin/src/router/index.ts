@@ -86,10 +86,26 @@ export function findFirstValidRoute(routes: RouteRecordRaw[]): string | undefine
         }
     }
 }
+// 递归检测
+const findPathWithPermission = (arr: any[], searchString: string) => {
+    for (const item of arr) {
+        if (item.meta && item.meta.perms && item.meta.perms.includes(searchString)) {
+            return item.path || ''; // 返回找到的项的路径，如果没有路径则返回空字符串
+        }
+        if (item.children && Array.isArray(item.children)) {
+            const pathInChildren: string = findPathWithPermission(item.children, searchString);
+            if (pathInChildren) {
+                return pathInChildren;
+            }
+        }
+    }
+    return ''; // 没有找到匹配项，返回空字符串
+}
+
 //通过权限字符查询路由路径
 export function getRoutePath(perms: string) {
     const routerObj = useRouter() || router
-    return routerObj.getRoutes().find((item) => item.meta?.perms == perms)?.path || ''
+    return findPathWithPermission(routerObj.getRoutes(), perms)
 }
 
 // 重置路由
